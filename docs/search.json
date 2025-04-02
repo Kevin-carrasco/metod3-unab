@@ -192,123 +192,74 @@
     ]
   },
   {
-    "objectID": "resource/09-resource.html",
-    "href": "resource/09-resource.html",
-    "title": "Inferencia estadística univariada",
+    "objectID": "resource/04-resource.html",
+    "href": "resource/04-resource.html",
+    "title": "Práctica 4 Correlación y Regresión",
     "section": "",
-    "text": "El objetivo de esta guía práctica es aplicar los conocimientos aprendidos en clases sobre inferencia estadística univariada, comprendiendo sus fundamentos, relevancia y aplicación a un caso concreto en R.\nEn detalle, aprenderemos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas.\n\n\n\n\nEn esta práctica trabajaremos con la base de datos de la Encuesta Suplementaria de Ingresos (ESI) del 2021 realizada por el Instituto Nacional de Estadísticas (INE). Esta base la pueden encontrar en el canal de U-Cursos sección Material Docente, o bien, en el siguiente enlace  ESI 2021 podrán descargar el archivo que contiene la base ESI 2021."
+    "text": "El objetivo de esta guía práctica es conocer las principales formas de realizar analísis estadísticos descriptivo en R, aplicando los concocimientos aprendidos durante el curso.\nEn detalle, aprenderemos:\n\nEstablecer un flujo de trabajo ordenado en un script (.R).\nAplicar análisis estadísticos descriptivos a variables según su nivel de medición\n\n\n\n\nEn esta práctica trabajeremos con los datos procesados que obtuvimos en la práctica anterior a partir de los datos del Estudio Latinobarómetro.\n\n\n\nPor temas de orden y reproducibilidad, en este curso vamos a separar en dos momentos el trabajo con datos, y dos archivos de código correspondientes:\n\nPreparación: corresponde a lo que se conoce generalmente como “limpieza”, es decir, realizar las modificaciones necesarias a los datos para poder efectuar los análisis. Estas modificaciones previas al análisis son necesarias ya que los datos originales con los que se va a trabajar en general no vienen perfectamente adaptados a los análisis que se quieren hacer. Por lo tanto, en cuanto a datos también hacemos la distinción entre datos originales y datos preparados (o procesados).\nAnálisis: se relaciona con análisis estadísticos, en este caso descriptivos, asociados a las preguntas e hipótesis de investigación.\n\nLos procesos de preparación y análisis vinculados tanto a datos y resultados se presentan en el siguiente esquema:\n\nTanto la preparación como el análisis (que son parte del concepto más general de procesamiento) quedan registrados cada uno en un archivo de código respectivo.\nEn esta guía nos centraremos en el análisis de datos con R. El documento de código de análisis tiene, por lo menos, 4 partes más una sección de identificación inicial:\n\nIdentificación y descripción general: Título, autor(es), fecha, información breve sobre el contenido del documento\nLibrerías: instalar/cargar librerías a utilizar\nDatos: carga de datos\nExplorar: explorar datos\nAnálisis: analizar datos y realizar estimaciones"
   },
   {
-    "objectID": "resource/09-resource.html#objetivo-de-la-práctica",
-    "href": "resource/09-resource.html#objetivo-de-la-práctica",
-    "title": "Inferencia estadística univariada",
+    "objectID": "resource/04-resource.html#objetivo-de-la-práctica",
+    "href": "resource/04-resource.html#objetivo-de-la-práctica",
+    "title": "Práctica 4 Correlación y Regresión",
     "section": "",
-    "text": "El objetivo de esta guía práctica es aplicar los conocimientos aprendidos en clases sobre inferencia estadística univariada, comprendiendo sus fundamentos, relevancia y aplicación a un caso concreto en R.\nEn detalle, aprenderemos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas."
+    "text": "El objetivo de esta guía práctica es conocer las principales formas de realizar analísis estadísticos descriptivo en R, aplicando los concocimientos aprendidos durante el curso.\nEn detalle, aprenderemos:\n\nEstablecer un flujo de trabajo ordenado en un script (.R).\nAplicar análisis estadísticos descriptivos a variables según su nivel de medición"
   },
   {
-    "objectID": "resource/09-resource.html#recursos-de-la-práctica",
-    "href": "resource/09-resource.html#recursos-de-la-práctica",
-    "title": "Inferencia estadística univariada",
+    "objectID": "resource/04-resource.html#recursos-de-la-práctica",
+    "href": "resource/04-resource.html#recursos-de-la-práctica",
+    "title": "Práctica 4 Correlación y Regresión",
     "section": "",
-    "text": "En esta práctica trabajaremos con la base de datos de la Encuesta Suplementaria de Ingresos (ESI) del 2021 realizada por el Instituto Nacional de Estadísticas (INE). Esta base la pueden encontrar en el canal de U-Cursos sección Material Docente, o bien, en el siguiente enlace  ESI 2021 podrán descargar el archivo que contiene la base ESI 2021."
+    "text": "En esta práctica trabajeremos con los datos procesados que obtuvimos en la práctica anterior a partir de los datos del Estudio Latinobarómetro."
   },
   {
-    "objectID": "resource/09-resource.html#cargar-librerías",
-    "href": "resource/09-resource.html#cargar-librerías",
-    "title": "Inferencia estadística univariada",
-    "section": "1. Cargar librerías",
-    "text": "1. Cargar librerías\nPara esta sesión, usaremos librerías que ya conocemos en prácticos pasados y una nueva, llamada srvyr:\n\npacman::p_load(tidyverse, # colección de paquetes para manipulación de datos\n               car, # para recodificar\n               psych, # para analizar datos\n               sjmisc,  # para analizar datos\n               srvyr) # para estimación de IC y ponderadores\n\noptions(scipen = 999) # para desactivar notacion cientifica\nrm(list = ls()) # para limpiar el entorno de trabajo"
+    "objectID": "resource/04-resource.html#flujo-de-trabajo-reproducible",
+    "href": "resource/04-resource.html#flujo-de-trabajo-reproducible",
+    "title": "Práctica 4 Correlación y Regresión",
+    "section": "",
+    "text": "Por temas de orden y reproducibilidad, en este curso vamos a separar en dos momentos el trabajo con datos, y dos archivos de código correspondientes:\n\nPreparación: corresponde a lo que se conoce generalmente como “limpieza”, es decir, realizar las modificaciones necesarias a los datos para poder efectuar los análisis. Estas modificaciones previas al análisis son necesarias ya que los datos originales con los que se va a trabajar en general no vienen perfectamente adaptados a los análisis que se quieren hacer. Por lo tanto, en cuanto a datos también hacemos la distinción entre datos originales y datos preparados (o procesados).\nAnálisis: se relaciona con análisis estadísticos, en este caso descriptivos, asociados a las preguntas e hipótesis de investigación.\n\nLos procesos de preparación y análisis vinculados tanto a datos y resultados se presentan en el siguiente esquema:\n\nTanto la preparación como el análisis (que son parte del concepto más general de procesamiento) quedan registrados cada uno en un archivo de código respectivo.\nEn esta guía nos centraremos en el análisis de datos con R. El documento de código de análisis tiene, por lo menos, 4 partes más una sección de identificación inicial:\n\nIdentificación y descripción general: Título, autor(es), fecha, información breve sobre el contenido del documento\nLibrerías: instalar/cargar librerías a utilizar\nDatos: carga de datos\nExplorar: explorar datos\nAnálisis: analizar datos y realizar estimaciones"
   },
   {
-    "objectID": "resource/09-resource.html#importar-datos",
-    "href": "resource/09-resource.html#importar-datos",
-    "title": "Inferencia estadística univariada",
-    "section": "2. Importar datos",
-    "text": "2. Importar datos\nCargamos la base de datos ESI 2021 con readRDS\n\nesi &lt;- readRDS(\"Input/data/esi-2021-ocupados.RData\")"
+    "objectID": "resource/04-resource.html#cargar-librerías",
+    "href": "resource/04-resource.html#cargar-librerías",
+    "title": "Práctica 4 Correlación y Regresión",
+    "section": "1 Cargar librerías",
+    "text": "1 Cargar librerías\nEste paso ya lo realizamos y cargamos todas las librerías necesarias. Pero si, al trabajar los distintos script lo hacemos en sesiones diferentes, debemos volver a cargar las librerías.\n\ninstall.packages(\"pacman\") #para instalar\nlibrary(pacman) # para llamar/cargar\n\nEn este práctico utilizaremos los siguientes paquetes:\n\npacman: este facilita y agiliza la lectura de los paquetes a utilizar en R\ntidyverse: colección de paquetes, de la cual utilizaremos dplyr y haven\ndplyr: nos permite seleccionar variables de un set de datos\npsych: para analizar descriptivamente datos\nsjmisc: para analizar descriptivamente datos\nsjPlot: para tablas cruzadas o de contingencia\n\n\npacman::p_load(tidyverse, # colección de paquetes para manipulación de datos\n               dplyr, # para manipular datos\n               psych, # para analizar datos\n               sjmisc, # para analizar datos\n               sjPlot) # para tablas de contingencia\n\n\noptions(scipen = 999) # para desactivar notacion cientifica\nrm(list = ls()) # para limpiar el entorno de trabajo"
   },
   {
-    "objectID": "resource/09-resource.html#recodificar",
-    "href": "resource/09-resource.html#recodificar",
-    "title": "Inferencia estadística univariada",
-    "section": "3. Recodificar",
-    "text": "3. Recodificar\nSolo recodificamos y convertiremos a factor la variable sexo.\n\nesi$sexo &lt;- car::recode(esi$sexo, recodes = c(\" 1 = 'Hombre'; 2 = 'Mujer'\"), as.factor = T)"
+    "objectID": "resource/04-resource.html#importar-datos",
+    "href": "resource/04-resource.html#importar-datos",
+    "title": "Práctica 4 Correlación y Regresión",
+    "section": "2 Importar datos",
+    "text": "2 Importar datos\nUsamos los datos creados en el procesamiento que se encuentran guardados en la carpeta output.\n\nload(\"input/data/proc/data_proc.Rdata\")\n\no desde internet si no completamos el práctico anterior:\n\nload(url(\"https://github.com/cursos-metodos-facso/metod1-MCS/raw/main/files/data/latinobarometro_proc.RData\"))"
   },
   {
-    "objectID": "resource/09-resource.html#resumen",
-    "href": "resource/09-resource.html#resumen",
-    "title": "Inferencia estadística univariada",
+    "objectID": "resource/04-resource.html#explorar-datos",
+    "href": "resource/04-resource.html#explorar-datos",
+    "title": "Práctica 4 Correlación y Regresión",
+    "section": "3 Explorar datos",
+    "text": "3 Explorar datos\n\nView(proc_data) # Ver datos\nnames(proc_data) # Nombre de columnas\ndim(proc_data) # Dimensiones\nstr(proc_data) # Estructura de los datos (las clases y categorias de repuesta)\n\nEn este caso, nuestra base de datos procesada tiene 1200 casos y 9 variables."
+  },
+  {
+    "objectID": "resource/04-resource.html#análisis",
+    "href": "resource/04-resource.html#análisis",
+    "title": "Práctica 4 Correlación y Regresión",
+    "section": "4 Análisis",
+    "text": "4 Análisis\n\n4.1 Estadísticos descriptivos para variables categóricas\nCuando tenemos variables catégoricas, sean nominales u ordinales, podemos utilizar tablas de frecuencias. Recordemos que las frecuencias es una manera ordenar datos según el valor alcanzado en la distribución de una variable.\n\n4.1.1 Frecuencias\n\na) Absolutas y relativas\nPara las variables nominales podemos usar tablas de frecuencias absolutas y relativas, y con ellas conocer la moda, es dedir, el valor con mayor cantidad de observaciones. Para ello, una manera sencilla de hacerlo es mediante la función table de R.\n\ntable(proc_data$sexo)\n\n\nHombre  Mujer \n   555    645 \n\ntable(proc_data$educacion)\n\n\n  Educacion basica    Educacion media Educacion superior \n                97                804                299 \n\ntable(proc_data$conf_gob)\n\n\n  0   1   2   3 \n624 358 176  23 \n\n\nLo anterior nos entrega la frecuencia absoluta de las variables. Con ello, podemos observar que, en cuanto la preferencias entre autoritarismo y democracia, la mayoría de nuestros casos se concentran en “La democracia es preferible a cualquier otra forma de gobierno”. Para conocer la frecuencia relativa o porcentual de estas podemos utilizar el comando prop.table.\n\n(freq_table1 &lt;-table(proc_data$conf_gob))\n\n\n  0   1   2   3 \n624 358 176  23 \n\nprop.table(freq_table1)*100 \n\n\n        0         1         2         3 \n52.836579 30.313294 14.902625  1.947502 \n\n\nAsí, podemos sostener que un 52,8% de los casos no confían nada en el congreso.\n\n\nb) Acumuladas\nMientras que si trabajamos con variables ordinales, podemos usar también la frecuencia acumulada:\n\n(freq_table2 &lt;- table(proc_data$conf_gob))\n\n\n  0   1   2   3 \n624 358 176  23 \n\n(freq_table3 &lt;- prop.table(freq_table2)*100)\n\n\n        0         1         2         3 \n52.836579 30.313294 14.902625  1.947502 \n\ncumsum(freq_table3)\n\n        0         1         2         3 \n 52.83658  83.14987  98.05250 100.00000 \n\n\nA partir de este estadístico, podemos ver que un 83,1% de los casos se ubican debajo de la categoría ‘1’ de confianza, lo cual en términos sustantivos señala que un 83,1% de las observaciones confían nada o poco en el congreso.\nTambién podemos unir todas estas frecuencias en una sola tabla:\n\ntbl3 &lt;- table(proc_data$conf_gob)\ncbind(Freq=tbl3, relat = prop.table(tbl3)*100, Cum = cumsum(prop.table(tbl3)*100))\n\n  Freq     relat       Cum\n0  624 52.836579  52.83658\n1  358 30.313294  83.14987\n2  176 14.902625  98.05250\n3   23  1.947502 100.00000\n\n\nOtra manera de calcular frecuencias (absolutas, relativas y acumuladas) en R, es mediante la función frq() del paquete sjmisc, el cual entrega todo lo anterior con un solo comando.\n\nsjmisc::frq(proc_data$conf_gob)\n\nConfianza: Gobierno (x) &lt;numeric&gt; \n# total N=1200 valid N=1181 mean=0.66 sd=0.80\n\nValue |   Label |   N | Raw % | Valid % | Cum. %\n------------------------------------------------\n    0 | Ninguna | 624 | 52.00 |   52.84 |  52.84\n    1 |    Poca | 358 | 29.83 |   30.31 |  83.15\n    2 |    Algo | 176 | 14.67 |   14.90 |  98.05\n    3 |   Mucha |  23 |  1.92 |    1.95 | 100.00\n &lt;NA&gt; |    &lt;NA&gt; |  19 |  1.58 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\n\n\n4.1.2 Tablas de contingencia\nTambién podemos cruzar dos variables mediante las llamadas tablas de contingencia o tablas cruzadas. Además de conocer la frecuencia absoluta en cada casilla, podemos también conocer la proporción o frecuencia relativa para cada casilla y el total de la filas y columnas.\n\nsjt.xtab(proc_data$sexo, proc_data$conf_gob)\n\n\n \n Sexo\n Confianza: Gobierno\n Total\n \n \n\n Ninguna\n Poca\n Algo\n Mucha\n \n \n \nHombre\n280\n167\n93\n9\n549 \n\n \n \nMujer\n344\n191\n83\n14\n632 \n\n \n \nTotal\n624\n358\n176\n23\n1181 \n\nχ2=4.015 · df=3 · Cramer's V=0.058 · p=0.260 \n\n \n\n\nsjt.xtab(proc_data$sexo, proc_data$conf_gob,\n         show.row.prc = TRUE, #solo fila\n         show.summary = FALSE) \n\n\n\n\n\n\n\n\n\n\n\n\nSexo\nConfianza: Gobierno\nTotal\n\n\nNinguna\nPoca\nAlgo\nMucha\n\n\nHombre\n280\n51 %\n167\n30.4 %\n93\n16.9 %\n9\n1.6 %\n549\n100 %\n\n\nMujer\n344\n54.4 %\n191\n30.2 %\n83\n13.1 %\n14\n2.2 %\n632\n100 %\n\n\nTotal\n624\n52.8 %\n358\n30.3 %\n176\n14.9 %\n23\n1.9 %\n1181\n100 %\n\n\n\n\nsjt.xtab(proc_data$sexo, proc_data$conf_gob,\n         show.col.prc=TRUE, #solo columna\n         show.summary=FALSE) \n\n\n\n\n\n\n\n\n\n\n\n\nSexo\nConfianza: Gobierno\nTotal\n\n\nNinguna\nPoca\nAlgo\nMucha\n\n\nHombre\n280\n44.9 %\n167\n46.6 %\n93\n52.8 %\n9\n39.1 %\n549\n46.5 %\n\n\nMujer\n344\n55.1 %\n191\n53.4 %\n83\n47.2 %\n14\n60.9 %\n632\n53.5 %\n\n\nTotal\n624\n100 %\n358\n100 %\n176\n100 %\n23\n100 %\n1181\n100 %\n\n\n\n\nsjt.xtab(proc_data$sexo, proc_data$conf_gob,\n         show.cell.prc = TRUE, #fila y columna\n         show.summary = FALSE) \n\n\n\n\n\n\n\n\n\n\n\n\nSexo\nConfianza: Gobierno\nTotal\n\n\nNinguna\nPoca\nAlgo\nMucha\n\n\nHombre\n280\n23.7 %\n167\n14.1 %\n93\n7.9 %\n9\n0.8 %\n549\n46.5 %\n\n\nMujer\n344\n29.1 %\n191\n16.2 %\n83\n7 %\n14\n1.2 %\n632\n53.5 %\n\n\nTotal\n624\n52.8 %\n358\n30.3 %\n176\n14.9 %\n23\n1.9 %\n1181\n100 %\n\n\n\n\n\n\n\n\n4.2 Estadísticos descriptivos para variables númericas\nA diferencia de las variables categóricas, a las variables numéricas (intervalaras o de razón) les podemos calcular una mayor cantidad de estadísticos descriptivos, como medidas de tendencia central, dispersión o posición.\nComo ya vimos en clases:\n\ndentro de las medidas de tendencia central que podemos calcular para describir a una variable numérica encontramos: media, mediana;\ndentro de las medidas de dispersión podemos señalar: desviación estándar, varianza, coeficiente de variación, rango;\ndentro de las medidas de posición podemos mencionar: mediana, q1, q3, mínimo, máximo.\n\n\n\n\n\n\n\nTip\n\n\n\nRecordemos que:\n\nlas medidas de tendencia central expresan el valor alrededor del cual se sitúa la mayor cantidad de los datos. Estamos mirando hacia el centro de los datos.\nlas medidas de dispersión buscan cuantificar lo próximo o alejado que están los valores de una variable de un punto central. Estamos mirando la dispersión de los datos respecto a su centro.\nlas medidas de posición señalan en qué “lugar” de una distribución se encuentra un dato o un conjunto de datos en relación al resto.\n\n\n\nEn R existen distintas formas de calcular este tipo de estadísticos descriptivos.\n\na) Con summary\nPodemos obtener rapidamente un resumen de los datos con la funcion summary de R\n\nsummary(proc_data$conf_inst)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's \n   0.00    0.00    2.00    2.42    4.00   12.00      38 \n\nsummary(proc_data$edad)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  18.00   30.00   43.00   44.49   58.00   89.00 \n\n\nCon esto podemos ver que el promedio o media aritmética de la confianza en instituciones de los/as entrevistados de nuestra base es de 2.42, mientras que la mediana es de 2.\nAsimismo, observamos que el 25% de la parte inferior de nuestros datos confía nada en las instituciones, en tanto que el 25% superior de la distribución de los datos confía ‘4’ en las instituciones.\nSin embargo, aunque es informativo, no nos entrega toda la información que quisiéramos.\n\n\nb) Con psych\n\npsych::describe(proc_data$conf_inst,\n                quant = c(.25,.75),\n                IQR = T)\n\n   vars    n mean   sd median trimmed  mad min max range skew kurtosis   se IQR\nX1    1 1162 2.42 2.49      2    2.07 2.97   0  12    12 0.88    -0.01 0.07   4\n   Q0.25 Q0.75\nX1     0     4\n\n\nUsando la funcion describe del paquete psych podemos obtener mayor cantidad de estadísticos, además de especificarle otros adicionales.\nAsí, por ejemplo, ahora además de la media aritmética y la media, también tenemos la media recortada.\nPero lo más relevante es que nos aporta estadísticos de la dispersión de los datos, como la desviación estándar que nos indica que el grado de dispersión de mis datos respecto al promedio de confianza es de 2,49. Con esto, podemos obtener también la varianza de los datos, que corresponde a la DS al cuadrado.\nAdemás de eso, nos aporta el rango (el valor máximo menos el mínimo), y el recorrido interquartilico (Q3 - Q1) que nos indica el grado de dispersión del 50% de los datos.\nCon esta información, podemos calcular los demás estadísticos que necesitamos “a mano”, es decir, computándolos directamente en R como una calculadora.\n\n\nc) Con summarise de dplyr\nOtra manera de obtener todos los estadísticos que necesitamos es utilizando dplyr. Aquí, le especificamos lo que requerimos, pero debemos saber bien cómo calcular tales medidas:\n\nproc_data %&gt;% na.omit() %&gt;% \n  summarise(media = mean(conf_inst),\n            mediana = median(conf_inst),\n            q1 = quantile(conf_inst, probs = .25),\n            q2 = quantile(conf_inst, probs = .75),\n            rango = max(conf_inst) - min(conf_inst),\n            desviacion_estandar = sd(conf_inst),\n            varianza = var(conf_inst),\n            coef_variacion = sd(conf_inst)/mean(conf_inst))\n\n     media mediana q1 q2 rango desviacion_estandar varianza coef_variacion\n1 2.419966       2  0  4    12            2.488744 6.193847       1.028421\n\n\nAhora, conocemos no solo los estádisticos anteriores, sino que también obtuvimos la varianza y el coeficiente de variación."
+  },
+  {
+    "objectID": "resource/04-resource.html#resumen",
+    "href": "resource/04-resource.html#resumen",
+    "title": "Práctica 4 Correlación y Regresión",
     "section": "Resumen",
-    "text": "Resumen\nHoy aprendimos a realizar inferencia estádistica en R. En detalle, vimos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas."
+    "text": "Resumen\nHoy aprendimos a procesar datos en R. En detalle, vimos:\n\nCómo establecer un flujo de trabajo de procesamiento y análisis de datos en R.\nRealizar análisis descriptivos en R según el nivel de medición de las variables"
   },
   {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "Programa",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "\n            Metodología I\n        ",
     "section": "",
-    "text": "Daniela Olivares\n   Departamento de Sociología N° 328\n   &lt;a href=“mailto:danielaolivarescollio@gmail.com”&gt;danielaolivarescollio@gmail.com\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   &lt;a href=“mailto:kevin.carrasco@ug.uchile.cl”&gt;kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\n\n\n   Viernes\n   Marzo 21–Julio 06, 2025\n   09:00-11:30 AM\n   Sala 334. Depto de Sociología\n   Slack\n\n\n\n\n\nEste curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.\nLa metodología incluye clases lectivas y trabajo práctico en R.\n\n\n\nAl finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R.\n\n\n\nAl concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:\n\nConocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos\nFormular diseños de investigación social cuantitativa\nConocer y aplicar instrumentos de medición y tipos de estudios cuantitativos\nInterpretar y analizar los elementos centrales de una base de datos con información social\nAplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos\nAplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida\nAplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas\n\n\n\n\n\n\n1.1 Elementos básicos de la investigación social\n\nEtapas de la investigación Social\nTipos de diseños\nDiseño de instrumentos de medición\nBases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal\n\n1.2 Operacionalización y análisis de datos\n\nOperacionalización y niveles de medición\nTidy data: unir, dividir, filtrar y ordenar datos en R\nRecodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables\nAgrupación de datos y construcción de variables a partir de datos existentes\nConstrucción de índices y validez de escalas\n\n1.3 Visualización de datos en R\n\nTablas descriptivas y tablas de contingencia\nggplot2: gráficos de barra, de caja, dispersión e histograma\n\n\n\n\n2.1 Inferencia estadística\n2.2 Pruebas de hipótesis\n2.3 Correlación\n\n\n\n3.1 Regresión lineal de mínimos cuadrados\n\nAspectos centrales y supuestos de la regresión MCO\nInterpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción\nRepresentación gráfica de coeficientes de regresión lineal\n\n3.2 Regresión logística binaria\n\nAspectos básicos de la regresión logística\nTipos de coeficientes e interpretación\nRepresentación gráfica (cálculo de probabilidades predichas)\n\n\n\n\n\nWickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible acá\nMoore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.\nWooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.\nCamarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.\nHair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.\nCharte, Francisco (2014). Análisis exploratorio y Visualización de datos con R.\n\n\n\nEl curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación\n\n\n\nLa evaluación consistirá en\n\n\n\n\nNota mínima de aprobación: 4,0 (en escala de 1 a 7).\n\n\n\n\n\nEstadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
-  },
-  {
-    "objectID": "syllabus.html#resumen",
-    "href": "syllabus.html#resumen",
-    "title": "Programa",
-    "section": "",
-    "text": "Este curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.\nLa metodología incluye clases lectivas y trabajo práctico en R."
-  },
-  {
-    "objectID": "syllabus.html#objetivo-general",
-    "href": "syllabus.html#objetivo-general",
-    "title": "Programa",
-    "section": "",
-    "text": "Al finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R."
-  },
-  {
-    "objectID": "syllabus.html#objetivos-específicos",
-    "href": "syllabus.html#objetivos-específicos",
-    "title": "Programa",
-    "section": "",
-    "text": "Al concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:\n\nConocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos\nFormular diseños de investigación social cuantitativa\nConocer y aplicar instrumentos de medición y tipos de estudios cuantitativos\nInterpretar y analizar los elementos centrales de una base de datos con información social\nAplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos\nAplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida\nAplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas"
-  },
-  {
-    "objectID": "syllabus.html#saberes-contenidos",
-    "href": "syllabus.html#saberes-contenidos",
-    "title": "Programa",
-    "section": "",
-    "text": "1.1 Elementos básicos de la investigación social\n\nEtapas de la investigación Social\nTipos de diseños\nDiseño de instrumentos de medición\nBases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal\n\n1.2 Operacionalización y análisis de datos\n\nOperacionalización y niveles de medición\nTidy data: unir, dividir, filtrar y ordenar datos en R\nRecodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables\nAgrupación de datos y construcción de variables a partir de datos existentes\nConstrucción de índices y validez de escalas\n\n1.3 Visualización de datos en R\n\nTablas descriptivas y tablas de contingencia\nggplot2: gráficos de barra, de caja, dispersión e histograma\n\n\n\n\n2.1 Inferencia estadística\n2.2 Pruebas de hipótesis\n2.3 Correlación\n\n\n\n3.1 Regresión lineal de mínimos cuadrados\n\nAspectos centrales y supuestos de la regresión MCO\nInterpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción\nRepresentación gráfica de coeficientes de regresión lineal\n\n3.2 Regresión logística binaria\n\nAspectos básicos de la regresión logística\nTipos de coeficientes e interpretación\nRepresentación gráfica (cálculo de probabilidades predichas)"
-  },
-  {
-    "objectID": "syllabus.html#bibliografía",
-    "href": "syllabus.html#bibliografía",
-    "title": "Programa",
-    "section": "",
-    "text": "Wickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible acá\nMoore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.\nWooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.\nCamarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.\nHair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.\nCharte, Francisco (2014). Análisis exploratorio y Visualización de datos con R."
-  },
-  {
-    "objectID": "syllabus.html#metodología",
-    "href": "syllabus.html#metodología",
-    "title": "Programa",
-    "section": "",
-    "text": "El curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación"
-  },
-  {
-    "objectID": "syllabus.html#evaluación",
-    "href": "syllabus.html#evaluación",
-    "title": "Programa",
-    "section": "",
-    "text": "La evaluación consistirá en"
-  },
-  {
-    "objectID": "syllabus.html#requisitos-de-aprobación",
-    "href": "syllabus.html#requisitos-de-aprobación",
-    "title": "Programa",
-    "section": "",
-    "text": "Nota mínima de aprobación: 4,0 (en escala de 1 a 7)."
-  },
-  {
-    "objectID": "syllabus.html#palabras-clave",
-    "href": "syllabus.html#palabras-clave",
-    "title": "Programa",
-    "section": "",
-    "text": "Estadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
+    "text": "Metodología I\n        \n        \n            Magister en Ciencias Sociales, mención Sociología de la Modernización\n        \n        \n            MCS7113 • Primer Semestre 2025Departamento de Sociología FACSOUniversidad de Chile\n        \n    \n    \n        \n    \n\n\n\n\n\n\nProfesores\n\n   Daniela Olivares\n   Departamento de Sociología N° 328\n   danielaolivarescollio@gmail.com\n\n\n\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\nInformación del curso\n\n   Viernes\n   Marzo 21–Julio 06, 2025\n   09:00-11:30 AM\n   Sala 334. Depto de Sociología\n\n\n\nContacto\nA través de correo"
   },
   {
     "objectID": "trabajos.html",
@@ -415,11 +366,16 @@
     "text": "Lecturas\nR for Data Science"
   },
   {
-    "objectID": "content/02-content.html#lecturas",
-    "href": "content/02-content.html#lecturas",
+    "objectID": "content/01-content.html#lecturas",
+    "href": "content/01-content.html#lecturas",
     "title": "Presentación",
     "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
+    "text": "Lecturas\nR for Data Science",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "01: Sesión 1"
+    ]
   },
   {
     "objectID": "assignment/index.html",
@@ -462,18 +418,6 @@
     "title": "Assignments",
     "section": "Final project",
     "text": "Final project\nAt the end of the course, you will demonstrate your knowledge of program evaluation and causal inference by completing a final project.\nComplete details for the final project are here.\nThere is no final exam. This project is your final exam."
-  },
-  {
-    "objectID": "content/01-content.html#lecturas",
-    "href": "content/01-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "01: Sesión 1"
-    ]
   },
   {
     "objectID": "content/03-content.html#lecturas",
@@ -588,74 +532,321 @@
     "text": "Los dos componentes centrales del curso son las clases teóricas y las actividades prácticas. Las clases se realizarán los días Viernes 09:00 a 10:50 en sala 329\n\nClases ( ): Lecturas, documentos de presentación y video (en caso que la sesión sea grabada)\nPrácticas y evaluaciones (): Actividades prácticas a desarrollar durante la semana.\nLecturas (): Llegar a la clase con los textos leídos.\n\n\n\n\n\n Clases\n Prácticas y evaluaciones\n Lecturas y material adicional\n\n\n\n\n Marzo \n\n\n\n\n\nViernes 17\n00. Presentación e 01. introducción\n1. Aproximación inicial a R\n- Leer detalladamente programa del curso\n\n\n\n\nUNIDAD 1: Estadística descriptiva\n\n\n\nViernes 24\n2.Operacionalización de variables \n2.Operacionalización de variables\n- Wickham & Grolemund, (2017). cap. 1 Introducción \n\n\nViernes 31\n3. Visualización de datos\n-\n- Wickham & Grolemund, (2017). cap. 2 Explorar\n\n\n Abril \n\n\n\n\n\nViernes 07\nViernes santo\n\n\n\n\nViernes 14\n1° semana presencial\n\n\n\n\nViernes 21\n\nEvaluación\n\n\n\n\n\n\nUNIDAD 2: Estadística Correlacional\n\n\n\nViernes 28\n4. Introducción a la inferencia estadística\n\n\n\n\n Mayo \n\n\n\n\n\nViernes 05\n1° semana de pausa reflexiva\n\n\n\n\nViernes 12\n5. Correlación\n\n\n\n\nViernes 19\n6. Índices y análisis factorial\n\n\n\n\nViernes 26\n2° semana presencial\n\n\n\n\n\n\n\nUNIDAD 3: Regresión lineal y regresión logística\n\n\n\n Junio \n\n\n\n\n\nViernes 02\n7. Regresión lineal de mínimos cuadrados\n\n\n\n\nViernes 09\n2° semana de pausa reflexiva\n\n\n\n\nViernes 16\n**8. Regresión logística binaria: interpretación de coeficientes y cálculo de probabilidades\n\n\n\n\nViernes 23\n10. Análisis factorial y regresión lineal en R\n\n\n\n\nViernes 30\n11. Supuestos de regresión y valores predichos\n\n\n\n\n Julio \n\n\n\n\n\nViernes 07\n3° semana presencial\n\n\n\n\nViernes 14\n\nEvaluación"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "\n            Metodología I\n        ",
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Programa",
     "section": "",
-    "text": "Metodología I\n        \n        \n            Magister en Ciencias Sociales, mención Sociología de la Modernización\n        \n        \n            MCS7113 • Primer Semestre 2025Departamento de Sociología FACSOUniversidad de Chile\n        \n    \n    \n        \n    \n\n\n\n\n\n\nProfesores\n\n   Daniela Olivares\n   Departamento de Sociología N° 328\n   danielaolivarescollio@gmail.com\n\n\n\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\nInformación del curso\n\n   Viernes\n   Marzo 21–Julio 06, 2025\n   09:00-11:30 AM\n   Sala 334. Depto de Sociología\n\n\n\nContacto\nA través de correo"
+    "text": "Daniela Olivares\n   Departamento de Sociología N° 328\n   &lt;a href=“mailto:danielaolivarescollio@gmail.com”&gt;danielaolivarescollio@gmail.com\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   &lt;a href=“mailto:kevin.carrasco@ug.uchile.cl”&gt;kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\n\n\n   Viernes\n   Marzo 21–Julio 06, 2025\n   09:00-11:30 AM\n   Sala 334. Depto de Sociología\n   Slack\n\n\n\n\n\nEste curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.\nLa metodología incluye clases lectivas y trabajo práctico en R.\n\n\n\nAl finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R.\n\n\n\nAl concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:\n\nConocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos\nFormular diseños de investigación social cuantitativa\nConocer y aplicar instrumentos de medición y tipos de estudios cuantitativos\nInterpretar y analizar los elementos centrales de una base de datos con información social\nAplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos\nAplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida\nAplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas\n\n\n\n\n\n\n1.1 Elementos básicos de la investigación social\n\nEtapas de la investigación Social\nTipos de diseños\nDiseño de instrumentos de medición\nBases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal\n\n1.2 Operacionalización y análisis de datos\n\nOperacionalización y niveles de medición\nTidy data: unir, dividir, filtrar y ordenar datos en R\nRecodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables\nAgrupación de datos y construcción de variables a partir de datos existentes\nConstrucción de índices y validez de escalas\n\n1.3 Visualización de datos en R\n\nTablas descriptivas y tablas de contingencia\nggplot2: gráficos de barra, de caja, dispersión e histograma\n\n\n\n\n2.1 Inferencia estadística\n2.2 Pruebas de hipótesis\n2.3 Correlación\n\n\n\n3.1 Regresión lineal de mínimos cuadrados\n\nAspectos centrales y supuestos de la regresión MCO\nInterpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción\nRepresentación gráfica de coeficientes de regresión lineal\n\n3.2 Regresión logística binaria\n\nAspectos básicos de la regresión logística\nTipos de coeficientes e interpretación\nRepresentación gráfica (cálculo de probabilidades predichas)\n\n\n\n\n\nWickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible acá\nMoore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.\nWooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.\nCamarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.\nHair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.\nCharte, Francisco (2014). Análisis exploratorio y Visualización de datos con R.\n\n\n\nEl curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación\n\n\n\nLa evaluación consistirá en\n\n\n\n\nNota mínima de aprobación: 4,0 (en escala de 1 a 7).\n\n\n\n\n\nEstadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
   },
   {
-    "objectID": "resource/04-resource.html",
-    "href": "resource/04-resource.html",
-    "title": "Práctica 4 Correlación y Regresión",
+    "objectID": "syllabus.html#resumen",
+    "href": "syllabus.html#resumen",
+    "title": "Programa",
     "section": "",
-    "text": "El objetivo de esta guía práctica es conocer las principales formas de realizar analísis estadísticos descriptivo en R, aplicando los concocimientos aprendidos durante el curso.\nEn detalle, aprenderemos:\n\nEstablecer un flujo de trabajo ordenado en un script (.R).\nAplicar análisis estadísticos descriptivos a variables según su nivel de medición\n\n\n\n\nEn esta práctica trabajeremos con los datos procesados que obtuvimos en la práctica anterior a partir de los datos del Estudio Latinobarómetro.\n\n\n\nPor temas de orden y reproducibilidad, en este curso vamos a separar en dos momentos el trabajo con datos, y dos archivos de código correspondientes:\n\nPreparación: corresponde a lo que se conoce generalmente como “limpieza”, es decir, realizar las modificaciones necesarias a los datos para poder efectuar los análisis. Estas modificaciones previas al análisis son necesarias ya que los datos originales con los que se va a trabajar en general no vienen perfectamente adaptados a los análisis que se quieren hacer. Por lo tanto, en cuanto a datos también hacemos la distinción entre datos originales y datos preparados (o procesados).\nAnálisis: se relaciona con análisis estadísticos, en este caso descriptivos, asociados a las preguntas e hipótesis de investigación.\n\nLos procesos de preparación y análisis vinculados tanto a datos y resultados se presentan en el siguiente esquema:\n\nTanto la preparación como el análisis (que son parte del concepto más general de procesamiento) quedan registrados cada uno en un archivo de código respectivo.\nEn esta guía nos centraremos en el análisis de datos con R. El documento de código de análisis tiene, por lo menos, 4 partes más una sección de identificación inicial:\n\nIdentificación y descripción general: Título, autor(es), fecha, información breve sobre el contenido del documento\nLibrerías: instalar/cargar librerías a utilizar\nDatos: carga de datos\nExplorar: explorar datos\nAnálisis: analizar datos y realizar estimaciones"
+    "text": "Este curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.\nLa metodología incluye clases lectivas y trabajo práctico en R."
   },
   {
-    "objectID": "resource/04-resource.html#objetivo-de-la-práctica",
-    "href": "resource/04-resource.html#objetivo-de-la-práctica",
-    "title": "Práctica 4 Correlación y Regresión",
+    "objectID": "syllabus.html#objetivo-general",
+    "href": "syllabus.html#objetivo-general",
+    "title": "Programa",
     "section": "",
-    "text": "El objetivo de esta guía práctica es conocer las principales formas de realizar analísis estadísticos descriptivo en R, aplicando los concocimientos aprendidos durante el curso.\nEn detalle, aprenderemos:\n\nEstablecer un flujo de trabajo ordenado en un script (.R).\nAplicar análisis estadísticos descriptivos a variables según su nivel de medición"
+    "text": "Al finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R."
   },
   {
-    "objectID": "resource/04-resource.html#recursos-de-la-práctica",
-    "href": "resource/04-resource.html#recursos-de-la-práctica",
-    "title": "Práctica 4 Correlación y Regresión",
+    "objectID": "syllabus.html#objetivos-específicos",
+    "href": "syllabus.html#objetivos-específicos",
+    "title": "Programa",
     "section": "",
-    "text": "En esta práctica trabajeremos con los datos procesados que obtuvimos en la práctica anterior a partir de los datos del Estudio Latinobarómetro."
+    "text": "Al concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:\n\nConocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos\nFormular diseños de investigación social cuantitativa\nConocer y aplicar instrumentos de medición y tipos de estudios cuantitativos\nInterpretar y analizar los elementos centrales de una base de datos con información social\nAplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos\nAplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida\nAplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas"
   },
   {
-    "objectID": "resource/04-resource.html#flujo-de-trabajo-reproducible",
-    "href": "resource/04-resource.html#flujo-de-trabajo-reproducible",
-    "title": "Práctica 4 Correlación y Regresión",
+    "objectID": "syllabus.html#saberes-contenidos",
+    "href": "syllabus.html#saberes-contenidos",
+    "title": "Programa",
     "section": "",
-    "text": "Por temas de orden y reproducibilidad, en este curso vamos a separar en dos momentos el trabajo con datos, y dos archivos de código correspondientes:\n\nPreparación: corresponde a lo que se conoce generalmente como “limpieza”, es decir, realizar las modificaciones necesarias a los datos para poder efectuar los análisis. Estas modificaciones previas al análisis son necesarias ya que los datos originales con los que se va a trabajar en general no vienen perfectamente adaptados a los análisis que se quieren hacer. Por lo tanto, en cuanto a datos también hacemos la distinción entre datos originales y datos preparados (o procesados).\nAnálisis: se relaciona con análisis estadísticos, en este caso descriptivos, asociados a las preguntas e hipótesis de investigación.\n\nLos procesos de preparación y análisis vinculados tanto a datos y resultados se presentan en el siguiente esquema:\n\nTanto la preparación como el análisis (que son parte del concepto más general de procesamiento) quedan registrados cada uno en un archivo de código respectivo.\nEn esta guía nos centraremos en el análisis de datos con R. El documento de código de análisis tiene, por lo menos, 4 partes más una sección de identificación inicial:\n\nIdentificación y descripción general: Título, autor(es), fecha, información breve sobre el contenido del documento\nLibrerías: instalar/cargar librerías a utilizar\nDatos: carga de datos\nExplorar: explorar datos\nAnálisis: analizar datos y realizar estimaciones"
+    "text": "1.1 Elementos básicos de la investigación social\n\nEtapas de la investigación Social\nTipos de diseños\nDiseño de instrumentos de medición\nBases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal\n\n1.2 Operacionalización y análisis de datos\n\nOperacionalización y niveles de medición\nTidy data: unir, dividir, filtrar y ordenar datos en R\nRecodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables\nAgrupación de datos y construcción de variables a partir de datos existentes\nConstrucción de índices y validez de escalas\n\n1.3 Visualización de datos en R\n\nTablas descriptivas y tablas de contingencia\nggplot2: gráficos de barra, de caja, dispersión e histograma\n\n\n\n\n2.1 Inferencia estadística\n2.2 Pruebas de hipótesis\n2.3 Correlación\n\n\n\n3.1 Regresión lineal de mínimos cuadrados\n\nAspectos centrales y supuestos de la regresión MCO\nInterpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción\nRepresentación gráfica de coeficientes de regresión lineal\n\n3.2 Regresión logística binaria\n\nAspectos básicos de la regresión logística\nTipos de coeficientes e interpretación\nRepresentación gráfica (cálculo de probabilidades predichas)"
   },
   {
-    "objectID": "resource/04-resource.html#cargar-librerías",
-    "href": "resource/04-resource.html#cargar-librerías",
-    "title": "Práctica 4 Correlación y Regresión",
-    "section": "1 Cargar librerías",
-    "text": "1 Cargar librerías\nEste paso ya lo realizamos y cargamos todas las librerías necesarias. Pero si, al trabajar los distintos script lo hacemos en sesiones diferentes, debemos volver a cargar las librerías.\n\ninstall.packages(\"pacman\") #para instalar\nlibrary(pacman) # para llamar/cargar\n\nEn este práctico utilizaremos los siguientes paquetes:\n\npacman: este facilita y agiliza la lectura de los paquetes a utilizar en R\ntidyverse: colección de paquetes, de la cual utilizaremos dplyr y haven\ndplyr: nos permite seleccionar variables de un set de datos\npsych: para analizar descriptivamente datos\nsjmisc: para analizar descriptivamente datos\nsjPlot: para tablas cruzadas o de contingencia\n\n\npacman::p_load(tidyverse, # colección de paquetes para manipulación de datos\n               dplyr, # para manipular datos\n               psych, # para analizar datos\n               sjmisc, # para analizar datos\n               sjPlot) # para tablas de contingencia\n\n\noptions(scipen = 999) # para desactivar notacion cientifica\nrm(list = ls()) # para limpiar el entorno de trabajo"
+    "objectID": "syllabus.html#bibliografía",
+    "href": "syllabus.html#bibliografía",
+    "title": "Programa",
+    "section": "",
+    "text": "Wickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible acá\nMoore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.\nWooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.\nCamarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.\nHair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.\nCharte, Francisco (2014). Análisis exploratorio y Visualización de datos con R."
   },
   {
-    "objectID": "resource/04-resource.html#importar-datos",
-    "href": "resource/04-resource.html#importar-datos",
-    "title": "Práctica 4 Correlación y Regresión",
-    "section": "2 Importar datos",
-    "text": "2 Importar datos\nUsamos los datos creados en el procesamiento que se encuentran guardados en la carpeta output.\n\nload(\"input/data/proc/data_proc.Rdata\")\n\no desde internet si no completamos el práctico anterior:\n\nload(url(\"https://github.com/cursos-metodos-facso/metod1-MCS/raw/main/files/data/latinobarometro_proc.RData\"))"
+    "objectID": "syllabus.html#metodología",
+    "href": "syllabus.html#metodología",
+    "title": "Programa",
+    "section": "",
+    "text": "El curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación"
   },
   {
-    "objectID": "resource/04-resource.html#explorar-datos",
-    "href": "resource/04-resource.html#explorar-datos",
-    "title": "Práctica 4 Correlación y Regresión",
-    "section": "3 Explorar datos",
-    "text": "3 Explorar datos\n\nView(proc_data) # Ver datos\nnames(proc_data) # Nombre de columnas\ndim(proc_data) # Dimensiones\nstr(proc_data) # Estructura de los datos (las clases y categorias de repuesta)\n\nEn este caso, nuestra base de datos procesada tiene 1200 casos y 9 variables."
+    "objectID": "syllabus.html#evaluación",
+    "href": "syllabus.html#evaluación",
+    "title": "Programa",
+    "section": "",
+    "text": "La evaluación consistirá en"
   },
   {
-    "objectID": "resource/04-resource.html#análisis",
-    "href": "resource/04-resource.html#análisis",
-    "title": "Práctica 4 Correlación y Regresión",
-    "section": "4 Análisis",
-    "text": "4 Análisis\n\n4.1 Estadísticos descriptivos para variables categóricas\nCuando tenemos variables catégoricas, sean nominales u ordinales, podemos utilizar tablas de frecuencias. Recordemos que las frecuencias es una manera ordenar datos según el valor alcanzado en la distribución de una variable.\n\n4.1.1 Frecuencias\n\na) Absolutas y relativas\nPara las variables nominales podemos usar tablas de frecuencias absolutas y relativas, y con ellas conocer la moda, es dedir, el valor con mayor cantidad de observaciones. Para ello, una manera sencilla de hacerlo es mediante la función table de R.\n\ntable(proc_data$sexo)\n\n\nHombre  Mujer \n   555    645 \n\ntable(proc_data$educacion)\n\n\n  Educacion basica    Educacion media Educacion superior \n                97                804                299 \n\ntable(proc_data$conf_gob)\n\n\n  0   1   2   3 \n624 358 176  23 \n\n\nLo anterior nos entrega la frecuencia absoluta de las variables. Con ello, podemos observar que, en cuanto la preferencias entre autoritarismo y democracia, la mayoría de nuestros casos se concentran en “La democracia es preferible a cualquier otra forma de gobierno”. Para conocer la frecuencia relativa o porcentual de estas podemos utilizar el comando prop.table.\n\n(freq_table1 &lt;-table(proc_data$conf_gob))\n\n\n  0   1   2   3 \n624 358 176  23 \n\nprop.table(freq_table1)*100 \n\n\n        0         1         2         3 \n52.836579 30.313294 14.902625  1.947502 \n\n\nAsí, podemos sostener que un 52,8% de los casos no confían nada en el congreso.\n\n\nb) Acumuladas\nMientras que si trabajamos con variables ordinales, podemos usar también la frecuencia acumulada:\n\n(freq_table2 &lt;- table(proc_data$conf_gob))\n\n\n  0   1   2   3 \n624 358 176  23 \n\n(freq_table3 &lt;- prop.table(freq_table2)*100)\n\n\n        0         1         2         3 \n52.836579 30.313294 14.902625  1.947502 \n\ncumsum(freq_table3)\n\n        0         1         2         3 \n 52.83658  83.14987  98.05250 100.00000 \n\n\nA partir de este estadístico, podemos ver que un 83,1% de los casos se ubican debajo de la categoría ‘1’ de confianza, lo cual en términos sustantivos señala que un 83,1% de las observaciones confían nada o poco en el congreso.\nTambién podemos unir todas estas frecuencias en una sola tabla:\n\ntbl3 &lt;- table(proc_data$conf_gob)\ncbind(Freq=tbl3, relat = prop.table(tbl3)*100, Cum = cumsum(prop.table(tbl3)*100))\n\n  Freq     relat       Cum\n0  624 52.836579  52.83658\n1  358 30.313294  83.14987\n2  176 14.902625  98.05250\n3   23  1.947502 100.00000\n\n\nOtra manera de calcular frecuencias (absolutas, relativas y acumuladas) en R, es mediante la función frq() del paquete sjmisc, el cual entrega todo lo anterior con un solo comando.\n\nsjmisc::frq(proc_data$conf_gob)\n\nConfianza: Gobierno (x) &lt;numeric&gt; \n# total N=1200 valid N=1181 mean=0.66 sd=0.80\n\nValue |   Label |   N | Raw % | Valid % | Cum. %\n------------------------------------------------\n    0 | Ninguna | 624 | 52.00 |   52.84 |  52.84\n    1 |    Poca | 358 | 29.83 |   30.31 |  83.15\n    2 |    Algo | 176 | 14.67 |   14.90 |  98.05\n    3 |   Mucha |  23 |  1.92 |    1.95 | 100.00\n &lt;NA&gt; |    &lt;NA&gt; |  19 |  1.58 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\n\n\n4.1.2 Tablas de contingencia\nTambién podemos cruzar dos variables mediante las llamadas tablas de contingencia o tablas cruzadas. Además de conocer la frecuencia absoluta en cada casilla, podemos también conocer la proporción o frecuencia relativa para cada casilla y el total de la filas y columnas.\n\nsjt.xtab(proc_data$sexo, proc_data$conf_gob)\n\n\n \n Sexo\n Confianza: Gobierno\n Total\n \n \n\n Ninguna\n Poca\n Algo\n Mucha\n \n \n \nHombre\n280\n167\n93\n9\n549 \n\n \n \nMujer\n344\n191\n83\n14\n632 \n\n \n \nTotal\n624\n358\n176\n23\n1181 \n\nχ2=4.015 · df=3 · Cramer's V=0.058 · p=0.260 \n\n \n\n\nsjt.xtab(proc_data$sexo, proc_data$conf_gob,\n         show.row.prc = TRUE, #solo fila\n         show.summary = FALSE) \n\n\n\n\n\n\n\n\n\n\n\n\nSexo\nConfianza: Gobierno\nTotal\n\n\nNinguna\nPoca\nAlgo\nMucha\n\n\nHombre\n280\n51 %\n167\n30.4 %\n93\n16.9 %\n9\n1.6 %\n549\n100 %\n\n\nMujer\n344\n54.4 %\n191\n30.2 %\n83\n13.1 %\n14\n2.2 %\n632\n100 %\n\n\nTotal\n624\n52.8 %\n358\n30.3 %\n176\n14.9 %\n23\n1.9 %\n1181\n100 %\n\n\n\n\nsjt.xtab(proc_data$sexo, proc_data$conf_gob,\n         show.col.prc=TRUE, #solo columna\n         show.summary=FALSE) \n\n\n\n\n\n\n\n\n\n\n\n\nSexo\nConfianza: Gobierno\nTotal\n\n\nNinguna\nPoca\nAlgo\nMucha\n\n\nHombre\n280\n44.9 %\n167\n46.6 %\n93\n52.8 %\n9\n39.1 %\n549\n46.5 %\n\n\nMujer\n344\n55.1 %\n191\n53.4 %\n83\n47.2 %\n14\n60.9 %\n632\n53.5 %\n\n\nTotal\n624\n100 %\n358\n100 %\n176\n100 %\n23\n100 %\n1181\n100 %\n\n\n\n\nsjt.xtab(proc_data$sexo, proc_data$conf_gob,\n         show.cell.prc = TRUE, #fila y columna\n         show.summary = FALSE) \n\n\n\n\n\n\n\n\n\n\n\n\nSexo\nConfianza: Gobierno\nTotal\n\n\nNinguna\nPoca\nAlgo\nMucha\n\n\nHombre\n280\n23.7 %\n167\n14.1 %\n93\n7.9 %\n9\n0.8 %\n549\n46.5 %\n\n\nMujer\n344\n29.1 %\n191\n16.2 %\n83\n7 %\n14\n1.2 %\n632\n53.5 %\n\n\nTotal\n624\n52.8 %\n358\n30.3 %\n176\n14.9 %\n23\n1.9 %\n1181\n100 %\n\n\n\n\n\n\n\n\n4.2 Estadísticos descriptivos para variables númericas\nA diferencia de las variables categóricas, a las variables numéricas (intervalaras o de razón) les podemos calcular una mayor cantidad de estadísticos descriptivos, como medidas de tendencia central, dispersión o posición.\nComo ya vimos en clases:\n\ndentro de las medidas de tendencia central que podemos calcular para describir a una variable numérica encontramos: media, mediana;\ndentro de las medidas de dispersión podemos señalar: desviación estándar, varianza, coeficiente de variación, rango;\ndentro de las medidas de posición podemos mencionar: mediana, q1, q3, mínimo, máximo.\n\n\n\n\n\n\n\nTip\n\n\n\nRecordemos que:\n\nlas medidas de tendencia central expresan el valor alrededor del cual se sitúa la mayor cantidad de los datos. Estamos mirando hacia el centro de los datos.\nlas medidas de dispersión buscan cuantificar lo próximo o alejado que están los valores de una variable de un punto central. Estamos mirando la dispersión de los datos respecto a su centro.\nlas medidas de posición señalan en qué “lugar” de una distribución se encuentra un dato o un conjunto de datos en relación al resto.\n\n\n\nEn R existen distintas formas de calcular este tipo de estadísticos descriptivos.\n\na) Con summary\nPodemos obtener rapidamente un resumen de los datos con la funcion summary de R\n\nsummary(proc_data$conf_inst)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's \n   0.00    0.00    2.00    2.42    4.00   12.00      38 \n\nsummary(proc_data$edad)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  18.00   30.00   43.00   44.49   58.00   89.00 \n\n\nCon esto podemos ver que el promedio o media aritmética de la confianza en instituciones de los/as entrevistados de nuestra base es de 2.42, mientras que la mediana es de 2.\nAsimismo, observamos que el 25% de la parte inferior de nuestros datos confía nada en las instituciones, en tanto que el 25% superior de la distribución de los datos confía ‘4’ en las instituciones.\nSin embargo, aunque es informativo, no nos entrega toda la información que quisiéramos.\n\n\nb) Con psych\n\npsych::describe(proc_data$conf_inst,\n                quant = c(.25,.75),\n                IQR = T)\n\n   vars    n mean   sd median trimmed  mad min max range skew kurtosis   se IQR\nX1    1 1162 2.42 2.49      2    2.07 2.97   0  12    12 0.88    -0.01 0.07   4\n   Q0.25 Q0.75\nX1     0     4\n\n\nUsando la funcion describe del paquete psych podemos obtener mayor cantidad de estadísticos, además de especificarle otros adicionales.\nAsí, por ejemplo, ahora además de la media aritmética y la media, también tenemos la media recortada.\nPero lo más relevante es que nos aporta estadísticos de la dispersión de los datos, como la desviación estándar que nos indica que el grado de dispersión de mis datos respecto al promedio de confianza es de 2,49. Con esto, podemos obtener también la varianza de los datos, que corresponde a la DS al cuadrado.\nAdemás de eso, nos aporta el rango (el valor máximo menos el mínimo), y el recorrido interquartilico (Q3 - Q1) que nos indica el grado de dispersión del 50% de los datos.\nCon esta información, podemos calcular los demás estadísticos que necesitamos “a mano”, es decir, computándolos directamente en R como una calculadora.\n\n\nc) Con summarise de dplyr\nOtra manera de obtener todos los estadísticos que necesitamos es utilizando dplyr. Aquí, le especificamos lo que requerimos, pero debemos saber bien cómo calcular tales medidas:\n\nproc_data %&gt;% na.omit() %&gt;% \n  summarise(media = mean(conf_inst),\n            mediana = median(conf_inst),\n            q1 = quantile(conf_inst, probs = .25),\n            q2 = quantile(conf_inst, probs = .75),\n            rango = max(conf_inst) - min(conf_inst),\n            desviacion_estandar = sd(conf_inst),\n            varianza = var(conf_inst),\n            coef_variacion = sd(conf_inst)/mean(conf_inst))\n\n     media mediana q1 q2 rango desviacion_estandar varianza coef_variacion\n1 2.419966       2  0  4    12            2.488744 6.193847       1.028421\n\n\nAhora, conocemos no solo los estádisticos anteriores, sino que también obtuvimos la varianza y el coeficiente de variación."
+    "objectID": "syllabus.html#requisitos-de-aprobación",
+    "href": "syllabus.html#requisitos-de-aprobación",
+    "title": "Programa",
+    "section": "",
+    "text": "Nota mínima de aprobación: 4,0 (en escala de 1 a 7)."
   },
   {
-    "objectID": "resource/04-resource.html#resumen",
-    "href": "resource/04-resource.html#resumen",
-    "title": "Práctica 4 Correlación y Regresión",
+    "objectID": "syllabus.html#palabras-clave",
+    "href": "syllabus.html#palabras-clave",
+    "title": "Programa",
+    "section": "",
+    "text": "Estadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
+  },
+  {
+    "objectID": "resource/09-resource.html",
+    "href": "resource/09-resource.html",
+    "title": "Inferencia estadística univariada",
+    "section": "",
+    "text": "El objetivo de esta guía práctica es aplicar los conocimientos aprendidos en clases sobre inferencia estadística univariada, comprendiendo sus fundamentos, relevancia y aplicación a un caso concreto en R.\nEn detalle, aprenderemos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas.\n\n\n\n\nEn esta práctica trabajaremos con la base de datos de la Encuesta Suplementaria de Ingresos (ESI) del 2021 realizada por el Instituto Nacional de Estadísticas (INE). Esta base la pueden encontrar en el canal de U-Cursos sección Material Docente, o bien, en el siguiente enlace  ESI 2021 podrán descargar el archivo que contiene la base ESI 2021."
+  },
+  {
+    "objectID": "resource/09-resource.html#objetivo-de-la-práctica",
+    "href": "resource/09-resource.html#objetivo-de-la-práctica",
+    "title": "Inferencia estadística univariada",
+    "section": "",
+    "text": "El objetivo de esta guía práctica es aplicar los conocimientos aprendidos en clases sobre inferencia estadística univariada, comprendiendo sus fundamentos, relevancia y aplicación a un caso concreto en R.\nEn detalle, aprenderemos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas."
+  },
+  {
+    "objectID": "resource/09-resource.html#recursos-de-la-práctica",
+    "href": "resource/09-resource.html#recursos-de-la-práctica",
+    "title": "Inferencia estadística univariada",
+    "section": "",
+    "text": "En esta práctica trabajaremos con la base de datos de la Encuesta Suplementaria de Ingresos (ESI) del 2021 realizada por el Instituto Nacional de Estadísticas (INE). Esta base la pueden encontrar en el canal de U-Cursos sección Material Docente, o bien, en el siguiente enlace  ESI 2021 podrán descargar el archivo que contiene la base ESI 2021."
+  },
+  {
+    "objectID": "resource/09-resource.html#cargar-librerías",
+    "href": "resource/09-resource.html#cargar-librerías",
+    "title": "Inferencia estadística univariada",
+    "section": "1. Cargar librerías",
+    "text": "1. Cargar librerías\nPara esta sesión, usaremos librerías que ya conocemos en prácticos pasados y una nueva, llamada srvyr:\n\npacman::p_load(tidyverse, # colección de paquetes para manipulación de datos\n               car, # para recodificar\n               psych, # para analizar datos\n               sjmisc,  # para analizar datos\n               srvyr) # para estimación de IC y ponderadores\n\noptions(scipen = 999) # para desactivar notacion cientifica\nrm(list = ls()) # para limpiar el entorno de trabajo"
+  },
+  {
+    "objectID": "resource/09-resource.html#importar-datos",
+    "href": "resource/09-resource.html#importar-datos",
+    "title": "Inferencia estadística univariada",
+    "section": "2. Importar datos",
+    "text": "2. Importar datos\nCargamos la base de datos ESI 2021 con readRDS\n\nesi &lt;- readRDS(\"Input/data/esi-2021-ocupados.RData\")"
+  },
+  {
+    "objectID": "resource/09-resource.html#recodificar",
+    "href": "resource/09-resource.html#recodificar",
+    "title": "Inferencia estadística univariada",
+    "section": "3. Recodificar",
+    "text": "3. Recodificar\nSolo recodificamos y convertiremos a factor la variable sexo.\n\nesi$sexo &lt;- car::recode(esi$sexo, recodes = c(\" 1 = 'Hombre'; 2 = 'Mujer'\"), as.factor = T)"
+  },
+  {
+    "objectID": "resource/09-resource.html#resumen",
+    "href": "resource/09-resource.html#resumen",
+    "title": "Inferencia estadística univariada",
     "section": "Resumen",
-    "text": "Resumen\nHoy aprendimos a procesar datos en R. En detalle, vimos:\n\nCómo establecer un flujo de trabajo de procesamiento y análisis de datos en R.\nRealizar análisis descriptivos en R según el nivel de medición de las variables"
+    "text": "Resumen\nHoy aprendimos a realizar inferencia estádistica en R. En detalle, vimos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas."
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "",
+    "text": "Crear cuenta en www.github.com\nDescargar Github Desktop",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#prerequisitos",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#prerequisitos",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "",
+    "text": "Crear cuenta en www.github.com\nDescargar Github Desktop",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#descripción",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#descripción",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.1 Descripción",
+    "text": "2.1 Descripción\nGithub es una plataforma de desarrollo colaborativo que permite alojar proyectos utilizando el sistema de control de versiones Git. Se utiliza principalmente para la creación de código fuente de programas (software).\n\n\n\n\n\n\nNote\n\n\n\nEl 4 de junio de 2018 Microsoft compró GitHub por la cantidad de 7500 millones de dólares. Al inicio, el cambio de propietario generó preocupaciones y la salida de algunos proyectos de este sitio; sin embargo, no fueron representativos. GitHub continúa siendo la plataforma más importante de colaboración para proyectos de código abierto.",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#repositorios",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#repositorios",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.2 Repositorios",
+    "text": "2.2 Repositorios\nUn repositorio contiene todo el código, tus archivos y el historial de revisiones y cambios de cada uno de ellos. Es el elemento más básico de Github.\nLos repositorios pueden contar con múltiples colaboradores y pueden ser públicos o privados.",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#principales-términos",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#principales-términos",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.3 Principales términos",
+    "text": "2.3 Principales términos\n\n\n\n\n\n\n\nTérmino\nDefinición\n\n\n\n\nBranch\nUna versión paralela del código contenido en el repositorio, pero que no afecta a la rama principal.\n\n\nClonar\nPara descargar una copia completa de los datos de un repositorio de GitHub.com, incluidas todas las versiones de cada archivo y carpeta.\n\n\nFork\nUn nuevo repositorio que comparte la configuración de visibilidad y código con el repositorio «ascendente» original.\n\n\nMerge\nPara aplicar los cambios de una rama y en otra.\n\n\nPull request\nUna solicitud para combinar los cambios de una branch en otra.\n\n\nRemote\nUn repositorio almacenado en GitHub, no en el equipo.\n\n\nUpstream\nLa branch de un repositorio original que se ha forkeado o clonado. La branch correspondiente de la branch clonada o forkeada se denomina «descendente».",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#crear-cuenta-e-instalación",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#crear-cuenta-e-instalación",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.4 Crear cuenta e instalación",
+    "text": "2.4 Crear cuenta e instalación\n\nAcceder a la página de github\n\nRegistrarse ingresando correo electrónico y siguiendo los pasos descritos (crear contraseña y nombre de usuario)\n\nLa personalización de la cuenta se puede saltar haciendo click en skip abajo de la selección de opciones\n\nDescargar e instalar Github Desktop",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#crear-repositorio",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#crear-repositorio",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.5 Crear repositorio",
+    "text": "2.5 Crear repositorio\nEn la página principal de github hacer click en el ícono de usuario de la esquina superior derecha y luego ir a Tus repositorios\n\nUna vez accedemos a Tus repositorios hacemos click en New/Nuevo\n\nLuego le ponemos un nombre a nuestro repositorio, evitando siempre espacios, ñ y tíldes, y apretamos Crear repositorio\n\n\n\n\n\n\n\nNote\n\n\n\nUn buen nombre debería intentar resumir las principales características del proyecto de investigación en no más de 3 o 4 conceptos (por ejemplo, movilidad-social-AL para proyecto sobre movilidad social en América Latina)\nEn esta oportunidad, una recomendación sería generar un repositorio “ejercicios-practicos” para almacenar los distintos scripts de ejercicios prácticos que realizaremos en el curso.\nLuego pueden generar un segundo repositorio que sea “Trabajo” para almacenar el desarrollo de sus trabajos de investigación.",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#github-desktop",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#github-desktop",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.6 Github desktop",
+    "text": "2.6 Github desktop\nUna vez creado un repositorio, lo que nos interesa es descargarlo. Al abrir la aplicación de Github desktop por primera vez (descargada anteriormente), nos debería aparecer la opción de clonar nuestro repositorio ejercicios-practicos en la pantalla de inicio. Lo clonamos y seleccionamos una carpeta de nuestro computador para almacenarlo.\nPara todas las siguientes veces, las instrucciones son estas:\n1- Apretamos Repositorio actual en la esquina superior izquierda\n2- Apretamos añadir\n3- Apretamos clonar repositorio…\n\n4- Seleccionamos nuestro repositorio\n5- seleccionamos la carpeta donde se almacenará. Siempre evitando tener tíldes, ñ y espacios en la dirección de almacenamiento y apretamos ‘clone’.\n\n7- Creamos las carpetas pertenecientes al protocolo IPO (input-procesamiento-output) para organizar nuestro proyecto)",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#rstudio-projects",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#rstudio-projects",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.7 RStudio Projects",
+    "text": "2.7 RStudio Projects\n\nFile -&gt; New Project",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#abriendo-la-sesión-de-rstudio-como-proyecto",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#abriendo-la-sesión-de-rstudio-como-proyecto",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.8 Abriendo la sesión de RStudio como proyecto",
+    "text": "2.8 Abriendo la sesión de RStudio como proyecto\n\nidentificar en la carpeta respectiva el archivo .Rproj\nejecutar y se abre R / RStudio con ese directorio como raíz",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#rutas-relativas-en-código",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#rutas-relativas-en-código",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "2.9 Rutas relativas en código",
+    "text": "2.9 Rutas relativas en código\n\nforma de “señalar el camino” para abrir y guardar archivos al interior de una carpeta de proyecto autocontenido (= sin referencias locales)\neste camino tiene básicamente 3 direcciones:\n\nbajar -&gt; hacia subcarpetas\nsubir -&gt; hacia carpetas superiores\nsubir y bajar -&gt; hacia otras subcarpetas\n\n\n\n2.9.1 bajando\n\npara “bajar” hacia a una subcarpeta, simplemente damos la ruta de la carpeta/archivo\n\nej: si estoy en el archivo paper.Rmd (directorio raíz), y quiero incluir una imagen (directorio input/images/imagen.jpg), entonces la ruta es input/images/imagen.jpg\no para señalar la ruta al bib desde paper.Rmd (en raíz): input/bib/referencias.bib\n\n\n\n\n2.9.2 subiendo\n\npara subir se utilizan los caracteres ../ por cada nivel.\nEj: si quiero guardar una tabla en el directorio raíz generada desde un archivo de código en la subcarpeta proc, entonces la ruta es ../tabla.html\n\n\n\n2.9.3 subiendo y bajando\n\ncombinación de las anteriores\nEj: para abrir la base de datos original en la subcarpeta input/data desde el código de procesamiento en la subcarpeta proc, entonces:\n\n../input/data/original.dat",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#cargar-paquetes",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#cargar-paquetes",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "5.1 Cargar paquetes",
+    "text": "5.1 Cargar paquetes\n\npacman::p_load(sjlabelled,\n               dplyr, #Manipulacion de datos\n              stargazer, #Tablas\n              sjmisc, # Tablas\n              summarytools, # Tablas\n              kableExtra, #Tablas\n              sjPlot, #Tablas y gráficos\n              corrplot, # Correlaciones\n              sessioninfo, # Información de la sesión de trabajo\n              ggplot2) # Para la mayoría de los gráficos",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#cargar-bases-de-datos",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#cargar-bases-de-datos",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "5.2 Cargar bases de datos",
+    "text": "5.2 Cargar bases de datos\nCargamos ambas bases de datos desde internet\n\nload(url(\"https://github.com/Kevin-carrasco/R-data-analisis/raw/main/files/data/latinobarometro_total.RData\")) #Cargar base de datos\nload(url(\"https://github.com/Kevin-carrasco/R-data-analisis/raw/main/files/data/data_wvs.RData\")) #Cargar base de datos\n\nPara trabajar con ambas bases, agruparemos las variables de interés por país, por lo que ya no trabajaremos directamente con individuos.\n\ncontext_data &lt;- wvs %&gt;% group_by(B_COUNTRY) %&gt;% # Agrupar por país\n  summarise(gdp = mean(GDPpercap1, na.rm = TRUE), # Promedio de GDP per capita\n         life_exp = mean(lifeexpect, na.rm = TRUE), # Promedio esperanza de vida\n         gini = mean(giniWB, na.rm = TRUE)) %&gt;%  # Promedio gini\n  rename(idenpa=B_COUNTRY) # Para poder vincular ambas bases, es necesario que la variable de identificación se llamen igual\ncontext_data$idenpa &lt;- as.numeric(context_data$idenpa) # Como era categórica, la dejamos numérica\n\nproc_data &lt;- proc_data %&gt;% group_by(idenpa) %&gt;%  # agrupamos por país\n  summarise(promedio = mean(conf_inst, na.rm = TRUE)) # promedio de confianza en instituciones por país",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#unir-bases-de-datos",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#unir-bases-de-datos",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "5.3 Unir bases de datos",
+    "text": "5.3 Unir bases de datos\nPara vincular nuestras bases de datos existen múltiples opciones, la primera es ‘merge’ de R base y las siguientes tres vienen desde dplyr: ‘right_join’, ‘full_join’ y ‘left_join’. Cada una tiene sus propias potencialidades y limitaciones y dependerá de cada caso cuál usemos\n\n5.3.1 Probemos merge\n\ndata &lt;- merge(proc_data, context_data, by=\"idenpa\")\n\n\ndata &lt;- data %&gt;%\n  mutate(idenpa = as.character(idenpa)) %&gt;%\n  mutate(idenpa = case_when(\n    idenpa == \"32\" ~ \"Argentina\",\n    idenpa == \"68\" ~ \"Bolivia\",\n    idenpa == \"76\" ~ \"Brasil\",\n    idenpa == \"152\" ~ \"Chile\",\n    idenpa == \"170\" ~ \"Colombia\",\n    idenpa == \"188\" ~ \"Costa Rica\",\n    idenpa == \"214\" ~ \"Cuba\",\n    idenpa == \"218\" ~ \"República Dominicana\",\n    idenpa == \"222\" ~ \"Ecuador\",\n    idenpa == \"320\" ~ \"El Salvador\",\n    idenpa == \"340\" ~ \"Guatemala\",\n    idenpa == \"484\" ~ \"Honduras\",\n    idenpa == \"558\" ~ \"México\",\n    idenpa == \"591\" ~ \"Nicaragua\",\n    idenpa == \"600\" ~ \"Panamá\",\n    idenpa == \"604\" ~ \"Paraguay\",\n    idenpa == \"858\" ~ \"Uruguay\",\n    idenpa == \"862\" ~ \"Venezuela\"))\n\ndata$gdp &lt;- as.numeric(data$gdp)\ndata$gdp[data$gdp==0] &lt;- NA\ndata &lt;- na.omit(data)\n\n\n\n5.3.2 Guardamos esta nueva base en nuestra carpeta input\n\nsave(data, file=\"input/data/proc/data.RData\")",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#visualizaciones",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#visualizaciones",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "5.4 Visualizaciones",
+    "text": "5.4 Visualizaciones\nPodemos establecer referencias cruzadas para las tablas y gráficos dentro del texto, para poder automatizarlo, como ejemplo así, pero dentro del chunk:\n#| label: tbl-sjmisc\n#| tbl-cap: “Descriptivos con sjmisc”\n\n5.4.1 Descriptivos\nEl Chunk se debería ver así:\n#| label: tbl-sjmisc\n#| tbl-cap: “Descriptivos con sjmisc”\nsjmisc::descr(data,\n  show = c(\"label\",\"range\", \"mean\", \"sd\", \"NA.prc\", \"n\"))%&gt;% # Selecciona estadísticos\n\n  kable(.,\"markdown\") # Esto es para que se vea bien en quarto\n\nsjmisc::descr(data,\n      show = c(\"label\",\"range\", \"mean\", \"sd\", \"NA.prc\", \"n\"))%&gt;% # Selecciona estadísticos\n      kable(.,\"markdown\") # Esto es para que se vea bien en quarto\n\n\n\nTable 1: Descriptivos con sjmisc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvar\nlabel\nn\nNA.prc\nmean\nsd\nrange\n\n\n\n\n4\npromedio\npromedio\n11\n0\n3.40077\n1.016976\n3.59 (2.3-5.9)\n\n\n1\ngdp\ngdp\n11\n0\n15528.18364\n6480.045512\n19523.79 (5631.2-25154.99)\n\n\n3\nlife_exp\nlife_exp\n11\n0\n75.90909\n2.286593\n8.8 (71.24-80.04)\n\n\n2\ngini\ngini\n11\n0\n45.46364\n4.156266\n14.2 (39.7-53.9)\n\n\n\n\n\n\n\n\nLuego de establecer el link y el nombre de la tabla, podemos referenciar acá con un @, así: @ tbl-sjmisc (pero junto), y que se vería así Table 1\n\n\n5.4.2 Gráficos\nY para los gráficos se hace de la misma forma:\n#| label: fig-gdp\n#| fig-cap: “Plots”\n\ngraph1&lt;-ggplot(data, aes(x = idenpa, y = gdp)) +\n  geom_point() +\n  labs(x = \"País\", y = \"Gdp\") +\n  theme_minimal()+\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\ngraph1\n\n\n\n\n\n\n\nFigure 1: Producto interno bruto por país\n\n\n\n\n\nSin embargo la Figure 1 entrega información desordenada. Mejor ordenar por tamaño de PIB que por orden alfabético de los países. Para eso\n\ndata_sorted &lt;- data %&gt;% arrange(desc(gdp))\ngraph2&lt;-ggplot(data_sorted, aes(x = factor(idenpa, levels = idenpa), y = gdp)) +\n  geom_point() +\n  labs(x = \"País\", y = \"GDP\") +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\ngraph2\n\n\n\n\n\n\n\nFigure 2: Producto interno bruto por país ordenado\n\n\n\n\n\nAhora sí la Figure 2 muestra un gráfico más ordenado.\n\n\n5.4.3 Guardamos este nuevo gráfico en la carpeta output\n\nggsave(graph2, file=\"output/graphs/graph2.png\")\n\nY comparar el promedio de confianza en instituciones según producto interno bruto por país?\n\ndata %&gt;%\n  ggplot(aes(x = gdp, y = promedio, label = idenpa)) +\n  geom_point() +\n  geom_text(vjust = -0.5) +\n  labs(x = \"GDP\", y = \"Promedio\") +\n  theme_bw()\n\n\n\n\n\n\n\nFigure 3: Confianza en instituciones según el producto interno bruto por país\n\n\n\n\n\nLa Figure 3 muestra la relación que existe entre el producto interno bruto y la confianza en instituciones para los 18 países analizados. Es interesante comparar los casos de Chile y urugay, que al tener similar GDP, tienen un nivel de confianza en instituciones muy diferente.\n\nLuego renderizamos\n\n\ny se debería ver así:\n\n\n\nAhora que tenemos nuestra investigación podemos subirla a Github Pages a través de Github Desktop.",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#github-desktop-1",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#github-desktop-1",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "5.5 Github desktop",
+    "text": "5.5 Github desktop",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#github-pages",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#github-pages",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "5.6 Github pages",
+    "text": "5.6 Github pages\nAhora podemos ver los documentos modificados en nuestro repositorio online de github.\n\nVamos a settings\n\n\n\nDentro de Settings vamos a Pages, luego ‘none’ y seleccionamos ‘main’. Luego apretamos Save\n\n\nLuego de aproximadamente un minuto se actualiza la página y aparecerá un link en la parte superior, algo así como kevin-carrasco.github.io/ipo que es nuestra página principal de nuestro sitio web de github.\nEl link para llegar a nuestro documento renderizado de quarto sigue la estructura del repositorio:\nkevin-carrasco.github.io/ipo/trabajo.html",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
+  },
+  {
+    "objectID": "resource/taller-github-quarto/taller-github-quarto.html#footnotes",
+    "href": "resource/taller-github-quarto/taller-github-quarto.html#footnotes",
+    "title": "Introducción al flujo de investigación reproducible",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nEsta es la nota al pie↩︎",
+    "crumbs": [
+      "Practicos",
+      "Taller quarto y github"
+    ]
   },
   {
     "objectID": "resource/02-resource.html",

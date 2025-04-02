@@ -69,8 +69,8 @@ website:
           contents:
             - text: "01: Sesión 1"
               file: content/01-content.qmd
-            # - text: "02: Sesión 2"
-            #   file: content/02-content.qmd
+            - text: "02: Sesión 2"
+              file: content/02-content.qmd
             # - text: "03: Sesión 3"
             #   file: content/03-content.qmd
             # - text: "04: Sesión 4"
@@ -96,8 +96,8 @@ website:
           file: resource/index.qmd
         - text: "Práctico 1"
           file: resource/01-resource.qmd
-        # - text: "Práctico 2"
-        #   file: resource/02-resource.qmd
+        - text: "Taller quarto y github"
+          file: resource/taller-github-quarto/taller-quarto-github.qmd
         # - text: "Práctico 3"
         #   file: resource/03-resource.qmd
         # - text: "Práctico 4"
