@@ -2,7 +2,7 @@
 title: "Práctico 3. Operacionalización de variables"
 subtitle: "R data analisis"
 linktitle: "Práctico 3: Operacionalización"
-date: "2024-03-26"
+date: "2025-04-04"
 lang: es
 ---
 

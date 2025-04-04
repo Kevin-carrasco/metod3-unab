@@ -1,7 +1,7 @@
 ---
 title: "Metodología I"
 author: ".small[Kevin Carrasco <br><br> Departamento de Sociología - UCH / COES <br><br>]"
-date: "1er Sem 2024"
+date: "1er Sem 2025"
 output:
   xaringan::moon_reader:
     css: "../../files/css/custom_2020.css"
@@ -60,7 +60,7 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 # Metodología I
 ## **Kevin Carrasco**
 ## Magister Ciencias Sociales FACSO - UChile
-## 1er Sem 2024
+## 1er Sem 2025
 ## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
 ] 
     
@@ -68,7 +68,7 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 .pull-right[
 .right[
 <br>
-## .yellow[Sesión 2: Tipos de variables]
+## .yellow[Sesión 2: Tipos de estudios y medición en ciencias sociales]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
@@ -93,7 +93,7 @@ Repaso sesión anterior
 
 Tipos de diseños de investigación
 
-Tipos de variables
+Medición en ciencias sociales
 <br>
 <br>
 <br>
@@ -109,11 +109,17 @@ class: inverse, bottom, right
 
 Tipos de diseños de investigación
 
-Tipos de variables
+Medición en ciencias sociales
 <br>
 <br>
 <br>
 <br>
+---
+class: roja, middle, right
+
+
+# ¿Existe una crisis de apertura en la ciencia?
+
 ---
 <br>
 
@@ -140,9 +146,57 @@ class: middle, center
 ]
 
 ---
+# Márgenes de ganancia
+
+.center[
+![:scale 70%](../../files/img/profits.png)
+]
+
+---
+.pull-left-narrow[
+<br>
+![](https://i.pinimg.com/originals/d3/93/93/d39393c978cec32e2598c1d1261ace4f.jpg)
+]
+
+.pull-right-wide[
+
+### Modelo actual de publicación científica:
+- las vacas hacen leche (se ordeñan solas)
+
+- otras vacas revisan la leche (gratis)
+
+- las vacas le pagan al granjero para distribuir la leche
+
+- luego el granjero le vende la leche de vuelta a las vacas
+]
+
+---
+
+### Actualmente...
+
+- En general, podemos acceder solo al **resultado** de un proyecto, usualmente un artículo
+
+--
+
+- Abriendo resultados: Academia.edu, Researchgate, SSRN, scienceopen ... y otros no legales
+
+--
+
+- Documental "Paywall: The Business of Scholarship" [Youtube](https://www.youtube.com/watch?v=HM_nWsdbNvQ&ab_channel=JasonSchmitt)
+
+---
 <br>
  
+
 ![](../../files/img/flujo_rep.png)
+
+--
+
+- Es la capacidad de **regenerar** de manera independiente los resultados de una investigación usando los materiales originales de una investigación ya publicada.
+
+--
+
+- En términos simples: obtener los mismos resultados de una investigación utilizando los mismos datos.
 
 ---
 ## ¿Qué porcentaje de los estudios publicados son reproducibles?
@@ -161,37 +215,166 @@ class: middle, center
 ]
 
 ---
+class: center
 
-## ¿Qué porcentaje de los estudios publicados son reproducibles?
+![](../../files/img/nature-reproducibility-crisis.jpeg)
 
-.pull-left[
-![:scale 100%](../../files/img/breznau.png)
-]
-.pull-right[
+.small[
+Fuente: [Baker (2016) 1,500 scientists lift the lid on reproducibility - Nature](https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970)]
 
-Breznau, et. al, (2023) coordinó una investigación con 161 investigadores de 73 equipos de investigación.
-
-Los equipos informaron tanto hallazgos numéricos como conclusiones sustanciales muy diversas
-]
 ---
 
+### ¿y en la práctica cómo afecta la reproducibilidad?
+
+.pull-left[
+
+![](../../files/img/breznau.png)
+
+]
+
+.pull-right[
+
+- Breznau, et. al, (2023) coordinó una investigación con 161 investigadores de 73 equipos de investigación.
+
+- Los equipos informaron tanto hallazgos numéricos como conclusiones sustanciales muy diversas
+
+]
+
+---
+
+## Flujo de trabajo con procesador de texto tradicional
+
+.center[
+![:scale 70%](../../files/img/W_workflow.png)
+]
+
+---
+## Abriendo el archivo de escritura tradicional
+
+![](../../files/img/realWord.png)
+
+---
+## Desventajas del procesador tradicional
+
+.pull-left-wide[
+.medium[
+
+- Barrera de **pago/licencia** para acceder a contenidos (propiedad)
+
+- Difícil **versionamiento** y llevar registro de quién hizo qué cambio, barrera a la reproducibilidad y colaboración 
+
+- No permite un documento enteramente **reproducible** que combine texto y código de análisis (en caso de utilizarlo) ]
+]
+
+.pull-right-narrow[
+<br>
+<br>
+![](../../files/img/word.jpg)
+]
+
+---
+.pull-left-narrow[
+## Escritura libre y abierta
+]
+
+
+.pull-right-wide[
+.content-box-red[
+- independiente de programa comercial
+
+- independiente de plataformas específicas
+
+- permite combinar texto y análisis en un mismo documento
+
+- foco en los contenidos en lugar del formato
+
+- permite distintas opciones de formato final]]
+
+
+---
+
+.pull-left-narrow[
+## Escritura simple / plana
+]
+
+.pull-right-wide[
+<br>
+.content-box-red[
+- entorno: editor de texto
+
+- separación entre texto de entrada (input) y texto de salida (output)
+
+- foco en el input/contenido vs output/formato
+
+- marcas de edición: vínculo entre formato de input y output
+
+- sin cortar / pegar
+ ]
+]
+
+
+---
 <br>
  
 ![](../../files/img/flujo_trans.png)
 
 
 ---
-<br>
 
-![](../../files/img/flujo-herramientas.png)
+##### El caso de Pedro
+
+- Pedro accede una base de datos con información sobre trabajadores sindicalizados en distintas empresas del país. 
+
+--
+
+- .bold[Sin tener una hipótesis previa], correlaciona  las variables: .green[participación en huelga] (1), .red[tiempo de afiliación sindical] (2) y .orange[tipo de contrato] (3)
+
+--
+
+- Observa que hay una correlación positiva entre tiempo sindicalizado y participación en huelgas (_r_ = 0,32)
+
+--
+
+- Posterior a mirar los datos establece una hipótesis: a mayor .red[tiempo de afiliación sindical] (x) existe mayor .green[participación en huelgas] (y)
 
 ---
-class: middle center
-Más info:
 
-# lisa-coes.com
+- .red[No encuentra] resultados esperados en base a su hipótesis (tiempo de afiliación sindical impacta positivamente en la participación en huelgas)
 
-# Documental "Paywall: The Business of Scholarship" [Youtube](https://www.youtube.com/watch?v=HM_nWsdbNvQ&ab_channel=JasonSchmitt)
+--
+
+- Ajusta la variable tiempo, .bold[eliminando casos] que llevan .red[menos de 2 años sindicalizados en la empresa], obteniendo una asociación significativa con probabilidad de error _p_ <0.05
+
+--
+
+- Finalmente .bold[excluye] a trabajadores a .orange[plazo fijo], manteniendo solo aquellos con contrato indefinido, obteniendo un _p_ <0.01
+
+# .center[🤔?]
+---
+
+class: middle
+
+las .red[prácticas cuestionables de investigación] refieren a las:
+
+>  _"acciones que violan los valores tradicionales de la empresa de investigación y que pueden ser perjudiciales para el proceso de investigación"_ (National Academies of Science 1992 en Steneck, 2006, p. 58).
+
+---
+# Algunas consecuencias
+
+- el problema *no es la exploración de datos*, sino su uso en reporte selectivo de resultados de investigación
+
+--
+
+- incrementa la posibilidad de rechazar erróneamente $H_0$
+
+--
+
+- exageraciones de efectos estimados, perjudicando la replicabilidad
+
+--
+
+- se confirma lo que uno está buscando, no lo que entregan los datos (y pierde sentido el recolectar datos, y hacer investigación empírica)
+
 
 ---
 class: inverse, bottom, right
@@ -204,7 +387,7 @@ Repaso sesión anterior
 
 .yellow[Tipos de diseños de investigación]
 
-Tipos de variables
+Medición en Ciencias Sociales
 <br>
 <br>
 <br>
@@ -250,104 +433,117 @@ Repaso sesión anterior
 
 Tipos de diseños de investigación
 
-.yellow[Tipos de variables]
+.yellow[Medición en Ciencias Sociales]
 <br>
 <br>
 <br>
 <br>
 
 ---
-## Datos y variables
+.center[¿Qué es medir?]
 
-* Los datos miden al menos una *característica* de a los menos una *unidad*  en a lo menos *un punto en el tiempo*
+Asignar un número de acuerdo a la cantidad que un objeto posee de una determinada propiedad
+
+* Ejemplo de economía: **Riqueza**: Asignar un número a las personas según ingresos o propiedades que tengan
+
+* Ejemplo de Ciencias Sociales: **Inteligencia**: Asignar un número a las personas según su capacidad para resolver problemas
+
+---
+.center[¿Cómo se asignan estos números?]
+
+2 Teorías base de medición
+
+a) Teoría clásica:
+- Fundamentado en la operación básica de medición: contar
+
+- Contar entidad continuas
+
+- Fraccionar en  función de unidades de medida
+
+- Aditividad
+
+---
+a ) Teoría clásica:
+
+Ventajas:
+- Fácilmente interpretable
+- Bajo nivel de arbitrariedad
+
+Desventajas:
+- Poco aplicable en Ciencias sociales, salvo variables delimitadas: dinero, tiempo, edad
+
+---
+.center[¿Cómo se asignan estos números?]
+
+2 Teorías base de medición
+
+b) Teoría representacional
+
+- Origen en 1946. Stevens, psicólogo
+
+- Medir no está restringido a asignar números a magnitudes, sino asignar números según una regla o serie de decisiones
+
+- Estas reglas dependen de las propiedades de los números que utilizamos y que queremos representar. Nominal, Ordinal, Intervalar, razón.
+
+---
+b) Teoría representacional
+
+Ventajas:
+
+- Números "representan" relaciones entre objetos
+- No requiere unidad de medida
+- Permite medir un mayor número de conceptos sociales
+
+Desventajas:
+
+- Ambigüedad en sentido del número asignado (no hay unidad de medida; no se emplean todas las propiedades de los números)
+- Menor validez del número asignado: (operaciones para medir son discutibles, no se mide directamente)
+
+---
+class: inverse, bottom, right
+
+# .red[Sesión 2]
+<br>
+
+Repaso sesión anterior
+
+Medición en Ciencias Sociales
+
+.yellow[Operacionalización]
+<br>
+<br>
+<br>
+<br>
+
+---
+## Operacionalización
+
+- Las variables pueden ser visibles o no visibles/latentes. (Ej: peso / inteligencia)
 
 --
- + Ejemplo: La esperanza de vida en Chile el 2017 fue de 79,9 años
 
-   - Característica (variable) : esperanza de vida
-
-   - Unidad: Años
-
-   - Punto en el tiempo: 2017
+* Proceso de definición de la medición de un fenómeno que no se puede medir directamente, aunque su existencia se infiere de otros fenómenos
 
 ---
-## Datos y variables
+## Operacionalización
 
-* Base de Datos
-
-* Forma "rectangular" de almacenamiento de datos:
-
-.center[![:scale 60%](../../files/img/ObservacionesyVariables.png)]
+.center[![:scale 100%](../../files/img/operacionalizacion.png)]
 
 ---
-## Datos y variables
+## Operacionalización
 
-  - cada .blue[fila] representa una unidad o caso (ej: un encuestad_)
-
-  - cada .orange[columna] una variable (ej: edad)
-
-  - cada .purple[variable] posee valores numéricos
-
-  - los valores numéricos pueden estar asociados a una etiqueta (ej: 1=Mujer)
-  
----
-## Datos y variables
-
-### Ejemplos de estudios / bases de datos
-
-1. [Encuesta Centro de Estudios Públicos](https://www.cepchile.cl/encuesta/encuesta-cep-n-90/)
-
-2. [Encuesta CASEN 2022](https://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-2022)
-
-3. [Encuesta Latinobarómetro](https://www.latinobarometro.org/lat.jsp) 
-
-4. [ELSOC](https://coes.cl/encuesta-panel/)
-
-5. [Banco de datos MINEDUC](https://datosabiertos.mineduc.cl/)
+.center[![:scale 100%](../../files/img/conf-inst.png)]
 
 ---
-## Datos y variables
+## Operacionalización
 
-- Una variable representa cualquier cosa o propiedad que varía y a la cuál se le asigna un valor. Es decir:
-
-- $Variable \neq Constante$
+.center[![:scale 100%](../../files/img/operacionalizacion2.png)]
 
 ---
-## Datos y variables
+## Operacionalización
 
-- discretas (Rango finito de valores):
+.center[![:scale 100%](../../files/img/cohesion-barrial.png)]
 
-      - Dicotómicas
-      - Politómicas
-
-- continuas:
-
-      - Rango (teóricamente) infinito de valores.
-
----
-## Escalas de medición de variables
-
-- NOIR: Nominal, Ordinal, Intervalar, Razón
-
-.small[
-| Tipo       	| Características                     	        | Propiedad de números 	| Ejemplo|
-|------------	|----------------------------------------------|---------------	|-----------	|
-| *Nominal*    	| Uso de números en lugar de palabras 	| Identidad            	| Nacionalidad      	|
-| *Ordinal*    	| Números se usan para ordenar series 	| + ranking            	| Nivel educacional 	|
-| *Intervalar* 	| Intervalos iguales entre números    	| + igualdad           	| Temperatura       	|
-| *Razón*      	| Cero real                           	| + aditividad         	| Distancia         	|
-]
-
----
-## Tipos de datos en relación a escalas de medición.
-
-* **Datos categóricos**:
-
-    - pueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango
-
-* **Datos continuos**:
-    - Medidos en escalas intervalares o de razón
-    - Pueden ser transformados a datos categóricos
     
 ---
 class: front
@@ -356,7 +552,7 @@ class: front
 # Metodología I
 ## **Kevin Carrasco**
 ## Magister en Ciencias Sociales FACSO - UChile
-## 1er Sem 2023 
+## 1er Sem 2025 
 ## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
 ] 
     
@@ -364,7 +560,7 @@ class: front
 .pull-right[
 .right[
 <br>
-## .yellow[Sesión 2: Operacionalización de variables ]
+## .yellow[Sesión 2: Tipos de estudios y medición en Ciencias Sociales]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
