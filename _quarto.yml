@@ -100,8 +100,8 @@ website:
           file: resource/taller-github-quarto/taller-quarto-github.qmd
         - text: "Práctico 2"
           file: resource/02-resource.qmd
-        - text: "Práctico 4"
-          file: resource/04-resource.qmd
+        - text: "Práctico 3"
+          file: resource/03-resource.qmd
         # - text: "Práctico 5"
         #   file: resource/05-resource.qmd
         # - text: "Práctico 6"
