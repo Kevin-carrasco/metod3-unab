@@ -1,8 +1,8 @@
 ---
 title: "Práctico 3. Operacionalización de variables"
-subtitle: "R data analisis"
+subtitle: "Metodología I"
 linktitle: "Práctico 3: Operacionalización"
-date: "2025-04-04"
+date: "2025-04-25"
 lang: es
 ---
 
@@ -55,7 +55,7 @@ El documento de **código de preparación** posee 5 partes, más una sección de
 ![](../files/img/ipo-hex.png)
 
 
-<div>
+</div>
 
 
 
