@@ -12,6 +12,8 @@
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../files/css/custom_2020.css" type="text/css" />
   </head>
   <body>
@@ -40,7 +42,7 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 # Metodología I
 ## **Kevin Carrasco**
 ## Magister en Ciencias Sociales FACSO - UChile
-## 1er Sem 2024
+## 1er Sem 2025
 ## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
 ] 
     
@@ -48,12 +50,16 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 .pull-right[
 .right[
 &lt;br&gt;
-## .yellow[Sesión 5: Reportes dinámicos]
+## .yellow[Sesión 5: Análisis descriptivo de datos]
 ![:scale 70%](../../files/img/eval-hires.png)
 
+
+
 ]
 
 ]
+
+
 
 ---
 
@@ -68,9 +74,9 @@ class: inverse, bottom, right, animated, slideInRight
 # .red[Sesión 5]
 &lt;br&gt;
 
-Repaso sesiones anteriores
+Repaso sesión anterior
 
-Reportes dinámicos
+Análisis descriptivo de datos
 
 &lt;br&gt;
 &lt;br&gt;
@@ -83,134 +89,406 @@ class: inverse, bottom, right
 # .red[Sesión 5]
 &lt;br&gt;
 
-.yellow[Repaso sesiones anteriores]
+.yellow[Repaso sesión anterior]
 
-Reportes dinámicos
-
+Análisis descriptivo de datos
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 ---
 
-## Ciencia abierta
+## Variables en una base de datos
 
-&lt;br&gt;
+- La investigación, usualmente, se centra en definir variables de interés
 
-![](../../files/img/flujo-herramientas.png)
----
+- Usando una perspectiva cuantitativa podemos **describir, resumir y modelar** el comportamiento de estas variables
 
-# Reproducibilidad
+- Para realizar estos procedimientos debemos **cuantificar** los fenómenos sociales
 
-- Es la posibilidad de **regenerar** de manera independiente los resultados usando los materiales originales de una investigación ya publicada.
-
-- En términos simples: obtener los mismos resultados de una investigación utilizando los mismos datos.
+- Esto es lo que conocemos como el proceso de **operacionalización**
 
 ---
 
-class: center
+## Variables en una base de datos
 
-## Protocolo de trabajo reproducible
+- ¿Qué hacer después con estas variables?
 
-![:scale 41%](../../files/img/ipo-hex.png)
+--
 
-.small[.right[fuente: [lisa-coes.com/ipo-repro](https://lisa-coes.com/ipo-repro)]]
+- El análisis de datos sociales se basa en establecer **relaciones matemáticas** entre las variables.
 
+---
+## Operacionalización
+
+* Proceso de definición de la medición de un fenómeno que no se puede medir directamente, aunque su existencia se infiere de otros fenómenos
+
+--
+
+- Las variables pueden ser visibles o no visibles/latentes. (Ej: peso / inteligencia)
+
+---
+## Operacionalización
+
+.center[![:scale 100%](../../files/img/operacionalizacion.png)]
+
+---
+## Operacionalización
+
+.center[![:scale 100%](../../files/img/operacionalizacion2.png)]
+
+---
+## Operacionalización
+
+.center[![:scale 100%](../../files/img/conf-inst.png)]
+---
+## Operacionalización
+
+.center[![:scale 100%](../../files/img/cohesion-barrial.png)]
+
+---
+## Escalas de medición de variables
+
+- NOIR: Nominal, Ordinal, Intervalar, Razón
+
+.small[
+| Tipo       	| Características                     	        | Propiedad de números 	| Ejemplo|
+|------------	|----------------------------------------------|---------------	|-----------	|
+| *Nominal*    	| Uso de números en lugar de palabras 	| Identidad            	| Nacionalidad      	|
+| *Ordinal*    	| Números se usan para ordenar series 	| + ranking            	| Nivel educacional 	|
+| *Intervalar* 	| Intervalos iguales entre números    	| + igualdad           	| Temperatura       	|
+| *Razón*      	| Cero real                           	| + aditividad         	| Distancia         	|
+]
+
+---
+## Escalas de medición de variables
+
+
+.small[
+| Tipo        	| Operación empírica           	        | Estadísticos permisibles 	| 
+|-------------	|----------------------------------------------|---------------	|
+| *Nominal*    	| Determinación de igualdad 	| Contar; Moda 	| 
+| *Ordinal*    	| Determinación de más o menos 	| Mediana; Percentil      | 
+| *Intervalar* 	| Determinación de igualdad de intervalos | Promedio; Desv. Estand. | 
+| *Razón*      	| Determinación de igualdad de razones	| Coeficientes de variación	| 
+]
+
+---
+## Escalas de medición de variables
+
+Siempre tenemos que considerar a qué nivel corresponde el constructo que queremos medir
+
+- Por ejemplo, si bien es posible medir *estado de ánimo* a un nivel nominal u ordinal, una medición a nivel intervalar es más adecuada
+
+- Por lo tanto, esta decisión es teórica. Depende de la operacionalización que hagamos de los fenómenos.
+
+- Conocer los niveles de medición permite saber qué tipos de análisis podemos realizar con los datos
 
 ---
 class: inverse, bottom, right
 
+
 # .red[Sesión 5]
 &lt;br&gt;
 
-Repaso sesiones anteriores
+Repaso sesión anterior
 
-.yellow[Reportes dinámicos]
+.yellow[Análisis descriptivo de datos]
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 
 ---
-# Reportes dinámicos
+## Análisis descriptivo de datos
 
-- Todo un mundo de posibilidades
+- La estadística es el lenguaje para comunicar información basada en datos cuantitativos
 
-.center[![:scale 50%](../../files/img/logos.png)]
+- La estadística descriptiva permite sintetizar o resumir los datos obtenidos a partir de un conjunto de observaciones
 
----
-# Reportes dinámicos
-
-- Quarto
-
-- Github
-
-- Zotero
-
-- Research Rabbit
+- Eventualmente, con estadística inferencial se pueden realizar procesos que permiten, dentro de ciertos rangos de confianza, determinar el comportamiento de la población que es representada por la muestra
 
 ---
-## Alternativas o extensiones de R
+## Análisis descriptivo de datos
 
-.center[
-![:scale 60%](../../files/img/quarto.png)
-]
----
-## Así se ve Quarto
+Indicadores que describen distintos aspectos de las observaciones realizadas
 
-.center[
-![:scale 80%](../../files/img/quarto3.png)
-]
+- Tremendamente importantes para explorar y presentar los resultados de un estudio (describiendo el comportamiento de una muestra)
+
+- Son los indicadores sobre los cuales se realiza estadística inferencial (se infiere a la población)
 
 ---
-## Así se ve Quarto
 
-.center[
-![:scale 41%](../../files/img/quarto2.png)
+## Análisis descriptivo de datos
+
+- Los análisis estadísticos son estrategias para traducir la información obtenida a un formato que sea interpretable.
+
+- Por mucho que miremos una base de datos, difícilmente vamos a poder entender qué significan esos números.
+
+- La estrategia más sencilla es mostrar la información en un formato visual (gráficos) o en un esquema sintetizado (**tablas**)
+
+---
+## Tablas y gráficos
+
+En general, cualquier tabla puede ser presentada en formato gráfico
+
+- ¿Qué elegir?
+
+- La decisión decisión depende de la cantidad de información presentada y el uso que vaya a darse a ella
+
+- Los gráficos permiten una comprensión global más inmediata, las tablas una revisión más detallada
+
+---
+## Tablas de síntesis de resultados
+
+- Al reportar los resultados de una investigación, es común construir tablas que resumen el comportamiento de una serie de variables
+
+- La idea general es consensar la mayor cantidad de información evitando la redundancia de información
+
+- Estas tablas se diseñan a partir de distintos análisis realizados sobre los datos, pero que apuntan a un área temática común. Por ejemplo: descripción demográfica de la muestra
+
+---
+## Tablas de síntesis de resultados
+
+- Ejemplo:
+
+![](../../files/img/descriptivos1.png)
+
+.small[
+.center[Fuente: Salgado, M. (2022) Altruismo y fundamentos morales en adolescentes: Un estudio experimental. Revista de Sociología]
 ]
 
 ---
-## Github
+## Tablas de frecuencia
 
-.pull-left[
-- Repositorio en línea
+- La forma más sencilla de presentar la información obtenida en un estudio es contabilizar el número de veces que aparece cada respuesta
 
-- Control de versiones
+- Este indicador se conoce como la frecuencia de aparición de cada respuesta ( `\(f\)` )
 
-- Gratis
-
-- Integración con R
-
-- Acceso desde cualquier equipo
-]
-
-.pull-right[
-![:scale 100%](../../files/img/github.png)
-]
+- Cuando presentamos una variable indicando la frecuencia de aparición de cada uno de sus valores, tenemos una tabla de frecuencia
 
 ---
-## Repositorio Github
+## Tablas de frecuencia
 
-![](../../files/img/repositorio.png)
+- Las frecuencias son, sin embargo, datos absolutos. No es fácil comparar los resultados de dos tablas con un N total de respuestas diferente
+
+- Para hacer esas comparaciones, se utilizan medidas estandarizadas, esto es, transformaciones de los puntajes originales a escalas que sean las mismas en todas las tablas (y que permitan comparación)
+
+---
+## Tabulación de datos
+
+Estandarizan los puntajes, permitiendo comparación
+
+- Proporción (p)
+
+$$p = \frac{f}{N} $$
+
+- Porcentaje (%)
+
+$$ \% = p \times 100 $$
+
+---
+## Tabulación de datos
+
+Permiten analizar el comportamiento de la variable
+
+- Frecuencias acumuladas
+
+- Porcentajes acumulados
+
+---
+##  Tablas de frecuencia y datos acumulados 
+
+Grado de Felicidad personas evaluadas
+
+&lt;table class="table" style="font-size: 18px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Puntaje &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; f &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; F &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; p &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; % &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; % Ac &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Muy poco feliz &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10.31 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10.31 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Poco feliz &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 398 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 558 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.26 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25.64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 35.95 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Relativamente feliz &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 610 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1168 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.39 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 39.30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 75.26 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bastante feliz &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 310 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1478 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19.97 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 95.23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Muy feliz &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 74 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1552 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.77 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1552 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
 ---
 
-# Zotero
+##  Tablas de frecuencia 
 
-.pull-left[
-- Gestor de bibliografía
+¿La democracia es preferible a cualquier otra forma de gobierno?
+(1, "completamente en desacuerdo"; a 7, "completamente de acuerdo")
 
-- Código abierto
+&lt;table class="table" style="font-size: 18px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Puntaje &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; f &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; % &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; % asc &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; % des &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5.0% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5.0% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 44 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.2% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7.2% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 95.0% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 94 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.7% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11.9% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 92.8% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 212 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10.7% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22.6% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 88.1% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 231 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11.6% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 34.2% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 77.4% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 415 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20.9% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 55.1% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 65.8% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 893 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 44.9% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 44.9% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1988 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
-- Gratis
+---
 
-- Integración con R
+## Medidas de tendencia Central
 
-- Acceso desde cualquier equipo
-]
+* **Moda**: valor que ocurre más frecuentemente
 
-.pull-right[
-![:scale 100%](../../files/img/zotero.png)
-]
+--
+
+* **Mediana**: valor medio de la distribución ordenada. Si N es par, entonces es el promedio de los valores medios
+
+--
+* **Media** o promedio aritmético: suma de los valores dividido por el total de casos
+
+---
+## Medidas de tendencia Central
+
+### Dispersión:
+
+* **Varianza**: promedio de la suma de las diferencias del promedio al cuadrado
+
+.center[![:scale 100%](../../files/img/varianza_formula.png)]
+
+---
+
+.center[![:scale 80%](../../files/img/varianza1.png)]
+
+---
+
+.center[![:scale 80%](../../files/img/varianza2.png)]
+---
+
+.center[![:scale 80%](../../files/img/varianza3.png)]
+
+---
+
+* **Desviación Estándar**:
+  - Raiz Cuadrada de la varianza.
+
+  - Expresada  en la mismas unidades que los puntajes de la escala original
+
+
+
+---
+class: middle, center
+
+# Más sobre datos, variables y varianza en:
+
+##-  [Moore: 1.Comprensión de los datos (1-54)](https://multivariada.netlify.app/docs/lecturas/moore_comprensiondelosdatos.pdf)
 
 ---
 class: front
@@ -219,7 +497,7 @@ class: front
 # Metodología I
 ## **Kevin Carrasco**
 ## Magister en Ciencias Sociales FACSO - UChile
-## 1er Sem 2024
+## 1er Sem 2025
 ## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
 ] 
     
@@ -227,7 +505,7 @@ class: front
 .pull-right[
 .right[
 &lt;br&gt;
-## .yellow[Sesión 5: Reportes dinámicos]
+## .yellow[Sesión 4: Estadística descriptiva]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 

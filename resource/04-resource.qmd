@@ -1,8 +1,8 @@
 ---
-title: "Práctica 4 Correlación y Regresión"
+title: "Práctica 4 Estadística descriptiva"
 subtitle: "Metodología I - Magíster en Ciencias Sociales"
 linktitle: "Práctica 4: Análisis descriptivo de datos en R"
-date: "2024-05-09"
+date: "2025-05-09"
 lang: es
 ---
 
@@ -100,7 +100,7 @@ load("../files/data/latinobarometro_proc.RData")
 o desde internet si no completamos el práctico anterior:
 
 ```{r}
-load(url("https://github.com/cursos-metodos-facso/metod1-MCS/raw/main/files/data/latinobarometro_proc.RData"))
+load(url("https://github.com/cursos-metodos-facso/metod1-MCS/raw/refs/heads/main/files/data/latinobarometro_proc.RData"))
 ```
 
 
