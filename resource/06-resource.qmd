@@ -1,8 +1,8 @@
 ---
-title: "Práctica 6 Visualización de datos"
+title: "Práctica 6: Visualización de datos"
 subtitle: "Metodología I - Magíster en Ciencias Sociales"
 linktitle: "Práctica 6: Visualización de datos"
-date: "2023-06-23"
+date: "2025-05-30"
 lang: es
 ---
 
