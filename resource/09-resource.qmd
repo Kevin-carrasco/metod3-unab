@@ -1,6 +1,6 @@
 ---
 title: "Inferencia estadística univariada"
-date: "2024-07-05"
+date: "2025-07-04"
 lang: es
 output:
   number_sections: true
