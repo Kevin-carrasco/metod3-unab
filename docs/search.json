@@ -711,49 +711,77 @@
     "href": "resource/09-resource.html",
     "title": "Inferencia estadística univariada",
     "section": "",
-    "text": "El objetivo de esta guía práctica es aplicar los conocimientos aprendidos en clases sobre inferencia estadística univariada, comprendiendo sus fundamentos, relevancia y aplicación a un caso concreto en R.\nEn detalle, aprenderemos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas.\n\n\n\n\nEn esta práctica trabajaremos con la base de datos de la Encuesta Suplementaria de Ingresos (ESI) del 2021 realizada por el Instituto Nacional de Estadísticas (INE). Esta base la pueden encontrar en el canal de U-Cursos sección Material Docente, o bien, en el siguiente enlace  ESI 2021 podrán descargar el archivo que contiene la base ESI 2021."
+    "text": "El objetivo de esta guía práctica es aplicar los conocimientos aprendidos en clases sobre inferencia estadística univariada, comprendiendo sus fundamentos, relevancia y aplicación a un caso concreto en R.\nEn detalle, aprenderemos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas.\n\n\n\n\nEn esta práctica trabajaremos con la base de datos de la Encuesta Suplementaria de Ingresos (ESI) del 2021 realizada por el Instituto Nacional de Estadísticas (INE). Esta base la pueden encontrar en el canal de U-Cursos sección Material Docente, o bien, en el siguiente enlace  ESI 2021 podrán descargar el archivo que contiene la base ESI 2021.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 8"
+    ]
   },
   {
     "objectID": "resource/09-resource.html#objetivo-de-la-práctica",
     "href": "resource/09-resource.html#objetivo-de-la-práctica",
     "title": "Inferencia estadística univariada",
     "section": "",
-    "text": "El objetivo de esta guía práctica es aplicar los conocimientos aprendidos en clases sobre inferencia estadística univariada, comprendiendo sus fundamentos, relevancia y aplicación a un caso concreto en R.\nEn detalle, aprenderemos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas."
+    "text": "El objetivo de esta guía práctica es aplicar los conocimientos aprendidos en clases sobre inferencia estadística univariada, comprendiendo sus fundamentos, relevancia y aplicación a un caso concreto en R.\nEn detalle, aprenderemos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 8"
+    ]
   },
   {
     "objectID": "resource/09-resource.html#recursos-de-la-práctica",
     "href": "resource/09-resource.html#recursos-de-la-práctica",
     "title": "Inferencia estadística univariada",
     "section": "",
-    "text": "En esta práctica trabajaremos con la base de datos de la Encuesta Suplementaria de Ingresos (ESI) del 2021 realizada por el Instituto Nacional de Estadísticas (INE). Esta base la pueden encontrar en el canal de U-Cursos sección Material Docente, o bien, en el siguiente enlace  ESI 2021 podrán descargar el archivo que contiene la base ESI 2021."
+    "text": "En esta práctica trabajaremos con la base de datos de la Encuesta Suplementaria de Ingresos (ESI) del 2021 realizada por el Instituto Nacional de Estadísticas (INE). Esta base la pueden encontrar en el canal de U-Cursos sección Material Docente, o bien, en el siguiente enlace  ESI 2021 podrán descargar el archivo que contiene la base ESI 2021.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 8"
+    ]
   },
   {
     "objectID": "resource/09-resource.html#cargar-librerías",
     "href": "resource/09-resource.html#cargar-librerías",
     "title": "Inferencia estadística univariada",
     "section": "1. Cargar librerías",
-    "text": "1. Cargar librerías\nPara esta sesión, usaremos librerías que ya conocemos en prácticos pasados y una nueva, llamada srvyr:\n\npacman::p_load(tidyverse, # colección de paquetes para manipulación de datos\n               car, # para recodificar\n               psych, # para analizar datos\n               sjmisc,  # para analizar datos\n               srvyr) # para estimación de IC y ponderadores\n\noptions(scipen = 999) # para desactivar notacion cientifica\nrm(list = ls()) # para limpiar el entorno de trabajo"
+    "text": "1. Cargar librerías\nPara esta sesión, usaremos librerías que ya conocemos en prácticos pasados y una nueva, llamada srvyr:\n\npacman::p_load(tidyverse, # colección de paquetes para manipulación de datos\n               car, # para recodificar\n               psych, # para analizar datos\n               sjmisc,  # para analizar datos\n               srvyr) # para estimación de IC y ponderadores\n\noptions(scipen = 999) # para desactivar notacion cientifica\nrm(list = ls()) # para limpiar el entorno de trabajo",
+    "crumbs": [
+      "Practicos",
+      "Práctico 8"
+    ]
   },
   {
     "objectID": "resource/09-resource.html#importar-datos",
     "href": "resource/09-resource.html#importar-datos",
     "title": "Inferencia estadística univariada",
     "section": "2. Importar datos",
-    "text": "2. Importar datos\nCargamos la base de datos ESI 2021 con readRDS\n\nesi &lt;- readRDS(\"Input/data/esi-2021-ocupados.RData\")"
+    "text": "2. Importar datos\nCargamos la base de datos ESI 2021 con readRDS\n\nesi &lt;- readRDS(\"Input/data/esi-2021-ocupados.RData\")",
+    "crumbs": [
+      "Practicos",
+      "Práctico 8"
+    ]
   },
   {
     "objectID": "resource/09-resource.html#recodificar",
     "href": "resource/09-resource.html#recodificar",
     "title": "Inferencia estadística univariada",
     "section": "3. Recodificar",
-    "text": "3. Recodificar\nSolo recodificamos y convertiremos a factor la variable sexo.\n\nesi$sexo &lt;- car::recode(esi$sexo, recodes = c(\" 1 = 'Hombre'; 2 = 'Mujer'\"), as.factor = T)"
+    "text": "3. Recodificar\nSolo recodificamos y convertiremos a factor la variable sexo.\n\nesi$sexo &lt;- car::recode(esi$sexo, recodes = c(\" 1 = 'Hombre'; 2 = 'Mujer'\"), as.factor = T)",
+    "crumbs": [
+      "Practicos",
+      "Práctico 8"
+    ]
   },
   {
     "objectID": "resource/09-resource.html#resumen",
     "href": "resource/09-resource.html#resumen",
     "title": "Inferencia estadística univariada",
     "section": "Resumen",
-    "text": "Resumen\nHoy aprendimos a realizar inferencia estádistica en R. En detalle, vimos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas."
+    "text": "Resumen\nHoy aprendimos a realizar inferencia estádistica en R. En detalle, vimos:\n\nEstablecer el diseño muestral de una base de datos en R.\nRealizar estimaciones puntuales e intervalares para medias y proporciones.\nContrastar hipótesis univariadas.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 8"
+    ]
   },
   {
     "objectID": "resource/taller-github-quarto/taller-github-quarto.html",
@@ -950,5 +978,19 @@
     "title": "Programa",
     "section": "Palabras Clave",
     "text": "Palabras Clave\n\nEstadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
+  },
+  {
+    "objectID": "trabajos.html#instrucciones-entrega-inicial",
+    "href": "trabajos.html#instrucciones-entrega-inicial",
+    "title": "Trabajos",
+    "section": "Instrucciones entrega inicial",
+    "text": "Instrucciones entrega inicial\nPara la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, se desarrollen los siguientes puntos:\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n2,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n2,0\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 6 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,5\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,5\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
+  },
+  {
+    "objectID": "trabajos.html#instrucciones-segunda-entrega",
+    "href": "trabajos.html#instrucciones-segunda-entrega",
+    "title": "Trabajos",
+    "section": "Instrucciones segunda entrega",
+    "text": "Instrucciones segunda entrega\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n1,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n0,5\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 4 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de dispersión\nCalcular el rango, la desviación estándar y el coeficiente de variación (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de posición\nCalcular el valor mínimo y máximo, el cuartil 1 y el cuartil 3 (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,0\n\n\nÍndices y escalas\nConstruir al menos un índice o escala a partir del conjunto de variables seleccionado. Este índice o escala debe reportar e interpretar el nivel de consistencia interna de las variables\n2,0\n\n\nEstimación puntual, intervalo de confianza y error\nCalcular los parámetros e intervalos de confianza para dos de las variables seleccionadas. Además, debe elaborar una tabla resumen que sintetice todos los indicadores que considere relevantes para interpretar la información. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
   }
 ]
