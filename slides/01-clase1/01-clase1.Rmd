@@ -1,5 +1,5 @@
 ---
-title: "Metodología I"
+title: "Métodos estadísticos para Ciencias Sociales III"
 author: ".small[Kevin Carrasco <br><br> Departamento de Sociología - UCH / COES <br><br>]"
 date: "1er Sem 2025"
 output:
@@ -62,12 +62,11 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 
 
 .pull-left[
-# Metodología I
+# Métodos estadísticos para Ciencias Sociales III
 ## **Kevin Carrasco**
-## **Daniela Olivares Collío**
-## Sociología FACSO - UChile
-## 1er Sem 2025
-## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
+## Sociología - Universidad Andrés Bello
+## 2do semestre 2025
+## [.green[Sitio web pendinete]](Sitio web pendiente)
 ] 
     
 
@@ -98,7 +97,7 @@ class: inverse, bottom, right, animated, slideInRight
 
 Introducción y bases de la investigación cuantitativa
 
-Introducción a R y RStudio
+Introducción a estadística multivariada
 <br>
 <br>
 <br>
@@ -363,51 +362,62 @@ class: inverse, bottom, right, animated, slideInRight
 
 Introducción y bases de la investigación cuantitativa
 
-Introducción a R y RStudio
+Introducción estadística multivariada
 <br>
 <br>
 <br>
 <br>
 ---
-## Introducción a R y RStudio
+
+# Asociación: covarianza / correlación
 
 .pull-left[
-![:scale 50%](https://www.r-project.org/Rlogo.png)
+  _¿Se relaciona la variación de una variable, con la variación de otra variable?_
 ]
-
 .pull-right[
-![:scale 100%](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/RStudio_logo_flat.svg/250px-RStudio_logo_flat.svg.png)
+.center[![:scale 100%](../../files/img/ingresoeduc.png)]
 ]
 
 ---
+# Correlación
 
+- Medida de co-variación lineal estandarizada
 
-.center[
-![:scale 79%](../../files/img/Curva_de_aprendizaje.png)
-]
+--
 
-.small[.right[fuente: [Guía de campo de R](http://wiki.imbiv.unc.edu.ar/index.php/Gu%C3%ADa_de_campo_de_R)]
-]
+<br>
+<br>
+.center[¿En qué rango varía una correlación?]
+
+--
+
+- Varía entre -1 y +1
+
+--
+
+- Gráficamente se expresa en *nubes de puntos*
 
 ---
-## Introducción a R y RStudio
 
-Vuelta a la página
-
-
-# .center[[**metod1-mcs.netlify.app/resource/01-resource.html**](https://metod1-mcs.netlify.app/resource/01-resource.html)]
+.center[![:scale 80%](../../files/img/correlacion2.png)]
 
 ---
 
+.pull-left[* Pero ojo, 
+**correlación no implica causalidad**]
+
+.pull-right[![:scale 100%](../../files/img/causalidad.png)]
+
+
+---
 
 class: front
 
 .pull-left[
-# Metodología I
+# Métodos estadísticos para ciencias sociales III
 ## **Kevin Carrasco**
-## **Daniela Olivares Collío**
-## Sociología FACSO - UChile
-## 1er Sem 2025
+## Sociología - Universidad de Chile
+## 2do Semestre 2025
 ## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
 ] 
     
