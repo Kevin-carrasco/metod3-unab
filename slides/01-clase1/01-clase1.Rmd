@@ -408,6 +408,12 @@ Introducción estadística multivariada
 
 .pull-right[![:scale 100%](../../files/img/causalidad.png)]
 
+---
+
+## Este curso
+
+- 
+
 
 ---
 
