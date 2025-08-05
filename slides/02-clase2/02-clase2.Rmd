@@ -257,7 +257,7 @@ Conversión de continuo a categórico: estatura (cm) a categorías bajo – medi
 
 .pull-right-wide[
 
-![:scale 100%](varianza1.png)
+![:scale 100%](../../files/img/varianza1.png)
 ]
 
 ---
@@ -268,7 +268,7 @@ Conversión de continuo a categórico: estatura (cm) a categorías bajo – medi
 
 .pull-right-wide[
 
-![:scale 100%](varianza3.png)
+![:scale 100%](../../files/img/varianza3.png)
 ]
 
 
@@ -281,13 +281,13 @@ Conversión de continuo a categórico: estatura (cm) a categorías bajo – medi
 
 .pull-right-wide[
 
-![:scale 100%](varianza2.png)
+![:scale 100%](../../files/img/varianza2.png)
 ]
 
 ---
 ## Dispersión:
 
-![:scale 100%](varianza_formula.png)
+![:scale 100%](../../files/img/varianza_formula.png)
 
 ---
 class: inverse, middle, center
@@ -298,7 +298,7 @@ class: inverse, middle, center
 ##  Desviación Estándar
 
 .pull-left-narrow[
-![](desviacion_estandar.png)
+![](../../files/img/desviacion_estandar.png)
 ]
 
 .pull-right-wide[
@@ -381,14 +381,14 @@ Repaso sesión anterior
 
 - Hacia la **explicación** de los fenómenos sociales
 
-![:scale 45%](simple.png)
+![:scale 45%](../../files/img/simple.png)
 
 ---
 ## Estadística multivariada
 
 - Hechos sociales: **multicausales**
 
-![:scale 45%](multiple.png)
+![:scale 45%](../../files/img/multiple.png)
 
 ---
 
@@ -399,7 +399,7 @@ Repaso sesión anterior
 --
 
 .center[
-![](regequation.png)
+![](../../files/img/regequation.png)
 ]
 - A partir de un modelo matemático denominado **regresión**, este curso busca entregar **herramientas** de análisis de datos que permitan aproximarse a la **explicación** de fenómenos sociales **multicausales**.
 
@@ -431,7 +431,7 @@ Repaso sesión anterior
 ---
 # Terminología variables
 
-.center[![:scale 60%](terminologia.png)]
+.center[![:scale 60%](../../files/img/terminologia.png)]
 
 ---
 # Ejemplo
@@ -439,7 +439,7 @@ Repaso sesión anterior
 ### _¿En qué medida la experiencia previa jugando un juego predice el número de puntos obtenidos (en juego posterior)?_
 
 
-.center[![:scale 120%](juegospuntos.png)]
+.center[![:scale 120%](../../files/img/juegospuntos.png)]
 
 ```{r echo=FALSE, include=FALSE}
 datos<- read.csv("tacataca.txt", sep="")
@@ -451,7 +451,7 @@ library(stargazer)
   # Datos
 ]
 .pull-left-narrow[
-![:scale 75%](tacataca.png)
+![:scale 75%](../../files/img/tacataca.png)
 ]
 
 .pull-right[
@@ -483,7 +483,7 @@ stargazer(datos, type = "html")
 .left-column[
   # **Medias condicionales**
 ]
-.center[![:scale 55%](condmeans.png)]
+.center[![:scale 55%](../../files/img/condmeans.png)]
 
 ???
 Ejemplo para los sujetos con 1 en X hay 3 valores de Y: 2, 3 y 4. Por lo tanto, la media condicional de Y dado X=1 es 3
@@ -492,7 +492,7 @@ Ejemplo para los sujetos con 1 en X hay 3 valores de Y: 2, 3 y 4. Por lo tanto, 
 .left-column[
   # Idea de distribución condicional
 ]
-.center[![:scale 70%](fig2-1woo.png)]
+.center[![:scale 70%](../../files/img/fig2-1woo.png)]
 
 ---
 .left-column[
@@ -500,7 +500,7 @@ Ejemplo para los sujetos con 1 en X hay 3 valores de Y: 2, 3 y 4. Por lo tanto, 
 ]
 
 .right-column[
-.center[![:scale 70%](fig2-4woo.png)]
+.center[![:scale 70%](../../files/img/fig2-4woo.png)]
 
 .small[
   La (co) variación general de Y respecto a X se puede expresar en una  ecuación de la recta = **modelo de regresión**
