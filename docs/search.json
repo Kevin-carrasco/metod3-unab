@@ -238,197 +238,11 @@
     "text": "Métodos estadísticos para ciencias sociales III\n        \n        \n            Universidad Andrés Bello\n        \n        \n            • Segundo semestre 2025Departamento de Sociología FACSOUniversidad Andrés Bello\n        \n    \n    \n        \n    \n\n\n\n\n\n\nProfesor\n\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\nInformación del curso\n\n   Lunes, martes y miércoles\n   Marzo 21–Julio 06, 2025\n   12:00-13:30 AM\n   Sala 334. Depto de Sociología\n\n\n\nContacto\nA través de correo"
   },
   {
-    "objectID": "trabajos.html",
-    "href": "trabajos.html",
-    "title": "Trabajos",
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Planificación",
     "section": "",
-    "text": "La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC), en formato de reporte de investigación breve. Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.\nEn este informe, los estudiantes deberán elaborar un reporte de investigación que desarrolle de forma integrada los aspectos de diseño de la investigación, análisis estadístico y presentación de resultados, así como la elaboración de conclusiones.\nCuestiones a considerar:\n\nEl trabajo debe ser realizado en parejas\nSe realizarán dos entregas tipo reporte de investigación, que se irá construyendo a lo largo del semestre.\nSe recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún problema actual de la sociedad chilena, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).\nLa investigación a desarrollar debe ser de tipo descriptiva, esto quiere decir que se trata de una pregunta de investigación que se refiere a la forma, magnitud o características que tienen unas determinadas variables en una población."
-  },
-  {
-    "objectID": "trabajos.html#evaluación",
-    "href": "trabajos.html#evaluación",
-    "title": "Trabajos",
-    "section": "",
-    "text": "La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC), en formato de reporte de investigación breve. Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.\nEn este informe, los estudiantes deberán elaborar un reporte de investigación que desarrolle de forma integrada los aspectos de diseño de la investigación, análisis estadístico y presentación de resultados, así como la elaboración de conclusiones.\nCuestiones a considerar:\n\nEl trabajo debe ser realizado en parejas\nSe realizarán dos entregas tipo reporte de investigación, que se irá construyendo a lo largo del semestre.\nSe recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún problema actual de la sociedad chilena, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).\nLa investigación a desarrollar debe ser de tipo descriptiva, esto quiere decir que se trata de una pregunta de investigación que se refiere a la forma, magnitud o características que tienen unas determinadas variables en una población."
-  },
-  {
-    "objectID": "trabajos.html#instrucciones-entrega-inicial",
-    "href": "trabajos.html#instrucciones-entrega-inicial",
-    "title": "Trabajos",
-    "section": "Instrucciones entrega inicial",
-    "text": "Instrucciones entrega inicial\nPara la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, se desarrollen los siguientes puntos:\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n2,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n2,0\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 6 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,5\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,5\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
-  },
-  {
-    "objectID": "trabajos.html#instrucciones-segunda-entrega",
-    "href": "trabajos.html#instrucciones-segunda-entrega",
-    "title": "Trabajos",
-    "section": "Instrucciones segunda entrega",
-    "text": "Instrucciones segunda entrega\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n1,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n0,5\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 4 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de dispersión\nCalcular el rango, la desviación estándar y el coeficiente de variación (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de posición\nCalcular el valor mínimo y máximo, el cuartil 1 y el cuartil 3 (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,0\n\n\nÍndices y escalas\nConstruir al menos un índice o escala a partir del conjunto de variables seleccionado. Este índice o escala debe reportar e interpretar el nivel de consistencia interna de las variables\n2,0\n\n\nEstimación puntual, intervalo de confianza y error\nCalcular los parámetros e intervalos de confianza para dos de las variables seleccionadas. Además, debe elaborar una tabla resumen que sintetice todos los indicadores que considere relevantes para interpretar la información. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
-  },
-  {
-    "objectID": "trabajos.html#fecha-y-formato-de-entrega",
-    "href": "trabajos.html#fecha-y-formato-de-entrega",
-    "title": "Trabajos",
-    "section": "Fecha y formato de entrega",
-    "text": "Fecha y formato de entrega\nEl formato de entrega del informe debe ser un documento en formato PDF (.pdf), que debe estar alojado en la carpeta output del Proyecto R. Fecha de entrega: viernes 13 de junio hasta las 23:59 vía módulo Tareas en plataforma U-Cursos. \n\nEntregas atrasadas hasta las 23:59 del sábado 14 de junio tendrán 0,5 puntos de descuento  sobre la nota final. \nEntregas atrasadas hasta el domingo 15 de junio hasta las 23:59 tendrán 1,0 punto de descuento sobre la nota final. No serán evaluadas entregas posteriores a esta fecha."
-  },
-  {
-    "objectID": "trabajos.html#sobre-plagio",
-    "href": "trabajos.html#sobre-plagio",
-    "title": "Trabajos",
-    "section": "Sobre plagio",
-    "text": "Sobre plagio\nTodos los trabajos se procesan en software para detección de plagio: evidencia de una situación de plagio implica obtención de la nota mínima en la evaluación (1,0) junto con constituirse como causal de reprobación de la asignatura."
-  },
-  {
-    "objectID": "trabajos.html#recomendaciones-para-la-entrega",
-    "href": "trabajos.html#recomendaciones-para-la-entrega",
-    "title": "Trabajos",
-    "section": "Recomendaciones para la entrega",
-    "text": "Recomendaciones para la entrega\n\nMáxima de escritura: una idea por párrafo. Si comienza una idea nueva, se recomienda comenzar otro párrafo. Al revés, si el párrafo siguiente habla de lo mismo, sumarlo al párrafo anterior. \nLa idea del párrafo se resume en la primera parte del párrafo, lo que en inglés se llama “topic sentence”. \nDeclarar domicilio disciplinar: ej, mencionar la palabra “sociología” en el primer/segundo párrafo, esto fuerza que la investigación se enmarque en la disciplina.\n\nEn caso de tener dudas, no dude en contactar a sus ayudantes respectivos, o bien, vía foro U-Cursos al equipo docente de la asignatura."
-  },
-  {
-    "objectID": "resource/index.html",
-    "href": "resource/index.html",
-    "title": "Recursos",
-    "section": "",
-    "text": "Acceder a la página de posit, desarrollador del software desde octubre de 2022. Link directo a la descarga acá.\nInstalar R y Rstudio\n\n\n\nDescargar R\n\n\nSeleccionamos sistema operativo según corresponda\n\n\n\nDescargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2\n\n\n\nDescargar RStudio\n\n\nDescarga directa en la página de inicio\n\n\nInstalar ambos archivos siguiendo las instrucciones de instalación\n\n\nAbrir RStudio. Se debería ver similar a esto (o en blanco):\n\n\n\n\n\n\n\n\nNota\n\n\n\nAlternativa a lo anterior: https://posit.cloud/\n\nVersión online de Rstudio\nUtilizar en caso de problemas con PC",
-    "crumbs": [
-      "Practicos",
-      "Descripción"
-    ]
-  },
-  {
-    "objectID": "resource/index.html#r-y-rstudio",
-    "href": "resource/index.html#r-y-rstudio",
-    "title": "Recursos",
-    "section": "",
-    "text": "Acceder a la página de posit, desarrollador del software desde octubre de 2022. Link directo a la descarga acá.\nInstalar R y Rstudio\n\n\n\nDescargar R\n\n\nSeleccionamos sistema operativo según corresponda\n\n\n\nDescargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2\n\n\n\nDescargar RStudio\n\n\nDescarga directa en la página de inicio\n\n\nInstalar ambos archivos siguiendo las instrucciones de instalación\n\n\nAbrir RStudio. Se debería ver similar a esto (o en blanco):\n\n\n\n\n\n\n\n\nNota\n\n\n\nAlternativa a lo anterior: https://posit.cloud/\n\nVersión online de Rstudio\nUtilizar en caso de problemas con PC",
-    "crumbs": [
-      "Practicos",
-      "Descripción"
-    ]
-  },
-  {
-    "objectID": "content/index.html",
-    "href": "content/index.html",
-    "title": "Presentaciones, lecturas y actividades",
-    "section": "",
-    "text": "En esta sección se encuentran los documentos de presentación correspondientes a cada clase, lecturas y también actividades prácticas.",
-    "crumbs": [
-      "Clases",
-      "Información general",
-      "Presentaciones, lecturas y actividades"
-    ]
-  },
-  {
-    "objectID": "content/10-content.html#lecturas",
-    "href": "content/10-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas"
-  },
-  {
-    "objectID": "content/08-content.html#lecturas",
-    "href": "content/08-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas"
-  },
-  {
-    "objectID": "content/06-content.html#lecturas",
-    "href": "content/06-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
-  },
-  {
-    "objectID": "content/04-content.html#lecturas",
-    "href": "content/04-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
-  },
-  {
-    "objectID": "content/01-content.html#lecturas",
-    "href": "content/01-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "01: Sesión 1"
-    ]
-  },
-  {
-    "objectID": "assignment/index.html",
-    "href": "assignment/index.html",
-    "title": "Assignments",
-    "section": "",
-    "text": "The main goals of this class are to help you design, critique, code, and run rigorous, valid, and feasible evaluations of public sector programs. Each type of assignment in this class is designed to help you achieve one or more of these goals."
-  },
-  {
-    "objectID": "assignment/index.html#weekly-check-in",
-    "href": "assignment/index.html#weekly-check-in",
-    "title": "Assignments",
-    "section": "Weekly check-in",
-    "text": "Weekly check-in\nEvery week, after you finish working through the content, I want to hear about what you learned and what questions you still have. Because the content in thsi course is flipped, these questions are crucial for our weekly in-class discussions.\nTo encourage engagement with the course content—and to allow me to collect the class’s questions each week—you’ll need to fill out a short response on iCollege. This should be ≈150 words. That’s fairly short: there are ≈250 words on a typical double-spaced page in Microsoft Word (500 when single-spaced).\nThese check-ins are due by noon on the days we have class. This is so I can look through the responses and start structuring the discussion for the evening’s class.\nYou should answer these two questions each week:\n\nWhat were the three (3) most interesting or exciting things you learned from the session? Why?\nWhat were the three (3) muddiest or unclear things from the session this week? What are you still wondering about?\n\nYou can include more than three interesting or muddiest things, but you must include at least three. There should be six easily identifiable things in each check-in: three exciting things and three questions.\nI will grade these check-ins using a check system:\n\n✔+: (11.5 points (115%) in gradebook) Response shows phenomenal thought and engagement with the course content. I will not assign these often.\n✔: (10 points (100%) in gradebook) Response is thoughtful, well-written, and shows engagement with the course content. This is the expected level of performance.\n✔−: (5 points (50%) in gradebook) Response is hastily composed, too short, and/or only cursorily engages with the course content. This grade signals that you need to improve next time. I will hopefully not assign these often.\n\nNotice that is essentially a pass/fail or completion-based system. I’m not grading your writing ability, I’m not counting the exact number of words you’re writing, and I’m not looking for encyclopedic citations of every single reading to prove that you did indeed read everything. I’m looking for thoughtful engagement, three interesting things, and three questions. That’s all. Do good work and you’ll get a ✓.\nYou will submit these check-ins via iCollege."
-  },
-  {
-    "objectID": "assignment/index.html#problem-sets",
-    "href": "assignment/index.html#problem-sets",
-    "title": "Assignments",
-    "section": "Problem sets",
-    "text": "Problem sets\nTo practice writing R code, running inferential models, and thinking about causation, you will complete a series of problem sets.\nYou need to show that you made a good faith effort to work each question. I will not grade these in detail. The problem sets will be graded using a check system:\n\n✔+: (33 points (110%) in gradebook) Assignment is 100% completed. Every question was attempted and answered, and most answers are correct. Document is clean and easy to follow. Work is exceptional. I will not assign these often.\n✔: (30 points (100%) in gradebook) Assignment is 70–99% complete and most answers are correct. This is the expected level of performance.\n✔−: (15 points (50%) in gradebook) Assignment is less than 70% complete and/or most answers are incorrect. This indicates that you need to improve next time. I will hopefully not asisgn these often.\n\nYou may (and should!) work together on the problem sets, but you must turn in your own answers. You cannot work in groups of more than four people, and you must note who participated in the group in your assignment."
-  },
-  {
-    "objectID": "assignment/index.html#evaluation-assignments",
-    "href": "assignment/index.html#evaluation-assignments",
-    "title": "Assignments",
-    "section": "Evaluation assignments",
-    "text": "Evaluation assignments\nFor your final project, you will conduct a pre-registered evaluation of a social program using synthetic data. To (1) give you practice with the principles of program evaluation, research design, measurement, and causal diagrams, and (2) help you with the foundation of your final project, you will complete a set of four evaluation-related assignments.\nIdeally these will become major sections of your final project. However, there is no requirement that the programs you use in these assignments must be the same as the final project. If, through these assignments, you discover that your initially chosen program is too simple, too complex, too boring, etc., you can change at any time.\nThese assignments will be graded using a check system:\n\n✔+: (33 points (110%) in gradebook) Assignment is 100% completed. Every question was attempted and answered, and most answers are correct. Document is clean and easy to follow. Work is exceptional. I will not assign these often.\n✔: (30 points (100%) in gradebook) Assignment is 70–99% complete and most answers are correct. This is the expected level of performance.\n✔−: (15 points (50%) in gradebook) Assignment is less than 70% complete and/or most answers are incorrect. This indicates that you need to improve next time. I will hopefully not asisgn these often."
-  },
-  {
-    "objectID": "assignment/index.html#exams",
-    "href": "assignment/index.html#exams",
-    "title": "Assignments",
-    "section": "Exams",
-    "text": "Exams\nThere will be two exams covering (1) program evaluation, design, and causation, and (2) the core statistical tools of program evaluation and causal inference.\nYou will take these exams online through iCollege. The exams will have a time limit, but you can use notes and readings and the Google. You must take the exams on your own though, and not talk to anyone about them."
-  },
-  {
-    "objectID": "assignment/index.html#final-project",
-    "href": "assignment/index.html#final-project",
-    "title": "Assignments",
-    "section": "Final project",
-    "text": "Final project\nAt the end of the course, you will demonstrate your knowledge of program evaluation and causal inference by completing a final project.\nComplete details for the final project are here.\nThere is no final exam. This project is your final exam."
-  },
-  {
-    "objectID": "content/03-content.html#lecturas",
-    "href": "content/03-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
-  },
-  {
-    "objectID": "content/05-content.html#lecturas",
-    "href": "content/05-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
-  },
-  {
-    "objectID": "content/09-content.html#lecturas",
-    "href": "content/09-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas"
-  },
-  {
-    "objectID": "content/11-content.html#lecturas",
-    "href": "content/11-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nPráctica en R"
+    "text": "Los dos componentes centrales del curso son las clases teóricas y las actividades prácticas. Las clases se realizarán los días Viernes 09:00 a 10:50 en sala 329\n\nClases ( ): Lecturas, documentos de presentación y video (en caso que la sesión sea grabada)\nPrácticas y evaluaciones (): Actividades prácticas a desarrollar durante la semana.\nLecturas (): Llegar a la clase con los textos leídos.\n\n\n\n\n\n Clases\n Prácticas y evaluaciones\n Lecturas y material adicional\n\n\n\n\n Marzo \n\n\n\n\n\nViernes 17\n00. Presentación e 01. introducción\n1. Aproximación inicial a R\n- Leer detalladamente programa del curso\n\n\n\n\nUNIDAD 1: Estadística descriptiva\n\n\n\nViernes 24\n2.Operacionalización de variables \n2.Operacionalización de variables\n- Wickham & Grolemund, (2017). cap. 1 Introducción \n\n\nViernes 31\n3. Visualización de datos\n-\n- Wickham & Grolemund, (2017). cap. 2 Explorar\n\n\n Abril \n\n\n\n\n\nViernes 07\nViernes santo\n\n\n\n\nViernes 14\n1° semana presencial\n\n\n\n\nViernes 21\n\nEvaluación\n\n\n\n\n\n\nUNIDAD 2: Estadística Correlacional\n\n\n\nViernes 28\n4. Introducción a la inferencia estadística\n\n\n\n\n Mayo \n\n\n\n\n\nViernes 05\n1° semana de pausa reflexiva\n\n\n\n\nViernes 12\n5. Correlación\n\n\n\n\nViernes 19\n6. Índices y análisis factorial\n\n\n\n\nViernes 26\n2° semana presencial\n\n\n\n\n\n\n\nUNIDAD 3: Regresión lineal y regresión logística\n\n\n\n Junio \n\n\n\n\n\nViernes 02\n7. Regresión lineal de mínimos cuadrados\n\n\n\n\nViernes 09\n2° semana de pausa reflexiva\n\n\n\n\nViernes 16\n**8. Regresión logística binaria: interpretación de coeficientes y cálculo de probabilidades\n\n\n\n\nViernes 23\n10. Análisis factorial y regresión lineal en R\n\n\n\n\nViernes 30\n11. Supuestos de regresión y valores predichos\n\n\n\n\n Julio \n\n\n\n\n\nViernes 07\n3° semana presencial\n\n\n\n\nViernes 14\n\nEvaluación"
   },
   {
     "objectID": "resource/05-resource.html",
@@ -508,11 +322,197 @@
     "text": "Ahora podemos ver los documentos modificados en nuestro repositorio online de github.\n\nVamos a settings\n\n\n\nDentro de Settings vamos a Pages, luego ‘none’ y seleccionamos ‘main’. Luego apretamos Save\n\n\nLuego de aproximadamente un minuto se actualiza la página y aparecerá un link en la parte superior, algo así como kevincarrascoq.github.ui/R-data-analisis que es nuestra página principal de nuestro sitio web de github.\nEl link para llegar a nuestro documento renderizado de quarto sigue la estructura del repositorio:"
   },
   {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Planificación",
+    "objectID": "content/11-content.html#lecturas",
+    "href": "content/11-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nPráctica en R"
+  },
+  {
+    "objectID": "content/09-content.html#lecturas",
+    "href": "content/09-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas"
+  },
+  {
+    "objectID": "content/05-content.html#lecturas",
+    "href": "content/05-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science"
+  },
+  {
+    "objectID": "content/03-content.html#lecturas",
+    "href": "content/03-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science"
+  },
+  {
+    "objectID": "content/01-content.html#lecturas",
+    "href": "content/01-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "01: Sesión 1"
+    ]
+  },
+  {
+    "objectID": "assignment/index.html",
+    "href": "assignment/index.html",
+    "title": "Assignments",
     "section": "",
-    "text": "Los dos componentes centrales del curso son las clases teóricas y las actividades prácticas. Las clases se realizarán los días Viernes 09:00 a 10:50 en sala 329\n\nClases ( ): Lecturas, documentos de presentación y video (en caso que la sesión sea grabada)\nPrácticas y evaluaciones (): Actividades prácticas a desarrollar durante la semana.\nLecturas (): Llegar a la clase con los textos leídos.\n\n\n\n\n\n Clases\n Prácticas y evaluaciones\n Lecturas y material adicional\n\n\n\n\n Marzo \n\n\n\n\n\nViernes 17\n00. Presentación e 01. introducción\n1. Aproximación inicial a R\n- Leer detalladamente programa del curso\n\n\n\n\nUNIDAD 1: Estadística descriptiva\n\n\n\nViernes 24\n2.Operacionalización de variables \n2.Operacionalización de variables\n- Wickham & Grolemund, (2017). cap. 1 Introducción \n\n\nViernes 31\n3. Visualización de datos\n-\n- Wickham & Grolemund, (2017). cap. 2 Explorar\n\n\n Abril \n\n\n\n\n\nViernes 07\nViernes santo\n\n\n\n\nViernes 14\n1° semana presencial\n\n\n\n\nViernes 21\n\nEvaluación\n\n\n\n\n\n\nUNIDAD 2: Estadística Correlacional\n\n\n\nViernes 28\n4. Introducción a la inferencia estadística\n\n\n\n\n Mayo \n\n\n\n\n\nViernes 05\n1° semana de pausa reflexiva\n\n\n\n\nViernes 12\n5. Correlación\n\n\n\n\nViernes 19\n6. Índices y análisis factorial\n\n\n\n\nViernes 26\n2° semana presencial\n\n\n\n\n\n\n\nUNIDAD 3: Regresión lineal y regresión logística\n\n\n\n Junio \n\n\n\n\n\nViernes 02\n7. Regresión lineal de mínimos cuadrados\n\n\n\n\nViernes 09\n2° semana de pausa reflexiva\n\n\n\n\nViernes 16\n**8. Regresión logística binaria: interpretación de coeficientes y cálculo de probabilidades\n\n\n\n\nViernes 23\n10. Análisis factorial y regresión lineal en R\n\n\n\n\nViernes 30\n11. Supuestos de regresión y valores predichos\n\n\n\n\n Julio \n\n\n\n\n\nViernes 07\n3° semana presencial\n\n\n\n\nViernes 14\n\nEvaluación"
+    "text": "The main goals of this class are to help you design, critique, code, and run rigorous, valid, and feasible evaluations of public sector programs. Each type of assignment in this class is designed to help you achieve one or more of these goals."
+  },
+  {
+    "objectID": "assignment/index.html#weekly-check-in",
+    "href": "assignment/index.html#weekly-check-in",
+    "title": "Assignments",
+    "section": "Weekly check-in",
+    "text": "Weekly check-in\nEvery week, after you finish working through the content, I want to hear about what you learned and what questions you still have. Because the content in thsi course is flipped, these questions are crucial for our weekly in-class discussions.\nTo encourage engagement with the course content—and to allow me to collect the class’s questions each week—you’ll need to fill out a short response on iCollege. This should be ≈150 words. That’s fairly short: there are ≈250 words on a typical double-spaced page in Microsoft Word (500 when single-spaced).\nThese check-ins are due by noon on the days we have class. This is so I can look through the responses and start structuring the discussion for the evening’s class.\nYou should answer these two questions each week:\n\nWhat were the three (3) most interesting or exciting things you learned from the session? Why?\nWhat were the three (3) muddiest or unclear things from the session this week? What are you still wondering about?\n\nYou can include more than three interesting or muddiest things, but you must include at least three. There should be six easily identifiable things in each check-in: three exciting things and three questions.\nI will grade these check-ins using a check system:\n\n✔+: (11.5 points (115%) in gradebook) Response shows phenomenal thought and engagement with the course content. I will not assign these often.\n✔: (10 points (100%) in gradebook) Response is thoughtful, well-written, and shows engagement with the course content. This is the expected level of performance.\n✔−: (5 points (50%) in gradebook) Response is hastily composed, too short, and/or only cursorily engages with the course content. This grade signals that you need to improve next time. I will hopefully not assign these often.\n\nNotice that is essentially a pass/fail or completion-based system. I’m not grading your writing ability, I’m not counting the exact number of words you’re writing, and I’m not looking for encyclopedic citations of every single reading to prove that you did indeed read everything. I’m looking for thoughtful engagement, three interesting things, and three questions. That’s all. Do good work and you’ll get a ✓.\nYou will submit these check-ins via iCollege."
+  },
+  {
+    "objectID": "assignment/index.html#problem-sets",
+    "href": "assignment/index.html#problem-sets",
+    "title": "Assignments",
+    "section": "Problem sets",
+    "text": "Problem sets\nTo practice writing R code, running inferential models, and thinking about causation, you will complete a series of problem sets.\nYou need to show that you made a good faith effort to work each question. I will not grade these in detail. The problem sets will be graded using a check system:\n\n✔+: (33 points (110%) in gradebook) Assignment is 100% completed. Every question was attempted and answered, and most answers are correct. Document is clean and easy to follow. Work is exceptional. I will not assign these often.\n✔: (30 points (100%) in gradebook) Assignment is 70–99% complete and most answers are correct. This is the expected level of performance.\n✔−: (15 points (50%) in gradebook) Assignment is less than 70% complete and/or most answers are incorrect. This indicates that you need to improve next time. I will hopefully not asisgn these often.\n\nYou may (and should!) work together on the problem sets, but you must turn in your own answers. You cannot work in groups of more than four people, and you must note who participated in the group in your assignment."
+  },
+  {
+    "objectID": "assignment/index.html#evaluation-assignments",
+    "href": "assignment/index.html#evaluation-assignments",
+    "title": "Assignments",
+    "section": "Evaluation assignments",
+    "text": "Evaluation assignments\nFor your final project, you will conduct a pre-registered evaluation of a social program using synthetic data. To (1) give you practice with the principles of program evaluation, research design, measurement, and causal diagrams, and (2) help you with the foundation of your final project, you will complete a set of four evaluation-related assignments.\nIdeally these will become major sections of your final project. However, there is no requirement that the programs you use in these assignments must be the same as the final project. If, through these assignments, you discover that your initially chosen program is too simple, too complex, too boring, etc., you can change at any time.\nThese assignments will be graded using a check system:\n\n✔+: (33 points (110%) in gradebook) Assignment is 100% completed. Every question was attempted and answered, and most answers are correct. Document is clean and easy to follow. Work is exceptional. I will not assign these often.\n✔: (30 points (100%) in gradebook) Assignment is 70–99% complete and most answers are correct. This is the expected level of performance.\n✔−: (15 points (50%) in gradebook) Assignment is less than 70% complete and/or most answers are incorrect. This indicates that you need to improve next time. I will hopefully not asisgn these often."
+  },
+  {
+    "objectID": "assignment/index.html#exams",
+    "href": "assignment/index.html#exams",
+    "title": "Assignments",
+    "section": "Exams",
+    "text": "Exams\nThere will be two exams covering (1) program evaluation, design, and causation, and (2) the core statistical tools of program evaluation and causal inference.\nYou will take these exams online through iCollege. The exams will have a time limit, but you can use notes and readings and the Google. You must take the exams on your own though, and not talk to anyone about them."
+  },
+  {
+    "objectID": "assignment/index.html#final-project",
+    "href": "assignment/index.html#final-project",
+    "title": "Assignments",
+    "section": "Final project",
+    "text": "Final project\nAt the end of the course, you will demonstrate your knowledge of program evaluation and causal inference by completing a final project.\nComplete details for the final project are here.\nThere is no final exam. This project is your final exam."
+  },
+  {
+    "objectID": "content/04-content.html#lecturas",
+    "href": "content/04-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science"
+  },
+  {
+    "objectID": "content/06-content.html#lecturas",
+    "href": "content/06-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science"
+  },
+  {
+    "objectID": "content/08-content.html#lecturas",
+    "href": "content/08-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas"
+  },
+  {
+    "objectID": "content/10-content.html#lecturas",
+    "href": "content/10-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas"
+  },
+  {
+    "objectID": "content/index.html",
+    "href": "content/index.html",
+    "title": "Presentaciones, lecturas y actividades",
+    "section": "",
+    "text": "En esta sección se encuentran los documentos de presentación correspondientes a cada clase, lecturas y también actividades prácticas.",
+    "crumbs": [
+      "Clases",
+      "Información general",
+      "Presentaciones, lecturas y actividades"
+    ]
+  },
+  {
+    "objectID": "resource/index.html",
+    "href": "resource/index.html",
+    "title": "Recursos",
+    "section": "",
+    "text": "Acceder a la página de posit, desarrollador del software desde octubre de 2022. Link directo a la descarga acá.\nInstalar R y Rstudio\n\n\n\nDescargar R\n\n\nSeleccionamos sistema operativo según corresponda\n\n\n\nDescargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2\n\n\n\nDescargar RStudio\n\n\nDescarga directa en la página de inicio\n\n\nInstalar ambos archivos siguiendo las instrucciones de instalación\n\n\nAbrir RStudio. Se debería ver similar a esto (o en blanco):\n\n\n\n\n\n\n\n\nNota\n\n\n\nAlternativa a lo anterior: https://posit.cloud/\n\nVersión online de Rstudio\nUtilizar en caso de problemas con PC",
+    "crumbs": [
+      "Practicos",
+      "Descripción"
+    ]
+  },
+  {
+    "objectID": "resource/index.html#r-y-rstudio",
+    "href": "resource/index.html#r-y-rstudio",
+    "title": "Recursos",
+    "section": "",
+    "text": "Acceder a la página de posit, desarrollador del software desde octubre de 2022. Link directo a la descarga acá.\nInstalar R y Rstudio\n\n\n\nDescargar R\n\n\nSeleccionamos sistema operativo según corresponda\n\n\n\nDescargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2\n\n\n\nDescargar RStudio\n\n\nDescarga directa en la página de inicio\n\n\nInstalar ambos archivos siguiendo las instrucciones de instalación\n\n\nAbrir RStudio. Se debería ver similar a esto (o en blanco):\n\n\n\n\n\n\n\n\nNota\n\n\n\nAlternativa a lo anterior: https://posit.cloud/\n\nVersión online de Rstudio\nUtilizar en caso de problemas con PC",
+    "crumbs": [
+      "Practicos",
+      "Descripción"
+    ]
+  },
+  {
+    "objectID": "trabajos.html",
+    "href": "trabajos.html",
+    "title": "Trabajos",
+    "section": "",
+    "text": "La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC), en formato de reporte de investigación breve. Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.\nEn este informe, los estudiantes deberán elaborar un reporte de investigación que desarrolle de forma integrada los aspectos de diseño de la investigación, análisis estadístico y presentación de resultados, así como la elaboración de conclusiones.\nCuestiones a considerar:\n\nEl trabajo debe ser realizado en parejas\nSe realizarán dos entregas tipo reporte de investigación, que se irá construyendo a lo largo del semestre.\nSe recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún problema actual de la sociedad chilena, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).\nLa investigación a desarrollar debe ser de tipo descriptiva, esto quiere decir que se trata de una pregunta de investigación que se refiere a la forma, magnitud o características que tienen unas determinadas variables en una población."
+  },
+  {
+    "objectID": "trabajos.html#evaluación",
+    "href": "trabajos.html#evaluación",
+    "title": "Trabajos",
+    "section": "",
+    "text": "La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC), en formato de reporte de investigación breve. Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.\nEn este informe, los estudiantes deberán elaborar un reporte de investigación que desarrolle de forma integrada los aspectos de diseño de la investigación, análisis estadístico y presentación de resultados, así como la elaboración de conclusiones.\nCuestiones a considerar:\n\nEl trabajo debe ser realizado en parejas\nSe realizarán dos entregas tipo reporte de investigación, que se irá construyendo a lo largo del semestre.\nSe recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún problema actual de la sociedad chilena, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).\nLa investigación a desarrollar debe ser de tipo descriptiva, esto quiere decir que se trata de una pregunta de investigación que se refiere a la forma, magnitud o características que tienen unas determinadas variables en una población."
+  },
+  {
+    "objectID": "trabajos.html#instrucciones-entrega-inicial",
+    "href": "trabajos.html#instrucciones-entrega-inicial",
+    "title": "Trabajos",
+    "section": "Instrucciones entrega inicial",
+    "text": "Instrucciones entrega inicial\nPara la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, se desarrollen los siguientes puntos:\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n2,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n2,0\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 6 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,5\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,5\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
+  },
+  {
+    "objectID": "trabajos.html#instrucciones-segunda-entrega",
+    "href": "trabajos.html#instrucciones-segunda-entrega",
+    "title": "Trabajos",
+    "section": "Instrucciones segunda entrega",
+    "text": "Instrucciones segunda entrega\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n1,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n0,5\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 4 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de dispersión\nCalcular el rango, la desviación estándar y el coeficiente de variación (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de posición\nCalcular el valor mínimo y máximo, el cuartil 1 y el cuartil 3 (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,0\n\n\nÍndices y escalas\nConstruir al menos un índice o escala a partir del conjunto de variables seleccionado. Este índice o escala debe reportar e interpretar el nivel de consistencia interna de las variables\n2,0\n\n\nEstimación puntual, intervalo de confianza y error\nCalcular los parámetros e intervalos de confianza para dos de las variables seleccionadas. Además, debe elaborar una tabla resumen que sintetice todos los indicadores que considere relevantes para interpretar la información. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
+  },
+  {
+    "objectID": "trabajos.html#fecha-y-formato-de-entrega",
+    "href": "trabajos.html#fecha-y-formato-de-entrega",
+    "title": "Trabajos",
+    "section": "Fecha y formato de entrega",
+    "text": "Fecha y formato de entrega\nEl formato de entrega del informe debe ser un documento en formato PDF (.pdf), que debe estar alojado en la carpeta output del Proyecto R. Fecha de entrega: viernes 13 de junio hasta las 23:59 vía módulo Tareas en plataforma U-Cursos. \n\nEntregas atrasadas hasta las 23:59 del sábado 14 de junio tendrán 0,5 puntos de descuento  sobre la nota final. \nEntregas atrasadas hasta el domingo 15 de junio hasta las 23:59 tendrán 1,0 punto de descuento sobre la nota final. No serán evaluadas entregas posteriores a esta fecha."
+  },
+  {
+    "objectID": "trabajos.html#sobre-plagio",
+    "href": "trabajos.html#sobre-plagio",
+    "title": "Trabajos",
+    "section": "Sobre plagio",
+    "text": "Sobre plagio\nTodos los trabajos se procesan en software para detección de plagio: evidencia de una situación de plagio implica obtención de la nota mínima en la evaluación (1,0) junto con constituirse como causal de reprobación de la asignatura."
+  },
+  {
+    "objectID": "trabajos.html#recomendaciones-para-la-entrega",
+    "href": "trabajos.html#recomendaciones-para-la-entrega",
+    "title": "Trabajos",
+    "section": "Recomendaciones para la entrega",
+    "text": "Recomendaciones para la entrega\n\nMáxima de escritura: una idea por párrafo. Si comienza una idea nueva, se recomienda comenzar otro párrafo. Al revés, si el párrafo siguiente habla de lo mismo, sumarlo al párrafo anterior. \nLa idea del párrafo se resume en la primera parte del párrafo, lo que en inglés se llama “topic sentence”. \nDeclarar domicilio disciplinar: ej, mencionar la palabra “sociología” en el primer/segundo párrafo, esto fuerza que la investigación se enmarque en la disciplina.\n\nEn caso de tener dudas, no dude en contactar a sus ayudantes respectivos, o bien, vía foro U-Cursos al equipo docente de la asignatura."
   },
   {
     "objectID": "syllabus.html",

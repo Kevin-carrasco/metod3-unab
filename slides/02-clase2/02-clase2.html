@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Metodología I</title>
+    <title>Métodos estadísticos para Ciencias Sociales III</title>
     <meta charset="utf-8" />
     <meta name="author" content=".small[Kevin Carrasco    Departamento de Sociología - UCH / COES   ]" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -12,12 +12,26 @@
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link href="libs/htmltools-fill/fill.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding/plotly.js"></script>
+    <script src="libs/typedarray/typedarray.min.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="../../files/css/custom_2020.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 
 class: front
+
+
+
+
+
 
 
 
@@ -37,18 +51,18 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 
 
 .pull-left[
-# Metodología I
+# Métodos estadísticos para Ciencias Sociales III
 ## **Kevin Carrasco**
-## Magister Ciencias Sociales FACSO - UChile
-## 1er Sem 2025
-## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
+## Sociología - Universidad Andrés Bello
+## 2do semestre 2025
+## [.green[Sitio web pendinete]](Sitio web pendiente)
 ] 
     
 
 .pull-right[
 .right[
 &lt;br&gt;
-## .yellow[Sesión 2: Tipos de estudios y medición en ciencias sociales]
+## .yellow[Sesión 2: Bases]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
@@ -61,7 +75,6 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 layout: true
 class: animated, fadeIn
 
-
 ---
 class: inverse, bottom, right, animated, slideInRight
 
@@ -71,9 +84,8 @@ class: inverse, bottom, right, animated, slideInRight
 
 Repaso sesión anterior
 
-Tipos de diseños de investigación
+Estadística multivariada
 
-Medición en ciencias sociales
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
@@ -87,452 +99,940 @@ class: inverse, bottom, right
 
 .yellow[Repaso sesión anterior]
 
-Tipos de diseños de investigación
+Estadística multivariada
 
-Medición en ciencias sociales
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 ---
-class: roja, middle, right
 
+# Introducción y bases de la investigación cuantitativa
 
-# ¿Existe una crisis de apertura en la ciencia?
+* Explicar lo que es, no lo que debería ser
+
+--
+
+* Conocer y explicar grupos de personas de manera general, no individuos por sí solos
 
 ---
-&lt;br&gt;
 
-![](../../files/img/flujo.png)
+# Proceso de investigación cuantitativo (D'Ancona 2001)
+
+1. Formulación de un problema de investigación
+2. Operacionalización del problema
+  - Hipótesis
+  - Operacionalización de conceptos teóricos
+  - Delimitación de unidad de análisis
+3. Diseño de la investigación: cómo se realizará la investigación (diseños transversales, longitudinales, experimentales)
+4. Factibilidad de la investigación: Cronología de tareas; recursos disponibles (materiales y humanos); etc.
+
 ---
-&lt;br&gt;
- 
 
-![](../../files/img/flujo-acceso.png)
+# Proceso de investigación cuantitativo (D'Ancona 2001)
+
+1. Formulación de un problema de investigación
+2. Operacionalización del problema
+  - Hipótesis
+  - .red[Operacionalización de conceptos teóricos]
+  - Delimitación de unidad de análisis
+3. Diseño de la investigación: cómo se realizará la investigación (diseños transversales, longitudinales, experimentales)
+4. Factibilidad de la investigación: Cronología de tareas; recursos disponibles (materiales y humanos); etc.
+
+---
+class: roja, center, middle
+
+# Medición y operacionalización
+
+---
+
+# Medición y operacionalización
+
+- Cohesión social según CEPAL (2021)
+
+.center[![:scale 75%](../../files/img/cohesion-cepal.png)]
+
+---
+
+# Medición y operacionalización
+
+- Cohesión social según Observatorio de cohesión social (ocs-coes) (2020)
+
+.center[![:scale 75%](../../files/img/cohesion.png)]
+
+---
+## Datos y variables
+
+- discretas (Rango finito de valores):
+
+      - Dicotómicas
+      - Politómicas
+
+- continuas:
+
+      - Rango (teóricamente) infinito de valores.
+
+---
+## Escalas de medición de variables
+
+- NOIR: Nominal, Ordinal, Intervalar, Razón
+
+.small[
+| Tipo       	| Características                     	        | Propiedad de números 	| Ejemplo|
+|------------	|----------------------------------------------|---------------	|-----------	|
+| *Nominal*    	| Uso de números en lugar de palabras 	| Identidad            	| Nacionalidad      	|
+| *Ordinal*    	| Números se usan para ordenar series 	| + ranking            	| Nivel educacional 	|
+| *Intervalar* 	| Intervalos iguales entre números    	| + igualdad           	| Temperatura       	|
+| *Razón*      	| Cero real                           	| + aditividad         	| Distancia         	|
+]
+
+---
+
+## Tipos de datos en relación a escalas de medición.
+
+* **Datos categóricos**:
+
+    - pueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango
+
+* **Datos continuos**:
+    - Medidos en escalas intervalares o de razón
+    - Pueden ser transformados a datos categóricos
+
+???
+Conversión de continuo a categórico: estatura (cm) a categorías bajo – mediano – alto
+
+
+---
+## Descriptivos según tipo de variable
+
+&lt;br&gt;
+.small[
+|             	| Categórica                      	| Continua                      	| Categ.(y)/Categ.(x)                    	| Cont.(y)/Categ.(x)                	|
+|-------------	|---------------------------------	|-------------------------	|------------------------------------------------	|------------------------------------------	|
+| **Ejemplo**     	| **Estatus Ocupacional**             	| **Ingreso**                       	| **Estatus Ocupacional (Y) / Género (X)**           	| **Ingreso (Y) / Género (X)**                 	|
+| Tabla       	| Frecuencias / porcentajes                  	| `\(\bar{X}\)`/sd ... o recodificar en categorías      	| Tabla de Contingencia                          	| Clasificar Y                             	|
+| Gráfico     	| Barras                          	| Histograma / boxplot          	| Gráfico de barras condicionado                 	| Histograma, box plot condicionado        	|
+]
+
+---
+## Tipos de análisis estadístico bivariado
+
+- Variable dependiente (y) : lo que quiero explicar
+
+- Variable independiente (x): lo que me permite explicar la dependiente
+
+.small[
+| Variable independiente x 	| Variable dependiente Categórica   	| Variable dependiente Continua        	|
+|--------------------------	|-----------------------------------	|--------------------------------------	|
+| Categórica               	| Análisis de tabla de Contigencia, Chi2	| Análisis de Varianza ANOVA, Prueba T 	|
+| Continua                 	| Regresión Logística 	| Correlación / Regresión Lineal                     	|
+]
+
+---
+
+## Tendencia Central
+
+* **Moda**: valor que ocurre más frecuentemente
+
+* **Mediana**: valor medio de la distribución ordenada. Si N es par, entonces es el promedio de los valores medios
+
+* **Media** o promedio aritmético: suma de los valores dividido por el total de casos
+
+---
+.pull-left-narrow[
+## Dispersión:
+### Varianza
+]
+
+.pull-right-wide[
+
+![:scale 100%](varianza1.png)
+]
+
+---
+.pull-left-narrow[
+## Dispersión:
+### Varianza
+]
+
+.pull-right-wide[
+
+![:scale 100%](varianza3.png)
+]
+
+
+
+---
+.pull-left-narrow[
+## Dispersión:
+### Varianza
+]
+
+.pull-right-wide[
+
+![:scale 100%](varianza2.png)
+]
+
+---
+## Dispersión:
+
+![:scale 100%](varianza_formula.png)
+
+---
+class: inverse, middle, center
+
+#La VARIANZA equivale al promedio de la suma de las diferencias del promedio al cuadrado
+
+---
+##  Desviación Estándar
+
+.pull-left-narrow[
+![](desviacion_estandar.png)
+]
+
+.pull-right-wide[
+  - Raiz Cuadrada de la varianza.
+
+
+  - Expresada  en la mismas unidades que los puntajes de la escala original
+]
+
+
+
 ---
 class: middle, center
 
+# Más sobre datos, variables y varianza en:
+
+##-  [Moore: 1.Comprensión de los datos (1-54)](/docs/lecturas/moore_comprensiondelosdatos.pdf)
+
+
+---
+
+# Asociación: covarianza / correlación
+
 .pull-left[
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-# Barreras de pago
+  _¿Se relaciona la variación de una variable, con la variación de otra variable?_
 ]
 .pull-right[
-.left[
-![:scale 70%](https://localist-images.azureedge.net/photos/723383/huge/3b15ca9bd709e6738e42326fa3f35ff4a3357bb9.jpg)
-]
+.center[![:scale 100%](../../files/img/ingresoeduc.png)]
 ]
 
 ---
-# Márgenes de ganancia
+# Correlación
+
+- Medida de co-variación lineal estandarizada
+
+--
+
+&lt;br&gt;
+&lt;br&gt;
+.center[¿En qué rango varía una correlación?]
+
+--
+
+- Varía entre -1 y +1
+
+--
+
+- Gráficamente se expresa en *nubes de puntos*
+
+---
+
+.center[![:scale 80%](../../files/img/correlacion2.png)]
+
+---
+
+.pull-left[* Pero ojo, 
+**correlación no implica causalidad**]
+
+.pull-right[![:scale 100%](../../files/img/causalidad.png)]
+
+---
+
+class: inverse, bottom, right
+
+
+# .red[Sesión 2]
+&lt;br&gt;
+
+Repaso sesión anterior
+
+.yellow[Estadística multivariada]
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+---
+## Estadística multivariada
+
+- Hacia la **explicación** de los fenómenos sociales
+
+![:scale 45%](simple.png)
+
+---
+## Estadística multivariada
+
+- Hechos sociales: **multicausales**
+
+![:scale 45%](multiple.png)
+
+---
+
+## Estadística multivariada
+
+- Intentando dar cuenta de la complejidad: **modelos matemáticos**
+
+--
 
 .center[
-![:scale 70%](../../files/img/profits.png)
+![](regequation.png)
 ]
+- A partir de un modelo matemático denominado **regresión**, este curso busca entregar **herramientas** de análisis de datos que permitan aproximarse a la **explicación** de fenómenos sociales **multicausales**.
 
 ---
+# Objetivos centrales del modelo de regresión:
+
+
+1. **Conocer**: la variación de la variable dependiente de acuerdo a la variación de otra(s) variable(s) independiente(s)
+
+2. **Predecir**: estimar el valor de una variable (dependiente) de acuerdo al valor de otra(s)
+
+3. **Inferir**: Establecer en que medida esta asociación es estadísticamente significativa
+
+
+---
+# Objetivos centrales del modelo de regresión: Ejemplo
+
+1. *Conocer*: Ej: En qué medida el puntaje PSU influye en el éxito académico en la universidad?
+
+--
+
+2. *Predecir*: Ej: Si una persona obtiene 600 puntos en la PSU, que promedio de notas en la universidad es probable que obtenga? (Atención: predicción no implica explicación)
+
+--
+
+3. *Inferir*: ¿Se puede generalizar a la población? ¿Con qué nivel de confianza?
+
+
+---
+# Terminología variables
+
+.center[![:scale 60%](terminologia.png)]
+
+---
+# Ejemplo
+
+### _¿En qué medida la experiencia previa jugando un juego predice el número de puntos obtenidos (en juego posterior)?_
+
+
+.center[![:scale 120%](juegospuntos.png)]
+
+
+
+---
+.left-column[
+  # Datos
+]
 .pull-left-narrow[
-&lt;br&gt;
-![](https://i.pinimg.com/originals/d3/93/93/d39393c978cec32e2598c1d1261ace4f.jpg)
+![:scale 75%](tacataca.png)
 ]
 
-.pull-right-wide[
-
-### Modelo actual de publicación científica:
-- las vacas hacen leche (se ordeñan solas)
-
-- otras vacas revisan la leche (gratis)
-
-- las vacas le pagan al granjero para distribuir la leche
-
-- luego el granjero le vende la leche de vuelta a las vacas
+.pull-right[
+.small[
+  
+  
+  
+  <div class="plotly html-widget html-fill-item" id="htmlwidget-5eb28c5e088f3a1708be" style="width:396px;height:396px;"></div>
+  <script type="application/json" data-for="htmlwidget-5eb28c5e088f3a1708be">{"x":{"data":[{"x":[0,0,1,1,1,2,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5,6,6],"y":[2,3,2,3,4,2,3,4,5,2,3,4,5,6,3,4,5,6,4,5,6,5,6],"text":["juegos_x: 0<br />puntos_y: 2","juegos_x: 0<br />puntos_y: 3","juegos_x: 1<br />puntos_y: 2","juegos_x: 1<br />puntos_y: 3","juegos_x: 1<br />puntos_y: 4","juegos_x: 2<br />puntos_y: 2","juegos_x: 2<br />puntos_y: 3","juegos_x: 2<br />puntos_y: 4","juegos_x: 2<br />puntos_y: 5","juegos_x: 3<br />puntos_y: 2","juegos_x: 3<br />puntos_y: 3","juegos_x: 3<br />puntos_y: 4","juegos_x: 3<br />puntos_y: 5","juegos_x: 3<br />puntos_y: 6","juegos_x: 4<br />puntos_y: 3","juegos_x: 4<br />puntos_y: 4","juegos_x: 4<br />puntos_y: 5","juegos_x: 4<br />puntos_y: 6","juegos_x: 5<br />puntos_y: 4","juegos_x: 5<br />puntos_y: 5","juegos_x: 5<br />puntos_y: 6","juegos_x: 6<br />puntos_y: 5","juegos_x: 6<br />puntos_y: 6"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"visible":false,"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.305936073059364,"r":7.3059360730593621,"b":37.260273972602747,"l":31.415525114155255},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.30000000000000004,6.2999999999999998],"tickmode":"array","ticktext":["0","1","2","3","4","5","6"],"tickvals":[0,1,1.9999999999999998,3,4,5,6],"categoryorder":"array","categoryarray":["0","1","2","3","4","5","6"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"juegos_x","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"scaleanchor":"y","scaleratio":1,"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.35000000000000003,7.3499999999999996],"tickmode":"array","ticktext":["0","1","2","3","4","5","6"],"tickvals":[0,1,2,3,3.9999999999999996,5,6],"categoryorder":"array","categoryarray":["0","1","2","3","4","5","6"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"puntos_y","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"scaleanchor":"x","scaleratio":1,"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"66901de661ed":{"x":{},"y":{},"type":"scatter"},"66905d596301":{"x":{},"y":{}}},"cur_data":"66901de661ed","visdat":{"66901de661ed":["function (y) ","x"],"66905d596301":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+]
 ]
 
 ---
+# Descriptivos
 
-### Actualmente...
 
-- En general, podemos acceder solo al **resultado** de un proyecto, usualmente un artículo
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Statistic&lt;/td&gt;&lt;td&gt;N&lt;/td&gt;&lt;td&gt;Mean&lt;/td&gt;&lt;td&gt;St. Dev.&lt;/td&gt;&lt;td&gt;Min&lt;/td&gt;&lt;td&gt;Max&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;id&lt;/td&gt;&lt;td&gt;23&lt;/td&gt;&lt;td&gt;12.000&lt;/td&gt;&lt;td&gt;6.782&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;23&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;juegos_x&lt;/td&gt;&lt;td&gt;23&lt;/td&gt;&lt;td&gt;3.000&lt;/td&gt;&lt;td&gt;1.758&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;puntos_y&lt;/td&gt;&lt;td&gt;23&lt;/td&gt;&lt;td&gt;4.000&lt;/td&gt;&lt;td&gt;1.382&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
---
-
-- Abriendo resultados: Academia.edu, Researchgate, SSRN, scienceopen ... y otros no legales
-
---
-
-- Documental "Paywall: The Business of Scholarship" [Youtube](https://www.youtube.com/watch?v=HM_nWsdbNvQ&amp;ab_channel=JasonSchmitt)
 
 ---
-&lt;br&gt;
- 
-
-![](../../files/img/flujo_rep.png)
-
---
-
-- Es la capacidad de **regenerar** de manera independiente los resultados de una investigación usando los materiales originales de una investigación ya publicada.
-
---
-
-- En términos simples: obtener los mismos resultados de una investigación utilizando los mismos datos.
-
----
-## ¿Qué porcentaje de los estudios publicados son reproducibles?
-
-.pull-left-wide[
-![:scale 95%](../../files/img/reproducibility_science.png)
+.left-column[
+  # **Medias condicionales**
 ]
-.pull-right-narrow[
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-... alrededor de un **40%!** (... varía por disciplina)
+.center[![:scale 55%](condmeans.png)]
+
+???
+Ejemplo para los sujetos con 1 en X hay 3 valores de Y: 2, 3 y 4. Por lo tanto, la media condicional de Y dado X=1 es 3
+
+---
+.left-column[
+  # Idea de distribución condicional
+]
+.center[![:scale 70%](fig2-1woo.png)]
+
+---
+.left-column[
+  # La recta de regresión
 ]
 
----
-class: center
-
-![](../../files/img/nature-reproducibility-crisis.jpeg)
+.right-column[
+.center[![:scale 70%](fig2-4woo.png)]
 
 .small[
-Fuente: [Baker (2016) 1,500 scientists lift the lid on reproducibility - Nature](https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970)]
+  La (co) variación general de Y respecto a X se puede expresar en una  ecuación de la recta = **modelo de regresión**
+]
+]
+---
+class: inverse, right
+
+## Para obtener la “mejor recta” se utiliza la estimación de mínimos cuadrados (EMC, o **OLS** – Ordinary Least Squares)
+
+--
+
+## OLS minimiza la suma de los **residuos** = distancias entre las observaciones y la recta en el eje vertical
 
 ---
+# Componentes de la ecuación de la recta de regresión
 
-### ¿y en la práctica cómo afecta la reproducibilidad?
+`$$\widehat{Y}=b_{0} +b_{1}X$$`
 
-.pull-left[
+Donde
 
-![](../../files/img/breznau.png)
+- `\(\widehat{Y}\)` es el valor estimado de `\(Y\)`
 
-]
+- `\(b_{0}\)` es el intercepto de la recta (el valor de Y cuando X es 0)
 
-.pull-right[
-
-- Breznau, et. al, (2023) coordinó una investigación con 161 investigadores de 73 equipos de investigación.
-
-- Los equipos informaron tanto hallazgos numéricos como conclusiones sustanciales muy diversas
-
-]
+- `\(b_{1}\)` es el coeficiente de regresión, que nos dice cuánto aumenta Y por cada punto que aumenta X
 
 ---
+# Estimación de los coeficientes de la ecuación:
 
-## Flujo de trabajo con procesador de texto tradicional
+`$$b_{1}=\frac{Cov(XY)}{VarX}$$`
 
-.center[
-![:scale 70%](../../files/img/W_workflow.png)
-]
+`$$b_{1}=\frac{\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})} {n-1}}{\frac{\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})} {n-1}}$$`
 
----
-## Abriendo el archivo de escritura tradicional
+Y simplificando
 
-![](../../files/img/realWord.png)
+`$$b_{1}=\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})} {\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})}$$`
 
 ---
-## Desventajas del procesador tradicional
+# Estimación de los coeficientes de la ecuación:
 
-.pull-left-wide[
-.medium[
+Luego despejando el valor de `\(b_{0}\)`
 
-- Barrera de **pago/licencia** para acceder a contenidos (propiedad)
-
-- Difícil **versionamiento** y llevar registro de quién hizo qué cambio, barrera a la reproducibilidad y colaboración 
-
-- No permite un documento enteramente **reproducible** que combine texto y código de análisis (en caso de utilizarlo) ]
-]
-
-.pull-right-narrow[
-&lt;br&gt;
-&lt;br&gt;
-![](../../files/img/word.jpg)
-]
+`$$b_{0}=\bar{Y}-b_{1}\bar{X}$$`
 
 ---
-.pull-left-narrow[
-## Escritura libre y abierta
-]
+# Cálculo de coeficientes
 
+La base para todos estos calculos es la diferencia de cada valor menos su promedio. Para ello:
 
-.pull-right-wide[
-.content-box-red[
-- independiente de programa comercial
-
-- independiente de plataformas específicas
-
-- permite combinar texto y análisis en un mismo documento
-
-- foco en los contenidos en lugar del formato
-
-- permite distintas opciones de formato final]]
+1. Vamos a crear los siguientes vectores (variables) en nuestra base de datos `$$difx=x-\bar{x}$$` `$$dify=y-\bar{y}$$`
 
 
 ---
+# Cálculo basado en el ejemplo
 
-.pull-left-narrow[
-## Escritura simple / plana
-]
-
-.pull-right-wide[
-&lt;br&gt;
-.content-box-red[
-- entorno: editor de texto
-
-- separación entre texto de entrada (input) y texto de salida (output)
-
-- foco en el input/contenido vs output/formato
-
-- marcas de edición: vínculo entre formato de input y output
-
-- sin cortar / pegar
- ]
-]
-
+2.Con la información anterior podemos obtener la diferencia de productos cruzados
+`$$difcru=(x-\bar{x})*(y-\bar{y})$$`
+3.También obtenemos las diferencias del promedio al cuadrado de X= `$$difx2=(x-\bar{x})^2$$`
 
 ---
-&lt;br&gt;
+
+count: false
  
-![](../../files/img/flujo_trans.png)
 
+.panel1-ejemplo-auto[
 
----
+```r
+*datos_b &lt;-datos
 
-##### El caso de Pedro
-
-- Pedro accede una base de datos con información sobre trabajadores sindicalizados en distintas empresas del país. 
-
---
-
-- .bold[Sin tener una hipótesis previa], correlaciona  las variables: .green[participación en huelga] (1), .red[tiempo de afiliación sindical] (2) y .orange[tipo de contrato] (3)
-
---
-
-- Observa que hay una correlación positiva entre tiempo sindicalizado y participación en huelgas (_r_ = 0,32)
-
---
-
-- Posterior a mirar los datos establece una hipótesis: a mayor .red[tiempo de afiliación sindical] (x) existe mayor .green[participación en huelgas] (y)
-
----
-
-- .red[No encuentra] resultados esperados en base a su hipótesis (tiempo de afiliación sindical impacta positivamente en la participación en huelgas)
-
---
-
-- Ajusta la variable tiempo, .bold[eliminando casos] que llevan .red[menos de 2 años sindicalizados en la empresa], obteniendo una asociación significativa con probabilidad de error _p_ &lt;0.05
-
---
-
-- Finalmente .bold[excluye] a trabajadores a .orange[plazo fijo], manteniendo solo aquellos con contrato indefinido, obteniendo un _p_ &lt;0.01
-
-# .center[🤔?]
----
-
-class: middle
-
-las .red[prácticas cuestionables de investigación] refieren a las:
-
-&gt;  _"acciones que violan los valores tradicionales de la empresa de investigación y que pueden ser perjudiciales para el proceso de investigación"_ (National Academies of Science 1992 en Steneck, 2006, p. 58).
-
----
-# Algunas consecuencias
-
-- el problema *no es la exploración de datos*, sino su uso en reporte selectivo de resultados de investigación
-
---
-
-- incrementa la posibilidad de rechazar erróneamente `\(H_0\)`
-
---
-
-- exageraciones de efectos estimados, perjudicando la replicabilidad
-
---
-
-- se confirma lo que uno está buscando, no lo que entregan los datos (y pierde sentido el recolectar datos, y hacer investigación empírica)
-
-
----
-class: inverse, bottom, right
-
-
-# .red[Sesión 2]
-&lt;br&gt;
-
-Repaso sesión anterior
-
-.yellow[Tipos de diseños de investigación]
-
-Medición en Ciencias Sociales
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-
----
-## Tipos de diseños de investigación
-
-Un diseño de investigación es un plan estructurado y ordenado, que está orientado a responder empíricamente (con evidencia observable) una pregunta de investigación.
-
-¿Qué aspecto de la teoría se va a investigar? ¿Cómo se levantarán los datos? ¿cómo se analizará la información obtenida?
-
-Todo diseño de investigación busca **obtener conclusiones basadas en la evidencia empírica y un correcto tratamiento de los datos**
-
----
-* Diseños de investigación transversal
-
-.center[
-![:scale 75%](../../files/img/transversal.png)
+datos_b
+```
 ]
----
-* Diseños de investigación longitudinal
+ 
+.panel2-ejemplo-auto[
 
-.center[
-![:scale 64%](../../files/img/longitudinal.png)
+```
+##    id juegos_x puntos_y
+## 1   1        0        2
+## 2   2        0        3
+## 3   3        1        2
+## 4   4        1        3
+## 5   5        1        4
+## 6   6        2        2
+## 7   7        2        3
+## 8   8        2        4
+## 9   9        2        5
+## 10 10        3        2
+## 11 11        3        3
+## 12 12        3        4
+## 13 13        3        5
+## 14 14        3        6
+## 15 15        4        3
+## 16 16        4        4
+## 17 17        4        5
+## 18 18        4        6
+## 19 19        5        4
+## 20 20        5        5
+## 21 21        5        6
+## 22 22        6        5
+## 23 23        6        6
+```
 ]
 
 ---
-* Diseños de investigación experimentales
-.center[
-![:scale 53%](../../files/img/experiment.png)
+count: false
+ 
+
+.panel1-ejemplo-auto[
+
+```r
+datos_b &lt;-datos
+*datos$p_x &lt;- mean(datos$juegos_x)
+
+datos_b
+```
+]
+ 
+.panel2-ejemplo-auto[
+
+```
+##    id juegos_x puntos_y
+## 1   1        0        2
+## 2   2        0        3
+## 3   3        1        2
+## 4   4        1        3
+## 5   5        1        4
+## 6   6        2        2
+## 7   7        2        3
+## 8   8        2        4
+## 9   9        2        5
+## 10 10        3        2
+## 11 11        3        3
+## 12 12        3        4
+## 13 13        3        5
+## 14 14        3        6
+## 15 15        4        3
+## 16 16        4        4
+## 17 17        4        5
+## 18 18        4        6
+## 19 19        5        4
+## 20 20        5        5
+## 21 21        5        6
+## 22 22        6        5
+## 23 23        6        6
+```
 ]
 
+---
+count: false
+ 
+
+.panel1-ejemplo-auto[
+
+```r
+datos_b &lt;-datos
+datos$p_x &lt;- mean(datos$juegos_x)
+*datos$difx &lt;-datos$juegos_x-datos$p_x
+
+datos_b
+```
+]
+ 
+.panel2-ejemplo-auto[
+
+```
+##    id juegos_x puntos_y p_x
+## 1   1        0        2   3
+## 2   2        0        3   3
+## 3   3        1        2   3
+## 4   4        1        3   3
+## 5   5        1        4   3
+## 6   6        2        2   3
+## 7   7        2        3   3
+## 8   8        2        4   3
+## 9   9        2        5   3
+## 10 10        3        2   3
+## 11 11        3        3   3
+## 12 12        3        4   3
+## 13 13        3        5   3
+## 14 14        3        6   3
+## 15 15        4        3   3
+## 16 16        4        4   3
+## 17 17        4        5   3
+## 18 18        4        6   3
+## 19 19        5        4   3
+## 20 20        5        5   3
+## 21 21        5        6   3
+## 22 22        6        5   3
+## 23 23        6        6   3
+```
+]
 
 ---
-class: inverse, bottom, right
+count: false
+ 
 
+.panel1-ejemplo-auto[
 
-# .red[Sesión 2]
-&lt;br&gt;
+```r
+datos_b &lt;-datos
+datos$p_x &lt;- mean(datos$juegos_x)
+datos$difx &lt;-datos$juegos_x-datos$p_x
+*datos$p_y &lt;- mean(datos$puntos_y)
 
-Repaso sesión anterior
+datos_b
+```
+]
+ 
+.panel2-ejemplo-auto[
 
-Tipos de diseños de investigación
-
-.yellow[Medición en Ciencias Sociales]
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-
----
-.center[¿Qué es medir?]
-
-Asignar un número de acuerdo a la cantidad que un objeto posee de una determinada propiedad
-
-* Ejemplo de economía: **Riqueza**: Asignar un número a las personas según ingresos o propiedades que tengan
-
-* Ejemplo de Ciencias Sociales: **Inteligencia**: Asignar un número a las personas según su capacidad para resolver problemas
-
----
-.center[¿Cómo se asignan estos números?]
-
-2 Teorías base de medición
-
-a) Teoría clásica:
-- Fundamentado en la operación básica de medición: contar
-
-- Contar entidad continuas
-
-- Fraccionar en  función de unidades de medida
-
-- Aditividad
-
----
-a ) Teoría clásica:
-
-Ventajas:
-- Fácilmente interpretable
-- Bajo nivel de arbitrariedad
-
-Desventajas:
-- Poco aplicable en Ciencias sociales, salvo variables delimitadas: dinero, tiempo, edad
+```
+##    id juegos_x puntos_y p_x difx
+## 1   1        0        2   3   -3
+## 2   2        0        3   3   -3
+## 3   3        1        2   3   -2
+## 4   4        1        3   3   -2
+## 5   5        1        4   3   -2
+## 6   6        2        2   3   -1
+## 7   7        2        3   3   -1
+## 8   8        2        4   3   -1
+## 9   9        2        5   3   -1
+## 10 10        3        2   3    0
+## 11 11        3        3   3    0
+## 12 12        3        4   3    0
+## 13 13        3        5   3    0
+## 14 14        3        6   3    0
+## 15 15        4        3   3    1
+## 16 16        4        4   3    1
+## 17 17        4        5   3    1
+## 18 18        4        6   3    1
+## 19 19        5        4   3    2
+## 20 20        5        5   3    2
+## 21 21        5        6   3    2
+## 22 22        6        5   3    3
+## 23 23        6        6   3    3
+```
+]
 
 ---
-.center[¿Cómo se asignan estos números?]
+count: false
+ 
 
-2 Teorías base de medición
+.panel1-ejemplo-auto[
 
-b) Teoría representacional
+```r
+datos_b &lt;-datos
+datos$p_x &lt;- mean(datos$juegos_x)
+datos$difx &lt;-datos$juegos_x-datos$p_x
+datos$p_y &lt;- mean(datos$puntos_y)
+*datos$dify &lt;-datos$puntos_y-datos$p_y
 
-- Origen en 1946. Stevens, psicólogo
+datos_b
+```
+]
+ 
+.panel2-ejemplo-auto[
 
-- Medir no está restringido a asignar números a magnitudes, sino asignar números según una regla o serie de decisiones
-
-- Estas reglas dependen de las propiedades de los números que utilizamos y que queremos representar. Nominal, Ordinal, Intervalar, razón.
-
----
-b) Teoría representacional
-
-Ventajas:
-
-- Números "representan" relaciones entre objetos
-- No requiere unidad de medida
-- Permite medir un mayor número de conceptos sociales
-
-Desventajas:
-
-- Ambigüedad en sentido del número asignado (no hay unidad de medida; no se emplean todas las propiedades de los números)
-- Menor validez del número asignado: (operaciones para medir son discutibles, no se mide directamente)
-
----
-class: inverse, bottom, right
-
-# .red[Sesión 2]
-&lt;br&gt;
-
-Repaso sesión anterior
-
-Medición en Ciencias Sociales
-
-.yellow[Operacionalización]
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-
----
-## Operacionalización
-
-- Las variables pueden ser visibles o no visibles/latentes. (Ej: peso / inteligencia)
-
---
-
-* Proceso de definición de la medición de un fenómeno que no se puede medir directamente, aunque su existencia se infiere de otros fenómenos
+```
+##    id juegos_x puntos_y p_x difx p_y
+## 1   1        0        2   3   -3   4
+## 2   2        0        3   3   -3   4
+## 3   3        1        2   3   -2   4
+## 4   4        1        3   3   -2   4
+## 5   5        1        4   3   -2   4
+## 6   6        2        2   3   -1   4
+## 7   7        2        3   3   -1   4
+## 8   8        2        4   3   -1   4
+## 9   9        2        5   3   -1   4
+## 10 10        3        2   3    0   4
+## 11 11        3        3   3    0   4
+## 12 12        3        4   3    0   4
+## 13 13        3        5   3    0   4
+## 14 14        3        6   3    0   4
+## 15 15        4        3   3    1   4
+## 16 16        4        4   3    1   4
+## 17 17        4        5   3    1   4
+## 18 18        4        6   3    1   4
+## 19 19        5        4   3    2   4
+## 20 20        5        5   3    2   4
+## 21 21        5        6   3    2   4
+## 22 22        6        5   3    3   4
+## 23 23        6        6   3    3   4
+```
+]
 
 ---
-## Operacionalización
+count: false
+ 
 
-.center[![:scale 100%](../../files/img/operacionalizacion.png)]
+.panel1-ejemplo-auto[
+
+```r
+datos_b &lt;-datos
+datos$p_x &lt;- mean(datos$juegos_x)
+datos$difx &lt;-datos$juegos_x-datos$p_x
+datos$p_y &lt;- mean(datos$puntos_y)
+datos$dify &lt;-datos$puntos_y-datos$p_y
+*datos$dif_cru &lt;-datos$difx*datos$dify
+
+datos_b
+```
+]
+ 
+.panel2-ejemplo-auto[
+
+```
+##    id juegos_x puntos_y p_x difx p_y dify
+## 1   1        0        2   3   -3   4   -2
+## 2   2        0        3   3   -3   4   -1
+## 3   3        1        2   3   -2   4   -2
+## 4   4        1        3   3   -2   4   -1
+## 5   5        1        4   3   -2   4    0
+## 6   6        2        2   3   -1   4   -2
+## 7   7        2        3   3   -1   4   -1
+## 8   8        2        4   3   -1   4    0
+## 9   9        2        5   3   -1   4    1
+## 10 10        3        2   3    0   4   -2
+## 11 11        3        3   3    0   4   -1
+## 12 12        3        4   3    0   4    0
+## 13 13        3        5   3    0   4    1
+## 14 14        3        6   3    0   4    2
+## 15 15        4        3   3    1   4   -1
+## 16 16        4        4   3    1   4    0
+## 17 17        4        5   3    1   4    1
+## 18 18        4        6   3    1   4    2
+## 19 19        5        4   3    2   4    0
+## 20 20        5        5   3    2   4    1
+## 21 21        5        6   3    2   4    2
+## 22 22        6        5   3    3   4    1
+## 23 23        6        6   3    3   4    2
+```
+]
 
 ---
-## Operacionalización
+count: false
+ 
 
-.center[![:scale 100%](../../files/img/conf-inst.png)]
+.panel1-ejemplo-auto[
+
+```r
+datos_b &lt;-datos
+datos$p_x &lt;- mean(datos$juegos_x)
+datos$difx &lt;-datos$juegos_x-datos$p_x
+datos$p_y &lt;- mean(datos$puntos_y)
+datos$dify &lt;-datos$puntos_y-datos$p_y
+datos$dif_cru &lt;-datos$difx*datos$dify
+*datos$difx2 &lt;-datos$difx^2
+
+datos_b
+```
+]
+ 
+.panel2-ejemplo-auto[
+
+```
+##    id juegos_x puntos_y p_x difx p_y dify dif_cru
+## 1   1        0        2   3   -3   4   -2       6
+## 2   2        0        3   3   -3   4   -1       3
+## 3   3        1        2   3   -2   4   -2       4
+## 4   4        1        3   3   -2   4   -1       2
+## 5   5        1        4   3   -2   4    0       0
+## 6   6        2        2   3   -1   4   -2       2
+## 7   7        2        3   3   -1   4   -1       1
+## 8   8        2        4   3   -1   4    0       0
+## 9   9        2        5   3   -1   4    1      -1
+## 10 10        3        2   3    0   4   -2       0
+## 11 11        3        3   3    0   4   -1       0
+## 12 12        3        4   3    0   4    0       0
+## 13 13        3        5   3    0   4    1       0
+## 14 14        3        6   3    0   4    2       0
+## 15 15        4        3   3    1   4   -1      -1
+## 16 16        4        4   3    1   4    0       0
+## 17 17        4        5   3    1   4    1       1
+## 18 18        4        6   3    1   4    2       2
+## 19 19        5        4   3    2   4    0       0
+## 20 20        5        5   3    2   4    1       2
+## 21 21        5        6   3    2   4    2       4
+## 22 22        6        5   3    3   4    1       3
+## 23 23        6        6   3    3   4    2       6
+```
+]
 
 ---
-## Operacionalización
+count: false
+ 
 
-.center[![:scale 100%](../../files/img/operacionalizacion2.png)]
+.panel1-ejemplo-auto[
+
+```r
+datos_b &lt;-datos
+datos$p_x &lt;- mean(datos$juegos_x)
+datos$difx &lt;-datos$juegos_x-datos$p_x
+datos$p_y &lt;- mean(datos$puntos_y)
+datos$dify &lt;-datos$puntos_y-datos$p_y
+datos$dif_cru &lt;-datos$difx*datos$dify
+datos$difx2 &lt;-datos$difx^2
+*datos$difx2 &lt;-datos$difx^2
+
+datos_b
+```
+]
+ 
+.panel2-ejemplo-auto[
+
+```
+##    id juegos_x puntos_y p_x difx p_y dify dif_cru difx2
+## 1   1        0        2   3   -3   4   -2       6     9
+## 2   2        0        3   3   -3   4   -1       3     9
+## 3   3        1        2   3   -2   4   -2       4     4
+## 4   4        1        3   3   -2   4   -1       2     4
+## 5   5        1        4   3   -2   4    0       0     4
+## 6   6        2        2   3   -1   4   -2       2     1
+## 7   7        2        3   3   -1   4   -1       1     1
+## 8   8        2        4   3   -1   4    0       0     1
+## 9   9        2        5   3   -1   4    1      -1     1
+## 10 10        3        2   3    0   4   -2       0     0
+## 11 11        3        3   3    0   4   -1       0     0
+## 12 12        3        4   3    0   4    0       0     0
+## 13 13        3        5   3    0   4    1       0     0
+## 14 14        3        6   3    0   4    2       0     0
+## 15 15        4        3   3    1   4   -1      -1     1
+## 16 16        4        4   3    1   4    0       0     1
+## 17 17        4        5   3    1   4    1       1     1
+## 18 18        4        6   3    1   4    2       2     1
+## 19 19        5        4   3    2   4    0       0     4
+## 20 20        5        5   3    2   4    1       2     4
+## 21 21        5        6   3    2   4    2       4     4
+## 22 22        6        5   3    3   4    1       3     9
+## 23 23        6        6   3    3   4    2       6     9
+```
+]
+
+&lt;style&gt;
+.panel1-ejemplo-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-ejemplo-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-ejemplo-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
 
 ---
-## Operacionalización
+# Cálculo basado en el ejemplo
 
-.center[![:scale 100%](../../files/img/cohesion-barrial.png)]
 
-    
+Y con esto podemos obtener la suma de productos cruzados y la suma de cuadrados de X
+
+
+```
+## [1] 34
+```
+
+```
+## [1] 68
+```
+
 ---
+# Reemplazando en la fórmula
+
+`$$b_{1}=\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})} {\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})}=\frac{34}{68}=0.5$$`
+
+---
+# Cálculo basado en el ejemplo
+
+Reemplazando podemos obtener el valor de `\(b_{0}\)`
+
+`$$b_{0}=\bar{Y}-b_{1}\bar{X}$$`
+`$$b_{0}=4-(3 * 0.5)=2.5$$`
+
+Completando la ecuación:
+
+`$$\widehat{Y}=2.5+0.5X$$`
+Por cada unidad que aumenta la experiencia en juego (x), los puntos obtenidos(y) aumentan en 0.5.
+
+---
+# Cálculo basado en el ejemplo
+
+
+`$$\widehat{Y}=2.5+0.5X$$`
+
+
+Esto nos permite estimar el valor de `\(Y\)` (o su media condicional) basado en el puntaje `\(X\)`.
+Por ejemplo, cuál es el valor estimado de `\(Y\)` dado `\(X=3\)`?
+
+
+`$$\widehat{Y}=2.5+(0.5*3)$$`
+
+
+`$$\widehat{Y}=2.5+(3*0.5)=4$$`
+
+El valor estimado de puntos para una persona que ha jugado 3 veces es 4.
+
+---
+
+.left-column[
+  ## Cálculo basado en el ejemplo
+]
+.small[
+.center[
+  ![](02-clase2_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+]
+
+---
+# En resumen: ¿qué gano con el modelo de regresión?
+
+Al igual que en correlación
+- intensidad de la relación entre variables
+- dirección de la relación
+
+Y además:
+- predicción en el puntaje real de la variable dependiente
+- estimación del ajuste o cantidad de error en la estimación (próxima clase)
+- incluir más de una variable predictora (en 2 clases más)
+
+
+
+---
+
 class: front
 
 .pull-left[
-# Metodología I
+# Métodos estadísticos para ciencias sociales III
 ## **Kevin Carrasco**
-## Magister en Ciencias Sociales FACSO - UChile
-## 1er Sem 2025 
+## Sociología - Universidad de Chile
+## 2do Semestre 2025
 ## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
 ] 
     
@@ -540,7 +1040,7 @@ class: front
 .pull-right[
 .right[
 &lt;br&gt;
-## .yellow[Sesión 2: Tipos de estudios y medición en Ciencias Sociales]
+## .yellow[Sesión 2: Bases]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
@@ -548,6 +1048,7 @@ class: front
 ]
 
 ]
+
 
 
 
