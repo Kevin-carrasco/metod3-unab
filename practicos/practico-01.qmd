@@ -1,0 +1,360 @@
+---
+title: "Práctico 01. Regresión lineal I"
+subtitle: "Métodos estadísticos para Ciencias Sociales III"
+date: "2025-08-11"
+lang: es
+output:
+  number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+# Presentación
+
+## Objetivo de la práctica
+
+El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales en R.
+
+## Antecedentes de los datos a utilizar
+
+Confianza en vecinos con elsoc 2016. 
+
+# Análisis
+
+## 1. Librerías principales (de R) a utilizar en el análisis{#librerias}
+
+```{r}
+pacman::p_load(dplyr,
+               haven, 
+               car, 
+               sjmisc, 
+               sjPlot, 
+               sjlabelled, 
+               stargazer, 
+               kableExtra, 
+               corrplot, 
+               ggplot2,
+               ggpubr)
+```
+
+## 2. Cargar base de datos
+
+**Ajustar espacio de trabajo**
+
+Previo a la carga de nuestra base de datos, se recomienda ejecutar los siguientes comandos:
+
+```{r}
+rm(list=ls())       # borrar todos los objetos en el espacio de trabajo
+options(scipen=999) # valores sin notación científica
+```
+
+
+La función `rm(list=ls())` permite comenzar con un espacio de trabajo (environment) vacío y sin otros objetos. Así también, la función `options(scipen=999)` desactiva la notación científica, es decir, veremos los valores numéricos con todos sus decimales.
+
+**Datos**
+
+```{r}
+#cargamos la base de datos desde internet
+load(url("https://dataverse.harvard.edu/api/access/datafile/7245118")) #Cargar base de datos
+```
+
+Realizamos un chequeo básico de la lectura de datos: nombres de las variables y tamaño de la base en términos de casos y variables (en este ejemplo, `r dim(elsoc_long_2016_2022.2)` ).
+
+```{r}
+dim(elsoc_long_2016_2022.2) # dimension de la base
+```
+
+## 3. Selección de variables a utilizar
+
+Este paso consiste en crear un subset reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de cada base de datos. Además filtramos por la ola 1 para trabajar solo con datos del 2016.
+
+```{r}
+proc_data <- elsoc_long_2016_2022.2 %>% filter(ola=="1") %>% 
+  select(t01, # Confianza en vecinos
+         m01,# nivel educacional
+         m0_sexo,# sexo
+         m0_edad# edad
+         )
+
+# Comprobar
+names(proc_data)
+```
+
+Mediante el comando `get_label` obtenemos el atributo label de las variables.
+
+```{r}
+sjlabelled::get_label(proc_data)
+```
+
+Podemos ver que son largas o con códigos poco informativos, por lo tanto, es necesario cambiarlas por etiquetas más cortas y de fácil identificación.
+
+## Procesamiento de variables
+
+Para el procesamiento de cada variable se seguirá el siguiente flujo de trabajo:
+
+a. Descriptivo general
+b. Recodificación: de casos perdidos y otros valores (en caso necesario)
+c. Etiquetado: cambio de nombres de variables y valores (en caso necesario)
+d. Otros ajustes
+
+Y se recomienda también un descriptivo final para revisar que el procesamiento de cada variable está ok.
+
+### Confianza en vecinos
+
+_a. Descriptivo_
+
+Para los descriptivos se utilizará la función `frq`, de la librería `sjmisc`:
+
+```{r}
+frq(proc_data$t01)
+```
+
+En esta variable vemos valores asociados a la opción "No contesta" (-999) y "No sabe" (-888), (-777) y (-666) que corresponde definirlos como casos perdidos (en el caso de R, como casos NA). El resto de los valores y etiquetas se encuentran en un orden correcto.
+
+_b. Recodificación_
+
+Después de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar set_na
+
+```{r }
+proc_data <- proc_data %>% set_na(., na = c(-999, -888, -777, -666))
+```
+
+```{r}
+frq(proc_data$t01)
+```
+
+_c - Etiquetado_
+
+Vamos a dar un nombre más sustantivo a las variables con la función `rename`, de la librería `dplyr`:
+
+```{r}
+proc_data <- proc_data %>% rename("confianza_vecinos"=t01)
+```
+
+
+Además de cambiar el nombre, queremos cambiar las etiquetas de las variables.
+
+```{r}
+proc_data$confianza_vecinos <- set_label(x = proc_data$confianza_vecinos,label = "Confianza en vecinos")
+get_label(proc_data$confianza_vecinos)
+```
+
+_Revisión final_
+
+Nuevamente un descriptivo de la variable para confirmar que el procesamiento está ok:
+
+```{r}
+frq(proc_data$confianza_vecinos)
+```
+
+#### 4.2. Educación
+
+* [`m01`] =  Nivel de estudios alcanzado - Entrevistado 
+
+_a. Descriptivo_
+
+```{r}
+frq(proc_data$m01)
+```
+
+Esta vez la vamos a dejar así
+
+### 4.3. Sexo
+
+* [`m0_sexo`]	=	SEXO Sexo
+
+_a. Descriptivo_
+
+```{r}
+frq(proc_data$m0_sexo)
+```
+
+
+
+### 4.4 Edad
+
+* [`m0_edad`]	=	EDAD Edad.
+
+
+_a. Descriptivo_
+
+```{r}
+summary(proc_data$m0_edad)
+```
+
+## Análisis descriptivo
+
+```{r}
+#| label: tbl-sjmisc
+#| tbl-cap: "Descriptivos"
+
+sjmisc::descr(proc_data,
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
+      kable(.,"markdown") # Esto es para que se vea bien en quarto
+```
+
+En la @tbl-sjmisc podemos observar los descriptivos generales de la base de datos procesada. Notemos la **Media de confianza en vecinos = 3.20**
+
+Y si queremos visualizar algo más:
+
+```{r}
+#| label: fig-descriptivos
+#| fig-cap: "Frecuencias Confianza en vecinos"
+proc_data %>% dplyr::select(confianza_vecinos) %>% 
+  sjPlot::plot_stackfrq()+
+  theme(legend.position = "bottom")
+
+```
+
+## Asociación de variables
+
+Podemos ver la asociación de todas las variables, como lo muestra la @cor-complete
+
+```{r}
+M <- cor(proc_data, use = "complete.obs") # Usar solo casos con observaciones completas
+```
+
+```{r}
+#| label: fig-cor-complete
+#| fig-cap: "variables elsoc 2016"
+
+
+corrplot.mixed(M)
+```
+
+La @fig-cor-complete muestra que la asociación de la confianza en vecinos es baja, siendo positiva para educación y edad, y negativa para sexo. La asociación más alta es entre educación y edad, siendo negativa (-0,35).
+
+## Medias condicionales
+
+Antes de avanzar desde la correlación al método de regresión es importante conocer el concepto de **media condicional**.
+
+Imaginemos un juego de tacataca con dos variables: cantidad de juegos previos y puntos obtenidos en un partido. En estas variables, el promedio de puntos es 4. Es decir, si conocemos a algún individuo que pertence al grupo de "datos", sabemos que su puntaje se encuentra probablemente cercano a 4. ¿Podemos mejorar nuestra estimación utilizando el puntaje de X? Si el sujeto nos dice que ha jugado antes 6 veces, probablemente vamos a estimar un puntaje superior de puntos, tal vez más cercano a 6.
+
+Lo que estamos haciendo es utilizar la información que conocemos de X para dar una estimación de Y, que sea más precisa que el promedio bruto.
+
+![](../files/img/condmeans.png)
+
+Mirando el gráfico de nube de puntos, sabemos que tres personas han jugado antes una vez, pero una de ellas tuvo 2 puntos, otra 3 y otra 4. Con estos datos podemos calcular la media de Y para X=1, que sería igual a 3. En otras palabras, *la media condicional de Y cuando X=1 es 3*. Con esto, uno podría calcular la media condicional para cada punto de X y hacer una estimación más precisa de Y. Sin embargo, este proceso todavía *no nos permite generalizar más eficientemte* la relación entre X e Y.
+
+*¿Cuántos puntos (Y) se obtienen según la experiencia previa de juego (X)?* Esta pregunta nos conduce al cálculo de una **recta** que atraviese los puntos y que generalice la relación entre X e Y.
+
+## Residuos
+
+En el gráfico anterior vemos que la línea resume la relación entre X e Y, pero claramente es una simplificación que **no abarca toda la variabilidad de los datos**.
+
+Por ejemplo, para el sujeto cuya experiencia es haber jugado 1 vez y luego gana 3 puntos, esta línea predice exáctamente su puntaje basada en su experiencia. Sin embargo, el sujeto que ha jugado 3 veces y saca 6 puntos se encuentra más lejos de la línea y por lo tanto esta línea o "modelo predictivo" no representa tan bien su puntaje. A esto se refieren los *residuos*, que es la diferencia entre el valor predicho (o $\widehat{Y}$) y el observado $Y$, siendo los valores predichos de Y los que pasan por la recta a la altura de cada valor de X. Por lo tanto, la mejor recta será aquella que minimice al máximo los residuos.
+
+![](../files/img/fig2-4woo.png)
+
+El sentido de la recta que resume de mejor manera la relación entre dos variables es que **minimice la suma de todos los residuos**. ¿Cómo realizar este procedimiento?
+
+- Para realizar la suma de los residuos estos se elevan al cuadrado, lo que se denomina **Suma de residuos al cuadrado** o $SS_{residual}$. Se eleva al cuadrado ya que como hay residuos positivos y negativos, unos cancelarían a otros y la suma seía 0, tal como sucede en la formula de la varianza.
+
+- De la infinita cantidad de rectas que se pueden trazar, siempre hay una que tiene un valor menor de $SS_{residual}$. Este procedimiento es el que da nombre al proceso de estimación: mínimos (residuos) cuadrados ordinarios, o *OLS* (Ordinary Least Squares).
+
+¿Cómo funciona esto con nuestro ejemplo?
+
+```{r warning=FALSE, error=FALSE, message=FALSE}
+#Grafico x1 = ACT
+graph1 <- ggplot(proc_data, aes(x = m0_edad, y = confianza_vecinos)) +
+  geom_point(size = 1) +  # Puntos
+  geom_smooth(method = "lm", se = FALSE) +  # Recta de regresión
+  labs(x = "Edad", y = "Confianza en vecinos")  # Etiquetas de ejes
+
+# Gráfico 2
+graph2 <- ggplot(proc_data, aes(x = m01, y = confianza_vecinos)) +
+  geom_point(size = 1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Educación", y = "Confianza en vecinos")
+ggarrange(graph1, graph2, nrow = 1) # Unir graficos
+```
+
+Con el gráfico anterior podemos notar que, si bien ambas variables tienen una asociación positiva con la confianza en vecinos, el tamaño efecto de esta relación es distinto.
+
+## Regresiones
+
+Para facilitar la interpretación de los coeficientes de regresión nos aseguramos que las variables categóricas estén como variables categóricas con as_factor. De esta forma nos aseguramos que la estimación de los modelos sea correcta ya que no se puede interpretar sexo como si fuera una variable numérica.
+
+```{r}
+proc_data$sexo <- as_factor(proc_data$m0_sexo)
+
+proc_data <- na.omit(proc_data)
+
+reg1 <- lm(confianza_vecinos ~ 1, data=proc_data)
+
+tab_model(reg1,
+          show.ci = FALSE)
+```
+
+¿Qué valor toma una regresión lineal cuando no incluímos predictores en nuestro modelo?
+
+En este caso, lo que nos interesa observar es el intercepto. Un intercepto de 3.20 nos indica la media de la confianza en vecinos.
+
+### Regresión lineal simple
+
+Una regresión lineal simple es aquel modelo que incluye solo un predictor. En este caso construiremos tres modelos distintos con tres variables independientes, es decir, reg2 que incluye como predictor 'edad', reg3 incluye educación y reg4 incluye sexo.
+
+```{r results='asis'}
+reg2 <- lm(confianza_vecinos ~ m0_edad, data=proc_data)
+reg3 <- lm(confianza_vecinos ~ m01, data=proc_data)
+reg4 <- lm(confianza_vecinos ~ sexo, data=proc_data)
+
+tab_model(reg2, reg3, reg4,
+          show.ci = FALSE,
+          pred.labels = c("Intercepto",
+                          "Edad",
+                          "Educación",
+                          "Sexo"))
+```
+
+La interpretación de una tabla de regresión debe seguir el orden de presentación de los modelos y el orden de los coeficientes de regresión. En este ejemplo se dará el paso a paso de cómo interpretar las tablas:
+
+En el Modelo 1 se incluye edad como predictor, que tiene un coeficiente de regresión de 0,01. Esto indica que por cada unidad que aumenta edad, la confianza en vecinos aumenta en promedio 0,01 unidades. El intercepto es de 2,83, lo que indica que (teóricamente) una persona con edad 0 tendría un promedio de confianza en vecinos de 2,83. Finalmente, el modelo 1 logra explicar el 1% de la varianza de la variable dependiente (R2=0,01).
+
+El Modelo 2 incluye la educación de los/as encuestados como variable independiente. Este Modelo indica que por cada unidad que aumenta la educación, la confianza en vecinos aumenta en promedio 0,5 unidades. Si observamos el intercepto, este nos indica que el promedio de confianza en vecinos para las personas sin educación es de 2.94.
+
+El modelo 3 indica que las mujeres tendrían -0,12 unidades en la confianza en vecinos en comparación con los hombres. ¿Cómo sabemos que este el efecto de las mujeres? ¿Por qué no al revés? ¿Por qué "en comparación" con los hombres?
+
+# Tarea
+
+## Selección de variables
+
+- Cargar paquetes, cargar base de datos ELSOC y filtrar por la ola 4 (2019).
+
+- Seleccionar las siguientes variables:
+
+  - Satisfacción con la democracia: c01
+
+  - Sociodemográficas: m01 (educación), m0_sexo (sexo), m0_edad (edad).
+  
+- Definir cuál es la variable dependiente y cuáles las independientes
+
+## Operacionalización de variables
+
+- Recodificar valores perdidos (-999, -888, -777, -666) como NA.
+
+- Cambiar etiquetas para que sean más descriptivas.
+
+## Análisis
+
+- Gráfico descriptivo para satisfacción con la democracia
+
+- Estimar, visualizar e interpretar una matriz de correlaciones con las 4 variables principales.
+
+- Estimar tres modelos de regresión lineal simple
+
+  - Modelo 1: satisfaccion_democracia ~ sexo
+
+  - Modelo 2: satisfaccion_democracia ~ educacion
+
+  - Modelo 3: satisfaccion_democracia ~ edad
+
+## Reporte
+
+- Presentar una tabla con los tres modelos.
+
+- Incluir un párrafo breve (máx. 200 palabras) interpretando los coeficientes y $R^2$.
