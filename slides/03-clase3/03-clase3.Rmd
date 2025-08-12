@@ -583,7 +583,7 @@ $$SS_{tot}=SS_{reg} + SS_{error}$$
 
 ---
 .pull-left-wide[
-![:scale 100](../../files/img/resid2.png)]
+![:scale 100](../../files/img/resid_2.JPG)]
 
 .pull-right-narrow[
 .right[
@@ -666,7 +666,7 @@ R2: ajuste y residuos
 <br>
 <br>
 <br>
-<br>
+
 
 ---
 
