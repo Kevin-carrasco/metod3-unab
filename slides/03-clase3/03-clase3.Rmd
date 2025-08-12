@@ -268,11 +268,13 @@ print(datos1)
 
 ```{r echo=FALSE}
 names(datos1)
-ggplot(datos1, aes(pasos_mama_x, pasos_hijo_y)) + geom_point()+   ylim(0, 5) +
+plot_walk1<-ggplot(datos1, aes(pasos_mama_x, pasos_hijo_y)) + geom_point()+   ylim(0, 5) +
   scale_x_continuous(limits = c(0,10),
                      breaks = seq(0,10,1))
+ggsave(plot_walk1, file="../../files/img/plot_walk1.png")
 ```
 
+![:scale 70%](../../files/img/plot_walk1.png)
 
 ]
 
@@ -302,13 +304,18 @@ Entonces:
 $$\widehat{Y}=1.25 +0.25X$$
 
 ```{r echo=FALSE}
-ggplot(datos1, aes(pasos_mama_x, pasos_hijo_y)) + 
+plot_walk2<-ggplot(datos1, aes(pasos_mama_x, pasos_hijo_y)) + 
   geom_point() +
   ylim(0, 5) +
   scale_x_continuous(limits = c(0,10),
                      breaks = seq(0,10,1)) +
   stat_smooth(method = "lm", se = FALSE, fullrange = T)
+
+ggsave(plot_walk2, file="../../files/img/plot_walk2.png")
 ```
+
+![](../../files/img/plot_walk2.png)
+
 ]
 
 .pull-right[
@@ -369,7 +376,7 @@ $$Ingreso=200.000+400(puntajePAES)$$
 
 ---
 
-### Cálculo de coeficiente de regresión
+### Otro ejemplo
 .small[
 
 | Caso    | X (años educación)  | Y (nivel de ingresos)    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
@@ -388,7 +395,7 @@ $$Ingreso=200.000+400(puntajePAES)$$
 
 ---
 
-### Cálculo de coeficiente de regresión
+### Otro ejemplo
 .small[
 
 | Caso    | X (años educación)  | Y (nivel de ingresos)    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
