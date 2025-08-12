@@ -1,17 +1,17 @@
 ---
 title: "Presentación"
-date: "2023-03-24"
+date: "2025-08-12"
 lang: es
 ---
 
 ## Documento de presentación
 
 
-<iframe src=/slides/02-clase2/02-clase2.html height="550" width=100% allowfullscreen="true">
+<iframe src=/slides/03-clase3/03-clase3.html height="550" width=100% allowfullscreen="true">
 </iframe> 
 
 
 
 ## Lecturas
 
-[R for Data Science](https://es.r4ds.hadley.nz/explorar-introduccion.html)
+[Moore: Residuos](https://multivariada.netlify.app/docs/lecturas/moore_residuos.pdf)

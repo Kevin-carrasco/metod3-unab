@@ -342,7 +342,12 @@
     "href": "content/03-content.html#lecturas",
     "title": "Presentación",
     "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
+    "text": "Lecturas\nMoore: Residuos",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "03: Sesión 3"
+    ]
   },
   {
     "objectID": "content/01-content.html#lecturas",
