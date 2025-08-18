@@ -96,8 +96,8 @@ website:
           file: practicos/index.qmd
         - text: "Práctico 1 - Regresión lineal simple"
           file: practicos/practico-01.qmd
-#        - text: "Taller quarto y github"
-#          file: resource/taller-github-quarto/taller-quarto-github.qmd
+        - text: "Práctico 2 - Regresión lineal múltiple"
+          file: practicos/practico-02.qmd
 #        - text: "Práctico 2"
 #          file: resource/02-resource.qmd
 #        - text: "Práctico 3"
