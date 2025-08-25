@@ -754,7 +754,7 @@ $$H_{a}: \beta_{j} \neq 0$$
 .medium[
 - La prueba _t_ se utiliza para inferencias sobre $\beta$  y básicamente es una razón entre
 
-.center[![:scale 40%](t1.png)]
+.center[![:scale 40%](../../files/img/t1.png)]
 
 - Ya que la diferencia esperada si $H_0$ es verdadera es 0, entonces:
 
@@ -772,17 +772,6 @@ $$t=\frac{b_j}{SE(b_j)}$$
 3.  calcular t: $t=\frac{b_j}{SE(b_j)}$
 
 4. determinar la probabilidad de error asociada al valor t
-
----
-## $SE(b_j)$
-
-- Ej: para el caso simple de una variable dicotómica:
-
-$$SE=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}}$$
-
-- Para lo cual se requiere calcular la desviación estandar de la diferencia:
-
-$$\sigma_{diff}=\frac{\sigma^2_{a}(n_a-1)+\sigma^2_{b}(n_b-1)}{n_a+n_b-2}$$
 
 ---
 # ¿Cómo utilizamos el valor T?
