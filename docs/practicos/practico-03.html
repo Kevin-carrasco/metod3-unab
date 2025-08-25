@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Práctico 03. Regresión múltiple e inferencia – Metodos 3 - Universidad Andrés Bello</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="..//files/icon-513.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Práctico 03. Regresión múltiple e inferencia – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:description" content="Métodos estadísticos para Ciencias Sociales III">
+<meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
+<meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:height" content="500">
+<meta property="og:image:width" content="500">
+<meta name="twitter:title" content="Práctico 03. Regresión múltiple e inferencia – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:description" content="Métodos estadísticos para Ciencias Sociales III">
+<meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
+<meta name="twitter:creator" content="@kevincarrascoq1">
+<meta name="twitter:site" content="@kevincarrascoq1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="500">
+<meta name="twitter:image-width" content="500">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Metodos 3 - Universidad Andrés Bello</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../trabajos.html"> 
+<span class="menu-text">Trabajos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../practicos/index.html" aria-current="page"> 
+<span class="menu-text">Practicos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicos/practico-03.html">Práctico 3 - Inferencia</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descripción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 1 - Regresión lineal simple</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 2 - Regresión lineal múltiple</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-03.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Práctico 3 - Inferencia</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#inferencia" id="toc-inferencia" class="nav-link active" data-scroll-target="#inferencia">Inferencia</a>
+  <ul class="collapse">
+  <li><a href="#error-estándar-se-y-tamaño-muestral" id="toc-error-estándar-se-y-tamaño-muestral" class="nav-link" data-scroll-target="#error-estándar-se-y-tamaño-muestral">Error estándar (SE) y tamaño muestral</a></li>
+  <li><a href="#inferencia-en-regresión" id="toc-inferencia-en-regresión" class="nav-link" data-scroll-target="#inferencia-en-regresión">Inferencia en regresión</a>
+  <ul class="collapse">
+  <li><a href="#intervalos-de-confianza" id="toc-intervalos-de-confianza" class="nav-link" data-scroll-target="#intervalos-de-confianza">Intervalos de confianza</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#reporte-e-interpretación" id="toc-reporte-e-interpretación" class="nav-link" data-scroll-target="#reporte-e-interpretación">Reporte e interpretación</a>
+  <ul class="collapse">
+  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías">Librerías</a></li>
+  <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos">Datos</a></li>
+  <li><a href="#ajustes-y-descriptivos" id="toc-ajustes-y-descriptivos" class="nav-link" data-scroll-target="#ajustes-y-descriptivos">Ajustes y descriptivos</a></li>
+  <li><a href="#modelos-de-regresión" id="toc-modelos-de-regresión" class="nav-link" data-scroll-target="#modelos-de-regresión">Modelos de regresión</a>
+  <ul class="collapse">
+  <li><a href="#lógica-de-presentación-de-modelos" id="toc-lógica-de-presentación-de-modelos" class="nav-link" data-scroll-target="#lógica-de-presentación-de-modelos">Lógica de presentación de modelos</a></li>
+  <li><a href="#estimación" id="toc-estimación" class="nav-link" data-scroll-target="#estimación">Estimación</a></li>
+  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación">Interpretación</a></li>
+  <li><a href="#ajuste-global-del-modelo" id="toc-ajuste-global-del-modelo" class="nav-link" data-scroll-target="#ajuste-global-del-modelo">Ajuste global del modelo</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Práctico 03. Regresión múltiple e inferencia</h1>
+<p class="subtitle lead">Métodos estadísticos para Ciencias Sociales III</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">25 de agosto de 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="inferencia" class="level1">
+<h1>Inferencia</h1>
+<p>Una de las ideas fundamentales de la inferencia es determinar si nuestros análisis estadísticos pueden ser extrapolados a la población que estamos estudiando. En el contexto de regresión, esto se traduce en <strong>la significación estadística del coeficiente</strong> <span class="math inline">\(\beta\)</span>, lo que es distinto del tamaño del efecto del <span class="math inline">\(\beta\)</span>. Por ejemplo, podemos tener un <span class="math inline">\(\beta\)</span> de tamaño 3, pero eso no nos dice nada todavía sobre si es estadísticamente significativo.</p>
+<p>Entonces, la pregunta central de inferencia en regresión es: <strong>¿Es nuestro coeficiente <span class="math inline">\(\beta\)</span> estadísticamente significativo?</strong></p>
+<p>La significación estadística se refiere a poder afirmar si el <span class="math inline">\(\beta\)</span> es <strong>distinto de cero</strong> en la población. Esta afirmación se puede realizar con un cierto nivel de <strong>probabilidad de error <em>p</em></strong>, donde el concepto central es el <strong>error estándar</strong>.</p>
+<section id="error-estándar-se-y-tamaño-muestral" class="level2">
+<h2 class="anchored" data-anchor-id="error-estándar-se-y-tamaño-muestral">Error estándar (SE) y tamaño muestral</h2>
+<p>El error estándar (SE, por su sigla en inglés) es un concepto central en inferencia ya que nos permite aseverar con un grado de probabilidad de error si nuestro coeficiente existe en la población (o en otras palabras, que nuestro coeficiente es distinto de cero en la población).</p>
+<p>El ejemplo más simple para dar cuenta del error estándar es relativo al promedio: podemos calcular el promedio de la muestra, pero no sabemos con certeza si este promedio corresponde al de la población. Podríamos hacer una estimación más apropiada si extrajéramos varias muestras de datos, obtuviéramos el promedio de cada una y calcularamos una desviación estándar de estos promedios. Esta es justamente la idea detrás del cálculo del error estándar: entregar un posible rango de variación del promedio en la población (sumando y restando errores estándar al promedio). Y para ello, hacemos referencia a la distribución normal, que nos dice que aproximadamente el 68% de los valores se encuentran a +/- 1 SE y un 95% de los valores a +/- 2 SE.</p>
+<p>Pero claramente es muy costoso extraer varias muestras y en general trabajamos con una; por ello, se utiliza una fórmula de SE para una muestra basada en el teorema central del límite, que nos dice (para el caso del promedio) que <span class="math inline">\(SE_{\bar{x}}\frac{s}{\sqrt{N}}\)</span> donde <span class="math inline">\(s\)</span> es la desviación estándar y <span class="math inline">\(N\)</span> es el tamaño de la muestra.</p>
+<p>Ahora, como N está en el denominador, en la medida que aumente el N de la muestra, el error estándar será más pequeño. Esto es relevante saberlo, ya que un promedio o también un <span class="math inline">\(\beta\)</span> puede ser o no estadísticamente significativo según el tamaño muestral, y por lo tanto el tamaño del coeficiente no está relacionado directamente con su significación estadística.</p>
+<p><em>Ejemplo</em></p>
+<p>Supongamos que nuestra muestra de 3703 casos en realidad corresponde a la <strong>Población</strong>, de modo tal que vamos a extraer 14 muestras aleatorias de distinto tamaño a modo de ilustrar cambios en la estimación en la medida que aumenta el tamaño muestral.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/proc/ELSOC_ess.RData"</span>)) <span class="co"># Cargar base de datos</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>elsoc_n30  <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">30</span> )  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">30</span> ,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>elsoc_n50  <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">50</span> )  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">50</span> ,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>elsoc_n75  <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">75</span> )  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">75</span> ,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>elsoc_n100 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">100</span>)  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">100</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>elsoc_n200 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">200</span>)  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">200</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>elsoc_n300 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">300</span>)  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">300</span> ,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>elsoc_n400 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">400</span>)  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">400</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>elsoc_n700 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">700</span>)  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">700</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>elsoc_n800 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">800</span>)  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">800</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>elsoc_n900 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">900</span>)  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">900</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>elsoc_n1000<span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">1000</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>elsoc_n1500<span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">1500</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">1500</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>elsoc_n2000<span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">2000</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>elsoc_n2500<span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">2500</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">2500</span>,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># elsoc      &lt;- elsoc_18 %&gt;% mutate(dataset=3703,mean_ess=mean(ess,na.rm = T))</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>fullmat<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(elsoc_n30 ,elsoc_n50 ,elsoc_n75 ,elsoc_n100,elsoc_n200,elsoc_n300,elsoc_n400,elsoc_n700,elsoc_n800,elsoc_n900,elsoc_n1000,elsoc_n1500,elsoc_n2000,elsoc_n2500)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>fullmat <span class="ot">&lt;-</span> fullmat <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">mean_ssta=</span><span class="fu">mean</span>(elsoc_18<span class="sc">$</span>ess,<span class="at">na.rm =</span> T))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Luego de obtener las muestras, calculamos la media, desviación estándar y error estándar para cada una de ellas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tab_full<span class="ot">&lt;-</span> fullmat <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dataset) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T), <span class="at">sd=</span><span class="fu">sd</span>(ess,<span class="at">na.rm =</span> T),<span class="at">SE=</span>sd<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tab_full</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 4
+   dataset  mean    sd     SE
+     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1      30  4.07  1.41 0.258 
+ 2      50  4.58  1.59 0.225 
+ 3      75  4.39  1.60 0.185 
+ 4     100  4.4   1.49 0.149 
+ 5     200  4.46  1.47 0.104 
+ 6     300  4.3   1.55 0.0893
+ 7     400  4.36  1.58 0.0789
+ 8     700  4.35  1.62 0.0611
+ 9     800  4.38  1.54 0.0544
+10     900  4.36  1.58 0.0525
+11    1000  4.40  1.57 0.0498
+12    1500  4.39  1.56 0.0403
+13    2000  4.42  1.56 0.0349
+14    2500  4.38  1.58 0.0317</code></pre>
+</div>
+</div>
+<p>Es posible observar que tanto la media como la desviación estándar van cambiando en la medida que aumenta el tamaño de la muestra, pero si observamos el error estándar, este va sistemáticamente disminuyendo en la medida que aumenta el tamaño muestral.</p>
+<p>Para ilustrar cómo va cambiando la dispersión y la media “muestral” (rojo) con respecto a la “poblacional” (verde), se puede observar el siguiente gráfico:</p>
+<p><img src="../files/img/ess_hist.gif" class="img-fluid"></p>
+<p>Por lo tanto, el valor del error estándar depende del tamaño de la muestra, y por lo tanto el tamaño de la muestra va a afectar la significación estadística de los coeficientes de regresión.</p>
+</section>
+<section id="inferencia-en-regresión" class="level2">
+<h2 class="anchored" data-anchor-id="inferencia-en-regresión">Inferencia en regresión</h2>
+<p>En <strong>regresión</strong> nos interesa saber si las diferencias en Y con respecto a los distintos niveles o valores de X son significativas, es decir <strong>estadísticamente distintas de 0</strong> con un cierto nivel de probabilidad.</p>
+<p>Para poder calcular la probabilidad de error nos basamos en una distribución teórica, que es la distribución normal en su versión ajustada al tamaño muestral: la distribución <strong>T</strong>. Esta distribución nos permite obtener un valor de contraste o <strong>valor crítico</strong> para un cierto nivel de probabilidad de error (por ejemplo, p=0.05), con el cual contrastamos el T obtenido en nuestra estimación.</p>
+<p>Por lo tanto, para esto se requiere:</p>
+<ul>
+<li>calcular el T de cada <span class="math inline">\(\beta\)</span> de regresión</li>
+<li>establecer un nivel de probabilidad de error (ej: p=0.05, para un 95% de confianza)</li>
+<li>calcular el valor crítico</li>
+<li>contrastar: si T &gt; valor crítico T, entonces se puede establecer que el coeficiente es estadísticamente significativo con una probabilidad de error p&lt;0.05. O alternativamente, se rechaza la hipótesis nula (que nos dice que <span class="math inline">\(\beta=0\)</span>) con un 95% de confianza.</li>
+</ul>
+<p>Todos estos pasos son realizados automáticamente mediante software de estimación (como R), pero vamos a hacerlo paso a paso en un ejemplo mínimo (=pocos datos) con los datos de la <a href="..\assignment/03-code/">práctica 3 de regresión simple</a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/slides/03-regsimple1/tacataca.txt"</span>, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="../files/img/tacataca.png" class="img-fluid"></p>
+<p>Tenemos entonces tres columnas:</p>
+<ul>
+<li><p><code>id</code>: número único que identifica a cada sujeto</p></li>
+<li><p><code>juegos_x</code>: número de veces que ha jugado previamente</p></li>
+<li><p><code>puntos_y</code>: numero de puntos que obtuvo en el juego actual</p></li>
+</ul>
+<p>Estimamos el modelo de regresión y vemos los resultados:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span><span class="fu">lm</span>(puntos_y <span class="sc">~</span> juegos_x, <span class="at">data =</span> datos)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(reg1, <span class="at">type =</span> <span class="st">"text"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+===============================================
+                        Dependent variable:    
+                    ---------------------------
+                             puntos_y          
+-----------------------------------------------
+juegos_x                     0.500***          
+                              (0.132)          
+                                               
+Constant                     2.500***          
+                              (0.458)          
+                                               
+-----------------------------------------------
+Observations                    23             
+R2                             0.405           
+Adjusted R2                    0.376           
+Residual Std. Error       1.091 (df = 21)      
+F Statistic           14.280*** (df = 1; 21)   
+===============================================
+Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>El <span class="math inline">\(\beta\)</span> (calculado paso a paso en la <a href="..\assignment/03-code/">Práctica 3</a>) nos dice que por cada punto que aumenta la experiencia en juegos (X), el puntaje obtenido (Y) aumenta 0.5 puntos. Atendamos ahora a la información adicional de la tabla relacionada con inferencia:</p>
+<ul>
+<li>un número entre paréntesis bajo el <span class="math inline">\(\beta\)</span>, corresponde al error estándar</li>
+<li>tres asteriscos al lado del <span class="math inline">\(\beta\)</span>, que refieren al pie de la tabla donde el número de asteriscos (entre 1 y 3) se asocia a distintos niveles de probabilidad de error.</li>
+</ul>
+<p>El error estándar del <span class="math inline">\(\beta\)</span> o <span class="math inline">\(SE_{\beta}\)</span> es lo que nos permite calcular T, ya que <span class="math inline">\(T=\beta / SE_{\beta}\)</span>. Existen diferentes alternativas para el cálculo de <span class="math inline">\(SE_{\beta}\)</span>, para el caso de este ejemplo con un predictor X continuo vamos a utilizar:</p>
+<p><span class="math display">\[SE_{\beta}=\sqrt{\frac{ \frac{1}{N-2}-\sum(\hat{y}-y)²}{\sum(x-\bar{x})²}}\]</span></p>
+<p>Donde en el numerador se encuentra la sumatoria de los residuos al cuadrado multiplicado por 1/N-2, y en el denominador es la suma de cuadrados de X. Para demostrar paso a paso la obtención de estos términos vamos a agregar una serie de columnas a nuestra base de datos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Variable de valores predichos</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>estimado<span class="ot">&lt;-</span> (<span class="fl">2.5</span> <span class="sc">+</span> datos<span class="sc">$</span>juegos_x<span class="sc">*</span><span class="fl">0.5</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimamos el residuo</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>residuo <span class="ot">&lt;-</span> datos<span class="sc">$</span>puntos_y <span class="sc">-</span> datos<span class="sc">$</span>estimado</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimamos los residuos al cuadrado</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>residuo2 <span class="ot">&lt;-</span> datos<span class="sc">$</span>residuo<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Y finalmente las diferencias de X del promedio</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>xprom_x <span class="ot">&lt;-</span> datos<span class="sc">$</span>juegos_x <span class="sc">-</span> <span class="fu">mean</span>(datos<span class="sc">$</span>juegos_x)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ... al cuadrado</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>xprom_x2 <span class="ot">&lt;-</span> (datos<span class="sc">$</span>xprom_x)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>datos</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   id juegos_x puntos_y estimado residuo residuo2 xprom_x xprom_x2
+1   1        0        2      2.5    -0.5     0.25      -3        9
+2   2        0        3      2.5     0.5     0.25      -3        9
+3   3        1        2      3.0    -1.0     1.00      -2        4
+4   4        1        3      3.0     0.0     0.00      -2        4
+5   5        1        4      3.0     1.0     1.00      -2        4
+6   6        2        2      3.5    -1.5     2.25      -1        1
+7   7        2        3      3.5    -0.5     0.25      -1        1
+8   8        2        4      3.5     0.5     0.25      -1        1
+9   9        2        5      3.5     1.5     2.25      -1        1
+10 10        3        2      4.0    -2.0     4.00       0        0
+11 11        3        3      4.0    -1.0     1.00       0        0
+12 12        3        4      4.0     0.0     0.00       0        0
+13 13        3        5      4.0     1.0     1.00       0        0
+14 14        3        6      4.0     2.0     4.00       0        0
+15 15        4        3      4.5    -1.5     2.25       1        1
+16 16        4        4      4.5    -0.5     0.25       1        1
+17 17        4        5      4.5     0.5     0.25       1        1
+18 18        4        6      4.5     1.5     2.25       1        1
+19 19        5        4      5.0    -1.0     1.00       2        4
+20 20        5        5      5.0     0.0     0.00       2        4
+21 21        5        6      5.0     1.0     1.00       2        4
+22 22        6        5      5.5    -0.5     0.25       3        9
+23 23        6        6      5.5     0.5     0.25       3        9</code></pre>
+</div>
+</div>
+<p>Ahora obtenemos la suma de los residuos al cuadrado (residuo2) y la suma de las diferencias de promedio de X al cuadrado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(datos<span class="sc">$</span>residuo2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(datos<span class="sc">$</span>xprom_x2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68</code></pre>
+</div>
+</div>
+<p>Reemplazamos en la fórmula:</p>
+<p><span class="math inline">\(SE_{\beta}=\sqrt{\frac{ \frac{1}{N-2}*\sum(\hat{y}-y)²}{\sum(x-\bar{x})²}}=\sqrt{\frac{ \frac{1}{23-2}*25}{68}}\)</span></p>
+<p>Y realizamos el cálculo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(((<span class="dv">1</span><span class="sc">/</span><span class="dv">21</span>)<span class="sc">*</span><span class="dv">25</span>)<span class="sc">/</span><span class="dv">68</span> )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.132314</code></pre>
+</div>
+</div>
+<p>Que es equivalente al valor entre paréntesis bajo el <span class="math inline">\(\beta\)</span> en la tabla de regresión de arriba, y que corresponde al error estándar.</p>
+<p>Con el error estándar, ahora calculamos T:</p>
+<p><span class="math inline">\(T=\frac{\beta}{SE_{\beta}}=\frac{0.5}{0.132}=3.787\)</span></p>
+<p>Y ahora contrastamos este valor con el <strong>valor crítico de T</strong>, basado en la distribución T y que se obtiene de la tabla de valores correspondiente o de un software estadístico como R. Para esto necesitamos establecer el nivel deseado de probabilidad de error, convencionalmente p=0.05, y los <strong>grados de libertad (gl)</strong> que se calculan como N-k-1, donde <em>k</em> equivale al número de predictores (en este caso 1). Por lo tanto gl=23-1-1=21.</p>
+<p>Y un tema adicional sobre el valor p: vamos a establecer un valor que considere tanto situaciones de coeficiente positivo como negativo (prueba de dos colas), que es la manera convencional para rechazar hipótesis nulas en el caso de regresión. Por lo tanto, para la búsqueda del valor crítico dividimos el p a la mitad (0.05/2), quedando entonces en 0.025.</p>
+<p>Con p=0.025 y gl=21 obtenemos el valor crítico:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="dv">21</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.079614</code></pre>
+</div>
+</div>
+<p>Nuestro valor T de 3.387 es mayor que el valor crítico de 2.07, por lo tanto podemos decir que nuestro beta es estadísticamente significativo con un 95% de confianza. Veamos ahora si podemos hacer esta afirmación con un mayor nivel de confianza: 99%. Para eso, calculamos la T de dos colas para un p=0.01/2=0.005, por lo tanto el valor crítico se calcula a partir de 0.995</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.995</span>, <span class="dv">21</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.83136</code></pre>
+</div>
+</div>
+<p>En este caso, el T del <span class="math inline">\(\beta\)</span> de nuestro modelo también es superior a este valor crítico (3.387&gt;2.831), por lo que podemos decir que nuestro beta es estadísticamente significativo con un 99% de confianza. Alternativamente, que rechazamos la hipótesis nula (que dice que <span class="math inline">\(\beta=0\)</span> en la población) con una probabilidad de error p&lt;0.01. Esto se representa en la tabla de regresión con asteriscos al lado del <span class="math inline">\(\beta\)</span>, lo cual puede variar según la función que produzca la tabla. En la tabla de arriba generada con <code>stargazer</code> un nivel de probabilidad de error p&lt;0.01 se representa con 3 asteriscos, pero otras funciones como la que veremos más adelante sjPlot::tab_model los dos asteriscos equivalen a p&lt;0.01 y tres a p&lt;0.001:</p>
+<section id="intervalos-de-confianza" class="level3">
+<h3 class="anchored" data-anchor-id="intervalos-de-confianza">Intervalos de confianza</h3>
+<p>Otro concepto asociado con inferencia es el intervalo de confianza, que se obtiene sumando y restando errores estándar al <span class="math inline">\(\beta\)</span> de regresión. Con esto no solo se obtiene un rango probable de variación del <span class="math inline">\(\beta\)</span>, sino que también es posible establecer falta de significancia estadística cuando el intervalo pasa por el valor 0. De esta manera, es una manera relacionada y complementaria de hacer análisis de inferencia además de la prueba T.</p>
+<p>Para obtener el intervalo de confianza se suma/resta al <span class="math inline">\(\beta\)</span> el error estándar por el valor crítico de T para el nivel de confianza correspondiente. En nuestro ejemplo, para un 95% de confianza el T crítico es 2.079, por lo tanto considerando el <span class="math inline">\(\beta\)</span> de 0.5 y el error de 0.132:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">-</span> (<span class="fl">2.079</span> <span class="sc">*</span> <span class="fl">0.132</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.225572</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">+</span> (<span class="fl">2.079</span> <span class="sc">*</span> <span class="fl">0.132</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.774428</code></pre>
+</div>
+</div>
+<p>Por lo tanto, podemos decir con un 95% de confianza que <span class="math inline">\(\beta\)</span> varía entre 0.225 y 0.774, y que es estadísticamente significativo ya que el intervalo no pasa por cero, que es lo mismo que decir que es estadísticamente distinto de 0.</p>
+<p>Toda esta información la podemos obtener en R con tablas como la siguiente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(reg1,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.se=</span><span class="cn">TRUE</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits=</span><span class="dv">3</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">p.style =</span> <span class="st">"star"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">puntos y</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.500 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.458</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.549&nbsp;–&nbsp;3.451</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">juegos x</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.500 <sup>**</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.132</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.225&nbsp;–&nbsp;0.775</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.405 / 0.376</td>
+</tr>
+<tr class="odd">
+<td colspan="4" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>A continuación más detalles de generación de tablas e interpretación</p>
+</section>
+</section>
+</section>
+<section id="reporte-e-interpretación" class="level1">
+<h1>Reporte e interpretación</h1>
+<p>En esta sección se presenta un ejemplo de análisis e interpretación de una tabla de regresión múltiple, que puede servir como referencia para la entrega de los informes 2 y 3. El ejemplo está adaptado de <a href="https://stats.idre.ucla.edu/stata/output/regression-analysis/">https://stats.idre.ucla.edu/stata/output/regression-analysis/</a></p>
+<section id="librerías" class="level2">
+<h2 class="anchored" data-anchor-id="librerías">Librerías</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># instalar pacman</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,readxl, summarytools, stargazer, webshot, equatiomatic)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="datos" class="level2">
+<h2 class="anchored" data-anchor-id="datos">Datos</h2>
+<p>Los datos a utilizar corresponden a resultados de pruebas de conocimiento en distintas areas de 200 estudiantes de educación secundaria.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/hsb2.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="alert alert-info">
+<p><strong>Directorio de trabajo</strong> :<span class="sidenote">Directorio de trabajo </span></p>
+<p>Para el trabajo de análisis de datos se recomienda establecer claramente el <strong>directorio de trabajo</strong>, es decir, la carpeta que contiene los archivos de datos, los códigos y los resultados. Esta carpeta es el lugar donde uno se posiciona para hacer los análisis, llamar otros archivos y exportar archivos. De otra manera, todos los archivos necesarios para el análisis se encuentran en esta carpeta, lo que se conoce como <em>carpeta autocontenida</em>.</p>
+<p>Para esto, varias opciones:</p>
+<ul>
+<li>en RStudio, Session &gt; Set Working Directory &gt; Choose Directory</li>
+<li>también vía consola con el comando <code>setwd(ruta-hacia-la-carpeta-local)</code></li>
+<li>o también se puede trabajar en un directorio contenido o cerrado con la función de <a href="https://es.r4ds.hadley.nz/flujo-de-trabajo-proyectos.html">Rprojects</a></li>
+</ul>
+<p>Si se quiere verificar en qué carpeta se está trabajando, comando <code>getwd()</code></p>
+<p>Con esto entonces, si los datos están guardados en la misma carpeta, entonces se llaman simplemente <code>data &lt;-read.csv("hsb2.csv")</code>. No se requiere dar la ruta completa justamente porque el programa ya sabe dónde uno está posicionado. Asimismo, al momento de guardar/exportar algún resultado, automáticamente quedará en la carpeta de trabajo.</p>
+<p>Si los datos (o otro archivo que se quiera llamar) no se encuentran en el directorio raíz sino en una subcarpeta, entonces se le indica la ruta de la siguiente manera; ejemplo con datos guardados en subdirectorio “datos”: <code>data &lt;-read.csv("datos/hsb2.csv")</code></p>
+</div>
+</section>
+<section id="ajustes-y-descriptivos" class="level2">
+<h2 class="anchored" data-anchor-id="ajustes-y-descriptivos">Ajustes y descriptivos</h2>
+<p>Primero seleccionamos las variables que vamos a usar en el ejemplo y cambiamos las etiquetas de las variables a español.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id"      "female"  "race"    "ses"     "schtyp"  "prog"    "read"   
+ [8] "write"   "math"    "science" "socst"  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span> (science,math,female, socst, read)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">ciencia=</span>science, <span class="at">matematicas =</span>math, <span class="at">mujer=</span>female, <span class="at">status=</span>socst, <span class="at">lectura=</span>read)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(data, <span class="at">headings=</span><span class="cn">FALSE</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="container st-container">
+
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline caption-top table-sm small" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>No</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Variable</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Stats / Values</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Freqs (% of Valid)</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Graph</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Valid</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Missing</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">ciencia [integer]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 51.9 (9.9)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">26 ≤ 53 ≤ 74</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 14 (0.2)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">34 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyBiMExLAAAAmUlEQVRo3u3WzQ2AIAyGYVbQEXQD2X83E+mlSVOlYMD4fhcu5EkJf02JRLLcZt1KvDnPsXzlmAmT9fXB9qKAgYGBgYH9CbObhShm1gkGNhqTU94HK0r+Cua1y9VYNuoEAxuOqRveiikFDCyC6c6qEdMFgoGBgbVg1ocZxiwFDAwMDGwGTJ77PpgMb2DOt1SPOQqYvwGNSSSSE+fzuH+Qp/D9AAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">200 (100.0%)</td>
+<td style="text-align: center;">0 (0.0%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">matematicas [integer]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 52.6 (9.4)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">33 ≤ 52 ≤ 75</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 14 (0.2)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">40 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyEVN3zdAAAAiElEQVRo3u3ZQQqAIBBAUa9QN2i8gd7/bkHpwgE1dArC/zdCOI8WQVLO0UhbO0l1tj3DfLwKYMtju5RlrPO8VbB7OPpyDbF9h2BgYGBgYGBvY+nFfphgaQUDA/sllg/6JpiaAgMDAwMDAzPD1Cc7mcL0ZTAwMDCw5TH9T2gKq0yBfYWJSY5GOgFSAgpv3Uu52QAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">200 (100.0%)</td>
+<td style="text-align: center;">0 (0.0%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">mujer [integer]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Min : 0</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean : 0.5</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Max : 1</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">0</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">91</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">45.5%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">1</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">109</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">54.5%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAF4AAAA3BAMAAAB3B+DPAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyEVN3zdAAAAQUlEQVRIx2NgGPpAiSBQFAQDqHplY0JgVP2o+lH1g1U9qfldkFhAJ/WE3Q8FRIcPBBiNqh9VP6p+0KknNb8PZQAAThNQAdRC9dIAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">200 (100.0%)</td>
+<td style="text-align: center;">0 (0.0%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">status [integer]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 52.4 (10.7)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">26 ≤ 52 ≤ 71</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 15 (0.2)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">22 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyEVN3zdAAAAjUlEQVRo3u3WzQ2AIAxAYVbQEXAD2X83EqmHRkKwNP6+d+FA/ELDQUIgS1NvcyxVN09jaWt9ELbPJ1h12n5MFL2AgYGBgYGBfQHTr4RBTB/wakw/fwaxpaHchMl8PlhREhgYGBgYGBgYGNgBi6pBTH2ewF6DyfX7YLKAgYH9B6v9QsxYQwEDc8OiS4EsZXlV9JmAoBopAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">200 (100.0%)</td>
+<td style="text-align: center;">0 (0.0%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">lectura [integer]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 52.2 (10.3)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">28 ≤ 50 ≤ 76</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 16 (0.2)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">30 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyKMPi1nAAAAqElEQVRo3u3YzQ2AIAyGYVaQDYQNZP/djJYDRInaEuPP+x04kPQJhxKpzhFNhlZ8WDOcyiGWlkxgYGBgYGBgYGAaTB5moQ8WhQH7HiZtMvbB1jWBPQILzdlMgcVm64G9CZOe6ITFYgUDAwMD+yLmq++GFSsrb8J2nrl6TLbAwC5jvhjL7di28lasulRWLJbnAwP7KZbH9j5Y3spY9U/QijUrDSczxhFNZnc9NzupyUmeAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">200 (100.0%)</td>
+<td style="text-align: center;">0 (0.0%)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.2)<br>2025-08-25</p>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<p><strong>Grabar / exportar tablas</strong> :<span class="sidenote">Exportar tablas </span></p>
+<p>Muchas de las tablas producidas con R son en formato html, es decir, archivos para ser publicados en formato web. Por lo tanto, en caso de querer pegar esa imagen en un documento tipo Word hay que hacer un paso intermedio. Una posibilidad es hacer una captura de pantalla del visor de R, pero también se puede generar una imagen desde R con la librería <code>webshot</code>.</p>
+<p>Para eso, el procedimiento en general es:</p>
+<ul>
+<li>generar un archivo html de la imagen (output) generado por R</li>
+<li>guardar una imagen de ese archivo</li>
+</ul>
+<p>Ejemplo, para tablas generadas con summarytools (como la de dfSummary):</p>
+<pre><code>print(dfSummary(data, headings = FALSE), file = "tabla_desc.html") # esto genera un html
+webshot("tabla_desc.html","tabla_desc.png") # esto genera la imagen</code></pre>
+<p>Para tablas generadas con <code>stargazer</code></p>
+<pre><code>stargazer(reg1, type="html",  out = "reg1.html")
+webshot("reg1.html","reg1.png")</code></pre>
+<p>Y para tablas de regresión con <code>sjPlot</code>:</p>
+<pre><code>sjPlot::tab_model(reg1, show.ci=FALSE, file = "reg1_tab.html")
+webshot("reg1_tab.html","reg1_tab.png")
+</code></pre>
+</div>
+</section>
+<section id="modelos-de-regresión" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-de-regresión">Modelos de regresión</h2>
+<section id="lógica-de-presentación-de-modelos" class="level3">
+<h3 class="anchored" data-anchor-id="lógica-de-presentación-de-modelos">Lógica de presentación de modelos</h3>
+<p>La forma en que se presentan los modelos en regresión múltiple depende de las hipótesis que se estan contrastando, y de la definición del/a investigador/a sobre cuáles son los predictores principales y cuáles son las variables de control. Pensemos en este caso que nuestra hipótesis principal es que el puntaje de ciencias se puede predecir con los puntajes de matemáticas y lectura, pero queremos controlar estas asociaciones por sexo y estatus. En este caso, podríamos presentar dos modelos, uno solamente con los predictores principales, y luego un segundo modelo con los controles para ver si los efectos se mantienen. También podríamos pensar en tres modelos: uno con matemáticas, otro con ciencias, y otro con ambos y además controles. La decisión de cómo presentar los modelos depende principalmente de las hipótesis que se están contrastando, y también de que los resultados permitan hacer la mejor discusión posible.</p>
+</section>
+<section id="estimación" class="level3">
+<h3 class="anchored" data-anchor-id="estimación">Estimación</h3>
+<p>Vamos a estimar un primer modelo con las variables asociadas a la hipótesis principal, y luego un segundo con las variables control:</p>
+<p><span class="math display">\[
+\operatorname{ciencia} = \alpha + \beta_{1}(\operatorname{matematicas}) + \beta_{2}(\operatorname{lectura}) + \epsilon
+\]</span> <span class="math display">\[
+\operatorname{ciencia} = \alpha + \beta_{1}(\operatorname{matematicas}) + \beta_{2}(\operatorname{lectura}) + \beta_{3}(\operatorname{mujer}) + \beta_{4}(\operatorname{status}) + \epsilon
+\]</span></p>
+<p>Para estimar estos modelos en <code>R</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ciencia <span class="sc">~</span> matematicas <span class="sc">+</span> lectura, <span class="at">data=</span>data)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ciencia <span class="sc">~</span> matematicas <span class="sc">+</span> lectura <span class="sc">+</span> mujer <span class="sc">+</span> status, <span class="at">data=</span>data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para presentar los resultados de regresión existen diferentes librerías en R, como stargazer, texreg, sjPlot. En este caso vamos a utilizar la función tab_model de sjPlot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">ciencia</td>
+<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">ciencia</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
+<td style="text-align: center;">p</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">11.62</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">5.59&nbsp;–&nbsp;17.64</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">12.33</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">6.03&nbsp;–&nbsp;18.62</td>
+<td style="text-align: center;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">matematicas</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.40</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.26&nbsp;–&nbsp;0.54</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.39</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.24&nbsp;–&nbsp;0.54</td>
+<td style="text-align: center;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">lectura</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.37</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.23&nbsp;–&nbsp;0.50</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.34</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.19&nbsp;–&nbsp;0.48</td>
+<td style="text-align: center;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">mujer</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.01</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-4.03&nbsp;–&nbsp;0.01</td>
+<td style="text-align: center;">0.051</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">status</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.07&nbsp;–&nbsp;0.17</td>
+<td style="text-align: center;">0.424</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">200</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.478 / 0.473</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.489 / 0.479</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Esta tabla tiene las opciones por defecto. En general, para cada predictor hay dos piezas de información importante: la estimación del coeficiente de regresión <span class="math inline">\(\beta\)</span> (estimates), y una estimación referida a inferencia/significación estadística (en este caso CI, intervalo de confianza). Esta segunda información es en general el error estándar, pero también puede ser <em>t</em> (que es el coeficiente dividido por el error estándar), o el intervalo de confianza, dado usualmente por el <span class="math inline">\(\beta\)</span> +/- 1.96 SE para un 95% de confianza (como aparece en esta tabla). Según el output, la información de inferencia puede aparecer abajo del coeficiente, o al lado como en esta tabla.</p>
+<p>Abajo vamos a hacer algunos ajustes en la tabla, presentando el error estándar en lugar del intervalo, y reemplazando la columna del nivel de probabilidad de error (<em>p</em>) por asteriscos que indican el nivel de significación de cada coeficiente, lo cual hace más rápida la interpretación. También cambiamos algunas etiquetas de la tabla para que sea más fácil de leer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2),</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.se=</span><span class="cn">TRUE</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.ci=</span><span class="cn">FALSE</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits=</span><span class="dv">3</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>, <span class="st">"Modelo 2"</span>),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">string.est =</span> <span class="st">"β"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 1</td>
+<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">11.616 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.054</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">12.325 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.194</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">matematicas</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.402 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.073</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.389 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.074</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">lectura</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.365 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.066</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.335 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.073</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">mujer</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.010 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">status</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.050 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.062</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">200</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.478 / 0.473</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.489 / 0.479</td>
+</tr>
+<tr class="even">
+<td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Y otra alternativa es la siguiente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2),</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.se=</span><span class="cn">TRUE</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.ci=</span><span class="cn">FALSE</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">digits=</span><span class="dv">3</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>, <span class="st">"Modelo 2"</span>),</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">string.est =</span> <span class="st">"β"</span>,</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">title =</span> <span class="st">"Modelos de regresión para puntaje en ciencia &lt;br&gt; (Errores estándar entre paréntesis)"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Modelos de regresión para puntaje en ciencia<br>
+(Errores estándar entre paréntesis)</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 1</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">11.616 <sup>***</sup><br>
+(3.054)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">12.325 <sup>***</sup><br>
+(3.194)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">matematicas</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.402 <sup>***</sup><br>
+(0.073)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.389 <sup>***</sup><br>
+(0.074)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">lectura</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.365 <sup>***</sup><br>
+(0.066)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.335 <sup>***</sup><br>
+(0.073)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">mujer</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.010 <sup></sup><br>
+(1.023)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">status</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.050 <sup></sup><br>
+(0.062)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">200</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.478 / 0.473</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.489 / 0.479</td>
+</tr>
+<tr class="even">
+<td colspan="3" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Y para presentar en forma de ecuaciones, quedaría de la siguiente manera:</p>
+<p><span class="math display">\[
+\operatorname{\widehat{ciencia}} = 11.62 + 0.4(\operatorname{matematicas}) + 0.37(\operatorname{lectura})
+\]</span> <span class="math display">\[
+\operatorname{\widehat{ciencia}} = 12.33 + 0.39(\operatorname{matematicas}) + 0.34(\operatorname{lectura}) - 2.01(\operatorname{mujer}) + 0.05(\operatorname{status})
+\]</span></p>
+<div class="alert alert-info">
+<p>Para transformar automáticamente las estimaciones de regresión en R a ecuaciones:</p>
+<p>Esto se puede hacer si se utiliza RMarkdown (no es requisito en este curso, para los interesad_s pueden revisar material del curso <a href="https://cienciasocialabierta.netlify.app/class/04-class/">ciencia social abierta</a> )</p>
+<ol type="1">
+<li><p>Instalar librería <strong>equatiomatic</strong>. No está en CRAN, así que para instalar:<code>remotes::install_github("datalorax/equatiomatic")</code></p></li>
+<li><p>La función para extraer la ecuación es <code>extract_eq</code>, por ejemplo: <code>extract_eq(reg1)</code></p></li>
+<li><p>Para que el resultado pueda ser <code>renderizado</code> desde un documento RMarkdown a pdf o html, debe estar en un chunk con las siguientes especificaciones:</p></li>
+</ol>
+<pre><code>```{r results='asis', echo=FALSE}
+extract_eq(reg1)
+extract_eq(reg2)
+```</code></pre>
+<ol start="4" type="1">
+<li>Para presentar las ecuaciones con los coeficientes ya estimados, <code>extract_eq(reg1, use_coefs = TRUE)</code></li>
+</ol>
+</div>
+</section>
+<section id="interpretación" class="level3">
+<h3 class="anchored" data-anchor-id="interpretación">Interpretación</h3>
+<p>Los coeficientes nos hablan de la relación entre las variables independientes y la variable dependiente. Nos muestran la magnitud del cambio predicho en el puntaje de ciencia por cada 1 unidad en que aumenta el predictor.</p>
+<p>Para <code>matematica</code> el coeficiente es de 0.402 en el modelo 1 y baja a 0.389 en el modelo 2. Entonces, por cada punto adicional en la prueba de matemáticas en el modelo 2 se presenta un incremento de 0.389 en el puntaje de <code>ciencia</code>, <strong>manteniendo todas las demás variables constantes</strong>. Respecto a la inferencia, existen distintas maneras de dar cuenta de la significación estadística. Por ejemplo, se puede decir que este valor es estadísticamente significativo con un 99,9% de confianza, o con una probabilidad de error p&lt;0.001.</p>
+<div class="alert alert-info">
+<p>Para reportar estos resultados de manera más resumida siguiendo las indicaciones de reporte de <strong>APA</strong> (American Psychological Association): El puntaje en matemáticas predice significativamente el puntaje de ciencias (modelo 1), b = -.40, SE = .07, p &lt; .001, controlando por el puntaje en lectura. Al agregar los controles de sexo y estatus (modelo 2), el puntaje en matemáticas disminuye levemente pero mantiene su nivel de significación, b = -.39, SE = .07, p &lt; .001.</p>
+</div>
+<p>Con respecto a <code>lectura</code>, en el modelo 2 es posible observar un coeficiente de 0.335. Esto implica que por cada unidad que aumenta el puntaje de <code>lectura</code> se predice un incremento de 0.335 puntos en <code>ciencia</code>, manteniendo todas las demás variables contantes. El coeficiente es estadísticamente significativo con una probabilidad de error p&lt;0.001.</p>
+<p>Para la variable <code>mujer</code> podemos observar que el coeficiente tiene un valor de -2.010 en el modelo 2. Al ser <code>mujer</code> una variable dicotómica donde 1 es mujer y 0 es hombre, la estimación nos indica que para las mujeres el puntaje predicho promedio en ciencias es -2.010 puntos más bajo con respecto al promedio de los hombres, manteniendo todas las demás variables constantes. En términos exclusivamente estadísticos, la variable <code>mujer</code> no es significativamente distinta de 0 cuando empleamos un nivel de confianza del 95%, debido a que el valor <span class="math inline">\(p\)</span> es mayor a 0.05.</p>
+<p>Si observamos el coeficiente de <code>status</code> tenemos un valor de 0.050. Entonces, por cada unidad en que incrementa el estatus se predice un incremento de 0.050 puntos en <code>ciencia</code>, manteniendo todas las demás variables constantes. Sin embargo, no es estadísticamente significativo a un 95% de confianza.</p>
+<p><strong>Std Error</strong>: Esta columna corresponde a los errores estándar de los coeficientes de regresión (Estimate). Estos errores estándar son empleados para testear en qué medida los coeficientes son distintos de 0 en la población. El procedimiento es dividir el coeficiente por su error estándar para obtener el valor <span class="math inline">\(t\)</span>, los que luego se contrastan con la tabla de valores críticos t para obtener la probabilidad de error (que ya aparece automáticamente en la tabla). Además, los errores estándar pueden ser utilizados para calcular los intervalos de confianza.</p>
+<p>Una manera de presentar los resultados de un modelo de regresión es a través de la visualización de los coeficientes de regresión con sus respectivos intervalos de confianza. La ventaja de este tipo de gráficos es que podemos observar la magnitud del coeficiente y las “barras de error” que representan el intervalo de confianza inferior y superior. Utilizando un intervalo de confianza de 95% de confianza:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(reg2,<span class="at">ci.lvl =</span> <span class="fu">c</span>(<span class="fl">0.95</span>), <span class="at">title =</span> <span class="st">""</span>,<span class="at">vline.color =</span> <span class="st">"grey"</span>,<span class="at">line.size =</span> <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="practico-03_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Modelo 2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Lo que nos muestra este gráfico es el valor del coeficiente en el punto, y en las líneas que salen del punto se extienden según su intervalo de confianza. De acuerdo a las reglas de inferencia en regresión, lo que estamos contrastando es que el valor de este coeficiente es distinto de 0 en la población, con un cierto valor de probabilidad. Por lo tanto, si agregamos un intervalo de confianza (valores probables) asociado a una probabilidad de error, entonces podemos decir que este coeficiente es estadísticamente distinto de 0 en la población. Y en el gráfico, esto sucede cuando los intervalos no tocan el 0.</p>
+</section>
+<section id="ajuste-global-del-modelo" class="level3">
+<h3 class="anchored" data-anchor-id="ajuste-global-del-modelo">Ajuste global del modelo</h3>
+<p><strong><code>R2</code></strong>: El R2 (R-cuadrado) es la proporción de la varianza de la variable dependiente (ciencias) la cual puede ser predicha por las variables independientes (matemáticas, mujer, estatus, lectura). En la Tabla 1 tenemos que para el Modelo (1), este valor nos indica que un 47,7% de la varianza en el puntaje de ciencias se asocia a matemáticas. Luego, en el Modelo (2), el R-cuadrado nos indica que el 48,9% de la varianza de ciencias puede ser predicha conjuntamente por las variables independientes matemáticas, lectura, mujer y status. Como vemos, la incorporación de controles aporta levemente al R2, lo cual se relaciona con que estos predictores no son estadísticamente significativos.</p>
+<p><strong><code>Adjusted R2</code></strong>: En la medida que se incorporan predictores al modelo, cada uno va contribuyendo a explicar la varianza de la variable dependiente. Así, se podría continuar agregando predictores al modelo, incrementando la capacidad explicativa pero también de cierto modo debido a la variabilidad adicional en una muestra particular con la que estemos trabajando. Por esta razón, el <strong>R-cuadrado ajustado</strong> busca demostrar un valor estimado más realista del R-cuadrado para la población bajo análisis, penalizando por la inclusión de predictores adicionales. En el caso del Modelo (2) de la Tabla 1, el valor del R-cuadrado es de <strong>0.489</strong>, mientras que el R-cuadrado ajustado es de <strong>0.479</strong>, el cual es calculado a través de la fórmula <span class="math inline">\(1 – ((1 – R^2)((N – 1) /( N – k – 1))\)</span>.</p>
+<p>Entonces, si el número de observaciones (<span class="math inline">\(N\)</span>) es pequeño y el número de predictores (<span class="math inline">\(k\)</span>)es grande, tendremos una mayor discrepancia entre el R-cuadrado y el R-cuadrado ajustado. Por otro lado, cuando el número de observaciones es grande en contraste con el número de predictores tendremos que el valor del R-cuadrado y el R-cuadrado ajustado serán mucho más similares debido.</p>
+<p>Por lo tanto, al momento de realizar la intepretación <strong>corresponde basarse en los coeficientes del R2 ajustado</strong>.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/metod3-unab\.netlify\.app");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> 2025 by Kevin Carrasco<br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-nc" aria-hidden="true"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/kevin-carrasco/metod3-unab">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

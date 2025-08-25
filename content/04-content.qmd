@@ -1,6 +1,6 @@
 ---
 title: "Presentación"
-date: "2025-04-25"
+date: "2025-05-25"
 lang: es
 ---
 
@@ -14,4 +14,4 @@ lang: es
 
 ## Lecturas
 
-[R for Data Science](https://es.r4ds.hadley.nz/explorar-introduccion.html)
+[Moore 7: Inferencia para medias (482-543)](/docs/lecturas/Moore_inferencia_medias.pdf)

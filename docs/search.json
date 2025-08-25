@@ -176,288 +176,6 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "\n            Métodos estadísticos para ciencias sociales III\n        ",
-    "section": "",
-    "text": "Métodos estadísticos para ciencias sociales III\n        \n        \n            Universidad Andrés Bello\n        \n        \n            • Segundo semestre 2025Departamento de Sociología FACSOUniversidad Andrés Bello\n        \n    \n    \n        \n    \n\n\n\n\n\n\nProfesor\n\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\nInformación del curso\n\n   Lunes, martes y miércoles\n   Marzo 21–Julio 06, 2025\n   12:00-13:30 AM\n   Sala 334. Depto de Sociología\n\n\n\nContacto\nA través de correo"
-  },
-  {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Planificación",
-    "section": "",
-    "text": "Los dos componentes centrales del curso son las clases teóricas y las actividades prácticas. Las clases se realizarán los días Viernes 09:00 a 10:50 en sala 329\n\nClases ( ): Lecturas, documentos de presentación y video (en caso que la sesión sea grabada)\nPrácticas y evaluaciones (): Actividades prácticas a desarrollar durante la semana.\nLecturas (): Llegar a la clase con los textos leídos.\n\n\n\n\n\n Clases\n Prácticas y evaluaciones\n Lecturas y material adicional\n\n\n\n\n Marzo \n\n\n\n\n\nViernes 17\n00. Presentación e 01. introducción\n1. Aproximación inicial a R\n- Leer detalladamente programa del curso\n\n\n\n\nUNIDAD 1: Estadística descriptiva\n\n\n\nViernes 24\n2.Operacionalización de variables \n2.Operacionalización de variables\n- Wickham & Grolemund, (2017). cap. 1 Introducción \n\n\nViernes 31\n3. Visualización de datos\n-\n- Wickham & Grolemund, (2017). cap. 2 Explorar\n\n\n Abril \n\n\n\n\n\nViernes 07\nViernes santo\n\n\n\n\nViernes 14\n1° semana presencial\n\n\n\n\nViernes 21\n\nEvaluación\n\n\n\n\n\n\nUNIDAD 2: Estadística Correlacional\n\n\n\nViernes 28\n4. Introducción a la inferencia estadística\n\n\n\n\n Mayo \n\n\n\n\n\nViernes 05\n1° semana de pausa reflexiva\n\n\n\n\nViernes 12\n5. Correlación\n\n\n\n\nViernes 19\n6. Índices y análisis factorial\n\n\n\n\nViernes 26\n2° semana presencial\n\n\n\n\n\n\n\nUNIDAD 3: Regresión lineal y regresión logística\n\n\n\n Junio \n\n\n\n\n\nViernes 02\n7. Regresión lineal de mínimos cuadrados\n\n\n\n\nViernes 09\n2° semana de pausa reflexiva\n\n\n\n\nViernes 16\n**8. Regresión logística binaria: interpretación de coeficientes y cálculo de probabilidades\n\n\n\n\nViernes 23\n10. Análisis factorial y regresión lineal en R\n\n\n\n\nViernes 30\n11. Supuestos de regresión y valores predichos\n\n\n\n\n Julio \n\n\n\n\n\nViernes 07\n3° semana presencial\n\n\n\n\nViernes 14\n\nEvaluación"
-  },
-  {
-    "objectID": "content/index.html",
-    "href": "content/index.html",
-    "title": "Presentaciones, lecturas y actividades",
-    "section": "",
-    "text": "En esta sección se encuentran los documentos de presentación correspondientes a cada clase, lecturas y también actividades prácticas.",
-    "crumbs": [
-      "Clases",
-      "Información general",
-      "Presentaciones, lecturas y actividades"
-    ]
-  },
-  {
-    "objectID": "content/10-content.html#lecturas",
-    "href": "content/10-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas"
-  },
-  {
-    "objectID": "content/08-content.html#lecturas",
-    "href": "content/08-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas"
-  },
-  {
-    "objectID": "content/06-content.html#lecturas",
-    "href": "content/06-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
-  },
-  {
-    "objectID": "content/04-content.html#lecturas",
-    "href": "content/04-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
-  },
-  {
-    "objectID": "assignment/index.html",
-    "href": "assignment/index.html",
-    "title": "Assignments",
-    "section": "",
-    "text": "The main goals of this class are to help you design, critique, code, and run rigorous, valid, and feasible evaluations of public sector programs. Each type of assignment in this class is designed to help you achieve one or more of these goals."
-  },
-  {
-    "objectID": "assignment/index.html#weekly-check-in",
-    "href": "assignment/index.html#weekly-check-in",
-    "title": "Assignments",
-    "section": "Weekly check-in",
-    "text": "Weekly check-in\nEvery week, after you finish working through the content, I want to hear about what you learned and what questions you still have. Because the content in thsi course is flipped, these questions are crucial for our weekly in-class discussions.\nTo encourage engagement with the course content—and to allow me to collect the class’s questions each week—you’ll need to fill out a short response on iCollege. This should be ≈150 words. That’s fairly short: there are ≈250 words on a typical double-spaced page in Microsoft Word (500 when single-spaced).\nThese check-ins are due by noon on the days we have class. This is so I can look through the responses and start structuring the discussion for the evening’s class.\nYou should answer these two questions each week:\n\nWhat were the three (3) most interesting or exciting things you learned from the session? Why?\nWhat were the three (3) muddiest or unclear things from the session this week? What are you still wondering about?\n\nYou can include more than three interesting or muddiest things, but you must include at least three. There should be six easily identifiable things in each check-in: three exciting things and three questions.\nI will grade these check-ins using a check system:\n\n✔+: (11.5 points (115%) in gradebook) Response shows phenomenal thought and engagement with the course content. I will not assign these often.\n✔: (10 points (100%) in gradebook) Response is thoughtful, well-written, and shows engagement with the course content. This is the expected level of performance.\n✔−: (5 points (50%) in gradebook) Response is hastily composed, too short, and/or only cursorily engages with the course content. This grade signals that you need to improve next time. I will hopefully not assign these often.\n\nNotice that is essentially a pass/fail or completion-based system. I’m not grading your writing ability, I’m not counting the exact number of words you’re writing, and I’m not looking for encyclopedic citations of every single reading to prove that you did indeed read everything. I’m looking for thoughtful engagement, three interesting things, and three questions. That’s all. Do good work and you’ll get a ✓.\nYou will submit these check-ins via iCollege."
-  },
-  {
-    "objectID": "assignment/index.html#problem-sets",
-    "href": "assignment/index.html#problem-sets",
-    "title": "Assignments",
-    "section": "Problem sets",
-    "text": "Problem sets\nTo practice writing R code, running inferential models, and thinking about causation, you will complete a series of problem sets.\nYou need to show that you made a good faith effort to work each question. I will not grade these in detail. The problem sets will be graded using a check system:\n\n✔+: (33 points (110%) in gradebook) Assignment is 100% completed. Every question was attempted and answered, and most answers are correct. Document is clean and easy to follow. Work is exceptional. I will not assign these often.\n✔: (30 points (100%) in gradebook) Assignment is 70–99% complete and most answers are correct. This is the expected level of performance.\n✔−: (15 points (50%) in gradebook) Assignment is less than 70% complete and/or most answers are incorrect. This indicates that you need to improve next time. I will hopefully not asisgn these often.\n\nYou may (and should!) work together on the problem sets, but you must turn in your own answers. You cannot work in groups of more than four people, and you must note who participated in the group in your assignment."
-  },
-  {
-    "objectID": "assignment/index.html#evaluation-assignments",
-    "href": "assignment/index.html#evaluation-assignments",
-    "title": "Assignments",
-    "section": "Evaluation assignments",
-    "text": "Evaluation assignments\nFor your final project, you will conduct a pre-registered evaluation of a social program using synthetic data. To (1) give you practice with the principles of program evaluation, research design, measurement, and causal diagrams, and (2) help you with the foundation of your final project, you will complete a set of four evaluation-related assignments.\nIdeally these will become major sections of your final project. However, there is no requirement that the programs you use in these assignments must be the same as the final project. If, through these assignments, you discover that your initially chosen program is too simple, too complex, too boring, etc., you can change at any time.\nThese assignments will be graded using a check system:\n\n✔+: (33 points (110%) in gradebook) Assignment is 100% completed. Every question was attempted and answered, and most answers are correct. Document is clean and easy to follow. Work is exceptional. I will not assign these often.\n✔: (30 points (100%) in gradebook) Assignment is 70–99% complete and most answers are correct. This is the expected level of performance.\n✔−: (15 points (50%) in gradebook) Assignment is less than 70% complete and/or most answers are incorrect. This indicates that you need to improve next time. I will hopefully not asisgn these often."
-  },
-  {
-    "objectID": "assignment/index.html#exams",
-    "href": "assignment/index.html#exams",
-    "title": "Assignments",
-    "section": "Exams",
-    "text": "Exams\nThere will be two exams covering (1) program evaluation, design, and causation, and (2) the core statistical tools of program evaluation and causal inference.\nYou will take these exams online through iCollege. The exams will have a time limit, but you can use notes and readings and the Google. You must take the exams on your own though, and not talk to anyone about them."
-  },
-  {
-    "objectID": "assignment/index.html#final-project",
-    "href": "assignment/index.html#final-project",
-    "title": "Assignments",
-    "section": "Final project",
-    "text": "Final project\nAt the end of the course, you will demonstrate your knowledge of program evaluation and causal inference by completing a final project.\nComplete details for the final project are here.\nThere is no final exam. This project is your final exam."
-  },
-  {
-    "objectID": "content/01-content.html#lecturas",
-    "href": "content/01-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "01: Sesión 1"
-    ]
-  },
-  {
-    "objectID": "content/03-content.html#lecturas",
-    "href": "content/03-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nMoore: Residuos",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "03: Sesión 3"
-    ]
-  },
-  {
-    "objectID": "content/05-content.html#lecturas",
-    "href": "content/05-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science"
-  },
-  {
-    "objectID": "content/09-content.html#lecturas",
-    "href": "content/09-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas"
-  },
-  {
-    "objectID": "content/11-content.html#lecturas",
-    "href": "content/11-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nPráctica en R"
-  },
-  {
-    "objectID": "practicos/index.html",
-    "href": "practicos/index.html",
-    "title": "Prácticos",
-    "section": "",
-    "text": "Acceder a la página de posit, desarrollador del software desde octubre de 2022. Link directo a la descarga acá.\nInstalar R y Rstudio\n\n\n\nDescargar R\n\n\nSeleccionamos sistema operativo según corresponda\n\n\n\nDescargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2\n\n\n\nDescargar RStudio\n\n\nDescarga directa en la página de inicio\n\n\nInstalar ambos archivos siguiendo las instrucciones de instalación\n\n\nAbrir RStudio. Se debería ver similar a esto (o en blanco):\n\n\n\n\n\n\n\n\nNota\n\n\n\nAlternativa a lo anterior: https://posit.cloud/\n\nVersión online de Rstudio\nUtilizar en caso de problemas con PC",
-    "crumbs": [
-      "Practicos",
-      "Descripción"
-    ]
-  },
-  {
-    "objectID": "practicos/index.html#r-y-rstudio",
-    "href": "practicos/index.html#r-y-rstudio",
-    "title": "Prácticos",
-    "section": "",
-    "text": "Acceder a la página de posit, desarrollador del software desde octubre de 2022. Link directo a la descarga acá.\nInstalar R y Rstudio\n\n\n\nDescargar R\n\n\nSeleccionamos sistema operativo según corresponda\n\n\n\nDescargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2\n\n\n\nDescargar RStudio\n\n\nDescarga directa en la página de inicio\n\n\nInstalar ambos archivos siguiendo las instrucciones de instalación\n\n\nAbrir RStudio. Se debería ver similar a esto (o en blanco):\n\n\n\n\n\n\n\n\nNota\n\n\n\nAlternativa a lo anterior: https://posit.cloud/\n\nVersión online de Rstudio\nUtilizar en caso de problemas con PC",
-    "crumbs": [
-      "Practicos",
-      "Descripción"
-    ]
-  },
-  {
-    "objectID": "trabajos.html",
-    "href": "trabajos.html",
-    "title": "Trabajos",
-    "section": "",
-    "text": "La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC), en formato de reporte de investigación breve. Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.\nEn este informe, los estudiantes deberán elaborar un reporte de investigación que desarrolle de forma integrada los aspectos de diseño de la investigación, análisis estadístico y presentación de resultados, así como la elaboración de conclusiones.\nCuestiones a considerar:\n\nEl trabajo debe ser realizado en parejas\nSe realizarán dos entregas tipo reporte de investigación, que se irá construyendo a lo largo del semestre.\nSe recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún problema actual de la sociedad chilena, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).\nLa investigación a desarrollar debe ser de tipo descriptiva, esto quiere decir que se trata de una pregunta de investigación que se refiere a la forma, magnitud o características que tienen unas determinadas variables en una población."
-  },
-  {
-    "objectID": "trabajos.html#evaluación",
-    "href": "trabajos.html#evaluación",
-    "title": "Trabajos",
-    "section": "",
-    "text": "La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC), en formato de reporte de investigación breve. Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.\nEn este informe, los estudiantes deberán elaborar un reporte de investigación que desarrolle de forma integrada los aspectos de diseño de la investigación, análisis estadístico y presentación de resultados, así como la elaboración de conclusiones.\nCuestiones a considerar:\n\nEl trabajo debe ser realizado en parejas\nSe realizarán dos entregas tipo reporte de investigación, que se irá construyendo a lo largo del semestre.\nSe recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún problema actual de la sociedad chilena, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).\nLa investigación a desarrollar debe ser de tipo descriptiva, esto quiere decir que se trata de una pregunta de investigación que se refiere a la forma, magnitud o características que tienen unas determinadas variables en una población."
-  },
-  {
-    "objectID": "trabajos.html#instrucciones-entrega-inicial",
-    "href": "trabajos.html#instrucciones-entrega-inicial",
-    "title": "Trabajos",
-    "section": "Instrucciones entrega inicial",
-    "text": "Instrucciones entrega inicial\nPara la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, se desarrollen los siguientes puntos:\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n2,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n2,0\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 6 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,5\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,5\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
-  },
-  {
-    "objectID": "trabajos.html#instrucciones-segunda-entrega",
-    "href": "trabajos.html#instrucciones-segunda-entrega",
-    "title": "Trabajos",
-    "section": "Instrucciones segunda entrega",
-    "text": "Instrucciones segunda entrega\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n1,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n0,5\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 4 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de dispersión\nCalcular el rango, la desviación estándar y el coeficiente de variación (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de posición\nCalcular el valor mínimo y máximo, el cuartil 1 y el cuartil 3 (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,0\n\n\nÍndices y escalas\nConstruir al menos un índice o escala a partir del conjunto de variables seleccionado. Este índice o escala debe reportar e interpretar el nivel de consistencia interna de las variables\n2,0\n\n\nEstimación puntual, intervalo de confianza y error\nCalcular los parámetros e intervalos de confianza para dos de las variables seleccionadas. Además, debe elaborar una tabla resumen que sintetice todos los indicadores que considere relevantes para interpretar la información. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
-  },
-  {
-    "objectID": "trabajos.html#fecha-y-formato-de-entrega",
-    "href": "trabajos.html#fecha-y-formato-de-entrega",
-    "title": "Trabajos",
-    "section": "Fecha y formato de entrega",
-    "text": "Fecha y formato de entrega\nEl formato de entrega del informe debe ser un documento en formato PDF (.pdf), que debe estar alojado en la carpeta output del Proyecto R. Fecha de entrega: viernes 13 de junio hasta las 23:59 vía módulo Tareas en plataforma U-Cursos. \n\nEntregas atrasadas hasta las 23:59 del sábado 14 de junio tendrán 0,5 puntos de descuento  sobre la nota final. \nEntregas atrasadas hasta el domingo 15 de junio hasta las 23:59 tendrán 1,0 punto de descuento sobre la nota final. No serán evaluadas entregas posteriores a esta fecha."
-  },
-  {
-    "objectID": "trabajos.html#sobre-plagio",
-    "href": "trabajos.html#sobre-plagio",
-    "title": "Trabajos",
-    "section": "Sobre plagio",
-    "text": "Sobre plagio\nTodos los trabajos se procesan en software para detección de plagio: evidencia de una situación de plagio implica obtención de la nota mínima en la evaluación (1,0) junto con constituirse como causal de reprobación de la asignatura."
-  },
-  {
-    "objectID": "trabajos.html#recomendaciones-para-la-entrega",
-    "href": "trabajos.html#recomendaciones-para-la-entrega",
-    "title": "Trabajos",
-    "section": "Recomendaciones para la entrega",
-    "text": "Recomendaciones para la entrega\n\nMáxima de escritura: una idea por párrafo. Si comienza una idea nueva, se recomienda comenzar otro párrafo. Al revés, si el párrafo siguiente habla de lo mismo, sumarlo al párrafo anterior. \nLa idea del párrafo se resume en la primera parte del párrafo, lo que en inglés se llama “topic sentence”. \nDeclarar domicilio disciplinar: ej, mencionar la palabra “sociología” en el primer/segundo párrafo, esto fuerza que la investigación se enmarque en la disciplina.\n\nEn caso de tener dudas, no dude en contactar a sus ayudantes respectivos, o bien, vía foro U-Cursos al equipo docente de la asignatura."
-  },
-  {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "Programa",
-    "section": "",
-    "text": "Daniela Olivares\n   Departamento de Sociología N° 328\n   &lt;a href=“mailto:danielaolivarescollio@gmail.com”&gt;danielaolivarescollio@gmail.com\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   &lt;a href=“mailto:kevin.carrasco@ug.uchile.cl”&gt;kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\n\n\n   Lunes, martes y miércoles\n   Marzo 21–Julio 06, 2025\n   12:00-13:30 AM\n   Sala 334. Depto de Sociología\n   Slack\n\n\n\n\n\nEste curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.\nLa metodología incluye clases lectivas y trabajo práctico en R.\n\n\n\nAl finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R.\n\n\n\nAl concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:\n\nConocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos\nFormular diseños de investigación social cuantitativa\nConocer y aplicar instrumentos de medición y tipos de estudios cuantitativos\nInterpretar y analizar los elementos centrales de una base de datos con información social\nAplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos\nAplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida\nAplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas\n\n\n\n\n\n\n1.1 Elementos básicos de la investigación social\n\nEtapas de la investigación Social\nTipos de diseños\nDiseño de instrumentos de medición\nBases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal\n\n1.2 Operacionalización y análisis de datos\n\nOperacionalización y niveles de medición\nTidy data: unir, dividir, filtrar y ordenar datos en R\nRecodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables\nAgrupación de datos y construcción de variables a partir de datos existentes\nConstrucción de índices y validez de escalas\n\n1.3 Visualización de datos en R\n\nTablas descriptivas y tablas de contingencia\nggplot2: gráficos de barra, de caja, dispersión e histograma\n\n\n\n\n2.1 Inferencia estadística\n2.2 Pruebas de hipótesis\n2.3 Correlación\n\n\n\n3.1 Regresión lineal de mínimos cuadrados\n\nAspectos centrales y supuestos de la regresión MCO\nInterpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción\nRepresentación gráfica de coeficientes de regresión lineal\n\n3.2 Regresión logística binaria\n\nAspectos básicos de la regresión logística\nTipos de coeficientes e interpretación\nRepresentación gráfica (cálculo de probabilidades predichas)\n\n\n\n\n\nWickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible acá\nMoore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.\nWooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.\nCamarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.\nHair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.\nCharte, Francisco (2014). Análisis exploratorio y Visualización de datos con R.\n\n\n\nEl curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación\n\n\n\nLa evaluación consistirá en\n\n\n\n\nNota mínima de aprobación: 4,0 (en escala de 1 a 7).\n\n\n\n\n\nEstadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
-  },
-  {
-    "objectID": "syllabus.html#resumen",
-    "href": "syllabus.html#resumen",
-    "title": "Programa",
-    "section": "",
-    "text": "Este curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.\nLa metodología incluye clases lectivas y trabajo práctico en R."
-  },
-  {
-    "objectID": "syllabus.html#objetivo-general",
-    "href": "syllabus.html#objetivo-general",
-    "title": "Programa",
-    "section": "",
-    "text": "Al finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R."
-  },
-  {
-    "objectID": "syllabus.html#objetivos-específicos",
-    "href": "syllabus.html#objetivos-específicos",
-    "title": "Programa",
-    "section": "",
-    "text": "Al concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:\n\nConocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos\nFormular diseños de investigación social cuantitativa\nConocer y aplicar instrumentos de medición y tipos de estudios cuantitativos\nInterpretar y analizar los elementos centrales de una base de datos con información social\nAplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos\nAplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida\nAplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas"
-  },
-  {
-    "objectID": "syllabus.html#saberes-contenidos",
-    "href": "syllabus.html#saberes-contenidos",
-    "title": "Programa",
-    "section": "",
-    "text": "1.1 Elementos básicos de la investigación social\n\nEtapas de la investigación Social\nTipos de diseños\nDiseño de instrumentos de medición\nBases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal\n\n1.2 Operacionalización y análisis de datos\n\nOperacionalización y niveles de medición\nTidy data: unir, dividir, filtrar y ordenar datos en R\nRecodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables\nAgrupación de datos y construcción de variables a partir de datos existentes\nConstrucción de índices y validez de escalas\n\n1.3 Visualización de datos en R\n\nTablas descriptivas y tablas de contingencia\nggplot2: gráficos de barra, de caja, dispersión e histograma\n\n\n\n\n2.1 Inferencia estadística\n2.2 Pruebas de hipótesis\n2.3 Correlación\n\n\n\n3.1 Regresión lineal de mínimos cuadrados\n\nAspectos centrales y supuestos de la regresión MCO\nInterpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción\nRepresentación gráfica de coeficientes de regresión lineal\n\n3.2 Regresión logística binaria\n\nAspectos básicos de la regresión logística\nTipos de coeficientes e interpretación\nRepresentación gráfica (cálculo de probabilidades predichas)"
-  },
-  {
-    "objectID": "syllabus.html#bibliografía",
-    "href": "syllabus.html#bibliografía",
-    "title": "Programa",
-    "section": "",
-    "text": "Wickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible acá\nMoore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.\nWooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.\nCamarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.\nHair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.\nCharte, Francisco (2014). Análisis exploratorio y Visualización de datos con R."
-  },
-  {
-    "objectID": "syllabus.html#metodología",
-    "href": "syllabus.html#metodología",
-    "title": "Programa",
-    "section": "",
-    "text": "El curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación"
-  },
-  {
-    "objectID": "syllabus.html#evaluación",
-    "href": "syllabus.html#evaluación",
-    "title": "Programa",
-    "section": "",
-    "text": "La evaluación consistirá en"
-  },
-  {
-    "objectID": "syllabus.html#requisitos-de-aprobación",
-    "href": "syllabus.html#requisitos-de-aprobación",
-    "title": "Programa",
-    "section": "",
-    "text": "Nota mínima de aprobación: 4,0 (en escala de 1 a 7)."
-  },
-  {
-    "objectID": "syllabus.html#palabras-clave",
-    "href": "syllabus.html#palabras-clave",
-    "title": "Programa",
-    "section": "",
-    "text": "Estadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
-  },
-  {
     "objectID": "practicos/practico-01.html",
     "href": "practicos/practico-01.html",
     "title": "Práctico 01. Regresión lineal I",
@@ -631,6 +349,370 @@
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Programa",
+    "section": "",
+    "text": "Daniela Olivares\n   Departamento de Sociología N° 328\n   &lt;a href=“mailto:danielaolivarescollio@gmail.com”&gt;danielaolivarescollio@gmail.com\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   &lt;a href=“mailto:kevin.carrasco@ug.uchile.cl”&gt;kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\n\n\n   Lunes, martes y miércoles\n   Marzo 21–Julio 06, 2025\n   12:00-13:30 AM\n   Sala 334. Depto de Sociología\n   Slack\n\n\n\n\n\nEste curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.\nLa metodología incluye clases lectivas y trabajo práctico en R.\n\n\n\nAl finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R.\n\n\n\nAl concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:\n\nConocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos\nFormular diseños de investigación social cuantitativa\nConocer y aplicar instrumentos de medición y tipos de estudios cuantitativos\nInterpretar y analizar los elementos centrales de una base de datos con información social\nAplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos\nAplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida\nAplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas\n\n\n\n\n\n\n1.1 Elementos básicos de la investigación social\n\nEtapas de la investigación Social\nTipos de diseños\nDiseño de instrumentos de medición\nBases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal\n\n1.2 Operacionalización y análisis de datos\n\nOperacionalización y niveles de medición\nTidy data: unir, dividir, filtrar y ordenar datos en R\nRecodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables\nAgrupación de datos y construcción de variables a partir de datos existentes\nConstrucción de índices y validez de escalas\n\n1.3 Visualización de datos en R\n\nTablas descriptivas y tablas de contingencia\nggplot2: gráficos de barra, de caja, dispersión e histograma\n\n\n\n\n2.1 Inferencia estadística\n2.2 Pruebas de hipótesis\n2.3 Correlación\n\n\n\n3.1 Regresión lineal de mínimos cuadrados\n\nAspectos centrales y supuestos de la regresión MCO\nInterpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción\nRepresentación gráfica de coeficientes de regresión lineal\n\n3.2 Regresión logística binaria\n\nAspectos básicos de la regresión logística\nTipos de coeficientes e interpretación\nRepresentación gráfica (cálculo de probabilidades predichas)\n\n\n\n\n\nWickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible acá\nMoore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.\nWooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.\nCamarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.\nHair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.\nCharte, Francisco (2014). Análisis exploratorio y Visualización de datos con R.\n\n\n\nEl curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación\n\n\n\nLa evaluación consistirá en\n\n\n\n\nNota mínima de aprobación: 4,0 (en escala de 1 a 7).\n\n\n\n\n\nEstadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
+  },
+  {
+    "objectID": "syllabus.html#resumen",
+    "href": "syllabus.html#resumen",
+    "title": "Programa",
+    "section": "",
+    "text": "Este curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.\nLa metodología incluye clases lectivas y trabajo práctico en R."
+  },
+  {
+    "objectID": "syllabus.html#objetivo-general",
+    "href": "syllabus.html#objetivo-general",
+    "title": "Programa",
+    "section": "",
+    "text": "Al finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R."
+  },
+  {
+    "objectID": "syllabus.html#objetivos-específicos",
+    "href": "syllabus.html#objetivos-específicos",
+    "title": "Programa",
+    "section": "",
+    "text": "Al concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:\n\nConocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos\nFormular diseños de investigación social cuantitativa\nConocer y aplicar instrumentos de medición y tipos de estudios cuantitativos\nInterpretar y analizar los elementos centrales de una base de datos con información social\nAplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos\nAplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida\nAplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas"
+  },
+  {
+    "objectID": "syllabus.html#saberes-contenidos",
+    "href": "syllabus.html#saberes-contenidos",
+    "title": "Programa",
+    "section": "",
+    "text": "1.1 Elementos básicos de la investigación social\n\nEtapas de la investigación Social\nTipos de diseños\nDiseño de instrumentos de medición\nBases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal\n\n1.2 Operacionalización y análisis de datos\n\nOperacionalización y niveles de medición\nTidy data: unir, dividir, filtrar y ordenar datos en R\nRecodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables\nAgrupación de datos y construcción de variables a partir de datos existentes\nConstrucción de índices y validez de escalas\n\n1.3 Visualización de datos en R\n\nTablas descriptivas y tablas de contingencia\nggplot2: gráficos de barra, de caja, dispersión e histograma\n\n\n\n\n2.1 Inferencia estadística\n2.2 Pruebas de hipótesis\n2.3 Correlación\n\n\n\n3.1 Regresión lineal de mínimos cuadrados\n\nAspectos centrales y supuestos de la regresión MCO\nInterpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción\nRepresentación gráfica de coeficientes de regresión lineal\n\n3.2 Regresión logística binaria\n\nAspectos básicos de la regresión logística\nTipos de coeficientes e interpretación\nRepresentación gráfica (cálculo de probabilidades predichas)"
+  },
+  {
+    "objectID": "syllabus.html#bibliografía",
+    "href": "syllabus.html#bibliografía",
+    "title": "Programa",
+    "section": "",
+    "text": "Wickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible acá\nMoore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.\nWooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.\nCamarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.\nHair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.\nCharte, Francisco (2014). Análisis exploratorio y Visualización de datos con R."
+  },
+  {
+    "objectID": "syllabus.html#metodología",
+    "href": "syllabus.html#metodología",
+    "title": "Programa",
+    "section": "",
+    "text": "El curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación"
+  },
+  {
+    "objectID": "syllabus.html#evaluación",
+    "href": "syllabus.html#evaluación",
+    "title": "Programa",
+    "section": "",
+    "text": "La evaluación consistirá en"
+  },
+  {
+    "objectID": "syllabus.html#requisitos-de-aprobación",
+    "href": "syllabus.html#requisitos-de-aprobación",
+    "title": "Programa",
+    "section": "",
+    "text": "Nota mínima de aprobación: 4,0 (en escala de 1 a 7)."
+  },
+  {
+    "objectID": "syllabus.html#palabras-clave",
+    "href": "syllabus.html#palabras-clave",
+    "title": "Programa",
+    "section": "",
+    "text": "Estadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
+  },
+  {
+    "objectID": "trabajos.html",
+    "href": "trabajos.html",
+    "title": "Trabajos",
+    "section": "",
+    "text": "La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC), en formato de reporte de investigación breve. Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.\nEn este informe, los estudiantes deberán elaborar un reporte de investigación que desarrolle de forma integrada los aspectos de diseño de la investigación, análisis estadístico y presentación de resultados, así como la elaboración de conclusiones.\nCuestiones a considerar:\n\nEl trabajo debe ser realizado en parejas\nSe realizarán dos entregas tipo reporte de investigación, que se irá construyendo a lo largo del semestre.\nSe recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún problema actual de la sociedad chilena, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).\nLa investigación a desarrollar debe ser de tipo descriptiva, esto quiere decir que se trata de una pregunta de investigación que se refiere a la forma, magnitud o características que tienen unas determinadas variables en una población."
+  },
+  {
+    "objectID": "trabajos.html#evaluación",
+    "href": "trabajos.html#evaluación",
+    "title": "Trabajos",
+    "section": "",
+    "text": "La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC), en formato de reporte de investigación breve. Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.\nEn este informe, los estudiantes deberán elaborar un reporte de investigación que desarrolle de forma integrada los aspectos de diseño de la investigación, análisis estadístico y presentación de resultados, así como la elaboración de conclusiones.\nCuestiones a considerar:\n\nEl trabajo debe ser realizado en parejas\nSe realizarán dos entregas tipo reporte de investigación, que se irá construyendo a lo largo del semestre.\nSe recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún problema actual de la sociedad chilena, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).\nLa investigación a desarrollar debe ser de tipo descriptiva, esto quiere decir que se trata de una pregunta de investigación que se refiere a la forma, magnitud o características que tienen unas determinadas variables en una población."
+  },
+  {
+    "objectID": "trabajos.html#instrucciones-entrega-inicial",
+    "href": "trabajos.html#instrucciones-entrega-inicial",
+    "title": "Trabajos",
+    "section": "Instrucciones entrega inicial",
+    "text": "Instrucciones entrega inicial\nPara la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, se desarrollen los siguientes puntos:\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n2,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n2,0\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 6 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,5\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,5\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
+  },
+  {
+    "objectID": "trabajos.html#instrucciones-segunda-entrega",
+    "href": "trabajos.html#instrucciones-segunda-entrega",
+    "title": "Trabajos",
+    "section": "Instrucciones segunda entrega",
+    "text": "Instrucciones segunda entrega\n\n\n\n\n\n\n\n\nCOMPONENTES\nDETALLE\nPUNTAJE\n\n\nFormulación del problema\nFundamente el interés sociológico que habilita el estudio de la temática elegida (¿Qué se va a estudiar?, ¿Por qué es importante?, ¿Qué se sabe sobre el tema?), utilizando al menos 3 referencias bibliográficas. Además, formule una pregunta y un objetivo general de investigación. Estos deben ser coherentes entre sí y con la formulación del problema expuesta en el apartado anterior. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. Además, la pregunta debe ser de carácter descriptiva. (1 plana)\n1,0\n\n\n\n\nDefinición base de datos\nDefina la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC) 2022, se espera que los grupos describan qué busca medir y representar el módulo de la encuesta elegido. (½ plana)\n0,5\n\n\n\n\nDefinición variables a utilizar\nSeleccionar un mínimo de 4 variables para, mediante su estudio, responder a la pregunta de investigación. Todas las variables deben remitir al tema de interés: 2 de las variables deben ser de nivel de medición de intervalo o razón, 1 variable debe ser de nivel de medición ordinal y 1 variable debe ser de nivel de medición nominal, además, un conjunto de variables para armar una escala o índice.\nPara cada variable debe indicar: i) una breve descripción que especifique el nivel de medición de la  variable, su nombre en la base de datos y el fraseo en la encuesta, ii) explique qué aspecto del fenómeno de interés representa y iii) su utilidad para resolver la pregunta de investigación. La selección de variables debe ser coherente con la formulación del problema y la pregunta y objetivos de investigación propuestos. (1 plana)\n2,0\n\n\nTablas de frecuencia\nCalcular una tabla de frecuencia (absoluta y relativa) para las variables nominales y ordinales e interpretar. La interpretación de tablas debe buscar aportar con elementos que permitan construir una respuesta a la pregunta y objetivos de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de tendencia central\nCalcular e interpretar las medidas de tendencia central (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de dispersión\nCalcular el rango, la desviación estándar y el coeficiente de variación (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nMedidas de posición\nCalcular el valor mínimo y máximo, el cuartil 1 y el cuartil 3 (estadístico muestral) para las variables intervalares y de razón seleccionadas. Colocarlas en una tabla. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nGráficos\nPresentar al menos 2 gráficos seleccionando para su construcción aquellas variables más relevantes para el problema de investigación. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los gráficos deben ser realizados en R.\n2,0\n\n\nÍndices y escalas\nConstruir al menos un índice o escala a partir del conjunto de variables seleccionado. Este índice o escala debe reportar e interpretar el nivel de consistencia interna de las variables\n2,0\n\n\nEstimación puntual, intervalo de confianza y error\nCalcular los parámetros e intervalos de confianza para dos de las variables seleccionadas. Además, debe elaborar una tabla resumen que sintetice todos los indicadores que considere relevantes para interpretar la información. La interpretación debe ser relevante para responder la pregunta y objetivo de investigación. Los cálculos deben ser realizados en R.\n2,0\n\n\nConclusiones\nEn las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Este resumen de los resultados, así como las conclusiones, deben dialogar con lo planteado en la introducción de su trabajo, haciendo referencia a las fuentes bibliográficas utilizadas en la presentación del problema de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. Se valorará la pertinencia sociológica de la conclusión (1 plana).\n2,0\n\n\nTrabajo en R\nAdemás del informe, entregar la carpeta con el Proyecto R, que contenga un archivo .Rproject, y las carpetas input, procesamiento y output.\n\nLa carpeta input debe contener la base de datos, manual de usuario, libro de códigos.\nLa carpeta procesamiento debe contener un archivo de sintaxis para el procesamiento y otro para el análisis de los datos.\nLa carpeta output debe contener la base de datos procesada y el resto de salidas asociadas (tablas, gráficos, etc.).\n\nSe evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.\n3,0"
+  },
+  {
+    "objectID": "trabajos.html#fecha-y-formato-de-entrega",
+    "href": "trabajos.html#fecha-y-formato-de-entrega",
+    "title": "Trabajos",
+    "section": "Fecha y formato de entrega",
+    "text": "Fecha y formato de entrega\nEl formato de entrega del informe debe ser un documento en formato PDF (.pdf), que debe estar alojado en la carpeta output del Proyecto R. Fecha de entrega: viernes 13 de junio hasta las 23:59 vía módulo Tareas en plataforma U-Cursos. \n\nEntregas atrasadas hasta las 23:59 del sábado 14 de junio tendrán 0,5 puntos de descuento  sobre la nota final. \nEntregas atrasadas hasta el domingo 15 de junio hasta las 23:59 tendrán 1,0 punto de descuento sobre la nota final. No serán evaluadas entregas posteriores a esta fecha."
+  },
+  {
+    "objectID": "trabajos.html#sobre-plagio",
+    "href": "trabajos.html#sobre-plagio",
+    "title": "Trabajos",
+    "section": "Sobre plagio",
+    "text": "Sobre plagio\nTodos los trabajos se procesan en software para detección de plagio: evidencia de una situación de plagio implica obtención de la nota mínima en la evaluación (1,0) junto con constituirse como causal de reprobación de la asignatura."
+  },
+  {
+    "objectID": "trabajos.html#recomendaciones-para-la-entrega",
+    "href": "trabajos.html#recomendaciones-para-la-entrega",
+    "title": "Trabajos",
+    "section": "Recomendaciones para la entrega",
+    "text": "Recomendaciones para la entrega\n\nMáxima de escritura: una idea por párrafo. Si comienza una idea nueva, se recomienda comenzar otro párrafo. Al revés, si el párrafo siguiente habla de lo mismo, sumarlo al párrafo anterior. \nLa idea del párrafo se resume en la primera parte del párrafo, lo que en inglés se llama “topic sentence”. \nDeclarar domicilio disciplinar: ej, mencionar la palabra “sociología” en el primer/segundo párrafo, esto fuerza que la investigación se enmarque en la disciplina.\n\nEn caso de tener dudas, no dude en contactar a sus ayudantes respectivos, o bien, vía foro U-Cursos al equipo docente de la asignatura."
+  },
+  {
+    "objectID": "practicos/index.html",
+    "href": "practicos/index.html",
+    "title": "Prácticos",
+    "section": "",
+    "text": "Acceder a la página de posit, desarrollador del software desde octubre de 2022. Link directo a la descarga acá.\nInstalar R y Rstudio\n\n\n\nDescargar R\n\n\nSeleccionamos sistema operativo según corresponda\n\n\n\nDescargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2\n\n\n\nDescargar RStudio\n\n\nDescarga directa en la página de inicio\n\n\nInstalar ambos archivos siguiendo las instrucciones de instalación\n\n\nAbrir RStudio. Se debería ver similar a esto (o en blanco):\n\n\n\n\n\n\n\n\nNota\n\n\n\nAlternativa a lo anterior: https://posit.cloud/\n\nVersión online de Rstudio\nUtilizar en caso de problemas con PC",
+    "crumbs": [
+      "Practicos",
+      "Descripción"
+    ]
+  },
+  {
+    "objectID": "practicos/index.html#r-y-rstudio",
+    "href": "practicos/index.html#r-y-rstudio",
+    "title": "Prácticos",
+    "section": "",
+    "text": "Acceder a la página de posit, desarrollador del software desde octubre de 2022. Link directo a la descarga acá.\nInstalar R y Rstudio\n\n\n\nDescargar R\n\n\nSeleccionamos sistema operativo según corresponda\n\n\n\nDescargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2\n\n\n\nDescargar RStudio\n\n\nDescarga directa en la página de inicio\n\n\nInstalar ambos archivos siguiendo las instrucciones de instalación\n\n\nAbrir RStudio. Se debería ver similar a esto (o en blanco):\n\n\n\n\n\n\n\n\nNota\n\n\n\nAlternativa a lo anterior: https://posit.cloud/\n\nVersión online de Rstudio\nUtilizar en caso de problemas con PC",
+    "crumbs": [
+      "Practicos",
+      "Descripción"
+    ]
+  },
+  {
+    "objectID": "content/11-content.html#lecturas",
+    "href": "content/11-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nPráctica en R"
+  },
+  {
+    "objectID": "content/09-content.html#lecturas",
+    "href": "content/09-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas"
+  },
+  {
+    "objectID": "content/05-content.html#lecturas",
+    "href": "content/05-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science"
+  },
+  {
+    "objectID": "content/03-content.html#lecturas",
+    "href": "content/03-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nMoore: Residuos",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "03: Sesión 3"
+    ]
+  },
+  {
+    "objectID": "content/01-content.html#lecturas",
+    "href": "content/01-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "01: Sesión 1"
+    ]
+  },
+  {
+    "objectID": "assignment/index.html",
+    "href": "assignment/index.html",
+    "title": "Assignments",
+    "section": "",
+    "text": "The main goals of this class are to help you design, critique, code, and run rigorous, valid, and feasible evaluations of public sector programs. Each type of assignment in this class is designed to help you achieve one or more of these goals."
+  },
+  {
+    "objectID": "assignment/index.html#weekly-check-in",
+    "href": "assignment/index.html#weekly-check-in",
+    "title": "Assignments",
+    "section": "Weekly check-in",
+    "text": "Weekly check-in\nEvery week, after you finish working through the content, I want to hear about what you learned and what questions you still have. Because the content in thsi course is flipped, these questions are crucial for our weekly in-class discussions.\nTo encourage engagement with the course content—and to allow me to collect the class’s questions each week—you’ll need to fill out a short response on iCollege. This should be ≈150 words. That’s fairly short: there are ≈250 words on a typical double-spaced page in Microsoft Word (500 when single-spaced).\nThese check-ins are due by noon on the days we have class. This is so I can look through the responses and start structuring the discussion for the evening’s class.\nYou should answer these two questions each week:\n\nWhat were the three (3) most interesting or exciting things you learned from the session? Why?\nWhat were the three (3) muddiest or unclear things from the session this week? What are you still wondering about?\n\nYou can include more than three interesting or muddiest things, but you must include at least three. There should be six easily identifiable things in each check-in: three exciting things and three questions.\nI will grade these check-ins using a check system:\n\n✔+: (11.5 points (115%) in gradebook) Response shows phenomenal thought and engagement with the course content. I will not assign these often.\n✔: (10 points (100%) in gradebook) Response is thoughtful, well-written, and shows engagement with the course content. This is the expected level of performance.\n✔−: (5 points (50%) in gradebook) Response is hastily composed, too short, and/or only cursorily engages with the course content. This grade signals that you need to improve next time. I will hopefully not assign these often.\n\nNotice that is essentially a pass/fail or completion-based system. I’m not grading your writing ability, I’m not counting the exact number of words you’re writing, and I’m not looking for encyclopedic citations of every single reading to prove that you did indeed read everything. I’m looking for thoughtful engagement, three interesting things, and three questions. That’s all. Do good work and you’ll get a ✓.\nYou will submit these check-ins via iCollege."
+  },
+  {
+    "objectID": "assignment/index.html#problem-sets",
+    "href": "assignment/index.html#problem-sets",
+    "title": "Assignments",
+    "section": "Problem sets",
+    "text": "Problem sets\nTo practice writing R code, running inferential models, and thinking about causation, you will complete a series of problem sets.\nYou need to show that you made a good faith effort to work each question. I will not grade these in detail. The problem sets will be graded using a check system:\n\n✔+: (33 points (110%) in gradebook) Assignment is 100% completed. Every question was attempted and answered, and most answers are correct. Document is clean and easy to follow. Work is exceptional. I will not assign these often.\n✔: (30 points (100%) in gradebook) Assignment is 70–99% complete and most answers are correct. This is the expected level of performance.\n✔−: (15 points (50%) in gradebook) Assignment is less than 70% complete and/or most answers are incorrect. This indicates that you need to improve next time. I will hopefully not asisgn these often.\n\nYou may (and should!) work together on the problem sets, but you must turn in your own answers. You cannot work in groups of more than four people, and you must note who participated in the group in your assignment."
+  },
+  {
+    "objectID": "assignment/index.html#evaluation-assignments",
+    "href": "assignment/index.html#evaluation-assignments",
+    "title": "Assignments",
+    "section": "Evaluation assignments",
+    "text": "Evaluation assignments\nFor your final project, you will conduct a pre-registered evaluation of a social program using synthetic data. To (1) give you practice with the principles of program evaluation, research design, measurement, and causal diagrams, and (2) help you with the foundation of your final project, you will complete a set of four evaluation-related assignments.\nIdeally these will become major sections of your final project. However, there is no requirement that the programs you use in these assignments must be the same as the final project. If, through these assignments, you discover that your initially chosen program is too simple, too complex, too boring, etc., you can change at any time.\nThese assignments will be graded using a check system:\n\n✔+: (33 points (110%) in gradebook) Assignment is 100% completed. Every question was attempted and answered, and most answers are correct. Document is clean and easy to follow. Work is exceptional. I will not assign these often.\n✔: (30 points (100%) in gradebook) Assignment is 70–99% complete and most answers are correct. This is the expected level of performance.\n✔−: (15 points (50%) in gradebook) Assignment is less than 70% complete and/or most answers are incorrect. This indicates that you need to improve next time. I will hopefully not asisgn these often."
+  },
+  {
+    "objectID": "assignment/index.html#exams",
+    "href": "assignment/index.html#exams",
+    "title": "Assignments",
+    "section": "Exams",
+    "text": "Exams\nThere will be two exams covering (1) program evaluation, design, and causation, and (2) the core statistical tools of program evaluation and causal inference.\nYou will take these exams online through iCollege. The exams will have a time limit, but you can use notes and readings and the Google. You must take the exams on your own though, and not talk to anyone about them."
+  },
+  {
+    "objectID": "assignment/index.html#final-project",
+    "href": "assignment/index.html#final-project",
+    "title": "Assignments",
+    "section": "Final project",
+    "text": "Final project\nAt the end of the course, you will demonstrate your knowledge of program evaluation and causal inference by completing a final project.\nComplete details for the final project are here.\nThere is no final exam. This project is your final exam."
+  },
+  {
+    "objectID": "content/04-content.html#lecturas",
+    "href": "content/04-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nMoore 7: Inferencia para medias (482-543)",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "04: Sesión 4"
+    ]
+  },
+  {
+    "objectID": "content/06-content.html#lecturas",
+    "href": "content/06-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science"
+  },
+  {
+    "objectID": "content/08-content.html#lecturas",
+    "href": "content/08-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas"
+  },
+  {
+    "objectID": "content/10-content.html#lecturas",
+    "href": "content/10-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas"
+  },
+  {
+    "objectID": "content/index.html",
+    "href": "content/index.html",
+    "title": "Presentaciones, lecturas y actividades",
+    "section": "",
+    "text": "En esta sección se encuentran los documentos de presentación correspondientes a cada clase, lecturas y también actividades prácticas.",
+    "crumbs": [
+      "Clases",
+      "Información general",
+      "Presentaciones, lecturas y actividades"
+    ]
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Planificación",
+    "section": "",
+    "text": "Los dos componentes centrales del curso son las clases teóricas y las actividades prácticas. Las clases se realizarán los días Viernes 09:00 a 10:50 en sala 329\n\nClases ( ): Lecturas, documentos de presentación y video (en caso que la sesión sea grabada)\nPrácticas y evaluaciones (): Actividades prácticas a desarrollar durante la semana.\nLecturas (): Llegar a la clase con los textos leídos.\n\n\n\n\n\n Clases\n Prácticas y evaluaciones\n Lecturas y material adicional\n\n\n\n\n Marzo \n\n\n\n\n\nViernes 17\n00. Presentación e 01. introducción\n1. Aproximación inicial a R\n- Leer detalladamente programa del curso\n\n\n\n\nUNIDAD 1: Estadística descriptiva\n\n\n\nViernes 24\n2.Operacionalización de variables \n2.Operacionalización de variables\n- Wickham & Grolemund, (2017). cap. 1 Introducción \n\n\nViernes 31\n3. Visualización de datos\n-\n- Wickham & Grolemund, (2017). cap. 2 Explorar\n\n\n Abril \n\n\n\n\n\nViernes 07\nViernes santo\n\n\n\n\nViernes 14\n1° semana presencial\n\n\n\n\nViernes 21\n\nEvaluación\n\n\n\n\n\n\nUNIDAD 2: Estadística Correlacional\n\n\n\nViernes 28\n4. Introducción a la inferencia estadística\n\n\n\n\n Mayo \n\n\n\n\n\nViernes 05\n1° semana de pausa reflexiva\n\n\n\n\nViernes 12\n5. Correlación\n\n\n\n\nViernes 19\n6. Índices y análisis factorial\n\n\n\n\nViernes 26\n2° semana presencial\n\n\n\n\n\n\n\nUNIDAD 3: Regresión lineal y regresión logística\n\n\n\n Junio \n\n\n\n\n\nViernes 02\n7. Regresión lineal de mínimos cuadrados\n\n\n\n\nViernes 09\n2° semana de pausa reflexiva\n\n\n\n\nViernes 16\n**8. Regresión logística binaria: interpretación de coeficientes y cálculo de probabilidades\n\n\n\n\nViernes 23\n10. Análisis factorial y regresión lineal en R\n\n\n\n\nViernes 30\n11. Supuestos de regresión y valores predichos\n\n\n\n\n Julio \n\n\n\n\n\nViernes 07\n3° semana presencial\n\n\n\n\nViernes 14\n\nEvaluación"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "\n            Métodos estadísticos para ciencias sociales III\n        ",
+    "section": "",
+    "text": "Métodos estadísticos para ciencias sociales III\n        \n        \n            Universidad Andrés Bello\n        \n        \n            • Segundo semestre 2025Departamento de Sociología FACSOUniversidad Andrés Bello\n        \n    \n    \n        \n    \n\n\n\n\n\n\nProfesor\n\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\nInformación del curso\n\n   Lunes, martes y miércoles\n   Marzo 21–Julio 06, 2025\n   12:00-13:30 AM\n   Sala 334. Depto de Sociología\n\n\n\nContacto\nA través de correo"
+  },
+  {
+    "objectID": "practicos/practico-03.html",
+    "href": "practicos/practico-03.html",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "",
+    "text": "Una de las ideas fundamentales de la inferencia es determinar si nuestros análisis estadísticos pueden ser extrapolados a la población que estamos estudiando. En el contexto de regresión, esto se traduce en la significación estadística del coeficiente \\(\\beta\\), lo que es distinto del tamaño del efecto del \\(\\beta\\). Por ejemplo, podemos tener un \\(\\beta\\) de tamaño 3, pero eso no nos dice nada todavía sobre si es estadísticamente significativo.\nEntonces, la pregunta central de inferencia en regresión es: ¿Es nuestro coeficiente \\(\\beta\\) estadísticamente significativo?\nLa significación estadística se refiere a poder afirmar si el \\(\\beta\\) es distinto de cero en la población. Esta afirmación se puede realizar con un cierto nivel de probabilidad de error p, donde el concepto central es el error estándar.\n\n\nEl error estándar (SE, por su sigla en inglés) es un concepto central en inferencia ya que nos permite aseverar con un grado de probabilidad de error si nuestro coeficiente existe en la población (o en otras palabras, que nuestro coeficiente es distinto de cero en la población).\nEl ejemplo más simple para dar cuenta del error estándar es relativo al promedio: podemos calcular el promedio de la muestra, pero no sabemos con certeza si este promedio corresponde al de la población. Podríamos hacer una estimación más apropiada si extrajéramos varias muestras de datos, obtuviéramos el promedio de cada una y calcularamos una desviación estándar de estos promedios. Esta es justamente la idea detrás del cálculo del error estándar: entregar un posible rango de variación del promedio en la población (sumando y restando errores estándar al promedio). Y para ello, hacemos referencia a la distribución normal, que nos dice que aproximadamente el 68% de los valores se encuentran a +/- 1 SE y un 95% de los valores a +/- 2 SE.\nPero claramente es muy costoso extraer varias muestras y en general trabajamos con una; por ello, se utiliza una fórmula de SE para una muestra basada en el teorema central del límite, que nos dice (para el caso del promedio) que \\(SE_{\\bar{x}}\\frac{s}{\\sqrt{N}}\\) donde \\(s\\) es la desviación estándar y \\(N\\) es el tamaño de la muestra.\nAhora, como N está en el denominador, en la medida que aumente el N de la muestra, el error estándar será más pequeño. Esto es relevante saberlo, ya que un promedio o también un \\(\\beta\\) puede ser o no estadísticamente significativo según el tamaño muestral, y por lo tanto el tamaño del coeficiente no está relacionado directamente con su significación estadística.\nEjemplo\nSupongamos que nuestra muestra de 3703 casos en realidad corresponde a la Población, de modo tal que vamos a extraer 14 muestras aleatorias de distinto tamaño a modo de ilustrar cambios en la estimación en la medida que aumenta el tamaño muestral.\n\nlibrary(dplyr)\nload(url(\"https://multivariada.netlify.app/assignment/data/proc/ELSOC_ess.RData\")) # Cargar base de datos\nset.seed(123)\nelsoc_n30  &lt;- sample_n(tbl = elsoc_18,size = 30 )  %&gt;% mutate(dataset=30 ,mean_ess=mean(ess,na.rm = T))\nelsoc_n50  &lt;- sample_n(tbl = elsoc_18,size = 50 )  %&gt;% mutate(dataset=50 ,mean_ess=mean(ess,na.rm = T))\nelsoc_n75  &lt;- sample_n(tbl = elsoc_18,size = 75 )  %&gt;% mutate(dataset=75 ,mean_ess=mean(ess,na.rm = T))\nelsoc_n100 &lt;- sample_n(tbl = elsoc_18,size = 100)  %&gt;% mutate(dataset=100,mean_ess=mean(ess,na.rm = T))\nelsoc_n200 &lt;- sample_n(tbl = elsoc_18,size = 200)  %&gt;% mutate(dataset=200,mean_ess=mean(ess,na.rm = T))\nelsoc_n300 &lt;- sample_n(tbl = elsoc_18,size = 300)  %&gt;% mutate(dataset=300 ,mean_ess=mean(ess,na.rm = T))\nelsoc_n400 &lt;- sample_n(tbl = elsoc_18,size = 400)  %&gt;% mutate(dataset=400,mean_ess=mean(ess,na.rm = T))\nelsoc_n700 &lt;- sample_n(tbl = elsoc_18,size = 700)  %&gt;% mutate(dataset=700,mean_ess=mean(ess,na.rm = T))\nelsoc_n800 &lt;- sample_n(tbl = elsoc_18,size = 800)  %&gt;% mutate(dataset=800,mean_ess=mean(ess,na.rm = T))\nelsoc_n900 &lt;- sample_n(tbl = elsoc_18,size = 900)  %&gt;% mutate(dataset=900,mean_ess=mean(ess,na.rm = T))\nelsoc_n1000&lt;- sample_n(tbl = elsoc_18,size = 1000) %&gt;% mutate(dataset=1000,mean_ess=mean(ess,na.rm = T))\nelsoc_n1500&lt;- sample_n(tbl = elsoc_18,size = 1500) %&gt;% mutate(dataset=1500,mean_ess=mean(ess,na.rm = T))\nelsoc_n2000&lt;- sample_n(tbl = elsoc_18,size = 2000) %&gt;% mutate(dataset=2000,mean_ess=mean(ess,na.rm = T))\nelsoc_n2500&lt;- sample_n(tbl = elsoc_18,size = 2500) %&gt;% mutate(dataset=2500,mean_ess=mean(ess,na.rm = T))\n# elsoc      &lt;- elsoc_18 %&gt;% mutate(dataset=3703,mean_ess=mean(ess,na.rm = T))\n\nfullmat&lt;- bind_rows(elsoc_n30 ,elsoc_n50 ,elsoc_n75 ,elsoc_n100,elsoc_n200,elsoc_n300,elsoc_n400,elsoc_n700,elsoc_n800,elsoc_n900,elsoc_n1000,elsoc_n1500,elsoc_n2000,elsoc_n2500)\nfullmat &lt;- fullmat %&gt;% mutate(mean_ssta=mean(elsoc_18$ess,na.rm = T))\n\nLuego de obtener las muestras, calculamos la media, desviación estándar y error estándar para cada una de ellas:\n\ntab_full&lt;- fullmat %&gt;% group_by(dataset) %&gt;% summarise(mean=mean(ess,na.rm = T), sd=sd(ess,na.rm = T),SE=sd/sqrt(n()))\ntab_full\n\n# A tibble: 14 × 4\n   dataset  mean    sd     SE\n     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n 1      30  4.07  1.41 0.258 \n 2      50  4.58  1.59 0.225 \n 3      75  4.39  1.60 0.185 \n 4     100  4.4   1.49 0.149 \n 5     200  4.46  1.47 0.104 \n 6     300  4.3   1.55 0.0893\n 7     400  4.36  1.58 0.0789\n 8     700  4.35  1.62 0.0611\n 9     800  4.38  1.54 0.0544\n10     900  4.36  1.58 0.0525\n11    1000  4.40  1.57 0.0498\n12    1500  4.39  1.56 0.0403\n13    2000  4.42  1.56 0.0349\n14    2500  4.38  1.58 0.0317\n\n\nEs posible observar que tanto la media como la desviación estándar van cambiando en la medida que aumenta el tamaño de la muestra, pero si observamos el error estándar, este va sistemáticamente disminuyendo en la medida que aumenta el tamaño muestral.\nPara ilustrar cómo va cambiando la dispersión y la media “muestral” (rojo) con respecto a la “poblacional” (verde), se puede observar el siguiente gráfico:\n\nPor lo tanto, el valor del error estándar depende del tamaño de la muestra, y por lo tanto el tamaño de la muestra va a afectar la significación estadística de los coeficientes de regresión.\n\n\n\nEn regresión nos interesa saber si las diferencias en Y con respecto a los distintos niveles o valores de X son significativas, es decir estadísticamente distintas de 0 con un cierto nivel de probabilidad.\nPara poder calcular la probabilidad de error nos basamos en una distribución teórica, que es la distribución normal en su versión ajustada al tamaño muestral: la distribución T. Esta distribución nos permite obtener un valor de contraste o valor crítico para un cierto nivel de probabilidad de error (por ejemplo, p=0.05), con el cual contrastamos el T obtenido en nuestra estimación.\nPor lo tanto, para esto se requiere:\n\ncalcular el T de cada \\(\\beta\\) de regresión\nestablecer un nivel de probabilidad de error (ej: p=0.05, para un 95% de confianza)\ncalcular el valor crítico\ncontrastar: si T &gt; valor crítico T, entonces se puede establecer que el coeficiente es estadísticamente significativo con una probabilidad de error p&lt;0.05. O alternativamente, se rechaza la hipótesis nula (que nos dice que \\(\\beta=0\\)) con un 95% de confianza.\n\nTodos estos pasos son realizados automáticamente mediante software de estimación (como R), pero vamos a hacerlo paso a paso en un ejemplo mínimo (=pocos datos) con los datos de la práctica 3 de regresión simple:\n\ndatos &lt;- read.csv(\"https://multivariada.netlify.app/slides/03-regsimple1/tacataca.txt\", sep=\"\")\n\n\nTenemos entonces tres columnas:\n\nid: número único que identifica a cada sujeto\njuegos_x: número de veces que ha jugado previamente\npuntos_y: numero de puntos que obtuvo en el juego actual\n\nEstimamos el modelo de regresión y vemos los resultados:\n\nreg1 &lt;-lm(puntos_y ~ juegos_x, data = datos)\nstargazer::stargazer(reg1, type = \"text\")\n\n\n===============================================\n                        Dependent variable:    \n                    ---------------------------\n                             puntos_y          \n-----------------------------------------------\njuegos_x                     0.500***          \n                              (0.132)          \n                                               \nConstant                     2.500***          \n                              (0.458)          \n                                               \n-----------------------------------------------\nObservations                    23             \nR2                             0.405           \nAdjusted R2                    0.376           \nResidual Std. Error       1.091 (df = 21)      \nF Statistic           14.280*** (df = 1; 21)   \n===============================================\nNote:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01\n\n\nEl \\(\\beta\\) (calculado paso a paso en la Práctica 3) nos dice que por cada punto que aumenta la experiencia en juegos (X), el puntaje obtenido (Y) aumenta 0.5 puntos. Atendamos ahora a la información adicional de la tabla relacionada con inferencia:\n\nun número entre paréntesis bajo el \\(\\beta\\), corresponde al error estándar\ntres asteriscos al lado del \\(\\beta\\), que refieren al pie de la tabla donde el número de asteriscos (entre 1 y 3) se asocia a distintos niveles de probabilidad de error.\n\nEl error estándar del \\(\\beta\\) o \\(SE_{\\beta}\\) es lo que nos permite calcular T, ya que \\(T=\\beta / SE_{\\beta}\\). Existen diferentes alternativas para el cálculo de \\(SE_{\\beta}\\), para el caso de este ejemplo con un predictor X continuo vamos a utilizar:\n\\[SE_{\\beta}=\\sqrt{\\frac{ \\frac{1}{N-2}-\\sum(\\hat{y}-y)²}{\\sum(x-\\bar{x})²}}\\]\nDonde en el numerador se encuentra la sumatoria de los residuos al cuadrado multiplicado por 1/N-2, y en el denominador es la suma de cuadrados de X. Para demostrar paso a paso la obtención de estos términos vamos a agregar una serie de columnas a nuestra base de datos:\n\n#Variable de valores predichos\ndatos$estimado&lt;- (2.5 + datos$juegos_x*0.5)\n\n# Estimamos el residuo\ndatos$residuo &lt;- datos$puntos_y - datos$estimado\n\n# Estimamos los residuos al cuadrado\ndatos$residuo2 &lt;- datos$residuo^2\n\n# Y finalmente las diferencias de X del promedio\ndatos$xprom_x &lt;- datos$juegos_x - mean(datos$juegos_x)\n\n# ... al cuadrado\ndatos$xprom_x2 &lt;- (datos$xprom_x)^2\n\ndatos\n\n   id juegos_x puntos_y estimado residuo residuo2 xprom_x xprom_x2\n1   1        0        2      2.5    -0.5     0.25      -3        9\n2   2        0        3      2.5     0.5     0.25      -3        9\n3   3        1        2      3.0    -1.0     1.00      -2        4\n4   4        1        3      3.0     0.0     0.00      -2        4\n5   5        1        4      3.0     1.0     1.00      -2        4\n6   6        2        2      3.5    -1.5     2.25      -1        1\n7   7        2        3      3.5    -0.5     0.25      -1        1\n8   8        2        4      3.5     0.5     0.25      -1        1\n9   9        2        5      3.5     1.5     2.25      -1        1\n10 10        3        2      4.0    -2.0     4.00       0        0\n11 11        3        3      4.0    -1.0     1.00       0        0\n12 12        3        4      4.0     0.0     0.00       0        0\n13 13        3        5      4.0     1.0     1.00       0        0\n14 14        3        6      4.0     2.0     4.00       0        0\n15 15        4        3      4.5    -1.5     2.25       1        1\n16 16        4        4      4.5    -0.5     0.25       1        1\n17 17        4        5      4.5     0.5     0.25       1        1\n18 18        4        6      4.5     1.5     2.25       1        1\n19 19        5        4      5.0    -1.0     1.00       2        4\n20 20        5        5      5.0     0.0     0.00       2        4\n21 21        5        6      5.0     1.0     1.00       2        4\n22 22        6        5      5.5    -0.5     0.25       3        9\n23 23        6        6      5.5     0.5     0.25       3        9\n\n\nAhora obtenemos la suma de los residuos al cuadrado (residuo2) y la suma de las diferencias de promedio de X al cuadrado:\n\nsum(datos$residuo2)\n\n[1] 25\n\nsum(datos$xprom_x2)\n\n[1] 68\n\n\nReemplazamos en la fórmula:\n\\(SE_{\\beta}=\\sqrt{\\frac{ \\frac{1}{N-2}*\\sum(\\hat{y}-y)²}{\\sum(x-\\bar{x})²}}=\\sqrt{\\frac{ \\frac{1}{23-2}*25}{68}}\\)\nY realizamos el cálculo:\n\nsqrt(((1/21)*25)/68 )\n\n[1] 0.132314\n\n\nQue es equivalente al valor entre paréntesis bajo el \\(\\beta\\) en la tabla de regresión de arriba, y que corresponde al error estándar.\nCon el error estándar, ahora calculamos T:\n\\(T=\\frac{\\beta}{SE_{\\beta}}=\\frac{0.5}{0.132}=3.787\\)\nY ahora contrastamos este valor con el valor crítico de T, basado en la distribución T y que se obtiene de la tabla de valores correspondiente o de un software estadístico como R. Para esto necesitamos establecer el nivel deseado de probabilidad de error, convencionalmente p=0.05, y los grados de libertad (gl) que se calculan como N-k-1, donde k equivale al número de predictores (en este caso 1). Por lo tanto gl=23-1-1=21.\nY un tema adicional sobre el valor p: vamos a establecer un valor que considere tanto situaciones de coeficiente positivo como negativo (prueba de dos colas), que es la manera convencional para rechazar hipótesis nulas en el caso de regresión. Por lo tanto, para la búsqueda del valor crítico dividimos el p a la mitad (0.05/2), quedando entonces en 0.025.\nCon p=0.025 y gl=21 obtenemos el valor crítico:\n\nqt(0.975, 21)\n\n[1] 2.079614\n\n\nNuestro valor T de 3.387 es mayor que el valor crítico de 2.07, por lo tanto podemos decir que nuestro beta es estadísticamente significativo con un 95% de confianza. Veamos ahora si podemos hacer esta afirmación con un mayor nivel de confianza: 99%. Para eso, calculamos la T de dos colas para un p=0.01/2=0.005, por lo tanto el valor crítico se calcula a partir de 0.995\n\nqt(0.995, 21)\n\n[1] 2.83136\n\n\nEn este caso, el T del \\(\\beta\\) de nuestro modelo también es superior a este valor crítico (3.387&gt;2.831), por lo que podemos decir que nuestro beta es estadísticamente significativo con un 99% de confianza. Alternativamente, que rechazamos la hipótesis nula (que dice que \\(\\beta=0\\) en la población) con una probabilidad de error p&lt;0.01. Esto se representa en la tabla de regresión con asteriscos al lado del \\(\\beta\\), lo cual puede variar según la función que produzca la tabla. En la tabla de arriba generada con stargazer un nivel de probabilidad de error p&lt;0.01 se representa con 3 asteriscos, pero otras funciones como la que veremos más adelante sjPlot::tab_model los dos asteriscos equivalen a p&lt;0.01 y tres a p&lt;0.001:\n\n\nOtro concepto asociado con inferencia es el intervalo de confianza, que se obtiene sumando y restando errores estándar al \\(\\beta\\) de regresión. Con esto no solo se obtiene un rango probable de variación del \\(\\beta\\), sino que también es posible establecer falta de significancia estadística cuando el intervalo pasa por el valor 0. De esta manera, es una manera relacionada y complementaria de hacer análisis de inferencia además de la prueba T.\nPara obtener el intervalo de confianza se suma/resta al \\(\\beta\\) el error estándar por el valor crítico de T para el nivel de confianza correspondiente. En nuestro ejemplo, para un 95% de confianza el T crítico es 2.079, por lo tanto considerando el \\(\\beta\\) de 0.5 y el error de 0.132:\n\n0.5 - (2.079 * 0.132)\n\n[1] 0.225572\n\n0.5 + (2.079 * 0.132)\n\n[1] 0.774428\n\n\nPor lo tanto, podemos decir con un 95% de confianza que \\(\\beta\\) varía entre 0.225 y 0.774, y que es estadísticamente significativo ya que el intervalo no pasa por cero, que es lo mismo que decir que es estadísticamente distinto de 0.\nToda esta información la podemos obtener en R con tablas como la siguiente:\n\nsjPlot::tab_model(reg1,\n        show.se=TRUE,\n        digits=3,\n        p.style = \"star\")\n\n\n\n\n \npuntos y\n\n\nPredictors\nEstimates\nstd. Error\nCI\n\n\n(Intercept)\n2.500 ***\n0.458\n1.549 – 3.451\n\n\njuegos x\n0.500 **\n0.132\n0.225 – 0.775\n\n\nObservations\n23\n\n\nR2 / R2 adjusted\n0.405 / 0.376\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n\nA continuación más detalles de generación de tablas e interpretación",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#error-estándar-se-y-tamaño-muestral",
+    "href": "practicos/practico-03.html#error-estándar-se-y-tamaño-muestral",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "",
+    "text": "El error estándar (SE, por su sigla en inglés) es un concepto central en inferencia ya que nos permite aseverar con un grado de probabilidad de error si nuestro coeficiente existe en la población (o en otras palabras, que nuestro coeficiente es distinto de cero en la población).\nEl ejemplo más simple para dar cuenta del error estándar es relativo al promedio: podemos calcular el promedio de la muestra, pero no sabemos con certeza si este promedio corresponde al de la población. Podríamos hacer una estimación más apropiada si extrajéramos varias muestras de datos, obtuviéramos el promedio de cada una y calcularamos una desviación estándar de estos promedios. Esta es justamente la idea detrás del cálculo del error estándar: entregar un posible rango de variación del promedio en la población (sumando y restando errores estándar al promedio). Y para ello, hacemos referencia a la distribución normal, que nos dice que aproximadamente el 68% de los valores se encuentran a +/- 1 SE y un 95% de los valores a +/- 2 SE.\nPero claramente es muy costoso extraer varias muestras y en general trabajamos con una; por ello, se utiliza una fórmula de SE para una muestra basada en el teorema central del límite, que nos dice (para el caso del promedio) que \\(SE_{\\bar{x}}\\frac{s}{\\sqrt{N}}\\) donde \\(s\\) es la desviación estándar y \\(N\\) es el tamaño de la muestra.\nAhora, como N está en el denominador, en la medida que aumente el N de la muestra, el error estándar será más pequeño. Esto es relevante saberlo, ya que un promedio o también un \\(\\beta\\) puede ser o no estadísticamente significativo según el tamaño muestral, y por lo tanto el tamaño del coeficiente no está relacionado directamente con su significación estadística.\nEjemplo\nSupongamos que nuestra muestra de 3703 casos en realidad corresponde a la Población, de modo tal que vamos a extraer 14 muestras aleatorias de distinto tamaño a modo de ilustrar cambios en la estimación en la medida que aumenta el tamaño muestral.\n\nlibrary(dplyr)\nload(url(\"https://multivariada.netlify.app/assignment/data/proc/ELSOC_ess.RData\")) # Cargar base de datos\nset.seed(123)\nelsoc_n30  &lt;- sample_n(tbl = elsoc_18,size = 30 )  %&gt;% mutate(dataset=30 ,mean_ess=mean(ess,na.rm = T))\nelsoc_n50  &lt;- sample_n(tbl = elsoc_18,size = 50 )  %&gt;% mutate(dataset=50 ,mean_ess=mean(ess,na.rm = T))\nelsoc_n75  &lt;- sample_n(tbl = elsoc_18,size = 75 )  %&gt;% mutate(dataset=75 ,mean_ess=mean(ess,na.rm = T))\nelsoc_n100 &lt;- sample_n(tbl = elsoc_18,size = 100)  %&gt;% mutate(dataset=100,mean_ess=mean(ess,na.rm = T))\nelsoc_n200 &lt;- sample_n(tbl = elsoc_18,size = 200)  %&gt;% mutate(dataset=200,mean_ess=mean(ess,na.rm = T))\nelsoc_n300 &lt;- sample_n(tbl = elsoc_18,size = 300)  %&gt;% mutate(dataset=300 ,mean_ess=mean(ess,na.rm = T))\nelsoc_n400 &lt;- sample_n(tbl = elsoc_18,size = 400)  %&gt;% mutate(dataset=400,mean_ess=mean(ess,na.rm = T))\nelsoc_n700 &lt;- sample_n(tbl = elsoc_18,size = 700)  %&gt;% mutate(dataset=700,mean_ess=mean(ess,na.rm = T))\nelsoc_n800 &lt;- sample_n(tbl = elsoc_18,size = 800)  %&gt;% mutate(dataset=800,mean_ess=mean(ess,na.rm = T))\nelsoc_n900 &lt;- sample_n(tbl = elsoc_18,size = 900)  %&gt;% mutate(dataset=900,mean_ess=mean(ess,na.rm = T))\nelsoc_n1000&lt;- sample_n(tbl = elsoc_18,size = 1000) %&gt;% mutate(dataset=1000,mean_ess=mean(ess,na.rm = T))\nelsoc_n1500&lt;- sample_n(tbl = elsoc_18,size = 1500) %&gt;% mutate(dataset=1500,mean_ess=mean(ess,na.rm = T))\nelsoc_n2000&lt;- sample_n(tbl = elsoc_18,size = 2000) %&gt;% mutate(dataset=2000,mean_ess=mean(ess,na.rm = T))\nelsoc_n2500&lt;- sample_n(tbl = elsoc_18,size = 2500) %&gt;% mutate(dataset=2500,mean_ess=mean(ess,na.rm = T))\n# elsoc      &lt;- elsoc_18 %&gt;% mutate(dataset=3703,mean_ess=mean(ess,na.rm = T))\n\nfullmat&lt;- bind_rows(elsoc_n30 ,elsoc_n50 ,elsoc_n75 ,elsoc_n100,elsoc_n200,elsoc_n300,elsoc_n400,elsoc_n700,elsoc_n800,elsoc_n900,elsoc_n1000,elsoc_n1500,elsoc_n2000,elsoc_n2500)\nfullmat &lt;- fullmat %&gt;% mutate(mean_ssta=mean(elsoc_18$ess,na.rm = T))\n\nLuego de obtener las muestras, calculamos la media, desviación estándar y error estándar para cada una de ellas:\n\ntab_full&lt;- fullmat %&gt;% group_by(dataset) %&gt;% summarise(mean=mean(ess,na.rm = T), sd=sd(ess,na.rm = T),SE=sd/sqrt(n()))\ntab_full\n\n# A tibble: 14 × 4\n   dataset  mean    sd     SE\n     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n 1      30  4.07  1.41 0.258 \n 2      50  4.58  1.59 0.225 \n 3      75  4.39  1.60 0.185 \n 4     100  4.4   1.49 0.149 \n 5     200  4.46  1.47 0.104 \n 6     300  4.3   1.55 0.0893\n 7     400  4.36  1.58 0.0789\n 8     700  4.35  1.62 0.0611\n 9     800  4.38  1.54 0.0544\n10     900  4.36  1.58 0.0525\n11    1000  4.40  1.57 0.0498\n12    1500  4.39  1.56 0.0403\n13    2000  4.42  1.56 0.0349\n14    2500  4.38  1.58 0.0317\n\n\nEs posible observar que tanto la media como la desviación estándar van cambiando en la medida que aumenta el tamaño de la muestra, pero si observamos el error estándar, este va sistemáticamente disminuyendo en la medida que aumenta el tamaño muestral.\nPara ilustrar cómo va cambiando la dispersión y la media “muestral” (rojo) con respecto a la “poblacional” (verde), se puede observar el siguiente gráfico:\n\nPor lo tanto, el valor del error estándar depende del tamaño de la muestra, y por lo tanto el tamaño de la muestra va a afectar la significación estadística de los coeficientes de regresión.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#inferencia-en-regresión",
+    "href": "practicos/practico-03.html#inferencia-en-regresión",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "",
+    "text": "En regresión nos interesa saber si las diferencias en Y con respecto a los distintos niveles o valores de X son significativas, es decir estadísticamente distintas de 0 con un cierto nivel de probabilidad.\nPara poder calcular la probabilidad de error nos basamos en una distribución teórica, que es la distribución normal en su versión ajustada al tamaño muestral: la distribución T. Esta distribución nos permite obtener un valor de contraste o valor crítico para un cierto nivel de probabilidad de error (por ejemplo, p=0.05), con el cual contrastamos el T obtenido en nuestra estimación.\nPor lo tanto, para esto se requiere:\n\ncalcular el T de cada \\(\\beta\\) de regresión\nestablecer un nivel de probabilidad de error (ej: p=0.05, para un 95% de confianza)\ncalcular el valor crítico\ncontrastar: si T &gt; valor crítico T, entonces se puede establecer que el coeficiente es estadísticamente significativo con una probabilidad de error p&lt;0.05. O alternativamente, se rechaza la hipótesis nula (que nos dice que \\(\\beta=0\\)) con un 95% de confianza.\n\nTodos estos pasos son realizados automáticamente mediante software de estimación (como R), pero vamos a hacerlo paso a paso en un ejemplo mínimo (=pocos datos) con los datos de la práctica 3 de regresión simple:\n\ndatos &lt;- read.csv(\"https://multivariada.netlify.app/slides/03-regsimple1/tacataca.txt\", sep=\"\")\n\n\nTenemos entonces tres columnas:\n\nid: número único que identifica a cada sujeto\njuegos_x: número de veces que ha jugado previamente\npuntos_y: numero de puntos que obtuvo en el juego actual\n\nEstimamos el modelo de regresión y vemos los resultados:\n\nreg1 &lt;-lm(puntos_y ~ juegos_x, data = datos)\nstargazer::stargazer(reg1, type = \"text\")\n\n\n===============================================\n                        Dependent variable:    \n                    ---------------------------\n                             puntos_y          \n-----------------------------------------------\njuegos_x                     0.500***          \n                              (0.132)          \n                                               \nConstant                     2.500***          \n                              (0.458)          \n                                               \n-----------------------------------------------\nObservations                    23             \nR2                             0.405           \nAdjusted R2                    0.376           \nResidual Std. Error       1.091 (df = 21)      \nF Statistic           14.280*** (df = 1; 21)   \n===============================================\nNote:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01\n\n\nEl \\(\\beta\\) (calculado paso a paso en la Práctica 3) nos dice que por cada punto que aumenta la experiencia en juegos (X), el puntaje obtenido (Y) aumenta 0.5 puntos. Atendamos ahora a la información adicional de la tabla relacionada con inferencia:\n\nun número entre paréntesis bajo el \\(\\beta\\), corresponde al error estándar\ntres asteriscos al lado del \\(\\beta\\), que refieren al pie de la tabla donde el número de asteriscos (entre 1 y 3) se asocia a distintos niveles de probabilidad de error.\n\nEl error estándar del \\(\\beta\\) o \\(SE_{\\beta}\\) es lo que nos permite calcular T, ya que \\(T=\\beta / SE_{\\beta}\\). Existen diferentes alternativas para el cálculo de \\(SE_{\\beta}\\), para el caso de este ejemplo con un predictor X continuo vamos a utilizar:\n\\[SE_{\\beta}=\\sqrt{\\frac{ \\frac{1}{N-2}-\\sum(\\hat{y}-y)²}{\\sum(x-\\bar{x})²}}\\]\nDonde en el numerador se encuentra la sumatoria de los residuos al cuadrado multiplicado por 1/N-2, y en el denominador es la suma de cuadrados de X. Para demostrar paso a paso la obtención de estos términos vamos a agregar una serie de columnas a nuestra base de datos:\n\n#Variable de valores predichos\ndatos$estimado&lt;- (2.5 + datos$juegos_x*0.5)\n\n# Estimamos el residuo\ndatos$residuo &lt;- datos$puntos_y - datos$estimado\n\n# Estimamos los residuos al cuadrado\ndatos$residuo2 &lt;- datos$residuo^2\n\n# Y finalmente las diferencias de X del promedio\ndatos$xprom_x &lt;- datos$juegos_x - mean(datos$juegos_x)\n\n# ... al cuadrado\ndatos$xprom_x2 &lt;- (datos$xprom_x)^2\n\ndatos\n\n   id juegos_x puntos_y estimado residuo residuo2 xprom_x xprom_x2\n1   1        0        2      2.5    -0.5     0.25      -3        9\n2   2        0        3      2.5     0.5     0.25      -3        9\n3   3        1        2      3.0    -1.0     1.00      -2        4\n4   4        1        3      3.0     0.0     0.00      -2        4\n5   5        1        4      3.0     1.0     1.00      -2        4\n6   6        2        2      3.5    -1.5     2.25      -1        1\n7   7        2        3      3.5    -0.5     0.25      -1        1\n8   8        2        4      3.5     0.5     0.25      -1        1\n9   9        2        5      3.5     1.5     2.25      -1        1\n10 10        3        2      4.0    -2.0     4.00       0        0\n11 11        3        3      4.0    -1.0     1.00       0        0\n12 12        3        4      4.0     0.0     0.00       0        0\n13 13        3        5      4.0     1.0     1.00       0        0\n14 14        3        6      4.0     2.0     4.00       0        0\n15 15        4        3      4.5    -1.5     2.25       1        1\n16 16        4        4      4.5    -0.5     0.25       1        1\n17 17        4        5      4.5     0.5     0.25       1        1\n18 18        4        6      4.5     1.5     2.25       1        1\n19 19        5        4      5.0    -1.0     1.00       2        4\n20 20        5        5      5.0     0.0     0.00       2        4\n21 21        5        6      5.0     1.0     1.00       2        4\n22 22        6        5      5.5    -0.5     0.25       3        9\n23 23        6        6      5.5     0.5     0.25       3        9\n\n\nAhora obtenemos la suma de los residuos al cuadrado (residuo2) y la suma de las diferencias de promedio de X al cuadrado:\n\nsum(datos$residuo2)\n\n[1] 25\n\nsum(datos$xprom_x2)\n\n[1] 68\n\n\nReemplazamos en la fórmula:\n\\(SE_{\\beta}=\\sqrt{\\frac{ \\frac{1}{N-2}*\\sum(\\hat{y}-y)²}{\\sum(x-\\bar{x})²}}=\\sqrt{\\frac{ \\frac{1}{23-2}*25}{68}}\\)\nY realizamos el cálculo:\n\nsqrt(((1/21)*25)/68 )\n\n[1] 0.132314\n\n\nQue es equivalente al valor entre paréntesis bajo el \\(\\beta\\) en la tabla de regresión de arriba, y que corresponde al error estándar.\nCon el error estándar, ahora calculamos T:\n\\(T=\\frac{\\beta}{SE_{\\beta}}=\\frac{0.5}{0.132}=3.787\\)\nY ahora contrastamos este valor con el valor crítico de T, basado en la distribución T y que se obtiene de la tabla de valores correspondiente o de un software estadístico como R. Para esto necesitamos establecer el nivel deseado de probabilidad de error, convencionalmente p=0.05, y los grados de libertad (gl) que se calculan como N-k-1, donde k equivale al número de predictores (en este caso 1). Por lo tanto gl=23-1-1=21.\nY un tema adicional sobre el valor p: vamos a establecer un valor que considere tanto situaciones de coeficiente positivo como negativo (prueba de dos colas), que es la manera convencional para rechazar hipótesis nulas en el caso de regresión. Por lo tanto, para la búsqueda del valor crítico dividimos el p a la mitad (0.05/2), quedando entonces en 0.025.\nCon p=0.025 y gl=21 obtenemos el valor crítico:\n\nqt(0.975, 21)\n\n[1] 2.079614\n\n\nNuestro valor T de 3.387 es mayor que el valor crítico de 2.07, por lo tanto podemos decir que nuestro beta es estadísticamente significativo con un 95% de confianza. Veamos ahora si podemos hacer esta afirmación con un mayor nivel de confianza: 99%. Para eso, calculamos la T de dos colas para un p=0.01/2=0.005, por lo tanto el valor crítico se calcula a partir de 0.995\n\nqt(0.995, 21)\n\n[1] 2.83136\n\n\nEn este caso, el T del \\(\\beta\\) de nuestro modelo también es superior a este valor crítico (3.387&gt;2.831), por lo que podemos decir que nuestro beta es estadísticamente significativo con un 99% de confianza. Alternativamente, que rechazamos la hipótesis nula (que dice que \\(\\beta=0\\) en la población) con una probabilidad de error p&lt;0.01. Esto se representa en la tabla de regresión con asteriscos al lado del \\(\\beta\\), lo cual puede variar según la función que produzca la tabla. En la tabla de arriba generada con stargazer un nivel de probabilidad de error p&lt;0.01 se representa con 3 asteriscos, pero otras funciones como la que veremos más adelante sjPlot::tab_model los dos asteriscos equivalen a p&lt;0.01 y tres a p&lt;0.001:\n\n\nOtro concepto asociado con inferencia es el intervalo de confianza, que se obtiene sumando y restando errores estándar al \\(\\beta\\) de regresión. Con esto no solo se obtiene un rango probable de variación del \\(\\beta\\), sino que también es posible establecer falta de significancia estadística cuando el intervalo pasa por el valor 0. De esta manera, es una manera relacionada y complementaria de hacer análisis de inferencia además de la prueba T.\nPara obtener el intervalo de confianza se suma/resta al \\(\\beta\\) el error estándar por el valor crítico de T para el nivel de confianza correspondiente. En nuestro ejemplo, para un 95% de confianza el T crítico es 2.079, por lo tanto considerando el \\(\\beta\\) de 0.5 y el error de 0.132:\n\n0.5 - (2.079 * 0.132)\n\n[1] 0.225572\n\n0.5 + (2.079 * 0.132)\n\n[1] 0.774428\n\n\nPor lo tanto, podemos decir con un 95% de confianza que \\(\\beta\\) varía entre 0.225 y 0.774, y que es estadísticamente significativo ya que el intervalo no pasa por cero, que es lo mismo que decir que es estadísticamente distinto de 0.\nToda esta información la podemos obtener en R con tablas como la siguiente:\n\nsjPlot::tab_model(reg1,\n        show.se=TRUE,\n        digits=3,\n        p.style = \"star\")\n\n\n\n\n \npuntos y\n\n\nPredictors\nEstimates\nstd. Error\nCI\n\n\n(Intercept)\n2.500 ***\n0.458\n1.549 – 3.451\n\n\njuegos x\n0.500 **\n0.132\n0.225 – 0.775\n\n\nObservations\n23\n\n\nR2 / R2 adjusted\n0.405 / 0.376\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n\nA continuación más detalles de generación de tablas e interpretación",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#librerías",
+    "href": "practicos/practico-03.html#librerías",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Librerías",
+    "text": "Librerías\n\nif (!require(\"pacman\")) install.packages(\"pacman\") # instalar pacman\npacman::p_load(dplyr,readxl, summarytools, stargazer, webshot, equatiomatic)",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#datos",
+    "href": "practicos/practico-03.html#datos",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Datos",
+    "text": "Datos\nLos datos a utilizar corresponden a resultados de pruebas de conocimiento en distintas areas de 200 estudiantes de educación secundaria.\n\ndata &lt;- read.csv(\"https://multivariada.netlify.app/assignment/data/hsb2.csv\")\n\n\nDirectorio de trabajo :Directorio de trabajo \nPara el trabajo de análisis de datos se recomienda establecer claramente el directorio de trabajo, es decir, la carpeta que contiene los archivos de datos, los códigos y los resultados. Esta carpeta es el lugar donde uno se posiciona para hacer los análisis, llamar otros archivos y exportar archivos. De otra manera, todos los archivos necesarios para el análisis se encuentran en esta carpeta, lo que se conoce como carpeta autocontenida.\nPara esto, varias opciones:\n\nen RStudio, Session &gt; Set Working Directory &gt; Choose Directory\ntambién vía consola con el comando setwd(ruta-hacia-la-carpeta-local)\no también se puede trabajar en un directorio contenido o cerrado con la función de Rprojects\n\nSi se quiere verificar en qué carpeta se está trabajando, comando getwd()\nCon esto entonces, si los datos están guardados en la misma carpeta, entonces se llaman simplemente data &lt;-read.csv(\"hsb2.csv\"). No se requiere dar la ruta completa justamente porque el programa ya sabe dónde uno está posicionado. Asimismo, al momento de guardar/exportar algún resultado, automáticamente quedará en la carpeta de trabajo.\nSi los datos (o otro archivo que se quiera llamar) no se encuentran en el directorio raíz sino en una subcarpeta, entonces se le indica la ruta de la siguiente manera; ejemplo con datos guardados en subdirectorio “datos”: data &lt;-read.csv(\"datos/hsb2.csv\")",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#ajustes-y-descriptivos",
+    "href": "practicos/practico-03.html#ajustes-y-descriptivos",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Ajustes y descriptivos",
+    "text": "Ajustes y descriptivos\nPrimero seleccionamos las variables que vamos a usar en el ejemplo y cambiamos las etiquetas de las variables a español.\n\nnames(data)\n\n [1] \"id\"      \"female\"  \"race\"    \"ses\"     \"schtyp\"  \"prog\"    \"read\"   \n [8] \"write\"   \"math\"    \"science\" \"socst\"  \n\ndata &lt;- data %&gt;% select (science,math,female, socst, read)\ndata &lt;- data %&gt;% rename(ciencia=science, matematicas =math, mujer=female, status=socst, lectura=read)\n\n\nview(dfSummary(data, headings=FALSE))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo\nVariable\nStats / Values\nFreqs (% of Valid)\nGraph\nValid\nMissing\n\n\n\n\n1\nciencia [integer]\n\n\n\nMean (sd) : 51.9 (9.9)\n\n\nmin ≤ med ≤ max:\n\n\n26 ≤ 53 ≤ 74\n\n\nIQR (CV) : 14 (0.2)\n\n\n\n34 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n2\nmatematicas [integer]\n\n\n\nMean (sd) : 52.6 (9.4)\n\n\nmin ≤ med ≤ max:\n\n\n33 ≤ 52 ≤ 75\n\n\nIQR (CV) : 14 (0.2)\n\n\n\n40 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n3\nmujer [integer]\n\n\n\nMin : 0\n\n\nMean : 0.5\n\n\nMax : 1\n\n\n\n\n\n\n0\n:\n91\n(\n45.5%\n)\n\n\n1\n:\n109\n(\n54.5%\n)\n\n\n\n\n200 (100.0%)\n0 (0.0%)\n\n\n4\nstatus [integer]\n\n\n\nMean (sd) : 52.4 (10.7)\n\n\nmin ≤ med ≤ max:\n\n\n26 ≤ 52 ≤ 71\n\n\nIQR (CV) : 15 (0.2)\n\n\n\n22 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n5\nlectura [integer]\n\n\n\nMean (sd) : 52.2 (10.3)\n\n\nmin ≤ med ≤ max:\n\n\n28 ≤ 50 ≤ 76\n\n\nIQR (CV) : 16 (0.2)\n\n\n\n30 distinct values\n\n200 (100.0%)\n0 (0.0%)\n\n\n\n\nGenerated by summarytools 1.0.1 (R version 4.3.2)2025-08-25\n\n\n\n\nGrabar / exportar tablas :Exportar tablas \nMuchas de las tablas producidas con R son en formato html, es decir, archivos para ser publicados en formato web. Por lo tanto, en caso de querer pegar esa imagen en un documento tipo Word hay que hacer un paso intermedio. Una posibilidad es hacer una captura de pantalla del visor de R, pero también se puede generar una imagen desde R con la librería webshot.\nPara eso, el procedimiento en general es:\n\ngenerar un archivo html de la imagen (output) generado por R\nguardar una imagen de ese archivo\n\nEjemplo, para tablas generadas con summarytools (como la de dfSummary):\nprint(dfSummary(data, headings = FALSE), file = \"tabla_desc.html\") # esto genera un html\nwebshot(\"tabla_desc.html\",\"tabla_desc.png\") # esto genera la imagen\nPara tablas generadas con stargazer\nstargazer(reg1, type=\"html\",  out = \"reg1.html\")\nwebshot(\"reg1.html\",\"reg1.png\")\nY para tablas de regresión con sjPlot:\nsjPlot::tab_model(reg1, show.ci=FALSE, file = \"reg1_tab.html\")\nwebshot(\"reg1_tab.html\",\"reg1_tab.png\")",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#modelos-de-regresión",
+    "href": "practicos/practico-03.html#modelos-de-regresión",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Modelos de regresión",
+    "text": "Modelos de regresión\n\nLógica de presentación de modelos\nLa forma en que se presentan los modelos en regresión múltiple depende de las hipótesis que se estan contrastando, y de la definición del/a investigador/a sobre cuáles son los predictores principales y cuáles son las variables de control. Pensemos en este caso que nuestra hipótesis principal es que el puntaje de ciencias se puede predecir con los puntajes de matemáticas y lectura, pero queremos controlar estas asociaciones por sexo y estatus. En este caso, podríamos presentar dos modelos, uno solamente con los predictores principales, y luego un segundo modelo con los controles para ver si los efectos se mantienen. También podríamos pensar en tres modelos: uno con matemáticas, otro con ciencias, y otro con ambos y además controles. La decisión de cómo presentar los modelos depende principalmente de las hipótesis que se están contrastando, y también de que los resultados permitan hacer la mejor discusión posible.\n\n\nEstimación\nVamos a estimar un primer modelo con las variables asociadas a la hipótesis principal, y luego un segundo con las variables control:\n\\[\n\\operatorname{ciencia} = \\alpha + \\beta_{1}(\\operatorname{matematicas}) + \\beta_{2}(\\operatorname{lectura}) + \\epsilon\n\\] \\[\n\\operatorname{ciencia} = \\alpha + \\beta_{1}(\\operatorname{matematicas}) + \\beta_{2}(\\operatorname{lectura}) + \\beta_{3}(\\operatorname{mujer}) + \\beta_{4}(\\operatorname{status}) + \\epsilon\n\\]\nPara estimar estos modelos en R:\n\nreg1 &lt;- lm(ciencia ~ matematicas + lectura, data=data)\nreg2 &lt;- lm(ciencia ~ matematicas + lectura + mujer + status, data=data)\n\nPara presentar los resultados de regresión existen diferentes librerías en R, como stargazer, texreg, sjPlot. En este caso vamos a utilizar la función tab_model de sjPlot:\n\nsjPlot::tab_model(list(reg1,reg2))\n\n\n\n\n \nciencia\nciencia\n\n\nPredictors\nEstimates\nCI\np\nEstimates\nCI\np\n\n\n(Intercept)\n11.62\n5.59 – 17.64\n&lt;0.001\n12.33\n6.03 – 18.62\n&lt;0.001\n\n\nmatematicas\n0.40\n0.26 – 0.54\n&lt;0.001\n0.39\n0.24 – 0.54\n&lt;0.001\n\n\nlectura\n0.37\n0.23 – 0.50\n&lt;0.001\n0.34\n0.19 – 0.48\n&lt;0.001\n\n\nmujer\n\n\n\n-2.01\n-4.03 – 0.01\n0.051\n\n\nstatus\n\n\n\n0.05\n-0.07 – 0.17\n0.424\n\n\nObservations\n200\n200\n\n\nR2 / R2 adjusted\n0.478 / 0.473\n0.489 / 0.479\n\n\n\n\n\n\n\nEsta tabla tiene las opciones por defecto. En general, para cada predictor hay dos piezas de información importante: la estimación del coeficiente de regresión \\(\\beta\\) (estimates), y una estimación referida a inferencia/significación estadística (en este caso CI, intervalo de confianza). Esta segunda información es en general el error estándar, pero también puede ser t (que es el coeficiente dividido por el error estándar), o el intervalo de confianza, dado usualmente por el \\(\\beta\\) +/- 1.96 SE para un 95% de confianza (como aparece en esta tabla). Según el output, la información de inferencia puede aparecer abajo del coeficiente, o al lado como en esta tabla.\nAbajo vamos a hacer algunos ajustes en la tabla, presentando el error estándar en lugar del intervalo, y reemplazando la columna del nivel de probabilidad de error (p) por asteriscos que indican el nivel de significación de cada coeficiente, lo cual hace más rápida la interpretación. También cambiamos algunas etiquetas de la tabla para que sea más fácil de leer:\n\nsjPlot::tab_model(list(reg1,reg2),\n        show.se=TRUE,\n        show.ci=FALSE,\n        digits=3,\n        p.style = \"stars\",\n        dv.labels = c(\"Modelo 1\", \"Modelo 2\"),\n        string.pred = \"Predictores\",\n        string.est = \"β\")\n\n\n\n\n \nModelo 1\nModelo 2\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercept)\n11.616 ***\n3.054\n12.325 ***\n3.194\n\n\nmatematicas\n0.402 ***\n0.073\n0.389 ***\n0.074\n\n\nlectura\n0.365 ***\n0.066\n0.335 ***\n0.073\n\n\nmujer\n\n\n-2.010 \n1.023\n\n\nstatus\n\n\n0.050 \n0.062\n\n\nObservations\n200\n200\n\n\nR2 / R2 adjusted\n0.478 / 0.473\n0.489 / 0.479\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n\nY otra alternativa es la siguiente:\n\nsjPlot::tab_model(list(reg1,reg2),\n                  show.se=TRUE,\n                  show.ci=FALSE,\n                  digits=3,\n                  p.style = \"stars\",\n                  dv.labels = c(\"Modelo 1\", \"Modelo 2\"),\n                  string.pred = \"Predictores\",\n                  string.est = \"β\",\n                  collapse.se = TRUE,\n                  title = \"Modelos de regresión para puntaje en ciencia &lt;br&gt; (Errores estándar entre paréntesis)\")\n\n\nModelos de regresión para puntaje en ciencia\n(Errores estándar entre paréntesis)\n\n\n\n\n\n\n\n \nModelo 1\nModelo 2\n\n\nPredictores\nβ\nβ\n\n\n(Intercept)\n11.616 ***\n(3.054)\n12.325 ***\n(3.194)\n\n\nmatematicas\n0.402 ***\n(0.073)\n0.389 ***\n(0.074)\n\n\nlectura\n0.365 ***\n(0.066)\n0.335 ***\n(0.073)\n\n\nmujer\n\n-2.010 \n(1.023)\n\n\nstatus\n\n0.050 \n(0.062)\n\n\nObservations\n200\n200\n\n\nR2 / R2 adjusted\n0.478 / 0.473\n0.489 / 0.479\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n\nY para presentar en forma de ecuaciones, quedaría de la siguiente manera:\n\\[\n\\operatorname{\\widehat{ciencia}} = 11.62 + 0.4(\\operatorname{matematicas}) + 0.37(\\operatorname{lectura})\n\\] \\[\n\\operatorname{\\widehat{ciencia}} = 12.33 + 0.39(\\operatorname{matematicas}) + 0.34(\\operatorname{lectura}) - 2.01(\\operatorname{mujer}) + 0.05(\\operatorname{status})\n\\]\n\nPara transformar automáticamente las estimaciones de regresión en R a ecuaciones:\nEsto se puede hacer si se utiliza RMarkdown (no es requisito en este curso, para los interesad_s pueden revisar material del curso ciencia social abierta )\n\nInstalar librería equatiomatic. No está en CRAN, así que para instalar:remotes::install_github(\"datalorax/equatiomatic\")\nLa función para extraer la ecuación es extract_eq, por ejemplo: extract_eq(reg1)\nPara que el resultado pueda ser renderizado desde un documento RMarkdown a pdf o html, debe estar en un chunk con las siguientes especificaciones:\n\n```{r results='asis', echo=FALSE}\nextract_eq(reg1)\nextract_eq(reg2)\n```\n\nPara presentar las ecuaciones con los coeficientes ya estimados, extract_eq(reg1, use_coefs = TRUE)\n\n\n\n\nInterpretación\nLos coeficientes nos hablan de la relación entre las variables independientes y la variable dependiente. Nos muestran la magnitud del cambio predicho en el puntaje de ciencia por cada 1 unidad en que aumenta el predictor.\nPara matematica el coeficiente es de 0.402 en el modelo 1 y baja a 0.389 en el modelo 2. Entonces, por cada punto adicional en la prueba de matemáticas en el modelo 2 se presenta un incremento de 0.389 en el puntaje de ciencia, manteniendo todas las demás variables constantes. Respecto a la inferencia, existen distintas maneras de dar cuenta de la significación estadística. Por ejemplo, se puede decir que este valor es estadísticamente significativo con un 99,9% de confianza, o con una probabilidad de error p&lt;0.001.\n\nPara reportar estos resultados de manera más resumida siguiendo las indicaciones de reporte de APA (American Psychological Association): El puntaje en matemáticas predice significativamente el puntaje de ciencias (modelo 1), b = -.40, SE = .07, p &lt; .001, controlando por el puntaje en lectura. Al agregar los controles de sexo y estatus (modelo 2), el puntaje en matemáticas disminuye levemente pero mantiene su nivel de significación, b = -.39, SE = .07, p &lt; .001.\n\nCon respecto a lectura, en el modelo 2 es posible observar un coeficiente de 0.335. Esto implica que por cada unidad que aumenta el puntaje de lectura se predice un incremento de 0.335 puntos en ciencia, manteniendo todas las demás variables contantes. El coeficiente es estadísticamente significativo con una probabilidad de error p&lt;0.001.\nPara la variable mujer podemos observar que el coeficiente tiene un valor de -2.010 en el modelo 2. Al ser mujer una variable dicotómica donde 1 es mujer y 0 es hombre, la estimación nos indica que para las mujeres el puntaje predicho promedio en ciencias es -2.010 puntos más bajo con respecto al promedio de los hombres, manteniendo todas las demás variables constantes. En términos exclusivamente estadísticos, la variable mujer no es significativamente distinta de 0 cuando empleamos un nivel de confianza del 95%, debido a que el valor \\(p\\) es mayor a 0.05.\nSi observamos el coeficiente de status tenemos un valor de 0.050. Entonces, por cada unidad en que incrementa el estatus se predice un incremento de 0.050 puntos en ciencia, manteniendo todas las demás variables constantes. Sin embargo, no es estadísticamente significativo a un 95% de confianza.\nStd Error: Esta columna corresponde a los errores estándar de los coeficientes de regresión (Estimate). Estos errores estándar son empleados para testear en qué medida los coeficientes son distintos de 0 en la población. El procedimiento es dividir el coeficiente por su error estándar para obtener el valor \\(t\\), los que luego se contrastan con la tabla de valores críticos t para obtener la probabilidad de error (que ya aparece automáticamente en la tabla). Además, los errores estándar pueden ser utilizados para calcular los intervalos de confianza.\nUna manera de presentar los resultados de un modelo de regresión es a través de la visualización de los coeficientes de regresión con sus respectivos intervalos de confianza. La ventaja de este tipo de gráficos es que podemos observar la magnitud del coeficiente y las “barras de error” que representan el intervalo de confianza inferior y superior. Utilizando un intervalo de confianza de 95% de confianza:\n\nsjPlot::plot_model(reg2,ci.lvl = c(0.95), title = \"\",vline.color = \"grey\",line.size = 1)\n\n\n\n\nModelo 2\n\n\n\n\nLo que nos muestra este gráfico es el valor del coeficiente en el punto, y en las líneas que salen del punto se extienden según su intervalo de confianza. De acuerdo a las reglas de inferencia en regresión, lo que estamos contrastando es que el valor de este coeficiente es distinto de 0 en la población, con un cierto valor de probabilidad. Por lo tanto, si agregamos un intervalo de confianza (valores probables) asociado a una probabilidad de error, entonces podemos decir que este coeficiente es estadísticamente distinto de 0 en la población. Y en el gráfico, esto sucede cuando los intervalos no tocan el 0.\n\n\nAjuste global del modelo\nR2: El R2 (R-cuadrado) es la proporción de la varianza de la variable dependiente (ciencias) la cual puede ser predicha por las variables independientes (matemáticas, mujer, estatus, lectura). En la Tabla 1 tenemos que para el Modelo (1), este valor nos indica que un 47,7% de la varianza en el puntaje de ciencias se asocia a matemáticas. Luego, en el Modelo (2), el R-cuadrado nos indica que el 48,9% de la varianza de ciencias puede ser predicha conjuntamente por las variables independientes matemáticas, lectura, mujer y status. Como vemos, la incorporación de controles aporta levemente al R2, lo cual se relaciona con que estos predictores no son estadísticamente significativos.\nAdjusted R2: En la medida que se incorporan predictores al modelo, cada uno va contribuyendo a explicar la varianza de la variable dependiente. Así, se podría continuar agregando predictores al modelo, incrementando la capacidad explicativa pero también de cierto modo debido a la variabilidad adicional en una muestra particular con la que estemos trabajando. Por esta razón, el R-cuadrado ajustado busca demostrar un valor estimado más realista del R-cuadrado para la población bajo análisis, penalizando por la inclusión de predictores adicionales. En el caso del Modelo (2) de la Tabla 1, el valor del R-cuadrado es de 0.489, mientras que el R-cuadrado ajustado es de 0.479, el cual es calculado a través de la fórmula \\(1 – ((1 – R^2)((N – 1) /( N – k – 1))\\).\nEntonces, si el número de observaciones (\\(N\\)) es pequeño y el número de predictores (\\(k\\))es grande, tendremos una mayor discrepancia entre el R-cuadrado y el R-cuadrado ajustado. Por otro lado, cuando el número de observaciones es grande en contraste con el número de predictores tendremos que el valor del R-cuadrado y el R-cuadrado ajustado serán mucho más similares debido.\nPor lo tanto, al momento de realizar la intepretación corresponde basarse en los coeficientes del R2 ajustado.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
     ]
   }
 ]
