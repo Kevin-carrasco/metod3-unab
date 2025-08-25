@@ -731,7 +731,7 @@
     "href": "practicos/practico-03.html#descriptivos",
     "title": "Práctico 03. Regresión múltiple e inferencia",
     "section": "Descriptivos",
-    "text": "Descriptivos\n\nCalcula el promedio y desviación estándar de cada variable seleccionada.\nReflexiona: ¿qué nos dice el tamaño de la desviación estándar sobre la dispersión de cada variable?",
+    "text": "Descriptivos\n\nCalcula el promedio y desviación estándar de cada variable seleccionada.\nReflexiona: ¿qué nos dice el tamaño de la desviación estándar sobre la dispersión de cada variable?\n\n\ndata &lt;- dplyr::select(data,read, math, socst, female)\nstargazer::stargazer(data, type=\"text\")\n\n\n=====================================\nStatistic  N   Mean  St. Dev. Min Max\n-------------------------------------\nread      200 52.230  10.253  28  76 \nmath      200 52.645  9.368   33  75 \nsocst     200 52.405  10.736  26  71 \nfemale    200 0.545   0.499    0   1 \n-------------------------------------",
     "crumbs": [
       "Practicos",
       "Práctico 3 - Inferencia"
@@ -742,7 +742,7 @@
     "href": "practicos/practico-03.html#modelo-de-regresión-múltiple",
     "title": "Práctico 03. Regresión múltiple e inferencia",
     "section": "Modelo de regresión múltiple",
-    "text": "Modelo de regresión múltiple\nEstima el siguiente modelo:\n\nreg &lt;- lm(read ~ math + socst + female, data = data)\nsjPlot::tab_model(reg,\n                  show.se = TRUE,\n                  digits = 3,\n                  p.style = \"stars\")",
+    "text": "Modelo de regresión múltiple\nEstima el siguiente modelo:\n\nreg &lt;- lm(read ~ math + socst + female, data = data)\nsjPlot::tab_model(reg,\n                  show.se = TRUE,\n                  digits = 3,\n                  p.style = \"stars\")\n\n\n\n\n \nread\n\n\nPredictors\nEstimates\nstd. Error\nCI\n\n\n(Intercept)\n7.805 *\n3.084\n1.722 – 13.887\n\n\nmath\n0.498 ***\n0.063\n0.373 – 0.624\n\n\nsocst\n0.360 ***\n0.055\n0.250 – 0.469\n\n\nfemale\n-1.221 \n1.000\n-3.193 – 0.751\n\n\nObservations\n200\n\n\nR2 / R2 adjusted\n0.539 / 0.532\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001",
     "crumbs": [
       "Practicos",
       "Práctico 3 - Inferencia"

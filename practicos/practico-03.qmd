@@ -492,11 +492,17 @@ Selecciona las siguientes variables:
 
   - Reflexiona: ¿qué nos dice el tamaño de la desviación estándar sobre la dispersión de cada variable?
   
+```{r}
+data <- dplyr::select(data,read, math, socst, female)
+stargazer::stargazer(data, type="text")
+```
+
+  
 ## Modelo de regresión múltiple
 
 Estima el siguiente modelo:
 
-```{r eval=FALSE}
+```{r}
 reg <- lm(read ~ math + socst + female, data = data)
 sjPlot::tab_model(reg,
                   show.se = TRUE,
