@@ -742,7 +742,7 @@
     "href": "practicos/practico-03.html#modelo-de-regresión-múltiple",
     "title": "Práctico 03. Regresión múltiple e inferencia",
     "section": "Modelo de regresión múltiple",
-    "text": "Modelo de regresión múltiple\nEstima el siguiente modelo:\n\nreg &lt;- lm(science ~ math + socst + female, data = data)\nsjPlot::tab_model(reg,\n                  show.se = TRUE,\n                  digits = 3,\n                  p.style = \"stars\")",
+    "text": "Modelo de regresión múltiple\nEstima el siguiente modelo:\n\nreg &lt;- lm(read ~ math + socst + female, data = data)\nsjPlot::tab_model(reg,\n                  show.se = TRUE,\n                  digits = 3,\n                  p.style = \"stars\")",
     "crumbs": [
       "Practicos",
       "Práctico 3 - Inferencia"

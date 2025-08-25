@@ -497,7 +497,7 @@ Selecciona las siguientes variables:
 Estima el siguiente modelo:
 
 ```{r eval=FALSE}
-reg <- lm(science ~ math + socst + female, data = data)
+reg <- lm(read ~ math + socst + female, data = data)
 sjPlot::tab_model(reg,
                   show.se = TRUE,
                   digits = 3,
