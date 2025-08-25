@@ -206,7 +206,7 @@ $$\widehat{Y}=\beta_{0} +\beta_{1}X_{1}$$
 
 
 .pull-left[
-.center[![:scale 60%](ingresoeduc.png)]
+.center[![:scale 60%](../../files/img/ingresoeduc.png)]
 .small[
 $$\widehat{Ingreso}=b_0+b_1(Educ)$$
 ]
@@ -215,7 +215,7 @@ $$\widehat{Ingreso}=b_0+b_1(Educ)$$
 --
 
 .pull-right[
-.center[![:scale 60%](ingresoeducexp.png)]
+.center[![:scale 60%](../../files/img/ingresoeducexp.png)]
 .small[
 $$\widehat{Ingreso}=b_0+b_1(Educ)+b_2(Int)$$
 ]]
@@ -266,13 +266,13 @@ htmlreg(list(reg_y_x1,reg_y_x2,reg_y_x1_x2), booktabs = TRUE, dcolumn = TRUE, do
 _¿Cómo se despeja la regresión de $Y$ en $X_1$ del efecto de $X_2$?_
 
 .pull-left[
-.center[![:scale 65%](ingresoeducexp.png)]
+.center[![:scale 65%](../../files/img/ingresoeducexp.png)]
 ]
 
 --
 
 .pull-right[
-.center[![:scale 65%](ingeduc_parint.png)]
+.center[![:scale 65%](../../files/img/ingeduc_parint.png)]
 ]
 
 ---
@@ -284,7 +284,7 @@ _¿Cómo se despeja la regresión de $Y$ en $X_1$ del efecto de $X_2$?_
 ]
 
 .center[
-![:scale 100%](partial2.png)]
+![:scale 100%](../../files/img/partial2.png)]
 ]
 --
 
@@ -538,7 +538,7 @@ Repaso sesión anterior
 ---
 .pull-left-narrow[
 
-![](inference1.png)
+![](../../files/img/inference1.png)
 ]
 .pull-right-wide[
 
@@ -588,7 +588,7 @@ Repaso sesión anterior
 
 .pull-right-wide[
 
-![:scale 100%](varianza2.png)
+![:scale 100%](../../files/img/varianza2.png)
 ]
 
 
@@ -616,12 +616,12 @@ $$s=\sqrt \frac{\Sigma(x-\bar{x})²}{N-1}$$]
 .content-box-yellow[
 ## Desviación estándar y curva normal]
 
-.center[![:scale 70%](normal.png)]
+.center[![:scale 70%](../../files/img/normal.png)]
 
 ---
 
 .pull-left-narrow[
-![](inference1.png)
+![](../../files/img/inference1.png)
 
 ]
 
@@ -641,15 +641,15 @@ $$s=\sqrt \frac{\Sigma(x-\bar{x})²}{N-1}$$]
 ---
 # Error estándar
 
-![](se_1.png)
+![](../../files/img/se_1.png)
 ---
 # Error estándar
 
-![](se_2.png)
+![](../../files/img/se_2.png)
 ---
 # Error estándar
 
-![](se_3.png)
+![](../../files/img/se_3.png)
 ---
 
 # Error estándar
@@ -675,7 +675,7 @@ $$\sigma_{\bar{X}}=SE(error estándar)=\frac{s}{\sqrt{N}}$$
 ]
 ]
 .pull-right[
-.center[![:scale 85%](normal.png)]]
+.center[![:scale 85%](../../files/img/normal.png)]]
 
 ---
 # Error, rangos y probabilidad
@@ -693,7 +693,7 @@ $$\sigma_{\bar{X}}=SE(error estándar)=\frac{s}{\sqrt{N}}$$
 ]
 ]
 .pull-right[
-.center[![:scale 85%](normal.png)]]
+.center[![:scale 85%](../../files/img/normal.png)]]
 
 ---
 # Inferencia y significación estadística
@@ -706,7 +706,7 @@ $$\sigma_{\bar{X}}=SE(error estándar)=\frac{s}{\sqrt{N}}$$
 
 ---
 
-.center[![:scale 70%](inferencia1.png)]
+.center[![:scale 70%](../../files/img/inferencia1.png)]
 
 ---
 
@@ -797,7 +797,7 @@ $$\sigma_{diff}=\frac{\sigma^2_{a}(n_a-1)+\sigma^2_{b}(n_b-1)}{n_a+n_b-2}$$
 # Valor crítico de T
 
 
-![](imagen4.png)
+![](../../files/img/imagen4.png)
 
 ---
 class: inverse
@@ -893,7 +893,7 @@ sjPlot::tab_model(list(reg1,reg2),
 
 ---
 
-![:scale 90%](tabreg.png)
+![:scale 90%](../../files/img/tabreg.png)
 ---
 ## Otras alternativas
 
