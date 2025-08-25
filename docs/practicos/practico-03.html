@@ -265,6 +265,14 @@ window.Quarto = {
   <li><a href="#ajuste-global-del-modelo" id="toc-ajuste-global-del-modelo" class="nav-link" data-scroll-target="#ajuste-global-del-modelo">Ajuste global del modelo</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#actividad" id="toc-actividad" class="nav-link" data-scroll-target="#actividad">Actividad</a>
+  <ul class="collapse">
+  <li><a href="#cargar-datos" id="toc-cargar-datos" class="nav-link" data-scroll-target="#cargar-datos">Cargar datos</a></li>
+  <li><a href="#descriptivos" id="toc-descriptivos" class="nav-link" data-scroll-target="#descriptivos">Descriptivos</a></li>
+  <li><a href="#modelo-de-regresión-múltiple" id="toc-modelo-de-regresión-múltiple" class="nav-link" data-scroll-target="#modelo-de-regresión-múltiple">Modelo de regresión múltiple</a></li>
+  <li><a href="#interpretación-de-coeficientes" id="toc-interpretación-de-coeficientes" class="nav-link" data-scroll-target="#interpretación-de-coeficientes">Interpretación de coeficientes</a></li>
+  <li><a href="#reflexión-final" id="toc-reflexión-final" class="nav-link" data-scroll-target="#reflexión-final">Reflexión final</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -661,7 +669,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </tbody>
 </table></td>
 <td style="text-align: left; vertical-align: middle;">34 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyBiMExLAAAAmUlEQVRo3u3WzQ2AIAyGYVbQEXQD2X83E+mlSVOlYMD4fhcu5EkJf02JRLLcZt1KvDnPsXzlmAmT9fXB9qKAgYGBgYH9CbObhShm1gkGNhqTU94HK0r+Cua1y9VYNuoEAxuOqRveiikFDCyC6c6qEdMFgoGBgbVg1ocZxiwFDAwMDGwGTJ77PpgMb2DOt1SPOQqYvwGNSSSSE+fzuH+Qp/D9AAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEODWm22M6AAAAmUlEQVRo3u3WzQ2AIAyGYVbQEXQD2X83E+mlSVOlYMD4fhcu5EkJf02JRLLcZt1KvDnPsXzlmAmT9fXB9qKAgYGBgYH9CbObhShm1gkGNhqTU94HK0r+Cua1y9VYNuoEAxuOqRveiikFDCyC6c6qEdMFgoGBgbVg1ocZxiwFDAwMDGwGTJ77PpgMb2DOt1SPOQqYvwGNSSSSE+fzuH+Qp/D9AAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -685,7 +693,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </tbody>
 </table></td>
 <td style="text-align: left; vertical-align: middle;">40 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyEVN3zdAAAAiElEQVRo3u3ZQQqAIBBAUa9QN2i8gd7/bkHpwgE1dArC/zdCOI8WQVLO0UhbO0l1tj3DfLwKYMtju5RlrPO8VbB7OPpyDbF9h2BgYGBgYGBvY+nFfphgaQUDA/sllg/6JpiaAgMDAwMDAzPD1Cc7mcL0ZTAwMDCw5TH9T2gKq0yBfYWJSY5GOgFSAgpv3Uu52QAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEODdI1QIWAAAAiElEQVRo3u3ZQQqAIBBAUa9QN2i8gd7/bkHpwgE1dArC/zdCOI8WQVLO0UhbO0l1tj3DfLwKYMtju5RlrPO8VbB7OPpyDbF9h2BgYGBgYGBvY+nFfphgaQUDA/sllg/6JpiaAgMDAwMDAzPD1Cc7mcL0ZTAwMDCw5TH9T2gKq0yBfYWJSY5GOgFSAgpv3Uu52QAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -725,7 +733,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAF4AAAA3BAMAAAB3B+DPAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyEVN3zdAAAAQUlEQVRIx2NgGPpAiSBQFAQDqHplY0JgVP2o+lH1g1U9qfldkFhAJ/WE3Q8FRIcPBBiNqh9VP6p+0KknNb8PZQAAThNQAdRC9dIAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAF4AAAA3BAMAAAB3B+DPAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEODjYah+HAAAAQUlEQVRIx2NgGPpAiSBQFAQDqHplY0JgVP2o+lH1g1U9qfldkFhAJ/WE3Q8FRIcPBBiNqh9VP6p+0KknNb8PZQAAThNQAdRC9dIAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -749,7 +757,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </tbody>
 </table></td>
 <td style="text-align: left; vertical-align: middle;">22 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyEVN3zdAAAAjUlEQVRo3u3WzQ2AIAxAYVbQEXAD2X83EqmHRkKwNP6+d+FA/ELDQUIgS1NvcyxVN09jaWt9ELbPJ1h12n5MFL2AgYGBgYGBfQHTr4RBTB/wakw/fwaxpaHchMl8PlhREhgYGBgYGBgYGNgBi6pBTH2ewF6DyfX7YLKAgYH9B6v9QsxYQwEDc8OiS4EsZXlV9JmAoBopAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEODjYah+HAAAAjUlEQVRo3u3WzQ2AIAxAYVbQEXAD2X83EqmHRkKwNP6+d+FA/ELDQUIgS1NvcyxVN09jaWt9ELbPJ1h12n5MFL2AgYGBgYGBfQHTr4RBTB/wakw/fwaxpaHchMl8PlhREhgYGBgYGBgYGNgBi6pBTH2ewF6DyfX7YLKAgYH9B6v9QsxYQwEDc8OiS4EsZXlV9JmAoBopAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -773,7 +781,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </tbody>
 </table></td>
 <td style="text-align: left; vertical-align: middle;">30 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEIyKMPi1nAAAAqElEQVRo3u3YzQ2AIAyGYVaQDYQNZP/djJYDRInaEuPP+x04kPQJhxKpzhFNhlZ8WDOcyiGWlkxgYGBgYGBgYGAaTB5moQ8WhQH7HiZtMvbB1jWBPQILzdlMgcVm64G9CZOe6ITFYgUDAwMD+yLmq++GFSsrb8J2nrl6TLbAwC5jvhjL7di28lasulRWLJbnAwP7KZbH9j5Y3spY9U/QijUrDSczxhFNZnc9NzupyUmeAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCBkEODmvbS8RAAAAqElEQVRo3u3YzQ2AIAyGYVaQDYQNZP/djJYDRInaEuPP+x04kPQJhxKpzhFNhlZ8WDOcyiGWlkxgYGBgYGBgYGAaTB5moQ8WhQH7HiZtMvbB1jWBPQILzdlMgcVm64G9CZOe6ITFYgUDAwMD+yLmq++GFSsrb8J2nrl6TLbAwC5jvhjL7di28lasulRWLJbnAwP7KZbH9j5Y3spY9U/QijUrDSczxhFNZnc9NzupyUmeAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">200 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
@@ -1122,9 +1130,59 @@ extract_eq(reg2)
 <p><strong><code>Adjusted R2</code></strong>: En la medida que se incorporan predictores al modelo, cada uno va contribuyendo a explicar la varianza de la variable dependiente. Así, se podría continuar agregando predictores al modelo, incrementando la capacidad explicativa pero también de cierto modo debido a la variabilidad adicional en una muestra particular con la que estemos trabajando. Por esta razón, el <strong>R-cuadrado ajustado</strong> busca demostrar un valor estimado más realista del R-cuadrado para la población bajo análisis, penalizando por la inclusión de predictores adicionales. En el caso del Modelo (2) de la Tabla 1, el valor del R-cuadrado es de <strong>0.489</strong>, mientras que el R-cuadrado ajustado es de <strong>0.479</strong>, el cual es calculado a través de la fórmula <span class="math inline">\(1 – ((1 – R^2)((N – 1) /( N – k – 1))\)</span>.</p>
 <p>Entonces, si el número de observaciones (<span class="math inline">\(N\)</span>) es pequeño y el número de predictores (<span class="math inline">\(k\)</span>)es grande, tendremos una mayor discrepancia entre el R-cuadrado y el R-cuadrado ajustado. Por otro lado, cuando el número de observaciones es grande en contraste con el número de predictores tendremos que el valor del R-cuadrado y el R-cuadrado ajustado serán mucho más similares debido.</p>
 <p>Por lo tanto, al momento de realizar la intepretación <strong>corresponde basarse en los coeficientes del R2 ajustado</strong>.</p>
-
-
 </section>
+</section>
+</section>
+<section id="actividad" class="level1">
+<h1>Actividad</h1>
+<section id="cargar-datos" class="level2">
+<h2 class="anchored" data-anchor-id="cargar-datos">Cargar datos</h2>
+<p>Utiliza la base de datos hsb2 disponible:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/hsb2.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Selecciona las siguientes variables:</p>
+<ul>
+<li><p>read (puntaje de lectura, dependiente)</p></li>
+<li><p>math (puntaje de matemáticas)</p></li>
+<li><p>socst (puntaje de ciencias sociales)</p></li>
+<li><p>female (0 = hombre, 1 = mujer)</p></li>
+</ul>
+</section>
+<section id="descriptivos" class="level2">
+<h2 class="anchored" data-anchor-id="descriptivos">Descriptivos</h2>
+<ul>
+<li><p>Calcula el promedio y desviación estándar de cada variable seleccionada.</p></li>
+<li><p>Reflexiona: ¿qué nos dice el tamaño de la desviación estándar sobre la dispersión de cada variable?</p></li>
+</ul>
+</section>
+<section id="modelo-de-regresión-múltiple" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-de-regresión-múltiple">Modelo de regresión múltiple</h2>
+<p>Estima el siguiente modelo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(science <span class="sc">~</span> math <span class="sc">+</span> socst <span class="sc">+</span> female, <span class="at">data =</span> data)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(reg,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.style =</span> <span class="st">"stars"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="interpretación-de-coeficientes" class="level2">
+<h2 class="anchored" data-anchor-id="interpretación-de-coeficientes">Interpretación de coeficientes</h2>
+<ul>
+<li><p>¿Cuál es la relación entre math y science? Explica usando el valor del coeficiente y el intervalo de confianza.</p></li>
+<li><p>¿Qué nos dice el intervalo de confianza sobre la significación estadística de cada predictor?</p></li>
+<li><p>¿Qué interpretación se puede dar al coeficiente de female?</p></li>
+</ul>
+</section>
+<section id="reflexión-final" class="level2">
+<h2 class="anchored" data-anchor-id="reflexión-final">Reflexión final</h2>
+<ul>
+<li><p>¿Cómo ayuda el error estándar y el intervalo de confianza a interpretar la regresión?</p></li>
+<li><p>¿Qué diferencias observas entre variables con coeficientes estadísticamente significativos y las que no lo son?</p></li>
+</ul>
+
+
 </section>
 </section>
 

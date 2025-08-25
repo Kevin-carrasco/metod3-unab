@@ -714,5 +714,60 @@
       "Practicos",
       "Práctico 3 - Inferencia"
     ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#cargar-datos",
+    "href": "practicos/practico-03.html#cargar-datos",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Cargar datos",
+    "text": "Cargar datos\nUtiliza la base de datos hsb2 disponible:\n\ndata &lt;- read.csv(\"https://multivariada.netlify.app/assignment/data/hsb2.csv\")\n\nSelecciona las siguientes variables:\n\nread (puntaje de lectura, dependiente)\nmath (puntaje de matemáticas)\nsocst (puntaje de ciencias sociales)\nfemale (0 = hombre, 1 = mujer)",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#descriptivos",
+    "href": "practicos/practico-03.html#descriptivos",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Descriptivos",
+    "text": "Descriptivos\n\nCalcula el promedio y desviación estándar de cada variable seleccionada.\nReflexiona: ¿qué nos dice el tamaño de la desviación estándar sobre la dispersión de cada variable?",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#modelo-de-regresión-múltiple",
+    "href": "practicos/practico-03.html#modelo-de-regresión-múltiple",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Modelo de regresión múltiple",
+    "text": "Modelo de regresión múltiple\nEstima el siguiente modelo:\n\nreg &lt;- lm(science ~ math + socst + female, data = data)\nsjPlot::tab_model(reg,\n                  show.se = TRUE,\n                  digits = 3,\n                  p.style = \"stars\")",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#interpretación-de-coeficientes",
+    "href": "practicos/practico-03.html#interpretación-de-coeficientes",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Interpretación de coeficientes",
+    "text": "Interpretación de coeficientes\n\n¿Cuál es la relación entre math y science? Explica usando el valor del coeficiente y el intervalo de confianza.\n¿Qué nos dice el intervalo de confianza sobre la significación estadística de cada predictor?\n¿Qué interpretación se puede dar al coeficiente de female?",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-03.html#reflexión-final",
+    "href": "practicos/practico-03.html#reflexión-final",
+    "title": "Práctico 03. Regresión múltiple e inferencia",
+    "section": "Reflexión final",
+    "text": "Reflexión final\n\n¿Cómo ayuda el error estándar y el intervalo de confianza a interpretar la regresión?\n¿Qué diferencias observas entre variables con coeficientes estadísticamente significativos y las que no lo son?",
+    "crumbs": [
+      "Practicos",
+      "Práctico 3 - Inferencia"
+    ]
   }
 ]

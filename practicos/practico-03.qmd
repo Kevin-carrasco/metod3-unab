@@ -463,3 +463,59 @@ Lo que nos muestra este gráfico es el valor del coeficiente en el punto, y en l
 Entonces, si el número de observaciones ($N$) es pequeño y el número de predictores ($k$)es grande, tendremos una mayor discrepancia entre el R-cuadrado y el R-cuadrado ajustado. Por otro lado, cuando el número de observaciones es grande en contraste con el número de predictores tendremos que el valor del R-cuadrado y el R-cuadrado ajustado serán mucho más similares debido.
 
 Por lo tanto, al momento de realizar la intepretación **corresponde basarse en los coeficientes del R2 ajustado**.
+
+
+# Actividad
+
+## Cargar datos
+
+Utiliza la base de datos hsb2 disponible:
+
+```{r}
+data <- read.csv("https://multivariada.netlify.app/assignment/data/hsb2.csv")
+```
+
+Selecciona las siguientes variables:
+
+  - read (puntaje de lectura, dependiente)
+
+  - math (puntaje de matemáticas)
+
+  - socst (puntaje de ciencias sociales)
+
+  - female (0 = hombre, 1 = mujer)
+  
+  
+## Descriptivos
+
+  - Calcula el promedio y desviación estándar de cada variable seleccionada.
+
+  - Reflexiona: ¿qué nos dice el tamaño de la desviación estándar sobre la dispersión de cada variable?
+  
+## Modelo de regresión múltiple
+
+Estima el siguiente modelo:
+
+```{r eval=FALSE}
+reg <- lm(science ~ math + socst + female, data = data)
+sjPlot::tab_model(reg,
+                  show.se = TRUE,
+                  digits = 3,
+                  p.style = "stars")
+```
+
+
+## Interpretación de coeficientes
+
+  - ¿Cuál es la relación entre math y science? Explica usando el valor del coeficiente y el intervalo de confianza.
+
+  - ¿Qué nos dice el intervalo de confianza sobre la significación estadística de cada predictor?
+
+  - ¿Qué interpretación se puede dar al coeficiente de female?
+
+## Reflexión final
+
+  - ¿Cómo ayuda el error estándar y el intervalo de confianza a interpretar la regresión?
+  
+  - ¿Qué diferencias observas entre variables con coeficientes estadísticamente significativos y las que no lo son?
+
