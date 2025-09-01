@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Metodología I</title>
+    <title>Métodos estadísticos para Ciencias Sociales III</title>
     <meta charset="utf-8" />
     <meta name="author" content=".small[Kevin Carrasco    Departamento de Sociología - UCH / COES   ]" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -12,8 +12,6 @@
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/kePrint/kePrint.js"></script>
-    <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../files/css/custom_2020.css" type="text/css" />
   </head>
   <body>
@@ -38,19 +36,19 @@ Para correr en ATOM
 About macros.js: permite escalar las imágenes como [scale 50%](path to image), hay si que grabar ese archivo js en el directorio.
 ---&gt;
 
+
 .pull-left[
-# Metodología I
+# Métodos estadísticos para Ciencias Sociales III
 ## **Kevin Carrasco**
-## Magister en Ciencias Sociales FACSO - UChile
-## 1er Sem 2025
-## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
-] 
-    
+## Sociología - UNAB
+## 2do semestre 2025
+## .green[[metod3-unab.netlify.app](metod3-unab.netlify.app)] 
+]
 
 .pull-right[
 .right[
 &lt;br&gt;
-## .yellow[Sesión 5: Análisis descriptivo de datos]
+## .yellow[Sesión 5: Regresión múltiple y estandarización de coeficientes]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
@@ -58,14 +56,10 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 ]
 
 ]
-
-
-
 ---
 
 layout: true
 class: animated, fadeIn
-
 
 ---
 class: inverse, bottom, right, animated, slideInRight
@@ -76,7 +70,7 @@ class: inverse, bottom, right, animated, slideInRight
 
 Repaso sesión anterior
 
-Análisis descriptivo de datos
+Estandarización de coeficientes
 
 &lt;br&gt;
 &lt;br&gt;
@@ -91,421 +85,776 @@ class: inverse, bottom, right
 
 .yellow[Repaso sesión anterior]
 
-Análisis descriptivo de datos
+Estandarización de coeficientes
+
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
----
-
-## Variables en una base de datos
-
-- La investigación, usualmente, se centra en definir variables de interés
-
-- Usando una perspectiva cuantitativa podemos **describir, resumir y modelar** el comportamiento de estas variables
-
-- Para realizar estos procedimientos debemos **cuantificar** los fenómenos sociales
-
-- Esto es lo que conocemos como el proceso de **operacionalización**
 
 ---
+# Regresión simple vs múltiple
 
-## Variables en una base de datos
-
-- ¿Qué hacer después con estas variables?
-
---
-
-- El análisis de datos sociales se basa en establecer **relaciones matemáticas** entre las variables.
-
----
-## Operacionalización
-
-* Proceso de definición de la medición de un fenómeno que no se puede medir directamente, aunque su existencia se infiere de otros fenómenos
-
---
-
-- Las variables pueden ser visibles o no visibles/latentes. (Ej: peso / inteligencia)
-
----
-## Operacionalización
-
-.center[![:scale 100%](../../files/img/operacionalizacion.png)]
-
----
-## Operacionalización
-
-.center[![:scale 100%](../../files/img/operacionalizacion2.png)]
-
----
-## Operacionalización
-
-.center[![:scale 100%](../../files/img/conf-inst.png)]
----
-## Operacionalización
-
-.center[![:scale 100%](../../files/img/cohesion-barrial.png)]
-
----
-## Escalas de medición de variables
-
-- NOIR: Nominal, Ordinal, Intervalar, Razón
-
-.small[
-| Tipo       	| Características                     	        | Propiedad de números 	| Ejemplo|
-|------------	|----------------------------------------------|---------------	|-----------	|
-| *Nominal*    	| Uso de números en lugar de palabras 	| Identidad            	| Nacionalidad      	|
-| *Ordinal*    	| Números se usan para ordenar series 	| + ranking            	| Nivel educacional 	|
-| *Intervalar* 	| Intervalos iguales entre números    	| + igualdad           	| Temperatura       	|
-| *Razón*      	| Cero real                           	| + aditividad         	| Distancia         	|
-]
-
----
-## Escalas de medición de variables
 
 
 .small[
-| Tipo        	| Operación empírica           	        | Estadísticos permisibles 	| 
-|-------------	|----------------------------------------------|---------------	|
-| *Nominal*    	| Determinación de igualdad 	| Contar; Moda 	| 
-| *Ordinal*    	| Determinación de más o menos 	| Mediana; Percentil      | 
-| *Intervalar* 	| Determinación de igualdad de intervalos | Promedio; Desv. Estand. | 
-| *Razón*      	| Determinación de igualdad de razones	| Coeficientes de variación	| 
+
+]
+.small[
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;caption&gt; &lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 2&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(Intercept)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-91566.27&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;93442.62&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-270638.30&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(183509.80)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(302389.31)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(241882.27)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;educ&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;150401.61&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;137092.20&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(43618.69)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(44602.35)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;intelig&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;174590.16&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;100425.53&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(124491.71)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(90114.05)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.60&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.20&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.66&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.55&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.10&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.56&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;10&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;10&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="4"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+
+
+---
+# Parcialización
+
+_¿Cómo se despeja la regresión de `\(Y\)` en `\(X_1\)` del efecto de `\(X_2\)`?_
+
+.pull-left[
+.center[![:scale 65%](../../files/img/ingresoeducexp.png)]
+]
+
+--
+
+.pull-right[
+.center[![:scale 65%](../../files/img/ingeduc_parint.png)]
 ]
 
 ---
-## Escalas de medición de variables
+.pull-left[
+# Parcialización
 
-Siempre tenemos que considerar a qué nivel corresponde el constructo que queremos medir
+.medium[
+¿Como obtenemos una variable `\(X_1\)` parcializada de `\(X_2\)`?
+]
 
-- Por ejemplo, si bien es posible medir *estado de ánimo* a un nivel nominal u ordinal, una medición a nivel intervalar es más adecuada
+.center[
+![:scale 100%](../../files/img/partial2.png)]
+]
+--
 
-- Por lo tanto, esta decisión es teórica. Depende de la operacionalización que hagamos de los fenómenos.
+.pull-right[
 
-- Conocer los niveles de medición permite saber qué tipos de análisis podemos realizar con los datos
+&lt;br&gt;
+&lt;br&gt;
+
+.medium[
+- Pensemos en que `\(X_1\)` parcializada (de `\(X_2\)` ) es todo lo de `\(X_1\)` (varianza) que no tiene que ver con `\(X_2\)`
+
+- En otras palabras, en un modelo donde `\(X_1\)` es la variable dependiente y `\(X_2\)` la independiente, `\(X_1\)` parcializada equivale al **residuo** de esta regresión
+]
+]
+
+---
+class: inverse
+
+## RESUMEN
+
+- Si hay correlación entre predictores, el valor de los coeficientes de regresión será **distinto** en modelos simples y en modelos múltiples
+
+- Esta diferencia se relaciona con el concepto de  **parcialización**: se extrae la varianza común entre predictores
+
+- La parcialización permite el **control estadístico**: *limpiar* o despejar los efectos de la influencia de otras variables
+
+---
+
+### ejemplo
+.small[
+
+| Caso    | X (años educación)  | Y (nivel de ingresos)    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
+|---------|---------------------|--------------------------|--------|--------|--------------------|------------|
+| Caso 1  | 1                   | 250                      |    |   |              |     |
+| Caso 2  | 2                   | 200                      |    |  |              |        |
+| Caso 3  | 3                   | 250                      |    |   |              |        |
+| Caso 4  | 4                   | 300                      |    |   |               |        |
+| Caso 5  | 5                   | 400                      |    |    |               |        |
+| Caso 6  | 6                   | 350                      |     |   |               |        |
+| Caso 7  | 7                   | 400                      |     |    |              |        |
+| Caso 8  | 8                   | 350                      |     |    |              |       |
+| **Promedios / Sumas** | **X̄ = **| **Ȳ = **      |        |        | **Σ = **       | **Σ = ** |
+
+]
+
+---
+
+### Otro ejemplo
+.small[
+
+| Caso    | X (años educación)  | Y (nivel de ingresos)    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
+|---------|---------------------|--------------------------|--------|--------|--------------------|------------|
+| Caso 1  | 1                   | 250                      | -3.5   | -62.5  | 218.75             | 12.25      |
+| Caso 2  | 2                   | 200                      | -2.5   | -112.5 | 281.25             | 6.25       |
+| Caso 3  | 3                   | 250                      | -1.5   | -62.5  | 93.75              | 2.25       |
+| Caso 4  | 4                   | 300                      | -0.5   | -12.5  | 6.25               | 0.25       |
+| Caso 5  | 5                   | 400                      | 0.5    | 87.5   | 43.75              | 0.25       |
+| Caso 6  | 6                   | 350                      | 1.5    | 37.5   | 56.25              | 2.25       |
+| Caso 7  | 7                   | 400                      | 2.5    | 87.5   | 218.75             | 6.25       |
+| Caso 8  | 8                   | 350                      | 3.5    | 37.5   | 131.25             | 12.25      |
+| **Promedios / Sumas** | **X̄ = 4.5**| **Ȳ = 312.5**      |        |        | **Σ = 1050**       | **Σ = 42** |
+
+]
+---
+
+### Cálculo de coeficiente de regresión
+
+`$$b_{1}=\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})} {\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})}=\frac{1050} {42}=25$$`
+
+---
+### Estimación de los coeficientes de la ecuación:
+
+`$$\bar{Y}=b_{0}+b_{1}\bar{X}$$`
+Reemplazando:
+
+`$$\bar{Y}=b_{0}+25\bar{X}$$`
+
+Despejando el valor de `\(b_{0}\)`
+
+`$$b_{0}=312.5-25*4.5=200$$`
+  - Una propiedad de la recta de regresión es que siempre pasa por las coordenadas X̄Ȳ. Esto es, pasa por los valores promedios de X e Y 
+
+---
+class: inverse
+
+## Hasta ahora deberíamos saber:
+
+--
+
+1- Modelo de regresión como una **representación simplificada** de la relación compleja entre variables
+
+--
+
+2- El `\(\beta\)` de regresión nos dice **cuanto aumenta `\(Y\)` ** (variable dependiente) *en promedio* por ** cada punto que aumenta** `\(X\)` (variable independiente).
+
+--
+
+3- El modelo nos permite **estimar** el puntaje de `\(Y\)` para cada valor de `\(X\)`
+
+---
+
+# ¿Qué tan bueno es nuestro modelo?
+
+- El cálculo del `\(\beta\)` busca minimizar los residuos (de ahí "mínimos cuadrados ordinarios")
+
+- Una vez minimizados los residuos, se puede evaluar el ajuste
+  - qué tan bien representa nuestro modelo la realidad
+  
+  - cuánto error (de predicción) estamos cometiendo con nuestro modelo
+
+
+---
+class: inverse, right
+
+## Un modelo es mejor mientras **mejor refleje** lo que sucede con los datos
+
+--
+
+## En otras palabras, cuando se parece o **ajusta** mejor a los datos
+
+--
+
+## ... y en otras: cuando los **residuos** son menores
+
+---
+
+# Varianza explicada de Y
+
+¿Qué parte de la varianza de ingreso (Y) se asocia a educación? 
+
+.center[![:scale 50%](../../files/img/ingresoeduc.png)]
+
+---
+# Varianza explicada de Y: `\(R^2\)`
+
+- ¿Cuánto de los ingresos puedo predecir con educación (regresión) y cuánto me estoy equivocando (residuos)?
+
+--
+
+- el `\(R^2\)`
+  - es la proporción de la varianza de Y que se asocia a X
+  - varía entre 0 y 1, y se puede expresar en porcentaje
+
+--
+
+- Entonces, podemos descomponer la varianza de Y en 2: aquella asociada a X (regresión) y la que no se asocia a X (residuos) 
+
+---
+
+# Inferencia: la otra mitad de la regresión
+
+
+- hasta ahora hemos interpretado solo la magnitud de los `\(\beta\)` de regresión. Pero,
+
+  - ¿son estos `\(\beta\)` **_estadísticamente_** significativos?
+
+  - es algo que podemos extrapolar de nuestra muestra a la población?
+
+  - ... o es algo que se debe simplemente al azar?
+
+---
+# Inferencia y tablas de regresión
+
+.content-box-red[
+- las tablas de regresión tienen información sobre inferencia reportada de manera automática (errores estándar, niveles de probabilidad de error, etc)
+]
+
+--
+.content-box-purple[
+
+- sin embargo, antes de interpretar directamente esta información, es conveniente ahondar en cómo se obtiene esa información y cuál es su sentido
+]
+---
+.pull-left-narrow[
+
+![](../../files/img/inference1.png)
+]
+.pull-right-wide[
+
+## Conceptos claves de inferencia
+- La **inferencia** en estadística se refiere a la relación que existe entre los resultados obtenidos basados en nuestra muestra y la población
+
+
+]
+
+--
+
+- **¿En qué medida podemos hacer inferencias desde nuestra muestra a la población?**
+
+
+--
+
+- Un concepto central es la probabilidad de **ERROR**
+
+
+
+---
+# Bases de inferencia:
+
+- dispersión: varianza y desviación estandar
+
+- curva normal
+
+- error estándar
+
+---
+.pull-left-narrow[
+# Dispersión:
+## Varianza
+]
+
+.pull-right-wide[
+
+![:scale 100%](../../files/img/varianza2.png)
+]
+
+
+---
+# Medidas de Dispersión
+
+.pull-left[
+
+## Varianza
+&lt;br&gt;
+
+&lt;br&gt;
+
+## Desviación estándar
+]
+
+.pull-right[
+
+`$$s^2=\frac{\Sigma(x-\bar{x})²}{N-1}$$`
+
+&lt;br&gt;
+
+`$$s=\sqrt \frac{\Sigma(x-\bar{x})²}{N-1}$$`]
+---
+.content-box-yellow[
+## Desviación estándar y curva normal]
+
+.center[![:scale 70%](../../files/img/normal.png)]
+
+---
+
+.pull-left-narrow[
+![](../../files/img/inference1.png)
+
+]
+
+.pull-right-wide[
+.content-box-purple[
+
+## Desviación estándar y error estándar]
+- más que el promedio de la variable en nuestra **muestra**, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la **población**
+
+
+]
+
+--
+
+- contamos con **una muestra**, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados.
+
+---
+# Error estándar
+
+![](../../files/img/se_1.png)
+---
+# Error estándar
+
+![](../../files/img/se_2.png)
+---
+# Error estándar
+
+![](../../files/img/se_3.png)
+---
+
+# Error estándar
+
+- ¿Cómo calculamos el error estándar a partir de **una** muestra?
+
+- Basados en el **teorema del límite central**, en muestras mayores a 30 la desviación estándar de los promedios (error estándar) equivale a:
+
+`$$\sigma_{\bar{X}}=SE(error estándar)=\frac{s}{\sqrt{N}}$$`
+
+
+---
+# Error, rangos y probabilidad
+
+
+.pull-left[
+.medium[
+
+- Nuestro promedio muestral `\(\bar{x}\)` posee una distribución normal con una desviación estandar = SE (error estándar)
+
+- Esto nos permite calcular una probabilidad de error basados en los valores de la curva normal
+
+]
+]
+.pull-right[
+.center[![:scale 85%](../../files/img/normal.png)]]
+
+---
+# Error, rangos y probabilidad
+
+
+.pull-left[
+.medium[
+
+- Por ejemplo, `\(\bar{x}\)` +/- 2 SE abarca aproximadamente el 95% de los valores probables
+
+- De otra manera, puedo dar un rango de valores donde se encuentra el promedio(+- 2 SE), con un nivel de confianza de 95%
+
+- ... o con una probabilidad de error p&lt;0.05
+
+]
+]
+.pull-right[
+.center[![:scale 85%](../../files/img/normal.png)]]
+
+---
+# Inferencia y significación estadística
+
+- ¿Con qué nivel de **probabilidad** estamos dispuest_s a aceptar que las diferencias (entre promedios) son distintas de 0?
+
+- Por convención, una probabilidad de error (o valor *p*) de menos de 0.05 (1 de 20 veces)
+
+- Esto significa una probabilidad de acierto/nivel de confianza de 95% (2 SE)
+
+---
+
+.center[![:scale 70%](../../files/img/inferencia1.png)]
+
+---
+
+## Volviendo a regresión
+
+- el error estándar del promedio nos sirve como referencia cálculo de significación estadística de los coeficientes de regresión
+
+--
+
+- en regresión, las variables independientes poseen distintos niveles/valores, y queremos saber si las diferencias en Y de los valores de X son significativas = **estadísticamente distintas de 0**.
+
+  - Ej: diferencias de ingreso (Y) entre hombres y mujeres (X)
+
+---
+# Inferencia y prueba de hipótesis
+
+- La hipótesis nula (o `\(H_0\)` ) se refiere a que las diferencias son = 0
+
+- En regresión, `\(H_0\)` dice que nuestro beta no es distinto de cero
+
+- Por eso, queremos rechazar `\(H_0\)` y para eso tenemos que establecer un nivel de probabilidad aceptable (al menos p&lt;0.05)
+
+---
+## Prueba de hipótesis en regresión
+
+Contrastamos la *hipótesis nula* (no hay asociación entre el predictor y la variable dependiente):
+
+`$$H_{0}: \beta_{j} = 0$$`
+
+En relación a la siguiente hipótesis alternativa:
+
+`$$H_{a}: \beta_{j} \neq 0$$`
+
+---
+# Prueba T
+
+- para **mayor precisión**, la prueba T nos permite establecer el nivel de error que estamos cometiendo al rechazar `\(H_0\)`
+
+- para ello, T se ajusta por la cantidad de sujetos en la muestra (N), pero para un N&gt;120 se aproxima a la distribución normal.
+
+
+---
+## Inferencia, diferencias y prueba _t_
+
+.medium[
+- La prueba _t_ se utiliza para inferencias sobre `\(\beta\)`  y básicamente es una razón entre
+
+.center[![:scale 40%](../../files/img/t1.png)]
+
+- Ya que la diferencia esperada si `\(H_0\)` es verdadera es 0, entonces:
+
+`$$t=\frac{b_j}{SE(b_j)}$$`
+]
+
+
+---
+# Pasos
+
+1. obtener `\(\beta\)`
+
+2. obtener SE (error estándar) de `\(\beta\)`
+
+3.  calcular t: `\(t=\frac{b_j}{SE(b_j)}\)`
+
+4. determinar la probabilidad de error asociada al valor t
+
+---
+# ¿Cómo utilizamos el valor T?
+
+- T ( `\(\beta/SE\)` ) se compara con un  **valor crítico**
+
+- El valor crítico se obtiene de una tabla según el nivel de probabilidad de error `\(\alpha\)` y los **grados de libertad** N-k-1 (siendo k el número de regresores)
+
+- Si nuestro T observado &gt; valor crítico de T, entonces rechazamos `\(H_0\)` al nivel de confianza establecido
+
+---
+# Valor crítico de T
+
+
+![](../../files/img/imagen4.png)
+
+---
+class: inverse
+
+## Resumen: inferencia en regresión
+
+- conceptos centrales: error estándar del `\(\beta\)` y **valor T**
+
+- el valor T se obtiene dividiendo el beta por el error estándar
+
+- para muestras grandes, un T &gt; 1.96 permite rechazar `\(H_0\)` a un p&lt;0.05, y T &gt; 2.58 a un p&gt;0.01
+
+---
+class: roja, bottom, right, slideInRight
+
+# 4. Tabla de regresión
+
+
+---
+## Reporte de regresión múltiple
+
+- en ocasiones se representa el modelo como una ecuación (opcional), y los resultados en una Tabla de Regresión
+
+- la tabla posee ciertas características y contenidos mínimos que deben ser considerados en el reporte
+
+- en R es posible automatizar el reporte en tablas, pero hay que agregar especificaciones para una visualización adecuada
+
+---
+.pull-left-narrow[
+# Tabla de regresión
+
+## con sjPlot
+]
+
+.pull-right-wide[
+.smally[
+
+
+
+
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;caption style="font-weight: bold; text-align:left;"&gt;Modelos de regresión para puntaje en ciencia &lt;br&gt; (Errores estándar entre paréntesis)&lt;/caption&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Modelo 1&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Modelo 2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictores&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;β&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;β&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;11.616 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(3.054)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;12.325 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(3.194)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;matematicas&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.402 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(0.073)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.389 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(0.074)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;lectura&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.365 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(0.066)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.335 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(0.073)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;mujer&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;2.010 &lt;sup&gt;&lt;/sup&gt;&lt;br&gt;(1.023)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;status&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.050 &lt;sup&gt;&lt;/sup&gt;&lt;br&gt;(0.062)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;200&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;200&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; / R&lt;sup&gt;2&lt;/sup&gt; adjusted&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.478 / 0.473&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.489 / 0.479&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]]
+
+---
+
+![:scale 90%](../../files/img/tabreg.png)
+
 
 ---
 class: inverse, bottom, right
-
 
 # .red[Sesión 5]
 &lt;br&gt;
 
 Repaso sesión anterior
 
-.yellow[Análisis descriptivo de datos]
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
 
----
-## Análisis descriptivo de datos
-
-- La estadística es el lenguaje para comunicar información basada en datos cuantitativos
-
-- La estadística descriptiva permite sintetizar o resumir los datos obtenidos a partir de un conjunto de observaciones
-
-- Eventualmente, con estadística inferencial se pueden realizar procesos que permiten, dentro de ciertos rangos de confianza, determinar el comportamiento de la población que es representada por la muestra
-
----
-## Análisis descriptivo de datos
-
-Indicadores que describen distintos aspectos de las observaciones realizadas
-
-- Tremendamente importantes para explorar y presentar los resultados de un estudio (describiendo el comportamiento de una muestra)
-
-- Son los indicadores sobre los cuales se realiza estadística inferencial (se infiere a la población)
+.yellow[estandarización de coeficientes]
 
 ---
 
-## Análisis descriptivo de datos
+# Estandarización
 
-- Los análisis estadísticos son estrategias para traducir la información obtenida a un formato que sea interpretable.
+## ¿Qué coeficiente es mayor que otro?
 
-- Por mucho que miremos una base de datos, difícilmente vamos a poder entender qué significan esos números.
+- usualmente, los coeficientes se encuentran en escalas diferentes
 
-- La estrategia más sencilla es mostrar la información en un formato visual (gráficos) o en un esquema sintetizado (**tablas**)
+- para poder comparar la magnitud de un coeficiente en relación a los otros se requiere pasar a una escala común
 
----
-## Tablas y gráficos
-
-En general, cualquier tabla puede ser presentada en formato gráfico
-
-- ¿Qué elegir?
-
-- La decisión decisión depende de la cantidad de información presentada y el uso que vaya a darse a ella
-
-- Los gráficos permiten una comprensión global más inmediata, las tablas una revisión más detallada
+- esto se efectúa mediante el proceso de **estandarización**
 
 ---
-## Tablas de síntesis de resultados
+## Estandarización de Coeficientes
 
-- Al reportar los resultados de una investigación, es común construir tablas que resumen el comportamiento de una serie de variables
+- Para poder expresar las variables en escalas comparables, sus valores se ponderan respecto de su desviación estándar.
 
-- La idea general es consensar la mayor cantidad de información evitando la redundancia de información
+- Para ello, a cada valor de la variable se le resta el promedio y se divide por su desviación estándar, lo que se conoce como **puntaje Z**:
 
-- Estas tablas se diseñan a partir de distintos análisis realizados sobre los datos, pero que apuntan a un área temática común. Por ejemplo: descripción demográfica de la muestra
+`$$z_x=\frac{x-\bar{x}}{sd(x)}$$`
+
+- Este procedimiento se aplica tanto a la dependiente como a las independientes
 
 ---
-## Tablas de síntesis de resultados
+## Estandarización: interpretación
 
-- Ejemplo:
+- al estandarizar, los coeficientes de regresión reflejan cuantas **desviaciones estándar** cambia _Y_ como consecuencia del cambio en **una desviación estándar** _X_.
 
-![](../../files/img/descriptivos1.png)
+- los coeficientes ahora son comparables entre sí en base a su magnitud
 
-.small[
-.center[Fuente: Salgado, M. (2022) Altruismo y fundamentos morales en adolescentes: Un estudio experimental. Revista de Sociología]
+---
+## Estandarización de Coeficientes
+
+De la [Práctica 2 - regresión multiple](https://metod3-unab.netlify.app/practicos/practico-02):
+
+- *colGPA*: promedio general de calificaciones de la universidad, en escala de 0 a 4 puntos.
+
+- *hsGPA*: promedio general de calificaciones en la enseñanza media, en escala de 0 a 4 puntos
+
+- *ACT* : puntaje en el examen de admisión a la universidad, que va de 16 a 33 puntos
+
+---
+## Estandarización de Coeficientes
+
+Función `scale`
+
+
+```r
+library(wooldridge)
+data('gpa1') # Cargar base de datos
+gpa1 &lt;- dplyr::select(gpa1, colGPA, hsGPA, ACT)
+
+col_model &lt;- lm(colGPA ~ ACT + hsGPA, data = gpa1)
+
+gpa1_std = data.frame(scale(gpa1))
+
+col_model_std &lt;- lm(colGPA ~ ACT + hsGPA, data = gpa1_std)
+```
+
+---
+## Estandarización de Coeficientes
+
+
+.center[
+![:scale 80%](../../files/img/est_coef.png)
 ]
 
----
-## Tablas de frecuencia
-
-- La forma más sencilla de presentar la información obtenida en un estudio es contabilizar el número de veces que aparece cada respuesta
-
-- Este indicador se conoce como la frecuencia de aparición de cada respuesta ( `\(f\)` )
-
-- Cuando presentamos una variable indicando la frecuencia de aparición de cada uno de sus valores, tenemos una tabla de frecuencia
 
 ---
-## Tablas de frecuencia
+## Estandarización de Coeficientes
 
-- Las frecuencias son, sin embargo, datos absolutos. No es fácil comparar los resultados de dos tablas con un N total de respuestas diferente
 
-- Para hacer esas comparaciones, se utilizan medidas estandarizadas, esto es, transformaciones de los puntajes originales a escalas que sean las mismas en todas las tablas (y que permitan comparación)
+En este caso se puede observar que por el aumento en **una desviación estándar** en las calificaciones de enseñanza media (hsGPA), el promedio de notas en la universidad (colGPA) aumenta  **0.39 desviaciones estándar**.
 
----
-## Tabulación de datos
+Al estar en una misma unidad de medida, podemos comparar los coeficientes en términos de su tamaño.
 
-Estandarizan los puntajes, permitiendo comparación
-
-- Proporción (p)
-
-$$p = \frac{f}{N} $$
-
-- Porcentaje (%)
-
-$$ \% = p \times 100 $$
+En este caso, el coeficiente de hsGPA (0.39) es mayor que el de ACT (0.29), por lo que podemos inferir que las calificaciones de enseñanza media tienen un mayor efecto en el promedio universitario que el puntaje en el examen de admisión.
 
 ---
-## Tabulación de datos
+## Beta estandarizado o no estandarizado
 
-Permiten analizar el comportamiento de la variable
+- Betas: 
+  - pueden aparecer en puntaje bruto (no estandarizado) o estandarizado
 
-- Frecuencias acumuladas
+  - beta estandarizado: se interpreta como cuantas unidades de desviación estándar aumenta Y por cada aumento de una desviación estándar de X
 
-- Porcentajes acumulados
+ - betas estandarizados permiten comparar el efecto de cada variable independiente en una misma escala (desviaciones estándar)
 
----
-##  Tablas de frecuencia y datos acumulados 
-
-Grado de Felicidad personas evaluadas
-
-&lt;table class="table" style="font-size: 18px; color: black; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Puntaje &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; f &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; F &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; p &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; % &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; % Ac &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Muy poco feliz &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 160 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 160 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0.10 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 10.31 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 10.31 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Poco feliz &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 398 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 558 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0.26 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 25.64 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 35.95 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Relativamente feliz &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 610 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1168 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0.39 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 39.30 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 75.26 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Bastante feliz &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 310 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1478 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0.20 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 19.97 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 95.23 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Muy feliz &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 74 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1552 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0.05 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 4.77 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 100 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Total &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1552 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1.00 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
----
-
-##  Tablas de frecuencia 
-
-¿La democracia es preferible a cualquier otra forma de gobierno?
-(1, "completamente en desacuerdo"; a 7, "completamente de acuerdo")
-
-&lt;table class="table" style="font-size: 18px; color: black; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Puntaje &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; f &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; % &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; % asc &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; % des &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 99 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 5.0% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 5.0% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 44 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2.2% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 7.2% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 95.0% &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 94 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 4.7% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 11.9% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 92.8% &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 212 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 10.7% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 22.6% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 88.1% &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 231 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 11.6% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 34.2% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 77.4% &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 415 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 20.9% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 55.1% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 65.8% &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 893 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 44.9% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 44.9% &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Total &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1988 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 100.0% &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
----
-
-## Medidas de tendencia Central
-
-* **Moda**: valor que ocurre más frecuentemente
-
---
-
-* **Mediana**: valor medio de la distribución ordenada. Si N es par, entonces es el promedio de los valores medios
-
---
-* **Media** o promedio aritmético: suma de los valores dividido por el total de casos
-
----
-## Medidas de tendencia Central
-
-### Dispersión:
-
-* **Varianza**: promedio de la suma de las diferencias del promedio al cuadrado
-
-.center[![:scale 100%](../../files/img/varianza_formula.png)]
-
----
-
-.center[![:scale 80%](../../files/img/varianza1.png)]
-
----
-
-.center[![:scale 80%](../../files/img/varianza2.png)]
----
-
-.center[![:scale 80%](../../files/img/varianza3.png)]
-
----
-
-* **Desviación Estándar**:
-  - Raiz Cuadrada de la varianza.
-
-  - Expresada  en la mismas unidades que los puntajes de la escala original
 
 
 
 ---
-class: middle, center
 
-# Más sobre datos, variables y varianza en:
+.pull-left-narrow[
+#Tabla de regresión múltiple:
 
-##-  [Moore: 1.Comprensión de los datos (1-54)](https://multivariada.netlify.app/docs/lecturas/moore_comprensiondelosdatos.pdf)
+
+## Sentido de presentación de modelos
+]
+
+.pull-right-wide[
+
+
+.content-box-gray[
+Se comienza ingresando variables de hipótesis principales]
+
+
+.content-box-purple[
+Modelos adicionales ingresan variables de hipótesis secundarias o variables de control]
+
+.content-box-yellow[
+La interpretación de la tabla se realiza en general para cada variable independiente a través de los modelos]
+]
+
 
 ---
+
 class: front
 
 .pull-left[
-# Metodología I
+# Métodos estadísticos para ciencias sociales III
 ## **Kevin Carrasco**
-## Magister en Ciencias Sociales FACSO - UChile
-## 1er Sem 2025
-## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
+## Sociología - UNAB
+## 2do Semestre 2025
+## .green[[metod3-unab.netlify.com](metod3-unab.netlify.com)]
 ] 
     
 
 .pull-right[
 .right[
 &lt;br&gt;
-## .yellow[Sesión 4: Estadística descriptiva]
+## .yellow[Sesión 5: Regresión múltiple y estandarización de coeficientes]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
@@ -513,6 +862,10 @@ class: front
 ]
 
 ]
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

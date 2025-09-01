@@ -1,0 +1,258 @@
+---
+title: "Introducción al flujo de investigación reproducible"
+format:
+  html:
+    toc: true
+    number-sections: true
+    output-file: "taller-github-quarto.html"
+editor: source
+lang: es
+---
+
+
+1. Protocolo IPO (input-procesamiento-output) para organizar nuestro proyecto)
+
+![](images/ipo-hex.png)
+
+## RStudio Projects
+- File -> New Project
+
+![](images/project.png)
+
+![](images/project2.png)
+
+## Abriendo la sesión de RStudio como proyecto
+
+- identificar en la carpeta respectiva el archivo .Rproj
+
+- ejecutar y se abre R / RStudio con ese directorio como raíz
+
+## Rutas relativas en código
+
+- forma de "señalar el camino" para abrir y guardar archivos al interior de una carpeta de proyecto autocontenido (= sin referencias locales)
+
+- este camino tiene básicamente 3 direcciones:
+
+  - bajar -> hacia subcarpetas
+  
+  - subir -> hacia carpetas superiores
+  
+  - subir y bajar -> hacia otras subcarpetas 
+
+
+###  bajando
+
+- para **"bajar"** hacia a una subcarpeta, simplemente damos la ruta de la carpeta/archivo
+
+  - ej: si estoy en el archivo paper.Rmd (directorio raíz), y quiero incluir una imagen (directorio input/images/imagen.jpg), entonces la ruta es `input/images/imagen.jpg`
+  
+  - o para señalar la ruta al bib desde paper.Rmd (en raíz): `input/bib/referencias.bib`
+
+### subiendo
+
+- para **subir** se utilizan los caracteres `../` por cada nivel.
+
+- Ej: si quiero guardar una tabla en el directorio raíz generada desde un archivo de código en la subcarpeta proc, entonces la ruta es `../tabla.html`
+
+
+### subiendo y bajando 
+
+- combinación de las anteriores
+
+- Ej: para abrir la base de datos original en la subcarpeta input/data desde el código de procesamiento en la subcarpeta proc, entonces:
+
+`../input/data/original.dat`
+
+# Quarto
+
+La escritura en Quarto tiene algunos códigos o funciones, aquí un resumen de su mayoría:
+
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+|Código                                                                         | Así se ve                                                                     |
++===============================================================================+===============================================================================+
+|     Algo de texto en el párrafo.                                              | Algo de texto.                                                                |
+|                                                                               |                                                                               |
+|     Más texto                                                                 | Algo de texto en el párrafo. Siempre utilizando espacios para dividir párrafos|
+|     espacio entre lineas.                                                     |                                                                               |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| `` *Cursivas* ``                                                              | *Cursivas*                                                                    |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| `` **Negrita** ``                                                             | **Negrita**                                                                   |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| `# Título 1`                                                                  | # Título 1                                                                    |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| `## Título 2`                                                                 | ## Título 2                                                                   |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| `### Título 3`                                                                | ### Título 3                                                                  |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| (puedes llegar hasta un título N° 6 con `######`)                             |                                                                               |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| `` [Texto enlace](https://quarto.org/) ``                                     | [Texto enlace](https://quarto.org/)                                           |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| `` ![Texto imagen](/path/to/image.png) ``                                     | ![Texto imagen](images/lisa_icon.png){alt="Class logo"}                       |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| `> Citas`                                                                     | > Citas                                                                       |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+|     1. Una                                                                    | 1.   Una                                                                      |
+|     2. lista                                                                  |                                                                               |
+|     3 ordenada                                                                | 2.   lista                                                                    |
+|                                                                               |                                                                               |
+|                                                                               | 3. ordenada                                                                   |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+|     - Otro                                                                    | -  Otro                                                                       |
+|     - tipo                                                                    |                                                                               |
+|     - de lista                                                                | -  tipo                                                                       |
+|                                                                               |                                                                               |
+|                                                                               |  -  de lista                                                                  |
++-------------------------------------------------------------------------------+-------------------------------------------------------------------------------+
+
+1. Abrimos nuestro Rproject y creamos un nuevo documento de Quarto file --> new file --> Quarto document
+
+![](images/quarto-2.png)
+
+![](images/quarto2-2.png)
+
+::: callout-note
+
+YAML: Lenguaje de programación. Es un formato de serialización de datos que proporcionan un mecanismo de intercambio de datos legible por humanos. Dan formato a los datos de manera estandarizada para su intercambio entre aplicaciones de software.
+
+
+![](images/yaml.png)
+
+:::
+
+```
+---
+title: "Mi Documento"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+```
+Luego, podemos escribir en el documento, separando por títulos (#) cada sección. La jerarquía de los títulos se establece según la cantidad de '#'. 
+
+A continuación, en esta guía combinaremos el paso-a-paso de crear un documento dinámico con quarto, a la vez que vamos viendo distintas funciones de este proceso.
+
+Por ejemplo, como hacer una nota al pie[^1]. Para hacerlo, solo debemos escribir [ ^2] pero sin el espacio entre los corchetes. Luego, en otra línea escribimos [^2]: Esta es la nota al pie
+
+[^1]: Esta es la nota al pie
+
+# Código de análisis de ejemplo
+
+Para poder escribir código de análisis en un documento Quarto debemos generar trozo de código llamado 'Chunk', que se puede crear con ctrl+alt+i o directamente en el menú de arriba en 'Code -> Insert Chunk'.
+
+![](images/quarto3.png)
+
+## Cargar paquetes
+
+```{r}
+pacman::p_load(dplyr, #manipulacion de datos
+               sjPlot, #tablas
+               kableExtra, #tablas
+               ggplot2, #graficos
+               summarytools, #estadisticos descriptivos
+               fastDummies, # Crear variable dummy
+               sjlabelled, #etiquetas variables
+               coefplot # graficos de coeficientes
+               )
+```
+
+## Cargar bases de datos
+
+Cargamos bases de datos desde internet
+
+```{r}
+load(url("https://multivariada.netlify.app/assignment/data/proc/ELSOC_ess.RData")) # Cargar base de datos
+```
+
+```{r}
+view(dfSummary(elsoc_18, headings = FALSE, method = "render"))
+```
+
+
+
+## Visualizaciones
+
+Podemos establecer referencias cruzadas para las tablas y gráficos dentro del texto, para poder automatizarlo, como ejemplo así, pero dentro del chunk:
+
+#| label: tbl-sjmisc
+
+#| tbl-cap: "Descriptivos con sjmisc"
+
+### Descriptivos
+
+El Chunk se debería ver así:
+
+#| label: tbl-sjmisc
+
+#| tbl-cap: "Descriptivos con sjmisc"
+
+sjmisc::descr(data,
+
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
+
+      kable(.,"markdown") # Esto es para que se vea bien en quarto
+
+```{r}
+#| label: tbl-desc
+#| tbl-cap: "Descriptivos"
+
+sjmisc::descr(elsoc_18,
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
+      kable(.,"markdown") # Esto es para que se vea bien en quarto
+```
+
+Luego de establecer el link y el nombre de la tabla, podemos referenciar acá con un @, así: @ tbl-desc (pero junto), y que se vería así @tbl-desc
+
+### Gráficos
+
+Y para los gráficos se hace de la misma forma:
+
+#| label: fig-gdp
+
+#| fig-cap: "Plots" 
+
+```{r}
+#| label: fig-ess-edad
+#| fig-cap: "ESS por edad" 
+
+graph1<-ggplot(elsoc_18, aes(x = edad, y = ess)) +
+  geom_point() +
+  labs(x = "Edad", y = "Estatus social subjetivo") +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+graph1
+```
+
+Sin embargo la @fig-ess-edad entrega información...
+
+
+## Regresiones
+
+```{r}
+reg1<-lm(ess ~ edad, data=elsoc_18)
+reg2<-lm(ess ~  edad+sexo, data=elsoc_18)
+reg3 <- lm(ess ~ edad + sexo + edcine, data = elsoc_18)
+```
+
+```{r}
+#| label: tbl-reg
+#| tbl-cap: "Modelos de regresión"
+
+sjPlot::tab_model(list(reg1, reg2, reg3), 
+show.ci=FALSE,
+p.style = "stars", 
+dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3"),
+string.pred = "Predictores", 
+string.est = "β")
+```
+
+la @tbl-reg muestra que...
+
+
+5. Luego renderizamos 
+
+![](images/quarto4.png)
+

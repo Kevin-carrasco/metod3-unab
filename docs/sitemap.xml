@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://metod3-unab.netlify.app/practicos/practico-02.html</loc>
-    <lastmod>2025-08-18T14:30:34.572Z</lastmod>
+    <loc>https://metod3-unab.netlify.app/trabajos.html</loc>
+    <lastmod>2025-08-04T13:26:21.023Z</lastmod>
+  </url>
+  <url>
+    <loc>https://metod3-unab.netlify.app/schedule.html</loc>
+    <lastmod>2025-08-04T13:26:20.353Z</lastmod>
+  </url>
+  <url>
+    <loc>https://metod3-unab.netlify.app/practicos/practico-03.html</loc>
+    <lastmod>2025-08-25T17:18:49.084Z</lastmod>
   </url>
   <url>
     <loc>https://metod3-unab.netlify.app/practicos/practico-01.html</loc>
     <lastmod>2025-08-11T15:48:32.091Z</lastmod>
   </url>
   <url>
-    <loc>https://metod3-unab.netlify.app/syllabus.html</loc>
-    <lastmod>2025-08-04T13:26:21.020Z</lastmod>
-  </url>
-  <url>
-    <loc>https://metod3-unab.netlify.app/trabajos.html</loc>
-    <lastmod>2025-08-04T13:26:21.023Z</lastmod>
-  </url>
-  <url>
-    <loc>https://metod3-unab.netlify.app/practicos/index.html</loc>
-    <lastmod>2025-08-11T15:03:58.739Z</lastmod>
+    <loc>https://metod3-unab.netlify.app/index.html</loc>
+    <lastmod>2025-08-04T13:49:34.363Z</lastmod>
   </url>
   <url>
     <loc>https://metod3-unab.netlify.app/content/11-content.html</loc>
@@ -34,7 +34,7 @@
   </url>
   <url>
     <loc>https://metod3-unab.netlify.app/content/05-content.html</loc>
-    <lastmod>2025-08-04T13:26:15.940Z</lastmod>
+    <lastmod>2025-09-01T05:45:56.714Z</lastmod>
   </url>
   <url>
     <loc>https://metod3-unab.netlify.app/content/03-content.html</loc>
@@ -73,15 +73,19 @@
     <lastmod>2025-08-04T13:26:15.950Z</lastmod>
   </url>
   <url>
-    <loc>https://metod3-unab.netlify.app/schedule.html</loc>
-    <lastmod>2025-08-04T13:26:20.353Z</lastmod>
+    <loc>https://metod3-unab.netlify.app/practicos/index.html</loc>
+    <lastmod>2025-08-11T15:03:58.739Z</lastmod>
   </url>
   <url>
-    <loc>https://metod3-unab.netlify.app/index.html</loc>
-    <lastmod>2025-08-04T13:49:34.363Z</lastmod>
+    <loc>https://metod3-unab.netlify.app/practicos/practico-02.html</loc>
+    <lastmod>2025-08-18T14:30:34.572Z</lastmod>
   </url>
   <url>
-    <loc>https://metod3-unab.netlify.app/practicos/practico-03.html</loc>
-    <lastmod>2025-08-25T17:18:49.084Z</lastmod>
+    <loc>https://metod3-unab.netlify.app/practicos/taller-github-quarto/taller-github-quarto.html</loc>
+    <lastmod>2025-09-01T05:45:20.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://metod3-unab.netlify.app/syllabus.html</loc>
+    <lastmod>2025-08-04T13:26:21.020Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introducción al flujo de investigación reproducible – Metodos 3 - Universidad Andrés Bello</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../..//files/icon-513.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6c1d4747946d1be0d0588e27238c39f9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fd71023c966670118171c2e01cc12c86.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+<meta property="og:title" content="Introducción al flujo de investigación reproducible – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:description" content="Universidad Andrés Bello">
+<meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
+<meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:height" content="500">
+<meta property="og:image:width" content="500">
+<meta name="twitter:title" content="Introducción al flujo de investigación reproducible – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:description" content="Universidad Andrés Bello">
+<meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
+<meta name="twitter:creator" content="@kevincarrascoq1">
+<meta name="twitter:site" content="@kevincarrascoq1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="500">
+<meta name="twitter:image-width" content="500">
+</head>
+
+<body class="docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Metodos 3 - Universidad Andrés Bello</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../trabajos.html"> 
+<span class="menu-text">Trabajos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../../practicos/index.html" aria-current="page"> 
+<span class="menu-text">Practicos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../practicos/taller-github-quarto/taller-github-quarto.html">Práctico 4 - Taller Quarto</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../practicos/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descripción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../practicos/practico-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 1 - Regresión lineal simple</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../practicos/practico-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 2 - Regresión lineal múltiple</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../practicos/practico-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 3 - Inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../practicos/taller-github-quarto/taller-github-quarto.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Práctico 4 - Taller Quarto</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#rstudio-projects" id="toc-rstudio-projects" class="nav-link active" data-scroll-target="#rstudio-projects"><span class="header-section-number">0.1</span> RStudio Projects</a></li>
+  <li><a href="#abriendo-la-sesión-de-rstudio-como-proyecto" id="toc-abriendo-la-sesión-de-rstudio-como-proyecto" class="nav-link" data-scroll-target="#abriendo-la-sesión-de-rstudio-como-proyecto"><span class="header-section-number">0.2</span> Abriendo la sesión de RStudio como proyecto</a></li>
+  <li><a href="#rutas-relativas-en-código" id="toc-rutas-relativas-en-código" class="nav-link" data-scroll-target="#rutas-relativas-en-código"><span class="header-section-number">0.3</span> Rutas relativas en código</a>
+  <ul class="collapse">
+  <li><a href="#bajando" id="toc-bajando" class="nav-link" data-scroll-target="#bajando"><span class="header-section-number">0.3.1</span> bajando</a></li>
+  <li><a href="#subiendo" id="toc-subiendo" class="nav-link" data-scroll-target="#subiendo"><span class="header-section-number">0.3.2</span> subiendo</a></li>
+  <li><a href="#subiendo-y-bajando" id="toc-subiendo-y-bajando" class="nav-link" data-scroll-target="#subiendo-y-bajando"><span class="header-section-number">0.3.3</span> subiendo y bajando</a></li>
+  </ul></li>
+  <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto"><span class="header-section-number">1</span> Quarto</a></li>
+  <li><a href="#código-de-análisis-de-ejemplo" id="toc-código-de-análisis-de-ejemplo" class="nav-link" data-scroll-target="#código-de-análisis-de-ejemplo"><span class="header-section-number">3</span> Código de análisis de ejemplo</a>
+  <ul class="collapse">
+  <li><a href="#cargar-paquetes" id="toc-cargar-paquetes" class="nav-link" data-scroll-target="#cargar-paquetes"><span class="header-section-number">3.1</span> Cargar paquetes</a></li>
+  <li><a href="#cargar-bases-de-datos" id="toc-cargar-bases-de-datos" class="nav-link" data-scroll-target="#cargar-bases-de-datos"><span class="header-section-number">3.2</span> Cargar bases de datos</a></li>
+  <li><a href="#visualizaciones" id="toc-visualizaciones" class="nav-link" data-scroll-target="#visualizaciones"><span class="header-section-number">3.3</span> Visualizaciones</a>
+  <ul class="collapse">
+  <li><a href="#descriptivos" id="toc-descriptivos" class="nav-link" data-scroll-target="#descriptivos"><span class="header-section-number">3.3.1</span> Descriptivos</a></li>
+  <li><a href="#gráficos" id="toc-gráficos" class="nav-link" data-scroll-target="#gráficos"><span class="header-section-number">3.3.2</span> Gráficos</a></li>
+  </ul></li>
+  <li><a href="#regresiones" id="toc-regresiones" class="nav-link" data-scroll-target="#regresiones"><span class="header-section-number">3.4</span> Regresiones</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introducción al flujo de investigación reproducible</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<ol type="1">
+<li>Protocolo IPO (input-procesamiento-output) para organizar nuestro proyecto)</li>
+</ol>
+<p><img src="images/ipo-hex.png" class="img-fluid"></p>
+<section id="rstudio-projects" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="rstudio-projects"><span class="header-section-number">0.1</span> RStudio Projects</h2>
+<ul>
+<li>File -&gt; New Project</li>
+</ul>
+<p><img src="images/project.png" class="img-fluid"></p>
+<p><img src="images/project2.png" class="img-fluid"></p>
+</section>
+<section id="abriendo-la-sesión-de-rstudio-como-proyecto" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="abriendo-la-sesión-de-rstudio-como-proyecto"><span class="header-section-number">0.2</span> Abriendo la sesión de RStudio como proyecto</h2>
+<ul>
+<li><p>identificar en la carpeta respectiva el archivo .Rproj</p></li>
+<li><p>ejecutar y se abre R / RStudio con ese directorio como raíz</p></li>
+</ul>
+</section>
+<section id="rutas-relativas-en-código" class="level2" data-number="0.3">
+<h2 data-number="0.3" class="anchored" data-anchor-id="rutas-relativas-en-código"><span class="header-section-number">0.3</span> Rutas relativas en código</h2>
+<ul>
+<li><p>forma de “señalar el camino” para abrir y guardar archivos al interior de una carpeta de proyecto autocontenido (= sin referencias locales)</p></li>
+<li><p>este camino tiene básicamente 3 direcciones:</p>
+<ul>
+<li><p>bajar -&gt; hacia subcarpetas</p></li>
+<li><p>subir -&gt; hacia carpetas superiores</p></li>
+<li><p>subir y bajar -&gt; hacia otras subcarpetas</p></li>
+</ul></li>
+</ul>
+<section id="bajando" class="level3" data-number="0.3.1">
+<h3 data-number="0.3.1" class="anchored" data-anchor-id="bajando"><span class="header-section-number">0.3.1</span> bajando</h3>
+<ul>
+<li><p>para <strong>“bajar”</strong> hacia a una subcarpeta, simplemente damos la ruta de la carpeta/archivo</p>
+<ul>
+<li><p>ej: si estoy en el archivo paper.Rmd (directorio raíz), y quiero incluir una imagen (directorio input/images/imagen.jpg), entonces la ruta es <code>input/images/imagen.jpg</code></p></li>
+<li><p>o para señalar la ruta al bib desde paper.Rmd (en raíz): <code>input/bib/referencias.bib</code></p></li>
+</ul></li>
+</ul>
+</section>
+<section id="subiendo" class="level3" data-number="0.3.2">
+<h3 data-number="0.3.2" class="anchored" data-anchor-id="subiendo"><span class="header-section-number">0.3.2</span> subiendo</h3>
+<ul>
+<li><p>para <strong>subir</strong> se utilizan los caracteres <code>../</code> por cada nivel.</p></li>
+<li><p>Ej: si quiero guardar una tabla en el directorio raíz generada desde un archivo de código en la subcarpeta proc, entonces la ruta es <code>../tabla.html</code></p></li>
+</ul>
+</section>
+<section id="subiendo-y-bajando" class="level3" data-number="0.3.3">
+<h3 data-number="0.3.3" class="anchored" data-anchor-id="subiendo-y-bajando"><span class="header-section-number">0.3.3</span> subiendo y bajando</h3>
+<ul>
+<li><p>combinación de las anteriores</p></li>
+<li><p>Ej: para abrir la base de datos original en la subcarpeta input/data desde el código de procesamiento en la subcarpeta proc, entonces:</p></li>
+</ul>
+<p><code>../input/data/original.dat</code></p>
+</section>
+</section>
+<section id="quarto" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Quarto</h1>
+<p>La escritura en Quarto tiene algunos códigos o funciones, aquí un resumen de su mayoría:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Código</th>
+<th>Así se ve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><pre><code>Algo de texto en el párrafo.
+
+Más texto
+espacio entre lineas.</code></pre></td>
+<td><p>Algo de texto.</p>
+<p>Algo de texto en el párrafo. Siempre utilizando espacios para dividir párrafos</p></td>
+</tr>
+<tr class="even">
+<td><code>*Cursivas*</code></td>
+<td><em>Cursivas</em></td>
+</tr>
+<tr class="odd">
+<td><code>**Negrita**</code></td>
+<td><strong>Negrita</strong></td>
+</tr>
+<tr class="even">
+<td><code># Título 1</code></td>
+<td><h1 id="título-1" data-number="2"><span class="header-section-number">2</span> Título 1</h1></td>
+</tr>
+<tr class="odd">
+<td><code>## Título 2</code></td>
+<td><h2 id="título-2" data-number="2.1" class="anchored" data-anchor-id="quarto"><span class="header-section-number">2.1</span> Título 2</h2></td>
+</tr>
+<tr class="even">
+<td><code>### Título 3</code></td>
+<td><h3 id="título-3" data-number="2.1.1" class="anchored"><span class="header-section-number">2.1.1</span> Título 3</h3></td>
+</tr>
+<tr class="odd">
+<td>(puedes llegar hasta un título N° 6 con <code>######</code>)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>[Texto enlace](https://quarto.org/)</code></td>
+<td><a href="https://quarto.org/">Texto enlace</a></td>
+</tr>
+<tr class="odd">
+<td><code>![Texto imagen](/path/to/image.png)</code></td>
+<td><div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lisa_icon.png" class="img-fluid figure-img"></p>
+<figcaption>Texto imagen</figcaption>
+</figure>
+</div></td>
+</tr>
+<tr class="even">
+<td><code>&gt; Citas</code></td>
+<td><blockquote class="blockquote">
+<p>Citas</p>
+</blockquote></td>
+</tr>
+<tr class="odd">
+<td><pre><code>1. Una
+2. lista
+3 ordenada</code></pre></td>
+<td><ol type="1">
+<li><p>Una</p></li>
+<li><p>lista</p></li>
+<li><p>ordenada</p></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><pre><code>- Otro
+- tipo
+- de lista</code></pre></td>
+<td><ul>
+<li><p>Otro</p></li>
+<li><p>tipo</p></li>
+<li><p>de lista</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Abrimos nuestro Rproject y creamos un nuevo documento de Quarto file –&gt; new file –&gt; Quarto document</li>
+</ol>
+<p><img src="images/quarto-2.png" class="img-fluid"></p>
+<p><img src="images/quarto2-2.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>YAML: Lenguaje de programación. Es un formato de serialización de datos que proporcionan un mecanismo de intercambio de datos legible por humanos. Dan formato a los datos de manera estandarizada para su intercambio entre aplicaciones de software.</p>
+<p><img src="images/yaml.png" class="img-fluid"></p>
+</div>
+</div>
+<pre><code>---
+title: "Mi Documento"
+format:
+  html:
+    toc: true
+    number-sections: true
+---</code></pre>
+<p>Luego, podemos escribir en el documento, separando por títulos (#) cada sección. La jerarquía de los títulos se establece según la cantidad de ‘#’.</p>
+<p>A continuación, en esta guía combinaremos el paso-a-paso de crear un documento dinámico con quarto, a la vez que vamos viendo distintas funciones de este proceso.</p>
+<p>Por ejemplo, como hacer una nota al pie<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Para hacerlo, solo debemos escribir [ ^2] pero sin el espacio entre los corchetes. Luego, en otra línea escribimos [^2]: Esta es la nota al pie</p>
+</section>
+<section id="código-de-análisis-de-ejemplo" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Código de análisis de ejemplo</h1>
+<p>Para poder escribir código de análisis en un documento Quarto debemos generar trozo de código llamado ‘Chunk’, que se puede crear con ctrl+alt+i o directamente en el menú de arriba en ‘Code -&gt; Insert Chunk’.</p>
+<p><img src="images/quarto3.png" class="img-fluid"></p>
+<section id="cargar-paquetes" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="cargar-paquetes"><span class="header-section-number">3.1</span> Cargar paquetes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, <span class="co">#manipulacion de datos</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>               sjPlot, <span class="co">#tablas</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>               kableExtra, <span class="co">#tablas</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>               ggplot2, <span class="co">#graficos</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>               summarytools, <span class="co">#estadisticos descriptivos</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               fastDummies, <span class="co"># Crear variable dummy</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>               sjlabelled, <span class="co">#etiquetas variables</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>               coefplot <span class="co"># graficos de coeficientes</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>               )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cargar-bases-de-datos" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="cargar-bases-de-datos"><span class="header-section-number">3.2</span> Cargar bases de datos</h2>
+<p>Cargamos bases de datos desde internet</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/proc/ELSOC_ess.RData"</span>)) <span class="co"># Cargar base de datos</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(elsoc_18, <span class="at">headings =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"render"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Switching method to 'browser'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Output file written: C:\Users\kevin\AppData\Local\Temp\RtmpKiDR9b\file66206af97bfb.html</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizaciones" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="visualizaciones"><span class="header-section-number">3.3</span> Visualizaciones</h2>
+<p>Podemos establecer referencias cruzadas para las tablas y gráficos dentro del texto, para poder automatizarlo, como ejemplo así, pero dentro del chunk:</p>
+<p>#| label: tbl-sjmisc</p>
+<p>#| tbl-cap: “Descriptivos con sjmisc”</p>
+<section id="descriptivos" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="descriptivos"><span class="header-section-number">3.3.1</span> Descriptivos</h3>
+<p>El Chunk se debería ver así:</p>
+<p>#| label: tbl-sjmisc</p>
+<p>#| tbl-cap: “Descriptivos con sjmisc”</p>
+<p>sjmisc::descr(data,</p>
+<pre><code>  show = c("label","range", "mean", "sd", "NA.prc", "n"))%&gt;% # Selecciona estadísticos
+
+  kable(.,"markdown") # Esto es para que se vea bien en quarto</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">descr</span>(elsoc_18,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">show =</span> <span class="fu">c</span>(<span class="st">"label"</span>,<span class="st">"range"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"NA.prc"</span>, <span class="st">"n"</span>))<span class="sc">%&gt;%</span> <span class="co"># Selecciona estadísticos</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">kable</span>(.,<span class="st">"markdown"</span>) <span class="co"># Esto es para que se vea bien en quarto</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-desc" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-desc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;1: Descriptivos
+</figcaption>
+<div aria-describedby="tbl-desc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 8%">
+<col style="width: 31%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">var</th>
+<th style="text-align: left;">label</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">NA.prc</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: left;">range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">ess</td>
+<td style="text-align: left;">Estatus Social Subjetivo</td>
+<td style="text-align: right;">3703</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4.3896840</td>
+<td style="text-align: right;">1.579403</td>
+<td style="text-align: left;">10 (0-10)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">sexo</td>
+<td style="text-align: left;">Sexo (1=Mujer)</td>
+<td style="text-align: right;">3703</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.3850932</td>
+<td style="text-align: right;">0.486683</td>
+<td style="text-align: left;">1 (0-1)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">edad</td>
+<td style="text-align: left;">Edad</td>
+<td style="text-align: right;">3703</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">47.0475290</td>
+<td style="text-align: right;">15.506483</td>
+<td style="text-align: left;">72 (18-90)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">edcine</td>
+<td style="text-align: left;">Educación</td>
+<td style="text-align: right;">3703</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.2087497</td>
+<td style="text-align: right;">1.210395</td>
+<td style="text-align: left;">4 (1-5)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Luego de establecer el link y el nombre de la tabla, podemos referenciar acá con un @, así: @ tbl-desc (pero junto), y que se vería así <a href="#tbl-desc" class="quarto-xref">Tabla&nbsp;1</a></p>
+</section>
+<section id="gráficos" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="gráficos"><span class="header-section-number">3.3.2</span> Gráficos</h3>
+<p>Y para los gráficos se hace de la misma forma:</p>
+<p>#| label: fig-gdp</p>
+<p>#| fig-cap: “Plots”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>graph1<span class="ot">&lt;-</span><span class="fu">ggplot</span>(elsoc_18, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> ess)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Estatus social subjetivo"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>graph1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ess-edad" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ess-edad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="taller-quarto-github_files/figure-html/fig-ess-edad-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ess-edad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: ESS por edad
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Sin embargo la <a href="#fig-ess-edad" class="quarto-xref">Figura&nbsp;1</a> entrega información…</p>
+</section>
+</section>
+<section id="regresiones" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="regresiones"><span class="header-section-number">3.4</span> Regresiones</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>reg1<span class="ot">&lt;-</span><span class="fu">lm</span>(ess <span class="sc">~</span> edad, <span class="at">data=</span>elsoc_18)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>reg2<span class="ot">&lt;-</span><span class="fu">lm</span>(ess <span class="sc">~</span>  edad<span class="sc">+</span>sexo, <span class="at">data=</span>elsoc_18)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ess <span class="sc">~</span> edad <span class="sc">+</span> sexo <span class="sc">+</span> edcine, <span class="at">data =</span> elsoc_18)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1, reg2, reg3), </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="at">show.ci=</span><span class="cn">FALSE</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="at">p.style =</span> <span class="st">"stars"</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>, <span class="st">"Modelo 2"</span>, <span class="st">"Modelo 3"</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="at">string.pred =</span> <span class="st">"Predictores"</span>, </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="at">string.est =</span> <span class="st">"β"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-reg" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;2: Modelos de regresión
+</figcaption>
+<div aria-describedby="tbl-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 1</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 2</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">4.66 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">4.60 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.96 <sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.01 <sup>**</sup></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo(1=Mujer)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.13 <sup>*</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.07 <sup></sup></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Educación</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.36 <sup>***</sup></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">3703</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">3703</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">3703</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.003 / 0.003</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.005 / 0.004</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.067 / 0.066</td>
+</tr>
+<tr class="odd">
+<td colspan="4" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>la <a href="#tbl-reg" class="quarto-xref">Tabla&nbsp;2</a> muestra que…</p>
+<ol start="5" type="1">
+<li>Luego renderizamos</li>
+</ol>
+<p><img src="images/quarto4.png" class="img-fluid"></p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notas</h2>
+
+<ol>
+<li id="fn1"><p>Esta es la nota al pie<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/metod3-unab\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> 2025 by Kevin Carrasco<br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-nc" aria-hidden="true"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/kevin-carrasco/metod3-unab">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
