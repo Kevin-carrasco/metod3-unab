@@ -1,0 +1,207 @@
+---
+title: "Práctico 04. Índices y estandarización de coeficientes"
+subtitle: "Métodos estadísticos para Ciencias Sociales III"
+date: "2025-09-08"
+lang: es
+output:
+  number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{r}
+pacman::p_load(tidyverse, #Conjunto de paquetes, sobre todo dplyr y ggplot2
+               car, #Para recodificar
+               haven,
+               summarytools, #Para descriptivos
+               sjmisc,
+               kableExtra,
+               psych     # para Alfa de Chronbach
+               )
+
+options(scipen = 999) # para desactivar notacion cientifica
+rm(list = ls()) # para limpiar el entorno de trabajo
+```
+
+## Presentación
+
+Para el taller práctico de hoy utilizaremos la base de datos del Estudio Longitudinal Social de Chile, realizado por el Centro de estudios del conflicto y la cohesión social [COES](https://coes.cl/).
+
+El Estudio Longitudinal Social del Chile [ELSOC](https://coes.cl/encuesta-panel/), único en Chile y América Latina, consiste en encuestar a casi 3.000 chilenos, anualmente, a lo largo de una década. ELSOC ha sido diseñado para evaluar la manera cómo piensan, sienten y se comportan los chilenos en torno a un conjunto de temas referidos al conflicto y la cohesión social en Chile. La población objetivo son hombres y mujeres entre 15 y 75 años de edad, tiene una representación de la población nacional urbana, donde se obtuvo una muestra original de **2927** casos en el año 2016 y mantiene **1728** en 2022, además de una muestra de refresco en 2018.
+
+## Objetivo general
+
+El objetivo de este ejercicio del práctico es revisar el proceso de construcción y validación de escalas en R.
+
+### Cargar base de datos
+
+```{r }
+load(url("https://dataverse.harvard.edu/api/access/datafile/7245118")) #Cargar base de datos
+```
+
+### Visualización de datos
+
+```{r}
+dim(elsoc_long_2016_2022.2)
+```
+
+Debido a la naturaleza longitudinal de ELSOC, la base de datos contiene 18035 casos (las mismas personas durante 6 años) y 750 variables (las mismas variables en 6 periodos distintos). Por lo tanto, para simplificar el proceso de análisis de este práctico trabajaremos solo con los casos y variables de quienes participaron en la primera ola (2016)
+
+## Datos y variables
+
+Para el ejercicio de escalas, utilizaremos nuevamente la base de datos de ELSOC (que ya se enceuntra cargada), específicamente el módulo de **Salud y Bienestar**. De este módulo utilizaremos un concepto en particular llamado *Estado de ánimo: sintomatología depresiva* con los ítems:
+
+- Frecuencia: Poco interés o alegría
+- Frecuencia: Decaimiento, pesadez o desesperanza
+- Frecuencia: Dificultad para dormir o exceso de sueño
+- Frecuencia: Cansancio o sensación de falta de energía
+- Frecuencia: Apetito disminuido o aumentado
+- Frecuencia: Dificultad para concentrarse
+- Frecuencia: Mala opinión de sí mismo
+- Frecuencia: Enlentecimiento físico
+- Frecuencia: Pensamiento de muerte o dañarse
+
+Esta escala tiene solamente una dimensión, por lo que no es necesario crear objetos que contengan a cada dimensión (como vimos la clase pasada).
+
+## Filtrar base de datos
+
+Filtraremos la base de datos para quedarnos con las observaciones correspondientes solamente a la ola 1, y además seleccionaremos los ítems de interés.
+
+```{r}
+data <- elsoc_long_2016_2022.2 %>% filter(ola==1) %>%  # seleccionamos solo los casos de la ola 1
+  select(s11_01,s11_02,s11_03,s11_04,s11_05,s11_06,s11_07,s11_08,s11_09, # items sintomatologia depresiva
+  edad=m0_edad, educacion=m01, sexo=m0_sexo) 
+
+head(data)
+table(data$s11_01)
+table(data$s11_02)
+table(data$s11_03)
+table(data$s11_04)
+```
+
+Estos ítems cuentan con las mismas categorías de respuesta: (1) Nunca, (2) Algunos dias, (3) Mas de la mitad de los dias, (4) Casi todos los dias, y (5) Todos los dias. Además de los valores codificados como -888 y -999.
+
+### Recodificar
+
+Recodificamos los valores -888 y -999 en NA y eliminamos los NAs.
+
+```{r, message=FALSE, warning=FALSE}
+data <- data %>% 
+  set_na(., na = c(-888, -999)) %>% 
+  na.omit()
+```
+
+Dejamos la categoría 'nunca' como 0
+
+```{r}
+data$s11_01 <- car::recode(data$s11_01, "1=0; 2=1; 3=2; 4=3; 5=4")
+data$s11_02 <- car::recode(data$s11_02, "1=0; 2=1; 3=2; 4=3; 5=4")
+data$s11_03 <- car::recode(data$s11_03, "1=0; 2=1; 3=2; 4=3; 5=4")
+data$s11_04 <- car::recode(data$s11_04, "1=0; 2=1; 3=2; 4=3; 5=4")
+data$s11_05 <- car::recode(data$s11_05, "1=0; 2=1; 3=2; 4=3; 5=4")
+data$s11_06 <- car::recode(data$s11_06, "1=0; 2=1; 3=2; 4=3; 5=4")
+data$s11_07 <- car::recode(data$s11_07, "1=0; 2=1; 3=2; 4=3; 5=4")
+data$s11_08 <- car::recode(data$s11_08, "1=0; 2=1; 3=2; 4=3; 5=4")
+data$s11_09 <- car::recode(data$s11_09, "1=0; 2=1; 3=2; 4=3; 5=4")
+```
+
+```{r}
+table(data$s11_01)
+table(data$s11_02)
+```
+
+## Análisis
+
+
+### Estimar correlación
+
+Dado que la escala tiene solamente una dimensión, estimaremos la correlación de toda la escala.
+
+```{r}
+cor(data)
+```
+
+Podemos observar que todas las correlaciones son positivas, por lo que no quedaron ítems invertidos.
+
+
+### Estimar consistencia interna
+
+
+#### Alfa de Chronbach
+
+Primero, estimaremos la consistencia interna de cada dimensión con un **Alfa de Chronbach**.
+
+```{r}
+psych::alpha(data)
+
+```
+
+```{r}
+data2 <- dplyr::select(data, s11_01,s11_02,s11_03,s11_04,s11_05,s11_06,s11_07,s11_08,s11_09)
+psych::alpha(data2)
+```
+```{r}
+data <- data %>% 
+  rowwise() %>% 
+  mutate(sintomatologia_depresiva = sum(s11_01,s11_02,s11_03,s11_04,s11_05,s11_06,s11_07,s11_08,s11_09))
+summary(data$sintomatologia_depresiva)
+```
+
+# Estandarización de variables
+
+
+```{r}
+data <- data %>% 
+  select(sintomatologia_depresiva, edad, educacion, sexo) 
+```
+
+## Descriptivos
+
+```{r}
+sjmisc::descr(data,
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
+      kable(.,"markdown") # Esto es para que se vea bien en quarto
+```
+
+## Estandarización
+
+```{r}
+data_std = data.frame(scale(data))
+```
+
+```{r}
+sjmisc::descr(data_std,
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
+      kable(.,"markdown") # Esto es para que se vea bien en quarto
+```
+
+## Estimar regresiones
+
+```{r}
+reg <- lm(sintomatologia_depresiva ~ educacion + edad + sexo, data=data)
+
+reg_std <- lm(sintomatologia_depresiva ~ educacion + edad + sexo, data=data_std)
+```
+
+
+```{r}
+sjPlot::tab_model(list(reg, reg_std), 
+  show.ci=FALSE, 
+  show.se = TRUE,
+  p.style = "stars", 
+  dv.labels = c("Modelo lineal", "Modelo estandarizado"),
+  string.pred = "Predictores", 
+  string.est = "β")
+```
+
+## Ejercicio
+
+1. Interprete los coeficientes
+
+2. ¿Qué diferencias hay entre un modelo y otro?
+
+3. ¿Qué ventajas o desventajas tiene trabajar con un modelo estandarizado?
