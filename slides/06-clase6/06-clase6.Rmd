@@ -325,41 +325,6 @@ class: inverse, right
 
   - ... o es algo que se debe simplemente al azar?
 
----
-# Inferencia y tablas de regresión
-
-.content-box-red[
-- las tablas de regresión tienen información sobre inferencia reportada de manera automática (errores estándar, niveles de probabilidad de error, etc)
-]
-
---
-.content-box-purple[
-
-- sin embargo, antes de interpretar directamente esta información, es conveniente ahondar en cómo se obtiene esa información y cuál es su sentido
-]
----
-.pull-left-narrow[
-
-![](../../files/img/inference1.png)
-]
-.pull-right-wide[
-
-## Conceptos claves de inferencia
-- La **inferencia** en estadística se refiere a la relación que existe entre los resultados obtenidos basados en nuestra muestra y la población
-
-
-]
-
---
-
-- **¿En qué medida podemos hacer inferencias desde nuestra muestra a la población?**
-
-
---
-
-- Un concepto central es la probabilidad de **ERROR**
-
-
 
 ---
 # Bases de inferencia:
@@ -369,121 +334,6 @@ class: inverse, right
 - curva normal
 
 - error estándar
-
----
-.pull-left-narrow[
-# Dispersión:
-## Varianza
-]
-
-.pull-right-wide[
-
-![:scale 100%](../../files/img/varianza2.png)
-]
-
-
----
-# Medidas de Dispersión
-
-.pull-left[
-
-## Varianza
-<br>
-
-<br>
-
-## Desviación estándar
-]
-
-.pull-right[
-
-$$s^2=\frac{\Sigma(x-\bar{x})²}{N-1}$$
-
-<br>
-
-$$s=\sqrt \frac{\Sigma(x-\bar{x})²}{N-1}$$]
----
-.content-box-yellow[
-## Desviación estándar y curva normal]
-
-.center[![:scale 70%](../../files/img/normal.png)]
-
----
-
-.pull-left-narrow[
-![](../../files/img/inference1.png)
-
-]
-
-.pull-right-wide[
-.content-box-purple[
-
-## Desviación estándar y error estándar]
-- más que el promedio de la variable en nuestra **muestra**, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la **población**
-
-
-]
-
---
-
-- contamos con **una muestra**, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados.
-
----
-# Error estándar
-
-![](../../files/img/se_1.png)
----
-# Error estándar
-
-![](../../files/img/se_2.png)
----
-# Error estándar
-
-![](../../files/img/se_3.png)
----
-
-# Error estándar
-
-- ¿Cómo calculamos el error estándar a partir de **una** muestra?
-
-- Basados en el **teorema del límite central**, en muestras mayores a 30 la desviación estándar de los promedios (error estándar) equivale a:
-
-$$\sigma_{\bar{X}}=SE(error estándar)=\frac{s}{\sqrt{N}}$$
-
-
----
-# Error, rangos y probabilidad
-
-
-.pull-left[
-.medium[
-
-- Nuestro promedio muestral $\bar{x}$ posee una distribución normal con una desviación estandar = SE (error estándar)
-
-- Esto nos permite calcular una probabilidad de error basados en los valores de la curva normal
-
-]
-]
-.pull-right[
-.center[![:scale 85%](../../files/img/normal.png)]]
-
----
-# Error, rangos y probabilidad
-
-
-.pull-left[
-.medium[
-
-- Por ejemplo, $\bar{x}$ +/- 2 SE abarca aproximadamente el 95% de los valores probables
-
-- De otra manera, puedo dar un rango de valores donde se encuentra el promedio(+- 2 SE), con un nivel de confianza de 95%
-
-- ... o con una probabilidad de error p<0.05
-
-]
-]
-.pull-right[
-.center[![:scale 85%](../../files/img/normal.png)]]
 
 ---
 # Inferencia y significación estadística
@@ -537,40 +387,6 @@ $$H_{a}: \beta_{j} \neq 0$$
 
 - para ello, T se ajusta por la cantidad de sujetos en la muestra (N), pero para un N>120 se aproxima a la distribución normal.
 
-
----
-## Inferencia, diferencias y prueba _t_
-
-.medium[
-- La prueba _t_ se utiliza para inferencias sobre $\beta$  y básicamente es una razón entre
-
-.center[![:scale 40%](../../files/img/t1.png)]
-
-- Ya que la diferencia esperada si $H_0$ es verdadera es 0, entonces:
-
-$$t=\frac{b_j}{SE(b_j)}$$
-]
-
-
----
-# Pasos
-
-1. obtener $\beta$
-
-2. obtener SE (error estándar) de $\beta$
-
-3.  calcular t: $t=\frac{b_j}{SE(b_j)}$
-
-4. determinar la probabilidad de error asociada al valor t
-
----
-# ¿Cómo utilizamos el valor T?
-
-- T ( $\beta/SE$ ) se compara con un  **valor crítico**
-
-- El valor crítico se obtiene de una tabla según el nivel de probabilidad de error $\alpha$ y los **grados de libertad** N-k-1 (siendo k el número de regresores)
-
-- Si nuestro T observado > valor crítico de T, entonces rechazamos $H_0$ al nivel de confianza establecido
 
 ---
 # Valor crítico de T
@@ -643,105 +459,6 @@ sjPlot::tab_model(list(reg1,reg2),
 
 ![:scale 90%](../../files/img/tabreg.png)
 
-
----
-class: inverse, bottom, right
-
-# .red[Sesión 5]
-<br>
-
-Repaso sesión anterior
-
-
-.yellow[estandarización de coeficientes]
-
----
-
-# Estandarización
-
-## ¿Qué coeficiente es mayor que otro?
-
-- usualmente, los coeficientes se encuentran en escalas diferentes
-
-- para poder comparar la magnitud de un coeficiente en relación a los otros se requiere pasar a una escala común
-
-- esto se efectúa mediante el proceso de **estandarización**
-
----
-## Estandarización de Coeficientes
-
-- Para poder expresar las variables en escalas comparables, sus valores se ponderan respecto de su desviación estándar.
-
-- Para ello, a cada valor de la variable se le resta el promedio y se divide por su desviación estándar, lo que se conoce como **puntaje Z**:
-
-$$z_x=\frac{x-\bar{x}}{sd(x)}$$
-
-- Este procedimiento se aplica tanto a la dependiente como a las independientes
-
----
-## Estandarización: interpretación
-
-- al estandarizar, los coeficientes de regresión reflejan cuantas **desviaciones estándar** cambia _Y_ como consecuencia del cambio en **una desviación estándar** _X_.
-
-- los coeficientes ahora son comparables entre sí en base a su magnitud
-
----
-## Estandarización de Coeficientes
-
-De la [Práctica 2 - regresión multiple](https://metod3-unab.netlify.app/practicos/practico-02):
-
-- *colGPA*: promedio general de calificaciones de la universidad, en escala de 0 a 4 puntos.
-
-- *hsGPA*: promedio general de calificaciones en la enseñanza media, en escala de 0 a 4 puntos
-
-- *ACT* : puntaje en el examen de admisión a la universidad, que va de 16 a 33 puntos
-
----
-## Estandarización de Coeficientes
-
-Función `scale`
-
-```{r echo=TRUE , eval=FALSE}
-library(wooldridge)
-data('gpa1') # Cargar base de datos
-gpa1 <- dplyr::select(gpa1, colGPA, hsGPA, ACT)
-
-col_model <- lm(colGPA ~ ACT + hsGPA, data = gpa1)
-
-gpa1_std = data.frame(scale(gpa1))
-
-col_model_std <- lm(colGPA ~ ACT + hsGPA, data = gpa1_std)
-
-```
-
----
-## Estandarización de Coeficientes
-
-```{r echo=FALSE}
-#sjPlot::tab_model(list(col_model,col_model_std),
- #       show.se=TRUE,
-  #      show.ci=FALSE,
-   #     digits=3,
-    #    p.style = "scientific_stars",
-     #   dv.labels = c("Modelo 1", "Modelo 2 (std)"),
-      #  string.pred = "Predictores",
-       # string.est = "β")
-```
-.center[
-![:scale 80%](../../files/img/est_coef.png)
-]
-
-
----
-## Estandarización de Coeficientes
-
-
-En este caso se puede observar que por el aumento en **una desviación estándar** en las calificaciones de enseñanza media (hsGPA), el promedio de notas en la universidad (colGPA) aumenta  **0.39 desviaciones estándar**.
-
-Al estar en una misma unidad de medida, podemos comparar los coeficientes en términos de su tamaño.
-
-En este caso, el coeficiente de hsGPA (0.39) es mayor que el de ACT (0.29), por lo que podemos inferir que las calificaciones de enseñanza media tienen un mayor efecto en el promedio universitario que el puntaje en el examen de admisión.
-
 ---
 ## Beta estandarizado o no estandarizado
 
@@ -753,31 +470,319 @@ En este caso, el coeficiente de hsGPA (0.39) es mayor que el de ACT (0.29), por 
  - betas estandarizados permiten comparar el efecto de cada variable independiente en una misma escala (desviaciones estándar)
 
 
+---
+class: inverse, bottom, right
+
+# .red[Sesión 5]
+<br>
+
+Repaso sesión anterior
+
+
+.yellow[estimación de valores predichos]
+
+---
+## ¿Cuáles son los objetivos de un modelo de regresión?
+
+--
+
+* Es un modelo estadístico que se usa para:
+
+  - **Conocer**: La relación de una variable dependiente de acuerdo a una/otras independiente(s)
+  - **Predecir**: Estimar el valor de una variable dependiente de acuerdo al valor de otras
+  - **Inferir**: si estas relaciones son estadísticamente significativas
+
+---
+```{r echo=FALSE}
+data <- cbind(Educacion=c(1,2,3,4,5,6,7,8),
+              Ingreso=c(250,240,230,220,300,380,450,520))
+data <- as.data.frame(data)
+```
+
+
+.pull-left-narrow[
+### Ejemplo ]
+
+.pull-right-wide[
+```{r}
+data
+```
+
+]
+
+---
+.pull-left-narrow[
+### Ejemplo ]
+
+.pull-right-wide[
+```{r echo=FALSE}
+plot1<- ggplot2::ggplot(data, aes(x=Educacion, y=Ingreso))+
+  geom_point(size=3)+
+  scale_x_continuous(breaks = seq(0, 8, by = 1)) +
+  scale_y_continuous(breaks = seq(0, 700, by = 100))+
+  ylim(0,700)+
+  xlim(0,8)
+
+ggsave(plot1, file="../../files/img/plot1.png")
+```
+
+.pull-right-wide[![:scale 100%](../../files/img/plot1.png)]
+
+]
 
 
 ---
 
 .pull-left-narrow[
-#Tabla de regresión múltiple:
+### Ejemplo ]
+
+.pull-right-wide[
+```{r warning=FALSE, message=FALSE}
+plot2<- ggplot2::ggplot(data, aes(x=Educacion, y=Ingreso))+
+  geom_point(size=3)+
+  geom_smooth(method = "lm", se=FALSE)+
+  scale_x_continuous(breaks = seq(0, 8, by = 1)) +
+  scale_y_continuous(breaks = seq(0, 700, by = 100))+
+  ylim(0,700)+
+  xlim(0,8)
+
+ggsave(plot2, file="../../files/img/plot2.png")
+```
+
+.pull-right-wide[![:scale 100%](../../files/img/plot2.png)]
+]
+
+---
+
+### La recta de regresión
 
 
-## Sentido de presentación de modelos
+
+$$\widehat{Y}=b_{0} +b_{1}X$$
+
+.small[
+Donde
+
+- $\widehat{Y}$ es el valor estimado de $Y$ (que se puede predecir)
+
+- $b_{0}$ es el intercepto de la recta 
+  - el valor de Y cuando X es 0
+  - Debido a que es una estimación, es común que sea un valor sin sentido analítico (incluso negativo)
+
+- $b_{1}$ es el coeficiente de regresión (pendiente de la recta), que nos dice cuánto aumenta Y por cada punto que aumenta X
+
+]
+
+---
+### Estimación de los coeficientes de la ecuación:
+
+$$\bar{Y}=b_{0}+b_{1}\bar{X}$$
+Reemplazando:
+
+$$\bar{Y}=b_{0}+25\bar{X}$$
+
+Despejando el valor de $b_{0}$
+
+$$b_{0}=200-0\bar{X}$$
+---
+
+.pull-left-narrow[
+### Ejemplo 
+
+
+*Por cada unidad que aumenta educación, ingreso aumenta en 25 unidades*
+]
+
+.pull-right-wide[![:scale 85%](../../files/img/plot2.png)
+]
+
+---
+
+```{r}
+reg1<-lm(Ingreso~Educacion, data=data)
+```
+
+
+```{r echo=FALSE}
+data <- cbind(data,
+              edad = c(25, 40, 20, 30, 25, 35, 45, 55))
+
+reg2 <- lm(Ingreso~Educacion+edad, data = data)
+```
+
+
+```{r echo=FALSE}
+data <- as.data.frame(cbind(data,
+              Educacion_rec=c("Basica","Basica","Media","Media","Superior","Superior","Superior","Superior")))
+reg3 <-lm(Ingreso~Educacion_rec, data=data)
+```
+
+¿y la interpretación para variables categóricas?
+
+.pull-left[
+.small[
+```{r results='asis'}
+texreg::knitreg(reg3, caption="",
+                custom.coef.names = c("Intercepto",
+                                     "Educación media",
+                                     "Educación superior"))
+```
+]
+]
+--
+.pull-right[
+*Las personas que tienen educación superior ganan $167.5mil más en comparación con quienes tienen educación básica, efecto que es estadísticamente significativo (p<0.05)*
+
+]
+
+---
+¿Cómo podemos predecir el valor esperado de una variable para una persona en particular?
+
+.pull-left-narrow[
+.small[
+```{r results='asis'}
+texreg::htmlreg(reg3, caption="",
+                custom.coef.names = c("Intercepto",
+                                     "Educación media",
+                                     "Educación superior"))
+```
+]
 ]
 
 .pull-right-wide[
+$$\bar{Y}=b_{0}+b_{1}\bar{X}$$
 
+Reemplazando:
 
-.content-box-gray[
-Se comienza ingresando variables de hipótesis principales]
+$$\bar{Y}=245+b_{1}\bar{X}$$
 
+¿Si una persona tuviera un nivel de educación superior?
 
-.content-box-purple[
-Modelos adicionales ingresan variables de hipótesis secundarias o variables de control]
-
-.content-box-yellow[
-La interpretación de la tabla se realiza en general para cada variable independiente a través de los modelos]
+$$\bar{Y}=245+167.5$$
+$$\bar{Y}=412.5$$
 ]
 
+---
+.pull-left-narrow[
+## Graficando
+]
+
+```{r}
+plot3 <- ggeffects::ggpredict(reg3, terms = c("Educacion_rec")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Educación", x = "", y = "") +
+  theme_bw()
+
+ggsave(plot3, file="../../files/img/plot3.png")
+
+```
+
+.pull-right-wide[
+
+![:scale 85%](../../files/img/plot3.png)
+]
+
+---
+## Variables numéricas
+
+```{r results='asis'}
+reg4 <- lm(Ingreso~edad, data = data)
+texreg::htmlreg(reg4, caption="")
+```
+
+---
+.pull-left[
+```{r}
+plot4 <- ggeffects::ggpredict(reg2, terms="edad") %>%
+  ggplot(mapping=aes(x = x, y=predicted)) +
+  labs(title="Edad", x = "", y = "")+
+  theme_bw() +
+  geom_smooth()+
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "black")
+
+ggsave(plot4, file="../../files/img/plot4.png")
+```
+
+![:scale 100%](../../files/img/plot4.png)
+]
+
+
+.pull-right[
+$$\bar{Y}=b_{0}+b_{1}\bar{X}$$
+
+Reemplazando:
+
+$$\bar{Y}=52.51+b_{1}*7.89$$
+
+
+¿Una persona de edad 40?
+
+$$\bar{Y}=52.51+40*7.89$$
+$$\bar{Y}=368.11$$
+]
+---
+## Tips para la prueba
+
+- Definiciones de conceptos clave: ¿Qué es el coeficiente de regresión? ¿Qué es parcialización? ¿Qué es el intercepto?
+
+- Estimación (cálculo) del coeficiente de regresión
+
+- Interpretación de tabla de regresión (intercepto, coeficientes de regresión, inferencia, control estadístico, R2)
+
+---
+
+### Ejemplos para estimar el coeficiente de regresión
+
+.small[
+
+| Caso    | X  |    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
+|---------|---------------------|--------------------------|--------|--------|--------------------|------------|
+| Caso 1  | 1                   | 2                     |    |   |              |     |
+| Caso 2  | 2                   | 4                      |    |  |              |        |
+| Caso 3  | 3                   | 6                      |    |   |              |        |
+| Caso 4  | 4                   | 8                      |    |   |               |        |
+| Caso 5  | 5                   | 10                     |    |    |               |        |
+| **Promedios / Sumas** | **X̄ = **| **Ȳ = **      |        |        | **Σ = **       | **Σ = ** |
+
+]
+
+---
+
+
+### Ejemplos para estimar el coeficiente de regresión
+
+.small[
+
+| Caso    | X  | Y    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
+|---------|---------------------|--------------------------|--------|--------|--------------------|------------|
+| Caso 1  | 1                   | 3                     |    |   |              |     |
+| Caso 2  | 2                   | 6                      |    |  |              |        |
+| Caso 3  | 3                   | 9                      |    |   |              |        |
+| Caso 4  | 4                   | 12                      |    |   |               |        |
+| Caso 5  | 5                   | 15                     |    |    |               |        |
+| **Promedios / Sumas** | **X̄ = **| **Ȳ = **      |        |        | **Σ = **       | **Σ = ** |
+
+]
+
+---
+
+
+### Ejemplos para estimar el coeficiente de regresión
+
+.small[
+
+| Caso    | X   | Y    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
+|---------|---------------------|--------------------------|--------|--------|--------------------|------------|
+| Caso 1  | 0                   | 5                     |    |   |              |     |
+| Caso 2  | 1                   | 8                      |    |  |              |        |
+| Caso 3  | 2                   | 11                      |    |   |              |        |
+| Caso 4  | 3                   | 14                      |    |   |               |        |
+| Caso 5  | 4                   | 17                     |    |    |               |        |
+| **Promedios / Sumas** | **X̄ = **| **Ȳ = **      |        |        | **Σ = **       | **Σ = ** |
+
+]
 
 ---
 
@@ -795,7 +800,7 @@ class: front
 .pull-right[
 .right[
 <br>
-## .yellow[Sesión 5: Regresión múltiple y estandarización de coeficientes]
+## .yellow[Sesión 6: Regresión múltiple y estimación de valores predichos]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
@@ -803,7 +808,5 @@ class: front
 ]
 
 ]
-
-
 
 
