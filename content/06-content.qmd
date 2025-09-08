@@ -1,6 +1,6 @@
 ---
 title: "Presentación"
-date: "2025-05-30"
+date: "2025-09-08"
 lang: es
 ---
 
@@ -11,8 +11,3 @@ lang: es
 </iframe> 
 
 
-
-## Lecturas
-
-
-[R for Data Science](https://es.r4ds.hadley.nz/explorar-introduccion.html)
