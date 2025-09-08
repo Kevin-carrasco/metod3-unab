@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Práctico 04. Índices y estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello</title>
+<title>Práctico 05. Índices y estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,14 +106,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<meta property="og:title" content="Práctico 04. Índices y estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:title" content="Práctico 05. Índices y estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello">
 <meta property="og:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="500">
 <meta property="og:image:width" content="500">
-<meta name="twitter:title" content="Práctico 04. Índices y estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:title" content="Práctico 05. Índices y estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello">
 <meta name="twitter:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta name="twitter:creator" content="@kevincarrascoq1">
@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Práctico 04. Índices y estandarización de coeficientes</h1>
+<h1 class="title">Práctico 05. Índices y estandarización de coeficientes</h1>
 <p class="subtitle lead">Métodos estadísticos para Ciencias Sociales III</p>
 </div>
 
@@ -838,10 +838,63 @@ s11_09 0.86 0.10 0.02 0.01 0.01    0</code></pre>
 <section id="ejercicio" class="level2">
 <h2 class="anchored" data-anchor-id="ejercicio">Ejercicio</h2>
 <ol type="1">
-<li><p>Interprete los coeficientes</p></li>
-<li><p>¿Qué diferencias hay entre un modelo y otro?</p></li>
-<li><p>¿Qué ventajas o desventajas tiene trabajar con un modelo estandarizado?</p></li>
+<li>Interprete los coeficientes</li>
 </ol>
+<ul>
+<li><p>Modelo lineal (coeficientes no estandarizados)</p>
+<ul>
+<li><p>Intercepto (5.44, p &lt; 0.001): Cuando todas las variables independientes (educación, edad, sexo) valen 0, el puntaje esperado en sintomatología depresiva es 5.44. Como las escalas de las variables predictores pueden no tener un 0 “realista”, el intercepto no suele ser de interés sustantivo aquí, pero es necesario en el modelo.</p></li>
+<li><p>Educación (β = -0.37, p &lt; 0.001): Cada incremento en el nivel educativo se asocia con una disminución de 0.37 puntos en sintomatología depresiva, en promedio y controlando por edad y sexo. Es un efecto negativo y estadísticamente significativo con un 99,9% de confianza</p></li>
+<li><p>Edad (β = -0.02, p &lt; 0.05): Por cada año adicional de edad, los síntomas depresivos disminuyen en 0.02 puntos, controlando por educación y sexo. Efecto estadísticamente significativo con un 95% de confianza</p></li>
+<li><p>Sexo (β = 1.99, p &lt; 0.001): Pertenecer a la categoría ‘mujeres’ se asocia con un aumento promedio de 1.99 puntos en sintomatología depresiva respecto al grupo de referencia (hombres), controlando por educación y edad. Efecto estadísticamente significativo con un 99,9% de confianza</p></li>
+</ul></li>
+<li><p>Modelo estandarizado</p>
+<ul>
+<li><p>Intercepto (-0.00, ns): No tiene interpretación relevante en el modelo estandarizado, ya que todas las variables fueron centradas en media cero.</p></li>
+<li><p>Educación (β = -0.14, p &lt; 0.001): Un aumento de una desviación estándar en educación se asocia con una disminución de 0.14 desviaciones estándar en sintomatología depresiva. Es un efecto negativo y estadísticamente significativo con un 99,9% de confianz</p></li>
+<li><p>Edad (β = -0.04, p &lt; 0.05): Cada desviación estándar adicional en edad se asocia con 0.04 desviaciones estándar menos en síntomas depresivos. Efecto estadísticamente significativo con un 95% de confianza</p></li>
+<li><p>Sexo (β = 0.17, p &lt; 0.001): Ser mujer aumenta en 0.17 desviaciones estándar la sintomatología depresiva respecto a hombres, en promedio. Efecto estadísticamente significativo con un 99,9% de confianza</p></li>
+</ul></li>
+<li><p>R² = 0.049 (ajustado 0.048): El modelo explica aproximadamente un 5% de la varianza en sintomatología depresiva. Esto indica que, aunque los predictores son significativos, la mayor parte de la variación en los síntomas se explica por otros factores no incluidos.</p></li>
+</ul>
+<ol start="2" type="1">
+<li>¿Qué diferencias hay entre un modelo y otro?</li>
+</ol>
+<ul>
+<li>Escala de los coeficientes</li>
+</ul>
+<p>En el modelo lineal (no estandarizado), los coeficientes están en las unidades originales de las variables. Ejemplo: un año más de edad equivale a -0.02 puntos en síntomas depresivos.</p>
+<p>En el modelo estandarizado, los coeficientes están expresados en desviaciones estándar, lo que permite comparar directamente la magnitud de los efectos. Ejemplo: un aumento de 1 desviación estándar en educación equivale a -0.14 desviaciones estándar en síntomas depresivos.</p>
+<ul>
+<li>Interpretación del intercepto</li>
+</ul>
+<p>En el modelo lineal, el intercepto tiene un valor “real” (5.44), aunque no siempre interpretable si los predictores no toman valor 0 en la práctica.</p>
+<p>En el modelo estandarizado, el intercepto suele quedar cercano a 0 y no tiene interpretación sustantiva, porque las variables se centraron en la media.</p>
+<ul>
+<li>Comparabilidad de predictores</li>
+</ul>
+<p>En el modelo lineal no puedes comparar directamente la magnitud de educación, edad y sexo, ya que cada uno tiene escalas distintas.</p>
+<p>En el modelo estandarizado sí puedes hacerlo: se observa, por ejemplo, que sexo (β=0.17) y educación (β=-0.14) tienen un peso mayor que edad (β=-0.04).</p>
+<ul>
+<li>Bondad de ajuste</li>
+</ul>
+<p>El R² se mantiene idéntico (0.049), porque estandarizar las variables no cambia el poder explicativo del modelo, solo la escala de los coeficientes.</p>
+<ol start="3" type="1">
+<li>¿Qué ventajas o desventajas tiene trabajar con un modelo estandarizado?</li>
+</ol>
+<ul>
+<li>Ventajas</li>
+</ul>
+<p>Comparabilidad entre predictores: permite identificar cuáles variables tienen mayor peso relativo sobre la variable dependiente.</p>
+<p>Neutraliza escalas distintas: útil cuando se combinan variables con diferentes unidades (años, niveles, categorías dummy, etc.).</p>
+<p>Facilita la interpretación en términos relativos: por ejemplo, puedes decir que el sexo tiene un efecto mayor que la edad.</p>
+<ul>
+<li>Desventajas</li>
+</ul>
+<p>Pérdida de interpretación sustantiva: los coeficientes dejan de estar en las unidades originales, por lo que no puedes decir “un año más de edad reduce 0.02 puntos en síntomas”.</p>
+<p>Intercepto poco informativo: al centrar y escalar, el intercepto no tiene sentido práctico.</p>
+<p>En variables dicotómicas (como sexo), la interpretación en desviaciones estándar puede ser menos intuitiva que en unidades originales.</p>
+<p>Dificultad para comunicar los resultados.</p>
 
 
 </section>
