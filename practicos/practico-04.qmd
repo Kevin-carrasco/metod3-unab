@@ -1,5 +1,5 @@
 ---
-title: "Práctico 04. Índices y estandarización de coeficientes"
+title: "Práctico 05. Índices y estandarización de coeficientes"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
 date: "2025-09-08"
 lang: es
@@ -202,6 +202,69 @@ sjPlot::tab_model(list(reg, reg_std),
 
 1. Interprete los coeficientes
 
+- Modelo lineal (coeficientes no estandarizados)
+
+  * Intercepto (5.44, p < 0.001): Cuando todas las variables independientes (educación, edad, sexo) valen 0, el puntaje esperado en sintomatología depresiva es 5.44. Como las escalas de las variables predictores pueden no tener un 0 “realista”, el intercepto no suele ser de interés sustantivo aquí, pero es necesario en el modelo.
+
+  * Educación (β = -0.37, p < 0.001): Cada incremento en el nivel educativo se asocia con una disminución de 0.37 puntos en sintomatología depresiva, en promedio y controlando por edad y sexo. Es un efecto negativo y estadísticamente significativo con un 99,9% de confianza
+
+  * Edad (β = -0.02, p < 0.05): Por cada año adicional de edad, los síntomas depresivos disminuyen en 0.02 puntos, controlando por educación y sexo. Efecto estadísticamente significativo con un 95% de confianza
+
+  * Sexo (β = 1.99, p < 0.001): Pertenecer a la categoría 'mujeres' se asocia con un aumento promedio de 1.99 puntos en sintomatología depresiva respecto al grupo de referencia (hombres), controlando por educación y edad. Efecto estadísticamente significativo con un 99,9% de confianza
+
+- Modelo estandarizado
+
+  * Intercepto (-0.00, ns): No tiene interpretación relevante en el modelo estandarizado, ya que todas las variables fueron centradas en media cero.
+
+  * Educación (β = -0.14, p < 0.001): Un aumento de una desviación estándar en educación se asocia con una disminución de 0.14 desviaciones estándar en sintomatología depresiva.  Es un efecto negativo y estadísticamente significativo con un 99,9% de confianz
+
+  * Edad (β = -0.04, p < 0.05): Cada desviación estándar adicional en edad se asocia con 0.04 desviaciones estándar menos en síntomas depresivos. Efecto estadísticamente significativo con un 95% de confianza
+
+  * Sexo (β = 0.17, p < 0.001): Ser mujer aumenta en 0.17 desviaciones estándar la sintomatología depresiva respecto a hombres, en promedio. Efecto estadísticamente significativo con un 99,9% de confianza
+
+- R² = 0.049 (ajustado 0.048): El modelo explica aproximadamente un 5% de la varianza en sintomatología depresiva. Esto indica que, aunque los predictores son significativos, la mayor parte de la variación en los síntomas se explica por otros factores no incluidos.
+
+
 2. ¿Qué diferencias hay entre un modelo y otro?
 
+ - Escala de los coeficientes
+
+En el modelo lineal (no estandarizado), los coeficientes están en las unidades originales de las variables. Ejemplo: un año más de edad equivale a -0.02 puntos en síntomas depresivos.
+
+En el modelo estandarizado, los coeficientes están expresados en desviaciones estándar, lo que permite comparar directamente la magnitud de los efectos. Ejemplo: un aumento de 1 desviación estándar en educación equivale a -0.14 desviaciones estándar en síntomas depresivos.
+
+- Interpretación del intercepto
+
+En el modelo lineal, el intercepto tiene un valor “real” (5.44), aunque no siempre interpretable si los predictores no toman valor 0 en la práctica.
+
+En el modelo estandarizado, el intercepto suele quedar cercano a 0 y no tiene interpretación sustantiva, porque las variables se centraron en la media.
+
+- Comparabilidad de predictores
+
+En el modelo lineal no puedes comparar directamente la magnitud de educación, edad y sexo, ya que cada uno tiene escalas distintas.
+
+En el modelo estandarizado sí puedes hacerlo: se observa, por ejemplo, que sexo (β=0.17) y educación (β=-0.14) tienen un peso mayor que edad (β=-0.04).
+
+- Bondad de ajuste
+
+El R² se mantiene idéntico (0.049), porque estandarizar las variables no cambia el poder explicativo del modelo, solo la escala de los coeficientes.
+
 3. ¿Qué ventajas o desventajas tiene trabajar con un modelo estandarizado?
+
+- Ventajas
+
+Comparabilidad entre predictores: permite identificar cuáles variables tienen mayor peso relativo sobre la variable dependiente.
+
+Neutraliza escalas distintas: útil cuando se combinan variables con diferentes unidades (años, niveles, categorías dummy, etc.).
+
+Facilita la interpretación en términos relativos: por ejemplo, puedes decir que el sexo tiene un efecto mayor que la edad.
+
+- Desventajas
+
+Pérdida de interpretación sustantiva: los coeficientes dejan de estar en las unidades originales, por lo que no puedes decir “un año más de edad reduce 0.02 puntos en síntomas”.
+
+Intercepto poco informativo: al centrar y escalar, el intercepto no tiene sentido práctico.
+
+En variables dicotómicas (como sexo), la interpretación en desviaciones estándar puede ser menos intuitiva que en unidades originales.
+
+Dificultad para comunicar los resultados.
