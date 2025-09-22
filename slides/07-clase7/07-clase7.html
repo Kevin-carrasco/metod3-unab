@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Metodología I</title>
+    <title>Métodos estadísticos para Ciencias Sociales III</title>
     <meta charset="utf-8" />
     <meta name="author" content=".small[Kevin Carrasco    Departamento de Sociología - UCH / COES   ]" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -36,19 +36,19 @@ Para correr en ATOM
 About macros.js: permite escalar las imágenes como [scale 50%](path to image), hay si que grabar ese archivo js en el directorio.
 ---&gt;
 
+
 .pull-left[
-# Metodología I
+# Métodos estadísticos para Ciencias Sociales III
 ## **Kevin Carrasco**
-## Magister en Ciencias Sociales FACSO - UChile
-## 1er Sem 2024
-## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
-] 
-    
+## Sociología - UNAB
+## 2do semestre 2025
+## .green[[metod3-unab.netlify.app](metod3-unab.netlify.app)] 
+]
 
 .pull-right[
 .right[
 &lt;br&gt;
-## .yellow[Sesión 7: Distribución de variables]
+## .yellow[Sesión 7: Estimación de valores predichos e interacciones]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
@@ -56,12 +56,10 @@ About macros.js: permite escalar las imágenes como [scale 50%](path to image), 
 ]
 
 ]
-
 ---
 
 layout: true
 class: animated, fadeIn
-
 
 ---
 class: inverse, bottom, right, animated, slideInRight
@@ -70,14 +68,17 @@ class: inverse, bottom, right, animated, slideInRight
 # .red[Sesión 7]
 &lt;br&gt;
 
+Revisión prueba
+
 Repaso sesión anterior
 
-Distribución de variables
+Estimación de valores predichos
 
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
+
 ---
 class: inverse, bottom, right
 
@@ -85,76 +86,101 @@ class: inverse, bottom, right
 # .red[Sesión 7]
 &lt;br&gt;
 
-.yellow[Repaso sesión anterior]
+.yellow[Revisión prueba]
 
-Distribución de variables
+Repaso sesión anterior
+
+Estimación de valores predichos
+
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
+
 ---
-## Medidas de tendencia Central
-
-* **Moda**: valor que ocurre más frecuentemente
+## 1a. ¿Cuáles son los tres objetivos de un modelo de regresión?
 
 --
 
-* **Mediana**: valor medio de la distribución ordenada. Si N es par, entonces es el promedio de los valores medios
-
---
-* **Media** o promedio aritmético: suma de los valores dividido por el total de casos
-
----
-## Medidas de tendencia Central
-
-### Dispersión:
-
-* **Varianza**: promedio de la suma de las diferencias del promedio al cuadrado
-
-.center[![:scale 100%](../../files/img/varianza_formula.png)]
-
----
-
-* **Desviación Estándar**:
-  - Raiz Cuadrada de la varianza.
-
-  - Expresada en la mismas unidades que los puntajes de la escala original
-
----
-
-## Visualización de datos
-
-La visualización de datos refiere a la forma que utilizamos para conocer y comunicar mediciones y resultados de análisis.
-
---
-
-Cumple tres objetivos principales:
-  * Exploración: Conocer descriptivos básicos o asociaciones entre variables
+  - **Conocer**: La relación de una variable dependiente de acuerdo a una/otras independiente(s)
+  - **Predecir**: Estimar el valor de una variable dependiente de acuerdo al valor de otras
+  - **Inferir**: si estas relaciones son estadísticamente significativas
   
-  * Modelamiento: Comparar estimaciones, determinar diferencias o explicaciones
+---
+## 1b. ¿Qué se entiende por parcialización estadística en un modelo de regresión y cuál es su utilidad? (2p)
 
-  * Comunicación: presentar resultados y atraer audiencias
+--
+
+- La parcialización es el proceso mediante el cual se extrae la varianza común entre predictores en un modelo de regresión múltiple.
+
+- Al parcializar, nos permite conocer el **efecto neto** que tiene una variable independiente sobre la dependiente.
 
 ---
-## Visualización de datos
+## 1c. ¿Qué rol cumple la inferencia estadística en regresión, y qué nos permite concluir respecto a los coeficientes estimados? (2p)
 
-La mejor visualización de datos es la que no requiere un esfuerzo para ser comprendida.
+--
 
-Se debe evitar saturar con información. Todo lo que se visualiza debe servir para explicar lo que queremos.
+- Extrapolar resultados desde la muestra a la población.
 
-Para comparar tablas o gráficos se deben utilizar las mismas escalas de medición y los mismos límites de los ejes.
+- En el contecto específico de los coeficientes estimados: con qué probabilidad de error podemos afirmar si las diferencias expresadas a partir del coeficiente de regresión son distintas de cero (si esque existen diferencias estadísticamente significativas)
 
 ---
-## Tipos de tablas y tipos de gráficos
-
-* Descriptivos según tipo de variable
 
 .small[
-|             	| Categórica                      	| Continua                  | Categ.(y)/Categ.(x)                    	  | Cont.(y)/Categ.(x)                              |
-|-------------	|---------------------------------	|-------------------------	|------------------------------------------------	|------------------------------------------	|
-| **Ejemplo** 	| **Estatus Ocupacional**          	| **Ingreso**                       	| **Estatus Ocupacional (Y) / Género (X)**       | **Ingreso (Y) / Género (X)**     |
-| Tabla       	| Frecuencias / porcentajes         | `\(\bar{X}\)`/sd ... o recodificar en categorías | Tabla de Contingencia  | Clasificar Y                                    |
-| Gráfico     	| Barras                          	| Histograma / boxplot      | Gráfico de barras condicionado            | Histograma, box plot condicionado             	|
+| Caso    | X  | Y  | X - X̄ | Y - Ȳ | (X - X̄)(Y - Ȳ) | (X - X̄)² |
+|---------|----|----|--------|-------|-----------------|-----------|
+| Caso 1  | 2  | 6  | -3     | -6    | 18              | 9         |
+| Caso 2  | 7  | 16 | 2      | 4     | 8               | 4         |
+| Caso 3  | 4  | 10 | -1     | -2    | 2               | 1         |
+| Caso 4  | 9  | 20 | 4      | 8     | 32              | 16        |
+| Caso 5  | 1  | 4  | -4     | -8    | 32              | 16        |
+| Caso 6  | 6  | 14 | 1      | 2     | 2               | 1         |
+| Caso 7  | 3  | 8  | -2     | -4    | 8               | 4         |
+| Caso 8  | 8  | 18 | 3      | 6     | 18              | 9         |
+| **Promedios / Sumas** | **X̄ = 5** | **Ȳ = 12** |    |   | **Σ = 120**   | **Σ = 60** |
+]
+
+Y = 2 + 2X
+
+---
+2a. Estima el coeficiente de regresión e intercepto del modelo de regresión presentado anteriormente (2p)
+
+--
+
+Coeficiente: 2
+
+Intercepto: 2
+
+--
+
+2b. Interpreta los valores obtenidos para el coeficiente de regresión y para el intercepto (2p)
+
+--
+
+Coeficiente: por cada unidad que aumenta X, Y aumenta en 2 unidades
+
+Intercepto: Cuando X=0, el valor de Y es 2
+
+---
+
+.small[
+|                         | Modelo 1   | Modelo 2   | Modelo 3   | 
+|-------------------------|------------|------------|------------|
+| **Intercepto**          | 8.60***    | 10.71***   | 8.19***    |
+|                         | (0.21)     | (0.16)     | (0.29)     |
+| **Edad**                | 0.12***    | 0.1***     | 0.1***     |
+|                         | (0.00)     | (0.00)     | (0.00)     |
+| **Educación media**     |            | -0.16      | 0.33       |
+| *(Ref. Ed. básica)*     |            | (0.16)     | (0.17)     |
+| **Educación superior**  |            | -0.38**    | 0.33       |
+|                         |            | (0.17)     | (0.18)     |
+| **Mujer**               |            |            | -0.33**    |
+| *(Ref. Hombre)*         |            |            | (0.13)     |
+| **R²**                  | 0.10       | 0.12       | 0.15       |
+| **Adj. R²**             | 0.09       | 0.11       | 0.13       |
+| **Num. obs.**           | 2915       | 2915       | 2915       |
+
+***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05***
 ]
 
 ---
@@ -164,45 +190,781 @@ class: inverse, bottom, right
 # .red[Sesión 7]
 &lt;br&gt;
 
-Repaso sesión anterior
+Revisión prueba
 
-.yellow[Distribución de variables]
+.yellow[Repaso sesión anterior]
+
+Estimación de valores predichos
+
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
----
-### Asimetría
-
-La asimetría es la medida en que la distribución de una variable se aleja de una distribución simétrica a ambos lados de su punto central. ¿Qué tan simétrica es la distribución de mis datos en ambos lados de sus colas respecto al centro?
-
-.center[![:scale 70%](../../files/img/asimetria.png)]
-
 
 ---
-### Curtosis
+## ¿Cuáles son los objetivos de un modelo de regresión?
 
-La curtosis es la medida del grado de agrupamiento de los datos de una distribución. ¿Qué tan agrupados están mis datos en la distribución?
+--
 
-.center[![:scale 65%](../../files/img/curtosis.jpg)]
+* Es un modelo estadístico que se usa para:
 
+  - **Conocer**: La relación de una variable dependiente de acuerdo a una/otras independiente(s)
+  - **Predecir**: Estimar el valor de una variable dependiente de acuerdo al valor de otras
+  - **Inferir**: si estas relaciones son estadísticamente significativas
+
+---
+
+
+
+.pull-left-narrow[
+### Ejemplo ]
+
+.pull-right-wide[
+
+```
+##   Educacion Ingreso
+## 1         1     250
+## 2         2     240
+## 3         3     230
+## 4         4     220
+## 5         5     300
+## 6         6     380
+## 7         7     450
+## 8         8     520
+```
+
+]
+
+---
+.pull-left-narrow[
+### Ejemplo ]
+
+.pull-right-wide[
+
+
+.pull-right-wide[![:scale 100%](../../files/img/plot1.png)]
+
+]
+
+
+---
+
+.pull-left-narrow[
+### Ejemplo ]
+
+.pull-right-wide[
+
+
+.pull-right-wide[![:scale 100%](../../files/img/plot2.png)]
+]
+
+---
+### Estimación de los coeficientes de la ecuación:
+
+`$$\bar{Y}=b_{0}+b_{1}\bar{X}$$`
+Reemplazando:
+
+`$$\bar{Y}=b_{0}+25\bar{X}$$`
+
+Despejando el valor de `\(b_{0}\)`
+
+`$$b_{0}=200-0\bar{X}$$`
+---
+
+.pull-left-narrow[
+### Ejemplo 
+
+
+*Por cada unidad que aumenta educación, ingreso aumenta en 25 unidades*
+]
+
+.pull-right-wide[![:scale 85%](../../files/img/plot2.png)
+]
+
+---
+
+
+
+
+
+
+
+
+
+¿y la interpretación para variables categóricas?
+
+.pull-left[
+.small[
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;245.00&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(51.74)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-20.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(73.18)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;167.50&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(63.37)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.70&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.58&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="2"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+]
+--
+.pull-right[
+*Las personas que tienen educación superior ganan $167.5mil más en comparación con quienes tienen educación básica, efecto que es estadísticamente significativo (p&lt;0.05)*
+
+]
+
+---
+¿Cómo podemos predecir el valor esperado de una variable para una persona en particular?
+
+.pull-left-narrow[
+.small[
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;245.00&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(51.74)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-20.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(73.18)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;167.50&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(63.37)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.70&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.58&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="2"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+]
+
+.pull-right-wide[
+`$$\bar{Y}=b_{0}+b_{1}\bar{X}$$`
+
+Reemplazando:
+
+`$$\bar{Y}=245+b_{1}\bar{X}$$`
+
+¿Si una persona tuviera un nivel de educación superior?
+
+`$$\bar{Y}=245+167.5$$`
+`$$\bar{Y}=412.5$$`
+]
+
+---
+.pull-left-narrow[
+## Graficando
+]
+
+
+
+.pull-right-wide[
+
+![:scale 85%](../../files/img/plot3.png)
+]
+
+---
+## Variables numéricas
+
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(Intercept)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;52.51&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(81.44)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;edad&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;7.89&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(2.26)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.62&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="2"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+---
+.pull-left[
+
+
+![:scale 100%](../../files/img/plot4.png)
+]
+
+
+.pull-right[
+`$$\bar{Y}=b_{0}+b_{1}\bar{X}$$`
+
+Reemplazando:
+
+`$$\bar{Y}=52.51+b_{1}*7.89$$`
+
+
+¿Una persona de edad 40?
+
+`$$\bar{Y}=52.51+40*7.89$$`
+`$$\bar{Y}=368.11$$`
+]
+
+---
+## Interacciones
+
+- Útil para analizar en qué medida el efecto de una variable (ej. edad) sobre otra (ingresos) *cambia* al interactuar con otra variable (ej. Educación superior).
+
+  - Efectos de interacción también llamados efectos de moderación
+  - En este caso, Educación sería variable "moderadora"
+  
+- Matemáticamente: un efecto de interacción es resultado de una multiplicación entre dos variables
+
+---
+## Interacciones
+
+- **Hipótesis**: En las personas con educación superior, el impacto de la edad sobre los ingresos será mayor
+
+--
+
+- Se busca, por tanto, evaluar la interacción entre
+  
+  Edad * Educación
+
+
+
+---
+
+.pull-left[
+.small[
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;266.67&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(12.18)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.37)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-16.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(18.53)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-146.17&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(14.15)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad * Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.33&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.66)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad * Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;7.97&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.40)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="2"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+
+]
+
+--
+
+.pull.right[
+*Entre quienes tienen educación superior, por cada año que aumenta la edad, los ingresos aumentan en $7.97*
+]
+
+---
+
+
+
+.center[
+![:scale 55%](../../files/img/plot_interact.png)
+]
+
+
+---
+## ¿Y en la fórmula?
+
+.pull-left[
+.small[
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;266.67&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(12.18)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.37)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-16.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(18.53)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-146.17&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(14.15)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad * Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.33&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.66)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad * Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;7.97&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.40)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="2"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+
+1. Educación básica (educación=0)
+
+`$$\bar{Y}=266.67-067*{edad}+b_{basica}\\-b*(edad*basica)$$`
+
+`$$\bar{Y}=266.67-0.67*{edad}+0-0$$`
+
+Persona de 40 años
+
+`$$\bar{Y}=266.67-0.67*{40}+0-0$$`
+`$$\bar{Y}=239.87$$`
+
+]
+---
+
+.pull-left[
+.small[
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;266.67&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(12.18)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.37)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-16.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(18.53)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-146.17&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(14.15)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad * Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.33&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.66)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad * Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;7.97&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.40)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="2"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+
+2. Educación media (educacion=1)
+
+`$$\bar{Y}=266.67-0.67*{edad}+b_{media}\\-0.33*(edad*media)$$`
+
+`$$\bar{Y}=266.67-0.67*{edad}-16.67\\-0.33*(edad*1)$$`
+
+Persona de 40 años
+
+`$$\bar{Y}=266.67-0.67*{40}-16.67\\-0.33*(40*1)$$`
+`$$\bar{Y}=210$$`
+
+]
+---
+
+.pull-left[
+.small[
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;266.67&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(12.18)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.37)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-16.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(18.53)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-146.17&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(14.15)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad * Educación media&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.33&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.66)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad * Educación superior&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;7.97&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.40)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="2"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+
+3. Educación superior (educacion=1)
+
+`$$\bar{Y}=266.67-0.67*{edad}+b_{superior}\\+7.97*edad*superior$$`
+
+`$$\bar{Y}=266.67-0.67*{edad}-146.17\\+7.97*(edad*1)$$`
+
+Persona de 40 años
+
+`$$\bar{Y}=266.67-0.67*{40}-146.17\\+7.97*(40*1)$$`
+`$$\bar{Y}=412.5$$`
+
+]
+
+---
+## Ejemplos
+
+![](../../files/img/changes_interact.png)
+
+.small[fuente: Castillo, J. C., Iturra, J., &amp; Carrasco, K. (2025). Changes in the Justification of Educational Inequalities: The Role of Perceptions of Inequality and Meritocracy During the COVID Pandemic. Social Justice Research. https://doi.org/10.1007/s11211-025-00458-0
+]
+
+---
+## Ejemplos
+
+.pull-left[
+
+![](https://www.frontiersin.org/files/Articles/1634219/fsoc-10-1634219-HTML/image_m/fsoc-10-1634219-g003.jpg)
+]
+
+.pull-right[
+.small[fuente: Castillo, J. C., Laffert, A., &amp; Carrasco, K. (2025). Perceptions of inequality and meritocracy: Their interplay in shaping preferences for market justice in Chile (2016–2023). Frontiers in Sociology, 10, 1634219. https://doi.org/10.3389/fsoc.2025.1634219]
+]
+
+---
+## Ejemplos
+
+
+.pull-left-wide[
+![](https://static.cambridge.org/binary/version/id/urn:cambridge.org:id:binary:20250620052055969-0484:S1542427824000646:S1542427824000646_fig1.png)
+]
+
+.pull-right-narrow[
+
+.small[fuente: Pérez-Ahumada P, Carrasco K. Política de clases y confianza en los sindicatos en América Latina. Latin American Research Review. 2025;60(2):410-433. doi:10.1017/lar.2024.64]
+]
 ---
 
 class: front
 
 .pull-left[
-# Metodología I
+# Métodos estadísticos para ciencias sociales III
 ## **Kevin Carrasco**
-## Magister en Ciencias Sociales FACSO - UChile
-## 1er Sem 2024
-## [.green[metod1-mcs.netlify.com]](https://metod1-mcs.netlify.com)
+## Sociología - UNAB
+## 2do Semestre 2025
+## .green[[metod3-unab.netlify.com](metod3-unab.netlify.com)]
 ] 
     
+
 
 .pull-right[
 .right[
 &lt;br&gt;
-## .yellow[Sesión 7: Distribución de variables]
+## .yellow[Sesión 7: Estimación de valores predichos e interacciones]
 ![:scale 70%](../../files/img/eval-hires.png)
 
 
@@ -210,6 +972,8 @@ class: front
 ]
 
 ]
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

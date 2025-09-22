@@ -483,14 +483,24 @@
     "href": "content/07-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del lunes, 22 de septiembre de 2025"
+    "text": "Sesión del lunes, 22 de septiembre de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "07: Sesión 7"
+    ]
   },
   {
     "objectID": "content/07-content.html#documento-de-presentación",
     "href": "content/07-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
-    "text": "Documento de presentación"
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "07: Sesión 7"
+    ]
   },
   {
     "objectID": "content/05-content.html",
