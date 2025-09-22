@@ -36,7 +36,7 @@ El Estudio Longitudinal Social del Chile [ELSOC](https://coes.cl/encuesta-panel/
 load(url("https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/elsoc2.RData"))
 ```
 
-O descargamos de [acá](https://github.com/cursos-metodos-facso/metod1-MCS/raw/refs/heads/main/files/data/elsoc2.RData) y cargamos de manera local.
+O descargamos de [acá](https://github.com/cursos-metodos-facso/metod1-MCS/blob/main/files/data/elsoc2.RData) y cargamos de manera local.
 
 ## Explorar datos
 
@@ -180,10 +180,48 @@ En el fondo lo que muestra el gráfico es que el efecto negativo de la edad es m
 
 1- Estima un nuevo modelo de regresión lineal múltiple que incluya como predictores: sexo, edad, posición política y nivel educacional.
 
+```{r}
+fit05<- lm(partpol~sexo+edad+pospol+educ,data=elsoc)
+sjPlot::tab_model(fit05,
+                  show.ci=FALSE)
+```
+
+
 Con base en este modelo crea un gráfico de valores predichos para la variable de nivel educacional.
+
+```{r}
+ggeffects::ggpredict(fit05, terms = c("educ")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Posición política", x = "", y = "") +
+  theme_bw() +
+  scale_x_discrete(name = "",
+                   labels = c("Básica incompleta", "Básica completa", "Educación media", "Técnico profesional", "Universitaria")) +
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+```
+
 
 2- Estima un nuevo modelo de regresión que incluya un término de interacción entre edad y nivel educacional
 
+```{r}
+fit06<- lm(partpol~sexo+edad+pospol+educ*edad,data=elsoc)
+sjPlot::tab_model(fit06,
+                  show.ci=FALSE)
+```
+
+
 Grafica la interacción estimada en este modelo
 
+```{r}
+sjPlot::plot_model(fit06, type = "int") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
 3- Interpreta los gráficos elaborados.
+
+- Gráfico 1: a mayor educación, más participación política
+
+- Gráfico 2: el efecto de la edad se mantiene negativo para todos los grupos educacionales. Los jóvenes con educación universitaria son quienes más participan.
