@@ -36,6 +36,8 @@ El Estudio Longitudinal Social del Chile [ELSOC](https://coes.cl/encuesta-panel/
 load(url("https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/elsoc2.RData"))
 ```
 
+O descargamos de [acá](https://github.com/cursos-metodos-facso/metod1-MCS/raw/refs/heads/main/files/data/elsoc2.RData) y cargamos de manera local.
+
 ## Explorar datos
 
 A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para realizar las transformaciones y análisis posteriores.
