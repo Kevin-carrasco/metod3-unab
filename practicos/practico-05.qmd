@@ -1,0 +1,187 @@
+---
+title: "Práctico 06. Estimación de valores predichos"
+subtitle: "Métodos estadísticos para Ciencias Sociales III"
+date: "2025-09-22"
+lang: es
+output:
+  number_sections: true
+---
+
+# Presentación
+
+La siguiente práctica tiene el objetivo de repasar en la interpretación de coeficientes de correlación y la construcción de escalas, así como también en la interpretación de coeficientes de regresión lineal. Para ello, utilizaremos la base de datos de la tercera ola del [*Estudio Longitudinal Social del Chile 2018*](https://doi.org/10.7910/DVN/H8OVMF) con el objetivo de analizar los determinantes de la **Participación Ciudadana.**
+
+La versión original de este ejercicio proviene del curso de [Estadística multivariada](https://multivariada.netlify.app/assignment/10-code/) versión 2022.
+
+# Librerías
+
+```{r}
+pacman::p_load(dplyr, 
+               car, 
+               summarytools, 
+               sjPlot, 
+               texreg, 
+               corrplot, 
+               ggplot2, 
+               sjlabelled, 
+               ggeffects)
+```
+
+# Datos
+
+El Estudio Longitudinal Social del Chile [ELSOC](https://coes.cl/encuesta-panel/), único en Chile y América Latina, consiste en encuestar a casi 3.000 chilenos, anualmente, a lo largo de una década. ELSOC ha sido diseñado para evaluar la manera cómo piensan, sienten y se comportan los chilenos en torno a un conjunto de temas referidos al conflicto y la cohesión social en Chile. La población objetivo son hombres y mujeres entre 15 y 75 años de edad con un alcance nacional, donde se obtuvo una muestra final de **3748** casos en el año 2018.
+
+```{r}
+#Cargamos la base de datos desde internet
+load(url("https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/elsoc2.RData"))
+```
+
+## Explorar datos
+
+A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para realizar las transformaciones y análisis posteriores.
+
+```{r}
+view_df(elsoc,max.len = 50)
+```
+
+## Variable dependiente: participación política
+
+```{r, fig.width=10}
+plot_stackfrq(elsoc[,c("part01","part02","part03","part04")]) + theme(legend.position="bottom")
+```
+
+```{r}
+corrplot.mixed(cor(select(elsoc,part01,part02,part03,part04),
+                   use = "complete.obs"))
+```
+
+```{r}
+elsoc$part01 <- car::recode(elsoc$part01, "1=0; 2=1; 3=2; 4=3; 5=4")
+elsoc$part02 <- car::recode(elsoc$part02, "1=0; 2=1; 3=2; 4=3; 5=4")
+elsoc$part03 <- car::recode(elsoc$part03, "1=0; 2=1; 3=2; 4=3; 5=4")
+elsoc$part04 <- car::recode(elsoc$part04, "1=0; 2=1; 3=2; 4=3; 5=4")
+
+elsoc <- elsoc %>% mutate(partpol=rowSums(select(., part01,part02,part03,part04)))
+summary(elsoc$partpol)
+```
+
+# Regresión lineal
+
+veamos primero las diferencias de usar cada tipo de variable de ingreso
+
+
+
+```{r}
+fit01<- lm(partpol~sexo,data=elsoc)
+fit02<- lm(partpol~sexo+edad,data=elsoc)
+fit03<- lm(partpol~sexo+edad+pospol,data=elsoc)
+
+labs02 <- c("Intercepto","Sexo (mujer=1)","Edad",
+            "Centro (ref. derecha)","Izquierda","Idep./Ninguno")
+```
+
+```{r, results='asis', eval=FALSE}
+screenreg(list(fit01,fit02,fit03),custom.coef.names = labs02)
+```
+
+```{r, results='asis'}
+knitreg(list(fit01,fit02,fit03),
+        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3"),
+        custom.coef.names = c("Intercepto",
+                              "Sexo (mujer=1)",
+                              "Edad",
+                              "Centro (ref. derecha)",
+                              "Izquierda",
+                              "Indep./Ninguno"))
+```
+
+El Modelo 1 indica que las mujeres participan 0.13 unidades menos en comparación con los hombres, sin embargo, esta relación no es estadísticamente significativa (p>0.05).
+
+El Modelo 2 indica que por cada unidad que aumenta la edad, la participación política disminuye en promedio 0.04 unidades, con un 99.9% de significación estadístico y manteniendo el sexo constante. Esta relación es consistente en los otros dos modelos.
+
+En el Modelo 3 que incluye la posición política de los/as encuestados, la participación política de las personas de izquierda, centro o independiente/ninguno es menor en comparación con las personas de derecha, con una significación estadística del 99.9%, manteniendo el resto de las variables constantes.
+
+## Cálculo de valores predichos
+
+* Paquete ggeffects de R: últil para estimar Valores predichos a partir de modelos de regresión
+
+* Combinado con ggplot2, se pueden generar gráficos que muestran de modo más intuitivo la relación entre variables
+
+```{r}
+ggeffects::ggpredict(fit03, terms = c("sexo")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Sexo", x = "", y = "") +
+  theme_bw() +
+  scale_x_continuous(name = "",
+                     breaks = c(0,1),
+                     labels = c("Hombre", "Mujer"))+
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+
+```
+
+
+```{r}
+ggeffects::ggpredict(fit03, terms = c("pospol")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Posición política", x = "", y = "") +
+  theme_bw() +
+  scale_x_discrete(name = "",
+                   labels = c("Derecha", "Centro", "Izquierda", "Independiente/ninguno")) +
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+```
+
+```{r}
+ggeffects::ggpredict(fit03, terms="edad") %>%
+  ggplot(mapping=aes(x = x, y=predicted)) +
+  labs(title="Edad", x = "", y = "")+
+  theme_bw() +
+  geom_smooth()+
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "black") +
+  scale_x_continuous(breaks = seq(0,100, by = 10))+
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+```
+
+## Interacciones
+
+```{r results='asis'}
+
+fit04<- lm(partpol~sexo+edad+pospol*edad,data=elsoc)
+sjPlot::tab_model(fit03,fit04, show.ci = FALSE, pred.labels=c("Intercepto",
+                              "Sexo (mujer=1)",
+                              "Edad",
+                              "Centro (ref. derecha)",
+                              "Izquierda",
+                              "Indep./Ninguno",
+                              "Centro * Edad",
+                              "Izquierda * Edad",
+                              "Indep./Ninguno * Edad"))
+```
+
+En comparación con las personas de Derecha, el efecto negativo de la edad no es tan pronunciado en personas de Centro, Izquierda o independientes.
+
+```{r}
+sjPlot::plot_model(fit04, type = "int") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+En el fondo lo que muestra el gráfico es que el efecto negativo de la edad es mucho mayor en personas de derecha. O el efecto negativo de la edad es más tenue en personas de centro, izquierda o independientes. U otra opción aún: los jóvenes de derecha son los que más participan.
+
+## Ejercicios
+
+1- Estima un nuevo modelo de regresión lineal múltiple que incluya como predictores: sexo, edad, posición política y nivel educacional.
+
+Con base en este modelo crea un gráfico de valores predichos para la variable de nivel educacional.
+
+2- Estima un nuevo modelo de regresión que incluya un término de interacción entre edad y nivel educacional
+
+Grafica la interacción estimada en este modelo
+
+3- Interpreta los gráficos elaborados.
