@@ -331,8 +331,8 @@ proc_data$educacion <- set_labels(proc_data$educacion,
 
 frq(proc_data$educacion)
 
-proc_data$educacion <- as_factor(proc_data$educacion)
-proc_data$sexo <- as_factor(proc_data$sexo)
+proc_data$educacion_rec <- as_factor(proc_data$educacion)
+proc_data$sexo_rec <- as_factor(proc_data$sexo)
 
 proc_data <- na.omit(proc_data)
 
@@ -349,8 +349,67 @@ En este caso, lo que nos interesa observar es el intercepto. Un intercepto de 10
 
 1- Estima un modelo de regresión lineal simple para cada variable independiente (edad, educación, sexo). Luego estima un modelo de regresión lineal múltiple que incluya las tres variables independientes. Representalo en una tabla de regresión e interpreta los resultados de cada modelo.
 
+```{r}
+reg1 <- lm(cohesion_barrial ~ edad, data=proc_data)
+reg2 <- lm(cohesion_barrial ~ educacion_rec, data=proc_data)
+reg3 <- lm(cohesion_barrial ~ sexo_rec, data=proc_data)
+reg4 <- lm(cohesion_barrial ~ edad + educacion_rec + sexo_rec, data=proc_data)
+
+tab_model(reg1, reg2, reg3, reg4, show.ci=FALSE)
+```
+
+
 2. Estima un modelo de regresión con variables estandarizadas y compáralo con el modelo de regresión lineal múltiple (¿qué diferencias hay entre los valores de los coeficientes de un modelo y otro?)
+
+```{r}
+data <- dplyr::select(proc_data, cohesion_barrial, educacion, edad, sexo)
+data_std = data.frame(scale(data))
+
+reg_std <- lm(cohesion_barrial ~ edad + educacion + sexo, data=data_std)
+
+tab_model(reg4, reg_std, show.ci=FALSE)
+```
+
 
 3. Gráfica los valores predichos de los coeficientes estadísticamente significativos.
 
+```{r}
+library(ggeffects)
+
+ggeffects::ggpredict(reg4, terms = c("sexo_rec")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Sexo", x = "", y = "") +
+  theme_bw() +
+  scale_x_discrete(name = "",
+                     breaks = c(1,2),
+                     labels = c("Hombre", "Mujer"))+
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+```
+
+```{r}
+ggeffects::ggpredict(reg4, terms="edad") %>%
+  ggplot(mapping=aes(x = x, y=predicted)) +
+  labs(title="Edad", x = "", y = "")+
+  theme_bw() +
+  geom_smooth()+
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "black") +
+  scale_x_continuous(breaks = seq(0,100, by = 10))+
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+```
+
+
 4. Estima una interacción entre dos variables independientes. Gráfica e interpreta el resultado.
+
+```{r}
+reg_int <- lm(cohesion_barrial ~ edad * sexo_rec + educacion_rec, data=proc_data)
+```
+
+```{r}
+plot_model(reg_int, type="int")
+```
+
+
