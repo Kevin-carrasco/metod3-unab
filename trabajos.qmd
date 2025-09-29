@@ -1,3 +1,5 @@
+# Trabajos
+
 ## Presentación y directrices generales
 
 La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos de la primera unidad del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC). Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.
