@@ -1,5 +1,5 @@
 ---
-title: "Práctico 06. Estimación de valores predichos"
+title: "Práctico 05. Estimación de valores predichos"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
 date: "2025-09-22"
 lang: es

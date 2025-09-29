@@ -1,5 +1,5 @@
 ---
-title: "Práctico 05. Índices y estandarización de coeficientes"
+title: "Práctico 04. Índices y estandarización de coeficientes"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
 date: "2025-09-08"
 lang: es

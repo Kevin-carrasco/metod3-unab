@@ -106,8 +106,8 @@ website:
           file: practicos/practico-04.qmd
         - text: "Práctico 6 - Valores predichos"
           file: practicos/practico-05.qmd
-        # - text: "Práctico 6"
-        #   file: resource/06-resource.qmd
+        - text: "Práctico 6 - Resumen regresión lineal"
+          file: practicos/practico-06.qmd
 #        - text: "Práctico 6"
 #          file: resource/07-resource.qmd
 #        - text: "Práctico 7"
