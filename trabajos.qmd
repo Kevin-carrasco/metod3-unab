@@ -4,6 +4,15 @@
 
 La presente evaluación tiene por objetivo que las y los estudiantes apliquen de forma integral los contenidos de la primera unidad del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC). Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.
 
+### Sobre ELSOC
+
+- La página principal de ELSOC es esta: [https://coes.cl/elsoc/](https://coes.cl/elsoc/)
+
+- El manual metodológico se puede acceder acá: [https://manual-metodologico-elsoc.netlify.app/](https://manual-metodologico-elsoc.netlify.app/)
+
+- El listado de variables se puede descargar acá: [https://coes.cl/wp-content/uploads/2025/05/Listado-de-Variables-ELSOC-2.xlsx](https://coes.cl/wp-content/uploads/2025/05/Listado-de-Variables-ELSOC-2.xlsx)
+
+
 ### Cuestiones a considerar:
 
 1.  El trabajo debe ser realizado en parejas.
@@ -14,7 +23,10 @@ La presente evaluación tiene por objetivo que las y los estudiantes apliquen de
 
 ## Instrucciones para el Informe
 
-Para la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, se desarrollen los siguientes temas:
+Para la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, puedan **seleccionar 5 variables de la base de datos ELSOC (1 dependiente, 4 independientes)**. Deben considerar la estructura longitudinal de ELSOC, por lo que es de suma importancia revisar bien el listado de variables y asegurarse en qué años se encuentran disponibles sus variables.
+
+
+Luego desarrollen los siguientes temas:
 
 +---------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
 | **Componente**                                    | **Detalle**                                                                                                                                                                                                                                                                                                                                                                                                                                           | **Puntaje** |
