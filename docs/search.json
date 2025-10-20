@@ -804,21 +804,36 @@
     "href": "content/08-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del viernes, 2 de junio de 2023"
+    "text": "Sesión del lunes, 20 de octubre de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "08: Sesión 8"
+    ]
   },
   {
     "objectID": "content/08-content.html#documento-de-presentación",
     "href": "content/08-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
-    "text": "Documento de presentación"
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "08: Sesión 8"
+    ]
   },
   {
     "objectID": "content/08-content.html#lecturas",
     "href": "content/08-content.html#lecturas",
     "title": "Presentación",
     "section": "Lecturas",
-    "text": "Lecturas"
+    "text": "Lecturas",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "08: Sesión 8"
+    ]
   },
   {
     "objectID": "content/10-content.html",
