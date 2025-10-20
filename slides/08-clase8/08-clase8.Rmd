@@ -223,14 +223,13 @@ plot1 <-ggplot(tt,
   theme(legend.position="none", 
         text = element_text(size = 30),
         axis.title=element_blank())
-
+ggsave(plot1, file="../../files/img/plot1.png")
 ```
+
 ]
 ]
 .pull-right[
-```{r echo=FALSE}
-plot1
-```
+![:scale 100%](../../files/img/plot1.png)
 
 
 ]
@@ -243,7 +242,7 @@ plot1
 .center[
 ```{r, echo=FALSE, fig.height=6}
 
-(ggplot(tt, aes(sex, fill=sex))
+plot2<-ggplot(tt, aes(sex, fill=sex))
  + geom_bar()
  + geom_text(
      aes(label = scales::percent((..count..)/sum(..count..))),
@@ -251,8 +250,10 @@ plot1
       size=10,
     vjust = 3)
 + theme(legend.position="none", text = element_text(size = 30),axis.title=element_blank())
-)
+ggsave(plot2, file="../../files/img/plot2.png")
 ```
+
+![:scale 100%](../../files/img/plot2.png)
 ]
 ---
 ## Sobrevivencia / sexo
@@ -381,28 +382,38 @@ class: roja, middle
 
 .center[
 ```{r echo=FALSE,fig.height=6}
-ggplot(data = tt, aes(x = as.numeric(sex), y = survived_n)) +
+plot_lim1<-ggplot(data = tt, aes(x = as.numeric(sex), y = survived_n)) +
   geom_point(aes(color = as.factor(survived_n)), shape = 1) +
   geom_smooth(method = "lm", color = "gray20", se = FALSE) +
   theme_bw()  +
   labs(title = "Regresión lineal por mínimos cuadrados",
        y = "Sobrevive") +
   theme(legend.position = "none", text = element_text(size = 20))
+
+ggsave(plot_lim1, file="../../files/img/plot_lim1.png")
 ```
+
+![:scale 95%](../../files/img/plot_lim1.png)
 ]
 
 ---
 ## Problemas ....
 .center[
 ```{r echo=FALSE,fig.width=12, fig.height=7}
-ggplot(data = tt, aes(x = age, y = survived_n)) +
+plot_lim2<-ggplot(data = tt, aes(x = age, y = survived_n)) +
   geom_point(aes(color = as.factor(survived_n)), shape = 1) +
   geom_smooth(method = "lm", color = "gray20", se = FALSE) +
   theme_bw()  +
   labs(title = "Regresión lineal por mínimos cuadrados",
        y = "Sobrevive") +
   theme(legend.position = "none", text = element_text(size = 20))
+ggsave(plot_lim2, file="../../files/img/plot_lim2.png")
 ```
+
+![:scale 95%](../../files/img/plot_lim2.png)
+
+
+
 ]
 
 ---
@@ -419,14 +430,17 @@ tt$survived_n2[tt$age<20]<-1
 
 .pull-right[
 ```{r echo=FALSE, fig.height=6}
-ggplot(data = tt, aes(x = age, y = survived_n2)) +
+plot_lim3<-ggplot(data = tt, aes(x = age, y = survived_n2)) +
   geom_point(aes(color = as.factor(survived_n2)), shape = 1) +
   geom_smooth(method = "lm", color = "gray20", se = FALSE) +
   theme_bw()  +
   labs(title = "Regresión lineal por mínimos cuadrados",
        y = "Sobrevive") +
 theme(legend.position = "none", text = element_text(size = 20))
+ggsave(plot_lim3, file="../../files/img/plot_lim3.png")
 ```
+
+![:scale 95%](../../files/img/plot_lim3.png)
 ]
 
 
@@ -457,14 +471,17 @@ class: middle center
 
 .pull-left[
 ```{r echo=FALSE}
-ggplot(data = tt, aes(x = age, y = survived_n2)) +
+ols_logit<-ggplot(data = tt, aes(x = age, y = survived_n2)) +
   geom_point(aes(color = as.factor(survived_n2)), shape = 1) +
   geom_smooth(method = "lm", color = "gray20", se = FALSE) +
   theme_bw()  +
   labs(title = "Regresión lineal por mínimos cuadrados",
        y = "Sobrevive") +
   theme(legend.position = "none", text = element_text(size = 20))
+ggsave(ols_logit, file="../../files/img/ols_logit.png")
 ```
+
+![:scale 95%](../../files/img/ols_logit.png)
 ]
 
 .pull-right[
@@ -474,7 +491,7 @@ modelo_logistico2 <- glm(survived_n2 ~ age, data = tt, family = "binomial")
 ```
 
 ```{r echo=FALSE}
-ggplot(data = tt, aes(x = age, y = survived_n2)) +
+ols_logit2<-ggplot(data = tt, aes(x = age, y = survived_n2)) +
   geom_point(aes(color = as.factor(survived_n2)), shape = 1) +
   stat_function(fun = function(x){predict(modelo_logistico2,
                                           newdata = data.frame(age = x),
@@ -484,7 +501,10 @@ ggplot(data = tt, aes(x = age, y = survived_n2)) +
        y = "Probabilidad sobrevivir") +
   theme(legend.position = "none", text = element_text(size = 20))
 
+ggsave(ols_logit2, file="../../files/img/ols_logit2.png")
 ```
+
+![:scale 95%](../../files/img/ols_logit2.png)
 ]
 
 
