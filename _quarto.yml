@@ -108,8 +108,8 @@ website:
           file: practicos/practico-05.qmd
         - text: "Práctico 6 - Resumen regresión lineal"
           file: practicos/practico-06.qmd
-#        - text: "Práctico 6"
-#          file: resource/07-resource.qmd
+        - text: "Práctico 7 - Regresión logística I"
+          file: resource/practico-07.qmd
 #        - text: "Práctico 7"
 #          file: resource/08-resource.qmd
 #        - text: "Práctico 8"
