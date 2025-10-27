@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Práctico 07. Regresión logística I – Metodos 3 - Universidad Andrés Bello</title>
+<title>Práctico 08. Regresión logística II – Metodos 3 - Universidad Andrés Bello</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -135,14 +135,14 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Práctico 07. Regresión logística I – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:title" content="Práctico 08. Regresión logística II – Metodos 3 - Universidad Andrés Bello">
 <meta property="og:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="500">
 <meta property="og:image:width" content="500">
-<meta name="twitter:title" content="Práctico 07. Regresión logística I – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:title" content="Práctico 08. Regresión logística II – Metodos 3 - Universidad Andrés Bello">
 <meta name="twitter:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta name="twitter:creator" content="@kevincarrascoq1">
@@ -317,7 +317,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Práctico 07. Regresión logística I</h1>
+<h1 class="title">Práctico 08. Regresión logística II</h1>
 <p class="subtitle lead">Métodos estadísticos para Ciencias Sociales III</p>
 </div>
 
@@ -367,17 +367,18 @@ window.Quarto = {
 </section>
 <section id="datos" class="level1">
 <h1>Datos</h1>
+<ul>
+<li><p>Como la universidad no permite el acceso a Github, pueden encontrar la base de datos en el canvas del curso, archivos, bajo el nombre datos-practico8.RData</p></li>
+<li><p>Si no están conectados mediante eduroam de la universidad, pueden usar el siguiente link:</p></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>WVS_2005_2022_Chl<span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="st">"../files/data/WVS_2005_2022_Chl.rds"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cargamos la base de datos desde internet</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/WVS_2005_2022_Chl.RData"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cargamos la base de datos desde internet</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/WVS_2005_2022_Chl.RData"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="explorar-datos" class="level2">
 <h2 class="anchored" data-anchor-id="explorar-datos">Explorar datos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(WVS_2005_2022_Chl) <span class="co">#con comando de paquete haven</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(WVS_2005_2022_Chl) <span class="co">#con comando de paquete haven</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Unionized      demonstr_dummy   petition_dummy       Wave    
  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Wave 5:373  
@@ -412,7 +413,7 @@ window.Quarto = {
  Max.   :10.000   Max.   :10.000   Max.   :10.000   Max.   :10.000  
  NA's   :16       NA's   :87       NA's   :62       NA's   :439     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(WVS_2005_2022_Chl) <span class="co">#con comando de paquete psych</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(WVS_2005_2022_Chl) <span class="co">#con comando de paquete psych</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  vars    n  mean    sd median trimmed   mad min max range
 Unionized            1 1457  0.20  0.40      0    0.12  0.00   0   1     1
@@ -471,13 +472,13 @@ state_inc_eq      -0.40    -0.61 0.08</code></pre>
 <section id="tabla-de-contingencia-bivariado-sindicalización-participación-en-marchas" class="level2">
 <h2 class="anchored" data-anchor-id="tabla-de-contingencia-bivariado-sindicalización-participación-en-marchas">Tabla de contingencia bivariado: sindicalización / participación en marchas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>WVS_2005_2022_Chl <span class="ot">&lt;-</span> WVS_2005_2022_Chl <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Unionized =</span> <span class="fu">labelled</span>(.<span class="sc">$</span>Unionized,<span class="fu">c</span>(<span class="st">"No"</span><span class="ot">=</span><span class="dv">0</span>,<span class="st">"Sí"</span><span class="ot">=</span><span class="dv">1</span>)),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">demonstr_dummy =</span> <span class="fu">labelled</span>(.<span class="sc">$</span>demonstr_dummy,<span class="fu">c</span>(<span class="st">"No"</span><span class="ot">=</span><span class="dv">0</span>,<span class="st">"Sí"</span><span class="ot">=</span><span class="dv">1</span>)))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>WVS_2005_2022_Chl <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(WVS_2005_2022_Chl) <span class="co">#para que la base quede como data frame (necesario para las figuras)</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(WVS_2005_2022_Chl<span class="sc">$</span>Unionized)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>WVS_2005_2022_Chl <span class="ot">&lt;-</span> WVS_2005_2022_Chl <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Unionized =</span> <span class="fu">labelled</span>(.<span class="sc">$</span>Unionized,<span class="fu">c</span>(<span class="st">"No"</span><span class="ot">=</span><span class="dv">0</span>,<span class="st">"Sí"</span><span class="ot">=</span><span class="dv">1</span>)),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">demonstr_dummy =</span> <span class="fu">labelled</span>(.<span class="sc">$</span>demonstr_dummy,<span class="fu">c</span>(<span class="st">"No"</span><span class="ot">=</span><span class="dv">0</span>,<span class="st">"Sí"</span><span class="ot">=</span><span class="dv">1</span>)))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>WVS_2005_2022_Chl <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(WVS_2005_2022_Chl) <span class="co">#para que la base quede como data frame (necesario para las figuras)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(WVS_2005_2022_Chl<span class="sc">$</span>Unionized)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>x &lt;numeric&gt; 
 # total N=1457 valid N=1457 mean=0.20 sd=0.40
@@ -488,7 +489,7 @@ Value | Label |    N | Raw % | Valid % | Cum. %
     1 |    Sí |  289 | 19.84 |   19.84 | 100.00
  &lt;NA&gt; |  &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(WVS_2005_2022_Chl<span class="sc">$</span>demonstr_dummy)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(WVS_2005_2022_Chl<span class="sc">$</span>demonstr_dummy)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>x &lt;integer&gt; 
 # total N=1457 valid N=1457 mean=0.21 sd=0.41
@@ -499,12 +500,12 @@ Value | Label |    N | Raw % | Valid % | Cum. %
     1 |    Sí |  302 | 20.73 |   20.73 | 100.00
  &lt;NA&gt; |  &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_xtab</span>(<span class="at">var.col =</span> WVS_2005_2022_Chl<span class="sc">$</span>Unionized, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var.row =</span> WVS_2005_2022_Chl<span class="sc">$</span>demonstr_dummy, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Participación en marchas según afiliación sindical"</span>, </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">show.col.prc =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">value.labels =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_xtab</span>(<span class="at">var.col =</span> WVS_2005_2022_Chl<span class="sc">$</span>Unionized, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var.row =</span> WVS_2005_2022_Chl<span class="sc">$</span>demonstr_dummy, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Participación en marchas según afiliación sindical"</span>, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">show.col.prc =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">value.labels =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `valueLables` needs to be a `list`-object.</code></pre>
 </div>
@@ -600,12 +601,12 @@ Value | Label |    N | Raw % | Valid % | Cum. %
 <h2 class="anchored" data-anchor-id="modelo-de-probabilidad-lineal">Modelo de probabilidad lineal</h2>
 <p>Primero, solo para comparación, estimamos un modelo de probabilidad lineal.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m1mpl <span class="ot">&lt;-</span> <span class="fu">lm</span>(demonstr_dummy <span class="sc">~</span> Unionized <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m1mpl <span class="ot">&lt;-</span> <span class="fu">lm</span>(demonstr_dummy <span class="sc">~</span> Unionized <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(m1mpl,</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="st">"Modelo de Prob Lineal"</span>,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(m1mpl,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="st">"Modelo de Prob Lineal"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -722,17 +723,17 @@ Num. obs.
 <section id="modelo-de-regresión-logística" class="level2">
 <h2 class="anchored" data-anchor-id="modelo-de-regresión-logística">Modelo de regresión logística</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m0log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized, <span class="at">data =</span> WVS_2005_2022_Chl, <span class="at">family =</span> <span class="st">"binomial"</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>m1log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl, <span class="at">family =</span> <span class="st">"binomial"</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#nota: "logit" viene por defecto en la opción "binomial", por eso no es necesario </span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#incluirla explícitamente en el código (tal como lo hago en los modelos sgtes)</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>m2log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Female <span class="sc">+</span> X003 <span class="sc">+</span> Educ <span class="sc">+</span> private_sector <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl,<span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>m3log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Female <span class="sc">+</span> X003 <span class="sc">+</span> Educ <span class="sc">+</span> private_sector <span class="sc">+</span> politicization <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl,<span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m0log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized, <span class="at">data =</span> WVS_2005_2022_Chl, <span class="at">family =</span> <span class="st">"binomial"</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>m1log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl, <span class="at">family =</span> <span class="st">"binomial"</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#nota: "logit" viene por defecto en la opción "binomial", por eso no es necesario </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#incluirla explícitamente en el código (tal como lo hago en los modelos sgtes)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>m2log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Female <span class="sc">+</span> X003 <span class="sc">+</span> Educ <span class="sc">+</span> private_sector <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl,<span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>m3log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Female <span class="sc">+</span> X003 <span class="sc">+</span> Educ <span class="sc">+</span> private_sector <span class="sc">+</span> politicization <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl,<span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1mpl, m1log,m2log,m3log),</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"M1 (m prob lineal)"</span>,<span class="st">"M1 (log odds)"</span>,<span class="st">"M2 (log odds)"</span>,<span class="st">"M3 (log odds)"</span>),</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1mpl, m1log,m2log,m3log),</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"M1 (m prob lineal)"</span>,<span class="st">"M1 (log odds)"</span>,<span class="st">"M2 (log odds)"</span>,<span class="st">"M3 (log odds)"</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1245,23 +1246,23 @@ Deviance
 <section id="estimación-de-odds-ratios" class="level2">
 <h2 class="anchored" data-anchor-id="estimación-de-odds-ratios">Estimación de odds ratios</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1log)) <span class="co">#comando básico</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1log)) <span class="co">#comando básico</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)   Unionized  WaveWave 6  WaveWave 7 
   0.2016888   1.5185264   1.5996549   0.9694021 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Cálculo de OR para cada modelo</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>m0log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m0log))</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>m1log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m1log))</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>m2log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m2log))</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>m3log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m3log))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Cálculo de OR para cada modelo</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>m0log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m0log))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>m1log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m1log))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>m2log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m2log))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>m3log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m3log))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Odds ratios en tabla de texreg</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1log,m2log,m3log), </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">override.coef =</span> <span class="fu">list</span>(m1log_OR,m2log_OR,m3log_OR), <span class="co"># Sobreescribir coeficientes</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"m1 (OR)"</span>,<span class="st">"m2 (OR)"</span>,<span class="st">"m3 (OR)"</span>),</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Odds ratios en tabla de texreg</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1log,m2log,m3log), </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">override.coef =</span> <span class="fu">list</span>(m1log_OR,m2log_OR,m3log_OR), <span class="co"># Sobreescribir coeficientes</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"m1 (OR)"</span>,<span class="st">"m2 (OR)"</span>,<span class="st">"m3 (OR)"</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1642,17 +1643,17 @@ Num. obs.
 </tr>
 </tfoot>
 </table>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Nota: errores estándares en esta tabla NO tienen  sentido (no están calculados a partir de OR, sino de log odds)</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Es mejor no reportarlos si solo se van a presentar odds ratios</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Nota: errores estándares en esta tabla NO tienen  sentido (no están calculados a partir de OR, sino de log odds)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Es mejor no reportarlos si solo se van a presentar odds ratios</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Sin embargo, los coeficientes de un modelo de reg. logística (log-odds u odds-ratios) no son comparables con los coeficientes de otro modelo</p>
 </section>
 <section id="cálculo-de-probabilidades-predichas" class="level2">
 <h2 class="anchored" data-anchor-id="cálculo-de-probabilidades-predichas">Cálculo de probabilidades predichas</h2>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla básica: sólo sindicalizacion como vble independ</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(m0log,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"m0 (log odds)"</span>),</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla básica: sólo sindicalizacion como vble independ</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(m0log,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"m0 (log odds)"</span>),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1771,23 +1772,23 @@ Num. obs.
 </ul>
 <p>Gráfico de probabilidades predichas para sindicalizados/as y no sindicalizados/as</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>FigSind_1_Prob <span class="ot">&lt;-</span> ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(m3log, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Unionized"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Sindicalización"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>), </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-union members"</span>, <span class="st">"Union members"</span>)) <span class="sc">+</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.35</span>), </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.35</span>, <span class="at">by =</span> <span class="fl">0.05</span>),</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>L))</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>FigSind_1_Prob</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>FigSind_1_Prob <span class="ot">&lt;-</span> ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(m3log, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Unionized"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Sindicalización"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>), </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-union members"</span>, <span class="st">"Union members"</span>)) <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.35</span>), </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.35</span>, <span class="at">by =</span> <span class="fl">0.05</span>),</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>L))</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>FigSind_1_Prob</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1798,20 +1799,20 @@ Num. obs.
 </div>
 <p>Gráfico de probabilidades predichas para variable politización</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>FigPolit_1_Prob<span class="ot">&lt;-</span> ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(m3log, <span class="at">terms=</span><span class="st">"politicization"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Politización"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>)<span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">fill =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>), </span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">6</span>, <span class="at">by =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.6</span>), <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.6</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>L))</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>FigPolit_1_Prob</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>FigPolit_1_Prob<span class="ot">&lt;-</span> ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(m3log, <span class="at">terms=</span><span class="st">"politicization"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Politización"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>)<span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">fill =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>), </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">6</span>, <span class="at">by =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.6</span>), <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.6</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>L))</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>FigPolit_1_Prob</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
