@@ -605,18 +605,6 @@
     ]
   },
   {
-    "objectID": "content/08-content.html#lecturas",
-    "href": "content/08-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "08: Sesión 8"
-    ]
-  },
-  {
     "objectID": "content/06-content.html",
     "href": "content/06-content.html",
     "title": "Presentación",
@@ -879,21 +867,24 @@
     "href": "content/09-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del viernes, 9 de junio de 2023"
+    "text": "Sesión del lunes, 27 de octubre de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "09: Sesión 9"
+    ]
   },
   {
     "objectID": "content/09-content.html#documento-de-presentación",
     "href": "content/09-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
-    "text": "Documento de presentación"
-  },
-  {
-    "objectID": "content/09-content.html#lecturas",
-    "href": "content/09-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas"
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "09: Sesión 9"
+    ]
   },
   {
     "objectID": "content/11-content.html",
