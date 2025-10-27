@@ -1,0 +1,321 @@
+---
+title: "Práctico 07. Regresión logística I"
+subtitle: "Métodos estadísticos para Ciencias Sociales III"
+date: "2025-10-27"
+lang: es
+output:
+  number_sections: true
+---
+
+# Regresión logística
+
+La Encuesta Mundial de Valores (EMV) o World Values Survey [WVS](https://www.worldvaluessurvey.org/wvs.jsp) es un proyecto global de investigación social que explora los valores y opiniones de la gente, cómo estos cambian con el tiempo, y su impacto social y político. Desde 1981 una red mundial de científicos sociales y politólogos llevan a cabo esta investigación, haciendo encuestas nacionales representativas en casi 100 países. La WVS es la única fuente de datos empíricos sobre actitudes y valores humanos que abarca a la mayoría de la población mundial (casi el 90%).
+
+## Objetivo
+
+En el ejemplo de esta práctica, que utiliza solo casos para Chile entre 2005 y 2022, se intentará responder la pregunta ¿existe una relación entre la afiliación a sindicatos y la participación en marchas?
+
+Debido a la naturaleza de la variable dependiente participación en marchas (si/no), el objetivo de esta práctica es estimar modelos de regresión logística binaria.
+
+# Librerías
+
+```{r}
+pacman::p_load(tidyr,
+               dplyr,
+               sjPlot,
+               sjmisc,
+               psych,
+               texreg,
+               haven,
+               ggplot2,
+               lmtest,
+               DescTools)
+```
+
+# Datos
+
+```{r}
+WVS_2005_2022_Chl<- readRDS(file = "../files/data/WVS_2005_2022_Chl.rds")
+```
+
+```{r eval=FALSE}
+#Cargamos la base de datos desde internet
+load(url("https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/WVS_2005_2022_Chl.RData"))
+```
+
+## Explorar datos
+
+```{r}
+summary(WVS_2005_2022_Chl) #con comando de paquete haven
+describe(WVS_2005_2022_Chl) #con comando de paquete psych
+```
+
+# Regresiones logísticas
+
+El punto de partida es transformación de los coeficientes 𝛽 en coeficientes logit:
+
+* Se conoce como “logit” a la transformación logarítmica de los odds (traducidos comúnmente como “chances”)
+
+* ¿Qué son los odds? Una razón de probabilidades
+
+* Por lo tanto, para estimar probabilidades a través de una regresión logística hay que seguir estos pasos:
+  1. Estimar los odds o razón de probabilidades
+  2. Estimar odds ratios (razones entre odds)
+  3. Aplicar una transformación logarítmica a esos odds ratios para obtener coeficientes logit
+  4. Calcular las probabilidades
+
+## Tabla de contingencia bivariado: sindicalización / participación en marchas
+
+```{r}
+WVS_2005_2022_Chl <- WVS_2005_2022_Chl %>%
+  mutate(Unionized = labelled(.$Unionized,c("No"=0,"Sí"=1)),
+         demonstr_dummy = labelled(.$demonstr_dummy,c("No"=0,"Sí"=1)))
+
+WVS_2005_2022_Chl <- as.data.frame(WVS_2005_2022_Chl) #para que la base quede como data frame (necesario para las figuras)
+
+frq(WVS_2005_2022_Chl$Unionized)
+frq(WVS_2005_2022_Chl$demonstr_dummy)
+
+sjPlot::tab_xtab(var.col = WVS_2005_2022_Chl$Unionized, 
+                 var.row = WVS_2005_2022_Chl$demonstr_dummy, 
+                 title = "Participación en marchas según afiliación sindical", 
+                 show.col.prc = TRUE,
+                 value.labels = TRUE,
+                 encoding = "UTF-8")
+```
+
+### Odds
+
+$$Odds_{participar} = \frac{0.207}{0.793} = 0.26$$
+
+Las chances de participar en una marcha son de 0,26, respecto a las chances de no participar
+
+* En otras palabras: por cada 1 persona, hay sólo 0,26 personas que participan en marchas.
+
+* O más intuitivamente, por cada 100 personas, hay sólo 26 personas que participan
+
+¿Cambian las chances de participar según se esté afiliado/a a un sindicato
+
+$$Odds_{sindical} = \frac{0.26}{0.74} = 0.35$$
+
+$$Odds_{no.sindical} = \frac{0.194}{0.806} = 0.24$$
+
+¿Cómo se interpretan los odds?
+
+* Valores bajo 1 indican que las chances de que ocurra un evento son negativas
+
+* Valores iguales a 1 indican chances iguales
+
+* Valores sobre 1 indican chances positivas
+
+### Odds ratios (razones de chances)
+
+* Cálculo que permite reflejar asociación entre dos variables dicotómicas, a partir de una comparación entre chances
+
+* Siguiendo con el ejemplo anterior, ¿tienen los/as sindicalizados más chances de participar en marchas que quienes no están sindicalizados/as?
+
+$$OR = \frac{P_{sindical}/(1-P_{sindical})}{P_{no.sindical}/(1-P_{no.sindical})}$$
+
+$$OR = \frac{0.26/0.74}{0.194/0.806} = \frac{0.35}{0.24} = 1.46$$
+
+Las chances de participar en marchas de los/as sindicalizados/as son 1,5 veces más que las de quienes no están sindicalizados/as
+
+* Implicancias:
+
+  1. El odds ratio o razones de chances es útil porque nos permite expresar en un número la relación entre dos variables categóricas
+  2. En las regresiones logísticas, el odds ratio es la primera manera de aproximarnos a relación entre variables
+  3. Sin embargo, falta un paso más necesario para construir modelos de regresión logística
+  
+## Logit
+
+* Es una unidad de medida de la relación entre dos variables (VD: dicotómica), que en regresión logística se calcula a partir del logaritmo natural de los odds
+
+* Esta transformación logarítmica es la base de la estimación de parámetros en la regresión logística:
+
+La mejor combinación lineal de predictores no se obtiene a través de MCO, sino a través del procedimiento de máxima verosimilitud
+
+* A diferencia de los odds ratio, los coeficientes logit tienen valores que van de –\infty a +\infty
+
+## Modelo de probabilidad lineal
+
+Primero, solo para comparación, estimamos un modelo de probabilidad lineal.
+
+```{r}
+m1mpl <- lm(demonstr_dummy ~ Unionized + Wave, data = WVS_2005_2022_Chl)
+```
+
+
+```{r results='asis'}
+htmlreg(m1mpl,
+          custom.model.names = "Modelo de Prob Lineal",
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
+```
+
+## Modelo de regresión logística
+
+```{r}
+m0log <- glm(demonstr_dummy~ Unionized, data = WVS_2005_2022_Chl, family = "binomial"(link = "logit"))
+m1log <- glm(demonstr_dummy~ Unionized + Wave, data = WVS_2005_2022_Chl, family = "binomial"(link = "logit"))
+#nota: "logit" viene por defecto en la opción "binomial", por eso no es necesario 
+#incluirla explícitamente en el código (tal como lo hago en los modelos sgtes)
+m2log <- glm(demonstr_dummy~ Unionized + Female + X003 + Educ + private_sector + Wave, data = WVS_2005_2022_Chl,family = "binomial")
+m3log <- glm(demonstr_dummy~ Unionized + Female + X003 + Educ + private_sector + politicization + Wave, data = WVS_2005_2022_Chl,family = "binomial")
+```
+
+
+```{r results='asis'}
+htmlreg(list(m1mpl, m1log,m2log,m3log),
+          custom.model.names = c("M1 (m prob lineal)","M1 (log odds)","M2 (log odds)","M3 (log odds)"),
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
+```
+
+En el Modelo 1 (M1), el log-odds de participación en marchas para afiliados a sindicatos aumenta en 0.418 en comparación con los no sindicalizados (p<0.01). Este resultado mantiene su significación estadística en el Modelo 2 y baja su significación a p<0.1 en el Modelo 3, al controlar por las demás variables independientes.
+
+En el Modelo 2, En comparación a los/as trabajadores/as del sector público (categoría de referencia), el log-odds de participación en marchas para los/as del sector privado disminuye en 0,52 (p < 0,01), manteniendo el resto de variables constantes.
+
+En el Modelo 3, por cada unidad de aumento en la escala de politización, el log-odds de participación en marchas aumenta en 0,28 (p < 0,001), manteniendo el resto de las variables constantes.
+
+### Problemas de interpretación 
+
+A pesar de sus ventajas, los coeficientes logit son difíciles de interpretar:
+
+* Los coef. logit son el resultado de una transformación de la escala original
+
+* Ellos no muestran directamente probabilidades
+
+* Entonces: Volver a la escala original de **odds ratio** mediante la **exponenciación de los coeficientes** (la función exponencial es la inversa del logaritmo)
+
+$$logit_x = log(odds)$$
+
+$$e^{logit} = odds_x$$
+
+$$e^{0.39} = odds_x = 1.477$$
+
+Las chances (odds) de participar en marchas de los/as sindicalizados/as son 1,5 veces más que las de quienes no están sindicalizados/as, controlando por las otras variables incluidas en el modelo
+
+## Estimación de odds ratios
+
+```{r}
+exp(coef(m1log)) #comando básico
+
+### Cálculo de OR para cada modelo
+m0log_OR <- exp(coef(m0log))
+m1log_OR <- exp(coef(m1log))
+m2log_OR <- exp(coef(m2log))
+m3log_OR <- exp(coef(m3log))
+```
+
+
+```{r results='asis'}
+##Odds ratios en tabla de texreg
+htmlreg(list(m1log,m2log,m3log), 
+          override.coef = list(m1log_OR,m2log_OR,m3log_OR), # Sobreescribir coeficientes
+          custom.model.names = c("m1 (OR)","m2 (OR)","m3 (OR)"),
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
+#Nota: errores estándares en esta tabla NO tienen  sentido (no están calculados a partir de OR, sino de log odds)
+#Es mejor no reportarlos si solo se van a presentar odds ratios
+```
+
+Sin embargo, los coeficientes de un modelo de reg. logística (log-odds u odds-ratios) no son comparables con los coeficientes de otro modelo
+
+## Cálculo de probabilidades predichas
+
+```{r results='asis'}
+# Tabla básica: sólo sindicalizacion como vble independ
+htmlreg(m0log,
+          custom.model.names = c("m0 (log odds)"),
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
+```
+
+A partir de este modelo se pueden predecir log-odds y, más importante aún, probabilidades para personas con distintos atributos controlados en el modelo (ej., sindicalizadas o no)
+
+$$logit(prob.marcha) = 𝛼+ 𝛽_1X_1 $$
+
+$$logit(prob.marcha)_{sindical} = -1.422 + (0.374 * Unionized=1) = -1.048 $$
+
+$$logit(prob.marcha)_{no.sindical} = -1.422 + (0.374 * Unionized=0) = -1.422 $$
+
+Este “puntaje predicho” (log-odds) no tiene interpretación, por lo que hay que pasarlo a Odds
+
+
+$$Odds_x = e^{𝛼+𝛽_jX_j}$$
+
+$$Odds_{sindicalizados} = e^{-1.048} = 0.35$$
+
+$$Odds_{no.sindicalizados} = e^{-1.422} = 0.24$$
+
+Finalmente, habiendo calculado los odds para cada tipo de persona se pueden calcular sus probabilidades predichas
+
+$$p = \frac{e^{𝛼+𝛽_jX_j}}{1+e^{𝛼+𝛽_jX_j}} = \frac{odds_{xj}}{1+odds_{xj}}$$
+
+$$p_{sindicalizados} = \frac{0.35}{1+0.35} = \frac{0.35}{1.35} = 0.26$$
+
+$$p_{no.sindicalizados} = \frac{0.24}{1+0.24} = \frac{0.24}{1.24} = 0.19$$
+
+La probabilidad de que un/a sindicalizado participe en marchas es del 26%, mientras que la probabilidad de que alguien que no esté sindicalizado/a es del 19%
+
+
+## Cálculo de probabilidades predichas en R
+
+* Paquete ggeffects de R: últil para estimar probabilidades predichas a partir de modelos de regresión logísticas
+
+* Combinado con ggplot2, se pueden generar gráficos que muestran de modo más intuitivo la relación entre variables
+
+Gráfico de probabilidades predichas para sindicalizados/as y no sindicalizados/as
+
+```{r}
+FigSind_1_Prob <- ggeffects::ggpredict(m3log, terms = c("Unionized")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Sindicalización", x = "", y = "") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 12), 
+        axis.text.x = element_text(angle = 0, vjust = 0.5, size = 12),
+        axis.text.y = element_text(vjust = 0.5, size = 10)) +
+  scale_x_continuous(name = "",
+                     breaks = c(0,1),
+                     labels = c("Non-union members", "Union members")) +
+  scale_y_continuous(limits = c(0,0.35), 
+                     breaks = seq(0,0.35, by = 0.05),
+                     labels = scales::percent_format(accuracy = 1L))
+
+FigSind_1_Prob
+```
+
+Gráfico de probabilidades predichas para variable politización
+
+```{r}
+FigPolit_1_Prob<- ggeffects::ggpredict(m3log, terms="politicization") %>%
+  ggplot(mapping=aes(x = x, y=predicted)) +
+  labs(title="Politización", x = "", y = "")+
+  theme_bw() +
+  geom_smooth()+
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "black") +
+  theme(plot.title = element_text(size = 12), 
+        axis.text.x = element_text(angle = 0, vjust = 0.5, size = 10),
+        axis.text.y = element_text(vjust = 0.5, size = 10))+
+  scale_x_continuous(breaks = seq(0,6, by = 1))+
+  scale_y_continuous(limits = c(0,0.6), breaks=seq(0,0.6, by = 0.1),
+                     labels = scales::percent_format(accuracy = 1L))
+
+FigPolit_1_Prob
+```
+
+# Ejercicio
+
+1- Estima un modelo de regresión logística que tenga como variable dependiente `petition_dummy` (Frecuence de participación: firmar una petición). Propon la mejor forma de estimar la participación en peticiones a partir de las siguientes variables: `Unionized` (afiliación sindicatos), `pol_pos_left` (dummy ser de izquierda o no), `civic_involvement` (compromiso cívico), `X003` (edad), `female` (mujer), `educ` (educación).
+
+Antes de estimar los modelos, reflexionar entorno a:
+
+  - ¿Qué variable sería el principal predictor de firmar una petición?
+  - ¿Se deben agregar primero las variables socioeconómicas o las de opinión pública?
+  - Van todas las variables independientes juntas, se agregan unas primero y otras después?
+
+2- Interpretar los coeficientes de los modelos estimados.
+
+3- Estimar y graficar las probabilidades predichas de firmar una petición para las variables independientes `pol_pos_left` y `civic_involvement`
