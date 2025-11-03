@@ -114,8 +114,8 @@ website:
           file: practicos/practico-07.qmd
         - text: "Práctico 8 - Regresión logística II"
           file: practicos/practico-08.qmd
-#        - text: "Práctico 8"
-#          file: resource/09-resource.qmd
+        - text: "Práctico 9 - Supuestos de regresión"
+          file: practicos/practico-09.qmd
 
   page-footer:
     left: |
