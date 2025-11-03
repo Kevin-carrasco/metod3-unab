@@ -311,6 +311,42 @@ FigPolit_1_Prob<- ggeffects::ggpredict(m3log, terms="politicization") %>%
 FigPolit_1_Prob
 ```
 
+# Bondad de ajuste
+
+```{r}
+anova(m1log, m2log, test = "Chisq")
+```
+
+```{r}
+anova(m2log, m3log, test = "Chisq") 
+```
+
+```{r}
+lrtest(m1log, m2log) #likelihood ratio test / Prueba de razón de verosimilitud (comparación m1-m2)
+```
+
+```{r}
+lrtest(m2log, m3log) #likelihood ratio test / Prueba de razón de verosimilitud (comparación m2-m3)
+```
+
+## Pseudo R2 (MCFadden)
+
+```{r}
+m1log_R2<-DescTools::PseudoR2(m1log)
+m2log_R2<-DescTools::PseudoR2(m2log)
+m3log_R2<-DescTools::PseudoR2(m3log)
+```
+
+```{r results='asis'}
+#Misma tabla, en log odds, con Pseudo R2
+htmlreg(list(m1log,m2log,m3log),
+          custom.model.names = c("m1 (log odds)","m2 (log odds)","m3 (log odds)"),
+          custom.gof.rows=list("Pseudo R2" = c(m1log_R2, m2log_R2,m3log_R2)),
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
+```
+
+
 # Ejercicio
 
 1- Estima un modelo de regresión logística que tenga como variable dependiente `petition_dummy` (Frecuence de participación: firmar una petición). Propon la mejor forma de estimar la participación en peticiones a partir de las siguientes variables: `Unionized` (afiliación sindicatos), `pol_pos_left` (dummy ser de izquierda o no), `civic_involvement` (compromiso cívico), `X003` (edad), `female` (mujer), `educ` (educación).

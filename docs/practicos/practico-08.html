@@ -314,6 +314,10 @@ window.Quarto = {
   <li><a href="#cálculo-de-probabilidades-predichas" id="toc-cálculo-de-probabilidades-predichas" class="nav-link" data-scroll-target="#cálculo-de-probabilidades-predichas">Cálculo de probabilidades predichas</a></li>
   <li><a href="#cálculo-de-probabilidades-predichas-en-r" id="toc-cálculo-de-probabilidades-predichas-en-r" class="nav-link" data-scroll-target="#cálculo-de-probabilidades-predichas-en-r">Cálculo de probabilidades predichas en R</a></li>
   </ul></li>
+  <li><a href="#bondad-de-ajuste" id="toc-bondad-de-ajuste" class="nav-link" data-scroll-target="#bondad-de-ajuste">Bondad de ajuste</a>
+  <ul class="collapse">
+  <li><a href="#pseudo-r2-mcfadden" id="toc-pseudo-r2-mcfadden" class="nav-link" data-scroll-target="#pseudo-r2-mcfadden">Pseudo R2 (MCFadden)</a></li>
+  </ul></li>
   <li><a href="#ejercicio" id="toc-ejercicio" class="nav-link" data-scroll-target="#ejercicio">Ejercicio</a></li>
   </ul>
 </nav>
@@ -1830,6 +1834,479 @@ Num. obs.
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="bondad-de-ajuste" class="level1">
+<h1>Bondad de ajuste</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m1log, m2log, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: demonstr_dummy ~ Unionized + Wave
+Model 2: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
+    Wave
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1      1453     1467.9                          
+2      1448     1442.1  5   25.828 9.635e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2log, m3log, <span class="at">test =</span> <span class="st">"Chisq"</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
+    Wave
+Model 2: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
+    politicization + Wave
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1      1448     1442.1                          
+2      1447     1395.8  1    46.21 1.063e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lrtest</span>(m1log, m2log) <span class="co">#likelihood ratio test / Prueba de razón de verosimilitud (comparación m1-m2)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Likelihood ratio test
+
+Model 1: demonstr_dummy ~ Unionized + Wave
+Model 2: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
+    Wave
+  #Df  LogLik Df  Chisq Pr(&gt;Chisq)    
+1   4 -733.94                         
+2   9 -721.03  5 25.828  9.635e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lrtest</span>(m2log, m3log) <span class="co">#likelihood ratio test / Prueba de razón de verosimilitud (comparación m2-m3)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Likelihood ratio test
+
+Model 1: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
+    Wave
+Model 2: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
+    politicization + Wave
+  #Df  LogLik Df Chisq Pr(&gt;Chisq)    
+1   9 -721.03                        
+2  10 -697.92  1 46.21  1.063e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<section id="pseudo-r2-mcfadden" class="level2">
+<h2 class="anchored" data-anchor-id="pseudo-r2-mcfadden">Pseudo R2 (MCFadden)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>m1log_R2<span class="ot">&lt;-</span>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(m1log)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>m2log_R2<span class="ot">&lt;-</span>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(m2log)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>m3log_R2<span class="ot">&lt;-</span>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(m3log)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Misma tabla, en log odds, con Pseudo R2</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1log,m2log,m3log),</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"m1 (log odds)"</span>,<span class="st">"m2 (log odds)"</span>,<span class="st">"m3 (log odds)"</span>),</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.gof.rows=</span><span class="fu">list</span>(<span class="st">"Pseudo R2"</span> <span class="ot">=</span> <span class="fu">c</span>(m1log_R2, m2log_R2,m3log_R2)),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+m1 (log odds)
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+m2 (log odds)
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+m3 (log odds)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-1.601<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-1.023<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-1.379<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.140)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.424)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.437)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Unionized
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.418<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.390<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.312<sup>†</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.155)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.157)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.161)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+WaveWave 6
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.470<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.498<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.496<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.168)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.171)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.174)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+WaveWave 7
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.031
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.102
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.121
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.174)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.181)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.184)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Female
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.020
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.100
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.136)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.139)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+X003
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.007
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.012<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.006)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educ2
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.042
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.053
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.268)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.272)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educ3
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.521<sup>†</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.259
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.283)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.289)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+private_sector
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.516<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.445<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.175)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.180)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+politicization
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.282<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.042)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Pseudo R2
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.013
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.030
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.061
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1475.887
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1460.059
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1415.850
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1497.024
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1507.616
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1468.691
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-733.944
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-721.030
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-697.925
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1467.887
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1442.059
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1395.850
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1457
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1457
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1457
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="4">
+<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05; <sup>†</sup>p &lt; 0.1
+</td>
+</tr>
+</tfoot>
+</table>
 </section>
 </section>
 <section id="ejercicio" class="level1">
