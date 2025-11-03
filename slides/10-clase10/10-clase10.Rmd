@@ -172,7 +172,7 @@ plot1
 ## Sobrevivencia / sexo
 
 .center[
-![:scale 55%](mosaic.png)
+![:scale 55%](../images/mosaic.png)
 ]
 
 ]
@@ -584,16 +584,6 @@ texreg::htmlreg(list(modelo_titanic2,or2 ), doctype = FALSE, caption=" ", custom
 ]
 
 ---
-# Resumen Ajuste
-
-- diferentes aproximaciones
-
-- utilizar más de una forma
-
-- en general: LRT (test de razón de verosimilitud) y algún tipo de R2
-
-
----
 class: inverse, left
 
 ## RESUMEN
@@ -684,7 +674,7 @@ sjPlot::tab_model(list(a1,a2,a3,a4),
 class: middle, center
 
 
-![:scale 50%](question.png)
+![:scale 50%](../images/question.png)
 
 
 ---
@@ -732,7 +722,7 @@ class: inverse middle
 
 
 
-![](robustness-extra_large.jpg)
+![](../images/robustness-extra_large.jpg)
 
 ]
 
@@ -760,7 +750,7 @@ class: inverse middle
 <br>
 <br>
 
-![](robustness-extra_large.jpg)
+![](../images/robustness-extra_large.jpg)
 
 ]
 
@@ -865,7 +855,7 @@ class: inverse middle
 <br>
 <br>
 
-![](robustness-extra_large.jpg)
+![](../images/robustness-extra_large.jpg)
 
 ]
 
@@ -961,19 +951,19 @@ grid.arrange(fires1b,fires2b,fires3b,fires4b, ncol = 2)
 ]
 
 .pull-right[
-![](polinomial.png)
+![](../images/polinomial.png)
 ]
 
 ---
 ## Transformación polinomial
 
 .pull-left[
-![](polinomial1.png)
+![](../images/polinomial1.png)
 ]
 
 
 .pull-right[
-![](polinomial2.png)
+![](../images/polinomial2.png)
 ]
 
 
@@ -983,7 +973,7 @@ grid.arrange(fires1b,fires2b,fires3b,fires4b, ncol = 2)
 - utilizada para variables con un alto sesgo en su distribución
 
 .center[
-![:scale 60%](logaritmic.png)
+![:scale 60%](../images/logaritmic.png)
 ]
 
 - pondera crecientemente las diferencias entre los valores de la escala
@@ -999,7 +989,7 @@ grid.arrange(fires1b,fires2b,fires3b,fires4b, ncol = 2)
 ]
 
 .pull-right[
-![](log2.png)
+![](../images/log2.png)
 ]
 
 
@@ -1027,7 +1017,7 @@ class: inverse middle
 <br>
 <br>
 
-![](robustness-extra_large.jpg)
+![](../images/robustness-extra_large.jpg)
 
 ]
 
@@ -1042,7 +1032,7 @@ class: inverse middle
 ## Homogeneidad de varianza
 
 .center[
-![](homocetastic.jpeg)
+![](../images/homocetastic.jpeg)
 ]
 
 ---
@@ -1092,11 +1082,9 @@ class: inverse middle
 
 .pull-right-narrow[
 
-<br>
-<br>
-<br>
 
-![](robustness-extra_large.jpg)
+
+![](../images/robustness-extra_large.jpg)
 ]
 
 
@@ -1142,11 +1130,9 @@ class: inverse
 
 .pull-left-narrow[
 
-<br>
-<br>
-<br>
 
-![](robustness-extra_large.jpg)
+
+![](../images/robustness-extra_large.jpg)
 
 ]
 

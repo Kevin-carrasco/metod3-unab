@@ -1,17 +1,13 @@
 ---
 title: "Presentación"
-date: "2023-06-16"
+date: "2025-11-03"
 lang: es
 ---
 
 ## Documento de presentación
 
-
-<iframe src=/slides/09-clase9/Semana3.pdf height="550" width=100% allowfullscreen="true">
-</iframe> 
-
+<iframe src=/slides/10-clase10/10-clase10.html height="550" width=100% allowfullscreen="true">
+</iframe>
 
 
-
-## Lecturas
 
