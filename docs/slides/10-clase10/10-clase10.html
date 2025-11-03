@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos estadísticos para Ciencias Sociales III</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=".small[Kevin Carrasco    Departamento de Sociología - UCH / COES   ]" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link rel="stylesheet" href="../../files/css/custom_2020.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: front
+
+
+
+
+
+
+
+
+
+
+&lt;!---
+Para correr en ATOM
+- open terminal, abrir R (simplemente, R y enter)
+- rmarkdown::render('static/docpres/07_interacciones/7interacciones.Rmd', 'xaringan::moon_reader')
+
+About macros.js: permite escalar las imágenes como [scale 50%](path to image), hay si que grabar ese archivo js en el directorio.
+---&gt;
+
+
+.pull-left[
+# Métodos estadísticos para Ciencias Sociales III
+## **Kevin Carrasco**
+## Sociología - UNAB
+## 2do semestre 2025
+## .green[[metod3-unab.netlify.app](metod3-unab.netlify.app)] 
+]
+
+.pull-right[
+.right[
+&lt;br&gt;
+## .yellow[Sesión 10: Resumen Regresión logística y supuestos de regresión]
+![:scale 70%](../../files/img/eval-hires.png)
+
+
+
+]
+
+]
+---
+
+layout: true
+class: animated, fadeIn
+
+---
+class: inverse, bottom, right, animated, slideInRight
+
+
+# .red[Contenidos]
+
+## 1. Resumen regresión logística
+
+## 2. Supuestos de regresión
+
+
+---
+
+class: inverse, center, middle
+
+.pull-left[
+![:scale 80%](../images/postertitanic.jpg)
+]
+
+## ¿Se puede anticipar el final?
+
+???
+
+Si vas al cine a ver esta película, y si antes conoces los datos sobre el Titanic, puedes anticipar el final?
+
+---
+# Titanic data
+
+
+
+
+.small[
+
+<div class="container st-container">
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline ">
+  <thead>
+    <tr>
+      <th align="center" class="st-protect-top-border"><strong>No</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Variable</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Stats / Values</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Freqs (% of Valid)</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Graph</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Valid</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Missing</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">1</td>
+      <td align="left">survived
+[factor]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. No sobrevive</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Sobrevive</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">619</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">59.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">427</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">40.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGUAAAA3BAMAAADnFJkAAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCwMRGxOolj0WAAAAP0lEQVRIx2NgGH5AiQSgANWjbEw8GNUzqmdUz/DWQ04ZIkgCEKCzHgJewKoHf7gZjeoZ1TOqZwTpIacMGU4AAM9RXE6bK1iVAAAAAElFTkSuQmCC"></td>
+      <td align="center">1046
+(100.0%)</td>
+      <td align="center">0
+(0.0%)</td>
+    </tr>
+    <tr>
+      <td align="center">2</td>
+      <td align="left">sex
+[factor]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. Hombre</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Mujer</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">658</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">62.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">388</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">37.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGsAAAA3BAMAAAD53amzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCwMRGxQ28qi1AAAAQklEQVRIx2NgGN5AiTSgANWmbEwSGNU2qm1U26g2rNrILIIESQMCA6INn0fwaMMTkkaj2ka1jWob1UasNjKLoOEKAI3JZavyhCAkAAAAAElFTkSuQmCC"></td>
+      <td align="center">1046
+(100.0%)</td>
+      <td align="center">0
+(0.0%)</td>
+    </tr>
+    <tr>
+      <td align="center">3</td>
+      <td align="left">age
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 29.9 (14.4)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0.2 &le; 28 &le; 80</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 18 (0.5)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">98 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfpCwMRGxQ28qi1AAAAu0lEQVRo3u3X4Q2DIBCGYVagG0g3KPvvphBJtC1yh6fR9v3+kegjIXCHzpGe+Pc8wpTB61LF4hQwMDAwHaYtQ5vYUzk7MDAwsIthqSYGKywZLzCwM7G8g62wPAAD+29MeKRkmHB2YGBgMkzwJyvHYrsjgx2NNW4xOqzREGZs9cm92OopMLBfw+rnswOrz+4wrLQME6xULDNs+f5Z2Pcm2omVFQlW2OcOBgO7AxbmDBZYGWRxeXHZHUd6MgLupwTfqRi/2QAAAABJRU5ErkJggg=="></td>
+      <td align="center">1046
+(100.0%)</td>
+      <td align="center">0
+(0.0%)</td>
+    </tr>
+  </tbody>
+</table>
+<p>Generated by <a href='https://github.com/dcomtois/summarytools'>summarytools</a> 1.0.1 (<a href='https://www.r-project.org/'>R</a> version 4.3.2)<br/>2025-11-03</p>
+</div>
+]
+
+---
+# Sobrevivientes &amp; Sexo
+
+
+
+
+.pull-left[
+.small[
+![](10-clase10_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+]
+.pull-right[
+![](10-clase10_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+---
+## Sobrevivencia / sexo
+
+.center[
+![:scale 55%](mosaic.png)
+]
+
+]
+
+
+---
+class: roja, right
+
+## La .yellow[regresión logística] ofrece una solución a los problemas del .white[rango] de predicciones y de .orange[ajuste] a los datos del modelo de probabilidad lineal
+
+--
+
+## Se logra mediante:
+### (a) expresión de coeficientes como odds-ratio
+### (b) _transformación_ de lo(s) coeficientes a *LOGIT*
+
+
+---
+# Odds 
+
+- **odds** (chances): probabilidad de que algo ocurra dividido por la probabilidad de que no ocurra
+
+`$$Odds=\frac{p}{1-p}$$`
+
+--
+
+.medium[
+Ej. Titanic:
+  - 427 sobrevivientes (41%), 619 muertos (59%)
+`$$Odds_{sobrevivir}=427/619=0.41/0.59=0.69$$`
+
+**Es decir, las chances de sobrevivir son de 0.69**]
+
+---
+## Odds ratio (OR)
+
+.pull-left[
+- los odds-ratio (o razón de chances) permiten reflejar la asociación entre las chances de dos variables dicotómicas
+
+
+**¿Tienen las mujeres más chances de sobrevivir que los hombres?**
+]
+
+--
+.pull-right[
+.medium[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;survived&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;sex&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;Hombre&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;Mujer&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;No sobrevive&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;523&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;79.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;96&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;24.7&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;619&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;59.2&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Sobrevive&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;135&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;20.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;292&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;75.3&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;427&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;40.8&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;658&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;388&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;1046&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+]
+]
+
+---
+# Odds Ratio
+ 
+**¿Cuantas más chances de sobrevivir tienen las mujeres respecto de los hombres?**
+
+- OR supervivencia mujeres / OR supervivencia hombres
+
+.medium[
+`$$OR=\frac{p_{m}/(1-p_{m})}{p_{h}/(1-p_{h})}=\frac{0.753/(1-0.753)}{0.205/(1-0.205)}=\frac{3.032}{0.257}=11.78$$`
+]
+
+--
+
+### Las chances de sobrevivir de las mujeres son **11.78** veces más que las de los hombres.
+
+
+---
+class: roja bottom right
+
+# 2. Regresión logística: Estimación 
+
+---
+# Regresión logística y odds
+
+
+Una de las transformaciones que permite realizar una estimación de regresión con variables dependientes dicotómicas es el **logit**, que es logaritmo de los odds.
+
+
+---
+# Logit
+
+`$$Logit=ln(Odd)=ln(\frac{p}{1-p})$$`
+---
+.small[
+
+.pull-left[
+## Probabilidades, odds y logit
+
+]
+
+.pull-right[
+
+
+
+```
+##    prob odds logit
+##  0.0010           
+##  0.0564           
+##  0.1119           
+##  0.1673           
+##  0.2228           
+##  0.2782           
+##  0.3337           
+##  0.3891           
+##  0.4446           
+##  0.5000           
+##  0.5554           
+##  0.6109           
+##  0.6663           
+##  0.7218           
+##  0.7772           
+##  0.8327           
+##  0.8881           
+##  0.9436           
+##  0.9990
+```
+
+
+]
+]
+
+---
+.small[
+
+.pull-left[
+## Probabilidades, odds y logit
+
+
+```r
+df$odds &lt;- df$prob/(1-df$prob)
+
+df$logit &lt;- log(df$odds)
+```
+
+
+]
+
+.pull-right[
+
+
+
+```
+##    prob     odds  logit
+##  0.0010   0.0010 -6.907
+##  0.0564   0.0598 -2.816
+##  0.1119   0.1260 -2.072
+##  0.1673   0.2010 -1.605
+##  0.2228   0.2866 -1.250
+##  0.2782   0.3855 -0.953
+##  0.3337   0.5008 -0.692
+##  0.3891   0.6370 -0.451
+##  0.4446   0.8004 -0.223
+##  0.5000   1.0000  0.000
+##  0.5554   1.2494  0.223
+##  0.6109   1.5700  0.451
+##  0.6663   1.9970  0.692
+##  0.7218   2.5942  0.953
+##  0.7772   3.4888  1.250
+##  0.8327   4.9761  1.605
+##  0.8881   7.9374  2.072
+##  0.9436  16.7165  2.816
+##  0.9990 999.0000  6.907
+```
+
+
+]
+]
+
+---
+.small[
+
+.pull-left[
+## Probabilidades, odds y logit
+
+
+```r
+df$odds &lt;- df$prob/(1-df$prob)
+
+df$logit &lt;- log(df$odds)
+```
+
+
+]
+
+.pull-right[
+
+
+
+```r
+##    prob     odds  logit
+##  0.0010   0.0010 -6.907
+##  0.0564   0.0598 -2.816
+##  0.1119   0.1260 -2.072
+##  0.1673   0.2010 -1.605
+##  0.2228   0.2866 -1.250
+##  0.2782   0.3855 -0.953
+##  0.3337   0.5008 -0.692
+##  0.3891   0.6370 -0.451
+##  0.4446   0.8004 -0.223
+*##  0.5000   1.0000  0.000
+##  0.5554   1.2494  0.223
+##  0.6109   1.5700  0.451
+##  0.6663   1.9970  0.692
+##  0.7218   2.5942  0.953
+##  0.7772   3.4888  1.250
+##  0.8327   4.9761  1.605
+##  0.8881   7.9374  2.072
+##  0.9436  16.7165  2.816
+##  0.9990 999.0000  6.907
+```
+
+
+]
+]
+
+---
+.small[
+
+.pull-left[
+## Probabilidades, odds y logit
+
+
+```r
+df$odds &lt;- df$prob/(1-df$prob)
+
+df$logit &lt;- log(df$odds)
+```
+
+
+]
+
+.pull-right[
+
+
+
+```r
+##    prob     odds  logit
+*##  0.0010   0.0010 -6.907
+##  0.0564   0.0598 -2.816
+##  0.1119   0.1260 -2.072
+##  0.1673   0.2010 -1.605
+##  0.2228   0.2866 -1.250
+##  0.2782   0.3855 -0.953
+##  0.3337   0.5008 -0.692
+##  0.3891   0.6370 -0.451
+##  0.4446   0.8004 -0.223
+*##  0.5000   1.0000  0.000
+##  0.5554   1.2494  0.223
+##  0.6109   1.5700  0.451
+##  0.6663   1.9970  0.692
+##  0.7218   2.5942  0.953
+##  0.7772   3.4888  1.250
+##  0.8327   4.9761  1.605
+##  0.8881   7.9374  2.072
+##  0.9436  16.7165  2.816
+*##  0.9990 999.0000  6.907
+```
+
+
+]
+]
+
+
+
+---
+# Estimación en R: `glm`
+
+```
+modelo &lt;- glm(dependiente ~ indep 1 + indep2 + ...,
+          data=datos,
+          family="binomial")
+```
+
+- `glm` (general lineal model) es la función para variables dependientes categóricas
+
+
+- `family="binomial"` indica que la dependiente es dicotómica
+
+
+
+---
+# Ejemplo Titanic
+
+.pull-left[
+
+
+```r
+modelo_titanic &lt;-
+glm(survived ~ sex,
+data = tt,
+family = "binomial")
+```
+
+]
+
+.pull-right[.small[
+
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;caption&gt; &lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Logit&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;OR&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-1.354&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.258&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.097)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Mujer (Ref=Hombre)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;2.467&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;11.784&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.152)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;AIC&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1106.008&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1106.008&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;BIC&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1115.914&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1115.914&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Log Likelihood&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-551.004&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-551.004&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Deviance&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1102.008&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1102.008&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1046&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1046&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="3"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+]
+]
+
+
+---
+## Interpretación de asociaciones y contraste de hipótesis
+
+### - Coeficiente logit asociado a sexo (mujer) = +2.467 :
+
+  - El log-odds de sobrevivencia aumenta para las mujeres en 2.467 en comparación con los hombres. 
+
+--
+
+### Contraste de hipótesis
+
+- La diferencia de las probabilidades de sobrevivir entre hombres y mujeres son estadísticamente significativas, por lo que se rechaza la hipótesis nula (de ausencia de diferencias entre hombres y mujeres) con un nivel de probabilidad `\(p&lt;0.001\)`.
+
+
+---
+## Interpretación de coeficientes logit
+
+
+- Sustantivamente no nos dice mucho, ya que el logit es una transformación de la escala original.
+
+- Por lo tanto, para poder interpretar el sentido del coeficiente se requiere volver a la métrica de odds mediante una transformación inversa o **exponenciación**
+
+
+---
+## De logits a odds 
+
+.pull-left[
+`$$logit_x=log(Odds)$$`
+`$$e^{logit}=Odds_X$$`
+`$$e^{2.467}=11.78$$`
+]
+
+.pull-right[
+
+```r
+exp(2.467)
+```
+
+```
+## [1] 11.78703
+```
+### Las chances (odds) de sobrevivir siendo mujer son **11.78** veces más que las de un hombre. 
+]
+
+---
+## De logits a odds
+
+`$$Odds_X=e^{\beta_0 + \beta_jX_j}$$`
+&lt;br&gt;
+--
+- Predicción para **mujeres**= -1.354 + (2.467 * Sexo=1) = 1.113
+
+-  Predicción para **hombres**= -1.354 + (2.467 * Sexo=0) = -1.354
+
+--
+
+&lt;br&gt;
+
+`$$Odds_{mujer}=e^{1.113}=3.032$$`
+`$$Odds_{hombre}=e^{-1.354}=0.257$$`
+
+---
+## Transformación a probabilidades predichas
+
+`$$p_{mujeres}=\frac{e^{1.113}}{1+e^{1.113}}=\frac{3.04}{4.04}=0.752$$`
+`$$p_{hombres}=\frac{e^{-1.354}}{1+e^{-1.354}}=\frac{0.258}{1.258}=0.205$$`
+
+---
+## Regresión logística simple para independientes continuas
+
+.pull-left[
+
+
+```r
+modelo_titanic_age &lt;-
+glm(survived ~ age,
+data = tt,
+family = "binomial")
+```
+
+]
+
+.pull-right[.small[
+
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;caption&gt; &lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Logit&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;OR&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.137&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.872&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.145)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.008&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.992&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.004)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;AIC&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1415.383&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1415.383&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;BIC&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1425.288&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1425.288&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Log Likelihood&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-705.691&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-705.691&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Deviance&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1411.383&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1411.383&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1046&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1046&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="3"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+]
+]
+
+
+---
+# Regresión logística multiple
+
+.pull-left[
+
+
+```r
+modelo_titanic2 &lt;-
+glm(survived ~ sex + age,
+data = tt,
+family = "binomial")
+```
+
+]
+
+.pull-right[.small[
+
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;caption&gt; &lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Logit&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;OR&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Intercepto&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-1.23&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.29&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.18)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Mujer (Ref=Hombre)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;2.46&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;11.71&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.15)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Edad&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.00&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.01)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;AIC&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1107.34&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1107.34&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;BIC&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1122.20&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1122.20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Log Likelihood&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-550.67&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-550.67&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Deviance&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1101.34&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1101.34&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1046&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1046&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="3"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+]
+]
+
+---
+# Resumen Ajuste
+
+- diferentes aproximaciones
+
+- utilizar más de una forma
+
+- en general: LRT (test de razón de verosimilitud) y algún tipo de R2
+
+
+---
+class: inverse, left
+
+## RESUMEN
+
+-  Limitaciones de regresión tradicional (OLS) para variables dependientes dicotómicas
+
+- Logit permite implementar regresión (coeficientes e inferencia) con dependientes dicotómicas
+
+- En regresión logística la interpretación sustantiva de coeficientes se realiza con los odds-ratio (exponenciando los coeficientes logit)
+
+- Ajuste: medidas comparativas basadas en la log-verosimilitud de los modelos
+
+
+---
+class: inverse, left
+
+## Recomendaciones prueba 2
+
+- Esta vez no hay cálculo de ejercicios 'a mano'
+
+-  Al menos la mitad del puntaje es interpretación de modelos de regresión (tabla)
+
+- Diferencia probabilidad y odds
+
+- Diferencia entre odds y odds ratio
+
+- Diferencia entre odds y coeficientes logit.
+
+---
+class: inverse, middle, center
+
+# ¿Qué tan apropiado es el modelo de regresión para dar cuenta de las relaciones entre los datos?
+
+
+---
+.center[ 
+
+
+![](10-clase10_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
+.small[
+Anscombe, F. J. (1973). Graphs in Statistical Analysis. The American Statistician, 27(1), 17–21. https://doi.org/10.1080/00031305.1973.10478966]
+
+
+
+---
+class: middle
+
+.tiny[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Modelo 1&lt;/th&gt;
+&lt;th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Modelo 2&lt;/th&gt;
+&lt;th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Modelo 3&lt;/th&gt;
+&lt;th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Modelo 4&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictores&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;β&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;std. Error&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;p&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;β&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;std. Error&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  col7"&gt;p&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  col8"&gt;β&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  col9"&gt;std. Error&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  0"&gt;p&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  1"&gt;β&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  2"&gt;std. Error&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  3"&gt;p&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;3.00 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;2.573e&amp;#45;02&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;3.00 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.13&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;2.576e&amp;#45;02&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col8"&gt;3.00 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col9"&gt;1.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  0"&gt;&lt;strong&gt;2.562e&amp;#45;02&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  1"&gt;3.00 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  2"&gt;1.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  3"&gt;&lt;strong&gt;2.559e&amp;#45;02&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;x1&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.50 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;2.170e&amp;#45;03&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col8"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col9"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  0"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  1"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  2"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  3"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;x2&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.50 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;2.179e&amp;#45;03&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col8"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col9"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  0"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  1"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  2"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  3"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;x3&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col8"&gt;0.50 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col9"&gt;0.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  0"&gt;&lt;strong&gt;2.176e&amp;#45;03&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  1"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  2"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  3"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;x4&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col8"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col9"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  0"&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  1"&gt;0.50 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  2"&gt;0.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  3"&gt;&lt;strong&gt;2.165e&amp;#45;03&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;11&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;11&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;11&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; / R&lt;sup&gt;2&lt;/sup&gt; adjusted&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;0.667 / 0.629&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;0.666 / 0.629&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;0.666 / 0.629&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;0.667 / 0.630&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="13" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]
+
+---
+class: middle, center
+
+
+![:scale 50%](question.png)
+
+
+---
+class: inverse
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+- El modelo de regresión es para asociaciones **lineales** entre variables
+
+--
+
+- En ausencia de asocaciones lineales se pueden generar distorsiones en la estimación
+
+--
+
+- El **Análisis de robustez** o **chequeo de supuestos** permite analizar en qué medida el modelo es una representación adecuada de las asociaciones entre las variables.
+
+
+---
+class: inverse middle
+
+## **A revisar:**
+.pull-left-wide[
+
+
+
+1. Observaciones influyentes
+
+2. Linealidad
+
+3. Homogeneidad de varianza (homocedasticidad)
+
+4. Inflación de varianza
+
+]
+
+.pull-right-narrow[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+
+
+![](robustness-extra_large.jpg)
+
+]
+
+---
+class: inverse middle
+
+## **A revisar:**
+.pull-left-wide[
+
+
+
+1.  **Observaciones influyentes**
+
+2. Linealidad
+
+3. Homogeneidad de varianza (homocedasticidad)
+
+4. Inflación de varianza
+
+]
+
+.pull-right-narrow[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+![](robustness-extra_large.jpg)
+
+]
+
+---
+class: center
+
+.small[
+
+![](10-clase10_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+]
+
+--
+Una observación es **influyente** si su presencia/ausencia genera un cambio importante en la estimación de los coeficientes de regresión
+
+---
+## Ouliers vs observaciones influyentes
+
+- la identificación descriptiva de un outlier en una variable no necesariamente implica influencia
+
+--
+
+.center[
+.medium[
+.content-box-red[
+.red[
+**No todo outlier es una observación influyente, pero toda observación influyente es un outlier ** 
+]
+]
+]
+]
+
+--
+
+- la capacidad de influencia de un outlier se asocia al concepto de  **"apalancamiento"** (leverage).
+
+---
+## Identificando influyentes: Distancia de Cook
+
+`$$DCook=\frac{\sum(\hat{y_{j}}-\hat{y_{j(i)}})^2}{p*MSE}$$`
+
+Se trata de una diferencia de la predicción del modelo con y sin la observación `\(i\)`, ponderada por el número de parametros en el modelo (p) y la media cuadrática del error (MSE).
+
+Se establece un punto de corte de `\(4/(n-k-1)\)`, valores mayores se consideran influyentes -&gt; outliers con alta capacidad de palanca.
+
+---
+## Manejo de casos influyentes
+
+.pull-left[
+.small[
+![](10-clase10_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+]
+]
+
+
+.pull-right[
+.content-box-red[
+- estimar Cook para todas las observaciones
+
+- detectar observaciones con Cook &gt; punto de corte = influyentes
+
+- re-estimar modelo sin las observaciones y comparar resultados
+]
+]
+
+
+---
+class: inverse middle
+
+## **A revisar:**
+.pull-left-wide[
+
+
+
+1. Observaciones influyentes
+
+2. **Linealidad**
+
+3. Homogeneidad de varianza (homocedasticidad)
+
+4. Inflación de varianza
+
+]
+
+.pull-right-narrow[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+![](robustness-extra_large.jpg)
+
+]
+
+---
+## Linealidad (asociaciones lineales)
+
+Recordando:
+
+- valores predichos: `\(\hat{Y}\)`
+- residuos `\(\hat{Y}-Y\)`
+
+--
+
+Una forma en que se puede expresar la linealidad se relaciona con la **distribución de los residuos** 
+
+En presencia de linealidad se esperaría que los residuos se distribuyan **aleatoriamente** en torno a la recta de regresión (representada por los valores predichos)
+
+---
+## Predichos (fitted) y residuos en Anscombe
+
+.center[
+![](10-clase10_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Predichos (fitted) y residuos en Anscombe
+
+.center[
+![](10-clase10_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]
+---
+## Interpretación del gráfico de Diagnóstico.
+
+- Los residuos deben ser **independientes** de los valores predichos
+
+- Cualquier correlación entre los residuos y los valores predichos violarían este supuesto.
+
+- Sí los residuos muestran una patrón no lineal, como una **relación curvilinea**, el modelo esta especificado incorrectamente.
+
+---
+## ¿Qué hacer en caso de no-linealidad?
+
+- descartar observaciones influyentes
+
+- transformación de variables, ej:
+
+  - polinomial
+  
+  - logarítmica
+
+---
+## Transformación polinomial
+
+.pull-left[
+- transformaciones de potencia que permiten capturar asocaciones no lineales / curvas
+
+- además de la variable original `\(x\)`, se suma(n) al modelo terminos cuadráticos `\(x^2\)`, cúbicos `\(x^3\)`...
+
+- caso típico: edad
+
+]
+
+.pull-right[
+![](polinomial.png)
+]
+
+---
+## Transformación polinomial
+
+.pull-left[
+![](polinomial1.png)
+]
+
+
+.pull-right[
+![](polinomial2.png)
+]
+
+
+---
+## Transformación logarítmica
+
+- utilizada para variables con un alto sesgo en su distribución
+
+.center[
+![:scale 60%](logaritmic.png)
+]
+
+- pondera crecientemente las diferencias entre los valores de la escala
+
+
+---
+## Transformación logarítmica
+
+.pull-left[
+- Se reemplaza la variable por la transformada logarítmicamente en el modelo (a diferencia de los polinomios)
+
+- caso típico: ingreso
+]
+
+.pull-right[
+![](log2.png)
+]
+
+
+---
+class: inverse middle
+
+## **A revisar:**
+.pull-left-wide[
+
+
+
+1. Observaciones influyentes
+
+2. Linealidad
+
+3. **Homogeneidad de varianza (homocedasticidad)**
+
+4. Inflación de varianza
+
+]
+
+.pull-right-narrow[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+![](robustness-extra_large.jpg)
+
+]
+
+---
+## Homogeneidad de varianza
+
+- se refiere al supuesto de que la varianza de los residuos debería ser homogenea a lo largo de los valores predichos 
+
+- problemas de homocedasticidad en los residuos (**=heterocedasticidad**) puede afectar la estimación de los parámetros y su significación estadística
+
+---
+## Homogeneidad de varianza
+
+.center[
+![](homocetastic.jpeg)
+]
+
+---
+## Detección de Heterocedasticidad
+
+- test Breush-Pagan, en R: `car::ncvTest(model1)` 
+
+- test de Cook-Weisberg, en R: `lmtest::bptest(model1)`
+
+- se contrasta la hipótesis nula de que la varianza del error es constante (=no diferencias), y la hipótesis alternativa de que el error de la varianza no es constante.
+
+
+- por lo tanto, se busca no rechazar la hipótesis nula y valores p&gt;0.05
+
+---
+## Correciones a problemas de Heterocedasticidad.
+
+- estimar un modelo de regresión con errores estándar robustos a heterocedasticidad (Ej: Errores Estándar Robustos de White). En R:
+
+
+
+
+- luego, comparar ambos modelos
+
+
+---
+class: inverse middle
+
+## **A revisar:**
+.pull-left-wide[
+
+
+
+1. Observaciones influyentes
+
+2. Linealidad
+
+3. Homogeneidad de varianza (homocedasticidad)
+
+4. **Inflación de varianza**
+
+]
+
+.pull-right-narrow[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+![](robustness-extra_large.jpg)
+]
+
+
+---
+## Multicolinealidad / inflación de varianza de error
+
+- un supuesto de los modelos de regresión es que los predictores no están (altamente) correlacionados
+
+- en casos de alta correlación, se produce una inflación de los errores estándar, disminuyendo los valores t y afectando el rechazo de la hipótesis nula
+
+---
+## Detección: VIF
+
+`$$VIF=\frac{1}{1-R^{2}_x}$$`
+
+- VIF (Variance Inflation Factor): se calcula en base a un modelo donde `\(X\)` es la dependiente y las otras X independientes. 
+
+- Mientras mayor el `\(R^2_x\)`, más pequeño el denominador y mayor será  VIF, indicando alta multicolinealidad para esa variable 
+
+---
+## Interpretación del VIF
+
+- Si `\(VIF=1\)`, entonces `\(R^{2}_x=0\)`, queriendo decir que la variable open es completamente independiente de las otras variables explicativas del modelo original.
+
+- Sin embargo, si `\(VIF=10\)`, entonces `\(R^{2}_x=0.9\)`, queriendo decir que el 90% de la varianza de la variable open puede ser explicada por las otras variables explicativas del modelo.
+
+
+---
+## Estimación de VIF
+
+Para análizar el supuesto de no multicolinealidad en R, usamos la función **vif** de la librería car.
+
+
+
+- valores mayores a 2.5 pueden indicar alta multicolinealidad
+
+---
+class: inverse
+
+## Resumen
+
+.pull-left-narrow[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+![](robustness-extra_large.jpg)
+
+]
+
+
+.pull-right[
+1. Observaciones influyentes
+
+2. Linealidad
+
+3. Homogeneidad de varianza (homocedasticidad)
+
+4. Inflación de varianza
+
+]
+
+---
+class: inverse
+
+## Recomendaciones generales
+
+- buenos descriptivos uni y bivariados
+
+- informar procedimientos y decisiones
+
+
+---
+
+class: front
+
+.pull-left[
+# Métodos estadísticos para ciencias sociales III
+## **Kevin Carrasco**
+## Sociología - UNAB
+## 2do Semestre 2025
+## .green[[metod3-unab.netlify.com](metod3-unab.netlify.com)]
+] 
+    
+
+
+.pull-right[
+.right[
+&lt;br&gt;
+## .yellow[Sesión 10: Resumen Regresión logística y supuestos de regresión]
+![:scale 70%](../../files/img/eval-hires.png)
+
+
+
+]
+
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://multinivel.netlify.app/docpres/xaringan_custom/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url("../hex_multiva_white.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 16.3em;
+  right: 31em;
+  width: 110px;
+  height: 70px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -875,21 +875,36 @@
     "href": "content/10-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del viernes, 16 de junio de 2023"
+    "text": "Sesión del viernes, 16 de junio de 2023",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "10: Sesión 10"
+    ]
   },
   {
     "objectID": "content/10-content.html#documento-de-presentación",
     "href": "content/10-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
-    "text": "Documento de presentación"
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "10: Sesión 10"
+    ]
   },
   {
     "objectID": "content/10-content.html#lecturas",
     "href": "content/10-content.html#lecturas",
     "title": "Presentación",
     "section": "Lecturas",
-    "text": "Lecturas"
+    "text": "Lecturas",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "10: Sesión 10"
+    ]
   },
   {
     "objectID": "content/index.html",
@@ -1410,6 +1425,17 @@
     ]
   },
   {
+    "objectID": "practicos/practico-08.html#pseudo-r2-mcfadden",
+    "href": "practicos/practico-08.html#pseudo-r2-mcfadden",
+    "title": "Práctico 08. Regresión logística II",
+    "section": "Pseudo R2 (MCFadden)",
+    "text": "Pseudo R2 (MCFadden)\n\nm1log_R2&lt;-DescTools::PseudoR2(m1log)\nm2log_R2&lt;-DescTools::PseudoR2(m2log)\nm3log_R2&lt;-DescTools::PseudoR2(m3log)\n\n#Misma tabla, en log odds, con Pseudo R2\nhtmlreg(list(m1log,m2log,m3log),\n          custom.model.names = c(\"m1 (log odds)\",\"m2 (log odds)\",\"m3 (log odds)\"),\n          custom.gof.rows=list(\"Pseudo R2\" = c(m1log_R2, m2log_R2,m3log_R2)),\n          digits = 3, \n          stars = c(0.001, 0.01, 0.05, 0.1),symbol = \"†\")\n\n\nStatistical models\n\n\n\n\n \n\n\nm1 (log odds)\n\n\nm2 (log odds)\n\n\nm3 (log odds)\n\n\n\n\n\n\n(Intercept)\n\n\n-1.601***\n\n\n-1.023*\n\n\n-1.379**\n\n\n\n\n \n\n\n(0.140)\n\n\n(0.424)\n\n\n(0.437)\n\n\n\n\nUnionized\n\n\n0.418**\n\n\n0.390*\n\n\n0.312†\n\n\n\n\n \n\n\n(0.155)\n\n\n(0.157)\n\n\n(0.161)\n\n\n\n\nWaveWave 6\n\n\n0.470**\n\n\n0.498**\n\n\n0.496**\n\n\n\n\n \n\n\n(0.168)\n\n\n(0.171)\n\n\n(0.174)\n\n\n\n\nWaveWave 7\n\n\n-0.031\n\n\n-0.102\n\n\n-0.121\n\n\n\n\n \n\n\n(0.174)\n\n\n(0.181)\n\n\n(0.184)\n\n\n\n\nFemale\n\n\n \n\n\n-0.020\n\n\n0.100\n\n\n\n\n \n\n\n \n\n\n(0.136)\n\n\n(0.139)\n\n\n\n\nX003\n\n\n \n\n\n-0.007\n\n\n-0.012*\n\n\n\n\n \n\n\n \n\n\n(0.006)\n\n\n(0.006)\n\n\n\n\nEduc2\n\n\n \n\n\n0.042\n\n\n-0.053\n\n\n\n\n \n\n\n \n\n\n(0.268)\n\n\n(0.272)\n\n\n\n\nEduc3\n\n\n \n\n\n0.521†\n\n\n0.259\n\n\n\n\n \n\n\n \n\n\n(0.283)\n\n\n(0.289)\n\n\n\n\nprivate_sector\n\n\n \n\n\n-0.516**\n\n\n-0.445*\n\n\n\n\n \n\n\n \n\n\n(0.175)\n\n\n(0.180)\n\n\n\n\npoliticization\n\n\n \n\n\n \n\n\n0.282***\n\n\n\n\n \n\n\n \n\n\n \n\n\n(0.042)\n\n\n\n\nPseudo R2\n\n\n0.013\n\n\n0.030\n\n\n0.061\n\n\n\n\nAIC\n\n\n1475.887\n\n\n1460.059\n\n\n1415.850\n\n\n\n\nBIC\n\n\n1497.024\n\n\n1507.616\n\n\n1468.691\n\n\n\n\nLog Likelihood\n\n\n-733.944\n\n\n-721.030\n\n\n-697.925\n\n\n\n\nDeviance\n\n\n1467.887\n\n\n1442.059\n\n\n1395.850\n\n\n\n\nNum. obs.\n\n\n1457\n\n\n1457\n\n\n1457\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05; †p &lt; 0.1",
+    "crumbs": [
+      "Practicos",
+      "Práctico 8 - Regresión logística II"
+    ]
+  },
+  {
     "objectID": "practicos/taller-github-quarto/taller-github-quarto.html",
     "href": "practicos/taller-github-quarto/taller-github-quarto.html",
     "title": "Introducción al flujo de investigación reproducible",
@@ -1577,16 +1603,5 @@
     "title": "Programa",
     "section": "",
     "text": "Estadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes"
-  },
-  {
-    "objectID": "practicos/practico-08.html#pseudo-r2-mcfadden",
-    "href": "practicos/practico-08.html#pseudo-r2-mcfadden",
-    "title": "Práctico 08. Regresión logística II",
-    "section": "Pseudo R2 (MCFadden)",
-    "text": "Pseudo R2 (MCFadden)\n\nm1log_R2&lt;-DescTools::PseudoR2(m1log)\nm2log_R2&lt;-DescTools::PseudoR2(m2log)\nm3log_R2&lt;-DescTools::PseudoR2(m3log)\n\n#Misma tabla, en log odds, con Pseudo R2\nhtmlreg(list(m1log,m2log,m3log),\n          custom.model.names = c(\"m1 (log odds)\",\"m2 (log odds)\",\"m3 (log odds)\"),\n          custom.gof.rows=list(\"Pseudo R2\" = c(m1log_R2, m2log_R2,m3log_R2)),\n          digits = 3, \n          stars = c(0.001, 0.01, 0.05, 0.1),symbol = \"†\")\n\n\nStatistical models\n\n\n\n\n \n\n\nm1 (log odds)\n\n\nm2 (log odds)\n\n\nm3 (log odds)\n\n\n\n\n\n\n(Intercept)\n\n\n-1.601***\n\n\n-1.023*\n\n\n-1.379**\n\n\n\n\n \n\n\n(0.140)\n\n\n(0.424)\n\n\n(0.437)\n\n\n\n\nUnionized\n\n\n0.418**\n\n\n0.390*\n\n\n0.312†\n\n\n\n\n \n\n\n(0.155)\n\n\n(0.157)\n\n\n(0.161)\n\n\n\n\nWaveWave 6\n\n\n0.470**\n\n\n0.498**\n\n\n0.496**\n\n\n\n\n \n\n\n(0.168)\n\n\n(0.171)\n\n\n(0.174)\n\n\n\n\nWaveWave 7\n\n\n-0.031\n\n\n-0.102\n\n\n-0.121\n\n\n\n\n \n\n\n(0.174)\n\n\n(0.181)\n\n\n(0.184)\n\n\n\n\nFemale\n\n\n \n\n\n-0.020\n\n\n0.100\n\n\n\n\n \n\n\n \n\n\n(0.136)\n\n\n(0.139)\n\n\n\n\nX003\n\n\n \n\n\n-0.007\n\n\n-0.012*\n\n\n\n\n \n\n\n \n\n\n(0.006)\n\n\n(0.006)\n\n\n\n\nEduc2\n\n\n \n\n\n0.042\n\n\n-0.053\n\n\n\n\n \n\n\n \n\n\n(0.268)\n\n\n(0.272)\n\n\n\n\nEduc3\n\n\n \n\n\n0.521†\n\n\n0.259\n\n\n\n\n \n\n\n \n\n\n(0.283)\n\n\n(0.289)\n\n\n\n\nprivate_sector\n\n\n \n\n\n-0.516**\n\n\n-0.445*\n\n\n\n\n \n\n\n \n\n\n(0.175)\n\n\n(0.180)\n\n\n\n\npoliticization\n\n\n \n\n\n \n\n\n0.282***\n\n\n\n\n \n\n\n \n\n\n \n\n\n(0.042)\n\n\n\n\nPseudo R2\n\n\n0.013\n\n\n0.030\n\n\n0.061\n\n\n\n\nAIC\n\n\n1475.887\n\n\n1460.059\n\n\n1415.850\n\n\n\n\nBIC\n\n\n1497.024\n\n\n1507.616\n\n\n1468.691\n\n\n\n\nLog Likelihood\n\n\n-733.944\n\n\n-721.030\n\n\n-697.925\n\n\n\n\nDeviance\n\n\n1467.887\n\n\n1442.059\n\n\n1395.850\n\n\n\n\nNum. obs.\n\n\n1457\n\n\n1457\n\n\n1457\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05; †p &lt; 0.1",
-    "crumbs": [
-      "Practicos",
-      "Práctico 8 - Regresión logística II"
-    ]
   }
 ]
