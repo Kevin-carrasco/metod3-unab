@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Prácticos – Metodos 3 - Universidad Andrés Bello</title>
+<title>Ejemplos prueba 2 – Metodos 3 - Universidad Andrés Bello</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,13 +71,15 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Prácticos – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:title" content="Ejemplos prueba 2 – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="500">
 <meta property="og:image:width" content="500">
-<meta name="twitter:title" content="Prácticos – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:title" content="Ejemplos prueba 2 – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta name="twitter:creator" content="@kevincarrascoq1">
 <meta name="twitter:site" content="@kevincarrascoq1">
@@ -134,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicos/index.html">Descripción</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicos/ejemplos-prueba-2.html">Ejemplos prueba 2</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -148,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../practicos/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../practicos/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Descripción</span></a>
   </div>
 </li>
@@ -214,7 +216,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../practicos/ejemplos-prueba-2.html" class="sidebar-item-text sidebar-link">
+  <a href="../practicos/ejemplos-prueba-2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Ejemplos prueba 2</span></a>
   </div>
 </li>
@@ -228,10 +230,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#r-y-rstudio" id="toc-r-y-rstudio" class="nav-link active" data-scroll-target="#r-y-rstudio">R y Rstudio</a>
-  <ul class="collapse">
-  <li><a href="#guía-de-instalación" id="toc-guía-de-instalación" class="nav-link" data-scroll-target="#guía-de-instalación">Guía de instalación</a></li>
-  </ul></li>
+  <li><a href="#tabla-de-regresión-logística-variable-dependiente-confianza-en-el-gobierno" id="toc-tabla-de-regresión-logística-variable-dependiente-confianza-en-el-gobierno" class="nav-link active" data-scroll-target="#tabla-de-regresión-logística-variable-dependiente-confianza-en-el-gobierno">Tabla de regresión logística: Variable dependiente confianza en el gobierno</a></li>
+  <li><a href="#tabla-de-regresión-logística-variable-dependiente-confianza-en-sindicatos" id="toc-tabla-de-regresión-logística-variable-dependiente-confianza-en-sindicatos" class="nav-link" data-scroll-target="#tabla-de-regresión-logística-variable-dependiente-confianza-en-sindicatos">Tabla de regresión logística: Variable dependiente confianza en sindicatos</a></li>
   </ul>
 </nav>
     </div>
@@ -240,7 +240,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Prácticos</h1>
+<h1 class="title">Ejemplos prueba 2</h1>
+<p class="subtitle lead">Métodos estadísticos para Ciencias Sociales III</p>
 </div>
 
 
@@ -248,6 +249,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">7 de noviembre de 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -257,59 +264,148 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="r-y-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="r-y-rstudio">R y Rstudio</h2>
-<section id="guía-de-instalación" class="level3">
-<h3 class="anchored" data-anchor-id="guía-de-instalación">Guía de instalación</h3>
-<ol type="1">
-<li><p>Acceder a la página de <a href="https://posit.co/">posit</a>, desarrollador del software desde octubre de 2022. Link directo a la descarga <a href="https://posit.co/download/rstudio-desktop/">acá</a>.</p></li>
-<li><p>Instalar R y Rstudio</p></li>
-</ol>
-<p><img src="images/installR1.png" class="img-fluid"></p>
-<ol type="a">
-<li>Descargar R</li>
-</ol>
+<p>A continuación se presentan dos tablas de regresión logística:</p>
+<section id="tabla-de-regresión-logística-variable-dependiente-confianza-en-el-gobierno" class="level1">
+<h1>Tabla de regresión logística: Variable dependiente confianza en el gobierno</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>M1 (logit)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td>-1.205***</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.210)</td>
+</tr>
+<tr class="odd">
+<td>Hombre (ref=Mujer)</td>
+<td>-0.085</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.120)</td>
+</tr>
+<tr class="odd">
+<td>Educ (años)</td>
+<td>0.065*</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.030)</td>
+</tr>
+<tr class="odd">
+<td>edad (años)</td>
+<td>-0.012***</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.003)</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Num. obs.</td>
+<td>1457</td>
+</tr>
+<tr class="odd">
+<td>AIC</td>
+<td>1820.5</td>
+</tr>
+</tbody>
+</table>
+<p>† p&lt;0.10, * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</p>
+<p>Interpretación:</p>
 <ul>
-<li>Seleccionamos sistema operativo según corresponda</li>
+<li><p>Sexo (Hombre): No presenta efecto estadísticamente significativo, lo que indica que hombres y mujeres no difieren en su confianza en el gobierno.</p></li>
+<li><p>Educación: Cada año extra de educación aumenta el log-odds de confiar en el gobierno en 0.065 (p&lt;0.05). El efecto es pequeño pero significativo.</p></li>
+<li><p>Edad: Cada año adicional de edad disminuye el log-odds en 0.012 (p&lt;0.001), mostrando que las personas mayores tienden a desconfiar más del gobierno.</p></li>
 </ul>
-<p><img src="images/installR2.png" class="img-fluid"></p>
-<ul>
-<li>Descargar R por primera vez y seguir instrucciones. En esta oportunidad trabajaremos con la última versión de R 4.3.2</li>
-</ul>
-<p><img src="images/installR3.png" class="img-fluid"></p>
-<ol start="2" type="a">
-<li>Descargar RStudio</li>
-</ol>
-<ul>
-<li>Descarga directa en la página de inicio</li>
-</ul>
-<ol start="3" type="a">
-<li>Instalar ambos archivos siguiendo las instrucciones de instalación</li>
-</ol>
-<ol start="3" type="1">
-<li>Abrir <strong>RStudio</strong>. Se debería ver similar a esto (o en blanco):</li>
-</ol>
-<p><img src="images/installR4.png" class="img-fluid"></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Nota
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Alternativa a lo anterior: https://posit.cloud/</p>
-<ul>
-<li><p>Versión online de Rstudio</p></li>
-<li><p>Utilizar en caso de problemas con PC</p></li>
-</ul>
-</div>
-</div>
-
-
 </section>
+<section id="tabla-de-regresión-logística-variable-dependiente-confianza-en-sindicatos" class="level1">
+<h1>Tabla de regresión logística: Variable dependiente confianza en sindicatos</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>M1 (odds ratio)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td>0.42***</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.08)</td>
+</tr>
+<tr class="odd">
+<td>Empleado (1 = sí, ref = no)</td>
+<td>1.45**</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.20)</td>
+</tr>
+<tr class="odd">
+<td>Educ (años)</td>
+<td>1.08*</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.03)</td>
+</tr>
+<tr class="odd">
+<td>Posición política: Centro (ref: izquierda)</td>
+<td>0.78†</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.11)</td>
+</tr>
+<tr class="odd">
+<td>Posición política: Derecha</td>
+<td>0.51***</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.09)</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Num. obs.</td>
+<td>1457</td>
+</tr>
+<tr class="odd">
+<td>AIC</td>
+<td>1735.2</td>
+</tr>
+</tbody>
+</table>
+<p>† p&lt;0.10, * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</p>
+<p>Interpretación:</p>
+<ul>
+<li><p>Condición laboral (Empleado): Quienes trabajan tienen 1.45 veces más probabilidades de confiar en los sindicatos que quienes no trabajan (p&lt;0.01).</p></li>
+<li><p>Educación: Cada año de educación aumenta en 8% la probabilidad de confiar en sindicatos (OR=1.08, p&lt;0.05).</p></li>
+<li><p>Posición política:</p>
+<ul>
+<li><p>Centro: probabilidad 22% menor que la izquierda (p&lt;0.10).</p></li>
+<li><p>Derecha: probabilidad 49% menor que la izquierda (p&lt;0.001), efecto fuerte y muy significativo.</p></li>
+</ul></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

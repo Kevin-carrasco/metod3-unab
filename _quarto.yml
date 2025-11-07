@@ -116,6 +116,8 @@ website:
           file: practicos/practico-08.qmd
         - text: "Práctico 9 - Supuestos de regresión"
           file: practicos/practico-09.qmd
+        - text: "Ejemplos prueba 2"
+          file: practicos/ejemplos-prueba-2.qmd
 
   page-footer:
     left: |

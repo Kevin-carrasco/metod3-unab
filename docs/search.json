@@ -537,187 +537,158 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "\n            Métodos estadísticos para ciencias sociales III\n        ",
+    "objectID": "practicos/ejemplos-prueba-2.html",
+    "href": "practicos/ejemplos-prueba-2.html",
+    "title": "Ejemplos prueba 2",
     "section": "",
-    "text": "Universidad Andrés Bello\n        \n        \n            • Segundo semestre 2025Departamento de Sociología FACSOUniversidad Andrés Bello\n        \n    \n    \n        \n    \n\n\n\n\n\n\nProfesor\n\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\nInformación del curso\n\n   Lunes, martes y miércoles\n   Marzo 21–Julio 06, 2025\n   12:00-13:30 AM\n   Sala 334. Depto de Sociología\n\n\n\nContacto\nA través de correo"
+    "text": "A continuación se presentan dos tablas de regresión logística:\n\nTabla de regresión logística: Variable dependiente confianza en el gobierno\n\n\n\n\nM1 (logit)\n\n\n\n\n(Intercept)\n-1.205***\n\n\n\n(0.210)\n\n\nHombre (ref=Mujer)\n-0.085\n\n\n\n(0.120)\n\n\nEduc (años)\n0.065*\n\n\n\n(0.030)\n\n\nedad (años)\n-0.012***\n\n\n\n(0.003)\n\n\n\n\n\n\nNum. obs.\n1457\n\n\nAIC\n1820.5\n\n\n\n† p&lt;0.10, * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001\nInterpretación:\n\nSexo (Hombre): No presenta efecto estadísticamente significativo, lo que indica que hombres y mujeres no difieren en su confianza en el gobierno.\nEducación: Cada año extra de educación aumenta el log-odds de confiar en el gobierno en 0.065 (p&lt;0.05). El efecto es pequeño pero significativo.\nEdad: Cada año adicional de edad disminuye el log-odds en 0.012 (p&lt;0.001), mostrando que las personas mayores tienden a desconfiar más del gobierno.\n\n\n\nTabla de regresión logística: Variable dependiente confianza en sindicatos\n\n\n\n\nM1 (odds ratio)\n\n\n\n\n(Intercept)\n0.42***\n\n\n\n(0.08)\n\n\nEmpleado (1 = sí, ref = no)\n1.45**\n\n\n\n(0.20)\n\n\nEduc (años)\n1.08*\n\n\n\n(0.03)\n\n\nPosición política: Centro (ref: izquierda)\n0.78†\n\n\n\n(0.11)\n\n\nPosición política: Derecha\n0.51***\n\n\n\n(0.09)\n\n\n\n\n\n\nNum. obs.\n1457\n\n\nAIC\n1735.2\n\n\n\n† p&lt;0.10, * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001\nInterpretación:\n\nCondición laboral (Empleado): Quienes trabajan tienen 1.45 veces más probabilidades de confiar en los sindicatos que quienes no trabajan (p&lt;0.01).\nEducación: Cada año de educación aumenta en 8% la probabilidad de confiar en sindicatos (OR=1.08, p&lt;0.05).\nPosición política:\n\nCentro: probabilidad 22% menor que la izquierda (p&lt;0.10).\nDerecha: probabilidad 49% menor que la izquierda (p&lt;0.001), efecto fuerte y muy significativo.",
+    "crumbs": [
+      "Practicos",
+      "Ejemplos prueba 2"
+    ]
   },
   {
-    "objectID": "content/11-content.html",
-    "href": "content/11-content.html",
+    "objectID": "content/index.html",
+    "href": "content/index.html",
+    "title": "Presentaciones, lecturas y actividades",
+    "section": "",
+    "text": "En esta sección se encuentran los documentos de presentación correspondientes a cada clase, lecturas y también actividades prácticas.",
+    "crumbs": [
+      "Clases",
+      "Información general",
+      "Presentaciones, lecturas y actividades"
+    ]
+  },
+  {
+    "objectID": "content/10-content.html",
+    "href": "content/10-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del viernes, 23 de junio de 2023"
+    "text": "Sesión del lunes, 3 de noviembre de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "10: Sesión 10"
+    ]
   },
   {
-    "objectID": "content/11-content.html#documento-de-presentación",
-    "href": "content/11-content.html#documento-de-presentación",
+    "objectID": "content/10-content.html#documento-de-presentación",
+    "href": "content/10-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
-    "text": "Documento de presentación"
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "10: Sesión 10"
+    ]
   },
   {
-    "objectID": "content/11-content.html#lecturas",
-    "href": "content/11-content.html#lecturas",
+    "objectID": "content/08-content.html",
+    "href": "content/08-content.html",
+    "title": "Presentación",
+    "section": "",
+    "text": "Sesión del lunes, 20 de octubre de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "08: Sesión 8"
+    ]
+  },
+  {
+    "objectID": "content/08-content.html#documento-de-presentación",
+    "href": "content/08-content.html#documento-de-presentación",
+    "title": "Presentación",
+    "section": "Documento de presentación",
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "08: Sesión 8"
+    ]
+  },
+  {
+    "objectID": "content/06-content.html",
+    "href": "content/06-content.html",
+    "title": "Presentación",
+    "section": "",
+    "text": "Sesión del lunes, 8 de septiembre de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "06: Sesión 6"
+    ]
+  },
+  {
+    "objectID": "content/06-content.html#documento-de-presentación",
+    "href": "content/06-content.html#documento-de-presentación",
+    "title": "Presentación",
+    "section": "Documento de presentación",
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "06: Sesión 6"
+    ]
+  },
+  {
+    "objectID": "content/04-content.html",
+    "href": "content/04-content.html",
+    "title": "Presentación",
+    "section": "",
+    "text": "Sesión del domingo, 25 de mayo de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "04: Sesión 4"
+    ]
+  },
+  {
+    "objectID": "content/04-content.html#documento-de-presentación",
+    "href": "content/04-content.html#documento-de-presentación",
+    "title": "Presentación",
+    "section": "Documento de presentación",
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "04: Sesión 4"
+    ]
+  },
+  {
+    "objectID": "content/04-content.html#lecturas",
+    "href": "content/04-content.html#lecturas",
     "title": "Presentación",
     "section": "Lecturas",
-    "text": "Lecturas\nPráctica en R"
-  },
-  {
-    "objectID": "content/09-content.html",
-    "href": "content/09-content.html",
-    "title": "Presentación",
-    "section": "",
-    "text": "Sesión del lunes, 27 de octubre de 2025",
+    "text": "Lecturas\nMoore 7: Inferencia para medias (482-543)",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "09: Sesión 9"
+      "04: Sesión 4"
     ]
   },
   {
-    "objectID": "content/09-content.html#documento-de-presentación",
-    "href": "content/09-content.html#documento-de-presentación",
-    "title": "Presentación",
+    "objectID": "content/02-content.html",
+    "href": "content/02-content.html",
+    "title": "Clase 2",
+    "section": "",
+    "text": "Sesión del martes, 5 de agosto de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "02: Sesión 2"
+    ]
+  },
+  {
+    "objectID": "content/02-content.html#documento-de-presentación",
+    "href": "content/02-content.html#documento-de-presentación",
+    "title": "Clase 2",
     "section": "Documento de presentación",
     "text": "Documento de presentación",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "09: Sesión 9"
-    ]
-  },
-  {
-    "objectID": "content/07-content.html",
-    "href": "content/07-content.html",
-    "title": "Presentación",
-    "section": "",
-    "text": "Sesión del lunes, 22 de septiembre de 2025",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "07: Sesión 7"
-    ]
-  },
-  {
-    "objectID": "content/07-content.html#documento-de-presentación",
-    "href": "content/07-content.html#documento-de-presentación",
-    "title": "Presentación",
-    "section": "Documento de presentación",
-    "text": "Documento de presentación",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "07: Sesión 7"
-    ]
-  },
-  {
-    "objectID": "content/05-content.html",
-    "href": "content/05-content.html",
-    "title": "Presentación",
-    "section": "",
-    "text": "Sesión del lunes, 1 de septiembre de 2025",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "05: Sesión 5"
-    ]
-  },
-  {
-    "objectID": "content/05-content.html#documento-de-presentación",
-    "href": "content/05-content.html#documento-de-presentación",
-    "title": "Presentación",
-    "section": "Documento de presentación",
-    "text": "Documento de presentación",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "05: Sesión 5"
-    ]
-  },
-  {
-    "objectID": "content/05-content.html#lecturas",
-    "href": "content/05-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "05: Sesión 5"
-    ]
-  },
-  {
-    "objectID": "content/03-content.html",
-    "href": "content/03-content.html",
-    "title": "Presentación",
-    "section": "",
-    "text": "Sesión del martes, 12 de agosto de 2025",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "03: Sesión 3"
-    ]
-  },
-  {
-    "objectID": "content/03-content.html#documento-de-presentación",
-    "href": "content/03-content.html#documento-de-presentación",
-    "title": "Presentación",
-    "section": "Documento de presentación",
-    "text": "Documento de presentación",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "03: Sesión 3"
-    ]
-  },
-  {
-    "objectID": "content/03-content.html#lecturas",
-    "href": "content/03-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nMoore: Residuos",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "03: Sesión 3"
-    ]
-  },
-  {
-    "objectID": "content/01-content.html",
-    "href": "content/01-content.html",
-    "title": "Presentación",
-    "section": "",
-    "text": "Sesión del lunes, 4 de agosto de 2025",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "01: Sesión 1"
-    ]
-  },
-  {
-    "objectID": "content/01-content.html#documento-de-presentación",
-    "href": "content/01-content.html#documento-de-presentación",
-    "title": "Presentación",
-    "section": "Documento de presentación",
-    "text": "Documento de presentación",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "01: Sesión 1"
-    ]
-  },
-  {
-    "objectID": "content/01-content.html#lecturas",
-    "href": "content/01-content.html#lecturas",
-    "title": "Presentación",
-    "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "01: Sesión 1"
+      "02: Sesión 2"
     ]
   },
   {
@@ -763,148 +734,188 @@
     "text": "Final project\nAt the end of the course, you will demonstrate your knowledge of program evaluation and causal inference by completing a final project.\nComplete details for the final project are here.\nThere is no final exam. This project is your final exam."
   },
   {
-    "objectID": "content/02-content.html",
-    "href": "content/02-content.html",
-    "title": "Clase 2",
-    "section": "",
-    "text": "Sesión del martes, 5 de agosto de 2025",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "02: Sesión 2"
-    ]
-  },
-  {
-    "objectID": "content/02-content.html#documento-de-presentación",
-    "href": "content/02-content.html#documento-de-presentación",
-    "title": "Clase 2",
-    "section": "Documento de presentación",
-    "text": "Documento de presentación",
-    "crumbs": [
-      "Clases",
-      "Sesiones",
-      "02: Sesión 2"
-    ]
-  },
-  {
-    "objectID": "content/04-content.html",
-    "href": "content/04-content.html",
+    "objectID": "content/01-content.html",
+    "href": "content/01-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del domingo, 25 de mayo de 2025",
+    "text": "Sesión del lunes, 4 de agosto de 2025",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "04: Sesión 4"
+      "01: Sesión 1"
     ]
   },
   {
-    "objectID": "content/04-content.html#documento-de-presentación",
-    "href": "content/04-content.html#documento-de-presentación",
+    "objectID": "content/01-content.html#documento-de-presentación",
+    "href": "content/01-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
     "text": "Documento de presentación",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "04: Sesión 4"
+      "01: Sesión 1"
     ]
   },
   {
-    "objectID": "content/04-content.html#lecturas",
-    "href": "content/04-content.html#lecturas",
+    "objectID": "content/01-content.html#lecturas",
+    "href": "content/01-content.html#lecturas",
     "title": "Presentación",
     "section": "Lecturas",
-    "text": "Lecturas\nMoore 7: Inferencia para medias (482-543)",
+    "text": "Lecturas\nR for Data Science",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "04: Sesión 4"
+      "01: Sesión 1"
     ]
   },
   {
-    "objectID": "content/06-content.html",
-    "href": "content/06-content.html",
+    "objectID": "content/03-content.html",
+    "href": "content/03-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del lunes, 8 de septiembre de 2025",
+    "text": "Sesión del martes, 12 de agosto de 2025",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "06: Sesión 6"
+      "03: Sesión 3"
     ]
   },
   {
-    "objectID": "content/06-content.html#documento-de-presentación",
-    "href": "content/06-content.html#documento-de-presentación",
+    "objectID": "content/03-content.html#documento-de-presentación",
+    "href": "content/03-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
     "text": "Documento de presentación",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "06: Sesión 6"
+      "03: Sesión 3"
     ]
   },
   {
-    "objectID": "content/08-content.html",
-    "href": "content/08-content.html",
+    "objectID": "content/03-content.html#lecturas",
+    "href": "content/03-content.html#lecturas",
     "title": "Presentación",
-    "section": "",
-    "text": "Sesión del lunes, 20 de octubre de 2025",
+    "section": "Lecturas",
+    "text": "Lecturas\nMoore: Residuos",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "08: Sesión 8"
+      "03: Sesión 3"
     ]
   },
   {
-    "objectID": "content/08-content.html#documento-de-presentación",
-    "href": "content/08-content.html#documento-de-presentación",
+    "objectID": "content/05-content.html",
+    "href": "content/05-content.html",
+    "title": "Presentación",
+    "section": "",
+    "text": "Sesión del lunes, 1 de septiembre de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "05: Sesión 5"
+    ]
+  },
+  {
+    "objectID": "content/05-content.html#documento-de-presentación",
+    "href": "content/05-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
     "text": "Documento de presentación",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "08: Sesión 8"
+      "05: Sesión 5"
     ]
   },
   {
-    "objectID": "content/10-content.html",
-    "href": "content/10-content.html",
+    "objectID": "content/05-content.html#lecturas",
+    "href": "content/05-content.html#lecturas",
     "title": "Presentación",
-    "section": "",
-    "text": "Sesión del lunes, 3 de noviembre de 2025",
+    "section": "Lecturas",
+    "text": "Lecturas\nR for Data Science",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "10: Sesión 10"
+      "05: Sesión 5"
     ]
   },
   {
-    "objectID": "content/10-content.html#documento-de-presentación",
-    "href": "content/10-content.html#documento-de-presentación",
+    "objectID": "content/07-content.html",
+    "href": "content/07-content.html",
+    "title": "Presentación",
+    "section": "",
+    "text": "Sesión del lunes, 22 de septiembre de 2025",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "07: Sesión 7"
+    ]
+  },
+  {
+    "objectID": "content/07-content.html#documento-de-presentación",
+    "href": "content/07-content.html#documento-de-presentación",
     "title": "Presentación",
     "section": "Documento de presentación",
     "text": "Documento de presentación",
     "crumbs": [
       "Clases",
       "Sesiones",
-      "10: Sesión 10"
+      "07: Sesión 7"
     ]
   },
   {
-    "objectID": "content/index.html",
-    "href": "content/index.html",
-    "title": "Presentaciones, lecturas y actividades",
+    "objectID": "content/09-content.html",
+    "href": "content/09-content.html",
+    "title": "Presentación",
     "section": "",
-    "text": "En esta sección se encuentran los documentos de presentación correspondientes a cada clase, lecturas y también actividades prácticas.",
+    "text": "Sesión del lunes, 27 de octubre de 2025",
     "crumbs": [
       "Clases",
-      "Información general",
-      "Presentaciones, lecturas y actividades"
+      "Sesiones",
+      "09: Sesión 9"
     ]
+  },
+  {
+    "objectID": "content/09-content.html#documento-de-presentación",
+    "href": "content/09-content.html#documento-de-presentación",
+    "title": "Presentación",
+    "section": "Documento de presentación",
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "09: Sesión 9"
+    ]
+  },
+  {
+    "objectID": "content/11-content.html",
+    "href": "content/11-content.html",
+    "title": "Presentación",
+    "section": "",
+    "text": "Sesión del viernes, 23 de junio de 2023"
+  },
+  {
+    "objectID": "content/11-content.html#documento-de-presentación",
+    "href": "content/11-content.html#documento-de-presentación",
+    "title": "Presentación",
+    "section": "Documento de presentación",
+    "text": "Documento de presentación"
+  },
+  {
+    "objectID": "content/11-content.html#lecturas",
+    "href": "content/11-content.html#lecturas",
+    "title": "Presentación",
+    "section": "Lecturas",
+    "text": "Lecturas\nPráctica en R"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "\n            Métodos estadísticos para ciencias sociales III\n        ",
+    "section": "",
+    "text": "Universidad Andrés Bello\n        \n        \n            • Segundo semestre 2025Departamento de Sociología FACSOUniversidad Andrés Bello\n        \n    \n    \n        \n    \n\n\n\n\n\n\nProfesor\n\n   Kevin Carrasco\n   Departamento de Sociología N° 328\n   kevin.carrasco@ug.uchile.cl\n   KevinCarrascoQ1\n\n\n\nInformación del curso\n\n   Lunes, martes y miércoles\n   Marzo 21–Julio 06, 2025\n   12:00-13:30 AM\n   Sala 334. Depto de Sociología\n\n\n\nContacto\nA través de correo"
   },
   {
     "objectID": "practicos/index.html",

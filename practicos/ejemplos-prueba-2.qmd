@@ -1,0 +1,68 @@
+---
+title: "Ejemplos prueba 2"
+subtitle: "Métodos estadísticos para Ciencias Sociales III"
+date: "2025-11-07"
+lang: es
+output:
+  number_sections: true
+---
+
+A continuación se presentan dos tablas de regresión logística:
+
+# Tabla de regresión logística: Variable dependiente confianza en el gobierno
+
+|                      | M1 (logit)      |
+|----------------------|-----------------|
+| (Intercept)          | -1.205***       |
+|                      | (0.210)         |
+| Hombre (ref=Mujer)   | -0.085          |
+|                      | (0.120)         |
+| Educ (años)          | 0.065*          |
+|                      | (0.030)         |
+| edad (años)          | -0.012***       |
+|                      | (0.003)         |
+|                      |                 |
+| Num. obs.            | 1457            |
+| AIC                  | 1820.5          |
+
+† p<0.10, * p<0.05, ** p<0.01, *** p<0.001
+
+Interpretación:
+
+* Sexo (Hombre): No presenta efecto estadísticamente significativo, lo que indica que hombres y mujeres no difieren en su confianza en el gobierno.
+
+* Educación: Cada año extra de educación aumenta el log-odds de confiar en el gobierno en 0.065 (p<0.05). El efecto es pequeño pero significativo.
+
+* Edad: Cada año adicional de edad disminuye el log-odds en 0.012 (p<0.001), mostrando que las personas mayores tienden a desconfiar más del gobierno.
+
+# Tabla de regresión logística: Variable dependiente confianza en sindicatos
+
+|                                  | M1 (odds ratio) |
+|----------------------------------|-----------------|
+| (Intercept)                      | 0.42***         |
+|                                  | (0.08)          |
+| Empleado (1 = sí, ref = no)      | 1.45**          |
+|                                  | (0.20)          |
+| Educ (años)                      | 1.08*           |
+|                                  | (0.03)          |
+| Posición política: Centro (ref: izquierda)        | 0.78†           |
+|                                  | (0.11)          |
+| Posición política: Derecha       | 0.51***         |
+|                                  | (0.09)          |
+|                                  |                 |
+| Num. obs.                        | 1457            |
+| AIC                              | 1735.2          |
+
+† p<0.10, * p<0.05, ** p<0.01, *** p<0.001
+
+Interpretación:
+
+* Condición laboral (Empleado): Quienes trabajan tienen 1.45 veces más probabilidades de confiar en los sindicatos que quienes no trabajan (p<0.01).
+
+* Educación: Cada año de educación aumenta en 8% la probabilidad de confiar en sindicatos (OR=1.08, p<0.05).
+
+* Posición política:
+
+  - Centro: probabilidad 22% menor que la izquierda (p<0.10).
+
+  - Derecha: probabilidad 49% menor que la izquierda (p<0.001), efecto fuerte y muy significativo.
