@@ -118,6 +118,8 @@ website:
           file: practicos/practico-09.qmd
         - text: "Ejemplos prueba 2"
           file: practicos/ejemplos-prueba-2.qmd
+        - text: "Práctico 10 - Plantillas reportes dinámicos"
+          file: practicos/07-practico-quarto.qmd
 
   page-footer:
     left: |
