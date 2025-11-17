@@ -316,11 +316,9 @@ Podemos ver la relación entre X e Y en la @fig-rel
 
 # Plantilla para el trabajo grupal
 
-Para el trabajo final, les entregaremos una estructura anidada de documentos Quarto la cual funciona como un libro, donde cada sección es un capítulo diferente. 
+Para el trabajo final, les entregaremos una plantilla que servirá como base para sus trabajos.
 
-La plantilla se encuentra disponible en un repositorio de Github, y en el siguiente enlace podrán encontrar las instrucciones para su descarga:
-
-[Link a la plantilla](https://lisacoes.com/noticias/posts/plantilla-quarto/)
+La plantilla se encuentra disponible en Canvas.
 
 # Recursos
 
