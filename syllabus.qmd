@@ -31,6 +31,8 @@ library(pander)
 
 :::
 
+:::
+
 ## Resumen
 
 Esta asignatura tributa al ámbito II del perfil de egreso, "Investigación Sociológica", en el desarrollo del resultado de aprendizaje RA II.3: "Implementar estrategias de producción de datos cuantitativos y cualitativos sobre la realidad social, y aplicar estrategias de análisis de datos con apoyo de programas computacionales".
