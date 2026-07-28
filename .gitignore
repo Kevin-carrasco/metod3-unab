@@ -11,3 +11,5 @@ projects/*.zip
 
 # knitr and caching stuff
 **/*_cache/*
+
+**/*.quarto_ipynb
