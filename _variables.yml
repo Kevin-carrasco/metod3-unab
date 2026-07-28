@@ -1,22 +1,11 @@
 author: Kevin Carrasco
 
-instructor:
-  name: Daniela Olivares
-  name_no_title: Daniela Olivares
-  email: danielaolivarescollio@gmail.com
-  url: "https://coes.cl/integrantes/daniela-olivares-collio/"
-#  twitter: pablo_perez_a
-  github: DaniOlivaresCollio
-  office: "Departamento de Sociología N° 328"
-  contact_policy: >-
-    A través de correo
-#  appointment_url: https://calendly.com/andrewheiss/
 
 instructor2:
   name: Kevin Carrasco
   name_no_title: Kevin Carrasco
   email: kevin.carrasco@ug.uchile.cl
-  url: "https://coes.cl/integrantes/kevin-carrasco-quintanilla/"
+  url: "https://kevin-carrasco.github.io/"
   twitter: KevinCarrascoQ1
   github: kevin-carrasco
   office: "Departamento de Sociología N° 328"
@@ -26,20 +15,20 @@ instructor2:
 
 
 course:
-  number: "MCS7113"
-  semester: "Segundo Semestre 2025"
-  days: "Lunes, martes y miércoles"
-  time: "12:00-13:30 AM"
-  location: "Sala 334. Depto de Sociología"
-  dates: "Marzo 21–Julio  06, 2025"
+  number: "SOCI133"
+  semester: "Segundo Semestre 2026"
+  days: "Lunes"
+  time: "12:10-13:50 y 14:55-16:35"
+  location: "UNAB"
+  dates: "Agosto 03–Noviembre 23, 2026"
   github: "https://github.com/kevin-carrasco/metod3-unab"
-  copyright_year: "2025"
+  copyright_year: "2026"
   slack: ""
 
 university:
   name: Universidad Andrés bello
-  url: "https://www.uchile.cl/"
+  url: "https://www.unab.cl/"
 
 school:
   name: Departamento de Sociología - Facultad de Ciencias Sociales
-  url: "https://facso.uchile.cl/"
+  url: "https://facultades.unab.cl/cienciassociales/carrera/sociologia/"

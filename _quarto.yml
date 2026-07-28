@@ -71,24 +71,24 @@ website:
           contents:
             - text: "01: Sesión 1"
               file: content/01-content.qmd
-            - text: "02: Sesión 2"
-              file: content/02-content.qmd
-            - text: "03: Sesión 3"
-              file: content/03-content.qmd
-            - text: "04: Sesión 4"
-              file: content/04-content.qmd
-            - text: "05: Sesión 5"
-              file: content/05-content.qmd
-            - text: "06: Sesión 6"
-              file: content/06-content.qmd
-            - text: "07: Sesión 7"
-              file: content/07-content.qmd
-            - text: "08: Sesión 8"
-              file: content/08-content.qmd
-            - text: "09: Sesión 9"
-              file: content/09-content.qmd
-            - text: "10: Sesión 10"
-              file: content/10-content.qmd
+            # - text: "02: Sesión 2"
+            #   file: content/02-content.qmd
+            # - text: "03: Sesión 3"
+            #   file: content/03-content.qmd
+            # - text: "04: Sesión 4"
+            #   file: content/04-content.qmd
+            # - text: "05: Sesión 5"
+            #   file: content/05-content.qmd
+            # - text: "06: Sesión 6"
+            #   file: content/06-content.qmd
+            # - text: "07: Sesión 7"
+            #   file: content/07-content.qmd
+            # - text: "08: Sesión 8"
+            #   file: content/08-content.qmd
+            # - text: "09: Sesión 9"
+            #   file: content/09-content.qmd
+            # - text: "10: Sesión 10"
+            #   file: content/10-content.qmd
     - title: "Practicos"
       style: "docked"
       search: false
@@ -98,28 +98,28 @@ website:
           file: practicos/index.qmd
         - text: "Práctico 1 - Regresión lineal simple"
           file: practicos/practico-01.qmd
-        - text: "Práctico 2 - Regresión lineal múltiple"
-          file: practicos/practico-02.qmd
-        - text: "Práctico 3 - Inferencia"
-          file: practicos/practico-03.qmd
-        - text: "Práctico 4 - Taller Quarto"
-          file: practicos/taller-github-quarto/taller-quarto-github.qmd
-        - text: "Práctico 5 - Estandarización"
-          file: practicos/practico-04.qmd
-        - text: "Práctico 6 - Valores predichos"
-          file: practicos/practico-05.qmd
-        - text: "Práctico 6 - Resumen regresión lineal"
-          file: practicos/practico-06.qmd
-        - text: "Práctico 7 - Regresión logística I"
-          file: practicos/practico-07.qmd
-        - text: "Práctico 8 - Regresión logística II"
-          file: practicos/practico-08.qmd
-        - text: "Práctico 9 - Supuestos de regresión"
-          file: practicos/practico-09.qmd
-        - text: "Ejemplos prueba 2"
-          file: practicos/ejemplos-prueba-2.qmd
-        - text: "Práctico 10 - Plantillas reportes dinámicos"
-          file: practicos/07-practico-quarto.qmd
+        # - text: "Práctico 2 - Regresión lineal múltiple"
+        #   file: practicos/practico-02.qmd
+        # - text: "Práctico 3 - Inferencia"
+        #   file: practicos/practico-03.qmd
+        # - text: "Práctico 4 - Taller Quarto"
+        #   file: practicos/taller-github-quarto/taller-quarto-github.qmd
+        # - text: "Práctico 5 - Estandarización"
+        #   file: practicos/practico-04.qmd
+        # - text: "Práctico 6 - Valores predichos"
+        #   file: practicos/practico-05.qmd
+        # - text: "Práctico 6 - Resumen regresión lineal"
+        #   file: practicos/practico-06.qmd
+        # - text: "Práctico 7 - Regresión logística I"
+        #   file: practicos/practico-07.qmd
+        # - text: "Práctico 8 - Regresión logística II"
+        #   file: practicos/practico-08.qmd
+        # - text: "Práctico 9 - Supuestos de regresión"
+        #   file: practicos/practico-09.qmd
+        # - text: "Ejemplos prueba 2"
+        #   file: practicos/ejemplos-prueba-2.qmd
+        # - text: "Práctico 10 - Plantillas reportes dinámicos"
+        #   file: practicos/07-practico-quarto.qmd
 
   page-footer:
     left: |

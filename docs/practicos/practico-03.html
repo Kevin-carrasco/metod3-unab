@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Práctico 03. Regresión múltiple e inferencia – Metodos 3 - Universidad Andrés Bello</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c1d4747946d1be0d0588e27238c39f9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-9de9f6925d305bcf5b7eb9351f368d06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-fd71023c966670118171c2e01cc12c86.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aba9a859bd7e1bf5cf92f9c98e80b511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -91,7 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -106,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -119,7 +122,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -152,7 +155,7 @@ window.Quarto = {
 <meta name="twitter:image-width" content="500">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -186,7 +189,7 @@ window.Quarto = {
 <span class="menu-text">Trabajos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../practicos/index.html" aria-current="page"> 
+    <a class="nav-link" href="../practicos/index.html"> 
 <span class="menu-text">Practicos</span></a>
   </li>  
 </ul>
@@ -195,105 +198,10 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicos/practico-03.html">Práctico 3 - Inferencia</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Descripción</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 1 - Regresión lineal simple</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 2 - Regresión lineal múltiple</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-03.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Práctico 3 - Inferencia</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/taller-github-quarto/taller-github-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 4 - Taller Quarto</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 5 - Estandarización</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 6 - Valores predichos</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 6 - Resumen regresión lineal</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 7 - Regresión logística I</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 8 - Regresión logística II</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-09.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 9 - Supuestos de regresión</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/ejemplos-prueba-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Ejemplos prueba 2</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/07-practico-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 10 - Plantillas reportes dinámicos</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -375,7 +283,7 @@ window.Quarto = {
 <p><em>Ejemplo</em></p>
 <p>Supongamos que nuestra muestra de 3703 casos en realidad corresponde a la <strong>Población</strong>, de modo tal que vamos a extraer 14 muestras aleatorias de distinto tamaño a modo de ilustrar cambios en la estimación en la medida que aumenta el tamaño muestral.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/proc/ELSOC_ess.RData"</span>)) <span class="co"># Cargar base de datos</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>elsoc_n30  <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(<span class="at">tbl =</span> elsoc_18,<span class="at">size =</span> <span class="dv">30</span> )  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dataset=</span><span class="dv">30</span> ,<span class="at">mean_ess=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T))</span>
@@ -395,12 +303,12 @@ window.Quarto = {
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># elsoc      &lt;- elsoc_18 %&gt;% mutate(dataset=3703,mean_ess=mean(ess,na.rm = T))</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>fullmat<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(elsoc_n30 ,elsoc_n50 ,elsoc_n75 ,elsoc_n100,elsoc_n200,elsoc_n300,elsoc_n400,elsoc_n700,elsoc_n800,elsoc_n900,elsoc_n1000,elsoc_n1500,elsoc_n2000,elsoc_n2500)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>fullmat <span class="ot">&lt;-</span> fullmat <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">mean_ssta=</span><span class="fu">mean</span>(elsoc_18<span class="sc">$</span>ess,<span class="at">na.rm =</span> T))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>fullmat <span class="ot">&lt;-</span> fullmat <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">mean_ssta=</span><span class="fu">mean</span>(elsoc_18<span class="sc">$</span>ess,<span class="at">na.rm =</span> T))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Luego de obtener las muestras, calculamos la media, desviación estándar y error estándar para cada una de ellas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tab_full<span class="ot">&lt;-</span> fullmat <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dataset) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T), <span class="at">sd=</span><span class="fu">sd</span>(ess,<span class="at">na.rm =</span> T),<span class="at">SE=</span>sd<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tab_full</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tab_full<span class="ot">&lt;-</span> fullmat <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dataset) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(ess,<span class="at">na.rm =</span> T), <span class="at">sd=</span><span class="fu">sd</span>(ess,<span class="at">na.rm =</span> T),<span class="at">SE=</span>sd<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tab_full</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14 × 4
    dataset  mean    sd     SE
@@ -439,7 +347,7 @@ window.Quarto = {
 </ul>
 <p>Todos estos pasos son realizados automáticamente mediante software de estimación (como R), pero vamos a hacerlo paso a paso en un ejemplo mínimo (=pocos datos) con los datos de la <a href="..\assignment/03-code/">práctica 3 de regresión simple</a>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/slides/03-regsimple1/tacataca.txt"</span>, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/slides/03-regsimple1/tacataca.txt"</span>, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="../files/img/tacataca.png" class="img-fluid"></p>
 <p>Tenemos entonces tres columnas:</p>
@@ -450,8 +358,8 @@ window.Quarto = {
 </ul>
 <p>Estimamos el modelo de regresión y vemos los resultados:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span><span class="fu">lm</span>(puntos_y <span class="sc">~</span> juegos_x, <span class="at">data =</span> datos)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(reg1, <span class="at">type =</span> <span class="st">"text"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span><span class="fu">lm</span>(puntos_y <span class="sc">~</span> juegos_x, <span class="at">data =</span> datos)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(reg1, <span class="at">type =</span> <span class="st">"text"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ===============================================
@@ -484,7 +392,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p><span class="math display">\[SE_{\beta}=\sqrt{\frac{ \frac{1}{N-2}-\sum(\hat{y}-y)²}{\sum(x-\bar{x})²}}\]</span></p>
 <p>Donde en el numerador se encuentra la sumatoria de los residuos al cuadrado multiplicado por 1/N-2, y en el denominador es la suma de cuadrados de X. Para demostrar paso a paso la obtención de estos términos vamos a agregar una serie de columnas a nuestra base de datos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Variable de valores predichos</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Variable de valores predichos</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>estimado<span class="ot">&lt;-</span> (<span class="fl">2.5</span> <span class="sc">+</span> datos<span class="sc">$</span>juegos_x<span class="sc">*</span><span class="fl">0.5</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimamos el residuo</span></span>
@@ -499,7 +407,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ... al cuadrado</span></span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>xprom_x2 <span class="ot">&lt;-</span> (datos<span class="sc">$</span>xprom_x)<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>datos</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>datos</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   id juegos_x puntos_y estimado residuo residuo2 xprom_x xprom_x2
 1   1        0        2      2.5    -0.5     0.25      -3        9
@@ -529,11 +437,11 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 <p>Ahora obtenemos la suma de los residuos al cuadrado (residuo2) y la suma de las diferencias de promedio de X al cuadrado:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(datos<span class="sc">$</span>residuo2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(datos<span class="sc">$</span>residuo2)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 25</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(datos<span class="sc">$</span>xprom_x2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(datos<span class="sc">$</span>xprom_x2)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 68</code></pre>
 </div>
@@ -542,7 +450,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p><span class="math inline">\(SE_{\beta}=\sqrt{\frac{ \frac{1}{N-2}*\sum(\hat{y}-y)²}{\sum(x-\bar{x})²}}=\sqrt{\frac{ \frac{1}{23-2}*25}{68}}\)</span></p>
 <p>Y realizamos el cálculo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(((<span class="dv">1</span><span class="sc">/</span><span class="dv">21</span>)<span class="sc">*</span><span class="dv">25</span>)<span class="sc">/</span><span class="dv">68</span> )</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(((<span class="dv">1</span><span class="sc">/</span><span class="dv">21</span>)<span class="sc">*</span><span class="dv">25</span>)<span class="sc">/</span><span class="dv">68</span> )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.132314</code></pre>
 </div>
@@ -554,14 +462,14 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>Y un tema adicional sobre el valor p: vamos a establecer un valor que considere tanto situaciones de coeficiente positivo como negativo (prueba de dos colas), que es la manera convencional para rechazar hipótesis nulas en el caso de regresión. Por lo tanto, para la búsqueda del valor crítico dividimos el p a la mitad (0.05/2), quedando entonces en 0.025.</p>
 <p>Con p=0.025 y gl=21 obtenemos el valor crítico:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="dv">21</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="dv">21</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.079614</code></pre>
 </div>
 </div>
 <p>Nuestro valor T de 3.387 es mayor que el valor crítico de 2.07, por lo tanto podemos decir que nuestro beta es estadísticamente significativo con un 95% de confianza. Veamos ahora si podemos hacer esta afirmación con un mayor nivel de confianza: 99%. Para eso, calculamos la T de dos colas para un p=0.01/2=0.005, por lo tanto el valor crítico se calcula a partir de 0.995</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.995</span>, <span class="dv">21</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.995</span>, <span class="dv">21</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.83136</code></pre>
 </div>
@@ -572,11 +480,11 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>Otro concepto asociado con inferencia es el intervalo de confianza, que se obtiene sumando y restando errores estándar al <span class="math inline">\(\beta\)</span> de regresión. Con esto no solo se obtiene un rango probable de variación del <span class="math inline">\(\beta\)</span>, sino que también es posible establecer falta de significancia estadística cuando el intervalo pasa por el valor 0. De esta manera, es una manera relacionada y complementaria de hacer análisis de inferencia además de la prueba T.</p>
 <p>Para obtener el intervalo de confianza se suma/resta al <span class="math inline">\(\beta\)</span> el error estándar por el valor crítico de T para el nivel de confianza correspondiente. En nuestro ejemplo, para un 95% de confianza el T crítico es 2.079, por lo tanto considerando el <span class="math inline">\(\beta\)</span> de 0.5 y el error de 0.132:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">-</span> (<span class="fl">2.079</span> <span class="sc">*</span> <span class="fl">0.132</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">-</span> (<span class="fl">2.079</span> <span class="sc">*</span> <span class="fl">0.132</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.225572</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">+</span> (<span class="fl">2.079</span> <span class="sc">*</span> <span class="fl">0.132</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">+</span> (<span class="fl">2.079</span> <span class="sc">*</span> <span class="fl">0.132</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.774428</code></pre>
 </div>
@@ -584,16 +492,16 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>Por lo tanto, podemos decir con un 95% de confianza que <span class="math inline">\(\beta\)</span> varía entre 0.225 y 0.774, y que es estadísticamente significativo ya que el intervalo no pasa por cero, que es lo mismo que decir que es estadísticamente distinto de 0.</p>
 <p>Toda esta información la podemos obtener en R con tablas como la siguiente:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(reg1,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(reg1,</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.se=</span><span class="cn">TRUE</span>,</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits=</span><span class="dv">3</span>,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">p.style =</span> <span class="st">"star"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">p.style =</span> <span class="st">"star"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">puntos y</td>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">puntos y</th>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
@@ -638,15 +546,15 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <section id="librerías" class="level2">
 <h2 class="anchored" data-anchor-id="librerías">Librerías</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># instalar pacman</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,readxl, summarytools, stargazer, webshot, equatiomatic)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># instalar pacman</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,readxl, summarytools, stargazer, webshot, equatiomatic)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="datos" class="level2">
 <h2 class="anchored" data-anchor-id="datos">Datos</h2>
 <p>Los datos a utilizar corresponden a resultados de pruebas de conocimiento en distintas areas de 200 estudiantes de educación secundaria.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/hsb2.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/hsb2.csv"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="alert alert-info">
 <p><strong>Directorio de trabajo</strong> :<span class="sidenote">Directorio de trabajo </span></p>
@@ -666,22 +574,22 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <h2 class="anchored" data-anchor-id="ajustes-y-descriptivos">Ajustes y descriptivos</h2>
 <p>Primero seleccionamos las variables que vamos a usar en el ejemplo y cambiamos las etiquetas de las variables a español.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "id"      "female"  "race"    "ses"     "schtyp"  "prog"    "read"   
  [8] "write"   "math"    "science" "socst"  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span> (science,math,female, socst, read)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">ciencia=</span>science, <span class="at">matematicas =</span>math, <span class="at">mujer=</span>female, <span class="at">status=</span>socst, <span class="at">lectura=</span>read)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span> (science,math,female, socst, read)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">ciencia=</span>science, <span class="at">matematicas =</span>math, <span class="at">mujer=</span>female, <span class="at">status=</span>socst, <span class="at">lectura=</span>read)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(data, <span class="at">headings=</span><span class="cn">FALSE</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(data, <span class="at">headings=</span><span class="cn">FALSE</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div class="container st-container">
 
-<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline caption-top table-sm small" data-quarto-postprocess="true">
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline caption-top table-sm small">
 <colgroup>
 <col style="width: 14%">
 <col style="width: 14%">
@@ -706,7 +614,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <tr class="odd">
 <td style="text-align: center;">1</td>
 <td style="text-align: left;">ciencia [integer]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 51.9 (9.9)</td>
@@ -730,7 +638,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <tr class="even">
 <td style="text-align: center;">2</td>
 <td style="text-align: left;">matematicas [integer]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 52.6 (9.4)</td>
@@ -754,7 +662,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <tr class="odd">
 <td style="text-align: center;">3</td>
 <td style="text-align: left;">mujer [integer]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Min : 0</td>
@@ -767,7 +675,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">0</td>
@@ -794,7 +702,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <tr class="even">
 <td style="text-align: center;">4</td>
 <td style="text-align: left;">status [integer]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 52.4 (10.7)</td>
@@ -818,7 +726,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <tr class="odd">
 <td style="text-align: center;">5</td>
 <td style="text-align: left;">lectura [integer]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 52.2 (10.3)</td>
@@ -882,19 +790,19 @@ webshot("reg1_tab.html","reg1_tab.png")
 \]</span></p>
 <p>Para estimar estos modelos en <code>R</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ciencia <span class="sc">~</span> matematicas <span class="sc">+</span> lectura, <span class="at">data=</span>data)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ciencia <span class="sc">~</span> matematicas <span class="sc">+</span> lectura <span class="sc">+</span> mujer <span class="sc">+</span> status, <span class="at">data=</span>data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ciencia <span class="sc">~</span> matematicas <span class="sc">+</span> lectura, <span class="at">data=</span>data)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ciencia <span class="sc">~</span> matematicas <span class="sc">+</span> lectura <span class="sc">+</span> mujer <span class="sc">+</span> status, <span class="at">data=</span>data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Para presentar los resultados de regresión existen diferentes librerías en R, como stargazer, texreg, sjPlot. En este caso vamos a utilizar la función tab_model de sjPlot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">ciencia</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">ciencia</td>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">ciencia</th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">ciencia</th>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
@@ -967,21 +875,21 @@ webshot("reg1_tab.html","reg1_tab.png")
 <p>Esta tabla tiene las opciones por defecto. En general, para cada predictor hay dos piezas de información importante: la estimación del coeficiente de regresión <span class="math inline">\(\beta\)</span> (estimates), y una estimación referida a inferencia/significación estadística (en este caso CI, intervalo de confianza). Esta segunda información es en general el error estándar, pero también puede ser <em>t</em> (que es el coeficiente dividido por el error estándar), o el intervalo de confianza, dado usualmente por el <span class="math inline">\(\beta\)</span> +/- 1.96 SE para un 95% de confianza (como aparece en esta tabla). Según el output, la información de inferencia puede aparecer abajo del coeficiente, o al lado como en esta tabla.</p>
 <p>Abajo vamos a hacer algunos ajustes en la tabla, presentando el error estándar en lugar del intervalo, y reemplazando la columna del nivel de probabilidad de error (<em>p</em>) por asteriscos que indican el nivel de significación de cada coeficiente, lo cual hace más rápida la interpretación. También cambiamos algunas etiquetas de la tabla para que sea más fácil de leer:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2),</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.se=</span><span class="cn">TRUE</span>,</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.ci=</span><span class="cn">FALSE</span>,</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits=</span><span class="dv">3</span>,</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>, <span class="st">"Modelo 2"</span>),</span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">string.est =</span> <span class="st">"β"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">string.est =</span> <span class="st">"β"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 1</td>
-<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 2</td>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 1</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 2</th>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
@@ -1044,7 +952,7 @@ webshot("reg1_tab.html","reg1_tab.png")
 </div>
 <p>Y otra alternativa es la siguiente:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(reg1,reg2),</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.se=</span><span class="cn">TRUE</span>,</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.ci=</span><span class="cn">FALSE</span>,</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">digits=</span><span class="dv">3</span>,</span>
@@ -1053,9 +961,9 @@ webshot("reg1_tab.html","reg1_tab.png")
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">string.est =</span> <span class="st">"β"</span>,</span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">title =</span> <span class="st">"Modelos de regresión para puntaje en ciencia &lt;br&gt; (Errores estándar entre paréntesis)"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">title =</span> <span class="st">"Modelos de regresión para puntaje en ciencia &lt;br&gt; (Errores estándar entre paréntesis)"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <caption>Modelos de regresión para puntaje en ciencia<br>
 (Errores estándar entre paréntesis)</caption>
 <colgroup>
@@ -1065,9 +973,9 @@ webshot("reg1_tab.html","reg1_tab.png")
 </colgroup>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 1</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 2</td>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 1</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 2</th>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
@@ -1160,7 +1068,7 @@ extract_eq(reg2)
 <p><strong>Std Error</strong>: Esta columna corresponde a los errores estándar de los coeficientes de regresión (Estimate). Estos errores estándar son empleados para testear en qué medida los coeficientes son distintos de 0 en la población. El procedimiento es dividir el coeficiente por su error estándar para obtener el valor <span class="math inline">\(t\)</span>, los que luego se contrastan con la tabla de valores críticos t para obtener la probabilidad de error (que ya aparece automáticamente en la tabla). Además, los errores estándar pueden ser utilizados para calcular los intervalos de confianza.</p>
 <p>Una manera de presentar los resultados de un modelo de regresión es a través de la visualización de los coeficientes de regresión con sus respectivos intervalos de confianza. La ventaja de este tipo de gráficos es que podemos observar la magnitud del coeficiente y las “barras de error” que representan el intervalo de confianza inferior y superior. Utilizando un intervalo de confianza de 95% de confianza:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(reg2,<span class="at">ci.lvl =</span> <span class="fu">c</span>(<span class="fl">0.95</span>), <span class="at">title =</span> <span class="st">""</span>,<span class="at">vline.color =</span> <span class="st">"grey"</span>,<span class="at">line.size =</span> <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(reg2,<span class="at">ci.lvl =</span> <span class="fu">c</span>(<span class="fl">0.95</span>), <span class="at">title =</span> <span class="st">""</span>,<span class="at">vline.color =</span> <span class="st">"grey"</span>,<span class="at">line.size =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1187,7 +1095,7 @@ extract_eq(reg2)
 <h2 class="anchored" data-anchor-id="cargar-datos">Cargar datos</h2>
 <p>Utiliza la base de datos hsb2 disponible:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/hsb2.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/hsb2.csv"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Selecciona las siguientes variables:</p>
 <ul>
@@ -1204,8 +1112,8 @@ extract_eq(reg2)
 <li><p>Reflexiona: ¿qué nos dice el tamaño de la desviación estándar sobre la dispersión de cada variable?</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(data,read, math, socst, female)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(data, <span class="at">type=</span><span class="st">"text"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(data,read, math, socst, female)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(data, <span class="at">type=</span><span class="st">"text"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 =====================================
@@ -1223,17 +1131,17 @@ female    200 0.545   0.499    0   1
 <h2 class="anchored" data-anchor-id="modelo-de-regresión-múltiple">Modelo de regresión múltiple</h2>
 <p>Estima el siguiente modelo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(read <span class="sc">~</span> math <span class="sc">+</span> socst <span class="sc">+</span> female, <span class="at">data =</span> data)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(read <span class="sc">~</span> math <span class="sc">+</span> socst <span class="sc">+</span> female, <span class="at">data =</span> data)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(reg,</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">digits =</span> <span class="dv">3</span>,</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.style =</span> <span class="st">"stars"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.style =</span> <span class="st">"stars"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">read</td>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">read</th>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
@@ -1352,13 +1260,14 @@ female    200 0.545   0.499    0   1
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1704,7 +1613,7 @@ female    200 0.545   0.499    0   1
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Content <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> 2025 by Kevin Carrasco<br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-nc" aria-hidden="true"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+<p>Content <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> 2026 by Kevin Carrasco<br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-nc" aria-hidden="true"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

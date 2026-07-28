@@ -13,11 +13,7 @@ library(pander)
 
 ::: {.g-col-6}
 
-### Profesores
-
-- {{< fa user >}} &nbsp; [{{< var instructor.name >}}]({{< var instructor.url >}})
-- {{< fa university >}} &nbsp; {{< var instructor.office >}}
-- {{< fa envelope >}} &nbsp; <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
+### Profesor
 
 - {{< fa user >}} &nbsp; [{{< var instructor2.name >}}]({{< var instructor2.url >}})
 - {{< fa university >}} &nbsp; {{< var instructor2.office >}}
@@ -31,142 +27,157 @@ library(pander)
 - {{< fa calendar-alt >}} &nbsp; {{< var course.dates >}}
 - {{< fa clock >}} &nbsp; {{< var course.time >}}
 - {{< fa location-dot >}} &nbsp; {{< var course.location >}}
-- {{< fa brands slack >}} &nbsp; [Slack]({{< var course.slack >}})
 :::
 
 :::
 
 ## Resumen
 
-Este curso busca dar un primer acercamiento a la investigación social cuantitativa, abarcando desde aspectos iniciales básicos de estadística descriptiva y visualización de datos, hasta análisis e interpretación de modelos explicativos de investigación social. Asimismo, se busca que los y las estudiantes logren familiarizarse con el uso de Rstudio para el análisis de datos sociales.
+Esta asignatura tributa al ámbito II del perfil de egreso, "Investigación Sociológica", en el desarrollo del resultado de aprendizaje RA II.3: "Implementar estrategias de producción de datos cuantitativos y cualitativos sobre la realidad social, y aplicar estrategias de análisis de datos con apoyo de programas computacionales".
 
-La metodología incluye clases lectivas y trabajo práctico en R.
-
+Una vez finalizado el curso, el estudiante utilizará un programa computacional para realizar análisis estadísticos bivariados y multivariados de tipo paramétrico, utilizando el modelo de regresión lineal generalizado (GLM), y evaluará tanto la significancia estadística de las estimaciones mediante la prueba de significancia de la hipótesis nula, como también determinará la significancia práctica de los resultados mediante el cálculo de tamaños de efecto. Además, los estudiantes podrán evaluar la validez de constructo y fiabilidad de escalas en la investigación social.
 
 ## Objetivo general
 
-Al finalizar el curso, el/la estudiante podrá elaborar y analizar diseños de investigación social de carácter cuantitativo, así como describir cuantitativamente un conjunto de datos utilizando el lenguaje R.
+Al finalizar el curso, el/la estudiante podrá proponer, ajustar, evaluar e interpretar modelos de regresión lineal y logística binaria sobre datos sociales, utilizando el lenguaje R, y comunicar sus resultados de acuerdo con los estándares de reporte de la investigación social cuantitativa.
 
-
-## Objetivos específicos
+## Aprendizajes esperados
 
 Al concluir el curso lo/as estudiantes deberán haber alcanzado los siguientes resultados de aprendizaje:
 
+- **AE1.** Proponer y ajustar modelos de regresión lineal para determinar la magnitud, relación y significancia de la relación entre una o más variables independientes (categóricas o numéricas) y una variable dependiente numérica.
 
-- Conocer las etapas de un diseño de investigación social cuantitativa y sus principales elementos
+- **AE2.** Evaluar si un modelo de regresión lineal cumple los supuestos estadísticos requeridos por esta técnica y, en caso de violación de supuestos, aplicar medidas paliativas o correctivas estándar para mejorar la generalización del modelo.
 
+- **AE3.** Realizar distintos tipos de análisis de correlación bivariada y comprender el modelo lineal generalizado y su aplicación a las ciencias sociales.
 
-- Formular diseños de investigación social cuantitativa
+- **AE4.** Proponer y ajustar modelos estadísticos bivariados para determinar la magnitud y significancia de la diferencia de medias entre dos o más grupos, sean independientes o relacionados, según el diseño experimental.
 
-
-- Conocer y aplicar instrumentos de medición y tipos de estudios cuantitativos
-- Interpretar y analizar los elementos centrales de una base de datos con información social
-
-
-- Aplicar e interpretar técnicas de estadística descriptiva según las distintas características de los datos
-
-
-- Aplicar e interpretar técnicas de estadística correlacional e inferencia estadística para variables con distinta unidad de medida
-
-
-- Aplicar e interpretar técnicas de regresión lineal y logística para variables numéricas y variables categóricas
-
-
+- **AE5.** Evaluar la validez de constructo y la fiabilidad de escalas en la investigación social.
 
 ## Saberes / contenidos
 
-### Módulo 1: Estadística descriptiva
+### Unidad I: El modelo de regresión lineal
 
+- Introducción al modelo de regresión lineal simple: la ecuación de la recta (intercepto y pendiente). Variables dependientes e independientes. Coeficientes de regresión.
 
-1.1  Elementos básicos de la investigación social
+- Suma de los cuadrados y error cuadrático medio. Estimación de parámetros mediante el método de los mínimos cuadrados.
 
-- Etapas de la investigación Social
+- Bondad de ajuste de un modelo lineal: R cuadrado, R cuadrado ajustado, error estándar del modelo, razón F y significancia estadística del modelo.
 
-- Tipos de diseños
+- Significancia de las variables independientes: parámetros, error estándar, estadístico *t*, intervalos de confianza de los parámetros. Reporte de resultados.
 
-- Diseño de instrumentos de medición
+- El modelo de regresión lineal múltiple: coeficientes de regresión estandarizados, variables independientes numéricas y categóricas (codificación dummy). Centrar variables. Reporte de resultados.
 
-- Bases de datos: datos de corte transversal, series de tiempo, cohortes, panel o longitudinal
+- Selección y comparación de modelos de regresión lineal: métodos stepwise o comparación en bloques. Reporte de resultados.
 
+### Unidad II: Supuestos del modelo de regresión lineal
 
-1.2 Operacionalización y análisis de datos
+- Supuestos y fuentes de sesgo del modelo de regresión lineal.
 
-- Operacionalización y niveles de medición
+- Diagnóstico del modelo de regresión lineal: linealidad, homocedasticidad, baja colinealidad, independencia.
 
-- Tidy data: unir, dividir, filtrar y ordenar datos en R
+- Técnicas para resolver la violación de supuestos del modelo de regresión lineal.
 
-- Recodificación de variables: descriptivos básicos, casos perdidos, etiquetamiento de variables
+- Estimación del poder estadístico de un modelo de regresión lineal.
 
-- Agrupación de datos y construcción de variables a partir de datos existentes
+### Unidad III: Introducción a los modelos lineales generalizados (GLM)
 
-- Construcción de índices y validez de escalas
+- El modelo lineal generalizado en la investigación social.
 
+- Análisis de correlación de dos variables numéricas: coeficiente de correlación de Pearson, coeficiente de correlación de Spearman. Reporte de resultados.
 
-1.3 Visualización de datos en R
+- El coeficiente de determinación o R cuadrado. Reporte de resultados.
 
-- Tablas descriptivas y tablas de contingencia
+- Correlaciones parciales y semiparciales. ¿Correlación o causalidad?
 
-- ggplot2: gráficos de barra, de caja, dispersión e histograma
+### Unidad IV: Diseños experimentales: comparación de dos o más medias observadas
 
+- Comparación de dos medias independientes y relacionadas: supuestos, prueba t de Student (muestras independientes y relacionadas). Tamaño de efecto. Estimación de poder estadístico. Reporte de resultados.
 
-### Módulo 2: Inferencia y estadística correlacional
+- Comparación de más de dos medias. ANOVA (GLM1): ANOVA con un factor aleatorizado, supuestos, contrastes planificados, contrastes post-hoc. Tamaño de efecto. Estimación de poder estadístico. Reporte de resultados.
 
-2.1 Inferencia estadística
+- Análisis de covarianza. ANCOVA (GLM2): supuestos. Tamaño de efecto. Estimación de poder estadístico. Reporte de resultados.
 
-2.2 Pruebas de hipótesis
+- ANOVA factorial (GLM3): diseños factoriales, supuestos. Tamaño de efecto. Estimación de poder estadístico. Reporte de resultados.
 
-2.3 Correlación
+- ANOVA de un factor con medidas repetidas (GLM4): diseños de medidas repetidas, supuesto de esfericidad. Tamaño de efecto. Estimación de poder estadístico. Reporte de resultados.
 
+### Unidad V: Técnicas de reducción de variables y fiabilidad de escalas
 
-### Módulo 3: Regresión lineal y regresión logística
+- Validez de constructo y confiabilidad de las escalas.
 
-3.1 Regresión lineal de mínimos cuadrados
+- Análisis factorial exploratorio: componentes principales, cargas factoriales, métodos de rotación ortogonal y oblicua, matriz de componentes rotados. Reporte de resultados.
 
-- Aspectos centrales y supuestos de la regresión MCO
-
-- Interpretación de coeficientes (variables cuantitativas y cualitativas) y efectos de interacción 
-
-- Representación gráfica de coeficientes de regresión lineal
-
-
-3.2 Regresión logística binaria
-
-- Aspectos básicos de la regresión logística
-
-- Tipos de coeficientes e interpretación
-
-- Representación gráfica (cálculo de probabilidades predichas) 
-
-## Bibliografía
-
-Wickham, Hadley & Grolemund, Garrett (2017). R for Data Science. Visualize, model, transform, tidy and import data. / Versión en español disponible [acá](https://es.r4ds.hadley.nz/)
-
-[Moore, D. S., & Comas, J. (2010). Estadística aplicada básica. Barcelona: Antoni Bosch.](resource/moore2010.pdf)
-
-[Wooldridge, J. M. (2008). Introducción a la econometría: un enfoque moderno. Paraninfo Cengage Learning.](wooldridge2008)
-
-[Camarero, et al (2017) Regresión Logística: Fundamentos y aplicación a la investigación sociológica.](https://www2.uned.es/socioestadistica/Multivariante/Odd_Ratio_LogitV2.pdf)
-
-Hair, Joseph F., et al. (2004). Análisis multivariante. 5ta ed. Madrid: Prentice Hall.
-
-[Charte, Francisco (2014). Análisis exploratorio y Visualización de datos con R.](http://www.fcharte.com/libros/ExploraVisualizaConR-Fcharte.pdf)
-
-
+- Análisis de fiabilidad de escalas: alfa de Cronbach.
 
 ## Metodología
 
-El curso se organiza en sesiones semanales, con una parte lectiva seguida de una práctica. En la parte lectiva se transmiten y discuten los conceptos centrales de la investigación cuantitativa. En la parte práctica se aplicarán los conceptos transmitidos en la parte lectiva, además de resolver dudas en el avance de los trabajos de investigación
+El curso contempla dos sesiones teóricas semanales (4 horas pedagógicas) y una sesión de ayudantía (2 horas pedagógicas), a lo largo de 16 semanas, además de 9 horas pedagógicas semanales de trabajo personal.
+
+En las sesiones lectivas se presentan y discuten los conceptos centrales del análisis de regresión. En las ayudantías se aplican esos contenidos en R y se resuelven dudas sobre el avance de los trabajos.
+
+La calendarización detallada se encuentra en la [planificación del curso](schedule.html) y puede verse modificada en función de contingencias y necesidades excepcionales emergentes durante el semestre.
 
 ## Evaluación
 
-La evaluación consistirá en 
+| Evaluación | Actividad | Fecha | Ponderación | Aprendizaje esperado | Indicador de logro |
+|---|---|---|---|---|---|
+| Solemne 1 | Prueba 1 | 07 sept | 25% | AE1 | Interpreta coeficientes y reconoce bases del modelo de regresión lineal simple y múltiple |
+| Solemne 2 | Prueba 2 | 09 nov | 25% | AE3 | Interpreta coeficientes y reconoce bases del modelo de regresión logística binaria |
+| Laboratorio 1 | Trabajo 1 | 09 oct | 25% | AE1 | Interpreta coeficientes del modelo de regresión lineal simple y múltiple, componentes de la ecuación de la recta, parcialización, bondad de ajuste e inferencia |
+| Laboratorio 2 | Trabajo 2 | 27 nov | 25% | AE2 y AE3 | Elabora e interpreta resultados de modelos de regresión logística con variables dummy |
+
+La **nota de presentación** corresponde al promedio ponderado de las cuatro evaluaciones parciales y equivale al **70%** de la calificación final. El **examen** (fecha por definir) equivale al **30%** restante.
 
 ## Requisitos de aprobación
 
-- Nota mínima de aprobación: 4,0 (en escala de 1 a 7). 
+- Nota mínima de aprobación: **4,0** (escala de 1,0 a 7,0), según el Reglamento del Alumno de Pregrado (D.U. N°1897, 2012, artículo 33°). Las calificaciones admiten hasta un decimal; la centésima igual o superior a cinco se aproxima a la décima superior.
 
+- La calificación final corresponde al 70% de la nota de presentación y al 30% de la nota de examen. La nota de presentación se publica con al menos una semana de anticipación a la fecha del examen.
 
-## Palabras Clave 
+- **Eximición del examen final** con nota de presentación de al menos **5,0** (artículo 36°).
 
-- Estadística, investigación cuantitativa, manipulación de datos, visualización de datos, interpretación de coeficientes
+- **Asistencia mínima exigida: 70%.** Un porcentaje menor es causal de reprobación de la asignatura.
 
+- No es posible eliminar una calificación parcial. La asistencia a evaluaciones es obligatoria y su incumplimiento se califica con nota 1,0. Las justificaciones por salud u otra causa de fuerza mayor deben presentarse ante secretaría académica dentro de un plazo máximo de tres días desde la fecha de la evaluación (artículo 42°).
+
+- **Cualquier tipo de plagio será evaluado inapelablemente con nota mínima 1,0.** La ausencia de referencia a la obra y/o autor basta para la existencia de plagio.
+
+## Bibliografía
+
+### Obligatoria
+
+Wooldridge, J. M. (2010). *Introducción a la econometría* (4ª ed.). Cengage Learning. [Disponible en Recursos Digitales UNAB](https://recursosdigitales-unab-cl.recursosbiblioteca.unab.cl/rdigital/book3/35613000332332/)
+
+Moore, D. S. (2005). *Estadística aplicada básica* (2ª ed.). Antoni Bosch editor.
+
+[Camarero, L. et al. (2017). *Regresión logística: fundamentos y aplicación a la investigación sociológica* (pp. 30-52).](https://www2.uned.es/socioestadistica/Multivariante/Odd_Ratio_LogitV2.pdf)
+
+[Cerda, J., Vera, C., & Rada, G. (2013). Odds ratio: aspectos teóricos y prácticos. *Revista Médica de Chile, 141*(10), 1329-1335.](https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0034-98872013001000014)
+
+Pardo, A., Ruiz, M., & San Martín, R. (2015). *Análisis de datos en ciencias sociales y de la salud II*. Síntesis.
+
+Pérez López, C. (2009). *Técnicas de análisis de datos con SPSS 15*. Pearson.
+
+Ritchey, F. J. (2008). *Estadística para las ciencias sociales*. McGraw-Hill.
+
+### Complementaria
+
+Camacho Rosales, J. (2005). *Estadística con SPSS: versión 12 para Windows*. Ra-Ma.
+
+Field, A. (2013). *Discovering statistics using IBM SPSS Statistics* (4ª ed.). SAGE.
+
+Tarling, R. (2008). *Statistical modelling for social researchers: principles and practice*. Routledge.
+
+### Manuales de R
+
+[Garibaldi, L. A., Oddi, F. J., Azuaga, G. D., Behnisch, A. N., & Aristimuño, F. J. (2023). *Modelos estadísticos en lenguaje R* (2ª ed.). Editorial UNRN.](https://ri.conicet.gov.ar/handle/11336/222669)
+
+[Urdinez, F., & Cruz, A. (eds.). *AnalizaR datos políticos: manual aplicado para politólogos y relacionistas internacionales en R*. Capítulo de modelos lineales.](https://andrescruz.org/libroadp/linear.html)
+
+[Wickham, H., & Grolemund, G. (2017). *R para ciencia de datos*.](https://es.r4ds.hadley.nz/)
+
+## Palabras clave
+
+- Regresión lineal, regresión logística, modelos lineales generalizados, supuestos de regresión, interpretación de coeficientes, fiabilidad de escalas

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Práctico 05. Estimación de valores predichos – Metodos 3 - Universidad Andrés Bello</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c1d4747946d1be0d0588e27238c39f9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-9de9f6925d305bcf5b7eb9351f368d06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-fd71023c966670118171c2e01cc12c86.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aba9a859bd7e1bf5cf92f9c98e80b511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -91,7 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -123,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="twitter:image-width" content="500">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -157,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Trabajos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../practicos/index.html" aria-current="page"> 
+    <a class="nav-link" href="../practicos/index.html"> 
 <span class="menu-text">Practicos</span></a>
   </li>  
 </ul>
@@ -166,105 +169,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicos/practico-05.html">Práctico 6 - Valores predichos</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Descripción</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 1 - Regresión lineal simple</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 2 - Regresión lineal múltiple</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 3 - Inferencia</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/taller-github-quarto/taller-github-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 4 - Taller Quarto</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 5 - Estandarización</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-05.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Práctico 6 - Valores predichos</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 6 - Resumen regresión lineal</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 7 - Regresión logística I</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 8 - Regresión logística II</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/practico-09.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 9 - Supuestos de regresión</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/ejemplos-prueba-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Ejemplos prueba 2</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../practicos/07-practico-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 10 - Plantillas reportes dinámicos</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -324,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="librerías" class="level1">
 <h1>Librerías</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               car, </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               summarytools, </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               sjPlot, </span>
@@ -332,24 +240,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               corrplot, </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               ggplot2, </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               sjlabelled, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               ggeffects)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               ggeffects)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="datos" class="level1">
 <h1>Datos</h1>
 <p>El Estudio Longitudinal Social del Chile <a href="https://coes.cl/encuesta-panel/">ELSOC</a>, único en Chile y América Latina, consiste en encuestar a casi 3.000 chilenos, anualmente, a lo largo de una década. ELSOC ha sido diseñado para evaluar la manera cómo piensan, sienten y se comportan los chilenos en torno a un conjunto de temas referidos al conflicto y la cohesión social en Chile. La población objetivo son hombres y mujeres entre 15 y 75 años de edad con un alcance nacional, donde se obtuvo una muestra final de <strong>3748</strong> casos en el año 2018.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cargamos la base de datos desde internet</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/elsoc2.RData"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cargamos la base de datos desde internet</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/elsoc2.RData"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>O descargamos de <a href="https://github.com/cursos-metodos-facso/metod1-MCS/blob/main/files/data/elsoc2.RData">acá</a> y cargamos de manera local.</p>
 <section id="explorar-datos" class="level2">
 <h2 class="anchored" data-anchor-id="explorar-datos">Explorar datos</h2>
 <p>A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para realizar las transformaciones y análisis posteriores.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(elsoc,<span class="at">max.len =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(elsoc,<span class="at">max.len =</span> <span class="dv">50</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <caption>Data frame: elsoc</caption>
 <colgroup>
 <col style="width: 20%">
@@ -360,11 +268,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">ID</td>
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Name</td>
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Label</td>
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Values</td>
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Value Labels</td>
+<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">ID</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Name</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Label</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Values</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Value Labels</th>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">1</td>
@@ -536,7 +444,7 @@ Mas de $2.700.000 a mensuales liquidos</td>
 <section id="variable-dependiente-participación-política" class="level2">
 <h2 class="anchored" data-anchor-id="variable-dependiente-participación-política">Variable dependiente: participación política</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_stackfrq</span>(elsoc[,<span class="fu">c</span>(<span class="st">"part01"</span>,<span class="st">"part02"</span>,<span class="st">"part03"</span>,<span class="st">"part04"</span>)]) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"bottom"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_stackfrq</span>(elsoc[,<span class="fu">c</span>(<span class="st">"part01"</span>,<span class="st">"part02"</span>,<span class="st">"part03"</span>,<span class="st">"part04"</span>)]) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -546,8 +454,8 @@ Mas de $2.700.000 a mensuales liquidos</td>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(<span class="fu">cor</span>(<span class="fu">select</span>(elsoc,part01,part02,part03,part04),</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">use =</span> <span class="st">"complete.obs"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(<span class="fu">cor</span>(<span class="fu">select</span>(elsoc,part01,part02,part03,part04),</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">use =</span> <span class="st">"complete.obs"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -557,13 +465,13 @@ Mas de $2.700.000 a mensuales liquidos</td>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part01 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part01, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part01 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part01, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part02 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part02, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part03 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part03, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part04 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part04, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>elsoc <span class="ot">&lt;-</span> elsoc <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">partpol=</span><span class="fu">rowSums</span>(<span class="fu">select</span>(., part01,part02,part03,part04)))</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(elsoc<span class="sc">$</span>partpol)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(elsoc<span class="sc">$</span>partpol)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
   0.000   0.000   0.000   1.473   2.000  16.000       8 </code></pre>
@@ -575,22 +483,22 @@ Mas de $2.700.000 a mensuales liquidos</td>
 <h1>Regresión lineal</h1>
 <p>veamos primero las diferencias de usar cada tipo de variable de ingreso</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit01<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo,<span class="at">data=</span>elsoc)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit01<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo,<span class="at">data=</span>elsoc)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fit02<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad,<span class="at">data=</span>elsoc)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fit03<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol,<span class="at">data=</span>elsoc)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>labs02 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Intercepto"</span>,<span class="st">"Sexo (mujer=1)"</span>,<span class="st">"Edad"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Centro (ref. derecha)"</span>,<span class="st">"Izquierda"</span>,<span class="st">"Idep./Ninguno"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Centro (ref. derecha)"</span>,<span class="st">"Izquierda"</span>,<span class="st">"Idep./Ninguno"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(fit01,fit02,fit03),<span class="at">custom.coef.names =</span> labs02)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">knitreg</span>(<span class="fu">list</span>(fit01,fit02,fit03),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(fit01,fit02,fit03),<span class="at">custom.coef.names =</span> labs02)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">knitreg</span>(<span class="fu">list</span>(fit01,fit02,fit03),</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>,<span class="st">"Modelo 2"</span>,<span class="st">"Modelo 3"</span>),</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">"Intercepto"</span>,</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Sexo (mujer=1)"</span>,</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Edad"</span>,</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Centro (ref. derecha)"</span>,</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Izquierda"</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Indep./Ninguno"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Indep./Ninguno"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -841,7 +749,7 @@ Num. obs.
 <li><p>Combinado con ggplot2, se pueden generar gráficos que muestran de modo más intuitivo la relación entre variables</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"sexo"</span>)) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"sexo"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
@@ -851,7 +759,7 @@ Num. obs.
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Hombre"</span>, <span class="st">"Mujer"</span>))<span class="sc">+</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), </span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -861,7 +769,7 @@ Num. obs.
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"pospol"</span>)) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"pospol"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
@@ -870,7 +778,7 @@ Num. obs.
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Derecha"</span>, <span class="st">"Centro"</span>, <span class="st">"Izquierda"</span>, <span class="st">"Independiente/ninguno"</span>)) <span class="sc">+</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), </span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -880,7 +788,7 @@ Num. obs.
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms=</span><span class="st">"edad"</span>) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms=</span><span class="st">"edad"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Edad"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>)<span class="sc">+</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
@@ -888,7 +796,7 @@ Num. obs.
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">fill =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -903,7 +811,7 @@ Num. obs.
 </section>
 <section id="interacciones" class="level2">
 <h2 class="anchored" data-anchor-id="interacciones">Interacciones</h2>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit04<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">*</span>edad,<span class="at">data=</span>elsoc)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit04<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">*</span>edad,<span class="at">data=</span>elsoc)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(fit03,fit04, <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">pred.labels=</span><span class="fu">c</span>(<span class="st">"Intercepto"</span>,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Sexo (mujer=1)"</span>,</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Edad"</span>,</span>
@@ -912,13 +820,13 @@ Num. obs.
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Indep./Ninguno"</span>,</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Centro * Edad"</span>,</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Izquierda * Edad"</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Indep./Ninguno * Edad"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="caption-top table" data-quarto-postprocess="true">
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Indep./Ninguno * Edad"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</td>
-<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</td>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</th>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
@@ -1004,9 +912,9 @@ Num. obs.
 </table>
 <p>En comparación con las personas de Derecha, el efecto negativo de la edad no es tan pronunciado en personas de Centro, Izquierda o independientes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit04, <span class="at">type =</span> <span class="st">"int"</span>) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit04, <span class="at">type =</span> <span class="st">"int"</span>) <span class="sc">+</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1021,11 +929,11 @@ Num. obs.
 <h2 class="anchored" data-anchor-id="ejercicios">Ejercicios</h2>
 <p>1- Estima un nuevo modelo de regresión lineal múltiple que incluya como predictores: sexo, edad, posición política y nivel educacional.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fit05<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">+</span>educ,<span class="at">data=</span>elsoc)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fit05<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">+</span>educ,<span class="at">data=</span>elsoc)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(fit05,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.ci=</span><span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.ci=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -1033,8 +941,8 @@ Num. obs.
 </colgroup>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</td>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</th>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
@@ -1115,7 +1023,7 @@ Terciaria y Postgrado</td>
 </div>
 <p>Con base en este modelo crea un gráfico de valores predichos para la variable de nivel educacional.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit05, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"educ"</span>)) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit05, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"educ"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
@@ -1124,7 +1032,7 @@ Terciaria y Postgrado</td>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Básica incompleta"</span>, <span class="st">"Básica completa"</span>, <span class="st">"Educación media"</span>, <span class="st">"Técnico profesional"</span>, <span class="st">"Universitaria"</span>)) <span class="sc">+</span></span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), </span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1135,11 +1043,11 @@ Terciaria y Postgrado</td>
 </div>
 <p>2- Estima un nuevo modelo de regresión que incluya un término de interacción entre edad y nivel educacional</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fit06<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">+</span>educ<span class="sc">*</span>edad,<span class="at">data=</span>elsoc)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fit06<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">+</span>educ<span class="sc">*</span>edad,<span class="at">data=</span>elsoc)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(fit06,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.ci=</span><span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.ci=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -1147,8 +1055,8 @@ Terciaria y Postgrado</td>
 </colgroup>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</td>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</th>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
@@ -1249,9 +1157,9 @@ Terciaria y Postgrado</td>
 </div>
 <p>Grafica la interacción estimada en este modelo</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit06, <span class="at">type =</span> <span class="st">"int"</span>) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit06, <span class="at">type =</span> <span class="st">"int"</span>) <span class="sc">+</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1322,13 +1230,14 @@ Terciaria y Postgrado</td>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1674,7 +1583,7 @@ Terciaria y Postgrado</td>
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Content <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> 2025 by Kevin Carrasco<br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-nc" aria-hidden="true"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+<p>Content <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> 2026 by Kevin Carrasco<br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i> <i class="fa-brands fa-creative-commons-nc" aria-hidden="true"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
