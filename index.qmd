@@ -23,6 +23,7 @@ withr::with_dir(here::here(), {
 })
 ```
 
+
 ::: {.home}
 
 ::: {.grid .course-details}
