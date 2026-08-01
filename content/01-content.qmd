@@ -1,6 +1,6 @@
 ---
 title: "Presentación"
-date: "2025-08-04"
+date: "2026-08-03"
 lang: es
 ---
 
@@ -14,4 +14,9 @@ lang: es
 
 ## Lecturas
 
-[R for Data Science](https://es.r4ds.hadley.nz/introducci%C3%B3n.html)
+- Lectura: Moore, *Estadística aplicada básica*, secciones 1.1 y 1.2
+
+    - Presentación de datos mediante gráficos
+    - Descripción de distribuciones con números
+
+- Revisar el programa del curso y la planificación de sesiones
