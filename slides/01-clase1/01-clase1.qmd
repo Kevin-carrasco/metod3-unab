@@ -55,7 +55,7 @@ theme_set(theme_minimal(base_size = 16))
 ### **Kevin Carrasco**
 ### Sociología - UNAB
 ### 2do Sem 2026
-### [Sitio web del curso](https://metod3-unab.netlify.app/)
+### [https://metod3-unab.netlify.app/](https://metod3-unab.netlify.app/)
 :::
 :::
 
@@ -575,9 +575,6 @@ $$\sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2$$
 
 - Revisar el programa del curso y la planificación de sesiones
 
-# Taller práctico {data-background-color="black"}
-
-[Enlace al práctico pendiente](#)
 
 ##  {data-background-color="black"}
 
