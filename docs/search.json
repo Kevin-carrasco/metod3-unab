@@ -544,7 +544,7 @@
     "href": "content/01-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del lunes, 4 de agosto de 2025",
+    "text": "Sesión del lunes, 3 de agosto de 2026",
     "crumbs": [
       "Clases",
       "Sesiones",
@@ -568,7 +568,7 @@
     "href": "content/01-content.html#lecturas",
     "title": "Presentación",
     "section": "Lecturas",
-    "text": "Lecturas\nR for Data Science",
+    "text": "Lecturas\n\nLectura: Moore, Estadística aplicada básica, secciones 1.1 y 1.2\n\nPresentación de datos mediante gráficos\nDescripción de distribuciones con números\n\nRevisar el programa del curso y la planificación de sesiones",
     "crumbs": [
       "Clases",
       "Sesiones",
