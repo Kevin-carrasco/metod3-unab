@@ -95,7 +95,7 @@ website:
       contents:
         - text: "Descripción"
           file: practicos/index.qmd
-        - text: "Práctico 1 - Regresión lineal simple"
+        - text: "Práctico 1 - Asociación"
           file: practicos/practico-01.qmd
         # - text: "Práctico 2 - Regresión lineal múltiple"
         #   file: practicos/practico-02.qmd
