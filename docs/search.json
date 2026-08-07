@@ -1098,21 +1098,36 @@
     "href": "content/02-content.html",
     "title": "Clase 2",
     "section": "",
-    "text": "Sesión del lunes, 10 de agosto de 2026"
+    "text": "Sesión del lunes, 10 de agosto de 2026",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "02: Sesión 2"
+    ]
   },
   {
     "objectID": "content/02-content.html#documento-de-presentación",
     "href": "content/02-content.html#documento-de-presentación",
     "title": "Clase 2",
     "section": "Documento de presentación",
-    "text": "Documento de presentación"
+    "text": "Documento de presentación",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "02: Sesión 2"
+    ]
   },
   {
     "objectID": "content/02-content.html#para-la-próxima-sesión",
     "href": "content/02-content.html#para-la-próxima-sesión",
     "title": "Clase 2",
     "section": "Para la próxima sesión",
-    "text": "Para la próxima sesión\n\nWooldridge, Introducción a la econometría: apéndices A1 y A2, y sección 2.1\nMoore, Estadística aplicada básica: sección 2.4.1"
+    "text": "Para la próxima sesión\n\nWooldridge, Introducción a la econometría: apéndices A1 y A2, y sección 2.1\nMoore, Estadística aplicada básica: sección 2.4.1",
+    "crumbs": [
+      "Clases",
+      "Sesiones",
+      "02: Sesión 2"
+    ]
   },
   {
     "objectID": "content/04-content.html",
