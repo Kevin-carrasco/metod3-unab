@@ -1546,5 +1546,334 @@
     "title": "Programa",
     "section": "Palabras clave",
     "text": "Palabras clave\n\nRegresión lineal, regresión logística, modelos lineales generalizados, supuestos de regresión, interpretación de coeficientes, fiabilidad de escalas"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#section",
+    "href": "slides/02-clase2/02-clase2.html#section",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para\nCiencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#dónde-quedamos",
+    "href": "slides/02-clase2/02-clase2.html#dónde-quedamos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Dónde quedamos?",
+    "text": "¿Dónde quedamos?\n\nLa investigación cuantitativa requiere operacionalizar conceptos para hacerlos medibles\nLos datos se organizan en casos (filas) y variables (columnas), con distintas escalas de medición\nLa correlación resume la fuerza y dirección de una relación lineal, pero no permite predecir ni distinguir entre variable dependiente e independiente\nLa regresión describe esa relación mediante una función: \\(Y_i = \\beta_0 + \\beta_1 X_i + \\epsilon_i\\)"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#hoy",
+    "href": "slides/02-clase2/02-clase2.html#hoy",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Hoy",
+    "text": "Hoy\n\nAntes de explicar, necesitamos describir: medidas de tendencia central y de dispersión\n¿Por qué la varianza es la pieza central del modelo de regresión?\n¿Cómo se estiman concretamente \\(b_0\\) y \\(b_1\\)?"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#tipos-de-datos-y-escalas-de-medición",
+    "href": "slides/02-clase2/02-clase2.html#tipos-de-datos-y-escalas-de-medición",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Tipos de datos y escalas de medición",
+    "text": "Tipos de datos y escalas de medición\n\nDatos categóricos:\n\nPueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango\n\nDatos continuos:\n\nMedidos en escalas intervalares o de razón\nPueden ser transformados a datos categóricos (ej: estatura en centímetros a categorías bajo, mediano y alto)"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#descriptivos-según-tipo-de-variable",
+    "href": "slides/02-clase2/02-clase2.html#descriptivos-según-tipo-de-variable",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Descriptivos según tipo de variable",
+    "text": "Descriptivos según tipo de variable\n\n\n\n\n\n\n\n\n\n\n\n\nCategórica\nContinua\nCateg.(y)/Categ.(x)\nCont.(y)/Categ.(x)\n\n\n\n\nEjemplo\nEstatus ocupacional\nIngreso\nEstatus ocupacional (Y) / Género (X)\nIngreso (Y) / Género (X)\n\n\nTabla\nFrecuencias / porcentajes\n\\(\\bar{X}\\) / sd, o recodificar en categorías\nTabla de contingencia\nClasificar Y\n\n\nGráfico\nBarras\nHistograma / boxplot\nGráfico de barras condicionado\nHistograma o boxplot condicionado"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#tipos-de-análisis-estadístico-bivariado",
+    "href": "slides/02-clase2/02-clase2.html#tipos-de-análisis-estadístico-bivariado",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Tipos de análisis estadístico bivariado",
+    "text": "Tipos de análisis estadístico bivariado\n\nVariable dependiente (y): lo que quiero explicar\nVariable independiente (x): lo que me permite explicar la dependiente\n\n\n\n\n\n\n\n\n\n\nVariable independiente (x)\nVariable dependiente categórica\nVariable dependiente continua\n\n\n\n\nCategórica\nAnálisis de tabla de contingencia, Chi2\nAnálisis de varianza (ANOVA), prueba t\n\n\nContinua\nRegresión logística\nCorrelación / regresión lineal"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#tendencia-central",
+    "href": "slides/02-clase2/02-clase2.html#tendencia-central",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Tendencia central",
+    "text": "Tendencia central\n\nModa: valor que ocurre más frecuentemente\nMediana: valor medio de la distribución ordenada. Si N es par, es el promedio de los dos valores medios\nMedia o promedio aritmético: suma de los valores dividida por el total de casos\n\n\\[\\bar{X} = \\frac{\\sum_{i=1}^{n} x_i}{n}\\]"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#dispersión-varianza",
+    "href": "slides/02-clase2/02-clase2.html#dispersión-varianza",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Dispersión: varianza",
+    "text": "Dispersión: varianza\n\n\nLa media no basta"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#dispersión-varianza-1",
+    "href": "slides/02-clase2/02-clase2.html#dispersión-varianza-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Dispersión: varianza",
+    "text": "Dispersión: varianza\n\n\nLa media no basta"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#dispersión-varianza-2",
+    "href": "slides/02-clase2/02-clase2.html#dispersión-varianza-2",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Dispersión: varianza",
+    "text": "Dispersión: varianza\n\n\nLa media no basta"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#dispersión-varianza-3",
+    "href": "slides/02-clase2/02-clase2.html#dispersión-varianza-3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Dispersión: varianza",
+    "text": "Dispersión: varianza"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#section-1",
+    "href": "slides/02-clase2/02-clase2.html#section-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "La varianza equivale al promedio de la suma de las diferencias respecto del promedio, elevadas al cuadrado"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#desviación-estándar",
+    "href": "slides/02-clase2/02-clase2.html#desviación-estándar",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Desviación estándar",
+    "text": "Desviación estándar\n\n\n\n\n\nRaíz cuadrada de la varianza\nSe expresa en las mismas unidades que los puntajes de la escala original"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#por-qué-importa-la-varianza",
+    "href": "slides/02-clase2/02-clase2.html#por-qué-importa-la-varianza",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Por qué importa la varianza?",
+    "text": "¿Por qué importa la varianza?\n\nSin variación no hay nada que explicar: si todas las personas tuvieran el mismo ingreso, no tendría sentido preguntarse qué lo determina\nEl modelo de regresión trabaja precisamente sobre la variación de la variable dependiente\nComo veremos, el coeficiente de regresión se construye a partir de la varianza de \\(X\\) y de su covariación con \\(Y\\)"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#section-2",
+    "href": "slides/02-clase2/02-clase2.html#section-2",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Más sobre datos, variables y varianza en:\nMoore: 1. Comprensión de los datos (pp. 1-54)"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#estadística-multivariada-1",
+    "href": "slides/02-clase2/02-clase2.html#estadística-multivariada-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Estadística multivariada",
+    "text": "Estadística multivariada\n\nHacia la explicación de los fenómenos sociales"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#estadística-multivariada-2",
+    "href": "slides/02-clase2/02-clase2.html#estadística-multivariada-2",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Estadística multivariada",
+    "text": "Estadística multivariada\n\nHechos sociales: multicausales"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#estadística-multivariada-3",
+    "href": "slides/02-clase2/02-clase2.html#estadística-multivariada-3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Estadística multivariada",
+    "text": "Estadística multivariada\n\nIntentando dar cuenta de la complejidad: modelos matemáticos\n\n\n\n\n\n\n\n\nA partir de un modelo matemático denominado regresión, este curso busca entregar herramientas de análisis de datos que permitan aproximarse a la explicación de fenómenos sociales multicausales"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#objetivos-centrales-del-modelo-de-regresión",
+    "href": "slides/02-clase2/02-clase2.html#objetivos-centrales-del-modelo-de-regresión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Objetivos centrales del modelo de regresión",
+    "text": "Objetivos centrales del modelo de regresión\n\nConocer: la variación de la variable dependiente de acuerdo a la variación de otra(s) variable(s) independiente(s)\nPredecir: estimar el valor de una variable (dependiente) de acuerdo al valor de otra(s)\nInferir: establecer en qué medida esta asociación es estadísticamente significativa"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#objetivos-centrales-un-ejemplo",
+    "href": "slides/02-clase2/02-clase2.html#objetivos-centrales-un-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Objetivos centrales: un ejemplo",
+    "text": "Objetivos centrales: un ejemplo\n\nConocer: ¿en qué medida el puntaje de la PAES influye en el éxito académico en la universidad?\nPredecir: si una persona obtiene 600 puntos en la PAES, ¿qué promedio de notas es probable que obtenga en la universidad? (atención: predicción no implica explicación)\nInferir: ¿se puede generalizar a la población? ¿Con qué nivel de confianza?"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#terminología-de-variables",
+    "href": "slides/02-clase2/02-clase2.html#terminología-de-variables",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Terminología de variables",
+    "text": "Terminología de variables"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#la-recta-como-función",
+    "href": "slides/02-clase2/02-clase2.html#la-recta-como-función",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La recta como función",
+    "text": "La recta como función\n\\[Y = a + bX\\]\n\nUna función asigna a cada valor de \\(X\\) un único valor de \\(Y\\)\n\\(a\\): valor de \\(Y\\) cuando \\(X = 0\\) (intercepto u ordenada en el origen)\n\\(b\\): cuánto cambia \\(Y\\) cuando \\(X\\) aumenta en una unidad (pendiente)\nEn regresión escribimos \\(\\widehat{Y} = b_0 + b_1X\\), pero la lógica es exactamente la misma"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#el-intercepto-desplaza-la-recta",
+    "href": "slides/02-clase2/02-clase2.html#el-intercepto-desplaza-la-recta",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El intercepto desplaza la recta",
+    "text": "El intercepto desplaza la recta\n\n\nFigure 1"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#la-pendiente-inclina-la-recta",
+    "href": "slides/02-clase2/02-clase2.html#la-pendiente-inclina-la-recta",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La pendiente inclina la recta",
+    "text": "La pendiente inclina la recta\n\n\nFigure 2"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#un-ejemplo",
+    "href": "slides/02-clase2/02-clase2.html#un-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Un ejemplo",
+    "text": "Un ejemplo\n¿En qué medida la experiencia previa jugando un juego predice el número de puntos obtenidos en un juego posterior?"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#los-datos",
+    "href": "slides/02-clase2/02-clase2.html#los-datos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Los datos",
+    "text": "Los datos\n\n\n\n\n\n\n\n\n\\(X\\): número de juegos previos\n\\(Y\\): puntos obtenidos\n23 casos\n\n\n\n\nVer los datos\ndatos &lt;- data.frame(\n  juegos_x = c(rep(1, 8), rep(2, 2), rep(3, 3), rep(4, 2), rep(5, 8)),\n  puntos_y = c(2, 2, 3, 3, 3, 3, 4, 4,\n               3, 4,\n               3, 4, 5,\n               4, 5,\n               4, 4, 5, 5, 5, 5, 6, 6)\n)\n\n\n\n\n\n\n\n\n\n\nFigure 3"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#descriptivos",
+    "href": "slides/02-clase2/02-clase2.html#descriptivos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Descriptivos",
+    "text": "Descriptivos\n\ndescriptivos &lt;- data.frame(\n  Variable = c(\"Juegos previos (X)\", \"Puntos obtenidos (Y)\"),\n  N = c(nrow(datos), nrow(datos)),\n  Media = c(mean(datos$juegos_x), mean(datos$puntos_y)),\n  DE = c(sd(datos$juegos_x), sd(datos$puntos_y)),\n  Min = c(min(datos$juegos_x), min(datos$puntos_y)),\n  Max = c(max(datos$juegos_x), max(datos$puntos_y))\n)\n\n\n\n\n\n\nVariable\nN\nMedia\nDE\nMin\nMax\n\n\n\n\nJuegos previos (X)\n23\n3\n1.76\n1\n5\n\n\nPuntos obtenidos (Y)\n23\n4\n1.13\n2\n6"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#medias-condicionales",
+    "href": "slides/02-clase2/02-clase2.html#medias-condicionales",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Medias condicionales",
+    "text": "Medias condicionales\n\n\nPara los casos con \\(X = 1\\) hay tres valores distintos de \\(Y\\): 2, 3 y 4. La media condicional de \\(Y\\) dado \\(X = 1\\) es 3"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#la-idea-de-distribución-condicional",
+    "href": "slides/02-clase2/02-clase2.html#la-idea-de-distribución-condicional",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La idea de distribución condicional",
+    "text": "La idea de distribución condicional"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#la-recta-de-regresión",
+    "href": "slides/02-clase2/02-clase2.html#la-recta-de-regresión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La recta de regresión",
+    "text": "La recta de regresión\n\n\nLa (co)variación general de \\(Y\\) respecto de \\(X\\) se puede expresar en una ecuación de la recta = modelo de regresión"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#section-3",
+    "href": "slides/02-clase2/02-clase2.html#section-3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Para obtener la “mejor recta” se utiliza la estimación de mínimos cuadrados (OLS, Ordinary Least Squares)\n\nOLS minimiza la suma de los residuos al cuadrado, es decir, las distancias entre las observaciones y la recta en el eje vertical"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#componentes-de-la-ecuación",
+    "href": "slides/02-clase2/02-clase2.html#componentes-de-la-ecuación",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Componentes de la ecuación",
+    "text": "Componentes de la ecuación\n\\[\\widehat{Y} = b_{0} + b_{1}X\\]\nDonde:\n\n\\(\\widehat{Y}\\) es el valor estimado de \\(Y\\)\n\\(b_{0}\\) es el intercepto de la recta (el valor de \\(Y\\) cuando \\(X\\) es 0)\n\\(b_{1}\\) es el coeficiente de regresión, que indica cuánto aumenta \\(Y\\) por cada unidad que aumenta \\(X\\)"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#estimación-de-b_1",
+    "href": "slides/02-clase2/02-clase2.html#estimación-de-b_1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Estimación de \\(b_1\\)",
+    "text": "Estimación de \\(b_1\\)\n\\[b_{1}=\\frac{Cov(XY)}{Var(X)}\\]\n\\[b_{1}=\\frac{\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {n-1}}{\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(x_i - \\bar{x})} {n-1}}\\]\nY simplificando:\n\\[b_{1}=\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum_{i=1}^{n}(x_i - \\bar{x})^2}\\]"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#estimación-de-b_0",
+    "href": "slides/02-clase2/02-clase2.html#estimación-de-b_0",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Estimación de \\(b_0\\)",
+    "text": "Estimación de \\(b_0\\)\nUna vez estimada la pendiente, se despeja el intercepto:\n\\[b_{0}=\\bar{Y}-b_{1}\\bar{X}\\]\n\nEsto implica que la recta de regresión siempre pasa por el punto \\((\\bar{X}, \\bar{Y})\\)"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso",
+    "href": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Cálculo paso a paso",
+    "text": "Cálculo paso a paso\nLa base de todos estos cálculos es la diferencia de cada valor respecto de su promedio:\n\\[difx = x-\\bar{x} \\qquad dify = y-\\bar{y}\\]\nCon ellas construimos los productos cruzados y las diferencias al cuadrado:\n\\[difcru = (x-\\bar{x})(y-\\bar{y}) \\qquad difx2 = (x-\\bar{x})^2\\]"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-en-r",
+    "href": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-en-r",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Cálculo paso a paso en R",
+    "text": "Cálculo paso a paso en R\n\ndatos$p_x &lt;- mean(datos$juegos_x)\ndatos$difx &lt;- datos$juegos_x - datos$p_x\ndatos$p_y &lt;- mean(datos$puntos_y)\ndatos$dify &lt;- datos$puntos_y - datos$p_y\ndatos$dif_cru &lt;- datos$difx * datos$dify\ndatos$difx2 &lt;- datos$difx^2"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-en-r-1",
+    "href": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-en-r-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Cálculo paso a paso en R",
+    "text": "Cálculo paso a paso en R\n\n\n\n\n\n\njuegos_x\npuntos_y\ndifx\ndify\ndif_cru\ndifx2\n\n\n\n\n1\n2\n-2\n-2\n4\n4\n\n\n1\n2\n-2\n-2\n4\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n4\n-2\n0\n0\n4\n\n\n1\n4\n-2\n0\n0\n4\n\n\n2\n3\n-1\n-1\n1\n1\n\n\n2\n4\n-1\n0\n0\n1\n\n\n\n\n\n\n\nPrimeros 10 casos de 23"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#las-sumas-que-necesitamos",
+    "href": "slides/02-clase2/02-clase2.html#las-sumas-que-necesitamos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Las sumas que necesitamos",
+    "text": "Las sumas que necesitamos\n\nsum(datos$dif_cru)\n#&gt; [1] 34\nsum(datos$difx2)\n#&gt; [1] 68"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#reemplazando-en-la-fórmula",
+    "href": "slides/02-clase2/02-clase2.html#reemplazando-en-la-fórmula",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Reemplazando en la fórmula",
+    "text": "Reemplazando en la fórmula\n\\[b_{1}=\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum_{i=1}^{n}(x_i - \\bar{x})^2}=\\frac{34}{68}=0.5\\]\n\nY con la pendiente ya estimada:\n\\[b_{0}=\\bar{Y}-b_{1}\\bar{X} = 4-(0.5 \\times 3)=2.5\\]"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#la-ecuación-completa",
+    "href": "slides/02-clase2/02-clase2.html#la-ecuación-completa",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La ecuación completa",
+    "text": "La ecuación completa\n\\[\\widehat{Y}=2.5+0.5X\\]\n\nIntercepto: una persona sin juegos previos obtiene, en promedio, 2,5 puntos\nPendiente: por cada juego previo adicional, los puntos obtenidos aumentan en 0,5"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#predicción",
+    "href": "slides/02-clase2/02-clase2.html#predicción",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Predicción",
+    "text": "Predicción\n\\[\\widehat{Y}=2.5+0.5X\\]\nLa ecuación permite estimar el valor de \\(Y\\) (o su media condicional) para un valor dado de \\(X\\). Por ejemplo, ¿cuál es el valor estimado de \\(Y\\) dado \\(X=3\\)?\n\n\\[\\widehat{Y}=2.5+(0.5 \\times 3)=4\\]\nEl valor estimado de puntos para una persona que ha jugado 3 veces es 4"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#comprobación-en-r",
+    "href": "slides/02-clase2/02-clase2.html#comprobación-en-r",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Comprobación en R",
+    "text": "Comprobación en R\n\nmodelo &lt;- lm(puntos_y ~ juegos_x, data = datos)\ncoef(modelo)\n#&gt; (Intercept)    juegos_x \n#&gt;         2.5         0.5\n\n\nLos mismos valores que calculamos a mano"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#el-resultado",
+    "href": "slides/02-clase2/02-clase2.html#el-resultado",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El resultado",
+    "text": "El resultado\n\n\nFigure 4"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#en-resumen-qué-gano-con-el-modelo-de-regresión",
+    "href": "slides/02-clase2/02-clase2.html#en-resumen-qué-gano-con-el-modelo-de-regresión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "En resumen: ¿qué gano con el modelo de regresión?",
+    "text": "En resumen: ¿qué gano con el modelo de regresión?\nAl igual que con la correlación:\n\nIntensidad de la relación entre variables\nDirección de la relación\n\n\nY además:\n\nPredicción del puntaje real de la variable dependiente\nEstimación del ajuste o cantidad de error en la estimación (próxima clase)\nPosibilidad de incluir más de una variable predictora (en dos clases más)"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#para-la-próxima-sesión",
+    "href": "slides/02-clase2/02-clase2.html#para-la-próxima-sesión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Para la próxima sesión",
+    "text": "Para la próxima sesión\n\nWooldridge, Introducción a la econometría: apéndices A1 y A2, y sección 2.1\nMoore, Estadística aplicada básica: sección 2.4.1"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#section-4",
+    "href": "slides/02-clase2/02-clase2.html#section-4",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-1",
+    "href": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Cálculo paso a paso",
+    "text": "Cálculo paso a paso\n\n\n\n\n\n\njuegos_x\npuntos_y\ndifx\ndify\ndif_cru\ndifx2\n\n\n\n\n1\n2\n-2\n-2\n4\n4\n\n\n1\n2\n-2\n-2\n4\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n4\n-2\n0\n0\n4\n\n\n1\n4\n-2\n0\n0\n4\n\n\n2\n3\n-1\n-1\n1\n1\n\n\n2\n4\n-1\n0\n0\n1\n\n\n\n\n\n\n\nPrimeros 10 casos de 23"
   }
 ]
