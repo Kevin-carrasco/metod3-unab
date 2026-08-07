@@ -1,6 +1,6 @@
 ---
 title: "Clase 2"
-date: "2025-08-05"
+date: "2026-08-10"
 lang: es
 ---
 
@@ -9,3 +9,10 @@ lang: es
 
 <iframe src=/slides/02-clase2/02-clase2.html height="550" width=100% allowfullscreen="true">
 </iframe> 
+
+
+## Para la próxima sesión
+
+- Wooldridge, *Introducción a la econometría*: apéndices A1 y A2, y sección 2.1
+
+- Moore, *Estadística aplicada básica*: sección 2.4.1

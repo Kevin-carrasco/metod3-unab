@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Práctico 01. Regresión lineal I – Metodos 3 - Universidad Andrés Bello</title>
+<title>Práctico 01. Datos, variables y asociación – Metodos 3 - Universidad Andrés Bello</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-9de9f6925d305bcf5b7eb9351f368d06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aba9a859bd7e1bf5cf92f9c98e80b511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-83babd3dfd23c8593dfd134f395f3b97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -138,14 +138,14 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Práctico 01. Regresión lineal I – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:title" content="Práctico 01. Datos, variables y asociación – Metodos 3 - Universidad Andrés Bello">
 <meta property="og:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="500">
 <meta property="og:image:width" content="500">
-<meta name="twitter:title" content="Práctico 01. Regresión lineal I – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:title" content="Práctico 01. Datos, variables y asociación – Metodos 3 - Universidad Andrés Bello">
 <meta name="twitter:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta name="twitter:creator" content="@kevincarrascoq1">
@@ -237,37 +237,60 @@ window.Quarto = {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#presentación" id="toc-presentación" class="nav-link active" data-scroll-target="#presentación">Presentación</a>
+  <li><a href="#presentación" id="toc-presentación" class="nav-link active" data-scroll-target="#presentación"><span class="header-section-number">1</span> Presentación</a>
   <ul class="collapse">
-  <li><a href="#objetivo-de-la-práctica" id="toc-objetivo-de-la-práctica" class="nav-link" data-scroll-target="#objetivo-de-la-práctica">Objetivo de la práctica</a></li>
-  <li><a href="#antecedentes-de-los-datos-a-utilizar" id="toc-antecedentes-de-los-datos-a-utilizar" class="nav-link" data-scroll-target="#antecedentes-de-los-datos-a-utilizar">Antecedentes de los datos a utilizar</a></li>
+  <li><a href="#objetivo-de-la-práctica" id="toc-objetivo-de-la-práctica" class="nav-link" data-scroll-target="#objetivo-de-la-práctica"><span class="header-section-number">1.1</span> Objetivo de la práctica</a></li>
+  <li><a href="#antecedentes-de-los-datos-a-utilizar" id="toc-antecedentes-de-los-datos-a-utilizar" class="nav-link" data-scroll-target="#antecedentes-de-los-datos-a-utilizar"><span class="header-section-number">1.2</span> Antecedentes de los datos a utilizar</a></li>
   </ul></li>
-  <li><a href="#análisis" id="toc-análisis" class="nav-link" data-scroll-target="#análisis">Análisis</a>
+  <li><a href="#repaso-trabajar-en-r" id="toc-repaso-trabajar-en-r" class="nav-link" data-scroll-target="#repaso-trabajar-en-r"><span class="header-section-number">2</span> Repaso: trabajar en R</a>
   <ul class="collapse">
-  <li><a href="#librerias" id="toc-librerias" class="nav-link" data-scroll-target="#librerias">1. Librerías principales (de R) a utilizar en el análisis</a></li>
-  <li><a href="#cargar-base-de-datos" id="toc-cargar-base-de-datos" class="nav-link" data-scroll-target="#cargar-base-de-datos">2. Cargar base de datos</a></li>
-  <li><a href="#selección-de-variables-a-utilizar" id="toc-selección-de-variables-a-utilizar" class="nav-link" data-scroll-target="#selección-de-variables-a-utilizar">3. Selección de variables a utilizar</a></li>
-  <li><a href="#procesamiento-de-variables" id="toc-procesamiento-de-variables" class="nav-link" data-scroll-target="#procesamiento-de-variables">Procesamiento de variables</a>
-  <ul class="collapse">
-  <li><a href="#confianza-en-vecinos" id="toc-confianza-en-vecinos" class="nav-link" data-scroll-target="#confianza-en-vecinos">Confianza en vecinos</a></li>
-  <li><a href="#sexo" id="toc-sexo" class="nav-link" data-scroll-target="#sexo">4.3. Sexo</a></li>
-  <li><a href="#edad" id="toc-edad" class="nav-link" data-scroll-target="#edad">4.4 Edad</a></li>
+  <li><a href="#r-y-rstudio" id="toc-r-y-rstudio" class="nav-link" data-scroll-target="#r-y-rstudio"><span class="header-section-number">2.1</span> R y RStudio</a></li>
+  <li><a href="#proyectos-y-rutas" id="toc-proyectos-y-rutas" class="nav-link" data-scroll-target="#proyectos-y-rutas"><span class="header-section-number">2.2</span> Proyectos y rutas</a></li>
+  <li><a href="#objetos-y-asignación" id="toc-objetos-y-asignación" class="nav-link" data-scroll-target="#objetos-y-asignación"><span class="header-section-number">2.3</span> Objetos y asignación</a></li>
+  <li><a href="#tipos-de-datos" id="toc-tipos-de-datos" class="nav-link" data-scroll-target="#tipos-de-datos"><span class="header-section-number">2.4</span> Tipos de datos</a></li>
+  <li><a href="#vectores-y-bases-de-datos" id="toc-vectores-y-bases-de-datos" class="nav-link" data-scroll-target="#vectores-y-bases-de-datos"><span class="header-section-number">2.5</span> Vectores y bases de datos</a></li>
+  <li><a href="#funciones-y-ayuda" id="toc-funciones-y-ayuda" class="nav-link" data-scroll-target="#funciones-y-ayuda"><span class="header-section-number">2.6</span> Funciones y ayuda</a></li>
+  <li><a href="#paquetes" id="toc-paquetes" class="nav-link" data-scroll-target="#paquetes"><span class="header-section-number">2.7</span> Paquetes</a></li>
+  <li><a href="#el-operador-pipe" id="toc-el-operador-pipe" class="nav-link" data-scroll-target="#el-operador-pipe"><span class="header-section-number">2.8</span> El operador pipe</a></li>
+  <li><a href="#errores-frecuentes" id="toc-errores-frecuentes" class="nav-link" data-scroll-target="#errores-frecuentes"><span class="header-section-number">2.9</span> Errores frecuentes</a></li>
   </ul></li>
-  <li><a href="#análisis-descriptivo" id="toc-análisis-descriptivo" class="nav-link" data-scroll-target="#análisis-descriptivo">Análisis descriptivo</a></li>
-  <li><a href="#asociación-de-variables" id="toc-asociación-de-variables" class="nav-link" data-scroll-target="#asociación-de-variables">Asociación de variables</a></li>
-  <li><a href="#medias-condicionales" id="toc-medias-condicionales" class="nav-link" data-scroll-target="#medias-condicionales">Medias condicionales</a></li>
-  <li><a href="#residuos" id="toc-residuos" class="nav-link" data-scroll-target="#residuos">Residuos</a></li>
-  <li><a href="#regresiones" id="toc-regresiones" class="nav-link" data-scroll-target="#regresiones">Regresiones</a>
+  <li><a href="#preparación-del-análisis" id="toc-preparación-del-análisis" class="nav-link" data-scroll-target="#preparación-del-análisis"><span class="header-section-number">3</span> Preparación del análisis</a>
   <ul class="collapse">
-  <li><a href="#regresión-lineal-simple" id="toc-regresión-lineal-simple" class="nav-link" data-scroll-target="#regresión-lineal-simple">Regresión lineal simple</a></li>
+  <li><a href="#librerias" id="toc-librerias" class="nav-link" data-scroll-target="#librerias"><span class="header-section-number">3.1</span> Librerías a utilizar</a></li>
+  <li><a href="#ajustar-el-espacio-de-trabajo" id="toc-ajustar-el-espacio-de-trabajo" class="nav-link" data-scroll-target="#ajustar-el-espacio-de-trabajo"><span class="header-section-number">3.2</span> Ajustar el espacio de trabajo</a></li>
+  <li><a href="#cargar-la-base-de-datos" id="toc-cargar-la-base-de-datos" class="nav-link" data-scroll-target="#cargar-la-base-de-datos"><span class="header-section-number">3.3</span> Cargar la base de datos</a></li>
+  </ul></li>
+  <li><a href="#datos-y-variables" id="toc-datos-y-variables" class="nav-link" data-scroll-target="#datos-y-variables"><span class="header-section-number">4</span> Datos y variables</a>
+  <ul class="collapse">
+  <li><a href="#selección-de-variables" id="toc-selección-de-variables" class="nav-link" data-scroll-target="#selección-de-variables"><span class="header-section-number">4.1</span> Selección de variables</a></li>
+  <li><a href="#escalas-de-medición" id="toc-escalas-de-medición" class="nav-link" data-scroll-target="#escalas-de-medición"><span class="header-section-number">4.2</span> Escalas de medición</a></li>
+  <li><a href="#procesamiento-de-variables" id="toc-procesamiento-de-variables" class="nav-link" data-scroll-target="#procesamiento-de-variables"><span class="header-section-number">4.3</span> Procesamiento de variables</a>
+  <ul class="collapse">
+  <li><a href="#confianza-en-vecinos" id="toc-confianza-en-vecinos" class="nav-link" data-scroll-target="#confianza-en-vecinos"><span class="header-section-number">4.3.1</span> Confianza en vecinos</a></li>
+  <li><a href="#educación-sexo-y-edad" id="toc-educación-sexo-y-edad" class="nav-link" data-scroll-target="#educación-sexo-y-edad"><span class="header-section-number">4.3.2</span> Educación, sexo y edad</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#tarea" id="toc-tarea" class="nav-link" data-scroll-target="#tarea">Tarea</a>
+  <li><a href="#análisis-descriptivo" id="toc-análisis-descriptivo" class="nav-link" data-scroll-target="#análisis-descriptivo"><span class="header-section-number">5</span> Análisis descriptivo</a></li>
+  <li><a href="#asociación-entre-variables" id="toc-asociación-entre-variables" class="nav-link" data-scroll-target="#asociación-entre-variables"><span class="header-section-number">6</span> Asociación entre variables</a>
   <ul class="collapse">
-  <li><a href="#selección-de-variables" id="toc-selección-de-variables" class="nav-link" data-scroll-target="#selección-de-variables">Selección de variables</a></li>
-  <li><a href="#operacionalización-de-variables" id="toc-operacionalización-de-variables" class="nav-link" data-scroll-target="#operacionalización-de-variables">Operacionalización de variables</a></li>
-  <li><a href="#análisis-1" id="toc-análisis-1" class="nav-link" data-scroll-target="#análisis-1">Análisis</a></li>
-  <li><a href="#reporte" id="toc-reporte" class="nav-link" data-scroll-target="#reporte">Reporte</a></li>
+  <li><a href="#gráficos-de-dispersión" id="toc-gráficos-de-dispersión" class="nav-link" data-scroll-target="#gráficos-de-dispersión"><span class="header-section-number">6.1</span> Gráficos de dispersión</a></li>
+  <li><a href="#correlación" id="toc-correlación" class="nav-link" data-scroll-target="#correlación"><span class="header-section-number">6.2</span> Correlación</a></li>
+  <li><a href="#correlación-no-implica-causalidad" id="toc-correlación-no-implica-causalidad" class="nav-link" data-scroll-target="#correlación-no-implica-causalidad"><span class="header-section-number">6.3</span> Correlación no implica causalidad</a></li>
+  </ul></li>
+  <li><a href="#de-la-correlación-a-la-recta" id="toc-de-la-correlación-a-la-recta" class="nav-link" data-scroll-target="#de-la-correlación-a-la-recta"><span class="header-section-number">7</span> De la correlación a la recta</a>
+  <ul class="collapse">
+  <li><a href="#una-primera-recta" id="toc-una-primera-recta" class="nav-link" data-scroll-target="#una-primera-recta"><span class="header-section-number">7.1</span> Una primera recta</a></li>
+  <li><a href="#el-modelo-sin-predictores" id="toc-el-modelo-sin-predictores" class="nav-link" data-scroll-target="#el-modelo-sin-predictores"><span class="header-section-number">7.2</span> El modelo sin predictores</a></li>
+  <li><a href="#valores-predichos-y-residuos" id="toc-valores-predichos-y-residuos" class="nav-link" data-scroll-target="#valores-predichos-y-residuos"><span class="header-section-number">7.3</span> Valores predichos y residuos</a></li>
+  <li><a href="#por-qué-mínimos-cuadrados" id="toc-por-qué-mínimos-cuadrados" class="nav-link" data-scroll-target="#por-qué-mínimos-cuadrados"><span class="header-section-number">7.4</span> ¿Por qué “mínimos cuadrados”?</a></li>
+  </ul></li>
+  <li><a href="#tarea" id="toc-tarea" class="nav-link" data-scroll-target="#tarea"><span class="header-section-number">8</span> Tarea</a>
+  <ul class="collapse">
+  <li><a href="#selección-de-variables-1" id="toc-selección-de-variables-1" class="nav-link" data-scroll-target="#selección-de-variables-1"><span class="header-section-number">8.1</span> Selección de variables</a></li>
+  <li><a href="#operacionalización-de-variables" id="toc-operacionalización-de-variables" class="nav-link" data-scroll-target="#operacionalización-de-variables"><span class="header-section-number">8.2</span> Operacionalización de variables</a></li>
+  <li><a href="#análisis-descriptivo-y-asociación" id="toc-análisis-descriptivo-y-asociación" class="nav-link" data-scroll-target="#análisis-descriptivo-y-asociación"><span class="header-section-number">8.3</span> Análisis descriptivo y asociación</a></li>
+  <li><a href="#primera-aproximación-a-la-recta" id="toc-primera-aproximación-a-la-recta" class="nav-link" data-scroll-target="#primera-aproximación-a-la-recta"><span class="header-section-number">8.4</span> Primera aproximación a la recta</a></li>
+  <li><a href="#reporte" id="toc-reporte" class="nav-link" data-scroll-target="#reporte"><span class="header-section-number">8.5</span> Reporte</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -277,7 +300,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Práctico 01. Regresión lineal I</h1>
+<h1 class="title">Práctico 01. Datos, variables y asociación</h1>
 <p class="subtitle lead">Métodos estadísticos para Ciencias Sociales III</p>
 </div>
 
@@ -289,7 +312,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">11 de agosto de 2025</p>
+      <p class="date">10 de agosto de 2026</p>
     </div>
   </div>
   
@@ -301,77 +324,290 @@ window.Quarto = {
 </header>
 
 
-<section id="presentación" class="level1">
-<h1>Presentación</h1>
-<section id="objetivo-de-la-práctica" class="level2">
-<h2 class="anchored" data-anchor-id="objetivo-de-la-práctica">Objetivo de la práctica</h2>
-<p>El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales en R.</p>
+<section id="presentación" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Presentación</h1>
+<section id="objetivo-de-la-práctica" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="objetivo-de-la-práctica"><span class="header-section-number">1.1</span> Objetivo de la práctica</h2>
+<p>Esta guía retoma los contenidos de la primera sesión y los lleva a R. Al terminar, usted debería ser capaz de:</p>
+<ol type="1">
+<li>Retomar el manejo básico de R y RStudio: objetos, funciones, paquetes y bases de datos</li>
+<li>Cargar una base de datos y reconocer su estructura de <strong>casos</strong> y <strong>variables</strong></li>
+<li>Identificar la <strong>escala de medición</strong> de una variable y sus consecuencias para el análisis</li>
+<li>Procesar variables: casos perdidos, nombres y etiquetas</li>
+<li>Describir variables y examinar la <strong>asociación</strong> entre ellas mediante gráficos de dispersión y correlaciones</li>
+<li>Trazar una primera <strong>recta de regresión</strong> y comprender qué son los <strong>valores predichos</strong> y los <strong>residuos</strong></li>
+</ol>
+<p>Al ser el primer taller del curso, comenzaremos con un repaso de los elementos básicos de R. Si usted ya los maneja con soltura, puede avanzar directamente a la sección de preparación del análisis.</p>
+<p>La estimación de los coeficientes y su interpretación formal se abordarán en la próxima sesión teórica; aquí trabajaremos la intuición gráfica y computacional.</p>
 </section>
-<section id="antecedentes-de-los-datos-a-utilizar" class="level2">
-<h2 class="anchored" data-anchor-id="antecedentes-de-los-datos-a-utilizar">Antecedentes de los datos a utilizar</h2>
-<p>Confianza en vecinos con elsoc 2016.</p>
+<section id="antecedentes-de-los-datos-a-utilizar" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="antecedentes-de-los-datos-a-utilizar"><span class="header-section-number">1.2</span> Antecedentes de los datos a utilizar</h2>
+<p>Utilizaremos la base del <strong>Estudio Longitudinal Social de Chile (ELSOC)</strong>, del Centro de Estudios de Conflicto y Cohesión Social (COES). Trabajaremos con la primera ola (2016) y con la variable <strong>confianza en vecinos</strong> como variable dependiente de interés.</p>
 </section>
 </section>
-<section id="análisis" class="level1">
-<h1>Análisis</h1>
-<section id="librerias" class="level2">
-<h2 class="anchored" data-anchor-id="librerias">1. Librerías principales (de R) a utilizar en el análisis</h2>
+<section id="repaso-trabajar-en-r" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Repaso: trabajar en R</h1>
+<section id="r-y-rstudio" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="r-y-rstudio"><span class="header-section-number">2.1</span> R y RStudio</h2>
+<p>Conviene distinguir dos cosas que suelen confundirse:</p>
+<ul>
+<li><strong>R</strong> es el lenguaje de programación y el motor que ejecuta los cálculos</li>
+<li><strong>RStudio</strong> es el entorno de trabajo (o <em>IDE</em>) desde el cual escribimos y ejecutamos código en R</li>
+</ul>
+<p>RStudio organiza la pantalla en cuatro paneles: el <strong>editor</strong> (donde se escribe el script), la <strong>consola</strong> (donde se ejecutan las instrucciones y aparecen los resultados), el <strong>environment</strong> (los objetos disponibles en memoria) y un cuarto panel con archivos, gráficos, paquetes y ayuda.</p>
+<p>Una recomendación desde el inicio del curso: escriba siempre su código en un <strong>script</strong> o en un documento Quarto, nunca directamente en la consola. Lo que se escribe en la consola se pierde; lo que está en un script puede volver a ejecutarse, corregirse y compartirse. Esa es la base de un trabajo <strong>reproducible</strong>.</p>
+</section>
+<section id="proyectos-y-rutas" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="proyectos-y-rutas"><span class="header-section-number">2.2</span> Proyectos y rutas</h2>
+<p>Antes de comenzar a trabajar, cree un <strong>proyecto de RStudio</strong> (<code>File &gt; New Project</code>) para el curso. Un proyecto fija la carpeta de trabajo, lo que permite usar rutas relativas del tipo <code>datos/elsoc.RData</code> en lugar de rutas absolutas como <code>C:/Users/kevin/Documentos/curso/datos/elsoc.RData</code>, que solo funcionan en su computador.</p>
+<p>Para saber en qué carpeta está trabajando:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               haven, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               car, </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               sjmisc, </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               sjPlot, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               sjlabelled, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               stargazer, </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               kableExtra, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               corrplot, </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               ggplot2,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>               ggpubr)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># muestra la carpeta de trabajo actual</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="cargar-base-de-datos" class="level2">
-<h2 class="anchored" data-anchor-id="cargar-base-de-datos">2. Cargar base de datos</h2>
-<p><strong>Ajustar espacio de trabajo</strong></p>
-<p>Previo a la carga de nuestra base de datos, se recomienda ejecutar los siguientes comandos:</p>
+<section id="objetos-y-asignación" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="objetos-y-asignación"><span class="header-section-number">2.3</span> Objetos y asignación</h2>
+<p>En R, casi todo es un <strong>objeto</strong>. Los objetos se crean con el operador de asignación <code>&lt;-</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())       <span class="co"># borrar todos los objetos en el espacio de trabajo</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>) <span class="co"># valores sin notación científica</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>edad_ejemplo <span class="ot">&lt;-</span> <span class="dv">34</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>edad_ejemplo</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 34</code></pre>
 </div>
-<p>La función <code>rm(list=ls())</code> permite comenzar con un espacio de trabajo (environment) vacío y sin otros objetos. Así también, la función <code>options(scipen=999)</code> desactiva la notación científica, es decir, veremos los valores numéricos con todos sus decimales.</p>
-<p><strong>Datos</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cargamos la base de datos desde internet</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://dataverse.harvard.edu/api/access/datafile/7245118"</span>)) <span class="co">#Cargar base de datos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Realizamos un chequeo básico de la lectura de datos: nombres de las variables y tamaño de la base en términos de casos y variables (en este ejemplo, 18035, 750 ).</p>
+<p>El nombre del objeto queda guardado en el <em>environment</em> y puede ser utilizado luego en otras operaciones:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(elsoc_long_2016_2022<span class="fl">.2</span>) <span class="co"># dimension de la base</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>edad_ejemplo <span class="sc">+</span> <span class="dv">10</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44</code></pre>
+</div>
+</div>
+<p>Note que la operación anterior no modifica el objeto: para que el resultado quede guardado, hay que asignarlo nuevamente.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>edad_ejemplo <span class="ot">&lt;-</span> edad_ejemplo <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>edad_ejemplo</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44</code></pre>
+</div>
+</div>
+</section>
+<section id="tipos-de-datos" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="tipos-de-datos"><span class="header-section-number">2.4</span> Tipos de datos</h2>
+<p>R distingue distintos tipos de datos, y esa distinción se relaciona directamente con las escalas de medición que revisamos en clases:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>numero <span class="ot">&lt;-</span> <span class="fl">25.5</span>             <span class="co"># numeric: variables continuas (edad, ingreso)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>texto <span class="ot">&lt;-</span> <span class="st">"Santiago"</span>        <span class="co"># character: texto</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>logico <span class="ot">&lt;-</span> <span class="cn">TRUE</span>             <span class="co"># logical: verdadero o falso</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>categoria <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="st">"Mujer"</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Hombre"</span>, <span class="st">"Mujer"</span>)) <span class="co"># factor: variables categóricas</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(numero)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(texto)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(logico)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(categoria)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+<p>La función <code>class()</code> es una de las que más utilizará: antes de analizar una variable, conviene siempre verificar de qué tipo es. Un error frecuente consiste en tratar como numérica una variable que en realidad es categórica, obteniendo resultados que no tienen sentido sustantivo (por ejemplo, el “promedio” de la nacionalidad).</p>
+</section>
+<section id="vectores-y-bases-de-datos" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="vectores-y-bases-de-datos"><span class="header-section-number">2.5</span> Vectores y bases de datos</h2>
+<p>Un <strong>vector</strong> es una secuencia de valores del mismo tipo, y se construye con la función <code>c()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>edades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">45</span>, <span class="dv">31</span>, <span class="dv">62</span>, <span class="dv">28</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>edades</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 23 45 31 62 28</code></pre>
+</div>
+</div>
+<p>Podemos aplicarle funciones:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(edades)  <span class="co"># promedio</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37.8</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(edades) <span class="co"># cantidad de elementos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>Una <strong>base de datos</strong> (<code>data.frame</code>) es un conjunto de vectores de igual largo dispuestos como columnas. Es exactamente la estructura rectangular que vimos en clases: filas como casos y columnas como variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ejemplo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">45</span>, <span class="dv">31</span>, <span class="dv">62</span>, <span class="dv">28</span>),</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sexo =</span> <span class="fu">c</span>(<span class="st">"Mujer"</span>, <span class="st">"Hombre"</span>, <span class="st">"Mujer"</span>, <span class="st">"Hombre"</span>, <span class="st">"Mujer"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>ejemplo</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  edad   sexo
+1   23  Mujer
+2   45 Hombre
+3   31  Mujer
+4   62 Hombre
+5   28  Mujer</code></pre>
+</div>
+</div>
+<p>Para acceder a una columna específica usamos el signo <code>$</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ejemplo<span class="sc">$</span>edad</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 23 45 31 62 28</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ejemplo<span class="sc">$</span>edad)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37.8</code></pre>
+</div>
+</div>
+<p>Y para explorar rápidamente una base:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ejemplo)   <span class="co"># número de filas y columnas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5 2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ejemplo) <span class="co"># nombres de las variables</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "edad" "sexo"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ejemplo)  <span class="co"># primeras filas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  edad   sexo
+1   23  Mujer
+2   45 Hombre
+3   31  Mujer
+4   62 Hombre
+5   28  Mujer</code></pre>
+</div>
+</div>
+</section>
+<section id="funciones-y-ayuda" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="funciones-y-ayuda"><span class="header-section-number">2.6</span> Funciones y ayuda</h2>
+<p>Una <strong>función</strong> recibe <strong>argumentos</strong> y devuelve un resultado. En <code>mean(edades)</code>, <code>mean</code> es la función y <code>edades</code> el argumento. Muchas funciones tienen argumentos adicionales con valores por defecto:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>edades_na <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">45</span>, <span class="cn">NA</span>, <span class="dv">62</span>, <span class="dv">28</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(edades_na)                 <span class="co"># devuelve NA</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(edades_na, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)   <span class="co"># excluye los casos perdidos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.5</code></pre>
+</div>
+</div>
+<p>El resultado <code>NA</code> del primer caso no es un error del programa: R está avisando que hay valores perdidos y que, por lo tanto, no puede calcular el promedio sin una instrucción explícita de qué hacer con ellos.</p>
+<p>Para consultar la documentación de cualquier función:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>?mean</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(mean)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="paquetes" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="paquetes"><span class="header-section-number">2.7</span> Paquetes</h2>
+<p>Las funciones vienen agrupadas en <strong>paquetes</strong>. Los paquetes se instalan una sola vez y se cargan en cada sesión de trabajo:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>) <span class="co"># instalar (una vez)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)            <span class="co"># cargar (en cada sesión)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>En este curso utilizaremos <code>pacman</code>, que instala el paquete si falta y lo carga si ya está disponible, en una sola instrucción:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># solo la primera vez</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, ggplot2)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>La notación <code>pacman::p_load</code> indica que usamos la función <code>p_load</code> del paquete <code>pacman</code>. Es una forma de precisar de dónde viene una función, útil cuando dos paquetes tienen funciones con el mismo nombre.</p>
+</section>
+<section id="el-operador-pipe" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="el-operador-pipe"><span class="header-section-number">2.8</span> El operador pipe</h2>
+<p>El operador <code>%&gt;%</code> (del paquete <code>dplyr</code>) encadena operaciones: toma el resultado de la izquierda y lo entrega como primer argumento de la función de la derecha. Estas dos instrucciones son equivalentes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ejemplo<span class="sc">$</span>edad)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>ejemplo<span class="sc">$</span>edad <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Su utilidad se aprecia cuando encadenamos varios pasos, ya que evita anidar funciones dentro de funciones y permite leer el código en el orden en que ocurren las operaciones.</p>
+</section>
+<section id="errores-frecuentes" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="errores-frecuentes"><span class="header-section-number">2.9</span> Errores frecuentes</h2>
+<p>Al comenzar, la mayoría de los mensajes de error tienen alguna de estas causas:</p>
+<ul>
+<li><code>could not find function</code>: el paquete no está cargado</li>
+<li><code>object not found</code>: el objeto no existe, o su nombre está mal escrito (R distingue mayúsculas de minúsculas)</li>
+<li>Un <code>+</code> en la consola: quedó un paréntesis o una comilla sin cerrar. Presione <code>Esc</code> y revise la línea</li>
+</ul>
+<p>Los mensajes de error no son un problema, sino información. Conviene leerlos con calma antes de volver a ejecutar el código.</p>
+</section>
+</section>
+<section id="preparación-del-análisis" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Preparación del análisis</h1>
+<section id="librerias" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="librerias"><span class="header-section-number">3.1</span> Librerías a utilizar</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>               haven,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>               sjmisc,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>               sjPlot,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>               sjlabelled,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>               corrplot,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>               ggplot2,</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>               ggpubr)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ajustar-el-espacio-de-trabajo" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="ajustar-el-espacio-de-trabajo"><span class="header-section-number">3.2</span> Ajustar el espacio de trabajo</h2>
+<p>Previo a la carga de la base de datos, se recomienda ejecutar los siguientes comandos:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())       <span class="co"># borrar todos los objetos en el espacio de trabajo</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>) <span class="co"># valores sin notación científica</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>La función <code>rm(list=ls())</code> permite comenzar con un espacio de trabajo (<em>environment</em>) vacío y sin otros objetos. A su vez, <code>options(scipen=999)</code> desactiva la notación científica, es decir, veremos los valores numéricos con todos sus decimales.</p>
+</section>
+<section id="cargar-la-base-de-datos" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="cargar-la-base-de-datos"><span class="header-section-number">3.3</span> Cargar la base de datos</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargamos la base de datos desde internet</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://dataverse.harvard.edu/api/access/datafile/7245118"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Realizamos un chequeo básico de la lectura de datos: nombres de las variables y tamaño de la base en términos de casos y variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(elsoc_long_2016_2022<span class="fl">.2</span>) <span class="co"># dimensión de la base</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 18035   750</code></pre>
 </div>
 </div>
+<p>Recordemos lo visto en clases: una base de datos tiene forma <strong>rectangular</strong>. Cada <strong>fila</strong> es un caso o unidad de análisis (aquí, una persona encuestada en un año determinado) y cada <strong>columna</strong> es una variable.</p>
 </section>
-<section id="selección-de-variables-a-utilizar" class="level2">
-<h2 class="anchored" data-anchor-id="selección-de-variables-a-utilizar">3. Selección de variables a utilizar</h2>
-<p>Este paso consiste en crear un subset reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de cada base de datos. Además filtramos por la ola 1 para trabajar solo con datos del 2016.</p>
+</section>
+<section id="datos-y-variables" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Datos y variables</h1>
+<section id="selección-de-variables" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="selección-de-variables"><span class="header-section-number">4.1</span> Selección de variables</h2>
+<p>Este paso consiste en crear un subconjunto reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de la base. Además filtramos por la ola 1 para trabajar solo con datos de 2016.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ola<span class="sc">==</span><span class="st">"1"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(t01, <span class="co"># Confianza en vecinos</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         m01,<span class="co"># nivel educacional</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>         m0_sexo,<span class="co"># sexo</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>         m0_edad<span class="co"># edad</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>         )</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobar</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola <span class="sc">==</span> <span class="st">"1"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(t01,      <span class="co"># Confianza en vecinos</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>         m01,      <span class="co"># Nivel educacional</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>         m0_sexo,  <span class="co"># Sexo</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>         m0_edad)  <span class="co"># Edad</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobar</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "t01"     "m01"     "m0_sexo" "m0_edad"</code></pre>
 </div>
 </div>
-<p>Mediante el comando <code>get_label</code> obtenemos el atributo label de las variables.</p>
+<p>Mediante el comando <code>get_label</code> obtenemos el atributo <em>label</em> de las variables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sjlabelled<span class="sc">::</span><span class="fu">get_label</span>(proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>sjlabelled<span class="sc">::</span><span class="fu">get_label</span>(proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                 t01                                  m01 
 "Cuanto confia usted en sus vecinos"                  "Nivel educacional" 
@@ -379,24 +615,106 @@ window.Quarto = {
              "Sexo del entrevistado"              "Edad del entrevistado" </code></pre>
 </div>
 </div>
-<p>Podemos ver que son largas o con códigos poco informativos, por lo tanto, es necesario cambiarlas por etiquetas más cortas y de fácil identificación.</p>
+<p>Podemos ver que las etiquetas son largas o tienen códigos poco informativos, por lo que es necesario cambiarlas por otras más cortas y de fácil identificación.</p>
 </section>
-<section id="procesamiento-de-variables" class="level2">
-<h2 class="anchored" data-anchor-id="procesamiento-de-variables">Procesamiento de variables</h2>
-<p>Para el procesamiento de cada variable se seguirá el siguiente flujo de trabajo:</p>
+<section id="escalas-de-medición" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="escalas-de-medición"><span class="header-section-number">4.2</span> Escalas de medición</h2>
+<p>En la primera sesión revisamos la clasificación NOIR: nominal, ordinal, intervalar y de razón. Esa distinción no es una formalidad: determina qué descriptivos tienen sentido y qué técnicas de análisis son apropiadas.</p>
+<p>Antes de analizar, conviene preguntarse por la escala de cada variable:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>escalas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(<span class="st">"t01"</span>, <span class="st">"m01"</span>, <span class="st">"m0_sexo"</span>, <span class="st">"m0_edad"</span>),</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Contenido =</span> <span class="fu">c</span>(<span class="st">"Confianza en vecinos"</span>, <span class="st">"Nivel educacional"</span>, <span class="st">"Sexo"</span>, <span class="st">"Edad"</span>),</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Escala =</span> <span class="fu">c</span>(<span class="st">"Ordinal (5 categorías)"</span>, <span class="st">"Ordinal (10 categorías)"</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Nominal (dicotómica)"</span>, <span class="st">"Razón"</span>),</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tratamiento =</span> <span class="fu">c</span>(<span class="st">"Se tratará como continua"</span>, <span class="st">"Se tratará como continua"</span>,</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Categórica (factor)"</span>, <span class="st">"Continua"</span>)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(escalas, <span class="st">"markdown"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-escalas" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-escalas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;1: Escalas de medición de las variables seleccionadas
+</figcaption>
+<div aria-describedby="tbl-escalas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 26%">
+<col style="width: 30%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Contenido</th>
+<th style="text-align: left;">Escala</th>
+<th style="text-align: left;">Tratamiento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">t01</td>
+<td style="text-align: left;">Confianza en vecinos</td>
+<td style="text-align: left;">Ordinal (5 categorías)</td>
+<td style="text-align: left;">Se tratará como continua</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">m01</td>
+<td style="text-align: left;">Nivel educacional</td>
+<td style="text-align: left;">Ordinal (10 categorías)</td>
+<td style="text-align: left;">Se tratará como continua</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">m0_sexo</td>
+<td style="text-align: left;">Sexo</td>
+<td style="text-align: left;">Nominal (dicotómica)</td>
+<td style="text-align: left;">Categórica (factor)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">m0_edad</td>
+<td style="text-align: left;">Edad</td>
+<td style="text-align: left;">Razón</td>
+<td style="text-align: left;">Continua</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Una advertencia importante: la confianza en vecinos y el nivel educacional son variables <strong>ordinales</strong>, y aquí las trataremos como si fueran continuas. Es una práctica frecuente en investigación social cuando la variable tiene suficientes categorías ordenadas, pero es una <strong>simplificación</strong>: supone que la distancia entre las categorías 1 y 2 es la misma que entre 4 y 5, lo que no necesariamente es cierto. Conviene tenerlo presente al momento de interpretar los resultados.</p>
+<p>R también tiene su propia clasificación de tipos de datos, que no coincide exactamente con NOIR:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(proc_data<span class="sc">$</span>t01)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(proc_data<span class="sc">$</span>m0_edad)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+</section>
+<section id="procesamiento-de-variables" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="procesamiento-de-variables"><span class="header-section-number">4.3</span> Procesamiento de variables</h2>
+<p>Para el procesamiento de cada variable seguiremos el siguiente flujo de trabajo:</p>
 <ol type="a">
 <li>Descriptivo general</li>
 <li>Recodificación: de casos perdidos y otros valores (en caso necesario)</li>
 <li>Etiquetado: cambio de nombres de variables y valores (en caso necesario)</li>
 <li>Otros ajustes</li>
 </ol>
-<p>Y se recomienda también un descriptivo final para revisar que el procesamiento de cada variable está ok.</p>
-<section id="confianza-en-vecinos" class="level3">
-<h3 class="anchored" data-anchor-id="confianza-en-vecinos">Confianza en vecinos</h3>
+<p>Se recomienda también un descriptivo final para revisar que el procesamiento de cada variable esté correcto.</p>
+<section id="confianza-en-vecinos" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="confianza-en-vecinos"><span class="header-section-number">4.3.1</span> Confianza en vecinos</h3>
 <p><em>a. Descriptivo</em></p>
-<p>Para los descriptivos se utilizará la función <code>frq</code>, de la librería <code>sjmisc</code>:</p>
+<p>Para los descriptivos utilizaremos la función <code>frq</code>, de la librería <code>sjmisc</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>t01)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>t01)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cuanto confia usted en sus vecinos (x) &lt;numeric&gt; 
 # total N=2927 valid N=2927 mean=-2.78 sd=74.04
@@ -415,14 +733,14 @@ Value |                                 Label |   N | Raw % | Valid % | Cum. %
  &lt;NA&gt; |                                  &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 </div>
-<p>En esta variable vemos valores asociados a la opción “No contesta” (-999) y “No sabe” (-888), (-777) y (-666) que corresponde definirlos como casos perdidos (en el caso de R, como casos NA). El resto de los valores y etiquetas se encuentran en un orden correcto.</p>
+<p>En esta variable vemos valores asociados a las opciones “No contesta” (-999) y “No sabe” (-888), además de (-777) y (-666), que corresponde definir como casos perdidos (en R, valores <code>NA</code>). El resto de los valores y etiquetas se encuentran en un orden correcto.</p>
 <p><em>b. Recodificación</em></p>
-<p>Después de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar set_na</p>
+<p>Después de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar <code>set_na</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span> <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span> <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>t01)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>t01)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cuanto confia usted en sus vecinos (x) &lt;numeric&gt; 
 # total N=2927 valid N=2908 mean=3.20 sd=1.20
@@ -437,23 +755,35 @@ Value |    Label |   N | Raw % | Valid % | Cum. %
  &lt;NA&gt; |     &lt;NA&gt; |  19 |  0.65 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 </div>
-<p><em>c - Etiquetado</em></p>
+<p><em>c.&nbsp;Etiquetado</em></p>
 <p>Vamos a dar un nombre más sustantivo a las variables con la función <code>rename</code>, de la librería <code>dplyr</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">"confianza_vecinos"</span><span class="ot">=</span>t01)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"confianza_vecinos"</span> <span class="ot">=</span> t01,</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"educacion"</span> <span class="ot">=</span> m01,</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"sexo"</span> <span class="ot">=</span> m0_sexo,</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">"edad"</span> <span class="ot">=</span> m0_edad)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Además de cambiar el nombre, queremos cambiar las etiquetas de las variables.</p>
+<p>Además de cambiar el nombre, queremos cambiar las etiquetas de las variables:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>confianza_vecinos <span class="ot">&lt;-</span> <span class="fu">set_label</span>(<span class="at">x =</span> proc_data<span class="sc">$</span>confianza_vecinos,<span class="at">label =</span> <span class="st">"Confianza en vecinos"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_label</span>(proc_data<span class="sc">$</span>confianza_vecinos)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>confianza_vecinos <span class="ot">&lt;-</span> <span class="fu">set_label</span>(<span class="at">x =</span> proc_data<span class="sc">$</span>confianza_vecinos,</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">label =</span> <span class="st">"Confianza en vecinos"</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>educacion <span class="ot">&lt;-</span> <span class="fu">set_label</span>(<span class="at">x =</span> proc_data<span class="sc">$</span>educacion,</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">label =</span> <span class="st">"Nivel educacional"</span>)</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">set_label</span>(<span class="at">x =</span> proc_data<span class="sc">$</span>sexo, <span class="at">label =</span> <span class="st">"Sexo"</span>)</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">set_label</span>(<span class="at">x =</span> proc_data<span class="sc">$</span>edad, <span class="at">label =</span> <span class="st">"Edad"</span>)</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a><span class="fu">get_label</span>(proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Confianza en vecinos"</code></pre>
+<pre><code>     confianza_vecinos              educacion                   sexo 
+"Confianza en vecinos"    "Nivel educacional"                 "Sexo" 
+                  edad 
+                "Edad" </code></pre>
 </div>
 </div>
-<p><em>Revisión final</em></p>
-<p>Nuevamente un descriptivo de la variable para confirmar que el procesamiento está ok:</p>
+<p><em>d.&nbsp;Revisión final</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>confianza_vecinos)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>confianza_vecinos)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confianza en vecinos (x) &lt;numeric&gt; 
 # total N=2927 valid N=2908 mean=3.20 sd=1.20
@@ -468,14 +798,11 @@ Value |    Label |   N | Raw % | Valid % | Cum. %
  &lt;NA&gt; |     &lt;NA&gt; |  19 |  0.65 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 </div>
-<section id="educación" class="level4">
-<h4 class="anchored" data-anchor-id="educación">4.2. Educación</h4>
-<ul>
-<li>[<code>m01</code>] = Nivel de estudios alcanzado - Entrevistado</li>
-</ul>
-<p><em>a. Descriptivo</em></p>
+</section>
+<section id="educación-sexo-y-edad" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="educación-sexo-y-edad"><span class="header-section-number">4.3.2</span> Educación, sexo y edad</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>m01)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>educacion)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Nivel educacional (x) &lt;numeric&gt; 
 # total N=2927 valid N=2925 mean=5.26 sd=2.20
@@ -495,19 +822,10 @@ Value |                                       Label |   N | Raw % | Valid % | Cu
  &lt;NA&gt; |                                        &lt;NA&gt; |   2 |  0.07 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 </div>
-<p>Esta vez la vamos a dejar así</p>
-</section>
-</section>
-<section id="sexo" class="level3">
-<h3 class="anchored" data-anchor-id="sexo">4.3. Sexo</h3>
-<ul>
-<li>[<code>m0_sexo</code>] = SEXO Sexo</li>
-</ul>
-<p><em>a. Descriptivo</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>m0_sexo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>sexo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Sexo del entrevistado (x) &lt;numeric&gt; 
+<pre><code>Sexo (x) &lt;numeric&gt; 
 # total N=2927 valid N=2927 mean=1.60 sd=0.49
 
 Value |  Label |    N | Raw % | Valid % | Cum. %
@@ -517,32 +835,35 @@ Value |  Label |    N | Raw % | Valid % | Cum. %
  &lt;NA&gt; |   &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 </div>
-</section>
-<section id="edad" class="level3">
-<h3 class="anchored" data-anchor-id="edad">4.4 Edad</h3>
-<ul>
-<li>[<code>m0_edad</code>] = EDAD Edad.</li>
-</ul>
-<p><em>a. Descriptivo</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(proc_data<span class="sc">$</span>m0_edad)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(proc_data<span class="sc">$</span>edad)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   18.00   33.00   46.00   46.09   58.00   88.00 </code></pre>
 </div>
 </div>
-</section>
-</section>
-<section id="análisis-descriptivo" class="level2">
-<h2 class="anchored" data-anchor-id="análisis-descriptivo">Análisis descriptivo</h2>
+<p>Note que los descriptivos apropiados <strong>dependen de la escala de medición</strong>: para sexo, una variable nominal, la tabla de frecuencias es informativa y el promedio no tendría sentido; para edad, una variable de razón, ocurre lo contrario.</p>
+<p>Finalmente, dado que sexo es una variable nominal, la declaramos como factor para que R no la trate como un número:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">descr</span>(proc_data,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">show =</span> <span class="fu">c</span>(<span class="st">"label"</span>,<span class="st">"range"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"NA.prc"</span>, <span class="st">"n"</span>))<span class="sc">%&gt;%</span> <span class="co"># Selecciona estadísticos</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">kable</span>(.,<span class="st">"markdown"</span>) <span class="co"># Esto es para que se vea bien en quarto</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(proc_data<span class="sc">$</span>sexo)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(proc_data<span class="sc">$</span>sexo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="análisis-descriptivo" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Análisis descriptivo</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">descr</span>(proc_data,</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">show =</span> <span class="fu">c</span>(<span class="st">"label"</span>, <span class="st">"range"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"NA.prc"</span>, <span class="st">"n"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(., <span class="st">"markdown"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-sjmisc" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sjmisc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabla&nbsp;1: Descriptivos
+Tabla&nbsp;2: Descriptivos
 </figcaption>
 <div aria-describedby="tbl-sjmisc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -550,7 +871,7 @@ Tabla&nbsp;1: Descriptivos
 <colgroup>
 <col style="width: 3%">
 <col style="width: 20%">
-<col style="width: 24%">
+<col style="width: 23%">
 <col style="width: 5%">
 <col style="width: 11%">
 <col style="width: 11%">
@@ -581,8 +902,8 @@ Tabla&nbsp;1: Descriptivos
 <td style="text-align: left;">4 (1-5)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">m01</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">educacion</td>
 <td style="text-align: left;">Nivel educacional</td>
 <td style="text-align: right;">2925</td>
 <td style="text-align: right;">0.0683293</td>
@@ -592,8 +913,8 @@ Tabla&nbsp;1: Descriptivos
 </tr>
 <tr class="odd">
 <td style="text-align: left;">4</td>
-<td style="text-align: left;">m0_sexo</td>
-<td style="text-align: left;">Sexo del entrevistado</td>
+<td style="text-align: left;">sexo</td>
+<td style="text-align: left;">Sexo</td>
 <td style="text-align: right;">2927</td>
 <td style="text-align: right;">0.0000000</td>
 <td style="text-align: right;">1.602665</td>
@@ -601,9 +922,9 @@ Tabla&nbsp;1: Descriptivos
 <td style="text-align: left;">1 (1-2)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">m0_edad</td>
-<td style="text-align: left;">Edad del entrevistado</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">edad</td>
+<td style="text-align: left;">Edad</td>
 <td style="text-align: right;">2927</td>
 <td style="text-align: right;">0.0000000</td>
 <td style="text-align: right;">46.090878</td>
@@ -617,12 +938,13 @@ Tabla&nbsp;1: Descriptivos
 </figure>
 </div>
 </div>
-<p>En la <a href="#tbl-sjmisc" class="quarto-xref">Tabla&nbsp;1</a> podemos observar los descriptivos generales de la base de datos procesada. Notemos la <strong>Media de confianza en vecinos = 3.20</strong></p>
-<p>Y si queremos visualizar algo más:</p>
+<p>En la <a href="#tbl-sjmisc" class="quarto-xref">Tabla&nbsp;2</a> podemos observar los descriptivos generales de la base de datos procesada. Notemos que la <strong>media de confianza en vecinos es 3,20</strong>. Guardemos ese valor, porque volverá a aparecer más adelante.</p>
+<p>Y si queremos visualizar la distribución:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(confianza_vecinos) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  sjPlot<span class="sc">::</span><span class="fu">plot_stackfrq</span>()<span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="sc">%&gt;%</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(confianza_vecinos) <span class="sc">%&gt;%</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  sjPlot<span class="sc">::</span><span class="fu">plot_stackfrq</span>() <span class="sc">+</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-descriptivos" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -630,21 +952,68 @@ Tabla&nbsp;1: Descriptivos
 <img src="practico-01_files/figure-html/fig-descriptivos-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-descriptivos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1: Frecuencias Confianza en vecinos
+Figura&nbsp;1: Frecuencias de confianza en vecinos
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="asociación-de-variables" class="level2">
-<h2 class="anchored" data-anchor-id="asociación-de-variables">Asociación de variables</h2>
-<p>Podemos ver la asociación de todas las variables, como lo muestra la <strong>?@cor-complete</strong></p>
+<section id="asociación-entre-variables" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Asociación entre variables</h1>
+<section id="gráficos-de-dispersión" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="gráficos-de-dispersión"><span class="header-section-number">6.1</span> Gráficos de dispersión</h2>
+<p>En clases vimos que la asociación entre dos variables continuas se expresa gráficamente en <strong>nubes de puntos</strong>. Comencemos por ahí:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">cor</span>(proc_data, <span class="at">use =</span> <span class="st">"complete.obs"</span>) <span class="co"># Usar solo casos con observaciones completas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>graph1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(proc_data, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> confianza_vecinos)) <span class="sc">+</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">width =</span> <span class="fl">0.3</span>, <span class="at">height =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Confianza en vecinos"</span>) <span class="sc">+</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>graph2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(proc_data, <span class="fu">aes</span>(<span class="at">x =</span> educacion, <span class="at">y =</span> confianza_vecinos)) <span class="sc">+</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">width =</span> <span class="fl">0.3</span>, <span class="at">height =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nivel educacional"</span>, <span class="at">y =</span> <span class="st">"Confianza en vecinos"</span>) <span class="sc">+</span></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(graph1, graph2, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-dispersion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dispersion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="practico-01_files/figure-html/fig-dispersion-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dispersion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Confianza en vecinos según edad y educación
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Usamos <code>geom_jitter</code> en lugar de <code>geom_point</code> porque ambas variables tienen pocos valores distintos y los puntos se superponen. El <em>jitter</em> agrega una pequeña perturbación aleatoria que permite ver la densidad de casos.</p>
+</section>
+<section id="correlación" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="correlación"><span class="header-section-number">6.2</span> Correlación</h2>
+<p>La correlación resume en un solo número la <strong>fuerza</strong> y la <strong>dirección</strong> de la asociación lineal entre dos variables, y varía entre -1 y +1.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(proc_data<span class="sc">$</span>edad, proc_data<span class="sc">$</span>confianza_vecinos, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1011296</code></pre>
+</div>
+</div>
+<p>Podemos calcular la asociación entre todas las variables numéricas de la base:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">cor</span>(proc_data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(confianza_vecinos, educacion, edad),</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">use =</span> <span class="st">"complete.obs"</span>) <span class="co"># Usar solo casos con observaciones completas</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(M, <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  confianza_vecinos educacion  edad
+confianza_vecinos              1.00      0.09  0.10
+educacion                      0.09      1.00 -0.35
+edad                           0.10     -0.35  1.00</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(M)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(M)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-cor-complete" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -652,226 +1021,217 @@ Figura&nbsp;1: Frecuencias Confianza en vecinos
 <img src="practico-01_files/figure-html/fig-cor-complete-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cor-complete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;2: variables elsoc 2016
+Figura&nbsp;3: Matriz de correlaciones, ELSOC 2016
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>La <a href="#fig-cor-complete" class="quarto-xref">Figura&nbsp;2</a> muestra que la asociación de la confianza en vecinos es baja, siendo positiva para educación y edad, y negativa para sexo. La asociación más alta es entre educación y edad, siendo negativa (-0,35).</p>
+<p>La <a href="#fig-cor-complete" class="quarto-xref">Figura&nbsp;3</a> muestra que la asociación de la confianza en vecinos con las demás variables es baja, siendo positiva tanto para educación como para edad. La asociación más alta de la matriz es la que existe entre educación y edad, y es negativa.</p>
+<p>Note que la matriz solo incluye las variables numéricas: la correlación de Pearson <strong>no es apropiada para una variable nominal</strong> como sexo. Para comparar la confianza en vecinos entre hombres y mujeres necesitamos otras herramientas, que veremos más adelante en el curso.</p>
 </section>
-<section id="medias-condicionales" class="level2">
-<h2 class="anchored" data-anchor-id="medias-condicionales">Medias condicionales</h2>
-<p>Antes de avanzar desde la correlación al método de regresión es importante conocer el concepto de <strong>media condicional</strong>.</p>
-<p>Imaginemos un juego de tacataca con dos variables: cantidad de juegos previos y puntos obtenidos en un partido. En estas variables, el promedio de puntos es 4. Es decir, si conocemos a algún individuo que pertence al grupo de “datos”, sabemos que su puntaje se encuentra probablemente cercano a 4. ¿Podemos mejorar nuestra estimación utilizando el puntaje de X? Si el sujeto nos dice que ha jugado antes 6 veces, probablemente vamos a estimar un puntaje superior de puntos, tal vez más cercano a 6.</p>
-<p>Lo que estamos haciendo es utilizar la información que conocemos de X para dar una estimación de Y, que sea más precisa que el promedio bruto.</p>
-<p><img src="../files/img/condmeans.png" class="img-fluid"></p>
-<p>Mirando el gráfico de nube de puntos, sabemos que tres personas han jugado antes una vez, pero una de ellas tuvo 2 puntos, otra 3 y otra 4. Con estos datos podemos calcular la media de Y para X=1, que sería igual a 3. En otras palabras, <em>la media condicional de Y cuando X=1 es 3</em>. Con esto, uno podría calcular la media condicional para cada punto de X y hacer una estimación más precisa de Y. Sin embargo, este proceso todavía <em>no nos permite generalizar más eficientemte</em> la relación entre X e Y.</p>
-<p><em>¿Cuántos puntos (Y) se obtienen según la experiencia previa de juego (X)?</em> Esta pregunta nos conduce al cálculo de una <strong>recta</strong> que atraviese los puntos y que generalice la relación entre X e Y.</p>
+<section id="correlación-no-implica-causalidad" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="correlación-no-implica-causalidad"><span class="header-section-number">6.3</span> Correlación no implica causalidad</h2>
+<p>Una advertencia central de la primera sesión: que dos variables covaríen no significa que una cause la otra. La asociación entre educación y confianza podría deberse a una tercera variable no observada, a un proceso de selección, o a una relación causal en sentido inverso.</p>
+<p>Un ejercicio útil: revise el sitio <a href="https://www.tylervigen.com/spurious-correlations">Spurious Correlations</a> y comente con su ayudante qué elementos de esas correlaciones las hacen implausibles como relaciones causales.</p>
 </section>
-<section id="residuos" class="level2">
-<h2 class="anchored" data-anchor-id="residuos">Residuos</h2>
-<p>En el gráfico anterior vemos que la línea resume la relación entre X e Y, pero claramente es una simplificación que <strong>no abarca toda la variabilidad de los datos</strong>.</p>
-<p>Por ejemplo, para el sujeto cuya experiencia es haber jugado 1 vez y luego gana 3 puntos, esta línea predice exáctamente su puntaje basada en su experiencia. Sin embargo, el sujeto que ha jugado 3 veces y saca 6 puntos se encuentra más lejos de la línea y por lo tanto esta línea o “modelo predictivo” no representa tan bien su puntaje. A esto se refieren los <em>residuos</em>, que es la diferencia entre el valor predicho (o <span class="math inline">\(\widehat{Y}\)</span>) y el observado <span class="math inline">\(Y\)</span>, siendo los valores predichos de Y los que pasan por la recta a la altura de cada valor de X. Por lo tanto, la mejor recta será aquella que minimice al máximo los residuos.</p>
-<p><img src="../files/img/fig2-4woo.png" class="img-fluid"></p>
-<p>El sentido de la recta que resume de mejor manera la relación entre dos variables es que <strong>minimice la suma de todos los residuos</strong>. ¿Cómo realizar este procedimiento?</p>
-<ul>
-<li><p>Para realizar la suma de los residuos estos se elevan al cuadrado, lo que se denomina <strong>Suma de residuos al cuadrado</strong> o <span class="math inline">\(SS_{residual}\)</span>. Se eleva al cuadrado ya que como hay residuos positivos y negativos, unos cancelarían a otros y la suma seía 0, tal como sucede en la formula de la varianza.</p></li>
-<li><p>De la infinita cantidad de rectas que se pueden trazar, siempre hay una que tiene un valor menor de <span class="math inline">\(SS_{residual}\)</span>. Este procedimiento es el que da nombre al proceso de estimación: mínimos (residuos) cuadrados ordinarios, o <em>OLS</em> (Ordinary Least Squares).</p></li>
-</ul>
-<p>¿Cómo funciona esto con nuestro ejemplo?</p>
+</section>
+<section id="de-la-correlación-a-la-recta" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> De la correlación a la recta</h1>
+<section id="una-primera-recta" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="una-primera-recta"><span class="header-section-number">7.1</span> Una primera recta</h2>
+<p>La correlación nos dice que existe asociación, pero no nos permite <strong>predecir</strong> un valor de confianza a partir de la edad. Para eso necesitamos una recta:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Grafico x1 = ACT</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>graph1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(proc_data, <span class="fu">aes</span>(<span class="at">x =</span> m0_edad, <span class="at">y =</span> confianza_vecinos)) <span class="sc">+</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span>  <span class="co"># Puntos</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span>  <span class="co"># Recta de regresión</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Confianza en vecinos"</span>)  <span class="co"># Etiquetas de ejes</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico 2</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>graph2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(proc_data, <span class="fu">aes</span>(<span class="at">x =</span> m01, <span class="at">y =</span> confianza_vecinos)) <span class="sc">+</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Educación"</span>, <span class="at">y =</span> <span class="st">"Confianza en vecinos"</span>)</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(graph1, graph2, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="co"># Unir graficos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(proc_data, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> confianza_vecinos)) <span class="sc">+</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">width =</span> <span class="fl">0.3</span>, <span class="at">height =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"#04245f"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Confianza en vecinos"</span>) <span class="sc">+</span></span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-01_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<div id="fig-recta" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-recta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="practico-01_files/figure-html/fig-recta-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-recta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Recta de regresión de la confianza en vecinos según edad
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Con el gráfico anterior podemos notar que, si bien ambas variables tienen una asociación positiva con la confianza en vecinos, el tamaño efecto de esta relación es distinto.</p>
-</section>
-<section id="regresiones" class="level2">
-<h2 class="anchored" data-anchor-id="regresiones">Regresiones</h2>
-<p>Para facilitar la interpretación de los coeficientes de regresión nos aseguramos que las variables categóricas estén como variables categóricas con as_factor. De esta forma nos aseguramos que la estimación de los modelos sea correcta ya que no se puede interpretar sexo como si fuera una variable numérica.</p>
+<p>En R, la recta se estima con la función <code>lm()</code> (de <em>linear model</em>). La sintaxis se lee como “confianza en vecinos <strong>en función de</strong> edad”:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(proc_data<span class="sc">$</span>m0_sexo)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(proc_data)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(confianza_vecinos <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>proc_data)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(reg1,</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">confianza vecinos</th>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.20</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2906</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.000 / 0.000</td>
-</tr>
-</tbody>
-</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(proc_data) <span class="co"># trabajaremos solo con casos completos</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(confianza_vecinos <span class="sc">~</span> edad, <span class="at">data =</span> proc_data)</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)        edad 
+2.829587789 0.007944355 </code></pre>
 </div>
 </div>
-<p>¿Qué valor toma una regresión lineal cuando no incluímos predictores en nuestro modelo?</p>
-<p>En este caso, lo que nos interesa observar es el intercepto. Un intercepto de 3.20 nos indica la media de la confianza en vecinos.</p>
-<section id="regresión-lineal-simple" class="level3">
-<h3 class="anchored" data-anchor-id="regresión-lineal-simple">Regresión lineal simple</h3>
-<p>Una regresión lineal simple es aquel modelo que incluye solo un predictor. En este caso construiremos tres modelos distintos con tres variables independientes, es decir, reg2 que incluye como predictor ‘edad’, reg3 incluye educación y reg4 incluye sexo.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(confianza_vecinos <span class="sc">~</span> m0_edad, <span class="at">data=</span>proc_data)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(confianza_vecinos <span class="sc">~</span> m01, <span class="at">data=</span>proc_data)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(confianza_vecinos <span class="sc">~</span> sexo, <span class="at">data=</span>proc_data)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(reg2, reg3, reg4,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"Intercepto"</span>,</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Edad"</span>,</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Educación"</span>,</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Sexo"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">confianza vecinos</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">confianza vecinos</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">confianza vecinos</th>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center;">p</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Intercepto</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.83</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.94</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.27</td>
-<td style="text-align: center;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.01</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Educación</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.12</td>
-<td style="text-align: center;"><strong>0.010</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2906</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2906</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2906</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.010 / 0.010</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.008 / 0.008</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.002 / 0.002</td>
-</tr>
-</tbody>
-</table>
-<p>La interpretación de una tabla de regresión debe seguir el orden de presentación de los modelos y el orden de los coeficientes de regresión. En este ejemplo se dará el paso a paso de cómo interpretar las tablas:</p>
-<p>En el Modelo 1 se incluye edad como predictor, que tiene un coeficiente de regresión de 0,01. Esto indica que por cada unidad que aumenta edad, la confianza en vecinos aumenta en promedio 0,01 unidades. El intercepto es de 2,83, lo que indica que (teóricamente) una persona con edad 0 tendría un promedio de confianza en vecinos de 2,83. Finalmente, el modelo 1 logra explicar el 1% de la varianza de la variable dependiente (R2=0,01).</p>
-<p>El Modelo 2 incluye la educación de los/as encuestados como variable independiente. Este Modelo indica que por cada unidad que aumenta la educación, la confianza en vecinos aumenta en promedio 0,5 unidades. Si observamos el intercepto, este nos indica que el promedio de confianza en vecinos para las personas sin educación es de 2.94.</p>
-<p>El modelo 3 indica que las mujeres tendrían -0,12 unidades en la confianza en vecinos en comparación con los hombres. ¿Cómo sabemos que este el efecto de las mujeres? ¿Por qué no al revés? ¿Por qué “en comparación” con los hombres?</p>
-</section>
-</section>
-</section>
-<section id="tarea" class="level1">
-<h1>Tarea</h1>
-<section id="selección-de-variables" class="level2">
-<h2 class="anchored" data-anchor-id="selección-de-variables">Selección de variables</h2>
+<p>Recordando la ecuación vista en clases, <span class="math inline">\(\widehat{Y} = b_{0} + b_{1}X\)</span>:</p>
 <ul>
-<li><p>Cargar paquetes, cargar base de datos ELSOC y filtrar por la ola 4 (2019).</p></li>
+<li>El <strong>intercepto</strong> (<span class="math inline">\(b_0\)</span>) es el valor esperado de confianza cuando la edad es 0</li>
+<li>La <strong>pendiente</strong> (<span class="math inline">\(b_1\)</span>) indica cuánto cambia la confianza esperada por cada año adicional de edad</li>
+</ul>
+<p>En la próxima sesión veremos de dónde salen exactamente esos números y cómo interpretarlos con precisión.</p>
+</section>
+<section id="el-modelo-sin-predictores" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="el-modelo-sin-predictores"><span class="header-section-number">7.2</span> El modelo sin predictores</h2>
+<p>¿Qué ocurre si estimamos una recta sin ninguna variable independiente?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>modelo_nulo <span class="ot">&lt;-</span> <span class="fu">lm</span>(confianza_vecinos <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> proc_data)</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo_nulo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+   3.195802 </code></pre>
+</div>
+</div>
+<p>El intercepto coincide con la <strong>media</strong> de confianza en vecinos. Esto tiene una lectura conceptual importante: sin información adicional, nuestra mejor predicción para cualquier persona es el promedio general. Todo lo que hace una variable independiente es <strong>mejorar esa predicción</strong>.</p>
+</section>
+<section id="valores-predichos-y-residuos" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="valores-predichos-y-residuos"><span class="header-section-number">7.3</span> Valores predichos y residuos</h2>
+<p>Para cada caso, el modelo genera un valor <strong>predicho</strong> (<span class="math inline">\(\widehat{Y}\)</span>). La diferencia entre el valor observado y el predicho es el <strong>residuo</strong>:</p>
+<p><span class="math display">\[e_i = Y_i - \widehat{Y}_i\]</span></p>
+<p>En R:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>predicho <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo)</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>residuo <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo)</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(proc_data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(edad, confianza_vecinos, predicho, residuo))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  edad confianza_vecinos predicho     residuo
+1   64                 1 3.338027 -2.33802653
+2   60                 3 3.306249 -0.30624910
+3   26                 3 3.036141 -0.03614103
+4   51                 3 3.234750 -0.23474991
+5   69                 2 3.377748 -1.37774830
+6   62                 2 3.322138 -1.32213781</code></pre>
+</div>
+</div>
+<p>Podemos verlo gráficamente en un subconjunto de casos, donde cada línea segmentada representa un residuo:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>sub <span class="ot">&lt;-</span> proc_data[<span class="fu">sample</span>(<span class="fu">nrow</span>(proc_data), <span class="dv">20</span>), ]</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sub, <span class="fu">aes</span>(<span class="at">x =</span> edad, <span class="at">y =</span> confianza_vecinos)) <span class="sc">+</span></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> proc_data, <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"#04245f"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> edad, <span class="at">yend =</span> predicho),</span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"#c0392b"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">color =</span> <span class="st">"#4f97ff"</span>) <span class="sc">+</span></span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Confianza en vecinos"</span>) <span class="sc">+</span></span>
+<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-residuos" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-residuos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="practico-01_files/figure-html/fig-residuos-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-residuos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5: Valores observados, valores predichos y residuos (20 casos)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="por-qué-mínimos-cuadrados" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="por-qué-mínimos-cuadrados"><span class="header-section-number">7.4</span> ¿Por qué “mínimos cuadrados”?</h2>
+<p>En clases señalamos que por una misma nube de puntos pueden trazarse infinitas rectas, y que el criterio OLS selecciona aquella que minimiza la <strong>suma de los residuos al cuadrado</strong>. Comprobémoslo.</p>
+<p>Primero, note que la suma de los residuos del modelo estimado es prácticamente cero, porque los residuos positivos y negativos se cancelan entre sí. Por eso no sirve como criterio:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(proc_data<span class="sc">$</span>residuo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.0000000000006293993</code></pre>
+</div>
+</div>
+<p>En cambio, si elevamos los residuos al cuadrado antes de sumarlos, obtenemos una cantidad que sí distingue entre rectas:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(proc_data<span class="sc">$</span>residuo<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4158.653</code></pre>
+</div>
+</div>
+<p>Ahora probemos distintos valores posibles de pendiente y calculemos, para cada uno, la suma de residuos al cuadrado:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> proc_data<span class="sc">$</span>edad</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> proc_data<span class="sc">$</span>confianza_vecinos</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>pendientes <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.01</span>, <span class="fl">0.03</span>, <span class="at">by =</span> <span class="fl">0.001</span>)</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>ssr <span class="ot">&lt;-</span> <span class="fu">sapply</span>(pendientes, <span class="cf">function</span>(b1) {</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  b0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y) <span class="sc">-</span> b1 <span class="sc">*</span> <span class="fu">mean</span>(x)          <span class="co"># el intercepto que acompaña a cada pendiente</span></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>((y <span class="sc">-</span> (b0 <span class="sc">+</span> b1 <span class="sc">*</span> x))<span class="sc">^</span><span class="dv">2</span>)            <span class="co"># suma de residuos al cuadrado</span></span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pendiente =</span> pendientes, <span class="at">ssr =</span> ssr)</span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> pendiente, <span class="at">y =</span> ssr)) <span class="sc">+</span></span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#04245f"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">coef</span>(modelo)[<span class="dv">2</span>], <span class="at">color =</span> <span class="st">"#c0392b"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Valor de la pendiente (b1)"</span>,</span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Suma de residuos al cuadrado"</span>) <span class="sc">+</span></span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-ols" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="practico-01_files/figure-html/fig-ols-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ols-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6: Suma de residuos al cuadrado según distintos valores de la pendiente
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La línea segmentada roja marca el valor de la pendiente estimada por <code>lm()</code>. Como se observa, coincide exactamente con el punto <strong>más bajo</strong> de la curva: ninguna otra recta produce una suma de residuos al cuadrado menor. Eso es, literalmente, lo que significa “mínimos cuadrados ordinarios”.</p>
+</section>
+</section>
+<section id="tarea" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Tarea</h1>
+<section id="selección-de-variables-1" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="selección-de-variables-1"><span class="header-section-number">8.1</span> Selección de variables</h2>
+<ul>
+<li><p>Cargar los paquetes, cargar la base de datos ELSOC y filtrar por la ola 4 (2019)</p></li>
 <li><p>Seleccionar las siguientes variables:</p>
 <ul>
-<li><p>Satisfacción con la democracia: c01</p></li>
-<li><p>Sociodemográficas: m01 (educación), m0_sexo (sexo), m0_edad (edad).</p></li>
+<li>Satisfacción con la democracia: <code>c01</code></li>
+<li>Sociodemográficas: <code>m01</code> (educación), <code>m0_sexo</code> (sexo), <code>m0_edad</code> (edad)</li>
 </ul></li>
-<li><p>Definir cuál es la variable dependiente y cuáles las independientes</p></li>
+<li><p>Indicar cuál es la variable dependiente y cuáles las independientes, y justificar la decisión</p></li>
 </ul>
 </section>
-<section id="operacionalización-de-variables" class="level2">
-<h2 class="anchored" data-anchor-id="operacionalización-de-variables">Operacionalización de variables</h2>
+<section id="operacionalización-de-variables" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="operacionalización-de-variables"><span class="header-section-number">8.2</span> Operacionalización de variables</h2>
 <ul>
-<li><p>Recodificar valores perdidos (-999, -888, -777, -666) como NA.</p></li>
-<li><p>Cambiar etiquetas para que sean más descriptivas.</p></li>
+<li><p>Recodificar los valores perdidos (-999, -888, -777, -666) como <code>NA</code></p></li>
+<li><p>Renombrar las variables y cambiar sus etiquetas por otras más descriptivas</p></li>
+<li><p>Elaborar una tabla que indique, para cada variable, su escala de medición y el tratamiento que le dará en el análisis</p></li>
 </ul>
 </section>
-<section id="análisis-1" class="level2">
-<h2 class="anchored" data-anchor-id="análisis-1">Análisis</h2>
+<section id="análisis-descriptivo-y-asociación" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="análisis-descriptivo-y-asociación"><span class="header-section-number">8.3</span> Análisis descriptivo y asociación</h2>
 <ul>
-<li><p>Gráfico descriptivo para satisfacción con la democracia</p></li>
-<li><p>Estimar, visualizar e interpretar una matriz de correlaciones con las 4 variables principales.</p></li>
-<li><p>Estimar tres modelos de regresión lineal simple</p>
-<ul>
-<li><p>Modelo 1: satisfaccion_democracia ~ sexo</p></li>
-<li><p>Modelo 2: satisfaccion_democracia ~ educacion</p></li>
-<li><p>Modelo 3: satisfaccion_democracia ~ edad</p></li>
-</ul></li>
+<li><p>Presentar una tabla de descriptivos y un gráfico de la distribución de la satisfacción con la democracia</p></li>
+<li><p>Estimar y visualizar una matriz de correlaciones con las variables numéricas</p></li>
+<li><p>Elaborar un gráfico de dispersión entre satisfacción con la democracia y edad, incorporando la recta de regresión</p></li>
 </ul>
 </section>
-<section id="reporte" class="level2">
-<h2 class="anchored" data-anchor-id="reporte">Reporte</h2>
+<section id="primera-aproximación-a-la-recta" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="primera-aproximación-a-la-recta"><span class="header-section-number">8.4</span> Primera aproximación a la recta</h2>
 <ul>
-<li><p>Presentar una tabla con los tres modelos.</p></li>
-<li><p>Incluir un párrafo breve (máx. 200 palabras) interpretando los coeficientes y <span class="math inline">\(R^2\)</span>.</p></li>
+<li><p>Estimar el modelo <code>satisfaccion_democracia ~ edad</code> con <code>lm()</code> y reportar el intercepto y la pendiente</p></li>
+<li><p>Calcular los valores predichos y los residuos, y verificar que la suma de los residuos es aproximadamente cero</p></li>
+</ul>
+</section>
+<section id="reporte" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="reporte"><span class="header-section-number">8.5</span> Reporte</h2>
+<ul>
+<li>Redactar un párrafo breve (máximo 200 palabras) que describa la asociación observada entre las variables, señalando su fuerza y dirección, y que advierta por qué esa asociación no permite, por sí sola, afirmar una relación causal</li>
 </ul>
 
 

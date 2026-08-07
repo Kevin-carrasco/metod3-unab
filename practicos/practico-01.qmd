@@ -1,14 +1,23 @@
 ---
-title: "Práctico 01. Regresión lineal I"
+title: "Práctico 01. Datos, variables y asociación"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2025-08-11"
+date: "2026-08-10"
 lang: es
-output:
-  number_sections: true
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-copy: true
+    code-overflow: wrap
+execute:
+  warning: false
+  message: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE)
 ```
@@ -17,109 +26,319 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ## Objetivo de la práctica
 
-El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales en R.
+Esta guía retoma los contenidos de la primera sesión y los lleva a R. Al terminar, usted debería ser capaz de:
+
+1. Retomar el manejo básico de R y RStudio: objetos, funciones, paquetes y bases de datos
+2. Cargar una base de datos y reconocer su estructura de **casos** y **variables**
+3. Identificar la **escala de medición** de una variable y sus consecuencias para el análisis
+4. Procesar variables: casos perdidos, nombres y etiquetas
+5. Describir variables y examinar la **asociación** entre ellas mediante gráficos de dispersión y correlaciones
+6. Trazar una primera **recta de regresión** y comprender qué son los **valores predichos** y los **residuos**
+
+Al ser el primer taller del curso, comenzaremos con un repaso de los elementos básicos de R. Si usted ya los maneja con soltura, puede avanzar directamente a la sección de preparación del análisis.
+
+La estimación de los coeficientes y su interpretación formal se abordarán en la próxima sesión teórica; aquí trabajaremos la intuición gráfica y computacional.
 
 ## Antecedentes de los datos a utilizar
 
-Confianza en vecinos con elsoc 2016. 
+Utilizaremos la base del **Estudio Longitudinal Social de Chile (ELSOC)**, del Centro de Estudios de Conflicto y Cohesión Social (COES). Trabajaremos con la primera ola (2016) y con la variable **confianza en vecinos** como variable dependiente de interés.
 
-# Análisis
+# Repaso: trabajar en R
 
-## 1. Librerías principales (de R) a utilizar en el análisis{#librerias}
+## R y RStudio
+
+Conviene distinguir dos cosas que suelen confundirse:
+
+- **R** es el lenguaje de programación y el motor que ejecuta los cálculos
+- **RStudio** es el entorno de trabajo (o *IDE*) desde el cual escribimos y ejecutamos código en R
+
+RStudio organiza la pantalla en cuatro paneles: el **editor** (donde se escribe el script), la **consola** (donde se ejecutan las instrucciones y aparecen los resultados), el **environment** (los objetos disponibles en memoria) y un cuarto panel con archivos, gráficos, paquetes y ayuda.
+
+Una recomendación desde el inicio del curso: escriba siempre su código en un **script** o en un documento Quarto, nunca directamente en la consola. Lo que se escribe en la consola se pierde; lo que está en un script puede volver a ejecutarse, corregirse y compartirse. Esa es la base de un trabajo **reproducible**.
+
+## Proyectos y rutas
+
+Antes de comenzar a trabajar, cree un **proyecto de RStudio** (`File > New Project`) para el curso. Un proyecto fija la carpeta de trabajo, lo que permite usar rutas relativas del tipo `datos/elsoc.RData` en lugar de rutas absolutas como `C:/Users/kevin/Documentos/curso/datos/elsoc.RData`, que solo funcionan en su computador.
+
+Para saber en qué carpeta está trabajando:
+
+```{r}
+#| eval: false
+getwd() # muestra la carpeta de trabajo actual
+```
+
+## Objetos y asignación
+
+En R, casi todo es un **objeto**. Los objetos se crean con el operador de asignación `<-`:
+
+```{r}
+edad_ejemplo <- 34
+edad_ejemplo
+```
+
+El nombre del objeto queda guardado en el *environment* y puede ser utilizado luego en otras operaciones:
+
+```{r}
+edad_ejemplo + 10
+```
+
+Note que la operación anterior no modifica el objeto: para que el resultado quede guardado, hay que asignarlo nuevamente.
+
+```{r}
+edad_ejemplo <- edad_ejemplo + 10
+edad_ejemplo
+```
+
+## Tipos de datos
+
+R distingue distintos tipos de datos, y esa distinción se relaciona directamente con las escalas de medición que revisamos en clases:
+
+```{r}
+numero <- 25.5             # numeric: variables continuas (edad, ingreso)
+texto <- "Santiago"        # character: texto
+logico <- TRUE             # logical: verdadero o falso
+categoria <- factor("Mujer", levels = c("Hombre", "Mujer")) # factor: variables categóricas
+
+class(numero)
+class(texto)
+class(logico)
+class(categoria)
+```
+
+La función `class()` es una de las que más utilizará: antes de analizar una variable, conviene siempre verificar de qué tipo es. Un error frecuente consiste en tratar como numérica una variable que en realidad es categórica, obteniendo resultados que no tienen sentido sustantivo (por ejemplo, el "promedio" de la nacionalidad).
+
+## Vectores y bases de datos
+
+Un **vector** es una secuencia de valores del mismo tipo, y se construye con la función `c()`:
+
+```{r}
+edades <- c(23, 45, 31, 62, 28)
+edades
+```
+
+Podemos aplicarle funciones:
+
+```{r}
+mean(edades)  # promedio
+length(edades) # cantidad de elementos
+```
+
+Una **base de datos** (`data.frame`) es un conjunto de vectores de igual largo dispuestos como columnas. Es exactamente la estructura rectangular que vimos en clases: filas como casos y columnas como variables.
+
+```{r}
+ejemplo <- data.frame(
+  edad = c(23, 45, 31, 62, 28),
+  sexo = c("Mujer", "Hombre", "Mujer", "Hombre", "Mujer")
+)
+
+ejemplo
+```
+
+Para acceder a una columna específica usamos el signo `$`:
+
+```{r}
+ejemplo$edad
+mean(ejemplo$edad)
+```
+
+Y para explorar rápidamente una base:
+
+```{r}
+dim(ejemplo)   # número de filas y columnas
+names(ejemplo) # nombres de las variables
+head(ejemplo)  # primeras filas
+```
+
+## Funciones y ayuda
+
+Una **función** recibe **argumentos** y devuelve un resultado. En `mean(edades)`, `mean` es la función y `edades` el argumento. Muchas funciones tienen argumentos adicionales con valores por defecto:
+
+```{r}
+edades_na <- c(23, 45, NA, 62, 28)
+mean(edades_na)                 # devuelve NA
+mean(edades_na, na.rm = TRUE)   # excluye los casos perdidos
+```
+
+El resultado `NA` del primer caso no es un error del programa: R está avisando que hay valores perdidos y que, por lo tanto, no puede calcular el promedio sin una instrucción explícita de qué hacer con ellos.
+
+Para consultar la documentación de cualquier función:
+
+```{r}
+#| eval: false
+?mean
+help(mean)
+```
+
+## Paquetes
+
+Las funciones vienen agrupadas en **paquetes**. Los paquetes se instalan una sola vez y se cargan en cada sesión de trabajo:
+
+```{r}
+#| eval: false
+install.packages("dplyr") # instalar (una vez)
+library(dplyr)            # cargar (en cada sesión)
+```
+
+En este curso utilizaremos `pacman`, que instala el paquete si falta y lo carga si ya está disponible, en una sola instrucción:
+
+```{r}
+#| eval: false
+install.packages("pacman") # solo la primera vez
+pacman::p_load(dplyr, ggplot2)
+```
+
+La notación `pacman::p_load` indica que usamos la función `p_load` del paquete `pacman`. Es una forma de precisar de dónde viene una función, útil cuando dos paquetes tienen funciones con el mismo nombre.
+
+## El operador pipe
+
+El operador `%>%` (del paquete `dplyr`) encadena operaciones: toma el resultado de la izquierda y lo entrega como primer argumento de la función de la derecha. Estas dos instrucciones son equivalentes:
+
+```{r}
+#| eval: false
+mean(ejemplo$edad)
+
+ejemplo$edad %>% mean()
+```
+
+Su utilidad se aprecia cuando encadenamos varios pasos, ya que evita anidar funciones dentro de funciones y permite leer el código en el orden en que ocurren las operaciones.
+
+## Errores frecuentes
+
+Al comenzar, la mayoría de los mensajes de error tienen alguna de estas causas:
+
+- `could not find function`: el paquete no está cargado
+- `object not found`: el objeto no existe, o su nombre está mal escrito (R distingue mayúsculas de minúsculas)
+- Un `+` en la consola: quedó un paréntesis o una comilla sin cerrar. Presione `Esc` y revise la línea
+
+Los mensajes de error no son un problema, sino información. Conviene leerlos con calma antes de volver a ejecutar el código.
+
+# Preparación del análisis
+
+## Librerías a utilizar {#librerias}
 
 ```{r}
 pacman::p_load(dplyr,
-               haven, 
-               car, 
-               sjmisc, 
-               sjPlot, 
-               sjlabelled, 
-               stargazer, 
-               kableExtra, 
-               corrplot, 
+               haven,
+               sjmisc,
+               sjPlot,
+               sjlabelled,
+               kableExtra,
+               corrplot,
                ggplot2,
                ggpubr)
 ```
 
-## 2. Cargar base de datos
+## Ajustar el espacio de trabajo
 
-**Ajustar espacio de trabajo**
-
-Previo a la carga de nuestra base de datos, se recomienda ejecutar los siguientes comandos:
+Previo a la carga de la base de datos, se recomienda ejecutar los siguientes comandos:
 
 ```{r}
-rm(list=ls())       # borrar todos los objetos en el espacio de trabajo
-options(scipen=999) # valores sin notación científica
+rm(list = ls())       # borrar todos los objetos en el espacio de trabajo
+options(scipen = 999) # valores sin notación científica
 ```
 
+La función `rm(list=ls())` permite comenzar con un espacio de trabajo (*environment*) vacío y sin otros objetos. A su vez, `options(scipen=999)` desactiva la notación científica, es decir, veremos los valores numéricos con todos sus decimales.
 
-La función `rm(list=ls())` permite comenzar con un espacio de trabajo (environment) vacío y sin otros objetos. Así también, la función `options(scipen=999)` desactiva la notación científica, es decir, veremos los valores numéricos con todos sus decimales.
-
-**Datos**
+## Cargar la base de datos
 
 ```{r}
-#cargamos la base de datos desde internet
-load(url("https://dataverse.harvard.edu/api/access/datafile/7245118")) #Cargar base de datos
+# Cargamos la base de datos desde internet
+load(url("https://dataverse.harvard.edu/api/access/datafile/7245118"))
 ```
 
-Realizamos un chequeo básico de la lectura de datos: nombres de las variables y tamaño de la base en términos de casos y variables (en este ejemplo, `r dim(elsoc_long_2016_2022.2)` ).
+Realizamos un chequeo básico de la lectura de datos: nombres de las variables y tamaño de la base en términos de casos y variables.
 
 ```{r}
-dim(elsoc_long_2016_2022.2) # dimension de la base
+dim(elsoc_long_2016_2022.2) # dimensión de la base
 ```
 
-## 3. Selección de variables a utilizar
+Recordemos lo visto en clases: una base de datos tiene forma **rectangular**. Cada **fila** es un caso o unidad de análisis (aquí, una persona encuestada en un año determinado) y cada **columna** es una variable.
 
-Este paso consiste en crear un subset reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de cada base de datos. Además filtramos por la ola 1 para trabajar solo con datos del 2016.
+# Datos y variables
+
+## Selección de variables
+
+Este paso consiste en crear un subconjunto reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de la base. Además filtramos por la ola 1 para trabajar solo con datos de 2016.
 
 ```{r}
-proc_data <- elsoc_long_2016_2022.2 %>% filter(ola=="1") %>% 
-  select(t01, # Confianza en vecinos
-         m01,# nivel educacional
-         m0_sexo,# sexo
-         m0_edad# edad
-         )
+proc_data <- elsoc_long_2016_2022.2 %>%
+  filter(ola == "1") %>%
+  select(t01,      # Confianza en vecinos
+         m01,      # Nivel educacional
+         m0_sexo,  # Sexo
+         m0_edad)  # Edad
 
 # Comprobar
 names(proc_data)
 ```
 
-Mediante el comando `get_label` obtenemos el atributo label de las variables.
+Mediante el comando `get_label` obtenemos el atributo *label* de las variables.
 
 ```{r}
 sjlabelled::get_label(proc_data)
 ```
 
-Podemos ver que son largas o con códigos poco informativos, por lo tanto, es necesario cambiarlas por etiquetas más cortas y de fácil identificación.
+Podemos ver que las etiquetas son largas o tienen códigos poco informativos, por lo que es necesario cambiarlas por otras más cortas y de fácil identificación.
+
+## Escalas de medición
+
+En la primera sesión revisamos la clasificación NOIR: nominal, ordinal, intervalar y de razón. Esa distinción no es una formalidad: determina qué descriptivos tienen sentido y qué técnicas de análisis son apropiadas.
+
+Antes de analizar, conviene preguntarse por la escala de cada variable:
+
+```{r}
+#| label: tbl-escalas
+#| tbl-cap: "Escalas de medición de las variables seleccionadas"
+
+escalas <- data.frame(
+  Variable = c("t01", "m01", "m0_sexo", "m0_edad"),
+  Contenido = c("Confianza en vecinos", "Nivel educacional", "Sexo", "Edad"),
+  Escala = c("Ordinal (5 categorías)", "Ordinal (10 categorías)",
+             "Nominal (dicotómica)", "Razón"),
+  Tratamiento = c("Se tratará como continua", "Se tratará como continua",
+                  "Categórica (factor)", "Continua")
+)
+
+kable(escalas, "markdown")
+```
+
+Una advertencia importante: la confianza en vecinos y el nivel educacional son variables **ordinales**, y aquí las trataremos como si fueran continuas. Es una práctica frecuente en investigación social cuando la variable tiene suficientes categorías ordenadas, pero es una **simplificación**: supone que la distancia entre las categorías 1 y 2 es la misma que entre 4 y 5, lo que no necesariamente es cierto. Conviene tenerlo presente al momento de interpretar los resultados.
+
+R también tiene su propia clasificación de tipos de datos, que no coincide exactamente con NOIR:
+
+```{r}
+class(proc_data$t01)
+class(proc_data$m0_edad)
+```
 
 ## Procesamiento de variables
 
-Para el procesamiento de cada variable se seguirá el siguiente flujo de trabajo:
+Para el procesamiento de cada variable seguiremos el siguiente flujo de trabajo:
 
 a. Descriptivo general
 b. Recodificación: de casos perdidos y otros valores (en caso necesario)
 c. Etiquetado: cambio de nombres de variables y valores (en caso necesario)
 d. Otros ajustes
 
-Y se recomienda también un descriptivo final para revisar que el procesamiento de cada variable está ok.
+Se recomienda también un descriptivo final para revisar que el procesamiento de cada variable esté correcto.
 
 ### Confianza en vecinos
 
-_a. Descriptivo_
+*a. Descriptivo*
 
-Para los descriptivos se utilizará la función `frq`, de la librería `sjmisc`:
+Para los descriptivos utilizaremos la función `frq`, de la librería `sjmisc`:
 
 ```{r}
 frq(proc_data$t01)
 ```
 
-En esta variable vemos valores asociados a la opción "No contesta" (-999) y "No sabe" (-888), (-777) y (-666) que corresponde definirlos como casos perdidos (en el caso de R, como casos NA). El resto de los valores y etiquetas se encuentran en un orden correcto.
+En esta variable vemos valores asociados a las opciones "No contesta" (-999) y "No sabe" (-888), además de (-777) y (-666), que corresponde definir como casos perdidos (en R, valores `NA`). El resto de los valores y etiquetas se encuentran en un orden correcto.
 
-_b. Recodificación_
+*b. Recodificación*
 
-Después de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar set_na
+Después de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar `set_na`:
 
-```{r }
+```{r}
 proc_data <- proc_data %>% set_na(., na = c(-999, -888, -777, -666))
 ```
 
@@ -127,234 +346,300 @@ proc_data <- proc_data %>% set_na(., na = c(-999, -888, -777, -666))
 frq(proc_data$t01)
 ```
 
-_c - Etiquetado_
+*c. Etiquetado*
 
 Vamos a dar un nombre más sustantivo a las variables con la función `rename`, de la librería `dplyr`:
 
 ```{r}
-proc_data <- proc_data %>% rename("confianza_vecinos"=t01)
+proc_data <- proc_data %>%
+  rename("confianza_vecinos" = t01,
+         "educacion" = m01,
+         "sexo" = m0_sexo,
+         "edad" = m0_edad)
 ```
 
-
-Además de cambiar el nombre, queremos cambiar las etiquetas de las variables.
+Además de cambiar el nombre, queremos cambiar las etiquetas de las variables:
 
 ```{r}
-proc_data$confianza_vecinos <- set_label(x = proc_data$confianza_vecinos,label = "Confianza en vecinos")
-get_label(proc_data$confianza_vecinos)
+proc_data$confianza_vecinos <- set_label(x = proc_data$confianza_vecinos,
+                                         label = "Confianza en vecinos")
+proc_data$educacion <- set_label(x = proc_data$educacion,
+                                 label = "Nivel educacional")
+proc_data$sexo <- set_label(x = proc_data$sexo, label = "Sexo")
+proc_data$edad <- set_label(x = proc_data$edad, label = "Edad")
+
+get_label(proc_data)
 ```
 
-_Revisión final_
-
-Nuevamente un descriptivo de la variable para confirmar que el procesamiento está ok:
+*d. Revisión final*
 
 ```{r}
 frq(proc_data$confianza_vecinos)
 ```
 
-#### 4.2. Educación
-
-* [`m01`] =  Nivel de estudios alcanzado - Entrevistado 
-
-_a. Descriptivo_
+### Educación, sexo y edad
 
 ```{r}
-frq(proc_data$m01)
+frq(proc_data$educacion)
 ```
-
-Esta vez la vamos a dejar así
-
-### 4.3. Sexo
-
-* [`m0_sexo`]	=	SEXO Sexo
-
-_a. Descriptivo_
 
 ```{r}
-frq(proc_data$m0_sexo)
+frq(proc_data$sexo)
 ```
-
-
-
-### 4.4 Edad
-
-* [`m0_edad`]	=	EDAD Edad.
-
-
-_a. Descriptivo_
 
 ```{r}
-summary(proc_data$m0_edad)
+summary(proc_data$edad)
 ```
 
-## Análisis descriptivo
+Note que los descriptivos apropiados **dependen de la escala de medición**: para sexo, una variable nominal, la tabla de frecuencias es informativa y el promedio no tendría sentido; para edad, una variable de razón, ocurre lo contrario.
+
+Finalmente, dado que sexo es una variable nominal, la declaramos como factor para que R no la trate como un número:
+
+```{r}
+proc_data$sexo <- as_factor(proc_data$sexo)
+class(proc_data$sexo)
+```
+
+# Análisis descriptivo
 
 ```{r}
 #| label: tbl-sjmisc
 #| tbl-cap: "Descriptivos"
 
 sjmisc::descr(proc_data,
-      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
-      kable(.,"markdown") # Esto es para que se vea bien en quarto
+              show = c("label", "range", "mean", "sd", "NA.prc", "n")) %>%
+  kable(., "markdown")
 ```
 
-En la @tbl-sjmisc podemos observar los descriptivos generales de la base de datos procesada. Notemos la **Media de confianza en vecinos = 3.20**
+En la @tbl-sjmisc podemos observar los descriptivos generales de la base de datos procesada. Notemos que la **media de confianza en vecinos es 3,20**. Guardemos ese valor, porque volverá a aparecer más adelante.
 
-Y si queremos visualizar algo más:
+Y si queremos visualizar la distribución:
 
 ```{r}
 #| label: fig-descriptivos
-#| fig-cap: "Frecuencias Confianza en vecinos"
-proc_data %>% dplyr::select(confianza_vecinos) %>% 
-  sjPlot::plot_stackfrq()+
-  theme(legend.position = "bottom")
+#| fig-cap: "Frecuencias de confianza en vecinos"
 
+proc_data %>%
+  dplyr::select(confianza_vecinos) %>%
+  sjPlot::plot_stackfrq() +
+  theme(legend.position = "bottom")
 ```
 
-## Asociación de variables
+# Asociación entre variables
 
-Podemos ver la asociación de todas las variables, como lo muestra la @cor-complete
+## Gráficos de dispersión
+
+En clases vimos que la asociación entre dos variables continuas se expresa gráficamente en **nubes de puntos**. Comencemos por ahí:
 
 ```{r}
-M <- cor(proc_data, use = "complete.obs") # Usar solo casos con observaciones completas
+#| label: fig-dispersion
+#| fig-cap: "Confianza en vecinos según edad y educación"
+
+graph1 <- ggplot(proc_data, aes(x = edad, y = confianza_vecinos)) +
+  geom_jitter(size = 0.8, alpha = 0.3, width = 0.3, height = 0.2) +
+  labs(x = "Edad", y = "Confianza en vecinos") +
+  theme_minimal()
+
+graph2 <- ggplot(proc_data, aes(x = educacion, y = confianza_vecinos)) +
+  geom_jitter(size = 0.8, alpha = 0.3, width = 0.3, height = 0.2) +
+  labs(x = "Nivel educacional", y = "Confianza en vecinos") +
+  theme_minimal()
+
+ggarrange(graph1, graph2, nrow = 1)
+```
+
+Usamos `geom_jitter` en lugar de `geom_point` porque ambas variables tienen pocos valores distintos y los puntos se superponen. El *jitter* agrega una pequeña perturbación aleatoria que permite ver la densidad de casos.
+
+## Correlación
+
+La correlación resume en un solo número la **fuerza** y la **dirección** de la asociación lineal entre dos variables, y varía entre -1 y +1.
+
+```{r}
+cor(proc_data$edad, proc_data$confianza_vecinos, use = "complete.obs")
+```
+
+Podemos calcular la asociación entre todas las variables numéricas de la base:
+
+```{r}
+M <- cor(proc_data %>% dplyr::select(confianza_vecinos, educacion, edad),
+         use = "complete.obs") # Usar solo casos con observaciones completas
+round(M, 2)
 ```
 
 ```{r}
 #| label: fig-cor-complete
-#| fig-cap: "variables elsoc 2016"
-
+#| fig-cap: "Matriz de correlaciones, ELSOC 2016"
 
 corrplot.mixed(M)
 ```
 
-La @fig-cor-complete muestra que la asociación de la confianza en vecinos es baja, siendo positiva para educación y edad, y negativa para sexo. La asociación más alta es entre educación y edad, siendo negativa (-0,35).
+La @fig-cor-complete muestra que la asociación de la confianza en vecinos con las demás variables es baja, siendo positiva tanto para educación como para edad. La asociación más alta de la matriz es la que existe entre educación y edad, y es negativa.
 
-## Medias condicionales
+Note que la matriz solo incluye las variables numéricas: la correlación de Pearson **no es apropiada para una variable nominal** como sexo. Para comparar la confianza en vecinos entre hombres y mujeres necesitamos otras herramientas, que veremos más adelante en el curso.
 
-Antes de avanzar desde la correlación al método de regresión es importante conocer el concepto de **media condicional**.
+## Correlación no implica causalidad
 
-Imaginemos un juego de tacataca con dos variables: cantidad de juegos previos y puntos obtenidos en un partido. En estas variables, el promedio de puntos es 4. Es decir, si conocemos a algún individuo que pertence al grupo de "datos", sabemos que su puntaje se encuentra probablemente cercano a 4. ¿Podemos mejorar nuestra estimación utilizando el puntaje de X? Si el sujeto nos dice que ha jugado antes 6 veces, probablemente vamos a estimar un puntaje superior de puntos, tal vez más cercano a 6.
+Una advertencia central de la primera sesión: que dos variables covaríen no significa que una cause la otra. La asociación entre educación y confianza podría deberse a una tercera variable no observada, a un proceso de selección, o a una relación causal en sentido inverso.
 
-Lo que estamos haciendo es utilizar la información que conocemos de X para dar una estimación de Y, que sea más precisa que el promedio bruto.
+Un ejercicio útil: revise el sitio [Spurious Correlations](https://www.tylervigen.com/spurious-correlations) y comente con su ayudante qué elementos de esas correlaciones las hacen implausibles como relaciones causales.
 
-![](../files/img/condmeans.png)
+# De la correlación a la recta
 
-Mirando el gráfico de nube de puntos, sabemos que tres personas han jugado antes una vez, pero una de ellas tuvo 2 puntos, otra 3 y otra 4. Con estos datos podemos calcular la media de Y para X=1, que sería igual a 3. En otras palabras, *la media condicional de Y cuando X=1 es 3*. Con esto, uno podría calcular la media condicional para cada punto de X y hacer una estimación más precisa de Y. Sin embargo, este proceso todavía *no nos permite generalizar más eficientemte* la relación entre X e Y.
+## Una primera recta
 
-*¿Cuántos puntos (Y) se obtienen según la experiencia previa de juego (X)?* Esta pregunta nos conduce al cálculo de una **recta** que atraviese los puntos y que generalice la relación entre X e Y.
-
-## Residuos
-
-En el gráfico anterior vemos que la línea resume la relación entre X e Y, pero claramente es una simplificación que **no abarca toda la variabilidad de los datos**.
-
-Por ejemplo, para el sujeto cuya experiencia es haber jugado 1 vez y luego gana 3 puntos, esta línea predice exáctamente su puntaje basada en su experiencia. Sin embargo, el sujeto que ha jugado 3 veces y saca 6 puntos se encuentra más lejos de la línea y por lo tanto esta línea o "modelo predictivo" no representa tan bien su puntaje. A esto se refieren los *residuos*, que es la diferencia entre el valor predicho (o $\widehat{Y}$) y el observado $Y$, siendo los valores predichos de Y los que pasan por la recta a la altura de cada valor de X. Por lo tanto, la mejor recta será aquella que minimice al máximo los residuos.
-
-![](../files/img/fig2-4woo.png)
-
-El sentido de la recta que resume de mejor manera la relación entre dos variables es que **minimice la suma de todos los residuos**. ¿Cómo realizar este procedimiento?
-
-- Para realizar la suma de los residuos estos se elevan al cuadrado, lo que se denomina **Suma de residuos al cuadrado** o $SS_{residual}$. Se eleva al cuadrado ya que como hay residuos positivos y negativos, unos cancelarían a otros y la suma seía 0, tal como sucede en la formula de la varianza.
-
-- De la infinita cantidad de rectas que se pueden trazar, siempre hay una que tiene un valor menor de $SS_{residual}$. Este procedimiento es el que da nombre al proceso de estimación: mínimos (residuos) cuadrados ordinarios, o *OLS* (Ordinary Least Squares).
-
-¿Cómo funciona esto con nuestro ejemplo?
-
-```{r warning=FALSE, error=FALSE, message=FALSE}
-#Grafico x1 = ACT
-graph1 <- ggplot(proc_data, aes(x = m0_edad, y = confianza_vecinos)) +
-  geom_point(size = 1) +  # Puntos
-  geom_smooth(method = "lm", se = FALSE) +  # Recta de regresión
-  labs(x = "Edad", y = "Confianza en vecinos")  # Etiquetas de ejes
-
-# Gráfico 2
-graph2 <- ggplot(proc_data, aes(x = m01, y = confianza_vecinos)) +
-  geom_point(size = 1) +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Educación", y = "Confianza en vecinos")
-ggarrange(graph1, graph2, nrow = 1) # Unir graficos
-```
-
-Con el gráfico anterior podemos notar que, si bien ambas variables tienen una asociación positiva con la confianza en vecinos, el tamaño efecto de esta relación es distinto.
-
-## Regresiones
-
-Para facilitar la interpretación de los coeficientes de regresión nos aseguramos que las variables categóricas estén como variables categóricas con as_factor. De esta forma nos aseguramos que la estimación de los modelos sea correcta ya que no se puede interpretar sexo como si fuera una variable numérica.
+La correlación nos dice que existe asociación, pero no nos permite **predecir** un valor de confianza a partir de la edad. Para eso necesitamos una recta:
 
 ```{r}
-proc_data$sexo <- as_factor(proc_data$m0_sexo)
+#| label: fig-recta
+#| fig-cap: "Recta de regresión de la confianza en vecinos según edad"
 
-proc_data <- na.omit(proc_data)
-
-reg1 <- lm(confianza_vecinos ~ 1, data=proc_data)
-
-tab_model(reg1,
-          show.ci = FALSE)
+ggplot(proc_data, aes(x = edad, y = confianza_vecinos)) +
+  geom_jitter(size = 0.8, alpha = 0.25, width = 0.3, height = 0.2) +
+  geom_smooth(method = "lm", se = FALSE, color = "#04245f", linewidth = 1.2) +
+  labs(x = "Edad", y = "Confianza en vecinos") +
+  theme_minimal()
 ```
 
-¿Qué valor toma una regresión lineal cuando no incluímos predictores en nuestro modelo?
+En R, la recta se estima con la función `lm()` (de *linear model*). La sintaxis se lee como "confianza en vecinos **en función de** edad":
 
-En este caso, lo que nos interesa observar es el intercepto. Un intercepto de 3.20 nos indica la media de la confianza en vecinos.
+```{r}
+proc_data <- na.omit(proc_data) # trabajaremos solo con casos completos
 
-### Regresión lineal simple
-
-Una regresión lineal simple es aquel modelo que incluye solo un predictor. En este caso construiremos tres modelos distintos con tres variables independientes, es decir, reg2 que incluye como predictor 'edad', reg3 incluye educación y reg4 incluye sexo.
-
-```{r results='asis'}
-reg2 <- lm(confianza_vecinos ~ m0_edad, data=proc_data)
-reg3 <- lm(confianza_vecinos ~ m01, data=proc_data)
-reg4 <- lm(confianza_vecinos ~ sexo, data=proc_data)
-
-tab_model(reg2, reg3, reg4,
-          show.ci = FALSE,
-          pred.labels = c("Intercepto",
-                          "Edad",
-                          "Educación",
-                          "Sexo"))
+modelo <- lm(confianza_vecinos ~ edad, data = proc_data)
+coef(modelo)
 ```
 
-La interpretación de una tabla de regresión debe seguir el orden de presentación de los modelos y el orden de los coeficientes de regresión. En este ejemplo se dará el paso a paso de cómo interpretar las tablas:
+Recordando la ecuación vista en clases, $\widehat{Y} = b_{0} + b_{1}X$:
 
-En el Modelo 1 se incluye edad como predictor, que tiene un coeficiente de regresión de 0,01. Esto indica que por cada unidad que aumenta edad, la confianza en vecinos aumenta en promedio 0,01 unidades. El intercepto es de 2,83, lo que indica que (teóricamente) una persona con edad 0 tendría un promedio de confianza en vecinos de 2,83. Finalmente, el modelo 1 logra explicar el 1% de la varianza de la variable dependiente (R2=0,01).
+- El **intercepto** ($b_0$) es el valor esperado de confianza cuando la edad es 0
+- La **pendiente** ($b_1$) indica cuánto cambia la confianza esperada por cada año adicional de edad
 
-El Modelo 2 incluye la educación de los/as encuestados como variable independiente. Este Modelo indica que por cada unidad que aumenta la educación, la confianza en vecinos aumenta en promedio 0,5 unidades. Si observamos el intercepto, este nos indica que el promedio de confianza en vecinos para las personas sin educación es de 2.94.
+En la próxima sesión veremos de dónde salen exactamente esos números y cómo interpretarlos con precisión.
 
-El modelo 3 indica que las mujeres tendrían -0,12 unidades en la confianza en vecinos en comparación con los hombres. ¿Cómo sabemos que este el efecto de las mujeres? ¿Por qué no al revés? ¿Por qué "en comparación" con los hombres?
+## El modelo sin predictores
+
+¿Qué ocurre si estimamos una recta sin ninguna variable independiente?
+
+```{r}
+modelo_nulo <- lm(confianza_vecinos ~ 1, data = proc_data)
+coef(modelo_nulo)
+```
+
+El intercepto coincide con la **media** de confianza en vecinos. Esto tiene una lectura conceptual importante: sin información adicional, nuestra mejor predicción para cualquier persona es el promedio general. Todo lo que hace una variable independiente es **mejorar esa predicción**.
+
+## Valores predichos y residuos
+
+Para cada caso, el modelo genera un valor **predicho** ($\widehat{Y}$). La diferencia entre el valor observado y el predicho es el **residuo**:
+
+$$e_i = Y_i - \widehat{Y}_i$$
+
+En R:
+
+```{r}
+proc_data$predicho <- predict(modelo)
+proc_data$residuo <- residuals(modelo)
+
+head(proc_data %>% dplyr::select(edad, confianza_vecinos, predicho, residuo))
+```
+
+Podemos verlo gráficamente en un subconjunto de casos, donde cada línea segmentada representa un residuo:
+
+```{r}
+#| label: fig-residuos
+#| fig-cap: "Valores observados, valores predichos y residuos (20 casos)"
+
+set.seed(2026)
+sub <- proc_data[sample(nrow(proc_data), 20), ]
+
+ggplot(sub, aes(x = edad, y = confianza_vecinos)) +
+  geom_smooth(data = proc_data, method = "lm", se = FALSE,
+              color = "#04245f", linewidth = 1.2) +
+  geom_segment(aes(xend = edad, yend = predicho),
+               color = "#c0392b", linetype = "dashed") +
+  geom_point(size = 2.5, color = "#4f97ff") +
+  labs(x = "Edad", y = "Confianza en vecinos") +
+  theme_minimal()
+```
+
+## ¿Por qué "mínimos cuadrados"?
+
+En clases señalamos que por una misma nube de puntos pueden trazarse infinitas rectas, y que el criterio OLS selecciona aquella que minimiza la **suma de los residuos al cuadrado**. Comprobémoslo.
+
+Primero, note que la suma de los residuos del modelo estimado es prácticamente cero, porque los residuos positivos y negativos se cancelan entre sí. Por eso no sirve como criterio:
+
+```{r}
+sum(proc_data$residuo)
+```
+
+En cambio, si elevamos los residuos al cuadrado antes de sumarlos, obtenemos una cantidad que sí distingue entre rectas:
+
+```{r}
+sum(proc_data$residuo^2)
+```
+
+Ahora probemos distintos valores posibles de pendiente y calculemos, para cada uno, la suma de residuos al cuadrado:
+
+```{r}
+#| label: fig-ols
+#| fig-cap: "Suma de residuos al cuadrado según distintos valores de la pendiente"
+
+x <- proc_data$edad
+y <- proc_data$confianza_vecinos
+
+pendientes <- seq(-0.01, 0.03, by = 0.001)
+
+ssr <- sapply(pendientes, function(b1) {
+  b0 <- mean(y) - b1 * mean(x)          # el intercepto que acompaña a cada pendiente
+  sum((y - (b0 + b1 * x))^2)            # suma de residuos al cuadrado
+})
+
+resultados <- data.frame(pendiente = pendientes, ssr = ssr)
+
+ggplot(resultados, aes(x = pendiente, y = ssr)) +
+  geom_line(color = "#04245f", linewidth = 1) +
+  geom_vline(xintercept = coef(modelo)[2], color = "#c0392b", linetype = "dashed") +
+  labs(x = "Valor de la pendiente (b1)",
+       y = "Suma de residuos al cuadrado") +
+  theme_minimal()
+```
+
+La línea segmentada roja marca el valor de la pendiente estimada por `lm()`. Como se observa, coincide exactamente con el punto **más bajo** de la curva: ninguna otra recta produce una suma de residuos al cuadrado menor. Eso es, literalmente, lo que significa "mínimos cuadrados ordinarios".
 
 # Tarea
 
 ## Selección de variables
 
-- Cargar paquetes, cargar base de datos ELSOC y filtrar por la ola 4 (2019).
+- Cargar los paquetes, cargar la base de datos ELSOC y filtrar por la ola 4 (2019)
 
 - Seleccionar las siguientes variables:
 
-  - Satisfacción con la democracia: c01
+  - Satisfacción con la democracia: `c01`
+  - Sociodemográficas: `m01` (educación), `m0_sexo` (sexo), `m0_edad` (edad)
 
-  - Sociodemográficas: m01 (educación), m0_sexo (sexo), m0_edad (edad).
-  
-- Definir cuál es la variable dependiente y cuáles las independientes
+- Indicar cuál es la variable dependiente y cuáles las independientes, y justificar la decisión
 
 ## Operacionalización de variables
 
-- Recodificar valores perdidos (-999, -888, -777, -666) como NA.
+- Recodificar los valores perdidos (-999, -888, -777, -666) como `NA`
 
-- Cambiar etiquetas para que sean más descriptivas.
+- Renombrar las variables y cambiar sus etiquetas por otras más descriptivas
 
-## Análisis
+- Elaborar una tabla que indique, para cada variable, su escala de medición y el tratamiento que le dará en el análisis
 
-- Gráfico descriptivo para satisfacción con la democracia
+## Análisis descriptivo y asociación
 
-- Estimar, visualizar e interpretar una matriz de correlaciones con las 4 variables principales.
+- Presentar una tabla de descriptivos y un gráfico de la distribución de la satisfacción con la democracia
 
-- Estimar tres modelos de regresión lineal simple
+- Estimar y visualizar una matriz de correlaciones con las variables numéricas
 
-  - Modelo 1: satisfaccion_democracia ~ sexo
+- Elaborar un gráfico de dispersión entre satisfacción con la democracia y edad, incorporando la recta de regresión
 
-  - Modelo 2: satisfaccion_democracia ~ educacion
+## Primera aproximación a la recta
 
-  - Modelo 3: satisfaccion_democracia ~ edad
+- Estimar el modelo `satisfaccion_democracia ~ edad` con `lm()` y reportar el intercepto y la pendiente
+
+- Calcular los valores predichos y los residuos, y verificar que la suma de los residuos es aproximadamente cero
 
 ## Reporte
 
-- Presentar una tabla con los tres modelos.
-
-- Incluir un párrafo breve (máx. 200 palabras) interpretando los coeficientes y $R^2$.
+- Redactar un párrafo breve (máximo 200 palabras) que describa la asociación observada entre las variables, señalando su fuerza y dirección, y que advierta por qué esa asociación no permite, por sí sola, afirmar una relación causal

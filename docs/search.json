@@ -899,7 +899,7 @@
     "href": "content/02-content.html",
     "title": "Clase 2",
     "section": "",
-    "text": "Sesión del martes, 5 de agosto de 2025"
+    "text": "Sesión del lunes, 10 de agosto de 2026"
   },
   {
     "objectID": "content/02-content.html#documento-de-presentación",
@@ -1094,9 +1094,9 @@
   {
     "objectID": "practicos/practico-01.html",
     "href": "practicos/practico-01.html",
-    "title": "Práctico 01. Regresión lineal I",
+    "title": "Práctico 01. Datos, variables y asociación",
     "section": "",
-    "text": "El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales en R.\n\n\n\nConfianza en vecinos con elsoc 2016.",
+    "text": "Esta guía retoma los contenidos de la primera sesión y los lleva a R. Al terminar, usted debería ser capaz de:\n\nRetomar el manejo básico de R y RStudio: objetos, funciones, paquetes y bases de datos\nCargar una base de datos y reconocer su estructura de casos y variables\nIdentificar la escala de medición de una variable y sus consecuencias para el análisis\nProcesar variables: casos perdidos, nombres y etiquetas\nDescribir variables y examinar la asociación entre ellas mediante gráficos de dispersión y correlaciones\nTrazar una primera recta de regresión y comprender qué son los valores predichos y los residuos\n\nAl ser el primer taller del curso, comenzaremos con un repaso de los elementos básicos de R. Si usted ya los maneja con soltura, puede avanzar directamente a la sección de preparación del análisis.\nLa estimación de los coeficientes y su interpretación formal se abordarán en la próxima sesión teórica; aquí trabajaremos la intuición gráfica y computacional.\n\n\n\nUtilizaremos la base del Estudio Longitudinal Social de Chile (ELSOC), del Centro de Estudios de Conflicto y Cohesión Social (COES). Trabajaremos con la primera ola (2016) y con la variable confianza en vecinos como variable dependiente de interés.",
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
@@ -1105,9 +1105,9 @@
   {
     "objectID": "practicos/practico-01.html#objetivo-de-la-práctica",
     "href": "practicos/practico-01.html#objetivo-de-la-práctica",
-    "title": "Práctico 01. Regresión lineal I",
+    "title": "Práctico 01. Datos, variables y asociación",
     "section": "",
-    "text": "El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales en R.",
+    "text": "Esta guía retoma los contenidos de la primera sesión y los lleva a R. Al terminar, usted debería ser capaz de:\n\nRetomar el manejo básico de R y RStudio: objetos, funciones, paquetes y bases de datos\nCargar una base de datos y reconocer su estructura de casos y variables\nIdentificar la escala de medición de una variable y sus consecuencias para el análisis\nProcesar variables: casos perdidos, nombres y etiquetas\nDescribir variables y examinar la asociación entre ellas mediante gráficos de dispersión y correlaciones\nTrazar una primera recta de regresión y comprender qué son los valores predichos y los residuos\n\nAl ser el primer taller del curso, comenzaremos con un repaso de los elementos básicos de R. Si usted ya los maneja con soltura, puede avanzar directamente a la sección de preparación del análisis.\nLa estimación de los coeficientes y su interpretación formal se abordarán en la próxima sesión teórica; aquí trabajaremos la intuición gráfica y computacional.",
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
@@ -1116,9 +1116,9 @@
   {
     "objectID": "practicos/practico-01.html#antecedentes-de-los-datos-a-utilizar",
     "href": "practicos/practico-01.html#antecedentes-de-los-datos-a-utilizar",
-    "title": "Práctico 01. Regresión lineal I",
+    "title": "Práctico 01. Datos, variables y asociación",
     "section": "",
-    "text": "Confianza en vecinos con elsoc 2016.",
+    "text": "Utilizaremos la base del Estudio Longitudinal Social de Chile (ELSOC), del Centro de Estudios de Conflicto y Cohesión Social (COES). Trabajaremos con la primera ola (2016) y con la variable confianza en vecinos como variable dependiente de interés.",
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
@@ -1127,9 +1127,9 @@
   {
     "objectID": "practicos/practico-01.html#librerias",
     "href": "practicos/practico-01.html#librerias",
-    "title": "Práctico 01. Regresión lineal I",
-    "section": "1. Librerías principales (de R) a utilizar en el análisis",
-    "text": "1. Librerías principales (de R) a utilizar en el análisis\n\npacman::p_load(dplyr,\n               haven, \n               car, \n               sjmisc, \n               sjPlot, \n               sjlabelled, \n               stargazer, \n               kableExtra, \n               corrplot, \n               ggplot2,\n               ggpubr)",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "3.1 Librerías a utilizar",
+    "text": "3.1 Librerías a utilizar\n\npacman::p_load(dplyr,\n               haven,\n               sjmisc,\n               sjPlot,\n               sjlabelled,\n               kableExtra,\n               corrplot,\n               ggplot2,\n               ggpubr)",
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
@@ -1160,9 +1160,9 @@
   {
     "objectID": "practicos/practico-01.html#procesamiento-de-variables",
     "href": "practicos/practico-01.html#procesamiento-de-variables",
-    "title": "Práctico 01. Regresión lineal I",
-    "section": "Procesamiento de variables",
-    "text": "Procesamiento de variables\nPara el procesamiento de cada variable se seguirá el siguiente flujo de trabajo:\n\nDescriptivo general\nRecodificación: de casos perdidos y otros valores (en caso necesario)\nEtiquetado: cambio de nombres de variables y valores (en caso necesario)\nOtros ajustes\n\nY se recomienda también un descriptivo final para revisar que el procesamiento de cada variable está ok.\n\nConfianza en vecinos\na. Descriptivo\nPara los descriptivos se utilizará la función frq, de la librería sjmisc:\n\nfrq(proc_data$t01)\n\nCuanto confia usted en sus vecinos (x) &lt;numeric&gt; \n# total N=2927 valid N=2927 mean=-2.78 sd=74.04\n\nValue |                                 Label |   N | Raw % | Valid % | Cum. %\n------------------------------------------------------------------------------\n -999 |                           No Responde |   5 |  0.17 |    0.17 |   0.17\n -888 |                               No Sabe |  14 |  0.48 |    0.48 |   0.65\n -777 |       Valor perdido por error tecnico |   0 |  0.00 |    0.00 |   0.65\n -666 | Valor perdido por encuesta incompleta |   0 |  0.00 |    0.00 |   0.65\n    1 |                              Muy poco | 332 | 11.34 |   11.34 |  11.99\n    2 |                                  Poco | 502 | 17.15 |   17.15 |  29.14\n    3 |                                  Algo | 713 | 24.36 |   24.36 |  53.50\n    4 |                              Bastante | 987 | 33.72 |   33.72 |  87.22\n    5 |                                 Mucho | 374 | 12.78 |   12.78 | 100.00\n &lt;NA&gt; |                                  &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nEn esta variable vemos valores asociados a la opción “No contesta” (-999) y “No sabe” (-888), (-777) y (-666) que corresponde definirlos como casos perdidos (en el caso de R, como casos NA). El resto de los valores y etiquetas se encuentran en un orden correcto.\nb. Recodificación\nDespués de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar set_na\n\nproc_data &lt;- proc_data %&gt;% set_na(., na = c(-999, -888, -777, -666))\n\n\nfrq(proc_data$t01)\n\nCuanto confia usted en sus vecinos (x) &lt;numeric&gt; \n# total N=2927 valid N=2908 mean=3.20 sd=1.20\n\nValue |    Label |   N | Raw % | Valid % | Cum. %\n-------------------------------------------------\n    1 | Muy poco | 332 | 11.34 |   11.42 |  11.42\n    2 |     Poco | 502 | 17.15 |   17.26 |  28.68\n    3 |     Algo | 713 | 24.36 |   24.52 |  53.20\n    4 | Bastante | 987 | 33.72 |   33.94 |  87.14\n    5 |    Mucho | 374 | 12.78 |   12.86 | 100.00\n &lt;NA&gt; |     &lt;NA&gt; |  19 |  0.65 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nc - Etiquetado\nVamos a dar un nombre más sustantivo a las variables con la función rename, de la librería dplyr:\n\nproc_data &lt;- proc_data %&gt;% rename(\"confianza_vecinos\"=t01)\n\nAdemás de cambiar el nombre, queremos cambiar las etiquetas de las variables.\n\nproc_data$confianza_vecinos &lt;- set_label(x = proc_data$confianza_vecinos,label = \"Confianza en vecinos\")\nget_label(proc_data$confianza_vecinos)\n\n[1] \"Confianza en vecinos\"\n\n\nRevisión final\nNuevamente un descriptivo de la variable para confirmar que el procesamiento está ok:\n\nfrq(proc_data$confianza_vecinos)\n\nConfianza en vecinos (x) &lt;numeric&gt; \n# total N=2927 valid N=2908 mean=3.20 sd=1.20\n\nValue |    Label |   N | Raw % | Valid % | Cum. %\n-------------------------------------------------\n    1 | Muy poco | 332 | 11.34 |   11.42 |  11.42\n    2 |     Poco | 502 | 17.15 |   17.26 |  28.68\n    3 |     Algo | 713 | 24.36 |   24.52 |  53.20\n    4 | Bastante | 987 | 33.72 |   33.94 |  87.14\n    5 |    Mucho | 374 | 12.78 |   12.86 | 100.00\n &lt;NA&gt; |     &lt;NA&gt; |  19 |  0.65 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\n4.2. Educación\n\n[m01] = Nivel de estudios alcanzado - Entrevistado\n\na. Descriptivo\n\nfrq(proc_data$m01)\n\nNivel educacional (x) &lt;numeric&gt; \n# total N=2927 valid N=2925 mean=5.26 sd=2.20\n\nValue |                                       Label |   N | Raw % | Valid % | Cum. %\n------------------------------------------------------------------------------------\n    1 |                                Sin estudios |  37 |  1.26 |    1.26 |   1.26\n    2 |  Educacion Basica o Preparatoria incompleta | 322 | 11.00 |   11.01 |  12.27\n    3 |    Educacion Basica o Preparatoria completa | 297 | 10.15 |   10.15 |  22.43\n    4 |    Educacion Media o Humanidades incompleta | 394 | 13.46 |   13.47 |  35.90\n    5 |      Educacion Media o Humanidades completa | 857 | 29.28 |   29.30 |  65.20\n    6 |                 Tecnica Superior incompleta | 102 |  3.48 |    3.49 |  68.68\n    7 |                   Tecnica Superior completa | 381 | 13.02 |   13.03 |  81.71\n    8 |                    Universitaria incompleta | 186 |  6.35 |    6.36 |  88.07\n    9 |                      Universitaria completa | 303 | 10.35 |   10.36 |  98.43\n   10 | Estudios de posgrado (magister o doctorado) |  46 |  1.57 |    1.57 | 100.00\n &lt;NA&gt; |                                        &lt;NA&gt; |   2 |  0.07 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nEsta vez la vamos a dejar así\n\n\n\n4.3. Sexo\n\n[m0_sexo] = SEXO Sexo\n\na. Descriptivo\n\nfrq(proc_data$m0_sexo)\n\nSexo del entrevistado (x) &lt;numeric&gt; \n# total N=2927 valid N=2927 mean=1.60 sd=0.49\n\nValue |  Label |    N | Raw % | Valid % | Cum. %\n------------------------------------------------\n    1 | Hombre | 1163 | 39.73 |   39.73 |  39.73\n    2 |  Mujer | 1764 | 60.27 |   60.27 | 100.00\n &lt;NA&gt; |   &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\n\n4.4 Edad\n\n[m0_edad] = EDAD Edad.\n\na. Descriptivo\n\nsummary(proc_data$m0_edad)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  18.00   33.00   46.00   46.09   58.00   88.00",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "4.3 Procesamiento de variables",
+    "text": "4.3 Procesamiento de variables\nPara el procesamiento de cada variable seguiremos el siguiente flujo de trabajo:\n\nDescriptivo general\nRecodificación: de casos perdidos y otros valores (en caso necesario)\nEtiquetado: cambio de nombres de variables y valores (en caso necesario)\nOtros ajustes\n\nSe recomienda también un descriptivo final para revisar que el procesamiento de cada variable esté correcto.\n\n4.3.1 Confianza en vecinos\na. Descriptivo\nPara los descriptivos utilizaremos la función frq, de la librería sjmisc:\n\nfrq(proc_data$t01)\n\nCuanto confia usted en sus vecinos (x) &lt;numeric&gt; \n# total N=2927 valid N=2927 mean=-2.78 sd=74.04\n\nValue |                                 Label |   N | Raw % | Valid % | Cum. %\n------------------------------------------------------------------------------\n -999 |                           No Responde |   5 |  0.17 |    0.17 |   0.17\n -888 |                               No Sabe |  14 |  0.48 |    0.48 |   0.65\n -777 |       Valor perdido por error tecnico |   0 |  0.00 |    0.00 |   0.65\n -666 | Valor perdido por encuesta incompleta |   0 |  0.00 |    0.00 |   0.65\n    1 |                              Muy poco | 332 | 11.34 |   11.34 |  11.99\n    2 |                                  Poco | 502 | 17.15 |   17.15 |  29.14\n    3 |                                  Algo | 713 | 24.36 |   24.36 |  53.50\n    4 |                              Bastante | 987 | 33.72 |   33.72 |  87.22\n    5 |                                 Mucho | 374 | 12.78 |   12.78 | 100.00\n &lt;NA&gt; |                                  &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nEn esta variable vemos valores asociados a las opciones “No contesta” (-999) y “No sabe” (-888), además de (-777) y (-666), que corresponde definir como casos perdidos (en R, valores NA). El resto de los valores y etiquetas se encuentran en un orden correcto.\nb. Recodificación\nDespués de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar set_na:\n\nproc_data &lt;- proc_data %&gt;% set_na(., na = c(-999, -888, -777, -666))\n\n\nfrq(proc_data$t01)\n\nCuanto confia usted en sus vecinos (x) &lt;numeric&gt; \n# total N=2927 valid N=2908 mean=3.20 sd=1.20\n\nValue |    Label |   N | Raw % | Valid % | Cum. %\n-------------------------------------------------\n    1 | Muy poco | 332 | 11.34 |   11.42 |  11.42\n    2 |     Poco | 502 | 17.15 |   17.26 |  28.68\n    3 |     Algo | 713 | 24.36 |   24.52 |  53.20\n    4 | Bastante | 987 | 33.72 |   33.94 |  87.14\n    5 |    Mucho | 374 | 12.78 |   12.86 | 100.00\n &lt;NA&gt; |     &lt;NA&gt; |  19 |  0.65 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nc. Etiquetado\nVamos a dar un nombre más sustantivo a las variables con la función rename, de la librería dplyr:\n\nproc_data &lt;- proc_data %&gt;%\n  rename(\"confianza_vecinos\" = t01,\n         \"educacion\" = m01,\n         \"sexo\" = m0_sexo,\n         \"edad\" = m0_edad)\n\nAdemás de cambiar el nombre, queremos cambiar las etiquetas de las variables:\n\nproc_data$confianza_vecinos &lt;- set_label(x = proc_data$confianza_vecinos,\n                                         label = \"Confianza en vecinos\")\nproc_data$educacion &lt;- set_label(x = proc_data$educacion,\n                                 label = \"Nivel educacional\")\nproc_data$sexo &lt;- set_label(x = proc_data$sexo, label = \"Sexo\")\nproc_data$edad &lt;- set_label(x = proc_data$edad, label = \"Edad\")\n\nget_label(proc_data)\n\n     confianza_vecinos              educacion                   sexo \n\"Confianza en vecinos\"    \"Nivel educacional\"                 \"Sexo\" \n                  edad \n                \"Edad\" \n\n\nd. Revisión final\n\nfrq(proc_data$confianza_vecinos)\n\nConfianza en vecinos (x) &lt;numeric&gt; \n# total N=2927 valid N=2908 mean=3.20 sd=1.20\n\nValue |    Label |   N | Raw % | Valid % | Cum. %\n-------------------------------------------------\n    1 | Muy poco | 332 | 11.34 |   11.42 |  11.42\n    2 |     Poco | 502 | 17.15 |   17.26 |  28.68\n    3 |     Algo | 713 | 24.36 |   24.52 |  53.20\n    4 | Bastante | 987 | 33.72 |   33.94 |  87.14\n    5 |    Mucho | 374 | 12.78 |   12.86 | 100.00\n &lt;NA&gt; |     &lt;NA&gt; |  19 |  0.65 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\n\n4.3.2 Educación, sexo y edad\n\nfrq(proc_data$educacion)\n\nNivel educacional (x) &lt;numeric&gt; \n# total N=2927 valid N=2925 mean=5.26 sd=2.20\n\nValue |                                       Label |   N | Raw % | Valid % | Cum. %\n------------------------------------------------------------------------------------\n    1 |                                Sin estudios |  37 |  1.26 |    1.26 |   1.26\n    2 |  Educacion Basica o Preparatoria incompleta | 322 | 11.00 |   11.01 |  12.27\n    3 |    Educacion Basica o Preparatoria completa | 297 | 10.15 |   10.15 |  22.43\n    4 |    Educacion Media o Humanidades incompleta | 394 | 13.46 |   13.47 |  35.90\n    5 |      Educacion Media o Humanidades completa | 857 | 29.28 |   29.30 |  65.20\n    6 |                 Tecnica Superior incompleta | 102 |  3.48 |    3.49 |  68.68\n    7 |                   Tecnica Superior completa | 381 | 13.02 |   13.03 |  81.71\n    8 |                    Universitaria incompleta | 186 |  6.35 |    6.36 |  88.07\n    9 |                      Universitaria completa | 303 | 10.35 |   10.36 |  98.43\n   10 | Estudios de posgrado (magister o doctorado) |  46 |  1.57 |    1.57 | 100.00\n &lt;NA&gt; |                                        &lt;NA&gt; |   2 |  0.07 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nfrq(proc_data$sexo)\n\nSexo (x) &lt;numeric&gt; \n# total N=2927 valid N=2927 mean=1.60 sd=0.49\n\nValue |  Label |    N | Raw % | Valid % | Cum. %\n------------------------------------------------\n    1 | Hombre | 1163 | 39.73 |   39.73 |  39.73\n    2 |  Mujer | 1764 | 60.27 |   60.27 | 100.00\n &lt;NA&gt; |   &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nsummary(proc_data$edad)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  18.00   33.00   46.00   46.09   58.00   88.00 \n\n\nNote que los descriptivos apropiados dependen de la escala de medición: para sexo, una variable nominal, la tabla de frecuencias es informativa y el promedio no tendría sentido; para edad, una variable de razón, ocurre lo contrario.\nFinalmente, dado que sexo es una variable nominal, la declaramos como factor para que R no la trate como un número:\n\nproc_data$sexo &lt;- as_factor(proc_data$sexo)\nclass(proc_data$sexo)\n\n[1] \"factor\"",
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
@@ -1226,9 +1226,9 @@
   {
     "objectID": "practicos/practico-01.html#selección-de-variables",
     "href": "practicos/practico-01.html#selección-de-variables",
-    "title": "Práctico 01. Regresión lineal I",
-    "section": "Selección de variables",
-    "text": "Selección de variables\n\nCargar paquetes, cargar base de datos ELSOC y filtrar por la ola 4 (2019).\nSeleccionar las siguientes variables:\n\nSatisfacción con la democracia: c01\nSociodemográficas: m01 (educación), m0_sexo (sexo), m0_edad (edad).\n\nDefinir cuál es la variable dependiente y cuáles las independientes",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "4.1 Selección de variables",
+    "text": "4.1 Selección de variables\nEste paso consiste en crear un subconjunto reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de la base. Además filtramos por la ola 1 para trabajar solo con datos de 2016.\n\nproc_data &lt;- elsoc_long_2016_2022.2 %&gt;%\n  filter(ola == \"1\") %&gt;%\n  select(t01,      # Confianza en vecinos\n         m01,      # Nivel educacional\n         m0_sexo,  # Sexo\n         m0_edad)  # Edad\n\n# Comprobar\nnames(proc_data)\n\n[1] \"t01\"     \"m01\"     \"m0_sexo\" \"m0_edad\"\n\n\nMediante el comando get_label obtenemos el atributo label de las variables.\n\nsjlabelled::get_label(proc_data)\n\n                                 t01                                  m01 \n\"Cuanto confia usted en sus vecinos\"                  \"Nivel educacional\" \n                             m0_sexo                              m0_edad \n             \"Sexo del entrevistado\"              \"Edad del entrevistado\" \n\n\nPodemos ver que las etiquetas son largas o tienen códigos poco informativos, por lo que es necesario cambiarlas por otras más cortas y de fácil identificación.",
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
@@ -1237,9 +1237,9 @@
   {
     "objectID": "practicos/practico-01.html#operacionalización-de-variables",
     "href": "practicos/practico-01.html#operacionalización-de-variables",
-    "title": "Práctico 01. Regresión lineal I",
-    "section": "Operacionalización de variables",
-    "text": "Operacionalización de variables\n\nRecodificar valores perdidos (-999, -888, -777, -666) como NA.\nCambiar etiquetas para que sean más descriptivas.",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "8.2 Operacionalización de variables",
+    "text": "8.2 Operacionalización de variables\n\nRecodificar los valores perdidos (-999, -888, -777, -666) como NA\nRenombrar las variables y cambiar sus etiquetas por otras más descriptivas\nElaborar una tabla que indique, para cada variable, su escala de medición y el tratamiento que le dará en el análisis",
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
@@ -1259,9 +1259,9 @@
   {
     "objectID": "practicos/practico-01.html#reporte",
     "href": "practicos/practico-01.html#reporte",
-    "title": "Práctico 01. Regresión lineal I",
-    "section": "Reporte",
-    "text": "Reporte\n\nPresentar una tabla con los tres modelos.\nIncluir un párrafo breve (máx. 200 palabras) interpretando los coeficientes y \\(R^2\\).",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "8.5 Reporte",
+    "text": "8.5 Reporte\n\nRedactar un párrafo breve (máximo 200 palabras) que describa la asociación observada entre las variables, señalando su fuerza y dirección, y que advierta por qué esa asociación no permite, por sí sola, afirmar una relación causal",
     "crumbs": [
       "Practicos",
       "Práctico 1 - Regresión lineal simple"
@@ -1557,245 +1557,245 @@
   {
     "objectID": "slides/02-clase2/02-clase2.html#dónde-quedamos",
     "href": "slides/02-clase2/02-clase2.html#dónde-quedamos",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "¿Dónde quedamos?",
-    "text": "¿Dónde quedamos?\n\nLa investigación cuantitativa requiere operacionalizar conceptos para hacerlos medibles\nLos datos se organizan en casos (filas) y variables (columnas), con distintas escalas de medición\nLa correlación resume la fuerza y dirección de una relación lineal, pero no permite predecir ni distinguir entre variable dependiente e independiente\nLa regresión describe esa relación mediante una función: \\(Y_i = \\beta_0 + \\beta_1 X_i + \\epsilon_i\\)"
+    "text": "¿Dónde quedamos?\n\n\nLa investigación cuantitativa requiere operacionalizar conceptos para hacerlos medibles\nLos datos se organizan en casos (filas) y variables (columnas), con distintas escalas de medición\nLa correlación resume la fuerza y dirección de una relación lineal, pero no permite predecir ni distinguir entre variable dependiente e independiente\nLa regresión describe esa relación mediante una función: \\(Y_i = \\beta_0 + \\beta_1 X_i + \\epsilon_i\\)"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#hoy",
     "href": "slides/02-clase2/02-clase2.html#hoy",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Hoy",
-    "text": "Hoy\n\nAntes de explicar, necesitamos describir: medidas de tendencia central y de dispersión\n¿Por qué la varianza es la pieza central del modelo de regresión?\n¿Cómo se estiman concretamente \\(b_0\\) y \\(b_1\\)?"
+    "text": "Hoy\n\n\nAntes de explicar, necesitamos describir: medidas de tendencia central y de dispersión\n¿Por qué la varianza es la pieza central del modelo de regresión?\n¿Cómo se estiman concretamente \\(b_0\\) y \\(b_1\\)?"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#tipos-de-datos-y-escalas-de-medición",
     "href": "slides/02-clase2/02-clase2.html#tipos-de-datos-y-escalas-de-medición",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Tipos de datos y escalas de medición",
-    "text": "Tipos de datos y escalas de medición\n\nDatos categóricos:\n\nPueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango\n\nDatos continuos:\n\nMedidos en escalas intervalares o de razón\nPueden ser transformados a datos categóricos (ej: estatura en centímetros a categorías bajo, mediano y alto)"
+    "text": "Tipos de datos y escalas de medición\n\n\nDatos categóricos:\n\nPueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango\n\nDatos continuos:\n\nMedidos en escalas intervalares o de razón\nPueden ser transformados a datos categóricos (ej: estatura en centímetros a categorías bajo, mediano y alto)"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#descriptivos-según-tipo-de-variable",
     "href": "slides/02-clase2/02-clase2.html#descriptivos-según-tipo-de-variable",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Descriptivos según tipo de variable",
     "text": "Descriptivos según tipo de variable\n\n\n\n\n\n\n\n\n\n\n\n\nCategórica\nContinua\nCateg.(y)/Categ.(x)\nCont.(y)/Categ.(x)\n\n\n\n\nEjemplo\nEstatus ocupacional\nIngreso\nEstatus ocupacional (Y) / Género (X)\nIngreso (Y) / Género (X)\n\n\nTabla\nFrecuencias / porcentajes\n\\(\\bar{X}\\) / sd, o recodificar en categorías\nTabla de contingencia\nClasificar Y\n\n\nGráfico\nBarras\nHistograma / boxplot\nGráfico de barras condicionado\nHistograma o boxplot condicionado"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#tipos-de-análisis-estadístico-bivariado",
     "href": "slides/02-clase2/02-clase2.html#tipos-de-análisis-estadístico-bivariado",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Tipos de análisis estadístico bivariado",
     "text": "Tipos de análisis estadístico bivariado\n\nVariable dependiente (y): lo que quiero explicar\nVariable independiente (x): lo que me permite explicar la dependiente\n\n\n\n\n\n\n\n\n\n\nVariable independiente (x)\nVariable dependiente categórica\nVariable dependiente continua\n\n\n\n\nCategórica\nAnálisis de tabla de contingencia, Chi2\nAnálisis de varianza (ANOVA), prueba t\n\n\nContinua\nRegresión logística\nCorrelación / regresión lineal"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#tendencia-central",
     "href": "slides/02-clase2/02-clase2.html#tendencia-central",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Tendencia central",
-    "text": "Tendencia central\n\nModa: valor que ocurre más frecuentemente\nMediana: valor medio de la distribución ordenada. Si N es par, es el promedio de los dos valores medios\nMedia o promedio aritmético: suma de los valores dividida por el total de casos\n\n\\[\\bar{X} = \\frac{\\sum_{i=1}^{n} x_i}{n}\\]"
+    "text": "Tendencia central\n\n\nModa: valor que ocurre más frecuentemente\nMediana: valor medio de la distribución ordenada. Si N es par, es el promedio de los dos valores medios\nMedia o promedio aritmético: suma de los valores dividida por el total de casos\n\n\\[\\bar{X} = \\frac{\\sum_{i=1}^{n} x_i}{n}\\]"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#dispersión-varianza",
     "href": "slides/02-clase2/02-clase2.html#dispersión-varianza",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Dispersión: varianza",
-    "text": "Dispersión: varianza\n\n\nLa media no basta"
+    "text": "Dispersión: varianza\n\n\n\nLa media no basta"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#dispersión-varianza-1",
     "href": "slides/02-clase2/02-clase2.html#dispersión-varianza-1",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Dispersión: varianza",
-    "text": "Dispersión: varianza\n\n\nLa media no basta"
+    "text": "Dispersión: varianza\n\n\n\nLa media no basta"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#dispersión-varianza-2",
     "href": "slides/02-clase2/02-clase2.html#dispersión-varianza-2",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Dispersión: varianza",
-    "text": "Dispersión: varianza\n\n\nLa media no basta"
+    "text": "Dispersión: varianza\n\n\n\nLa media no basta"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#dispersión-varianza-3",
     "href": "slides/02-clase2/02-clase2.html#dispersión-varianza-3",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Dispersión: varianza",
     "text": "Dispersión: varianza"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#section-1",
     "href": "slides/02-clase2/02-clase2.html#section-1",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "",
     "text": "La varianza equivale al promedio de la suma de las diferencias respecto del promedio, elevadas al cuadrado"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#desviación-estándar",
     "href": "slides/02-clase2/02-clase2.html#desviación-estándar",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Desviación estándar",
     "text": "Desviación estándar\n\n\n\n\n\nRaíz cuadrada de la varianza\nSe expresa en las mismas unidades que los puntajes de la escala original"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#por-qué-importa-la-varianza",
     "href": "slides/02-clase2/02-clase2.html#por-qué-importa-la-varianza",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "¿Por qué importa la varianza?",
-    "text": "¿Por qué importa la varianza?\n\nSin variación no hay nada que explicar: si todas las personas tuvieran el mismo ingreso, no tendría sentido preguntarse qué lo determina\nEl modelo de regresión trabaja precisamente sobre la variación de la variable dependiente\nComo veremos, el coeficiente de regresión se construye a partir de la varianza de \\(X\\) y de su covariación con \\(Y\\)"
+    "text": "¿Por qué importa la varianza?\n\n\nSin variación no hay nada que explicar: si todas las personas tuvieran el mismo ingreso, no tendría sentido preguntarse qué lo determina\nEl modelo de regresión trabaja precisamente sobre la variación de la variable dependiente\nComo veremos, el coeficiente de regresión se construye a partir de la varianza de \\(X\\) y de su covariación con \\(Y\\)"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#section-2",
     "href": "slides/02-clase2/02-clase2.html#section-2",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "",
-    "text": "Más sobre datos, variables y varianza en:\nMoore: 1. Comprensión de los datos (pp. 1-54)"
+    "text": "Más sobre datos, variables y varianza en:\n\n\nMoore: 1. Comprensión de los datos (pp. 1-54)"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#estadística-multivariada-1",
     "href": "slides/02-clase2/02-clase2.html#estadística-multivariada-1",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Estadística multivariada",
     "text": "Estadística multivariada\n\nHacia la explicación de los fenómenos sociales"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#estadística-multivariada-2",
     "href": "slides/02-clase2/02-clase2.html#estadística-multivariada-2",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Estadística multivariada",
     "text": "Estadística multivariada\n\nHechos sociales: multicausales"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#estadística-multivariada-3",
     "href": "slides/02-clase2/02-clase2.html#estadística-multivariada-3",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Estadística multivariada",
     "text": "Estadística multivariada\n\nIntentando dar cuenta de la complejidad: modelos matemáticos\n\n\n\n\n\n\n\n\nA partir de un modelo matemático denominado regresión, este curso busca entregar herramientas de análisis de datos que permitan aproximarse a la explicación de fenómenos sociales multicausales"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#objetivos-centrales-del-modelo-de-regresión",
     "href": "slides/02-clase2/02-clase2.html#objetivos-centrales-del-modelo-de-regresión",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Objetivos centrales del modelo de regresión",
-    "text": "Objetivos centrales del modelo de regresión\n\nConocer: la variación de la variable dependiente de acuerdo a la variación de otra(s) variable(s) independiente(s)\nPredecir: estimar el valor de una variable (dependiente) de acuerdo al valor de otra(s)\nInferir: establecer en qué medida esta asociación es estadísticamente significativa"
+    "text": "Objetivos centrales del modelo de regresión\n\n\nConocer: la variación de la variable dependiente de acuerdo a la variación de otra(s) variable(s) independiente(s)\nPredecir: estimar el valor de una variable (dependiente) de acuerdo al valor de otra(s)\nInferir: establecer en qué medida esta asociación es estadísticamente significativa"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#objetivos-centrales-un-ejemplo",
     "href": "slides/02-clase2/02-clase2.html#objetivos-centrales-un-ejemplo",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Objetivos centrales: un ejemplo",
-    "text": "Objetivos centrales: un ejemplo\n\nConocer: ¿en qué medida el puntaje de la PAES influye en el éxito académico en la universidad?\nPredecir: si una persona obtiene 600 puntos en la PAES, ¿qué promedio de notas es probable que obtenga en la universidad? (atención: predicción no implica explicación)\nInferir: ¿se puede generalizar a la población? ¿Con qué nivel de confianza?"
+    "text": "Objetivos centrales: un ejemplo\n\n\nConocer: ¿en qué medida el puntaje de la PAES influye en el éxito académico en la universidad?\nPredecir: si una persona obtiene 600 puntos en la PAES, ¿qué promedio de notas es probable que obtenga en la universidad? (atención: predicción no implica explicación)\nInferir: ¿se puede generalizar a la población? ¿Con qué nivel de confianza?"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#terminología-de-variables",
     "href": "slides/02-clase2/02-clase2.html#terminología-de-variables",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Terminología de variables",
     "text": "Terminología de variables"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#la-recta-como-función",
     "href": "slides/02-clase2/02-clase2.html#la-recta-como-función",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "La recta como función",
-    "text": "La recta como función\n\\[Y = a + bX\\]\n\nUna función asigna a cada valor de \\(X\\) un único valor de \\(Y\\)\n\\(a\\): valor de \\(Y\\) cuando \\(X = 0\\) (intercepto u ordenada en el origen)\n\\(b\\): cuánto cambia \\(Y\\) cuando \\(X\\) aumenta en una unidad (pendiente)\nEn regresión escribimos \\(\\widehat{Y} = b_0 + b_1X\\), pero la lógica es exactamente la misma"
+    "text": "La recta como función\n\\[Y = a + bX\\]\n\n\nUna función asigna a cada valor de \\(X\\) un único valor de \\(Y\\)\n\\(a\\): valor de \\(Y\\) cuando \\(X = 0\\) (intercepto u ordenada en el origen)\n\\(b\\): cuánto cambia \\(Y\\) cuando \\(X\\) aumenta en una unidad (pendiente)\nEn regresión escribimos \\(\\widehat{Y} = b_0 + b_1X\\), pero la lógica es exactamente la misma"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#el-intercepto-desplaza-la-recta",
     "href": "slides/02-clase2/02-clase2.html#el-intercepto-desplaza-la-recta",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "El intercepto desplaza la recta",
-    "text": "El intercepto desplaza la recta\n\n\nFigure 1"
+    "text": "El intercepto desplaza la recta\n\n\n\n\n\n\n\n\nFigure 1"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#la-pendiente-inclina-la-recta",
     "href": "slides/02-clase2/02-clase2.html#la-pendiente-inclina-la-recta",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "La pendiente inclina la recta",
-    "text": "La pendiente inclina la recta\n\n\nFigure 2"
+    "text": "La pendiente inclina la recta\n\n\n\n\n\n\n\n\nFigure 2"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#un-ejemplo",
     "href": "slides/02-clase2/02-clase2.html#un-ejemplo",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Un ejemplo",
-    "text": "Un ejemplo\n¿En qué medida la experiencia previa jugando un juego predice el número de puntos obtenidos en un juego posterior?"
+    "text": "Un ejemplo\n\n¿En qué medida la experiencia previa jugando un juego predice el número de puntos obtenidos en un juego posterior?"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#los-datos",
     "href": "slides/02-clase2/02-clase2.html#los-datos",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Los datos",
     "text": "Los datos\n\n\n\n\n\n\n\n\n\\(X\\): número de juegos previos\n\\(Y\\): puntos obtenidos\n23 casos\n\n\n\n\nVer los datos\ndatos &lt;- data.frame(\n  juegos_x = c(rep(1, 8), rep(2, 2), rep(3, 3), rep(4, 2), rep(5, 8)),\n  puntos_y = c(2, 2, 3, 3, 3, 3, 4, 4,\n               3, 4,\n               3, 4, 5,\n               4, 5,\n               4, 4, 5, 5, 5, 5, 6, 6)\n)\n\n\n\n\n\n\n\n\n\n\nFigure 3"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#descriptivos",
     "href": "slides/02-clase2/02-clase2.html#descriptivos",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Descriptivos",
     "text": "Descriptivos\n\ndescriptivos &lt;- data.frame(\n  Variable = c(\"Juegos previos (X)\", \"Puntos obtenidos (Y)\"),\n  N = c(nrow(datos), nrow(datos)),\n  Media = c(mean(datos$juegos_x), mean(datos$puntos_y)),\n  DE = c(sd(datos$juegos_x), sd(datos$puntos_y)),\n  Min = c(min(datos$juegos_x), min(datos$puntos_y)),\n  Max = c(max(datos$juegos_x), max(datos$puntos_y))\n)\n\n\n\n\n\n\nVariable\nN\nMedia\nDE\nMin\nMax\n\n\n\n\nJuegos previos (X)\n23\n3\n1.76\n1\n5\n\n\nPuntos obtenidos (Y)\n23\n4\n1.13\n2\n6"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#medias-condicionales",
     "href": "slides/02-clase2/02-clase2.html#medias-condicionales",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Medias condicionales",
-    "text": "Medias condicionales\n\n\nPara los casos con \\(X = 1\\) hay tres valores distintos de \\(Y\\): 2, 3 y 4. La media condicional de \\(Y\\) dado \\(X = 1\\) es 3"
+    "text": "Medias condicionales\n\n\n\n\n\n\nPara los casos con \\(X = 1\\) hay tres valores distintos de \\(Y\\): 2, 3 y 4. La media condicional de \\(Y\\) dado \\(X = 1\\) es 3"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#la-idea-de-distribución-condicional",
     "href": "slides/02-clase2/02-clase2.html#la-idea-de-distribución-condicional",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "La idea de distribución condicional",
     "text": "La idea de distribución condicional"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#la-recta-de-regresión",
     "href": "slides/02-clase2/02-clase2.html#la-recta-de-regresión",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "La recta de regresión",
-    "text": "La recta de regresión\n\n\nLa (co)variación general de \\(Y\\) respecto de \\(X\\) se puede expresar en una ecuación de la recta = modelo de regresión"
+    "text": "La recta de regresión\n\n\n\n\n\n\nLa (co)variación general de \\(Y\\) respecto de \\(X\\) se puede expresar en una ecuación de la recta = modelo de regresión"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#section-3",
     "href": "slides/02-clase2/02-clase2.html#section-3",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "",
-    "text": "Para obtener la “mejor recta” se utiliza la estimación de mínimos cuadrados (OLS, Ordinary Least Squares)\n\nOLS minimiza la suma de los residuos al cuadrado, es decir, las distancias entre las observaciones y la recta en el eje vertical"
+    "text": "Para obtener la “mejor recta” se utiliza la estimación de mínimos cuadrados (OLS, Ordinary Least Squares)\n\n\n\nOLS minimiza la suma de los residuos al cuadrado, es decir, las distancias entre las observaciones y la recta en el eje vertical"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#componentes-de-la-ecuación",
     "href": "slides/02-clase2/02-clase2.html#componentes-de-la-ecuación",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Componentes de la ecuación",
-    "text": "Componentes de la ecuación\n\\[\\widehat{Y} = b_{0} + b_{1}X\\]\nDonde:\n\n\\(\\widehat{Y}\\) es el valor estimado de \\(Y\\)\n\\(b_{0}\\) es el intercepto de la recta (el valor de \\(Y\\) cuando \\(X\\) es 0)\n\\(b_{1}\\) es el coeficiente de regresión, que indica cuánto aumenta \\(Y\\) por cada unidad que aumenta \\(X\\)"
+    "text": "Componentes de la ecuación\n\\[\\widehat{Y} = b_{0} + b_{1}X\\]\nDonde:\n\n\n\\(\\widehat{Y}\\) es el valor estimado de \\(Y\\)\n\\(b_{0}\\) es el intercepto de la recta (el valor de \\(Y\\) cuando \\(X\\) es 0)\n\\(b_{1}\\) es el coeficiente de regresión, que indica cuánto aumenta \\(Y\\) por cada unidad que aumenta \\(X\\)"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#estimación-de-b_1",
     "href": "slides/02-clase2/02-clase2.html#estimación-de-b_1",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Estimación de \\(b_1\\)",
     "text": "Estimación de \\(b_1\\)\n\\[b_{1}=\\frac{Cov(XY)}{Var(X)}\\]\n\\[b_{1}=\\frac{\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {n-1}}{\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(x_i - \\bar{x})} {n-1}}\\]\nY simplificando:\n\\[b_{1}=\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum_{i=1}^{n}(x_i - \\bar{x})^2}\\]"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#estimación-de-b_0",
     "href": "slides/02-clase2/02-clase2.html#estimación-de-b_0",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Estimación de \\(b_0\\)",
     "text": "Estimación de \\(b_0\\)\nUna vez estimada la pendiente, se despeja el intercepto:\n\\[b_{0}=\\bar{Y}-b_{1}\\bar{X}\\]\n\nEsto implica que la recta de regresión siempre pasa por el punto \\((\\bar{X}, \\bar{Y})\\)"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso",
     "href": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Cálculo paso a paso",
     "text": "Cálculo paso a paso\nLa base de todos estos cálculos es la diferencia de cada valor respecto de su promedio:\n\\[difx = x-\\bar{x} \\qquad dify = y-\\bar{y}\\]\nCon ellas construimos los productos cruzados y las diferencias al cuadrado:\n\\[difcru = (x-\\bar{x})(y-\\bar{y}) \\qquad difx2 = (x-\\bar{x})^2\\]"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-en-r",
     "href": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-en-r",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Cálculo paso a paso en R",
     "text": "Cálculo paso a paso en R\n\ndatos$p_x &lt;- mean(datos$juegos_x)\ndatos$difx &lt;- datos$juegos_x - datos$p_x\ndatos$p_y &lt;- mean(datos$puntos_y)\ndatos$dify &lt;- datos$puntos_y - datos$p_y\ndatos$dif_cru &lt;- datos$difx * datos$dify\ndatos$difx2 &lt;- datos$difx^2"
   },
@@ -1809,71 +1809,320 @@
   {
     "objectID": "slides/02-clase2/02-clase2.html#las-sumas-que-necesitamos",
     "href": "slides/02-clase2/02-clase2.html#las-sumas-que-necesitamos",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Las sumas que necesitamos",
     "text": "Las sumas que necesitamos\n\nsum(datos$dif_cru)\n#&gt; [1] 34\nsum(datos$difx2)\n#&gt; [1] 68"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#reemplazando-en-la-fórmula",
     "href": "slides/02-clase2/02-clase2.html#reemplazando-en-la-fórmula",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Reemplazando en la fórmula",
     "text": "Reemplazando en la fórmula\n\\[b_{1}=\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum_{i=1}^{n}(x_i - \\bar{x})^2}=\\frac{34}{68}=0.5\\]\n\nY con la pendiente ya estimada:\n\\[b_{0}=\\bar{Y}-b_{1}\\bar{X} = 4-(0.5 \\times 3)=2.5\\]"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#la-ecuación-completa",
     "href": "slides/02-clase2/02-clase2.html#la-ecuación-completa",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "La ecuación completa",
-    "text": "La ecuación completa\n\\[\\widehat{Y}=2.5+0.5X\\]\n\nIntercepto: una persona sin juegos previos obtiene, en promedio, 2,5 puntos\nPendiente: por cada juego previo adicional, los puntos obtenidos aumentan en 0,5"
+    "text": "La ecuación completa\n\\[\\widehat{Y}=2.5+0.5X\\]\n\n\nIntercepto: una persona sin juegos previos obtiene, en promedio, 2,5 puntos\nPendiente: por cada juego previo adicional, los puntos obtenidos aumentan en 0,5"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#predicción",
     "href": "slides/02-clase2/02-clase2.html#predicción",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Predicción",
     "text": "Predicción\n\\[\\widehat{Y}=2.5+0.5X\\]\nLa ecuación permite estimar el valor de \\(Y\\) (o su media condicional) para un valor dado de \\(X\\). Por ejemplo, ¿cuál es el valor estimado de \\(Y\\) dado \\(X=3\\)?\n\n\\[\\widehat{Y}=2.5+(0.5 \\times 3)=4\\]\nEl valor estimado de puntos para una persona que ha jugado 3 veces es 4"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#comprobación-en-r",
     "href": "slides/02-clase2/02-clase2.html#comprobación-en-r",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Comprobación en R",
     "text": "Comprobación en R\n\nmodelo &lt;- lm(puntos_y ~ juegos_x, data = datos)\ncoef(modelo)\n#&gt; (Intercept)    juegos_x \n#&gt;         2.5         0.5\n\n\nLos mismos valores que calculamos a mano"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#el-resultado",
     "href": "slides/02-clase2/02-clase2.html#el-resultado",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "El resultado",
-    "text": "El resultado\n\n\nFigure 4"
+    "text": "El resultado\n\n\n\n\n\n\n\n\nFigure 4"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#en-resumen-qué-gano-con-el-modelo-de-regresión",
     "href": "slides/02-clase2/02-clase2.html#en-resumen-qué-gano-con-el-modelo-de-regresión",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "En resumen: ¿qué gano con el modelo de regresión?",
     "text": "En resumen: ¿qué gano con el modelo de regresión?\nAl igual que con la correlación:\n\nIntensidad de la relación entre variables\nDirección de la relación\n\n\nY además:\n\nPredicción del puntaje real de la variable dependiente\nEstimación del ajuste o cantidad de error en la estimación (próxima clase)\nPosibilidad de incluir más de una variable predictora (en dos clases más)"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#para-la-próxima-sesión",
     "href": "slides/02-clase2/02-clase2.html#para-la-próxima-sesión",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Para la próxima sesión",
     "text": "Para la próxima sesión\n\nWooldridge, Introducción a la econometría: apéndices A1 y A2, y sección 2.1\nMoore, Estadística aplicada básica: sección 2.4.1"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#section-4",
     "href": "slides/02-clase2/02-clase2.html#section-4",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "",
-    "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\n\n\nKevin Carrasco\n\n\nSociología - UNAB\n\n\n2do Sem 2026\n\n\nhttps://metod3-unab.netlify.app/"
   },
   {
     "objectID": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-1",
     "href": "slides/02-clase2/02-clase2.html#cálculo-paso-a-paso-1",
-    "title": "Metodos 3 - Universidad Andrés Bello",
+    "title": "Sesión 2",
     "section": "Cálculo paso a paso",
     "text": "Cálculo paso a paso\n\n\n\n\n\n\njuegos_x\npuntos_y\ndifx\ndify\ndif_cru\ndifx2\n\n\n\n\n1\n2\n-2\n-2\n4\n4\n\n\n1\n2\n-2\n-2\n4\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n3\n-2\n-1\n2\n4\n\n\n1\n4\n-2\n0\n0\n4\n\n\n1\n4\n-2\n0\n0\n4\n\n\n2\n3\n-1\n-1\n1\n1\n\n\n2\n4\n-1\n0\n0\n1\n\n\n\n\n\n\n\nPrimeros 10 casos de 23"
+  },
+  {
+    "objectID": "practicos/practico-01.html#r-y-rstudio",
+    "href": "practicos/practico-01.html#r-y-rstudio",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.1 R y RStudio",
+    "text": "2.1 R y RStudio\nConviene distinguir dos cosas que suelen confundirse:\n\nR es el lenguaje de programación y el motor que ejecuta los cálculos\nRStudio es el entorno de trabajo (o IDE) desde el cual escribimos y ejecutamos código en R\n\nRStudio organiza la pantalla en cuatro paneles: el editor (donde se escribe el script), la consola (donde se ejecutan las instrucciones y aparecen los resultados), el environment (los objetos disponibles en memoria) y un cuarto panel con archivos, gráficos, paquetes y ayuda.\nUna recomendación desde el inicio del curso: escriba siempre su código en un script o en un documento Quarto, nunca directamente en la consola. Lo que se escribe en la consola se pierde; lo que está en un script puede volver a ejecutarse, corregirse y compartirse. Esa es la base de un trabajo reproducible.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#proyectos-y-rutas",
+    "href": "practicos/practico-01.html#proyectos-y-rutas",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.2 Proyectos y rutas",
+    "text": "2.2 Proyectos y rutas\nAntes de comenzar a trabajar, cree un proyecto de RStudio (File &gt; New Project) para el curso. Un proyecto fija la carpeta de trabajo, lo que permite usar rutas relativas del tipo datos/elsoc.RData en lugar de rutas absolutas como C:/Users/kevin/Documentos/curso/datos/elsoc.RData, que solo funcionan en su computador.\nPara saber en qué carpeta está trabajando:\n\ngetwd() # muestra la carpeta de trabajo actual",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#objetos-y-asignación",
+    "href": "practicos/practico-01.html#objetos-y-asignación",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.3 Objetos y asignación",
+    "text": "2.3 Objetos y asignación\nEn R, casi todo es un objeto. Los objetos se crean con el operador de asignación &lt;-:\n\nedad_ejemplo &lt;- 34\nedad_ejemplo\n\n[1] 34\n\n\nEl nombre del objeto queda guardado en el environment y puede ser utilizado luego en otras operaciones:\n\nedad_ejemplo + 10\n\n[1] 44\n\n\nNote que la operación anterior no modifica el objeto: para que el resultado quede guardado, hay que asignarlo nuevamente.\n\nedad_ejemplo &lt;- edad_ejemplo + 10\nedad_ejemplo\n\n[1] 44",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#tipos-de-datos",
+    "href": "practicos/practico-01.html#tipos-de-datos",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.4 Tipos de datos",
+    "text": "2.4 Tipos de datos\nR distingue distintos tipos de datos, y esa distinción se relaciona directamente con las escalas de medición que revisamos en clases:\n\nnumero &lt;- 25.5             # numeric: variables continuas (edad, ingreso)\ntexto &lt;- \"Santiago\"        # character: texto\nlogico &lt;- TRUE             # logical: verdadero o falso\ncategoria &lt;- factor(\"Mujer\", levels = c(\"Hombre\", \"Mujer\")) # factor: variables categóricas\n\nclass(numero)\n\n[1] \"numeric\"\n\nclass(texto)\n\n[1] \"character\"\n\nclass(logico)\n\n[1] \"logical\"\n\nclass(categoria)\n\n[1] \"factor\"\n\n\nLa función class() es una de las que más utilizará: antes de analizar una variable, conviene siempre verificar de qué tipo es. Un error frecuente consiste en tratar como numérica una variable que en realidad es categórica, obteniendo resultados que no tienen sentido sustantivo (por ejemplo, el “promedio” de la nacionalidad).",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#vectores-y-bases-de-datos",
+    "href": "practicos/practico-01.html#vectores-y-bases-de-datos",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.5 Vectores y bases de datos",
+    "text": "2.5 Vectores y bases de datos\nUn vector es una secuencia de valores del mismo tipo, y se construye con la función c():\n\nedades &lt;- c(23, 45, 31, 62, 28)\nedades\n\n[1] 23 45 31 62 28\n\n\nPodemos aplicarle funciones:\n\nmean(edades)  # promedio\n\n[1] 37.8\n\nlength(edades) # cantidad de elementos\n\n[1] 5\n\n\nUna base de datos (data.frame) es un conjunto de vectores de igual largo dispuestos como columnas. Es exactamente la estructura rectangular que vimos en clases: filas como casos y columnas como variables.\n\nejemplo &lt;- data.frame(\n  edad = c(23, 45, 31, 62, 28),\n  sexo = c(\"Mujer\", \"Hombre\", \"Mujer\", \"Hombre\", \"Mujer\")\n)\n\nejemplo\n\n  edad   sexo\n1   23  Mujer\n2   45 Hombre\n3   31  Mujer\n4   62 Hombre\n5   28  Mujer\n\n\nPara acceder a una columna específica usamos el signo $:\n\nejemplo$edad\n\n[1] 23 45 31 62 28\n\nmean(ejemplo$edad)\n\n[1] 37.8\n\n\nY para explorar rápidamente una base:\n\ndim(ejemplo)   # número de filas y columnas\n\n[1] 5 2\n\nnames(ejemplo) # nombres de las variables\n\n[1] \"edad\" \"sexo\"\n\nhead(ejemplo)  # primeras filas\n\n  edad   sexo\n1   23  Mujer\n2   45 Hombre\n3   31  Mujer\n4   62 Hombre\n5   28  Mujer",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#funciones-y-ayuda",
+    "href": "practicos/practico-01.html#funciones-y-ayuda",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.6 Funciones y ayuda",
+    "text": "2.6 Funciones y ayuda\nUna función recibe argumentos y devuelve un resultado. En mean(edades), mean es la función y edades el argumento. Muchas funciones tienen argumentos adicionales con valores por defecto:\n\nedades_na &lt;- c(23, 45, NA, 62, 28)\nmean(edades_na)                 # devuelve NA\n\n[1] NA\n\nmean(edades_na, na.rm = TRUE)   # excluye los casos perdidos\n\n[1] 39.5\n\n\nEl resultado NA del primer caso no es un error del programa: R está avisando que hay valores perdidos y que, por lo tanto, no puede calcular el promedio sin una instrucción explícita de qué hacer con ellos.\nPara consultar la documentación de cualquier función:\n\n?mean\nhelp(mean)",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#paquetes",
+    "href": "practicos/practico-01.html#paquetes",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.7 Paquetes",
+    "text": "2.7 Paquetes\nLas funciones vienen agrupadas en paquetes. Los paquetes se instalan una sola vez y se cargan en cada sesión de trabajo:\n\ninstall.packages(\"dplyr\") # instalar (una vez)\nlibrary(dplyr)            # cargar (en cada sesión)\n\nEn este curso utilizaremos pacman, que instala el paquete si falta y lo carga si ya está disponible, en una sola instrucción:\n\ninstall.packages(\"pacman\") # solo la primera vez\npacman::p_load(dplyr, ggplot2)\n\nLa notación pacman::p_load indica que usamos la función p_load del paquete pacman. Es una forma de precisar de dónde viene una función, útil cuando dos paquetes tienen funciones con el mismo nombre.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#el-operador-pipe",
+    "href": "practicos/practico-01.html#el-operador-pipe",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.8 El operador pipe",
+    "text": "2.8 El operador pipe\nEl operador %&gt;% (del paquete dplyr) encadena operaciones: toma el resultado de la izquierda y lo entrega como primer argumento de la función de la derecha. Estas dos instrucciones son equivalentes:\n\nmean(ejemplo$edad)\n\nejemplo$edad %&gt;% mean()\n\nSu utilidad se aprecia cuando encadenamos varios pasos, ya que evita anidar funciones dentro de funciones y permite leer el código en el orden en que ocurren las operaciones.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#errores-frecuentes",
+    "href": "practicos/practico-01.html#errores-frecuentes",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "2.9 Errores frecuentes",
+    "text": "2.9 Errores frecuentes\nAl comenzar, la mayoría de los mensajes de error tienen alguna de estas causas:\n\ncould not find function: el paquete no está cargado\nobject not found: el objeto no existe, o su nombre está mal escrito (R distingue mayúsculas de minúsculas)\nUn + en la consola: quedó un paréntesis o una comilla sin cerrar. Presione Esc y revise la línea\n\nLos mensajes de error no son un problema, sino información. Conviene leerlos con calma antes de volver a ejecutar el código.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#ajustar-el-espacio-de-trabajo",
+    "href": "practicos/practico-01.html#ajustar-el-espacio-de-trabajo",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "3.2 Ajustar el espacio de trabajo",
+    "text": "3.2 Ajustar el espacio de trabajo\nPrevio a la carga de la base de datos, se recomienda ejecutar los siguientes comandos:\n\nrm(list = ls())       # borrar todos los objetos en el espacio de trabajo\noptions(scipen = 999) # valores sin notación científica\n\nLa función rm(list=ls()) permite comenzar con un espacio de trabajo (environment) vacío y sin otros objetos. A su vez, options(scipen=999) desactiva la notación científica, es decir, veremos los valores numéricos con todos sus decimales.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#cargar-la-base-de-datos",
+    "href": "practicos/practico-01.html#cargar-la-base-de-datos",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "3.3 Cargar la base de datos",
+    "text": "3.3 Cargar la base de datos\n\n# Cargamos la base de datos desde internet\nload(url(\"https://dataverse.harvard.edu/api/access/datafile/7245118\"))\n\nRealizamos un chequeo básico de la lectura de datos: nombres de las variables y tamaño de la base en términos de casos y variables.\n\ndim(elsoc_long_2016_2022.2) # dimensión de la base\n\n[1] 18035   750\n\n\nRecordemos lo visto en clases: una base de datos tiene forma rectangular. Cada fila es un caso o unidad de análisis (aquí, una persona encuestada en un año determinado) y cada columna es una variable.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#escalas-de-medición",
+    "href": "practicos/practico-01.html#escalas-de-medición",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "4.2 Escalas de medición",
+    "text": "4.2 Escalas de medición\nEn la primera sesión revisamos la clasificación NOIR: nominal, ordinal, intervalar y de razón. Esa distinción no es una formalidad: determina qué descriptivos tienen sentido y qué técnicas de análisis son apropiadas.\nAntes de analizar, conviene preguntarse por la escala de cada variable:\n\nescalas &lt;- data.frame(\n  Variable = c(\"t01\", \"m01\", \"m0_sexo\", \"m0_edad\"),\n  Contenido = c(\"Confianza en vecinos\", \"Nivel educacional\", \"Sexo\", \"Edad\"),\n  Escala = c(\"Ordinal (5 categorías)\", \"Ordinal (10 categorías)\",\n             \"Nominal (dicotómica)\", \"Razón\"),\n  Tratamiento = c(\"Se tratará como continua\", \"Se tratará como continua\",\n                  \"Categórica (factor)\", \"Continua\")\n)\n\nkable(escalas, \"markdown\")\n\n\n\nTabla 1: Escalas de medición de las variables seleccionadas\n\n\n\n\n\n\n\n\n\n\n\n\nVariable\nContenido\nEscala\nTratamiento\n\n\n\n\nt01\nConfianza en vecinos\nOrdinal (5 categorías)\nSe tratará como continua\n\n\nm01\nNivel educacional\nOrdinal (10 categorías)\nSe tratará como continua\n\n\nm0_sexo\nSexo\nNominal (dicotómica)\nCategórica (factor)\n\n\nm0_edad\nEdad\nRazón\nContinua\n\n\n\n\n\n\n\n\nUna advertencia importante: la confianza en vecinos y el nivel educacional son variables ordinales, y aquí las trataremos como si fueran continuas. Es una práctica frecuente en investigación social cuando la variable tiene suficientes categorías ordenadas, pero es una simplificación: supone que la distancia entre las categorías 1 y 2 es la misma que entre 4 y 5, lo que no necesariamente es cierto. Conviene tenerlo presente al momento de interpretar los resultados.\nR también tiene su propia clasificación de tipos de datos, que no coincide exactamente con NOIR:\n\nclass(proc_data$t01)\n\n[1] \"numeric\"\n\nclass(proc_data$m0_edad)\n\n[1] \"numeric\"",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#gráficos-de-dispersión",
+    "href": "practicos/practico-01.html#gráficos-de-dispersión",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "6.1 Gráficos de dispersión",
+    "text": "6.1 Gráficos de dispersión\nEn clases vimos que la asociación entre dos variables continuas se expresa gráficamente en nubes de puntos. Comencemos por ahí:\n\ngraph1 &lt;- ggplot(proc_data, aes(x = edad, y = confianza_vecinos)) +\n  geom_jitter(size = 0.8, alpha = 0.3, width = 0.3, height = 0.2) +\n  labs(x = \"Edad\", y = \"Confianza en vecinos\") +\n  theme_minimal()\n\ngraph2 &lt;- ggplot(proc_data, aes(x = educacion, y = confianza_vecinos)) +\n  geom_jitter(size = 0.8, alpha = 0.3, width = 0.3, height = 0.2) +\n  labs(x = \"Nivel educacional\", y = \"Confianza en vecinos\") +\n  theme_minimal()\n\nggarrange(graph1, graph2, nrow = 1)\n\n\n\n\n\n\n\nFigura 2: Confianza en vecinos según edad y educación\n\n\n\n\n\nUsamos geom_jitter en lugar de geom_point porque ambas variables tienen pocos valores distintos y los puntos se superponen. El jitter agrega una pequeña perturbación aleatoria que permite ver la densidad de casos.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#correlación",
+    "href": "practicos/practico-01.html#correlación",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "6.2 Correlación",
+    "text": "6.2 Correlación\nLa correlación resume en un solo número la fuerza y la dirección de la asociación lineal entre dos variables, y varía entre -1 y +1.\n\ncor(proc_data$edad, proc_data$confianza_vecinos, use = \"complete.obs\")\n\n[1] 0.1011296\n\n\nPodemos calcular la asociación entre todas las variables numéricas de la base:\n\nM &lt;- cor(proc_data %&gt;% dplyr::select(confianza_vecinos, educacion, edad),\n         use = \"complete.obs\") # Usar solo casos con observaciones completas\nround(M, 2)\n\n                  confianza_vecinos educacion  edad\nconfianza_vecinos              1.00      0.09  0.10\neducacion                      0.09      1.00 -0.35\nedad                           0.10     -0.35  1.00\n\n\n\ncorrplot.mixed(M)\n\n\n\n\n\n\n\nFigura 3: Matriz de correlaciones, ELSOC 2016\n\n\n\n\n\nLa Figura 3 muestra que la asociación de la confianza en vecinos con las demás variables es baja, siendo positiva tanto para educación como para edad. La asociación más alta de la matriz es la que existe entre educación y edad, y es negativa.\nNote que la matriz solo incluye las variables numéricas: la correlación de Pearson no es apropiada para una variable nominal como sexo. Para comparar la confianza en vecinos entre hombres y mujeres necesitamos otras herramientas, que veremos más adelante en el curso.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#correlación-no-implica-causalidad",
+    "href": "practicos/practico-01.html#correlación-no-implica-causalidad",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "6.3 Correlación no implica causalidad",
+    "text": "6.3 Correlación no implica causalidad\nUna advertencia central de la primera sesión: que dos variables covaríen no significa que una cause la otra. La asociación entre educación y confianza podría deberse a una tercera variable no observada, a un proceso de selección, o a una relación causal en sentido inverso.\nUn ejercicio útil: revise el sitio Spurious Correlations y comente con su ayudante qué elementos de esas correlaciones las hacen implausibles como relaciones causales.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#una-primera-recta",
+    "href": "practicos/practico-01.html#una-primera-recta",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "7.1 Una primera recta",
+    "text": "7.1 Una primera recta\nLa correlación nos dice que existe asociación, pero no nos permite predecir un valor de confianza a partir de la edad. Para eso necesitamos una recta:\n\nggplot(proc_data, aes(x = edad, y = confianza_vecinos)) +\n  geom_jitter(size = 0.8, alpha = 0.25, width = 0.3, height = 0.2) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"#04245f\", linewidth = 1.2) +\n  labs(x = \"Edad\", y = \"Confianza en vecinos\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 4: Recta de regresión de la confianza en vecinos según edad\n\n\n\n\n\nEn R, la recta se estima con la función lm() (de linear model). La sintaxis se lee como “confianza en vecinos en función de edad”:\n\nproc_data &lt;- na.omit(proc_data) # trabajaremos solo con casos completos\n\nmodelo &lt;- lm(confianza_vecinos ~ edad, data = proc_data)\ncoef(modelo)\n\n(Intercept)        edad \n2.829587789 0.007944355 \n\n\nRecordando la ecuación vista en clases, \\(\\widehat{Y} = b_{0} + b_{1}X\\):\n\nEl intercepto (\\(b_0\\)) es el valor esperado de confianza cuando la edad es 0\nLa pendiente (\\(b_1\\)) indica cuánto cambia la confianza esperada por cada año adicional de edad\n\nEn la próxima sesión veremos de dónde salen exactamente esos números y cómo interpretarlos con precisión.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#el-modelo-sin-predictores",
+    "href": "practicos/practico-01.html#el-modelo-sin-predictores",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "7.2 El modelo sin predictores",
+    "text": "7.2 El modelo sin predictores\n¿Qué ocurre si estimamos una recta sin ninguna variable independiente?\n\nmodelo_nulo &lt;- lm(confianza_vecinos ~ 1, data = proc_data)\ncoef(modelo_nulo)\n\n(Intercept) \n   3.195802 \n\n\nEl intercepto coincide con la media de confianza en vecinos. Esto tiene una lectura conceptual importante: sin información adicional, nuestra mejor predicción para cualquier persona es el promedio general. Todo lo que hace una variable independiente es mejorar esa predicción.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#valores-predichos-y-residuos",
+    "href": "practicos/practico-01.html#valores-predichos-y-residuos",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "7.3 Valores predichos y residuos",
+    "text": "7.3 Valores predichos y residuos\nPara cada caso, el modelo genera un valor predicho (\\(\\widehat{Y}\\)). La diferencia entre el valor observado y el predicho es el residuo:\n\\[e_i = Y_i - \\widehat{Y}_i\\]\nEn R:\n\nproc_data$predicho &lt;- predict(modelo)\nproc_data$residuo &lt;- residuals(modelo)\n\nhead(proc_data %&gt;% dplyr::select(edad, confianza_vecinos, predicho, residuo))\n\n  edad confianza_vecinos predicho     residuo\n1   64                 1 3.338027 -2.33802653\n2   60                 3 3.306249 -0.30624910\n3   26                 3 3.036141 -0.03614103\n4   51                 3 3.234750 -0.23474991\n5   69                 2 3.377748 -1.37774830\n6   62                 2 3.322138 -1.32213781\n\n\nPodemos verlo gráficamente en un subconjunto de casos, donde cada línea segmentada representa un residuo:\n\nset.seed(2026)\nsub &lt;- proc_data[sample(nrow(proc_data), 20), ]\n\nggplot(sub, aes(x = edad, y = confianza_vecinos)) +\n  geom_smooth(data = proc_data, method = \"lm\", se = FALSE,\n              color = \"#04245f\", linewidth = 1.2) +\n  geom_segment(aes(xend = edad, yend = predicho),\n               color = \"#c0392b\", linetype = \"dashed\") +\n  geom_point(size = 2.5, color = \"#4f97ff\") +\n  labs(x = \"Edad\", y = \"Confianza en vecinos\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 5: Valores observados, valores predichos y residuos (20 casos)",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#por-qué-mínimos-cuadrados",
+    "href": "practicos/practico-01.html#por-qué-mínimos-cuadrados",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "7.4 ¿Por qué “mínimos cuadrados”?",
+    "text": "7.4 ¿Por qué “mínimos cuadrados”?\nEn clases señalamos que por una misma nube de puntos pueden trazarse infinitas rectas, y que el criterio OLS selecciona aquella que minimiza la suma de los residuos al cuadrado. Comprobémoslo.\nPrimero, note que la suma de los residuos del modelo estimado es prácticamente cero, porque los residuos positivos y negativos se cancelan entre sí. Por eso no sirve como criterio:\n\nsum(proc_data$residuo)\n\n[1] -0.0000000000006293993\n\n\nEn cambio, si elevamos los residuos al cuadrado antes de sumarlos, obtenemos una cantidad que sí distingue entre rectas:\n\nsum(proc_data$residuo^2)\n\n[1] 4158.653\n\n\nAhora probemos distintos valores posibles de pendiente y calculemos, para cada uno, la suma de residuos al cuadrado:\n\nx &lt;- proc_data$edad\ny &lt;- proc_data$confianza_vecinos\n\npendientes &lt;- seq(-0.01, 0.03, by = 0.001)\n\nssr &lt;- sapply(pendientes, function(b1) {\n  b0 &lt;- mean(y) - b1 * mean(x)          # el intercepto que acompaña a cada pendiente\n  sum((y - (b0 + b1 * x))^2)            # suma de residuos al cuadrado\n})\n\nresultados &lt;- data.frame(pendiente = pendientes, ssr = ssr)\n\nggplot(resultados, aes(x = pendiente, y = ssr)) +\n  geom_line(color = \"#04245f\", linewidth = 1) +\n  geom_vline(xintercept = coef(modelo)[2], color = \"#c0392b\", linetype = \"dashed\") +\n  labs(x = \"Valor de la pendiente (b1)\",\n       y = \"Suma de residuos al cuadrado\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 6: Suma de residuos al cuadrado según distintos valores de la pendiente\n\n\n\n\n\nLa línea segmentada roja marca el valor de la pendiente estimada por lm(). Como se observa, coincide exactamente con el punto más bajo de la curva: ninguna otra recta produce una suma de residuos al cuadrado menor. Eso es, literalmente, lo que significa “mínimos cuadrados ordinarios”.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#selección-de-variables-1",
+    "href": "practicos/practico-01.html#selección-de-variables-1",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "8.1 Selección de variables",
+    "text": "8.1 Selección de variables\n\nCargar los paquetes, cargar la base de datos ELSOC y filtrar por la ola 4 (2019)\nSeleccionar las siguientes variables:\n\nSatisfacción con la democracia: c01\nSociodemográficas: m01 (educación), m0_sexo (sexo), m0_edad (edad)\n\nIndicar cuál es la variable dependiente y cuáles las independientes, y justificar la decisión",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#análisis-descriptivo-y-asociación",
+    "href": "practicos/practico-01.html#análisis-descriptivo-y-asociación",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "8.3 Análisis descriptivo y asociación",
+    "text": "8.3 Análisis descriptivo y asociación\n\nPresentar una tabla de descriptivos y un gráfico de la distribución de la satisfacción con la democracia\nEstimar y visualizar una matriz de correlaciones con las variables numéricas\nElaborar un gráfico de dispersión entre satisfacción con la democracia y edad, incorporando la recta de regresión",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-01.html#primera-aproximación-a-la-recta",
+    "href": "practicos/practico-01.html#primera-aproximación-a-la-recta",
+    "title": "Práctico 01. Datos, variables y asociación",
+    "section": "8.4 Primera aproximación a la recta",
+    "text": "8.4 Primera aproximación a la recta\n\nEstimar el modelo satisfaccion_democracia ~ edad con lm() y reportar el intercepto y la pendiente\nCalcular los valores predichos y los residuos, y verificar que la suma de los residuos es aproximadamente cero",
+    "crumbs": [
+      "Practicos",
+      "Práctico 1 - Regresión lineal simple"
+    ]
+  },
+  {
+    "objectID": "content/02-content.html#para-la-próxima-sesión",
+    "href": "content/02-content.html#para-la-próxima-sesión",
+    "title": "Clase 2",
+    "section": "Para la próxima sesión",
+    "text": "Para la próxima sesión\n\nWooldridge, Introducción a la econometría: apéndices A1 y A2, y sección 2.1\nMoore, Estadística aplicada básica: sección 2.4.1"
   }
 ]
