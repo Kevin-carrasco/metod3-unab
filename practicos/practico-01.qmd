@@ -212,6 +212,50 @@ Al comenzar, la mayoría de los mensajes de error tienen alguna de estas causas:
 
 Los mensajes de error no son un problema, sino información. Conviene leerlos con calma antes de volver a ejecutar el código.
 
+## Sobre el uso de inteligencia artificial
+
+En este curso está **permitido** el uso de herramientas de inteligencia artificial generativa para apoyar el trabajo con R. La condición es una sola, y es exigente: usted debe ser capaz de **explicar qué hace cada línea del código que entrega**. Si no puede hacerlo, ese código no le sirve, aunque produzca el resultado correcto.
+
+La razón es que el objetivo del curso no es obtener una tabla de regresión, sino comprender qué representa. Un modelo mal especificado, una variable ordinal tratada como continua sin advertirlo o una recodificación que elimina silenciosamente la mitad de la muestra producen resultados que se ven perfectamente razonables. Detectar esos problemas exige entender el procedimiento, y ninguna herramienta lo hace por usted.
+
+**Dónde estas herramientas ayudan**
+
+- Explicar un mensaje de error que no se comprende
+- Aclarar qué hace una función determinada o para qué sirve un argumento
+- Sugerir alternativas cuando ya se tiene una idea del procedimiento pero no de la sintaxis
+- Comentar y documentar código propio
+- Detectar errores de escritura, como paréntesis o comillas sin cerrar
+
+**Dónde conviene desconfiar**
+
+- Con frecuencia proponen funciones o argumentos que **no existen** o que corresponden a versiones antiguas de un paquete
+- El código puede ejecutarse sin errores y aun así responder a una pregunta distinta de la que usted formuló
+- Tienden a producir soluciones plausibles antes que correctas: si el planteamiento del problema es ambiguo, la respuesta lo será también, pero con apariencia de certeza
+- No conocen sus datos. Desconocen el libro de códigos, la escala de cada variable y los valores que representan casos perdidos
+
+Un ejemplo concreto de esto último. Ante la instrucción "calcula la matriz de correlaciones de mi base de datos", una respuesta habitual sería:
+
+```{r}
+#| eval: false
+cor(proc_data, use = "complete.obs")
+```
+
+El código se ejecuta y entrega números. Sin embargo, incluye la variable sexo, que es **nominal**, y la correlación de Pearson no es apropiada para ese tipo de variable. El resultado existe, pero no significa nada. Reconocer ese problema no depende de saber programar, sino de haber comprendido las escalas de medición.
+
+**Una reflexión sobre el aprendizaje**
+
+Existe una diferencia relevante entre resolver un problema y observar cómo alguien lo resuelve. Cuando el código aparece ya escrito, se produce una sensación de comprensión que no siempre corresponde a un aprendizaje efectivo: el procedimiento resulta claro mientras se lee y se vuelve inaccesible al momento de reproducirlo sin ayuda. La dificultad de equivocarse, revisar la documentación y volver a intentarlo es parte de lo que hace que un procedimiento quede disponible después.
+
+Conviene además considerar que las evaluaciones escritas del curso exigen interpretar resultados y coeficientes sin computador.
+
+**Una forma razonable de trabajar**
+
+1. Intente primero por su cuenta, aunque el resultado sea incompleto
+2. Si recurre a una herramienta de inteligencia artificial, solicite una **explicación** antes que una solución
+3. Ejecute el código por partes y observe qué produce cada una
+4. Verifique el resultado con lo que ya conoce de sus datos: ¿el número de casos es el esperado?, ¿los valores están dentro del rango posible?
+5. Reescriba el código con sus propias palabras en los comentarios. Si no logra comentarlo, todavía no lo comprende
+
 # Preparación del análisis
 
 ## Librerías a utilizar {#librerias}
@@ -560,50 +604,6 @@ ggplot(sub, aes(x = edad, y = confianza_vecinos)) +
   labs(x = "Edad", y = "Confianza en vecinos") +
   theme_minimal()
 ```
-
-## ¿Por qué "mínimos cuadrados"?
-
-En clases señalamos que por una misma nube de puntos pueden trazarse infinitas rectas, y que el criterio OLS selecciona aquella que minimiza la **suma de los residuos al cuadrado**. Comprobémoslo.
-
-Primero, note que la suma de los residuos del modelo estimado es prácticamente cero, porque los residuos positivos y negativos se cancelan entre sí. Por eso no sirve como criterio:
-
-```{r}
-sum(proc_data$residuo)
-```
-
-En cambio, si elevamos los residuos al cuadrado antes de sumarlos, obtenemos una cantidad que sí distingue entre rectas:
-
-```{r}
-sum(proc_data$residuo^2)
-```
-
-Ahora probemos distintos valores posibles de pendiente y calculemos, para cada uno, la suma de residuos al cuadrado:
-
-```{r}
-#| label: fig-ols
-#| fig-cap: "Suma de residuos al cuadrado según distintos valores de la pendiente"
-
-x <- proc_data$edad
-y <- proc_data$confianza_vecinos
-
-pendientes <- seq(-0.01, 0.03, by = 0.001)
-
-ssr <- sapply(pendientes, function(b1) {
-  b0 <- mean(y) - b1 * mean(x)          # el intercepto que acompaña a cada pendiente
-  sum((y - (b0 + b1 * x))^2)            # suma de residuos al cuadrado
-})
-
-resultados <- data.frame(pendiente = pendientes, ssr = ssr)
-
-ggplot(resultados, aes(x = pendiente, y = ssr)) +
-  geom_line(color = "#04245f", linewidth = 1) +
-  geom_vline(xintercept = coef(modelo)[2], color = "#c0392b", linetype = "dashed") +
-  labs(x = "Valor de la pendiente (b1)",
-       y = "Suma de residuos al cuadrado") +
-  theme_minimal()
-```
-
-La línea segmentada roja marca el valor de la pendiente estimada por `lm()`. Como se observa, coincide exactamente con el punto **más bajo** de la curva: ninguna otra recta produce una suma de residuos al cuadrado menor. Eso es, literalmente, lo que significa "mínimos cuadrados ordinarios".
 
 # Tarea
 
