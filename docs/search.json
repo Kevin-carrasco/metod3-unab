@@ -2258,289 +2258,289 @@
   {
     "objectID": "slides/03-clase3/03-clase3.html#dónde-quedamos",
     "href": "slides/03-clase3/03-clase3.html#dónde-quedamos",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "¿Dónde quedamos?",
-    "text": "¿Dónde quedamos?\n\n\nLa recta de regresión se estima con mínimos cuadrados ordinarios (OLS), el criterio que minimiza la suma de los residuos al cuadrado\nLa pendiente se obtiene a partir de la covariación entre \\(X\\) e \\(Y\\), y de la varianza de \\(X\\): \\(b_{1}=\\frac{Cov(XY)}{Var(X)}\\)\nCon el ejemplo de la clase pasada llegamos a \\(\\widehat{Y}=2.5+0.5X\\): por cada juego previo adicional, los puntos aumentan en 0,5\nLa ecuación permite predecir: para \\(X=3\\), el valor estimado era \\(\\widehat{Y}=4\\)"
+    "text": "¿Dónde quedamos?\n\nLa recta de regresión se estima con mínimos cuadrados ordinarios (OLS), el criterio que minimiza la suma de los residuos al cuadrado\nLa pendiente se obtiene a partir de la covariación entre \\(X\\) e \\(Y\\), y de la varianza de \\(X\\): \\(b_{1}=\\frac{Cov(XY)}{Var(X)}\\)\nCon el ejemplo de la clase pasada llegamos a \\(\\widehat{Y}=2.5+0.5X\\): por cada juego previo adicional, los puntos aumentan en 0,5\nLa ecuación permite predecir: para \\(X=3\\), el valor estimado era \\(\\widehat{Y}=4\\)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#hoy",
     "href": "slides/03-clase3/03-clase3.html#hoy",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Hoy",
-    "text": "Hoy\n\n\nYa sabemos estimar la recta. Pero, ¿qué tan buena es esa recta?\n¿Cuánto de la variación de \\(Y\\) logramos explicar y cuánto queda como error? (\\(R^2\\))\n¿Podemos generalizar este resultado más allá de nuestra muestra? (inferencia)"
+    "text": "Hoy\n\nYa sabemos estimar la recta. Pero, ¿qué tan buena es esa recta?\n¿Cuánto de la variación de \\(Y\\) logramos explicar y cuánto queda como error? (\\(R^2\\))\n¿Podemos generalizar este resultado más allá de nuestra muestra? (inferencia)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#section-1",
     "href": "slides/03-clase3/03-clase3.html#section-1",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "",
-    "text": "¿Qué buscamos?\n\n\n\nContrastar empíricamente teorías sociológicas\n(con datos cuantitativos)"
+    "text": "¿Qué buscamos?\n\nContrastar empíricamente teorías sociológicas\n(con datos cuantitativos)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#hechos-sociales-multideterminados",
     "href": "slides/03-clase3/03-clase3.html#hechos-sociales-multideterminados",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Hechos sociales multideterminados",
     "text": "Hechos sociales multideterminados\n\n\n\n\n\nLimitaciones de las herramientas bivariadas (tablas de contingencia, coeficiente de correlación)\nNecesidad de contar con herramientas más eficientes que incluyan múltiples determinantes\nPor eso: el modelo de regresión"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#modelo-representación-simplificada",
     "href": "slides/03-clase3/03-clase3.html#modelo-representación-simplificada",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "¿Modelo? = representación simplificada",
-    "text": "¿Modelo? = representación simplificada\n\n\n\n\n\n\n\n\nUn modelo no pretende reproducir la realidad, sino representar sus rasgos relevantes de forma simplificada"
+    "text": "¿Modelo? = representación simplificada\n\n\n\n\n\n\n\nUn modelo no pretende reproducir la realidad, sino representar sus rasgos relevantes de forma simplificada"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#regresión",
     "href": "slides/03-clase3/03-clase3.html#regresión",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "¿Regresión?",
     "text": "¿Regresión?\n\n\n\nEl modelo de regresión busca representar matemáticamente la relación entre una variable dependiente (\\(Y\\)) y una o más independientes (\\(X\\))\nEsta relación se expresa en un parámetro \\(\\beta\\) o “beta de regresión”"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#regresión-simple",
     "href": "slides/03-clase3/03-clase3.html#regresión-simple",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Regresión simple",
-    "text": "Regresión simple\nEn esta primera parte del curso veremos modelos con una sola variable independiente, o regresión simple\n\n\n\n\n\n\\[\\widehat{Y}=\\beta_{0} +\\beta_{1}X_{1}\\]"
+    "text": "Regresión simple\nEn esta primera parte del curso veremos modelos con una sola variable independiente, o regresión simple\n\n\\[\\widehat{Y}=\\beta_{0} +\\beta_{1}X_{1}\\]"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#componentes-de-la-ecuación",
     "href": "slides/03-clase3/03-clase3.html#componentes-de-la-ecuación",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Componentes de la ecuación",
     "text": "Componentes de la ecuación\n\n\n\n\n\n\\(\\widehat{Y}\\) es el valor estimado de \\(Y\\)\n\\(\\beta_{0}\\) es el intercepto de la recta (el valor de \\(Y\\) cuando \\(X\\) es 0)\n\\(\\beta_{1}\\) es el coeficiente de regresión, que indica cuánto aumenta \\(Y\\) por cada punto que aumenta \\(X\\)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#recordatorio-cómo-se-estiman",
     "href": "slides/03-clase3/03-clase3.html#recordatorio-cómo-se-estiman",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Recordatorio: cómo se estiman",
-    "text": "Recordatorio: cómo se estiman\n\\[b_{1}=\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum_{i=1}^{n}(x_i - \\bar{x})^2} \\qquad b_{0}=\\bar{Y}-b_{1}\\bar{X}\\]\n\n\nEl numerador de \\(b_1\\) recoge la covariación: cuánto se mueven juntas \\(X\\) e \\(Y\\)\nEl denominador la varianza de X: cuánto se mueve \\(X\\) por sí sola\nPractiquemos el procedimiento con un ejemplo nuevo"
+    "text": "Recordatorio: cómo se estiman\n\\[b_{1}=\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum_{i=1}^{n}(x_i - \\bar{x})^2} \\qquad b_{0}=\\bar{Y}-b_{1}\\bar{X}\\]\n\nEl numerador de \\(b_1\\) recoge la covariación: cuánto se mueven juntas \\(X\\) e \\(Y\\)\nEl denominador la varianza de X: cuánto se mueve \\(X\\) por sí sola\nPractiquemos el procedimiento con un ejemplo nuevo"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#ejercicio-educación-e-ingresos",
     "href": "slides/03-clase3/03-clase3.html#ejercicio-educación-e-ingresos",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Ejercicio: educación e ingresos",
     "text": "Ejercicio: educación e ingresos\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaso\nX (años educación)\nY (nivel de ingresos)\nX - X̄\nY - Ȳ\n(X - X̄)(Y - Ȳ)\n(X - X̄)²\n\n\n\n\nCaso 1\n1\n250\n\n\n\n\n\n\nCaso 2\n2\n200\n\n\n\n\n\n\nCaso 3\n3\n250\n\n\n\n\n\n\nCaso 4\n4\n300\n\n\n\n\n\n\nCaso 5\n5\n400\n\n\n\n\n\n\nCaso 6\n6\n350\n\n\n\n\n\n\nCaso 7\n7\n400\n\n\n\n\n\n\nCaso 8\n8\n350\n\n\n\n\n\n\nPromedios / Sumas\nX̄ =\nȲ =\n\n\nΣ =\nΣ ="
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#ejercicio-educación-e-ingresos-1",
     "href": "slides/03-clase3/03-clase3.html#ejercicio-educación-e-ingresos-1",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Ejercicio: educación e ingresos",
     "text": "Ejercicio: educación e ingresos\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaso\nX (años educación)\nY (nivel de ingresos)\nX - X̄\nY - Ȳ\n(X - X̄)(Y - Ȳ)\n(X - X̄)²\n\n\n\n\nCaso 1\n1\n250\n-3,5\n-62,5\n218,75\n12,25\n\n\nCaso 2\n2\n200\n-2,5\n-112,5\n281,25\n6,25\n\n\nCaso 3\n3\n250\n-1,5\n-62,5\n93,75\n2,25\n\n\nCaso 4\n4\n300\n-0,5\n-12,5\n6,25\n0,25\n\n\nCaso 5\n5\n400\n0,5\n87,5\n43,75\n0,25\n\n\nCaso 6\n6\n350\n1,5\n37,5\n56,25\n2,25\n\n\nCaso 7\n7\n400\n2,5\n87,5\n218,75\n6,25\n\n\nCaso 8\n8\n350\n3,5\n37,5\n131,25\n12,25\n\n\nPromedios / Sumas\nX̄ = 4,5\nȲ = 312,5\n\n\nΣ = 1050\nΣ = 42"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#cálculo-del-coeficiente-de-regresión",
     "href": "slides/03-clase3/03-clase3.html#cálculo-del-coeficiente-de-regresión",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Cálculo del coeficiente de regresión",
     "text": "Cálculo del coeficiente de regresión\n\\[b_{1}=\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum_{i=1}^{n}(x_i - \\bar{x})^2}=\\frac{1050} {42}=25\\]\n\nY despejando el intercepto:\n\\[b_{0}=\\bar{Y}-b_{1}\\bar{X} = 312.5-(25 \\times 4.5)=200\\]\nRecuerde que la recta de regresión siempre pasa por el punto \\((\\bar{X}, \\bar{Y})\\)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#el-resultado",
     "href": "slides/03-clase3/03-clase3.html#el-resultado",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "El resultado",
-    "text": "El resultado\n\n\n\\[\\widehat{Y}=200+25X\\]\nPor cada año adicional de educación, el ingreso aumenta en 25 unidades\n\n\n#&gt; `geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\nFigure 1"
+    "text": "El resultado\n\n\n\\[\\widehat{Y}=200+25X\\]\nPor cada año adicional de educación, el ingreso aumenta en 25 unidades\n\n\n\n\n\n\n\n\n\nFigure 1"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#section-2",
     "href": "slides/03-clase3/03-clase3.html#section-2",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "",
-    "text": "INTERPRETACIÓN\n\n\nPor cada unidad que aumenta X, Y aumenta en Beta"
+    "text": "INTERPRETACIÓN\nPor cada unidad que aumenta X, Y aumenta en Beta"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#ejemplo",
     "href": "slides/03-clase3/03-clase3.html#ejemplo",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Ejemplo",
-    "text": "Ejemplo\n\n\nSi tenemos:\n\n\\(Y\\) = ingreso al egresar de la universidad\n\\(X\\) = puntaje PAES\n\n\\[Ingreso=200.000+400(PAES)\\]\n\n\n1. ¿Cuál es el valor estimado de ingreso para un puntaje PAES de 500?\n\n400.000\n\n2. ¿Cuál es el valor estimado de ingreso para un puntaje (hipotético) de PAES = 0?\n\n200.000"
+    "text": "Ejemplo\n\n\nSi tenemos:\n\n\\(Y\\) = ingreso al egresar de la universidad\n\\(X\\) = puntaje PAES\n\n\\[Ingreso=200.000+400(PAES)\\]\n\n1. ¿Cuál es el valor estimado de ingreso para un puntaje PAES de 500?\n\n400.000\n\n2. ¿Cuál es el valor estimado de ingreso para un puntaje (hipotético) de PAES = 0?\n\n200.000"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#section-3",
     "href": "slides/03-clase3/03-clase3.html#section-3",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "",
-    "text": "Hasta ahora deberíamos saber\n\n\nEl modelo de regresión es una representación simplificada de la relación compleja entre variables\nEl \\(\\beta\\) de regresión indica cuánto aumenta \\(Y\\) en promedio por cada punto que aumenta \\(X\\)\nEl modelo permite estimar el puntaje de \\(Y\\) para cada valor de \\(X\\)"
+    "text": "Hasta ahora deberíamos saber\n\nEl modelo de regresión es una representación simplificada de la relación compleja entre variables\nEl \\(\\beta\\) de regresión indica cuánto aumenta \\(Y\\) en promedio por cada punto que aumenta \\(X\\)\nEl modelo permite estimar el puntaje de \\(Y\\) para cada valor de \\(X\\)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#el-cuarteto-de-anscombe-1973",
     "href": "slides/03-clase3/03-clase3.html#el-cuarteto-de-anscombe-1973",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "El cuarteto de Anscombe (1973)",
     "text": "El cuarteto de Anscombe (1973)\n\n\n\n\nPodemos tener un mismo modelo de regresión para relaciones muy distintas entre los datos"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#qué-tan-bueno-es-nuestro-modelo",
     "href": "slides/03-clase3/03-clase3.html#qué-tan-bueno-es-nuestro-modelo",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "¿Qué tan bueno es nuestro modelo?",
-    "text": "¿Qué tan bueno es nuestro modelo?\n\n\nEl cálculo del \\(\\beta\\) busca minimizar los residuos (de ahí “mínimos cuadrados ordinarios”)\nUna vez minimizados los residuos, se puede evaluar el ajuste:\n\nqué tan bien representa nuestro modelo la realidad\ncuánto error (de predicción) estamos cometiendo"
+    "text": "¿Qué tan bueno es nuestro modelo?\n\nEl cálculo del \\(\\beta\\) busca minimizar los residuos (de ahí “mínimos cuadrados ordinarios”)\nUna vez minimizados los residuos, se puede evaluar el ajuste:\n\nqué tan bien representa nuestro modelo la realidad\ncuánto error (de predicción) estamos cometiendo"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#section-4",
     "href": "slides/03-clase3/03-clase3.html#section-4",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "",
-    "text": "Un modelo es mejor mientras mejor refleje lo que sucede con los datos\n\n\n\nEn otras palabras, cuando se parece o ajusta mejor a los datos\n\n\n\n\n… y en otras: cuando los residuos son menores"
+    "text": "Un modelo es mejor mientras mejor refleje lo que sucede con los datos\n\nEn otras palabras, cuando se parece o ajusta mejor a los datos\n\n\n… y en otras: cuando los residuos son menores"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#observado-estimado-y-residuo",
     "href": "slides/03-clase3/03-clase3.html#observado-estimado-y-residuo",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Observado, estimado y residuo",
     "text": "Observado, estimado y residuo\n\n\n\n\n\nobservado: \\(Y\\)\nestimado: \\(\\widehat{Y}\\)\nresiduo: \\(Y-\\widehat{Y}\\)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#varianza-explicada-de-y",
     "href": "slides/03-clase3/03-clase3.html#varianza-explicada-de-y",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Varianza explicada de Y",
     "text": "Varianza explicada de Y\n¿Qué parte de la varianza del ingreso (\\(Y\\)) se asocia a educación?"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#varianza-explicada-de-y-r2",
     "href": "slides/03-clase3/03-clase3.html#varianza-explicada-de-y-r2",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Varianza explicada de Y: \\(R^2\\)",
-    "text": "Varianza explicada de Y: \\(R^2\\)\n\n\n¿Cuánto de los ingresos puedo predecir con educación (regresión) y cuánto me estoy equivocando (residuos)?\nEl \\(R^2\\):\n\nes la proporción de la varianza de \\(Y\\) que se asocia a \\(X\\)\nvaría entre 0 y 1, y se puede expresar en porcentaje\n\nEntonces, podemos descomponer la varianza de \\(Y\\) en dos: aquella asociada a \\(X\\) (regresión) y la que no se asocia a \\(X\\) (residuos)"
+    "text": "Varianza explicada de Y: \\(R^2\\)\n\n¿Cuánto de los ingresos puedo predecir con educación (regresión) y cuánto me estoy equivocando (residuos)?\nEl \\(R^2\\):\n\nes la proporción de la varianza de \\(Y\\) que se asocia a \\(X\\)\nvaría entre 0 y 1, y se puede expresar en porcentaje\n\nEntonces, podemos descomponer la varianza de \\(Y\\) en dos: aquella asociada a \\(X\\) (regresión) y la que no se asocia a \\(X\\) (residuos)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#cómo-se-calcula-el-r2",
     "href": "slides/03-clase3/03-clase3.html#cómo-se-calcula-el-r2",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "¿Cómo se calcula el \\(R^2\\)?",
     "text": "¿Cómo se calcula el \\(R^2\\)?\nPara saber qué porcentaje de \\(Y\\) se asocia a \\(X\\) vamos a considerar los siguientes valores de \\(Y\\):\n\n\\(Y\\) = valor observado de \\(Y\\)\n\\(\\widehat{Y}\\) = estimación de \\(Y\\) a partir de \\(X\\)\n\\(\\bar{Y}\\) = promedio de \\(Y\\)"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#descomponiendo-y",
     "href": "slides/03-clase3/03-clase3.html#descomponiendo-y",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Descomponiendo Y",
     "text": "Descomponiendo Y\nConceptualmente:\n\\[SS_{tot}=SS_{reg} + SS_{error}\\]"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#descomponiendo-y-1",
     "href": "slides/03-clase3/03-clase3.html#descomponiendo-y-1",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Descomponiendo Y",
     "text": "Descomponiendo Y\n\n\n\n\n\\[Y=\\bar{Y}+(\\widehat{Y}-\\bar{Y}) + (Y-\\widehat{Y})\\]\n\\[\\Sigma(y_i - \\bar{y})^2=\\Sigma (\\hat{y}_i-\\bar{y})^2 +\\Sigma(y_i-\\hat{y}_i)^2\\]"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#varianza-explicada",
     "href": "slides/03-clase3/03-clase3.html#varianza-explicada",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Varianza explicada",
     "text": "Varianza explicada\nPor lo tanto:\n\\[SS_{tot}=SS_{reg} + SS_{error}\\]\n\n\\[\\frac{SS_{tot}}{SS_{tot}}=\\frac{SS_{reg}}{SS_{tot}} + \\frac{SS_{error}}{SS_{tot}}\\]\n\n\n\\[1=\\frac{SS_{reg}}{SS_{tot}}+\\frac{SS_{error}}{SS_{tot}}\\]\n\\[\\frac{SS_{reg}}{SS_{tot}}= 1- \\frac{SS_{error}}{SS_{tot}}=R^2\\]"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#en-nuestro-ejemplo",
     "href": "slides/03-clase3/03-clase3.html#en-nuestro-ejemplo",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "En nuestro ejemplo",
     "text": "En nuestro ejemplo\n\nmodelo &lt;- lm(ingreso ~ educacion, data = datos)\n\nss_tot &lt;- sum((datos$ingreso - mean(datos$ingreso))^2)\nss_reg &lt;- sum((fitted(modelo) - mean(datos$ingreso))^2)\nss_err &lt;- sum(residuals(modelo)^2)\n\nc(SS_tot = ss_tot, SS_reg = ss_reg, SS_error = ss_err)\n#&gt;   SS_tot   SS_reg SS_error \n#&gt;    38750    26250    12500\n\n\n\nss_reg / ss_tot\n#&gt; [1] 0.6774194"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#directamente-en-r",
     "href": "slides/03-clase3/03-clase3.html#directamente-en-r",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Directamente en R",
-    "text": "Directamente en R\n\n\n\nmodelo &lt;- lm(ingreso ~ educacion,\n             data = datos)\n\nsummary(modelo)$r.squared\n\n\n\n\n\n \nIngreso\n\n\nPredictores\nβ\np\n\n\n(Intercept)\n200.000\n0.001\n\n\neducacion\n25.000\n0.012\n\n\nObservations\n8\n\n\nR2 / R2 adjusted\n0.677 / 0.624\n\n\n\n\n\nUn 67,7% de la varianza del ingreso se relaciona con la educación"
+    "text": "Directamente en R\n\n\n\nmodelo &lt;- lm(ingreso ~ educacion,\n             data = datos)\n\nsummary(modelo)$r.squared\n\n\n\n\n\n \nIngreso\n\n\nPredictores\nβ\np\n\n\n(Intercept)\n200.000\n0.001\n\n\neducacion\n25.000\n0.012\n\n\nObservations\n8\n\n\nR2 / R2 adjusted\n0.677 / 0.624\n\n\n\n\nUn 67,7% de la varianza del ingreso se relaciona con la educación"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#una-advertencia-sobre-el-r2",
     "href": "slides/03-clase3/03-clase3.html#una-advertencia-sobre-el-r2",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Una advertencia sobre el \\(R^2\\)",
-    "text": "Una advertencia sobre el \\(R^2\\)\n\n\nUn \\(R^2\\) alto no significa que el modelo sea correcto: el cuarteto de Anscombe muestra que un mismo ajuste puede corresponder a relaciones muy distintas\nUn \\(R^2\\) bajo no significa que el hallazgo carezca de interés: en ciencias sociales es habitual explicar una fracción modesta de la varianza\nEl \\(R^2\\) tampoco dice nada sobre causalidad, ni sobre si las variables relevantes están en el modelo"
+    "text": "Una advertencia sobre el \\(R^2\\)\n\nUn \\(R^2\\) alto no significa que el modelo sea correcto: el cuarteto de Anscombe muestra que un mismo ajuste puede corresponder a relaciones muy distintas\nUn \\(R^2\\) bajo no significa que el hallazgo carezca de interés: en ciencias sociales es habitual explicar una fracción modesta de la varianza\nEl \\(R^2\\) tampoco dice nada sobre causalidad, ni sobre si las variables relevantes están en el modelo"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#inferencia-estadística",
     "href": "slides/03-clase3/03-clase3.html#inferencia-estadística",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Inferencia estadística",
-    "text": "Inferencia estadística\n\n\nHasta aquí hemos descrito la relación en nuestros datos\nPero nuestros datos son (habitualmente) una muestra de una población mayor\n¿Nuestros resultados se pueden extrapolar a la población?\n¿Cómo sabemos si \\(b_{1}\\) es estadísticamente significativo?"
+    "text": "Inferencia estadística\n\nHasta aquí hemos descrito la relación en nuestros datos\nPero nuestros datos son (habitualmente) una muestra de una población mayor\n¿Nuestros resultados se pueden extrapolar a la población?\n¿Cómo sabemos si \\(b_{1}\\) es estadísticamente significativo?"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#de-la-muestra-a-la-población",
     "href": "slides/03-clase3/03-clase3.html#de-la-muestra-a-la-población",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "De la muestra a la población",
-    "text": "De la muestra a la población\n\n\nSi extrajéramos muchas muestras distintas de la misma población, obtendríamos un \\(b_1\\) algo distinto en cada una\nEsos valores se distribuyen alrededor del parámetro poblacional \\(\\beta_1\\): es la distribución muestral del coeficiente\nEl error estándar mide cuánto varía el coeficiente de una muestra a otra"
+    "text": "De la muestra a la población\n\nSi extrajéramos muchas muestras distintas de la misma población, obtendríamos un \\(b_1\\) algo distinto en cada una\nEsos valores se distribuyen alrededor del parámetro poblacional \\(\\beta_1\\): es la distribución muestral del coeficiente\nEl error estándar mide cuánto varía el coeficiente de una muestra a otra"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#error-estándar",
     "href": "slides/03-clase3/03-clase3.html#error-estándar",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Error estándar",
-    "text": "Error estándar\n\\[se(b_1)=\\sqrt{\\frac{\\sum(y_i-\\hat{y}_i)^2 / (n-2)}{\\sum(x_i-\\bar{x})^2}}\\]\n\n\nAumenta cuando los residuos son grandes: si el modelo predice mal, la estimación es menos precisa\nDisminuye cuando la varianza de X es grande y cuando aumenta el número de casos"
+    "text": "Error estándar\n\\[se(b_1)=\\sqrt{\\frac{\\sum(y_i-\\hat{y}_i)^2 / (n-2)}{\\sum(x_i-\\bar{x})^2}}\\]\n\nAumenta cuando los residuos son grandes: si el modelo predice mal, la estimación es menos precisa\nDisminuye cuando la varianza de X es grande y cuando aumenta el número de casos"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#el-estadístico-t",
     "href": "slides/03-clase3/03-clase3.html#el-estadístico-t",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "El estadístico t",
-    "text": "El estadístico t\n\\[t=\\frac{b_{1}}{se(b_{1})}\\]\n\n\nCompara el tamaño del coeficiente con su propia imprecisión\nLa hipótesis nula es que en la población \\(\\beta_1 = 0\\), es decir, que no hay relación entre \\(X\\) e \\(Y\\)\nComo regla aproximada, valores de \\(t\\) superiores a 2 (en valor absoluto) permiten rechazar esa hipótesis al 95% de confianza"
+    "text": "El estadístico t\n\\[t=\\frac{b_{1}}{se(b_{1})}\\]\n\nCompara el tamaño del coeficiente con su propia imprecisión\nLa hipótesis nula es que en la población \\(\\beta_1 = 0\\), es decir, que no hay relación entre \\(X\\) e \\(Y\\)\nComo regla aproximada, valores de \\(t\\) superiores a 2 (en valor absoluto) permiten rechazar esa hipótesis al 95% de confianza"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#el-valor-p",
     "href": "slides/03-clase3/03-clase3.html#el-valor-p",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "El valor p",
-    "text": "El valor p\n\n\nProbabilidad de observar un coeficiente como el nuestro (o mayor) si la hipótesis nula fuera verdadera\nPor convención, se considera estadísticamente significativo cuando \\(p &lt; 0.05\\)\nEn las tablas suele indicarse con asteriscos: * \\(p&lt;0.05\\), ** \\(p&lt;0.01\\), *** \\(p&lt;0.001\\)\nAtención: el valor p no indica la magnitud ni la importancia sustantiva del efecto"
+    "text": "El valor p\n\nProbabilidad de observar un coeficiente como el nuestro (o mayor) si la hipótesis nula fuera verdadera\nPor convención, se considera estadísticamente significativo cuando \\(p &lt; 0.05\\)\nEn las tablas suele indicarse con asteriscos: * \\(p&lt;0.05\\), ** \\(p&lt;0.01\\), *** \\(p&lt;0.001\\)\nAtención: el valor p no indica la magnitud ni la importancia sustantiva del efecto"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#intervalos-de-confianza",
     "href": "slides/03-clase3/03-clase3.html#intervalos-de-confianza",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Intervalos de confianza",
-    "text": "Intervalos de confianza\n\\[IC_{95\\%} = b_1 \\pm 1.96 \\times se(b_1)\\]\n\n\nRango de valores plausibles para el parámetro poblacional\nSi el intervalo no contiene el cero, el coeficiente es estadísticamente significativo al 95%\nSuele ser más informativo que el valor p, porque comunica también la precisión de la estimación"
+    "text": "Intervalos de confianza\n\\[IC_{95\\%} = b_1 \\pm 1.96 \\times se(b_1)\\]\n\nRango de valores plausibles para el parámetro poblacional\nSi el intervalo no contiene el cero, el coeficiente es estadísticamente significativo al 95%\nSuele ser más informativo que el valor p, porque comunica también la precisión de la estimación"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#ejemplo-tabla-de-regresión",
     "href": "slides/03-clase3/03-clase3.html#ejemplo-tabla-de-regresión",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Ejemplo: tabla de regresión",
     "text": "Ejemplo: tabla de regresión\n\n\n\n \nIngreso\n\n\nPredictores\nβ\nstd. Error\nCI\nStatistic\np\n\n\n(Intercept)\n200.00\n35.57\n112.98 – 287.02\n5.62\n0.001\n\n\neducacion\n25.00\n7.04\n7.77 – 42.23\n3.55\n0.012\n\n\nObservations\n8\n\n\nR2 / R2 adjusted\n0.677 / 0.624"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#leyendo-la-tabla",
     "href": "slides/03-clase3/03-clase3.html#leyendo-la-tabla",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Leyendo la tabla",
-    "text": "Leyendo la tabla\n\n\n\\(b_1 = 25\\): por cada año adicional de educación, el ingreso aumenta en 25 unidades\n\\(se(b_1) = 7{,}04\\): esa es la imprecisión de la estimación\n\\(t = 25 / 7{,}04 = 3{,}55\\), con \\(p = 0{,}012\\): rechazamos la hipótesis nula\nEl intervalo de confianza no contiene el cero\n\\(R^2 = 0{,}677\\): el modelo da cuenta del 67,7% de la varianza del ingreso"
+    "text": "Leyendo la tabla\n\n\\(b_1 = 25\\): por cada año adicional de educación, el ingreso aumenta en 25 unidades\n\\(se(b_1) = 7{,}04\\): esa es la imprecisión de la estimación\n\\(t = 25 / 7{,}04 = 3{,}55\\), con \\(p = 0{,}012\\): rechazamos la hipótesis nula\nEl intervalo de confianza no contiene el cero\n\\(R^2 = 0{,}677\\): el modelo da cuenta del 67,7% de la varianza del ingreso"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#un-problema-pendiente",
     "href": "slides/03-clase3/03-clase3.html#un-problema-pendiente",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Un problema pendiente",
-    "text": "Un problema pendiente\n\n\nSabemos estimar la recta, evaluar su ajuste y decidir si el resultado es generalizable\nPero seguimos con una sola variable independiente\nLos hechos sociales son multideterminados: ¿qué pasa si el efecto de la educación sobre el ingreso se debe, en parte, a la edad?\nLa próxima sesión: regresión múltiple y parcialización"
+    "text": "Un problema pendiente\n\nSabemos estimar la recta, evaluar su ajuste y decidir si el resultado es generalizable\nPero seguimos con una sola variable independiente\nLos hechos sociales son multideterminados: ¿qué pasa si el efecto de la educación sobre el ingreso se debe, en parte, a la edad?\nLa próxima sesión: regresión múltiple y parcialización"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#adelanto-parcialización",
     "href": "slides/03-clase3/03-clase3.html#adelanto-parcialización",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Adelanto: parcialización",
-    "text": "Adelanto: parcialización\n\n\n\n\n\n\nEl coeficiente de cada variable se interpreta manteniendo constantes las demás variables del modelo"
+    "text": "Adelanto: parcialización\n\n\nEl coeficiente de cada variable se interpreta manteniendo constantes las demás variables del modelo"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#para-la-próxima-sesión",
     "href": "slides/03-clase3/03-clase3.html#para-la-próxima-sesión",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Para la próxima sesión",
     "text": "Para la próxima sesión\n\nWooldridge, Introducción a la econometría: sección 2.2\nMoore, Estadística aplicada básica: sección 2.4.1"
   },
   {
     "objectID": "slides/03-clase3/03-clase3.html#section-5",
     "href": "slides/03-clase3/03-clase3.html#section-5",
-    "title": "Sesión 3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "",
-    "text": "Métodos estadísticos para Ciencias Sociales III\n\n\n\nKevin Carrasco\n\n\nSociología - UNAB\n\n\n2do Sem 2026\n\n\nhttps://metod3-unab.netlify.app/"
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
   },
   {
     "objectID": "practicos/practico-02.html#cálculo-de-las-medias-condicionales",
@@ -2596,5 +2596,12 @@
       "Practicos",
       "Práctico 2 - Regresión lineal simple"
     ]
+  },
+  {
+    "objectID": "slides/03-clase3/03-clase3.html#section",
+    "href": "slides/03-clase3/03-clase3.html#section",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para\nCiencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
   }
 ]
