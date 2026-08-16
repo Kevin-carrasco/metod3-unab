@@ -1,7 +1,7 @@
 ---
 title: "Práctico 02. Regresión lineal simple"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2026-08-17"
+date: "2026-08-12"
 lang: es
 format:
   html:
@@ -30,11 +30,12 @@ En el práctico anterior trabajamos con la estructura de una base de datos, las 
 
 Esta guía se concentra exclusivamente en la **regresión lineal simple**, es decir, en modelos con una sola variable independiente. Al terminar, usted debería ser capaz de:
 
-1. Estimar los coeficientes $b_0$ y $b_1$ **a mano**, replicando el procedimiento visto en clases
-2. Estimar el mismo modelo con la función `lm()` y comprobar que los resultados coinciden
-3. **Interpretar** el intercepto y la pendiente en términos sustantivos
-4. Obtener **valores predichos** y **residuos**, y utilizarlos para predecir
-5. Comprender por qué el criterio de estimación se denomina **mínimos cuadrados ordinarios**
+1. Comprender la recta de regresión como una síntesis de las **medias condicionales** de $Y$
+2. Estimar los coeficientes $b_0$ y $b_1$ **a mano**, replicando el procedimiento visto en clases
+3. Estimar el mismo modelo con la función `lm()` y comprobar que los resultados coinciden
+4. **Interpretar** el intercepto y la pendiente en términos sustantivos
+5. Obtener **valores predichos** y **residuos**, y utilizarlos para predecir
+6. Comprender por qué el criterio de estimación se denomina **mínimos cuadrados ordinarios**
 
 La evaluación del ajuste del modelo ($R^2$) y la inferencia estadística se abordarán en la sesión teórica siguiente y en el próximo práctico.
 
@@ -65,7 +66,9 @@ options(scipen = 999) # valores sin notación científica
 Repetimos el procesamiento realizado en el práctico anterior. Conviene que ejecute cada línea y verifique que comprende qué hace; si alguna no le resulta clara, revise el práctico 01 antes de continuar.
 
 ```{r}
-load(url("https://dataverse.harvard.edu/api/access/datafile/7245118"))
+#load(url("https://dataverse.harvard.edu/api/access/datafile/7245118"))
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
+
 
 proc_data <- elsoc_long_2016_2022.2 %>%
   filter(ola == "1") %>%
@@ -98,6 +101,105 @@ proc_data %>%
             de_edad = sd(edad)) %>%
   kable("markdown", digits = 2)
 ```
+
+# De las medias condicionales a la recta
+
+Antes de estimar la recta, conviene detenerse en la idea que está detrás de ella.
+
+Si no tuviéramos ninguna variable independiente, nuestra mejor predicción de la confianza para cualquier persona sería el **promedio general** de la variable:
+
+```{r}
+mean(proc_data$confianza_vecinos)
+```
+
+Pero sí tenemos información adicional: conocemos la edad de cada persona. La pregunta entonces es si el promedio de confianza **cambia según el valor de la edad**. Ese promedio calculado por separado para cada valor de $X$ es lo que llamamos **media condicional**: el promedio de $Y$ *condicionado a* un valor determinado de $X$.
+
+## Cálculo de las medias condicionales
+
+```{r}
+medias_cond <- proc_data %>%
+  group_by(edad) %>%
+  summarise(media_confianza = mean(confianza_vecinos),
+            casos = n())
+
+head(medias_cond, 10) %>%
+  kable("markdown", digits = 2)
+```
+
+Cada fila responde a una pregunta distinta: entre las personas de 18 años, ¿cuál es el promedio de confianza? ¿Y entre las de 19? Note además la columna de casos: algunas edades tienen muchas observaciones y otras muy pocas, lo que hace que sus promedios sean más o menos estables.
+
+## Visualización
+
+Grafiquemos esas medias condicionales, con el tamaño de cada punto proporcional al número de casos que lo respalda:
+
+```{r}
+#| label: fig-medias-cond
+#| fig-cap: "Media condicional de confianza en vecinos según edad"
+
+ggplot(medias_cond, aes(x = edad, y = media_confianza)) +
+  geom_point(aes(size = casos), color = "#4f97ff", alpha = 0.7) +
+  geom_hline(yintercept = mean(proc_data$confianza_vecinos),
+             linetype = "dotted", color = "grey40") +
+  labs(x = "Edad", y = "Media condicional de confianza",
+       size = "Casos") +
+  theme_minimal()
+```
+
+La línea punteada marca el promedio general. Si la edad no aportara información, las medias condicionales se ubicarían aleatoriamente en torno a esa línea. Lo que observamos, en cambio, es una tendencia: las medias condicionales de las edades mayores tienden a situarse por encima.
+
+## Reduciendo el ruido
+
+Los promedios calculados sobre pocos casos oscilan bastante. Una forma de apreciar mejor la tendencia consiste en agrupar la edad en tramos:
+
+```{r}
+#| label: fig-medias-tramos
+#| fig-cap: "Media condicional de confianza en vecinos según tramo de edad"
+
+proc_data$tramo_edad <- cut(proc_data$edad,
+                            breaks = c(17, 29, 39, 49, 59, 69, 100),
+                            labels = c("18-29", "30-39", "40-49",
+                                       "50-59", "60-69", "70+"))
+
+proc_data %>%
+  group_by(tramo_edad) %>%
+  summarise(media_confianza = mean(confianza_vecinos),
+            casos = n()) %>%
+  kable("markdown", digits = 2)
+```
+
+```{r}
+proc_data %>%
+  group_by(tramo_edad) %>%
+  summarise(media_confianza = mean(confianza_vecinos)) %>%
+  ggplot(aes(x = tramo_edad, y = media_confianza)) +
+  geom_col(fill = "#04245f", alpha = 0.85) +
+  geom_hline(yintercept = mean(proc_data$confianza_vecinos),
+             linetype = "dotted", color = "#c0392b", linewidth = 1) +
+  labs(x = "Tramo de edad", y = "Media condicional de confianza") +
+  theme_minimal()
+```
+
+## La recta como síntesis
+
+Finalmente, superpongamos la recta de regresión a las medias condicionales:
+
+```{r}
+#| label: fig-medias-recta
+#| fig-cap: "Medias condicionales y recta de regresión"
+
+ggplot(medias_cond, aes(x = edad, y = media_confianza)) +
+  geom_point(aes(size = casos), color = "#4f97ff", alpha = 0.7) +
+  geom_smooth(data = proc_data,
+              aes(x = edad, y = confianza_vecinos),
+              method = "lm", se = FALSE,
+              color = "#04245f", linewidth = 1.2) +
+  labs(x = "Edad", y = "Media condicional de confianza", size = "Casos") +
+  theme_minimal()
+```
+
+Aquí está la idea central de la sesión anterior: **la recta de regresión es una síntesis de las medias condicionales**. No pasa exactamente por cada una de ellas, sino que resume su tendencia general mediante dos números, el intercepto y la pendiente.
+
+Esa síntesis tiene un costo y una ganancia. El costo es que perdemos las particularidades de cada valor de $X$. La ganancia es doble: obtenemos una descripción parsimoniosa de la relación, y podemos predecir valores de $Y$ para valores de $X$ que no observamos directamente en la muestra.
 
 # Estimación manual de los coeficientes
 
@@ -344,6 +446,12 @@ La tabla incluye columnas que aún no hemos revisado, como los valores p y el $R
 - Seleccionar las variables `c01` (satisfacción con la democracia), `m01` (educación), `m0_sexo` (sexo) y `m0_edad` (edad)
 
 - Recodificar los valores perdidos, renombrar las variables y quedarse con los casos completos
+
+## Medias condicionales
+
+- Calcular la media condicional de satisfacción con la democracia para cada nivel educacional, indicando el número de casos de cada uno
+
+- Elaborar un gráfico que muestre esas medias condicionales junto con la recta de regresión, y comentar en una o dos oraciones qué tan bien la recta resume la tendencia observada
 
 ## Estimación manual
 
