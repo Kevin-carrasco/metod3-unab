@@ -1,491 +1,378 @@
 ---
-title: "Práctico 02. Regresión lineal múltiple y predictores categóricos"
+title: "Práctico 02. Regresión lineal simple"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2025-08-18"
+date: "2026-08-17"
 lang: es
-output:
-  number_sections: true
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-copy: true
+    code-overflow: wrap
+execute:
+  warning: false
+  message: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE)
 ```
 
-# Objetivo de la práctica
+# Presentación
 
-En esta práctica nos enfocaremos en el significado de las parcializaciones en la regresión múltiple. Para ello utilizaremos el ejemplo 3.1 de Wooldrige (2010) cap. 3 (Análisis de regresion múltiple) (p.68-80) sobre las **determinantes del promedio en la universidad**.
+## Objetivo de la práctica
 
-## Librerías
+En el práctico anterior trabajamos con la estructura de una base de datos, las escalas de medición y la asociación entre variables, y trazamos una primera recta de regresión sin detenernos en cómo se obtiene.
 
-```{r, warning= FALSE}
-pacman::p_load(ggpubr, #graficos
-               dplyr, #manipulacion de datos
-               sjPlot, #tablas
-               gridExtra, #unir graficos
-               texreg, #mostrar regresion multiple
-               summarytools, #estadisticos descriptivos
-               wooldridge) #paquete con los ejemplos del libro
-library(wooldridge)
-```
+Esta guía se concentra exclusivamente en la **regresión lineal simple**, es decir, en modelos con una sola variable independiente. Al terminar, usted debería ser capaz de:
+
+1. Estimar los coeficientes $b_0$ y $b_1$ **a mano**, replicando el procedimiento visto en clases
+2. Estimar el mismo modelo con la función `lm()` y comprobar que los resultados coinciden
+3. **Interpretar** el intercepto y la pendiente en términos sustantivos
+4. Obtener **valores predichos** y **residuos**, y utilizarlos para predecir
+5. Comprender por qué el criterio de estimación se denomina **mínimos cuadrados ordinarios**
+
+La evaluación del ajuste del modelo ($R^2$) y la inferencia estadística se abordarán en la sesión teórica siguiente y en el próximo práctico.
 
 ## Datos
 
-Los datos a utilizar corresponden a la base de datos **gpa1** que incluye una muestra de 141 estudiantes de una universidad. La base contiene variables:
+Continuaremos con la primera ola (2016) del **Estudio Longitudinal Social de Chile (ELSOC)**, del Centro de Estudios de Conflicto y Cohesión Social (COES), y con la **confianza en vecinos** como variable dependiente.
 
-- $colGPA$: promedio general de calificaciones de la universidad, en escala de 0 a 4 puntos.
-
-
-- $hsGPA$ : promedio general de calificaciones en la enseñanza media, en escala de 0 a 4 puntos
-
-
-- $ACT$ : puntaje en el examen de admisión a la universidad, que va de 16 a 33 puntos
-
-
-Primero, se cargará la base de datos que contiene la librería `wooldrige` y se seleccionarán las variables señaladas
-
-```{r}
-data('gpa1') # Cargar base de datos
-gpa1 <- dplyr::select(gpa1, colGPA, hsGPA, ACT) #Seleccion de variables
-```
-## Explorar base de datos
-
-A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para la interpretación de nuestros modelos.
-
-```{r eval=FALSE}
-view(dfSummary(gpa1, headings = FALSE, method = "render"))
-```
-
-```{r echo=FALSE}
-print(dfSummary(gpa1, headings = FALSE), method = 'render')
-
-#print(dfSummary(proc_elsoc, headings = FALSE), method = "render")
-
-
-```
-
-
-
-## Relacion entre variables
-
-Se grafican la relación entre las variables que determinarían $colGPA$ para comparar sus distribuciones y sus pendientes ($b$) de sus regresiones simples. A su vez, se grafica un tercer gráfico que muestra la correlación entre las variables independientes.
-```{r}
-#Grafico x1 = ACT y= colGPA
-gact <- ggscatter(gpa1, x = "ACT", y = "colGPA",
-          shape = 21, size = 3, # Forma y tamaño de puntos
-   add = "reg.line", #Agregar recta de regresion
-   cor.coef = TRUE)# Agregar coeficiente correlacion
-#Grafico x2 = hsGPA y= colGPA
-ghsGPA <- ggscatter(gpa1, x = "hsGPA", y = "colGPA",
-          shape = 21, size = 3,
-   add = "reg.line",
-   cor.coef = TRUE)
-
-#Grafico x2 = hsGPA x1 = ACT
-gact_hs <- ggscatter(gpa1, x = "hsGPA", y = "ACT",
-          shape = 21, size = 3,
-   add = "reg.line",
-   cor.coef = TRUE)
-
-grid.arrange(gact, ghsGPA, gact_hs, nrow = 1) # Unir graficos
-
-```
-
-Con el gráfico anterior podemos notar dos puntos relevantes:
-
-- Si bien ambas variables tienen una asociación positiva con $colGPA$, el tamaño efecto de esta relación es distinta. Incluso, $hsGPA$ que no había sido considerada en nuestro modelo inicial, tiene una asociación más grande con nuestra variable dependiente.
-
-- Como es de esperar, **existe una relación entre las calificaciones en la enseñanza media ($hsGPA$) y el puntaje en la prueba de admisión ($ACT$)**. Específicamente, ambas variables tienen una asociación positiva de 0.35.
-
-En la práctica 5 nos preguntamos ¿cómo incide $ACT$ y $hsGPA$ en conjunto sobre $colGPA$?, sin profundizar en qué implica que nuestros predictores de $colGPA$ estén correlacionados. Retomemos nuevamente nuestro modelo
-
-## Modelo de regresión multiple
-
-Para estimar el modelo de regresión multiple se debe realizar el mismo procedimiento de la regresión simple, solo que ahora deben señalar un (+) y el segundo predictor
-
-<div class="alert alert-info">
- <span class="sidenote">Regresión múltiple </span>
-modelo <- lm(y ~ x1 + x2 , data = data)
-</div>
-
-Por fines de comparación, se estimaran primero dos regresiones simples con cada predictor, y luego la regresión múltiple en el Modelo 3:
-
-```{r}
-col_actmodel<-lm(colGPA ~ ACT, data=gpa1)
-col_hsmodel<-lm(colGPA ~  hsGPA, data=gpa1)
-col_model <- lm(colGPA ~ ACT + hsGPA, data = gpa1)
-```
-
-```{r}
-sjPlot::tab_model(list(col_actmodel, col_hsmodel,col_model), show.ci=FALSE, p.style = "stars", dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3"),string.pred = "Predictores", string.est = "β")
-```
-
-$$\widehat{colGPA} = 1.29 +0.01 \dot\ ACT + 0.453\dot\ hsGPA $$
-
-## Interpretación
-
-¿Cómo se interpreta este cuadro con los 3 modelos de regresión?
-
-El modelo 1 estima que por cada punto que aumenta el examen de admisión $ACT$, $colGPA$ aumentaráen 0.03 puntos.
-
-El modelo 2 estima que por cada punto que aumenta las notas en enseñanza media $hsGPA$, $colGPA$ aumentará en 0.48 puntos.
-
-El modelo 3 estima $colGPA$ considerando en conjunto ambas variables. Por un lado, por cada punto que aumenta el examen de admisión $ACT$, $colGPA$ aumentaráen 0.01 puntos, **manteniendo $hsGPA$ constante**
-Por otro, por cada punto que aumenta las notas en enseñanza media $hsGPA$, $colGPA$ aumentará en 0.45 puntos, **manteniendo $ACT$ constante**.
-
-### ¿Porqué se alteran los coeficientes de regresión?
-
-Como vimos en los gráficos de dispersión, existe una correlación entre nuestros predictores: el puntaje en $ACT$ está asociado con las notas de enseñanza media $hsGPA$.
-
-Cuando se incorporan más variables en el modelo se descuenta este elemento en común que tienen las variables independientes. Por ello no solo los **coefientes de regresión se ajustan en presencia de otras variables** ($hsGPA$ disminuyó de 0.48 a 0.45 y $ACT$ de 0.03 a 0.01), sino que también el ajuste del modelo cambia ($R^2ajustado$ es el estadístico más óptimo para identificar ello, pues como vimos en la práctica 5 $R^2$ sobreestima la bondad de ajuste).
-
-## Parcialización
-
-La forma de hacer este procedimiento de "mantener constante" el efecto de la otra variable se llama **parcialización**. Este procedimiento implica sacar la **covarianza común** entre mis variables independientes, es decir, lo que tienen en común $hsGPA$ y $ACT$
-
-Se habla de **efectos parciales** porque se estiman las regresiones solo con una de las variables independientes. Por ejemplo, ¿Cómo se predice $colGPA$ en función $ACT$, despejando el efecto de $hsGPA$?
-
-En fórmula podemos ver que las estimaciones de $ b_{1}$ y $ b_{2}$ se interpretan como efectos parciales, de manera que dados los cambios en $ACT$ y $hsGPA$ se puede obtener un cambio predicho para $colGPA$.
-
-$$\triangle{colGPA} = b_{1}\triangle{ACT} + b_{2}\triangle{hsGPA} $$
-
-Pero cuando $hsGPA$ se mantiene constante, de manera que $\triangle{hsGPA}$ = 0, se obtiene entonces:
-
-$$\triangle{colGPA} = b_{1}\triangle{ACT} $$
-
-Pero cuando $ACT$ se mantiene constante, de manera que $\triangle{ACT}$ = 0, se obtiene entonces:
-
-$$\triangle{colGPA} =  b_{2}\triangle{hsGPA} $$
-
-### Parcializar $ACT$ de $hsGPA$
-
-¿Cómo determinar cuál es el (a) elemento común entre ambas variables y (b) extraer solamente aquello que no comparten?
-
-Para ello se realiza (a) una **regresión simple** donde los predictores son las variables del modelo ($ACT$ dependiente y $hsGPA$ independiente) y (b) en donde a la predicción de $ACT$ hay asociado un **residuo**.
-
-En otras palabras, el $b$ de esta regresión es todo lo que comparte $ACT$ y $hsGPA$. Mientras que el residuo es **todo lo de $ACT$ que no es explicado por $hsGPA$**. En síntesis, es con lo que nos deberíamos quedar en nuestros modelos de regresión múltiple al estimar el $b_{1}$ de $ACT$.
-
-#### Paso 1: Estimar modelo
-```{r}
-model_act_hs = lm(ACT ~ hsGPA, data = gpa1) #Crear regresion con predictores
-coef(model_act_hs)
-```
-
-En consecuencia tenemos que
-$$\widehat{ACT} = 13.69 + 3.07{hsGPA} $$
-
-#### Paso 2: calcular valores predichos y residuos
-
-Sabemos que si tenemos un modelo de regresión podemos también obtener los residuos. Recordemos ¿qué es un residuo? Un residuo es la diferencia entre el valor observado y el valor predicho
-```{r}
-fit_act_hs=fitted.values(model_act_hs) # Calcular valores predichos
-res_act_hs=residuals(model_act_hs) #Calcular residuos
-gpa1=cbind(gpa1, fit_act_hs,res_act_hs) # Unir columna de residuos y valores predichos a base de datos
-head(gpa1) #Mostrar los primeros elementos de la base de datos
-```
-
-Podemos ver en res_act_hs la varianza no explicada de $hsGPA$ sobre $ACT$.
-
-#### Paso 3: Crear regresión con variable parcializada
-
-Ahora si hacemos la regresión con la variable *res_act_hs* notaremos que obtendremos el mismo $b_{1}$ de la regresión del modelo múltiple (modelo 3) pero por medio de una regresión simple (modelo 4).
-
-```{r}
-act_hs_model <- lm(colGPA ~ res_act_hs, data = gpa1) # Estimar regresión simple con parcialización de ACT
-```
-
-```{r}
-sjPlot::tab_model(list(col_actmodel, col_hsmodel,col_model, act_hs_model), show.ci=FALSE, p.style = "stars", dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4"),string.pred = "Predictores", string.est = "β")
-```
-
-Lo que tengo en ese modelo es la variable puntaje en el examen de admisión $ACT$ sin las notas de enseñanza media $hsGPA$. Lo mismo se podría realizar con la parcialización de $hsGPA$.
-
-Este procedimiento de extraer el elemento común entre las variables es el que hace *"tras bambalinas"* la regresión múltiple. Lo importante es notar que en la regresión múltiple todos los predictores están parcializados del resto de los predictores. Se han "limpiado" de los efectos de las otras variables el resto de las variables del modelo.
-
-## Control estadístico
-
-¿En cuál variable me fijo para la interpretación? Podemos graficar los coeficientes de la regresión de modo de ver el impacto que tienen cada una de las variables sobre $colGPA$
-
-```{r}
-plot_model(col_model, show.values = TRUE)+ theme_sjplot()
-```
-
-Como podemos ver el efecto que tiene $hsGPA$ sobre $colGPA$, controlando por $ACT$, es mucho mayor que el que tiene $ACT$ parcializado por $colGPA$. Sin embargo, esto nada nos dice de qué variable enfatizar: **esto dependen de las hipótesis que queremos probar con nuestros modelos**.
-
-
-## ¿Qué significa mantener todos los demás factores constantes?
-
-En la interpretación del modelo vimos que los coeficientes de regresión nos permiten entender el efecto de $ACT$ sobre $colGPA$, manteniendo $hsGPA$ constante. También, $hsGPA$ sobre $colGPA$, manteniendo $ACT$ constante.
-
-La regresión múltiple nos proporciona esta interpretación "manteniendo constante las variables", incluso cuando en nuestros mismos datos no hayan sido recolectados considerando que algunas variables se mantengan constantes. Esto es lo que hemos llamado una interpretación de **efecto parcial de los coeficientes de regresión**. Esto no implica que se haya  encuestado personas con el mismo $hsGPA$ pero con puntuaciones en $ACT$. Para obtener los datos no se pusieron restricciones sobre los valores muestrales de $hsGPA$ o de $ACT$.
-Más bien, la regresión múltiple permite imitar esta situación "constante" sin restringir los valores de ninguna de las variables independientes.
-
-# Tema adicional: Predictores categóricos
-
-Es esta práctica vamos a aprender a trabajar e interpretar  **predictores categóricos** en la regresión.
-
-Hasta ahora hemos trabajado solamente con predictores a los que asumimos un nivel de medición continua (es decir, al menos intervalar). *¿Qué sucede con predictores donde se asume un distinto nivel de medición, como nominal u ordinal?* En general este tipo de predictores requiere una interpretación y tratamiento distinto que los predictores continuos.
-
-Existen dos tipos de predictores categóricos: dicotómicos (*dummys*) y ordinales.
-
-## Predictores dicotómicos
-
-Las variables dicotómicas son aquellas variables **nominales u ordinales** que poseen solo **dos categorías de respuesta**, por ejemplo hombre/mujer, sano/enfermo, deportista/sedentario.
-
-La inclusión de estas variables en un modelo de regresión no requiere un tratamiento especial, solo hay que considerar que su **interpretación tiene un sentido distinto**. A continuación, veremos un ejemplo respecto a cómo predictores categóricos (de dos o más niveles) permiten modelar el **Estatus Social Subjetivo**
+# Preparación
 
 ## Librerías
 
-```{r, warning= FALSE}
-pacman::p_load(dplyr, #manipulacion de datos
-               sjPlot, #tablas
-               summarytools, #estadisticos descriptivos
-               fastDummies, # Crear variable dummy
-               sjlabelled, #etiquetas variables
-               coefplot # graficos de coeficientes
-               )
-```
-
-## Datos
-
-Primero, se cargará la base de datos
-
-```{r include=TRUE}
-load(url("https://multivariada.netlify.app/assignment/data/proc/ELSOC_ess.RData")) # Cargar base de datos
-
-```
-
-Los datos a utilizar corresponden a la base de datos **ELSOC 2018** que incluye una muestra de **3784** mujeres y hombres adultos entre 18 y 75 años.
-
-
-
-**Variables**
-
-* [`ess`]: "Estatus Social Subjetivo: Donde se ubicaria ud. en la sociedad chilena" (0 = el nivel mas bajo; 10 = el nivel mas alto)
-
-* [`edcine`]: ¿Cuál es su nivel educacional? Indique el tipo de estudio actual (si estudia actualmente) o el último tipo aprobado (si no estudia actualmente) -  **CINE 2011 (UNESCO)**.
-
-* [`sexo`]: Sexo entrevistado.
-
-* [`edad`]: ¿Cuáles su edad? (años cumplidos).
-
-
 ```{r}
-view_df(elsoc_18,encoding = "")
-```
-
-## Explorar base de datos
-
-A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para la interpretación de nuestros modelos.
-
-```{r eval=FALSE}
-view(dfSummary(elsoc_18, headings = FALSE, method = "render"))
-```
-
-```{r echo=FALSE}
-print(dfSummary(elsoc_18, headings = FALSE), method = 'render')
-
-#print(dfSummary(proc_elsoc, headings = FALSE), method = "render")
-```
-
-## Relación entre variables
-
-Visualizar la asociación entre variables puede ser informativo. Sin embargo, en ocasiones es necesario prestar mayor atención al tipo de gráfico que utilizamos para esto. Por ejemplo, veamos un scatter de Estatus social Subjetivo $Y_\text{estatus}$ con sexo como independiente $X_\text{sexo}$ para comparar sus distribuciones y sus pendientes
-
-```{r}
-plot_scatter(data = elsoc_18,x = sexo,y = ess,fit.grps = "lm")
-```
-
-El scatterplot no es muy informativo debido a que nuestra variable independiente solamente posee dos niveles, de modo tal que la distribución de Estatus Social Subjetivo se separa en dos grandes grupos. Por esta razón, una alternativa para visualizar la distribución es elaborar un gráfico de cajas para ambas categorías:
-
-```{r,message=FALSE, warning=FALSE}
-plot_grpfrq(var.cnt = elsoc_18$ess,var.grp = elsoc_18$sexo,type = "box")
-```
-
-En este sentido, al tener solamente dos niveles en los valores de la variable X: 0 (Hombre) y 1 (Mujer). Obtenemos solamente dos medias condicionales.
-
-Entonces, si calculamos el promedio simple para Estatus Social Subjetivo por sexo tenemos:
-
-```{r}
-elsoc_18 %>%
-  group_by(sexo) %>%
-  summarise(mean_ess=mean(ess,na.rm = T))
-```
-
-Segun esto el promedio para las mujeres es de **4.47** puntos en la escala de Estatus Social Subjetivo, mientras para los hombres es de **4.34**.
-
-Realizando ahora la regresión:
-
-```{r}
-reg1<-lm(ess ~ sexo, data=elsoc_18)
+pacman::p_load(dplyr,
+               sjmisc,
+               sjPlot,
+               sjlabelled,
+               kableExtra,
+               ggplot2)
 ```
 
 ```{r}
-sjPlot::tab_model(list(reg1), show.ci=FALSE, p.style = "stars",string.pred = "Predictores", string.est = "β",digits = 3,
-                  dv.labels = c("Modelo 1"))
+rm(list = ls())       # limpiar el espacio de trabajo
+options(scipen = 999) # valores sin notación científica
 ```
 
-Entonces:
+## Carga y procesamiento
 
-$$\widehat{Y}_\text{estatus} = 4.339 + \beta_1 \times \text{Sexo} + \epsilon $$
-Tenemos que las mujeres (Sexo = 1) tienen un promedio 0.133 puntos más alto que los hombres (Sexo = 0) en la escala de estatus social subjetivo. En este caso, el grupo de los hombres corresponde a la **categoría de referencia**.
-
-Por lo tanto, _¿cuál es la predicción de estatus social subjetivo para la variable sexo?_
-
-Para el caso de los hombres tenemos:
-
-$$\widehat{Y}_\text{estatus} = 4.339 + 0.133 \times 0 = 4.339$$
-En cambio, para las mujeres tenemos:
-
-$$\widehat{Y}_\text{estatus} = 4.339 + 0.133 \times 1 = 4.472$$
-
-Entonces cuando calculamos el promedio de Estatus social Subjetivo $Y_\text{estatus}$ para hombre ($X_\text{sexo=0}$) mujer ($X_\text{sexo=1}$), podemos observar que son los mismos valores que nos entrega la estimación de la regresión simple empleando Sexo como predictor de Estatus Social Subjetivo. Es decir:
-
-
-* Al ingresar un regresor dicotómico en regresión simple lo que se obtiene es una estimación de la **diferencia de promedios** de ambas categorías en relación a la variable dependiente -en regresión múltiple esta diferencia se ajusta o controla por la presencia de otras variables, por ejemplo:
+Repetimos el procesamiento realizado en el práctico anterior. Conviene que ejecute cada línea y verifique que comprende qué hace; si alguna no le resulta clara, revise el práctico 01 antes de continuar.
 
 ```{r}
-reg2<-lm(ess ~ sexo+edad, data=elsoc_18)
+load(url("https://dataverse.harvard.edu/api/access/datafile/7245118"))
+
+proc_data <- elsoc_long_2016_2022.2 %>%
+  filter(ola == "1") %>%
+  select(t01,      # Confianza en vecinos
+         m01,      # Nivel educacional
+         m0_sexo,  # Sexo
+         m0_edad)  # Edad
+
+proc_data <- proc_data %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("confianza_vecinos" = t01,
+         "educacion" = m01,
+         "sexo" = m0_sexo,
+         "edad" = m0_edad)
+
+proc_data <- na.omit(proc_data) # trabajaremos solo con casos completos
+
+dim(proc_data)
 ```
+
+## Descriptivos
+
+Antes de estimar cualquier modelo, conviene tener presentes los descriptivos de las variables involucradas. Como veremos, los promedios reaparecerán en el cálculo de los coeficientes.
 
 ```{r}
-sjPlot::tab_model(list(reg1,reg2), show.ci=FALSE, p.style = "stars",string.pred = "Predictores", string.est = "β",digits = 3,
-                  dv.labels = c("Modelo 1", "Modelo 2"))
+proc_data %>%
+  summarise(media_confianza = mean(confianza_vecinos),
+            de_confianza = sd(confianza_vecinos),
+            media_edad = mean(edad),
+            de_edad = sd(edad)) %>%
+  kable("markdown", digits = 2)
 ```
 
-$$\widehat{Y}_\text{estatus} = 4.602 + 0.126 \times \text{Sexo} + -0.006 \times \text{Edad} + \epsilon $$
-Al controlar por la *edad* de las personas, **las mujeres tienen un promedio 0.126 más alto que el de los hombres** en la escala de Estatus Social Subjetivo. Vemos que, en comparación con el Modelo 1, la diferencia en el promedio de estatus subjetivo de mujeres respecto de hombres se ajusta al incorporar la *edad*. En este sentido, ¿por qué la diferencia en el promedio de estatus subjetivo entre mujeres y hombres puede verse afectada por la *edad*?. Revisemos el promedio de Edad para hombres y mujeres:
+# Estimación manual de los coeficientes
+
+Nuestra pregunta es: **¿en qué medida la edad se asocia a la confianza en los vecinos?** Por lo tanto:
+
+- $Y$ = confianza en vecinos (variable dependiente)
+- $X$ = edad (variable independiente)
+
+Recordemos las fórmulas vistas en clases:
+
+$$b_{1}=\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})} {\sum_{i=1}^{n}(x_i - \bar{x})^2} \qquad b_{0}=\bar{Y}-b_{1}\bar{X}$$
+
+## Paso 1: diferencias respecto del promedio
+
+Toda la estimación se construye a partir de la distancia de cada caso respecto del promedio de su variable:
 
 ```{r}
-elsoc_18 %>%
-  group_by(sexo) %>%
-  summarise(mean_ess=mean(edad,na.rm = T))
+proc_data$difx <- proc_data$edad - mean(proc_data$edad)
+proc_data$dify <- proc_data$confianza_vecinos - mean(proc_data$confianza_vecinos)
 ```
 
-Esta información nos permite observar que los hombres tienen un promedio de edad de 1.2 años mayor que el de las mujeres. En este sentido, lo que vemos es que la diferencia promedio de estatus subjetivo entre hombres y mujeres disminuye de 0.136 a 0.126, es decir, se ajusta al considerar (controlar por) la edad de las personas.
-
-
-## Predictores con más de una categoría
-
-Una de las características de estatus más importante es el nivel educacional de las personas. En este sentido, el nivel educacional puede considerarse como una variable contínua (p.ej: años de educación) o categórica (nivel/grado educacional), lo cual depende no solo de la distribución empírica de la variable sino que también del criterio de quien investiga.
-
-Para este ejercicio consideraremos la variable educación en base a las categorías de la Clasificación Internacional Normalizada de la Educación **[(UNESCO)](http://uis.unesco.org/sites/default/files/documents/isced-2011-sp.pdf)**. La cual posee 5 niveles:
+## Paso 2: productos cruzados y diferencias al cuadrado
 
 ```{r}
-sjmisc::frq(x = elsoc_18$edcine,show.na = F)
+proc_data$dif_cru <- proc_data$difx * proc_data$dify  # covariación
+proc_data$difx2 <- proc_data$difx^2                   # varianza de X
 ```
 
-Y se distribuye de esta manera:
+Revisemos los primeros casos:
 
 ```{r}
-plot_frq(data = elsoc_18$edcine)
+head(proc_data %>%
+       select(edad, confianza_vecinos, difx, dify, dif_cru, difx2)) %>%
+  kable("markdown", digits = 2)
 ```
 
-Para poder incluir esta variable en la regresión como categórica en R la manera más simple es definirla como un factor. Primero necesitamos conocer la estructura de la variable, ya que puede venir previamente definida como factor:
+Note el sentido de la columna `dif_cru`: es positiva cuando ambas variables se desvían del promedio en la **misma** dirección (una persona mayor que el promedio y con confianza mayor que el promedio, o bien menor en ambas), y negativa cuando lo hacen en direcciones opuestas. La suma de esa columna resume, entonces, si las variables tienden a moverse juntas.
+
+## Paso 3: las sumas
 
 ```{r}
-class(elsoc_18$edcine)
-str(elsoc_18$edcine)
+suma_cru <- sum(proc_data$dif_cru)
+suma_x2 <- sum(proc_data$difx2)
+
+c(suma_productos_cruzados = suma_cru, suma_difx2 = suma_x2)
 ```
 
-Vemos que al emplear `class`, R nos indica que `edcine` es una variable numérica con 5 valores distintos. Además, al correr `str` se nos indica que dichos valores numéricos poseen atributos en forma de etiquetas (labels). Entonces, si estimamos la regresión con la variable tal cual como está, obtenemos lo siguiente:
+## Paso 4: los coeficientes
 
 ```{r}
-reg3<- lm(ess~edcine,data = elsoc_18)
+b1 <- suma_cru / suma_x2
+b0 <- mean(proc_data$confianza_vecinos) - b1 * mean(proc_data$edad)
+
+c(b0 = b0, b1 = b1)
 ```
+
+Con lo cual la ecuación de nuestro modelo es:
+
+$$\widehat{confianza} = b_0 + b_1 \times edad$$
+
+# Estimación con `lm()`
+
+Naturalmente, no calcularemos los coeficientes a mano cada vez. La función `lm()` (de *linear model*) hace exactamente el mismo procedimiento. Su sintaxis se lee como "confianza en vecinos **en función de** edad":
+
+::: {.callout-note}
+## Regresión simple
+`modelo <- lm(y ~ x, data = datos)`
+:::
 
 ```{r}
-sjPlot::tab_model(list(reg3), show.ci=FALSE, p.style = "stars",string.pred = "Predictores", string.est = "β",digits = 3,
-                  dv.labels = c("Modelo 3"))
+modelo <- lm(confianza_vecinos ~ edad, data = proc_data)
+coef(modelo)
 ```
 
-El coeficiente de regresión nos indica que por cada nivel adicional de educación, hay un aumento de 0.331 puntos en la escala de estatus social subjetivo. Sin embargo, dada la naturaleza de nuestra variable, decir "por cada nivel educacional" es poco informativo, por lo tanto la manera más adecuada de utilizar nuestra variable en la estimación de una regresión es transformarla en un **factor** empleando la función `as_factor()` <span class="sidenote"> De la librería `sjlabelled` </span>.
+Compare estos valores con los que obtuvo en el paso 4: son idénticos. La función `lm()` no hace magia; ejecuta el mismo cálculo que usted acaba de realizar.
+
+# Interpretación
+
+## La pendiente
 
 ```{r}
-elsoc_18$edcine<- as_factor(elsoc_18$edcine)
+coef(modelo)[2]
 ```
 
-<div class="alert alert-info">
-**Nota**: en R existe la función `as.factor()`, sin embargo, en esa ocasión usamos `as_factor()` debido a que es compatible los vectores numéricos etiquetados y nos permite matener todos los atributos de las variables, tales como las etiquetas de variable y valores.
-</div>
+La pendiente indica **cuánto cambia la confianza esperada por cada año adicional de edad**. Al ser positiva, la confianza tiende a ser mayor entre las personas de más edad.
 
-Teniendo nuestra variable transformada a factor, estimamos nuevamente la regresión:
+Dos precisiones importantes al momento de redactar la interpretación:
+
+- Se trata de un cambio **promedio**, no de una afirmación sobre cada persona
+- Es una **asociación**, no una relación causal: no estamos afirmando que envejecer produzca confianza
+
+## El intercepto
 
 ```{r}
-reg4 <- lm(ess~edcine,data = elsoc_18)
+coef(modelo)[1]
 ```
+
+El intercepto es el valor esperado de confianza cuando la edad es **cero**. Aquí aparece un problema frecuente: en esta base no existe ninguna persona de 0 años, de modo que el intercepto no tiene una interpretación sustantiva directa.
 
 ```{r}
-sjPlot::tab_model(list(reg3,reg4), show.ci=FALSE, p.style = "stars",string.pred = "Predictores", string.est = "β",digits = 3,
-                  dv.labels = c("Modelo 3","Modelo 4"))
+range(proc_data$edad)
 ```
 
-
-### Interpretación
-
-Al igual que en el modelo empleando Educación como variable continua, el modelo con Educación categórica muestra que a medida que aumenta el nivel educacional, el promedio de estatus subjetivo tiende a ser más alto. Por otro lado, en este caso la categoría de referencia es Primaria Incompleta o menos. Entonces:
-
-El promedio en la escala de Estatus Social subjetivo para el grupo con educación Primaria y Secundaria baja es 0.151 puntos más alto con respecto a las personas con educación Primaria Incompleta o menos.
-
-El promedio en la escala de Estatus Social subjetivo para el grupo con educación Secundaria Alta es 0.476 más alto con respecto a las personas con educación Primaria Incompleta o menos.
-
-El promedio en la escala de Estatus Social subjetivo para el grupo con educación Terciaria ciclo corto es 0.811 más alto con respecto a las personas con educación Primaria Incompleta o menos.
-
-El promedio en la escala de Estatus Social subjetivo para el grupo con educación Terciaria y Postgrado es de 1.279 más alto con respecto a las personas con educación Primaria Incompleta o menos.
-
-
-* Alternativamente es posible cambiar la categoría de referencia. Por ejemplo, si quisieramos que la referencia fuera el nivel educativo más alto "Terciaria y Postgrado" (5) debemos usar `relevel(edcine, ref =5)`:
+Una solución habitual consiste en **centrar** la variable independiente, es decir, restarle su promedio. Así, el valor 0 pasa a representar a una persona de edad promedio:
 
 ```{r}
-reg4.1 <- lm(ess~relevel(edcine,ref=5),data = elsoc_18)
-summary(reg4.1)
+proc_data$edad_c <- proc_data$edad - mean(proc_data$edad)
+
+modelo_c <- lm(confianza_vecinos ~ edad_c, data = proc_data)
+coef(modelo_c)
 ```
 
-### Variables dummy
+Observe que la **pendiente no cambia**: centrar desplaza el origen del eje X, pero no altera la inclinación de la recta. Lo que cambia es el intercepto, que ahora corresponde a la confianza esperada de una persona con edad promedio.
 
-La manera tradicional de incluir predictores categóricos de más de dos niveles (variable politómica) es a través de las denominadas **variables dummy**. Tal como vimos en el ejemplo anterior, se incluyen **n-1 categorías** en el modelo dado que siempre se mantiene una como categoría de referencia.
+# Valores predichos y predicción
 
-Para explorar nuestra base de datos, usaremos la función `head()` que nos mostrará las primeras 6 filas de nuestra base de datos para observar la variable Educación.
+## Valores predichos para cada caso
+
+Para cada persona de la base, el modelo genera un valor predicho $\widehat{Y}$:
 
 ```{r}
-head(elsoc_18)
+proc_data$predicho <- fitted.values(modelo)
+
+head(proc_data %>% select(edad, confianza_vecinos, predicho)) %>%
+  kable("markdown", digits = 2)
 ```
 
-Para la construcción de las variables dummy, usaremos la función `dummy_cols()` de la librería `fastDummies`. En el argumento `select_columns`, le indicamos cuál es la variable que usaremos para construir las variables dummy:
+## Predicción para valores específicos
+
+También podemos preguntar por valores de $X$ que nos interesen, aunque no correspondan a un caso particular de la base. Por ejemplo, ¿cuál es la confianza esperada para personas de 30, 50 y 70 años?
+
+Aplicando la ecuación directamente:
 
 ```{r}
-library(fastDummies)
-elsoc_18 <- dummy_cols(elsoc_18,select_columns = "edcine")
+b0 + b1 * c(30, 50, 70)
 ```
 
-Revisamos nuestra base de datos:
+O bien con la función `predict()`, que es la forma habitual de hacerlo:
 
 ```{r}
-head(elsoc_18)
+predict(modelo, newdata = data.frame(edad = c(30, 50, 70)))
 ```
 
-Tal como se estimó en el modelo anterior, ahora lo que haremos es seleccionar cada dummy para las categorías 2, 3, 4 y 5 de la variable `edcine`. Esto implica que el nivel 1 (Primaria incompleta o menos) será la categoría de referencia.
+Note que la diferencia entre la predicción para 30 y para 50 años equivale a 20 veces la pendiente. Esa es la propiedad central de un modelo lineal: el efecto de $X$ es constante a lo largo de todo su rango.
+
+# Residuos
+
+La diferencia entre el valor observado y el valor predicho es el **residuo**:
+
+$$e_i = Y_i - \widehat{Y}_i$$
 
 ```{r}
-reg5 <- lm(ess~edcine_2+edcine_3+edcine_4+edcine_5,data = elsoc_18)
+proc_data$residuo <- residuals(modelo)
+
+head(proc_data %>% select(edad, confianza_vecinos, predicho, residuo)) %>%
+  kable("markdown", digits = 2)
 ```
+
+Un residuo positivo indica que la persona reporta **más** confianza de la que el modelo predice para su edad; uno negativo, menos. Graficamente, corresponde a la distancia vertical entre el punto y la recta:
 
 ```{r}
-sjPlot::tab_model(list(reg4, reg5), show.ci=FALSE, p.style = "stars",string.pred = "Predictores", string.est = "β",digits = 3,
-                  dv.labels = c("Modelo 4","Modelo 5"))
+#| label: fig-residuos
+#| fig-cap: "Valores observados, valores predichos y residuos (20 casos)"
+
+set.seed(2026)
+sub <- proc_data[sample(nrow(proc_data), 20), ]
+
+ggplot(sub, aes(x = edad, y = confianza_vecinos)) +
+  geom_smooth(data = proc_data, method = "lm", se = FALSE,
+              color = "#04245f", linewidth = 1.2) +
+  geom_segment(aes(xend = edad, yend = predicho),
+               color = "#c0392b", linetype = "dashed") +
+  geom_point(size = 2.5, color = "#4f97ff") +
+  labs(x = "Edad", y = "Confianza en vecinos") +
+  theme_minimal()
 ```
 
-Si observamos la tabla de arriba, vemos que las estimaciones para el modelo 4 y 5 son idénticas. La única diferencia es que en el Modelo 5 empleamos dummies para cada categoría en vez de utilizar la variable como un factor.
+# ¿Por qué "mínimos cuadrados"?
 
-# Resumen Práctica 6:
+En clases señalamos que por una misma nube de puntos pueden trazarse infinitas rectas, y que el criterio OLS selecciona aquella que minimiza la **suma de los residuos al cuadrado**. Comprobémoslo.
 
-En esta práctica revisamos los siguientes contenidos
+Primero, note que la suma de los residuos del modelo estimado es prácticamente cero, porque los residuos positivos y negativos se cancelan entre sí. Por eso no sirve como criterio:
 
-  - Repaso de regresión lineal múltiple
-  
-  - Parcialización
-  
-  - Control estadístico
-  
-  - Predictores categóricos
+```{r}
+sum(proc_data$residuo)
+```
+
+En cambio, si elevamos los residuos al cuadrado antes de sumarlos, obtenemos una cantidad que sí distingue entre rectas:
+
+```{r}
+sum(proc_data$residuo^2)
+```
+
+Ahora probemos distintos valores posibles de pendiente y calculemos, para cada uno, la suma de residuos al cuadrado:
+
+```{r}
+#| label: fig-ols
+#| fig-cap: "Suma de residuos al cuadrado según distintos valores de la pendiente"
+
+x <- proc_data$edad
+y <- proc_data$confianza_vecinos
+
+pendientes <- seq(-0.01, 0.03, by = 0.001)
+
+ssr <- sapply(pendientes, function(b1) {
+  b0 <- mean(y) - b1 * mean(x)          # el intercepto que acompaña a cada pendiente
+  sum((y - (b0 + b1 * x))^2)            # suma de residuos al cuadrado
+})
+
+resultados <- data.frame(pendiente = pendientes, ssr = ssr)
+
+ggplot(resultados, aes(x = pendiente, y = ssr)) +
+  geom_line(color = "#04245f", linewidth = 1) +
+  geom_vline(xintercept = coef(modelo)[2], color = "#c0392b", linetype = "dashed") +
+  labs(x = "Valor de la pendiente (b1)",
+       y = "Suma de residuos al cuadrado") +
+  theme_minimal()
+```
+
+La línea segmentada roja marca el valor de la pendiente estimada por `lm()`. Como se observa, coincide exactamente con el punto **más bajo** de la curva: ninguna otra recta produce una suma de residuos al cuadrado menor. Eso es, literalmente, lo que significa "mínimos cuadrados ordinarios".
+
+# Reporte de resultados
+
+Los resultados de un modelo de regresión se comunican en una tabla. La función `tab_model` de la librería `sjPlot` produce tablas con formato de publicación:
+
+```{r}
+tab_model(modelo,
+          show.ci = FALSE,
+          p.style = "stars",
+          dv.labels = c("Confianza en vecinos"),
+          pred.labels = c("(Intercepto)", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+La tabla incluye columnas que aún no hemos revisado, como los valores p y el $R^2$. Corresponden a la evaluación del ajuste y a la inferencia estadística, que son los contenidos de la próxima sesión teórica. Por ahora, concéntrese en la columna de coeficientes.
+
+# Tarea
+
+## Preparación
+
+- Cargar los paquetes y la base ELSOC, y filtrar por la ola 4 (2019)
+
+- Seleccionar las variables `c01` (satisfacción con la democracia), `m01` (educación), `m0_sexo` (sexo) y `m0_edad` (edad)
+
+- Recodificar los valores perdidos, renombrar las variables y quedarse con los casos completos
+
+## Estimación manual
+
+- Estimar a mano los coeficientes $b_0$ y $b_1$ del modelo que utiliza **educación** como variable independiente y **satisfacción con la democracia** como dependiente
+
+- Reportar las sumas intermedias (productos cruzados y diferencias al cuadrado) que utilizó en el cálculo
+
+## Estimación con `lm()`
+
+- Estimar el mismo modelo con `lm()` y verificar que los coeficientes coinciden con los del punto anterior
+
+- Escribir la ecuación resultante
+
+## Interpretación y predicción
+
+- Interpretar la pendiente en términos sustantivos, en una o dos oraciones
+
+- Evaluar si el intercepto tiene una interpretación plausible en este caso. Si no la tiene, centrar la variable independiente y volver a interpretarlo
+
+- Calcular el valor predicho de satisfacción con la democracia para los niveles educacionales 3, 6 y 9
+
+## Residuos
+
+- Calcular los residuos del modelo y elaborar un gráfico de dispersión que muestre la recta estimada
+
+- Identificar el caso con el residuo más grande en valor absoluto y comentar brevemente qué significa
+
+## Reporte
+
+- Presentar una tabla de resultados con `tab_model`
+
+- Redactar un párrafo breve (máximo 250 palabras) que reporte el modelo estimado, interprete el coeficiente de interés y señale al menos una limitación de la conclusión obtenida

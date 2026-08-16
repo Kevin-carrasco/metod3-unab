@@ -72,8 +72,8 @@ website:
               file: content/01-content.qmd
             - text: "02: Sesión 2"
               file: content/02-content.qmd
-            # - text: "03: Sesión 3"
-            #   file: content/03-content.qmd
+            - text: "03: Sesión 3"
+              file: content/03-content.qmd
             # - text: "04: Sesión 4"
             #   file: content/04-content.qmd
             # - text: "05: Sesión 5"
@@ -97,8 +97,8 @@ website:
           file: practicos/index.qmd
         - text: "Práctico 1 - Asociación"
           file: practicos/practico-01.qmd
-        # - text: "Práctico 2 - Regresión lineal múltiple"
-        #   file: practicos/practico-02.qmd
+        - text: "Práctico 2 - Regresión lineal simple"
+          file: practicos/practico-02.qmd
         # - text: "Práctico 3 - Inferencia"
         #   file: practicos/practico-03.qmd
         # - text: "Práctico 4 - Taller Quarto"
