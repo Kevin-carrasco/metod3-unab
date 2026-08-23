@@ -303,16 +303,6 @@ El intercepto es el valor esperado de confianza cuando la edad es **cero**. Aqu�
 range(proc_data$edad)
 ```
 
-Una solución habitual consiste en **centrar** la variable independiente, es decir, restarle su promedio. Así, el valor 0 pasa a representar a una persona de edad promedio:
-
-```{r}
-proc_data$edad_c <- proc_data$edad - mean(proc_data$edad)
-
-modelo_c <- lm(confianza_vecinos ~ edad_c, data = proc_data)
-coef(modelo_c)
-```
-
-Observe que la **pendiente no cambia**: centrar desplaza el origen del eje X, pero no altera la inclinación de la recta. Lo que cambia es el intercepto, que ahora corresponde a la confianza esperada de una persona con edad promedio.
 
 # Valores predichos y predicción
 
