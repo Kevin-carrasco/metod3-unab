@@ -1,6 +1,6 @@
 ---
 title: "Presentación"
-date: "2025-05-25"
+date: "2025-08-24"
 lang: es
 ---
 

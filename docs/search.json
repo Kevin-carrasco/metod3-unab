@@ -2670,5 +2670,362 @@
     "title": "Práctico 03. Bondad de ajuste e inferencia en regresión simple",
     "section": "6.5 Reporte",
     "text": "6.5 Reporte\n\nPresentar una tabla de resultados con tab_model\nRedactar un párrafo (máximo 250 palabras) que reporte el modelo siguiendo el formato revisado, es decir, indicando el coeficiente, el error estándar, el nivel de significación y el \\(R^2\\), y que distinga explícitamente entre significación estadística y relevancia sustantiva del resultado"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section",
+    "href": "slides/04-clase4/04-clase4.html#section",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para\nCiencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#dónde-quedamos",
+    "href": "slides/04-clase4/04-clase4.html#dónde-quedamos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Dónde quedamos?",
+    "text": "¿Dónde quedamos?\n\nEvaluamos el ajuste del modelo descomponiendo la varianza de \\(Y\\): \\(SS_{tot}=SS_{reg}+SS_{error}\\), y de ahí el \\(R^2\\)\nEn el ejemplo de educación e ingresos obtuvimos \\(\\widehat{Y}=200+25X\\), con un \\(R^2\\) de 0,677\nVimos inferencia: el error estándar, el estadístico \\(t\\), el valor p y los intervalos de confianza\nTodo eso, sin embargo, con una sola variable independiente"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#hoy",
+    "href": "slides/04-clase4/04-clase4.html#hoy",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Hoy",
+    "text": "Hoy\n\nLos hechos sociales son multideterminados: ¿cómo incorporamos varios predictores?\n¿Qué significa exactamente interpretar un coeficiente manteniendo constantes las demás variables?\n¿Por qué el coeficiente de una variable cambia al agregar otra al modelo?"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#hechos-sociales-multideterminados",
+    "href": "slides/04-clase4/04-clase4.html#hechos-sociales-multideterminados",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Hechos sociales multideterminados",
+    "text": "Hechos sociales multideterminados\n\n\n\n\n\nUn fenómeno social rara vez depende de un solo factor\nEl ingreso no se explica únicamente por la educación: también intervienen la experiencia, el sector económico, el origen social, entre otros\nLa regresión múltiple permite incorporar varios determinantes simultáneamente"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#de-uno-a-varios-predictores",
+    "href": "slides/04-clase4/04-clase4.html#de-uno-a-varios-predictores",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "De uno a varios predictores",
+    "text": "De uno a varios predictores\n\n\n\n\n\n\n\n\\[\\widehat{Ingreso}=b_0+b_1(Educ)\\]\n\n\n\n\n\n\n\n\\[\\widehat{Ingreso}=b_0+b_1(Educ)+b_2(Int)\\]"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#la-ecuación-de-regresión-múltiple",
+    "href": "slides/04-clase4/04-clase4.html#la-ecuación-de-regresión-múltiple",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La ecuación de regresión múltiple",
+    "text": "La ecuación de regresión múltiple\n\\[\\widehat{Y}=b_{0} + b_{1}X_{1} + b_{2}X_{2} + \\dots + b_{k}X_{k}\\]\n\n\\(b_0\\): valor esperado de \\(Y\\) cuando todas las variables independientes valen 0\n\\(b_1\\): cuánto cambia \\(Y\\) por cada unidad de \\(X_1\\), manteniendo constantes las demás variables del modelo\nGeométricamente, ya no ajustamos una recta sino un plano (con dos predictores) o un hiperplano (con más)"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-1",
+    "href": "slides/04-clase4/04-clase4.html#section-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Una advertencia sobre este resultado\n\n¿Es el arraigo lo que genera confianza?\n\n\n¿O son las personas de mayor edad, con más patrimonio o en barrios más estables las que llevan más años en el mismo lugar?\n\n\nPara responderlo necesitamos más de un predictor"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#control-estadístico",
+    "href": "slides/04-clase4/04-clase4.html#control-estadístico",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Control estadístico",
+    "text": "Control estadístico\n\nCaracterístico del análisis de datos secundarios (por ejemplo, encuestas), donde no podemos asignar aleatoriamente a las personas a distintas condiciones\nSe incluyen en el modelo variables que teóricamente podrían dar cuenta de la relación entre \\(X\\) e \\(Y\\), o afectarla\nEsto despeja o controla la asociación entre \\(X_1\\) e \\(Y\\), aislándola de aquello que comparte con \\(X_2\\) (… y \\(X_n\\))\nEs el equivalente estadístico de lo que en un experimento se logra por diseño"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#un-ejemplo",
+    "href": "slides/04-clase4/04-clase4.html#un-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Un ejemplo",
+    "text": "Un ejemplo\nTenemos datos de 200 personas con tres variables: ingreso, años de educación y un puntaje de habilidad cognitiva.\n\n\n\n\n\n\n\nVariable\nMedia\nDE\n\n\n\n\nIngreso\n690.4\n116.4\n\n\nEducación\n12.0\n3.0\n\n\nHabilidad\n50.2\n10.7\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 2"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#regresión-simple-vs-múltiple",
+    "href": "slides/04-clase4/04-clase4.html#regresión-simple-vs-múltiple",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Regresión simple vs múltiple",
+    "text": "Regresión simple vs múltiple\n\nreg_y_x1    &lt;- lm(ingreso ~ educ, data = datos)\nreg_y_x2    &lt;- lm(ingreso ~ intelig, data = datos)\nreg_y_x1_x2 &lt;- lm(ingreso ~ educ + intelig, data = datos)\n\n\n\n\n \nModelo 1\nModelo 2\nModelo 3\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercept)\n338.80 ***\n22.99\n257.41 ***\n23.92\n222.38 ***\n22.08\n\n\neduc\n29.21 ***\n1.85\n\n\n14.61 ***\n2.10\n\n\nintelig\n\n\n8.63 ***\n0.47\n5.82 ***\n0.58\n\n\nObservations\n200\n200\n200\n\n\nR2 / R2 adjusted\n0.556 / 0.554\n0.634 / 0.632\n0.706 / 0.703\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#qué-le-pasó-al-coeficiente",
+    "href": "slides/04-clase4/04-clase4.html#qué-le-pasó-al-coeficiente",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Qué le pasó al coeficiente?",
+    "text": "¿Qué le pasó al coeficiente?\n\nEn el modelo simple, el coeficiente de educación es 29.21\nAl agregar habilidad cognitiva, baja a 14.61\nNo es un error: son dos cantidades que responden a preguntas distintas\n\nModelo 1: ¿cuánto difiere el ingreso entre personas con distinta educación?\nModelo 3: ¿cuánto difiere el ingreso entre personas con distinta educación pero igual habilidad cognitiva?"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-2",
+    "href": "slides/04-clase4/04-clase4.html#section-2",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "INTERPRETACIÓN\nPor cada unidad que aumenta \\(X_1\\), \\(Y\\) aumenta en \\(b_1\\)\nmanteniendo constantes las demás variables del modelo"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#cómo-se-despeja",
+    "href": "slides/04-clase4/04-clase4.html#cómo-se-despeja",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Cómo se despeja?",
+    "text": "¿Cómo se despeja?\n¿Cómo se despeja la regresión de \\(Y\\) en \\(X_1\\) del efecto de \\(X_2\\)?"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#la-idea",
+    "href": "slides/04-clase4/04-clase4.html#la-idea",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La idea",
+    "text": "La idea\n\n\n\n\n\n\\(X_1\\) parcializada de \\(X_2\\) es todo lo de \\(X_1\\) que no tiene que ver con \\(X_2\\)\nEn otras palabras: en un modelo donde \\(X_1\\) es la variable dependiente y \\(X_2\\) la independiente, \\(X_1\\) parcializada equivale al residuo de esa regresión"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#parcialización-paso-a-paso",
+    "href": "slides/04-clase4/04-clase4.html#parcialización-paso-a-paso",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Parcialización paso a paso",
+    "text": "Parcialización paso a paso\nPaso 1. Predecimos educación a partir de habilidad cognitiva:\n\naux &lt;- lm(educ ~ intelig, data = datos)\n\n\nPaso 2. Guardamos los residuos: lo que la habilidad no explica de la educación\n\ndatos$educ_parcializada &lt;- residuals(aux)"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#parcialización-paso-a-paso-1",
+    "href": "slides/04-clase4/04-clase4.html#parcialización-paso-a-paso-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Parcialización paso a paso",
+    "text": "Parcialización paso a paso\nPaso 3. Estimamos el ingreso a partir de esa educación parcializada:\n\nreg_parcial &lt;- lm(ingreso ~ educ_parcializada, data = datos)\n\ncoef(reg_parcial)[2]\n#&gt; educ_parcializada \n#&gt;          14.60567\n\n\nY lo comparamos con el coeficiente de educación en el modelo múltiple:\n\ncoef(reg_y_x1_x2)[2]\n#&gt;     educ \n#&gt; 14.60567"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-3",
+    "href": "slides/04-clase4/04-clase4.html#section-3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "El coeficiente de un predictor depende de qué otras variables están en el modelo\n\nPor eso nunca se interpreta un \\(\\beta\\) sin decir qué se está controlando"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-4",
+    "href": "slides/04-clase4/04-clase4.html#section-4",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Son el mismo número\nLa regresión múltiple parcializa automáticamente cada predictor respecto de todos los demás"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#variable-omitida",
+    "href": "slides/04-clase4/04-clase4.html#variable-omitida",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Variable omitida",
+    "text": "Variable omitida\n\nSi una variable relevante queda fuera del modelo, y está correlacionada con nuestro predictor, el coeficiente estimado recoge también parte de ese efecto\nEn el ejemplo: el modelo 1 atribuía a la educación algo que en realidad correspondía a la habilidad cognitiva\nPor eso el modelo 1 no está “mal calculado”: está mal especificado respecto de la pregunta que queremos responder"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#qué-variables-controlar",
+    "href": "slides/04-clase4/04-clase4.html#qué-variables-controlar",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Qué variables controlar?",
+    "text": "¿Qué variables controlar?\n\nLa decisión es teórica, no estadística: se controla por aquello que la literatura señala como determinante común de \\(X\\) e \\(Y\\)\nAgregar predictores solo porque están disponibles no mejora el modelo; puede incluso distorsionarlo\nUn caso a evitar: controlar por una variable que es consecuencia de \\(X\\), porque eso elimina justamente el efecto que se quiere estimar"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#ajuste-en-regresión-múltiple",
+    "href": "slides/04-clase4/04-clase4.html#ajuste-en-regresión-múltiple",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ajuste en regresión múltiple",
+    "text": "Ajuste en regresión múltiple\n\nEl \\(R^2\\) se interpreta igual que antes: la proporción de la varianza de \\(Y\\) asociada al conjunto de predictores\nProblema: el \\(R^2\\) nunca disminuye al agregar variables, aunque sean irrelevantes\nPor eso se utiliza el \\(R^2\\) ajustado, que penaliza la incorporación de predictores adicionales:\n\n\\[R^2_{aj} = 1-(1-R^2)\\frac{N-1}{N-k-1}\\]"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#ajuste-en-nuestro-ejemplo",
+    "href": "slides/04-clase4/04-clase4.html#ajuste-en-nuestro-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ajuste en nuestro ejemplo",
+    "text": "Ajuste en nuestro ejemplo\n\n\n\n\n\nModelo\nR²\nR² ajustado\n\n\n\n\n1. Solo educación\n0.556\n0.554\n\n\n2. Solo habilidad\n0.634\n0.632\n\n\n3. Ambas\n0.706\n0.703\n\n\n\n\n\n\nAl momento de comparar modelos con distinto número de predictores, corresponde basarse en el \\(R^2\\) ajustado"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#un-límite-la-colinealidad",
+    "href": "slides/04-clase4/04-clase4.html#un-límite-la-colinealidad",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Un límite: la colinealidad",
+    "text": "Un límite: la colinealidad\n\nLa parcialización funciona porque los predictores no son idénticos entre sí\nSi dos variables están muy correlacionadas, queda poca varianza propia en cada una una vez parcializada\nLa consecuencia es un aumento del error estándar: los coeficientes se vuelven inestables e imprecisos\nVolveremos sobre esto en la unidad de supuestos del modelo"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-5",
+    "href": "slides/04-clase4/04-clase4.html#section-5",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "RESUMEN\n\nSi hay correlación entre predictores, el valor de los coeficientes será distinto en modelos simples y en modelos múltiples\nEsa diferencia se relaciona con el concepto de parcialización: se extrae la varianza común entre predictores\nLa parcialización permite el control estadístico: despejar el efecto de una variable de la influencia de otras"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#para-la-próxima-sesión",
+    "href": "slides/04-clase4/04-clase4.html#para-la-próxima-sesión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Para la próxima sesión",
+    "text": "Para la próxima sesión\n\nWooldridge, Introducción a la econometría: sección 3.1\nLa próxima clase: interpretación y estandarización de coeficientes, y reporte de resultados en tablas de regresión"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-6",
+    "href": "slides/04-clase4/04-clase4.html#section-6",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Un 72.5% de las personas se ubica entre los peldaños 3 y 5\n\nEn el país más desigual de la OCDE"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#antes-de-avanzar-practiquemos",
+    "href": "slides/04-clase4/04-clase4.html#antes-de-avanzar-practiquemos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Antes de avanzar, practiquemos",
+    "text": "Antes de avanzar, practiquemos\n\nAntes de agregar predictores, conviene tener firme el procedimiento con uno solo\nRecordemos las fórmulas:\n\n\\[b_{1}=\\frac{\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum_{i=1}^{n}(x_i - \\bar{x})^2} \\qquad b_{0}=\\bar{Y}-b_{1}\\bar{X}\\]\n\nUn ejemplo nuevo: ¿se relaciona el tiempo de residencia en el barrio con la confianza en los vecinos?"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#ejercicio-arraigo-territorial-y-confianza",
+    "href": "slides/04-clase4/04-clase4.html#ejercicio-arraigo-territorial-y-confianza",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ejercicio: arraigo territorial y confianza",
+    "text": "Ejercicio: arraigo territorial y confianza\n\\(X\\): años de residencia en el barrio. \\(Y\\): índice de confianza en vecinos (0 a 100)\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaso\nX (años de residencia)\nY (índice de confianza)\nX - X̄\nY - Ȳ\n(X - X̄)(Y - Ȳ)\n(X - X̄)²\n\n\n\n\nCaso 1\n0\n33\n\n\n\n\n\n\nCaso 2\n2\n31\n\n\n\n\n\n\nCaso 3\n4\n38\n\n\n\n\n\n\nCaso 4\n6\n42\n\n\n\n\n\n\nCaso 5\n8\n43\n\n\n\n\n\n\nCaso 6\n10\n53\n\n\n\n\n\n\nPromedios / Sumas\nX̄ =\nȲ =\n\n\nΣ =\nΣ ="
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#ejercicio-paso-1-los-promedios",
+    "href": "slides/04-clase4/04-clase4.html#ejercicio-paso-1-los-promedios",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ejercicio: paso 1, los promedios",
+    "text": "Ejercicio: paso 1, los promedios\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaso\nX (años de residencia)\nY (índice de confianza)\nX - X̄\nY - Ȳ\n(X - X̄)(Y - Ȳ)\n(X - X̄)²\n\n\n\n\nCaso 1\n0\n33\n-5\n-7\n\n\n\n\nCaso 2\n2\n31\n-3\n-9\n\n\n\n\nCaso 3\n4\n38\n-1\n-2\n\n\n\n\nCaso 4\n6\n42\n1\n2\n\n\n\n\nCaso 5\n8\n43\n3\n3\n\n\n\n\nCaso 6\n10\n53\n5\n13\n\n\n\n\nPromedios / Sumas\nX̄ = 5\nȲ = 40\n\n\nΣ =\nΣ =\n\n\n\n\n\nVerificación útil: las columnas de diferencias siempre suman cero"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#ejercicio-paso-2-los-productos",
+    "href": "slides/04-clase4/04-clase4.html#ejercicio-paso-2-los-productos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ejercicio: paso 2, los productos",
+    "text": "Ejercicio: paso 2, los productos\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaso\nX (años de residencia)\nY (índice de confianza)\nX - X̄\nY - Ȳ\n(X - X̄)(Y - Ȳ)\n(X - X̄)²\n\n\n\n\nCaso 1\n0\n33\n-5\n-7\n35\n25\n\n\nCaso 2\n2\n31\n-3\n-9\n27\n9\n\n\nCaso 3\n4\n38\n-1\n-2\n2\n1\n\n\nCaso 4\n6\n42\n1\n2\n2\n1\n\n\nCaso 5\n8\n43\n3\n3\n9\n9\n\n\nCaso 6\n10\n53\n5\n13\n65\n25\n\n\nPromedios / Sumas\nX̄ = 5\nȲ = 40\n\n\nΣ = 140\nΣ = 70"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#ejercicio-paso-3-los-coeficientes",
+    "href": "slides/04-clase4/04-clase4.html#ejercicio-paso-3-los-coeficientes",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ejercicio: paso 3, los coeficientes",
+    "text": "Ejercicio: paso 3, los coeficientes\n\\[b_{1}=\\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})} {\\sum(x_i - \\bar{x})^2}=\\frac{140} {70}=2\\]\n\n\\[b_{0}=\\bar{Y}-b_{1}\\bar{X} = 40-(2 \\times 5)=30\\]\n\\[\\widehat{Y}=30+2X\\]"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#ejercicio-interpretación",
+    "href": "slides/04-clase4/04-clase4.html#ejercicio-interpretación",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ejercicio: interpretación",
+    "text": "Ejercicio: interpretación\n\n\n\nPendiente: por cada año adicional de residencia en el barrio, el índice de confianza aumenta 2 puntos\nIntercepto: quien acaba de llegar al barrio tiene un índice esperado de 30 puntos\nAquí el intercepto sí es interpretable, porque \\(X=0\\) corresponde a un caso posible\n\n\n\n\n\n\n\n\n\n\nFigure 1"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#ejercicio-comprobación-en-r",
+    "href": "slides/04-clase4/04-clase4.html#ejercicio-comprobación-en-r",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ejercicio: comprobación en R",
+    "text": "Ejercicio: comprobación en R\n\nmodelo_barrio &lt;- lm(confianza ~ residencia, data = barrio)\ncoef(modelo_barrio)\n#&gt; (Intercept)  residencia \n#&gt;          30           2\n\n\n\nsummary(modelo_barrio)$r.squared\n#&gt; [1] 0.8860759\n\nUn 88,6% de la varianza del índice de confianza se asocia al tiempo de residencia"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#el-punto-de-partida",
+    "href": "slides/04-clase4/04-clase4.html#el-punto-de-partida",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El punto de partida",
+    "text": "El punto de partida\n\nChile es uno de los países con mayor concentración del ingreso del mundo\nCabría esperar, entonces, que las personas se ubicaran de forma dispersa al describir su propia posición social\nLa evidencia internacional muestra lo contrario: una fuerte tendencia a situarse en el medio"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#un-hallazgo-conocido",
+    "href": "slides/04-clase4/04-clase4.html#un-hallazgo-conocido",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Un hallazgo conocido",
+    "text": "Un hallazgo conocido\n\n\n\nCastillo, Miranda y Madero-Cabib (2013), Todos somos de clase media: sobre el estatus social subjetivo en Chile, Latin American Research Review, 48(1)\nDocumentan una distorsión sistemática entre el estatus objetivo (educación, ingreso, ocupación) y el estatus subjetivo (dónde cree la persona que está)\n\n\n\n¿Se replica ese patrón en ELSOC?\n¿Cuánto pesan la educación y el ingreso en la posición que las personas se atribuyen?"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#los-datos",
+    "href": "slides/04-clase4/04-clase4.html#los-datos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Los datos",
+    "text": "Los datos\nELSOC 2016 (primera ola), 2301 casos con información completa\n\nelsoc &lt;- elsoc_long_2016_2022.2 %&gt;%\n  filter(ola == 1) %&gt;%\n  select(d01_01, m01, m29, m0_edad) %&gt;%\n  set_na(., na = c(-999, -888, -777, -666)) %&gt;%\n  rename(\"estatus\" = d01_01, \"educacion\" = m01,\n         \"ingreso\" = m29, \"edad\" = m0_edad) %&gt;%\n  na.omit() %&gt;%\n  filter(ingreso &gt;= 50000, ingreso &lt;= 5000000) %&gt;%\n  mutate(ing100 = ingreso / 100000)\n\n\nEl filtro de ingreso descarta valores implausibles producto de errores de registro. El ingreso se expresa en cientos de miles de pesos para que el coeficiente sea legible"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#la-variable-dependiente",
+    "href": "slides/04-clase4/04-clase4.html#la-variable-dependiente",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La variable dependiente",
+    "text": "La variable dependiente\n“Imagine una escalera donde 0 es el nivel más bajo de la sociedad y 10 el más alto. ¿En qué peldaño se ubicaría usted?”\n\n\nFigure 3"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#descriptivos",
+    "href": "slides/04-clase4/04-clase4.html#descriptivos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Descriptivos",
+    "text": "Descriptivos\n\n\n\n\n\nVariable\nMedia\nDE\n\n\n\n\nEstatus subjetivo (0-10)\n4.33\n1.53\n\n\nNivel educacional (1-10)\n5.16\n2.18\n\n\nIngreso del hogar (cientos de miles)\n5.88\n5.58\n\n\nEdad\n46.07\n15.14"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#antes-de-estimar-las-correlaciones",
+    "href": "slides/04-clase4/04-clase4.html#antes-de-estimar-las-correlaciones",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Antes de estimar: las correlaciones",
+    "text": "Antes de estimar: las correlaciones\n\n\n\n\n\n\nestatus\neducacion\ning100\nedad\n\n\n\n\nestatus\n1.000\n0.291\n0.275\n-0.047\n\n\neducacion\n0.291\n1.000\n0.471\n-0.354\n\n\ning100\n0.275\n0.471\n1.000\n-0.158\n\n\nedad\n-0.047\n-0.354\n-0.158\n1.000\n\n\n\n\n\n\nDos cosas para retener: educación e ingreso se correlacionan positivamente entre sí (0.471), mientras que educación y edad lo hacen de forma negativa (-0.354)"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#los-modelos",
+    "href": "slides/04-clase4/04-clase4.html#los-modelos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Los modelos",
+    "text": "Los modelos\n\ne1 &lt;- lm(estatus ~ educacion, data = elsoc)\ne2 &lt;- lm(estatus ~ educacion + ing100, data = elsoc)\ne3 &lt;- lm(estatus ~ educacion + ing100 + edad, data = elsoc)\n\n\n\n\n \nModelo 1\nModelo 2\nModelo 3\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercepto)\n3.273 ***\n0.078\n3.290 ***\n0.077\n2.922 ***\n0.146\n\n\nNivel educacional\n0.204 ***\n0.014\n0.145 ***\n0.016\n0.161 ***\n0.016\n\n\nIngreso (cientos de miles)\n\n\n0.049 ***\n0.006\n0.048 ***\n0.006\n\n\nEdad\n\n\n\n\n0.006 **\n0.002\n\n\nObservations\n2301\n2301\n2301\n\n\nR2 / R2 adjusted\n0.085 / 0.084\n0.109 / 0.108\n0.113 / 0.111\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#primer-movimiento-agregar-ingreso",
+    "href": "slides/04-clase4/04-clase4.html#primer-movimiento-agregar-ingreso",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Primer movimiento: agregar ingreso",
+    "text": "Primer movimiento: agregar ingreso\n\nEducación, sola: 0.204\nEducación, controlando por ingreso: 0.145\nEl coeficiente cae cerca de un 30%\nLa razón es la correlación entre ambos predictores (0.471): parte de lo que el modelo 1 atribuía a la educación correspondía en realidad al ingreso que la acompaña"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#segundo-movimiento-agregar-edad",
+    "href": "slides/04-clase4/04-clase4.html#segundo-movimiento-agregar-edad",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Segundo movimiento: agregar edad",
+    "text": "Segundo movimiento: agregar edad\n\nEducación, controlando por ingreso: 0.145\nEducación, controlando además por edad: 0.161\nAhora el coeficiente sube\nEducación y edad se correlacionan negativamente (-0.354): las generaciones mayores alcanzaron menos años de escolaridad"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-7",
+    "href": "slides/04-clase4/04-clase4.html#section-7",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Un mismo modelo muestra los dos comportamientos\nAgregar ingreso redujo el coeficiente de educación\nAgregar edad lo aumentó"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#el-caso-más-llamativo-la-edad",
+    "href": "slides/04-clase4/04-clase4.html#el-caso-más-llamativo-la-edad",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El caso más llamativo: la edad",
+    "text": "El caso más llamativo: la edad\nEstimada por sí sola, la edad se asocia negativamente con el estatus subjetivo:\n\ncoef(lm(estatus ~ edad, data = elsoc))[2]\n#&gt;         edad \n#&gt; -0.004760002\n\n\nPero en el modelo completo el signo se invierte:\n\ncoef(e3)[4]\n#&gt;        edad \n#&gt; 0.006267146"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#cómo-se-explica-la-inversión",
+    "href": "slides/04-clase4/04-clase4.html#cómo-se-explica-la-inversión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Cómo se explica la inversión?",
+    "text": "¿Cómo se explica la inversión?\n\nLas personas mayores tienen, en promedio, menor nivel educacional\nComo la educación eleva el estatus subjetivo, la comparación bruta entre personas de distinta edad mezcla dos efectos opuestos\nAl comparar personas con la misma educación y el mismo ingreso, las de mayor edad se ubican más arriba en la escalera\nLa asociación negativa bivariada era, en rigor, un artefacto de la composición educativa de las generaciones"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#interpretación-de-los-tres-coeficientes",
+    "href": "slides/04-clase4/04-clase4.html#interpretación-de-los-tres-coeficientes",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Interpretación de los tres coeficientes",
+    "text": "Interpretación de los tres coeficientes\n\nEducación (0.161): por cada nivel educacional adicional, el estatus subjetivo aumenta en 0.161 puntos, a igual ingreso y edad\nIngreso (0.048): por cada cien mil pesos adicionales de ingreso del hogar, el estatus aumenta 0.048 puntos, a igual educación y edad\nEdad (0.0063): por cada año adicional, el estatus aumenta 0.0063 puntos, a igual educación e ingreso"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#son-efectos-grandes",
+    "href": "slides/04-clase4/04-clase4.html#son-efectos-grandes",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Son efectos grandes?",
+    "text": "¿Son efectos grandes?\n\nPasar de un ingreso de 450 mil a uno de un millón (cinco unidades y media) implica subir apenas 0,27 puntos en una escala de 0 a 10\nEl modelo completo explica un 11.3% de la varianza del estatus subjetivo\nEs decir: la posición objetiva predice muy poco la posición que las personas se atribuyen\nEse resultado no es una debilidad del modelo: es el hallazgo"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#cómo-se-reporta",
+    "href": "slides/04-clase4/04-clase4.html#cómo-se-reporta",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Cómo se reporta",
+    "text": "Cómo se reporta\n\n\nSe estimaron tres modelos de regresión lineal sobre el estatus social subjetivo, medido en una escala de 0 a 10, con datos de la primera ola de ELSOC (2016; N = 2301). El nivel educacional presenta una asociación positiva y significativa en las tres especificaciones, aunque su magnitud disminuye al controlar por ingreso del hogar (de 0.204 a 0.145), lo que resulta consistente con la correlación entre ambos predictores (r = 0.471). La edad, que estimada de forma bivariada muestra una asociación negativa (-0.0048), invierte su signo al incorporar los controles (0.0063; p &lt; 0,01): a igual nivel educacional e ingreso, las personas mayores se ubican más arriba en la escalera social. El conjunto de predictores explica un 11.3% de la varianza, cifra baja que resulta coherente con la literatura sobre la desconexión entre estatus objetivo y subjetivo en contextos de alta desigualdad."
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#lo-que-enseña-este-ejemplo",
+    "href": "slides/04-clase4/04-clase4.html#lo-que-enseña-este-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Lo que enseña este ejemplo",
+    "text": "Lo que enseña este ejemplo\n\nEl coeficiente de un predictor cambia según qué otras variables acompañen al modelo, y ese cambio es en sí mismo un resultado interpretable\nLos controles pueden reducir un coeficiente, aumentarlo, o incluso invertir su signo\nLa dirección del cambio se anticipa mirando las correlaciones entre predictores antes de estimar\nUn \\(R^2\\) bajo puede ser precisamente el punto sustantivo del artículo"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-8",
+    "href": "slides/04-clase4/04-clase4.html#section-8",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Hasta ahora deberíamos saber\n\nLa regresión múltiple incorpora varios predictores simultáneamente\nCada \\(\\beta\\) se interpreta manteniendo constantes las demás variables del modelo\nEsto es posible porque el modelo parcializa cada predictor respecto de los otros\nPor eso los coeficientes cambian entre modelos, y siempre debe explicitarse qué se está controlando"
+  },
+  {
+    "objectID": "slides/04-clase4/04-clase4.html#section-9",
+    "href": "slides/04-clase4/04-clase4.html#section-9",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
   }
 ]

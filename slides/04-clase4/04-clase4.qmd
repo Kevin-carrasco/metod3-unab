@@ -1,0 +1,982 @@
+---
+pagetitle: Métodos estadísticos para Ciencias Sociales III
+author: Kevin Carrasco
+#bibliography: ../../input/bib/soci133.bib
+#csl: ../../input/bib/apa7-singlespace.csl
+
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    R.options:
+      knitr.graphics.auto_pdf: true
+
+format:
+  revealjs:
+    logo: images/icon-512.png
+    slide-number: true
+    theme: presentaciones
+    navigationMode: linear
+    transition: fade
+    title-slide-attributes:
+      visibility: false
+    auto-play-media: true
+
+
+editor:
+  render-on-save: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(ggplot2)
+library(knitr)
+library(sjPlot)
+
+azul <- "#04245f"
+azul_claro <- "#4f97ff"
+rojo <- "#c0392b"
+
+theme_set(theme_minimal(base_size = 16))
+
+set.seed(2026)
+n <- 200
+educ <- round(rnorm(n, mean = 12, sd = 3))
+intelig <- round(50 + 2.5 * (educ - 12) + rnorm(n, mean = 0, sd = 8))
+ingreso <- round(200 + 15 * educ + 6 * intelig + rnorm(n, mean = 0, sd = 60))
+
+datos <- data.frame(ingreso, educ, intelig)
+
+reg_y_x1 <- lm(ingreso ~ educ, data = datos)
+reg_y_x2 <- lm(ingreso ~ intelig, data = datos)
+reg_y_x1_x2 <- lm(ingreso ~ educ + intelig, data = datos)
+
+b_simple <- round(coef(reg_y_x1)[2], 2)
+b_multiple <- round(coef(reg_y_x1_x2)[2], 2)
+r_x1x2 <- round(cor(datos$educ, datos$intelig), 2)
+
+# --- Ejemplo de investigación: estatus social subjetivo (ELSOC 2016) ---
+library(dplyr)
+library(sjmisc)
+
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
+
+elsoc <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(d01_01, m01, m29, m0_edad) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("estatus" = d01_01,
+         "educacion" = m01,
+         "ingreso" = m29,
+         "edad" = m0_edad) %>%
+  na.omit() %>%
+  filter(ingreso >= 50000, ingreso <= 5000000) %>%
+  mutate(ing100 = ingreso / 100000)
+
+e0 <- lm(estatus ~ edad, data = elsoc)
+e1 <- lm(estatus ~ educacion, data = elsoc)
+e2 <- lm(estatus ~ educacion + ing100, data = elsoc)
+e3 <- lm(estatus ~ educacion + ing100 + edad, data = elsoc)
+
+b_ed1 <- round(coef(e1)[2], 3)
+b_ed2 <- round(coef(e2)[2], 3)
+b_ed3 <- round(coef(e3)[2], 3)
+b_in2 <- round(coef(e2)[3], 3)
+b_in3 <- round(coef(e3)[3], 3)
+b_ea0 <- round(coef(e0)[2], 4)
+b_ea3 <- round(coef(e3)[4], 4)
+
+r_ed_in <- round(cor(elsoc$educacion, elsoc$ing100), 3)
+r_ed_ea <- round(cor(elsoc$educacion, elsoc$edad), 3)
+n_elsoc <- nrow(elsoc)
+pct_medio <- round(mean(elsoc$estatus >= 3 & elsoc$estatus <= 5) * 100, 1)
+r2_e3 <- round(summary(e3)$r.squared * 100, 1)
+```
+
+##  {data-background-color="black"}
+
+::: {.columns .v-center-container}
+::: {.column width="20%"}
+![](../../files/img/eval-hires.png){width="100%" fig-align="center"}
+:::
+
+::: {.column width="80%"}
+### Métodos estadísticos para 
+### Ciencias Sociales III
+
+------------------------------------------------------------------------
+
+### **Kevin Carrasco**
+### Sociología - UNAB
+### 2do Sem 2026
+### [https://metod3-unab.netlify.app/](https://metod3-unab.netlify.app/)
+:::
+:::
+
+# Sesión 4 {data-background-color="black"}
+
+Repaso sesión anterior
+
+Regresión múltiple
+
+Parcialización y control estadístico
+
+## ¿Dónde quedamos?
+
+::: {.incremental}
+
+- Evaluamos el **ajuste** del modelo descomponiendo la varianza de $Y$: $SS_{tot}=SS_{reg}+SS_{error}$, y de ahí el $R^2$
+
+- En el ejemplo de educación e ingresos obtuvimos $\widehat{Y}=200+25X$, con un $R^2$ de 0,677
+
+- Vimos **inferencia**: el error estándar, el estadístico $t$, el valor p y los intervalos de confianza
+
+- Todo eso, sin embargo, con **una sola** variable independiente
+
+:::
+
+## Hoy
+
+::: {.incremental}
+
+- Los hechos sociales son multideterminados: ¿cómo incorporamos **varios** predictores?
+
+- ¿Qué significa exactamente interpretar un coeficiente *manteniendo constantes las demás variables*?
+
+- ¿Por qué el coeficiente de una variable **cambia** al agregar otra al modelo?
+
+:::
+
+# Repaso: estimación de coeficientes {data-background-color="black"}
+
+## Antes de avanzar, practiquemos
+
+::: {.incremental}
+
+- Antes de agregar predictores, conviene tener firme el procedimiento con **uno solo**
+
+- Recordemos las fórmulas:
+
+$$b_{1}=\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})} {\sum_{i=1}^{n}(x_i - \bar{x})^2} \qquad b_{0}=\bar{Y}-b_{1}\bar{X}$$
+
+- Un ejemplo nuevo: ¿se relaciona el **tiempo de residencia en el barrio** con la **confianza en los vecinos**?
+
+:::
+
+## Ejercicio: arraigo territorial y confianza
+
+$X$: años de residencia en el barrio. $Y$: índice de confianza en vecinos (0 a 100)
+
+::: {.small}
+
+| Caso | X (años de residencia) | Y (índice de confianza) | X - X̄ | Y - Ȳ | (X - X̄)(Y - Ȳ) | (X - X̄)² |
+|---|---|---|---|---|---|---|
+| Caso 1 | 0 | 33 | | | | |
+| Caso 2 | 2 | 31 | | | | |
+| Caso 3 | 4 | 38 | | | | |
+| Caso 4 | 6 | 42 | | | | |
+| Caso 5 | 8 | 43 | | | | |
+| Caso 6 | 10 | 53 | | | | |
+| **Promedios / Sumas** | **X̄ =** | **Ȳ =** | | | **Σ =** | **Σ =** |
+
+:::
+
+## Ejercicio: paso 1, los promedios
+
+::: {.small}
+
+| Caso | X (años de residencia) | Y (índice de confianza) | X - X̄ | Y - Ȳ | (X - X̄)(Y - Ȳ) | (X - X̄)² |
+|---|---|---|---|---|---|---|
+| Caso 1 | 0 | 33 | -5 | -7 | | |
+| Caso 2 | 2 | 31 | -3 | -9 | | |
+| Caso 3 | 4 | 38 | -1 | -2 | | |
+| Caso 4 | 6 | 42 | 1 | 2 | | |
+| Caso 5 | 8 | 43 | 3 | 3 | | |
+| Caso 6 | 10 | 53 | 5 | 13 | | |
+| **Promedios / Sumas** | **X̄ = 5** | **Ȳ = 40** | | | **Σ =** | **Σ =** |
+
+:::
+
+::: {.small}
+Verificación útil: las columnas de diferencias siempre suman cero
+:::
+
+## Ejercicio: paso 2, los productos
+
+::: {.small}
+
+| Caso | X (años de residencia) | Y (índice de confianza) | X - X̄ | Y - Ȳ | (X - X̄)(Y - Ȳ) | (X - X̄)² |
+|---|---|---|---|---|---|---|
+| Caso 1 | 0 | 33 | -5 | -7 | 35 | 25 |
+| Caso 2 | 2 | 31 | -3 | -9 | 27 | 9 |
+| Caso 3 | 4 | 38 | -1 | -2 | 2 | 1 |
+| Caso 4 | 6 | 42 | 1 | 2 | 2 | 1 |
+| Caso 5 | 8 | 43 | 3 | 3 | 9 | 9 |
+| Caso 6 | 10 | 53 | 5 | 13 | 65 | 25 |
+| **Promedios / Sumas** | **X̄ = 5** | **Ȳ = 40** | | | **Σ = 140** | **Σ = 70** |
+
+:::
+
+## Ejercicio: paso 3, los coeficientes
+
+$$b_{1}=\frac{\sum(x_i - \bar{x})(y_i - \bar{y})} {\sum(x_i - \bar{x})^2}=\frac{140} {70}=2$$
+
+::: {.fragment .fade-up}
+
+$$b_{0}=\bar{Y}-b_{1}\bar{X} = 40-(2 \times 5)=30$$
+
+$$\widehat{Y}=30+2X$$
+
+:::
+
+## Ejercicio: interpretación
+
+::: {.columns}
+::: {.column width="45%"}
+
+::: {.incremental}
+
+- **Pendiente**: por cada año adicional de residencia en el barrio, el índice de confianza aumenta 2 puntos
+
+- **Intercepto**: quien acaba de llegar al barrio tiene un índice esperado de 30 puntos
+
+- Aquí el intercepto **sí** es interpretable, porque $X=0$ corresponde a un caso posible
+
+:::
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: fig-arraigo
+#| echo: false
+#| fig-width: 6
+#| fig-height: 5
+
+barrio <- data.frame(
+  residencia = c(0, 2, 4, 6, 8, 10),
+  confianza  = c(33, 31, 38, 42, 43, 53)
+)
+
+ggplot(barrio, aes(x = residencia, y = confianza)) +
+  geom_point(size = 3, color = azul_claro) +
+  geom_smooth(method = "lm", se = FALSE, color = azul, linewidth = 1.2) +
+  scale_x_continuous(breaks = seq(0, 10, 2)) +
+  labs(x = "Años de residencia", y = "Índice de confianza")
+```
+
+:::
+:::
+
+## Ejercicio: comprobación en R
+
+```{r}
+#| label: comprobacion
+#| echo: true
+
+modelo_barrio <- lm(confianza ~ residencia, data = barrio)
+coef(modelo_barrio)
+```
+
+::: {.fragment .fade-up}
+
+```{r}
+#| label: r2-barrio
+#| echo: true
+
+summary(modelo_barrio)$r.squared
+```
+
+Un 88,6% de la varianza del índice de confianza se asocia al tiempo de residencia
+
+:::
+
+##  {data-background-color="black"}
+
+### Una advertencia sobre este resultado
+
+::: {.fragment .fade-up}
+
+### ¿Es el arraigo lo que genera confianza?
+
+:::
+
+::: {.fragment .fade-up}
+
+### ¿O son las personas de mayor edad, con más patrimonio o en barrios más estables las que llevan más años en el mismo lugar?
+
+:::
+
+::: {.fragment .fade-up}
+
+### Para responderlo necesitamos **más de un predictor**
+
+:::
+
+# Regresión múltiple {data-background-color="black"}
+
+## Hechos sociales multideterminados
+
+::: {.columns}
+::: {.column width="50%"}
+
+![](../../files/img/regmod3.png){width="100%"}
+
+:::
+::: {.column width="50%"}
+
+- Un fenómeno social rara vez depende de un solo factor
+
+- El ingreso no se explica únicamente por la educación: también intervienen la experiencia, el sector económico, el origen social, entre otros
+
+- La regresión múltiple permite incorporar varios determinantes **simultáneamente**
+
+:::
+:::
+
+## De uno a varios predictores
+
+::: {.columns}
+::: {.column width="50%"}
+
+![](../../files/img/ingresoeduc.png){width="70%" fig-align="center"}
+
+$$\widehat{Ingreso}=b_0+b_1(Educ)$$
+
+:::
+::: {.column width="50%"}
+
+::: {.fragment .fade-up}
+
+![](../../files/img/ingresoeducexp.png){width="70%" fig-align="center"}
+
+$$\widehat{Ingreso}=b_0+b_1(Educ)+b_2(Int)$$
+
+:::
+
+:::
+:::
+
+## La ecuación de regresión múltiple
+
+$$\widehat{Y}=b_{0} + b_{1}X_{1} + b_{2}X_{2} + \dots + b_{k}X_{k}$$
+
+::: {.incremental}
+
+- $b_0$: valor esperado de $Y$ cuando **todas** las variables independientes valen 0
+
+- $b_1$: cuánto cambia $Y$ por cada unidad de $X_1$, **manteniendo constantes** las demás variables del modelo
+
+- Geométricamente, ya no ajustamos una recta sino un **plano** (con dos predictores) o un hiperplano (con más)
+
+:::
+
+##  {data-background-color="black"}
+
+### INTERPRETACIÓN
+
+### Por cada unidad que aumenta $X_1$, $Y$ aumenta en $b_1$
+
+### *manteniendo constantes las demás variables del modelo*
+
+## Control estadístico
+
+::: {.incremental}
+
+- Característico del análisis de datos secundarios (por ejemplo, encuestas), donde no podemos asignar aleatoriamente a las personas a distintas condiciones
+
+- Se incluyen en el modelo variables que teóricamente podrían dar cuenta de la relación entre $X$ e $Y$, o afectarla
+
+- Esto despeja o **controla** la asociación entre $X_1$ e $Y$, aislándola de aquello que comparte con $X_2$ (... y $X_n$)
+
+- Es el equivalente estadístico de lo que en un experimento se logra por diseño
+
+:::
+
+## Un ejemplo
+
+Tenemos datos de `r n` personas con tres variables: ingreso, años de educación y un puntaje de habilidad cognitiva.
+
+::: {.columns}
+::: {.column width="45%"}
+
+```{r}
+#| label: descriptivos
+#| echo: false
+
+kable(data.frame(
+  Variable = c("Ingreso", "Educación", "Habilidad"),
+  Media = c(mean(datos$ingreso), mean(datos$educ), mean(datos$intelig)),
+  DE = c(sd(datos$ingreso), sd(datos$educ), sd(datos$intelig))
+), digits = 1)
+```
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: fig-cor
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+
+ggplot(datos, aes(x = educ, y = intelig)) +
+  geom_point(color = azul_claro, alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = FALSE, color = azul) +
+  labs(x = "Años de educación", y = "Habilidad cognitiva",
+       subtitle = paste("Correlación entre predictores:", r_x1x2))
+```
+
+:::
+:::
+
+## Regresión simple vs múltiple
+
+```{r}
+#| label: tres-modelos
+#| echo: true
+#| eval: false
+
+reg_y_x1    <- lm(ingreso ~ educ, data = datos)
+reg_y_x2    <- lm(ingreso ~ intelig, data = datos)
+reg_y_x1_x2 <- lm(ingreso ~ educ + intelig, data = datos)
+```
+
+```{r}
+#| label: tab-tres-modelos
+#| echo: false
+#| results: asis
+
+tab_model(list(reg_y_x1, reg_y_x2, reg_y_x1_x2),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 2,
+          p.style = "stars",
+          dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## ¿Qué le pasó al coeficiente?
+
+::: {.incremental}
+
+- En el modelo simple, el coeficiente de educación es **`r b_simple`**
+
+- Al agregar habilidad cognitiva, baja a **`r b_multiple`**
+
+- No es un error: son dos cantidades que responden a **preguntas distintas**
+
+    - Modelo 1: ¿cuánto difiere el ingreso entre personas con distinta educación?
+    - Modelo 3: ¿cuánto difiere el ingreso entre personas con distinta educación **pero igual habilidad cognitiva**?
+
+:::
+
+##  {data-background-color="black"}
+
+### El coeficiente de un predictor **depende de qué otras variables** están en el modelo
+
+::: {.fragment .fade-up}
+
+### Por eso nunca se interpreta un $\beta$ sin decir qué se está controlando
+
+:::
+
+# Parcialización {data-background-color="black"}
+
+## ¿Cómo se despeja?
+
+*¿Cómo se despeja la regresión de $Y$ en $X_1$ del efecto de $X_2$?*
+
+::: {.columns}
+::: {.column width="50%"}
+
+![](../../files/img/ingresoeducexp.png){width="85%" fig-align="center"}
+
+:::
+::: {.column width="50%"}
+
+::: {.fragment .fade-up}
+
+![](../../files/img/ingeduc_parint.png){width="85%" fig-align="center"}
+
+:::
+
+:::
+:::
+
+## La idea
+
+::: {.columns}
+::: {.column width="45%"}
+
+![](../../files/img/partial2.png){width="100%"}
+
+:::
+::: {.column width="55%"}
+
+::: {.incremental}
+
+- $X_1$ parcializada de $X_2$ es **todo lo de $X_1$ que no tiene que ver con $X_2$**
+
+- En otras palabras: en un modelo donde $X_1$ es la variable dependiente y $X_2$ la independiente, $X_1$ parcializada equivale al **residuo** de esa regresión
+
+:::
+
+:::
+:::
+
+## Parcialización paso a paso
+
+**Paso 1.** Predecimos educación a partir de habilidad cognitiva:
+
+```{r}
+#| label: paso1
+#| echo: true
+
+aux <- lm(educ ~ intelig, data = datos)
+```
+
+::: {.fragment .fade-up}
+
+**Paso 2.** Guardamos los residuos: lo que la habilidad **no** explica de la educación
+
+```{r}
+#| label: paso2
+#| echo: true
+
+datos$educ_parcializada <- residuals(aux)
+```
+
+:::
+
+## Parcialización paso a paso
+
+**Paso 3.** Estimamos el ingreso a partir de esa educación parcializada:
+
+```{r}
+#| label: paso3
+#| echo: true
+
+reg_parcial <- lm(ingreso ~ educ_parcializada, data = datos)
+
+coef(reg_parcial)[2]
+```
+
+::: {.fragment .fade-up}
+
+Y lo comparamos con el coeficiente de educación en el modelo múltiple:
+
+```{r}
+#| label: paso4
+#| echo: true
+
+coef(reg_y_x1_x2)[2]
+```
+
+:::
+
+##  {data-background-color="black"}
+
+### Son el mismo número
+
+### La regresión múltiple **parcializa automáticamente** cada predictor respecto de todos los demás
+
+##  {data-background-color="black"}
+
+### RESUMEN
+
+::: {.incremental}
+
+- Si hay correlación entre predictores, el valor de los coeficientes será **distinto** en modelos simples y en modelos múltiples
+
+- Esa diferencia se relaciona con el concepto de **parcialización**: se extrae la varianza común entre predictores
+
+- La parcialización permite el **control estadístico**: despejar el efecto de una variable de la influencia de otras
+
+:::
+
+# Consecuencias {data-background-color="black"}
+
+## Variable omitida
+
+::: {.incremental}
+
+- Si una variable relevante queda **fuera** del modelo, y está correlacionada con nuestro predictor, el coeficiente estimado recoge también parte de ese efecto
+
+- En el ejemplo: el modelo 1 atribuía a la educación algo que en realidad correspondía a la habilidad cognitiva
+
+- Por eso el modelo 1 no está "mal calculado": está **mal especificado** respecto de la pregunta que queremos responder
+
+:::
+
+## ¿Qué variables controlar?
+
+::: {.incremental}
+
+- La decisión es **teórica**, no estadística: se controla por aquello que la literatura señala como determinante común de $X$ e $Y$
+
+- Agregar predictores solo porque están disponibles no mejora el modelo; puede incluso distorsionarlo
+
+- Un caso a evitar: controlar por una variable que es **consecuencia** de $X$, porque eso elimina justamente el efecto que se quiere estimar
+
+:::
+
+## Ajuste en regresión múltiple
+
+::: {.incremental}
+
+- El $R^2$ se interpreta igual que antes: la proporción de la varianza de $Y$ asociada al **conjunto** de predictores
+
+- Problema: el $R^2$ **nunca disminuye** al agregar variables, aunque sean irrelevantes
+
+- Por eso se utiliza el $R^2$ **ajustado**, que penaliza la incorporación de predictores adicionales:
+
+$$R^2_{aj} = 1-(1-R^2)\frac{N-1}{N-k-1}$$
+
+:::
+
+## Ajuste en nuestro ejemplo
+
+```{r}
+#| label: r2
+#| echo: false
+
+kable(data.frame(
+  Modelo = c("1. Solo educación", "2. Solo habilidad", "3. Ambas"),
+  R2 = c(summary(reg_y_x1)$r.squared,
+         summary(reg_y_x2)$r.squared,
+         summary(reg_y_x1_x2)$r.squared),
+  R2_ajustado = c(summary(reg_y_x1)$adj.r.squared,
+                  summary(reg_y_x2)$adj.r.squared,
+                  summary(reg_y_x1_x2)$adj.r.squared)
+), digits = 3, col.names = c("Modelo", "R²", "R² ajustado"))
+```
+
+::: {.small}
+Al momento de comparar modelos con distinto número de predictores, corresponde basarse en el $R^2$ ajustado
+:::
+
+## Un límite: la colinealidad
+
+::: {.incremental}
+
+- La parcialización funciona porque los predictores **no** son idénticos entre sí
+
+- Si dos variables están muy correlacionadas, queda poca varianza propia en cada una una vez parcializada
+
+- La consecuencia es un aumento del **error estándar**: los coeficientes se vuelven inestables e imprecisos
+
+- Volveremos sobre esto en la unidad de supuestos del modelo
+
+:::
+
+# Un ejemplo de investigación {data-background-color="black"}
+
+## El punto de partida
+
+::: {.incremental}
+
+- Chile es uno de los países con mayor concentración del ingreso del mundo
+
+- Cabría esperar, entonces, que las personas se ubicaran de forma **dispersa** al describir su propia posición social
+
+- La evidencia internacional muestra lo contrario: una fuerte tendencia a situarse **en el medio**
+
+:::
+
+## Un hallazgo conocido
+
+::: {.columns}
+::: {.column width="60%"}
+
+- Castillo, Miranda y Madero-Cabib (2013), *Todos somos de clase media: sobre el estatus social subjetivo en Chile*, **Latin American Research Review**, 48(1)
+
+- Documentan una distorsión sistemática entre el **estatus objetivo** (educación, ingreso, ocupación) y el **estatus subjetivo** (dónde cree la persona que está)
+
+:::
+::: {.column width="40%"}
+
+::: {.fragment .fade-up}
+
+### ¿Se replica ese patrón en ELSOC?
+
+### ¿Cuánto pesan la educación y el ingreso en la posición que las personas se atribuyen?
+
+:::
+
+:::
+:::
+
+## Los datos
+
+ELSOC 2016 (primera ola), `r n_elsoc` casos con información completa
+
+```{r}
+#| label: datos-elsoc
+#| echo: true
+#| eval: false
+
+elsoc <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(d01_01, m01, m29, m0_edad) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("estatus" = d01_01, "educacion" = m01,
+         "ingreso" = m29, "edad" = m0_edad) %>%
+  na.omit() %>%
+  filter(ingreso >= 50000, ingreso <= 5000000) %>%
+  mutate(ing100 = ingreso / 100000)
+```
+
+::: {.small}
+El filtro de ingreso descarta valores implausibles producto de errores de registro. El ingreso se expresa en **cientos de miles de pesos** para que el coeficiente sea legible
+:::
+
+## La variable dependiente
+
+*"Imagine una escalera donde 0 es el nivel más bajo de la sociedad y 10 el más alto. ¿En qué peldaño se ubicaría usted?"*
+
+```{r}
+#| label: fig-estatus
+#| echo: false
+#| fig-width: 9
+#| fig-height: 3.8
+
+ggplot(elsoc, aes(x = factor(estatus))) +
+  geom_bar(fill = azul_claro, alpha = 0.85) +
+  labs(x = "Peldaño en la escalera social (0-10)", y = "Frecuencia")
+```
+
+##  {data-background-color="black"}
+
+### Un `r pct_medio`% de las personas se ubica entre los peldaños **3 y 5**
+
+::: {.fragment .fade-up}
+
+### En el país más desigual de la OCDE
+
+:::
+
+## Descriptivos
+
+```{r}
+#| label: desc-elsoc
+#| echo: false
+
+kable(data.frame(
+  Variable = c("Estatus subjetivo (0-10)", "Nivel educacional (1-10)",
+               "Ingreso del hogar (cientos de miles)", "Edad"),
+  Media = c(mean(elsoc$estatus), mean(elsoc$educacion),
+            mean(elsoc$ing100), mean(elsoc$edad)),
+  DE = c(sd(elsoc$estatus), sd(elsoc$educacion),
+         sd(elsoc$ing100), sd(elsoc$edad))
+), digits = 2)
+```
+
+## Antes de estimar: las correlaciones
+
+```{r}
+#| label: cor-elsoc
+#| echo: false
+
+kable(cor(elsoc[, c("estatus", "educacion", "ing100", "edad")]), digits = 3)
+```
+
+::: {.fragment .fade-up}
+
+Dos cosas para retener: educación e ingreso se correlacionan **positivamente** entre sí (`r r_ed_in`), mientras que educación y edad lo hacen de forma **negativa** (`r r_ed_ea`)
+
+:::
+
+## Los modelos
+
+```{r}
+#| label: modelos-elsoc
+#| echo: true
+#| eval: false
+
+e1 <- lm(estatus ~ educacion, data = elsoc)
+e2 <- lm(estatus ~ educacion + ing100, data = elsoc)
+e3 <- lm(estatus ~ educacion + ing100 + edad, data = elsoc)
+```
+
+```{r}
+#| label: tab-elsoc
+#| echo: false
+#| results: asis
+
+tab_model(list(e1, e2, e3),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso (cientos de miles)", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## Primer movimiento: agregar ingreso
+
+::: {.incremental}
+
+- Educación, sola: **`r b_ed1`**
+
+- Educación, controlando por ingreso: **`r b_ed2`**
+
+- El coeficiente cae cerca de un 30%
+
+- La razón es la correlación entre ambos predictores (`r r_ed_in`): parte de lo que el modelo 1 atribuía a la educación correspondía en realidad al ingreso que la acompaña
+
+:::
+
+## Segundo movimiento: agregar edad
+
+::: {.incremental}
+
+- Educación, controlando por ingreso: **`r b_ed2`**
+
+- Educación, controlando además por edad: **`r b_ed3`**
+
+- Ahora el coeficiente **sube**
+
+- Educación y edad se correlacionan negativamente (`r r_ed_ea`): las generaciones mayores alcanzaron menos años de escolaridad
+
+:::
+
+##  {data-background-color="black"}
+
+### Un mismo modelo muestra los dos comportamientos
+
+### Agregar ingreso **redujo** el coeficiente de educación
+
+### Agregar edad lo **aumentó**
+
+## El caso más llamativo: la edad
+
+Estimada por sí sola, la edad se asocia **negativamente** con el estatus subjetivo:
+
+```{r}
+#| label: edad-sola
+#| echo: true
+
+coef(lm(estatus ~ edad, data = elsoc))[2]
+```
+
+::: {.fragment .fade-up}
+
+Pero en el modelo completo el signo **se invierte**:
+
+```{r}
+#| label: edad-controlada
+#| echo: true
+
+coef(e3)[4]
+```
+
+:::
+
+## ¿Cómo se explica la inversión?
+
+::: {.incremental}
+
+- Las personas mayores tienen, en promedio, **menor nivel educacional**
+
+- Como la educación eleva el estatus subjetivo, la comparación bruta entre personas de distinta edad mezcla dos efectos opuestos
+
+- Al comparar personas con **la misma educación y el mismo ingreso**, las de mayor edad se ubican más arriba en la escalera
+
+- La asociación negativa bivariada era, en rigor, un artefacto de la composición educativa de las generaciones
+
+:::
+
+## Interpretación de los tres coeficientes
+
+::: {.incremental}
+
+- **Educación** (`r b_ed3`): por cada nivel educacional adicional, el estatus subjetivo aumenta en `r b_ed3` puntos, a igual ingreso y edad
+
+- **Ingreso** (`r b_in3`): por cada cien mil pesos adicionales de ingreso del hogar, el estatus aumenta `r b_in3` puntos, a igual educación y edad
+
+- **Edad** (`r b_ea3`): por cada año adicional, el estatus aumenta `r b_ea3` puntos, a igual educación e ingreso
+
+:::
+
+## ¿Son efectos grandes?
+
+::: {.incremental}
+
+- Pasar de un ingreso de 450 mil a uno de un millón (cinco unidades y media) implica subir apenas 0,27 puntos en una escala de 0 a 10
+
+- El modelo completo explica un `r r2_e3`% de la varianza del estatus subjetivo
+
+- Es decir: la posición **objetiva** predice muy poco la posición que las personas se atribuyen
+
+- Ese resultado no es una debilidad del modelo: **es el hallazgo**
+
+:::
+
+## Cómo se reporta
+
+::: {.small}
+
+> Se estimaron tres modelos de regresión lineal sobre el estatus social subjetivo, medido en una escala de 0 a 10, con datos de la primera ola de ELSOC (2016; N = `r n_elsoc`). El nivel educacional presenta una asociación positiva y significativa en las tres especificaciones, aunque su magnitud disminuye al controlar por ingreso del hogar (de `r b_ed1` a `r b_ed2`), lo que resulta consistente con la correlación entre ambos predictores (r = `r r_ed_in`). La edad, que estimada de forma bivariada muestra una asociación negativa (`r b_ea0`), invierte su signo al incorporar los controles (`r b_ea3`; p < 0,01): a igual nivel educacional e ingreso, las personas mayores se ubican más arriba en la escalera social. El conjunto de predictores explica un `r r2_e3`% de la varianza, cifra baja que resulta coherente con la literatura sobre la desconexión entre estatus objetivo y subjetivo en contextos de alta desigualdad.
+
+:::
+
+## Lo que enseña este ejemplo
+
+::: {.incremental}
+
+1. El coeficiente de un predictor **cambia** según qué otras variables acompañen al modelo, y ese cambio es en sí mismo un resultado interpretable
+
+2. Los controles pueden reducir un coeficiente, aumentarlo, o incluso **invertir su signo**
+
+3. La dirección del cambio se anticipa mirando las **correlaciones entre predictores** antes de estimar
+
+4. Un $R^2$ bajo puede ser precisamente el punto sustantivo del artículo
+
+:::
+
+##  {data-background-color="black"}
+
+### Hasta ahora deberíamos saber
+
+::: {.incremental}
+
+1. La regresión múltiple incorpora **varios predictores** simultáneamente
+
+2. Cada $\beta$ se interpreta **manteniendo constantes** las demás variables del modelo
+
+3. Esto es posible porque el modelo **parcializa** cada predictor respecto de los otros
+
+4. Por eso los coeficientes **cambian** entre modelos, y siempre debe explicitarse qué se está controlando
+
+:::
+
+## Para la próxima sesión
+
+- Wooldridge, *Introducción a la econometría*: sección 3.1
+
+- La próxima clase: **interpretación y estandarización de coeficientes**, y reporte de resultados en tablas de regresión
+
+##  {data-background-color="black"}
+
+::: {.columns .v-center-container}
+::: {.column width="20%"}
+![](../../files/img/eval-hires.png){width="80%" fig-align="right"}
+:::
+
+::: {.column width="80%"}
+### Métodos estadísticos para Ciencias Sociales III
+
+------------------------------------------------------------------------
+
+### **Kevin Carrasco**
+### Sociología - UNAB
+### 2do Sem 2026
+### [https://metod3-unab.netlify.app/](https://metod3-unab.netlify.app/)
+:::
+:::
