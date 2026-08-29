@@ -2123,9 +2123,9 @@
   {
     "objectID": "practicos/practico-04.html",
     "href": "practicos/practico-04.html",
-    "title": "Práctico 04. Índices y estandarización de coeficientes",
+    "title": "Práctico 04. Regresión lineal múltiple",
     "section": "",
-    "text": "pacman::p_load(tidyverse, #Conjunto de paquetes, sobre todo dplyr y ggplot2\n               car, #Para recodificar\n               haven,\n               summarytools, #Para descriptivos\n               sjmisc,\n               kableExtra,\n               psych     # para Alfa de Chronbach\n               )\n\noptions(scipen = 999) # para desactivar notacion cientifica\nrm(list = ls()) # para limpiar el entorno de trabajo"
+    "text": "Los tres prácticos anteriores trabajaron con un solo predictor. Esta guía incorpora varias variables independientes al mismo modelo. Al terminar, usted debería ser capaz de:\n\nEstimar modelos de regresión múltiple e interpretar sus coeficientes correctamente\nComparar modelos y explicar por qué cambian los coeficientes al agregar predictores\nReproducir manualmente la parcialización que realiza el modelo múltiple\nDistinguir entre \\(R^2\\) y \\(R^2\\) ajustado, y comparar formalmente el ajuste de dos modelos\nObtener valores predichos con más de un predictor\n\n\n\n\nTrabajaremos con el ejemplo visto en clases: el estatus social subjetivo en ELSOC 2016. La pregunta de investigación proviene de Castillo, Miranda y Madero Cabib (2013), Todos somos de clase media: sobre el estatus social subjetivo en Chile, publicado en Latin American Research Review. La investigación original está disponible acá.\nLa idea central es que, en un país con alta concentración del ingreso, cabría esperar percepciones dispersas sobre la propia posición social. Sin embargo, se observa una fuerte tendencia a ubicarse en el medio de la escala. La pregunta que abordaremos es cuánto pesan la educación y el ingreso en la posición que las personas se atribuyen."
   },
   {
     "objectID": "practicos/practico-04.html#presentación",
@@ -2165,9 +2165,9 @@
   {
     "objectID": "practicos/practico-04.html#descriptivos",
     "href": "practicos/practico-04.html#descriptivos",
-    "title": "Práctico 04. Índices y estandarización de coeficientes",
-    "section": "Descriptivos",
-    "text": "Descriptivos\n\nsjmisc::descr(data,\n      show = c(\"label\",\"range\", \"mean\", \"sd\", \"NA.prc\", \"n\"))%&gt;% # Selecciona estadísticos\n      kable(.,\"markdown\") # Esto es para que se vea bien en quarto\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvar\nlabel\nn\nNA.prc\nmean\nsd\nrange\n\n\n\n\n4\nsintomatologia_depresiva\nsintomatologia_depresiva\n2886\n0\n5.991338\n5.7511293\n36 (0-36)\n\n\n1\nedad\nedad\n2886\n0\n46.040540\n15.3004147\n70 (18-88)\n\n\n2\neducacion\neducacion\n2886\n0\n5.257796\n2.1950156\n9 (1-10)\n\n\n3\nsexo\nsexo\n2886\n0\n1.601178\n0.4897408\n1 (1-2)"
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "2.4 Descriptivos",
+    "text": "2.4 Descriptivos\n\nproc_data %&gt;%\n  summarise(across(c(estatus, educacion, ing100, edad),\n                   list(media = mean, de = sd))) %&gt;%\n  round(2) %&gt;%\n  kable(\"markdown\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nestatus_media\nestatus_de\neducacion_media\neducacion_de\ning100_media\ning100_de\nedad_media\nedad_de\n\n\n\n\n4.33\n1.53\n5.16\n2.18\n5.88\n5.58\n46.07\n15.14"
   },
   {
     "objectID": "practicos/practico-04.html#estandarización",
@@ -3057,5 +3057,215 @@
     "title": "Programa",
     "section": "Palabras clave",
     "text": "Palabras clave\n\nRegresión lineal, regresión logística, modelos lineales generalizados, supuestos de regresión, interpretación de coeficientes, fiabilidad de escalas"
+  },
+  {
+    "objectID": "practicos/practico-04.html#objetivo-de-la-práctica",
+    "href": "practicos/practico-04.html#objetivo-de-la-práctica",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "",
+    "text": "Los tres prácticos anteriores trabajaron con un solo predictor. Esta guía incorpora varias variables independientes al mismo modelo. Al terminar, usted debería ser capaz de:\n\nEstimar modelos de regresión múltiple e interpretar sus coeficientes correctamente\nComparar modelos y explicar por qué cambian los coeficientes al agregar predictores\nReproducir manualmente la parcialización que realiza el modelo múltiple\nDistinguir entre \\(R^2\\) y \\(R^2\\) ajustado, y comparar formalmente el ajuste de dos modelos\nObtener valores predichos con más de un predictor"
+  },
+  {
+    "objectID": "practicos/practico-04.html#los-datos",
+    "href": "practicos/practico-04.html#los-datos",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "",
+    "text": "Trabajaremos con el ejemplo visto en clases: el estatus social subjetivo en ELSOC 2016. La pregunta de investigación proviene de Castillo, Miranda y Madero Cabib (2013), Todos somos de clase media: sobre el estatus social subjetivo en Chile, publicado en Latin American Research Review. La investigación original está disponible acá.\nLa idea central es que, en un país con alta concentración del ingreso, cabría esperar percepciones dispersas sobre la propia posición social. Sin embargo, se observa una fuerte tendencia a ubicarse en el medio de la escala. La pregunta que abordaremos es cuánto pesan la educación y el ingreso en la posición que las personas se atribuyen."
+  },
+  {
+    "objectID": "practicos/practico-04.html#librerías",
+    "href": "practicos/practico-04.html#librerías",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "2.1 Librerías",
+    "text": "2.1 Librerías\n\npacman::p_load(dplyr,\n               sjmisc,\n               sjPlot,\n               kableExtra,\n               ggplot2)\n\n\nrm(list = ls())\noptions(scipen = 999)"
+  },
+  {
+    "objectID": "practicos/practico-04.html#carga-y-procesamiento",
+    "href": "practicos/practico-04.html#carga-y-procesamiento",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "2.2 Carga y procesamiento",
+    "text": "2.2 Carga y procesamiento\n\nload(url(\"https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData\"))\n\nSeleccionamos las variables de interés de la primera ola:\n\nd01_01: estatus social subjetivo, medido en una escalera de 0 a 10\nm01: nivel educacional (1 a 10)\nm29: ingreso total del hogar\nm0_edad: edad en años\n\n\nproc_data &lt;- elsoc_long_2016_2022.2 %&gt;%\n  filter(ola == 1) %&gt;%\n  select(d01_01, m01, m29, m0_edad) %&gt;%\n  set_na(., na = c(-999, -888, -777, -666)) %&gt;%\n  rename(\"estatus\" = d01_01,\n         \"educacion\" = m01,\n         \"ingreso\" = m29,\n         \"edad\" = m0_edad) %&gt;%\n  na.omit()\n\ndim(proc_data)\n\n[1] 2328    4"
+  },
+  {
+    "objectID": "practicos/practico-04.html#un-paso-necesario-revisar-el-ingreso",
+    "href": "practicos/practico-04.html#un-paso-necesario-revisar-el-ingreso",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "2.3 Un paso necesario: revisar el ingreso",
+    "text": "2.3 Un paso necesario: revisar el ingreso\nAntes de estimar, conviene mirar la variable de ingreso:\n\nsummary(proc_data$ingreso)\n\n      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. \n         0     280000     450000    2492564     700000 4000000000 \n\n\nEl máximo resulta implausible: se trata de errores de registro. Un valor extremo puede alterar sustancialmente un coeficiente de regresión, de modo que corresponde acotarlo:\n\nproc_data &lt;- proc_data %&gt;%\n  filter(ingreso &gt;= 50000, ingreso &lt;= 5000000)\n\nnrow(proc_data)\n\n[1] 2301\n\n\n\n\n\n\n\n\nNotaDecisiones de limpieza\n\n\n\nTodo criterio de este tipo es una decisión del investigador y debe declararse en el reporte. Aquí descartamos ingresos menores a 50 mil y mayores a 5 millones de pesos mensuales por hogar. Otro criterio razonable habría sido recortar el 1% superior de la distribución. De todas formas, ingreso siempre es una variable difícil de trabajar porque las personas suelen no responder (en este caso, 587 personas no la respondieron). Esto puede tener distintas implicancias en la validez de los resultados.\n\n\nFinalmente, expresamos el ingreso en cientos de miles de pesos, para que el coeficiente no quede con cinco ceros a la derecha del punto decimal:\n\nproc_data$ing100 &lt;- proc_data$ingreso / 100000"
+  },
+  {
+    "objectID": "practicos/practico-04.html#correlaciones",
+    "href": "practicos/practico-04.html#correlaciones",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "2.5 Correlaciones",
+    "text": "2.5 Correlaciones\nAntes de estimar cualquier modelo múltiple, conviene revisar cómo se relacionan los predictores entre sí. Como veremos, eso permite anticipar qué ocurrirá con los coeficientes:\n\ncor(proc_data[, c(\"estatus\", \"educacion\", \"ing100\", \"edad\")]) %&gt;%\n  round(3) %&gt;%\n  kable(\"markdown\")\n\n\n\n\n\nestatus\neducacion\ning100\nedad\n\n\n\n\nestatus\n1.000\n0.291\n0.275\n-0.047\n\n\neducacion\n0.291\n1.000\n0.471\n-0.354\n\n\ning100\n0.275\n0.471\n1.000\n-0.158\n\n\nedad\n-0.047\n-0.354\n-0.158\n1.000\n\n\n\n\n\nRetenga dos cosas: educación e ingreso se correlacionan positivamente entre sí, mientras que educación y edad lo hacen de forma negativa."
+  },
+  {
+    "objectID": "practicos/practico-04.html#la-regla-general",
+    "href": "practicos/practico-04.html#la-regla-general",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "4.1 La regla general",
+    "text": "4.1 La regla general\nEn regresión múltiple, cada coeficiente se interpreta manteniendo constantes las demás variables del modelo. Esa cláusula no es un adorno: cambia el significado de lo que se afirma.\n\ncoef(modelo3)\n\n(Intercept)   educacion      ing100        edad \n2.921529862 0.161068530 0.048334807 0.006267146 \n\n\nRedactado con precisión:\n\nNivel educacional: por cada nivel educacional adicional, el estatus social subjetivo aumenta en el valor del coeficiente, entre personas de igual ingreso y edad\nIngreso: por cada cien mil pesos adicionales de ingreso del hogar, el estatus aumenta en el valor del coeficiente, entre personas de igual nivel educacional y edad\nEdad: por cada año adicional, el estatus aumenta en el valor del coeficiente, entre personas de igual educación e ingreso"
+  },
+  {
+    "objectID": "practicos/practico-04.html#por-qué-cambian-los-coeficientes",
+    "href": "practicos/practico-04.html#por-qué-cambian-los-coeficientes",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "4.2 Por qué cambian los coeficientes",
+    "text": "4.2 Por qué cambian los coeficientes\nCompare el coeficiente de educación entre los modelos:\n\ndata.frame(\n  Modelo = c(\"1. Solo educación\", \"2. + ingreso\", \"3. + ingreso y edad\"),\n  Coef_educacion = c(coef(modelo1)[2], coef(modelo2)[2], coef(modelo3)[2])\n) %&gt;%\n  kable(\"markdown\", digits = 3)\n\n\n\n\nModelo\nCoef_educacion\n\n\n\n\n1. Solo educación\n0.204\n\n\n2. + ingreso\n0.145\n\n\n3. + ingreso y edad\n0.161\n\n\n\n\n\nAl agregar ingreso, el coeficiente disminuye: parte de lo que el modelo 1 atribuía a la educación correspondía en realidad al ingreso que suele acompañarla. Al agregar edad, en cambio, aumenta, porque educación y edad se correlacionan negativamente."
+  },
+  {
+    "objectID": "practicos/practico-04.html#el-caso-de-la-edad",
+    "href": "practicos/practico-04.html#el-caso-de-la-edad",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "4.3 El caso de la edad",
+    "text": "4.3 El caso de la edad\nEstimemos la edad por separado y comparemos con su coeficiente en el modelo completo:\n\nmodelo_edad &lt;- lm(estatus ~ edad, data = proc_data)\n\nc(bivariado = coef(modelo_edad)[2], multiple = coef(modelo3)[4])\n\nbivariado.edad  multiple.edad \n  -0.004760002    0.006267146 \n\n\nEl signo se invierte. La lectura sustantiva es la siguiente: las personas mayores tienen en promedio menor nivel educacional, y eso arrastra hacia abajo la asociación bruta entre edad y estatus. Al comparar personas con la misma educación e ingreso, las de mayor edad se ubican más arriba en la escalera social.\n\n\n\n\n\n\nImportanteUna lección para el reporte\n\n\n\nNunca se interpreta un coeficiente sin señalar qué variables están en el modelo. El mismo predictor puede tener signos opuestos según lo que se controle, y ambas cifras son correctas: responden a preguntas distintas."
+  },
+  {
+    "objectID": "practicos/practico-04.html#paso-1-predecir-un-predictor-con-los-otros",
+    "href": "practicos/practico-04.html#paso-1-predecir-un-predictor-con-los-otros",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "6.1 Paso 1: predecir un predictor con los otros",
+    "text": "6.1 Paso 1: predecir un predictor con los otros\n\naux &lt;- lm(educacion ~ ing100 + edad, data = proc_data)"
+  },
+  {
+    "objectID": "practicos/practico-04.html#paso-2-extraer-los-residuos",
+    "href": "practicos/practico-04.html#paso-2-extraer-los-residuos",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "6.2 Paso 2: extraer los residuos",
+    "text": "6.2 Paso 2: extraer los residuos\nLos residuos de esa regresión corresponden a la parte de la educación que no es explicada por el ingreso ni por la edad:\n\nproc_data$educacion_parcializada &lt;- residuals(aux)\n\n\nsummary(proc_data$educacion_parcializada)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n-7.3392 -1.3212 -0.1788  0.0000  1.1906  5.8052 \n\n\nNote que su promedio es cero, como corresponde a cualquier conjunto de residuos."
+  },
+  {
+    "objectID": "practicos/practico-04.html#paso-3-estimar-el-estatus-con-la-variable-parcializada",
+    "href": "practicos/practico-04.html#paso-3-estimar-el-estatus-con-la-variable-parcializada",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "6.3 Paso 3: estimar el estatus con la variable parcializada",
+    "text": "6.3 Paso 3: estimar el estatus con la variable parcializada\n\nmodelo_parcial &lt;- lm(estatus ~ educacion_parcializada, data = proc_data)\n\nc(parcializado = coef(modelo_parcial)[2], multiple = coef(modelo3)[2])\n\nparcializado.educacion_parcializada                  multiple.educacion \n                          0.1610685                           0.1610685 \n\n\nLos valores coinciden. Esto confirma que el coeficiente de un predictor en la regresión múltiple equivale al de una regresión simple sobre ese mismo predictor una vez descontado lo que comparte con los demás."
+  },
+  {
+    "objectID": "practicos/practico-04.html#visualización",
+    "href": "practicos/practico-04.html#visualización",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "6.4 Visualización",
+    "text": "6.4 Visualización\n\nggplot(proc_data, aes(x = educacion_parcializada, y = estatus)) +\n  geom_jitter(alpha = 0.2, size = 0.8, width = 0.1, height = 0.2) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"#04245f\", linewidth = 1.2) +\n  labs(x = \"Educación parcializada (residuos)\", y = \"Estatus social subjetivo\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 1: Estatus subjetivo según educación parcializada\n\n\n\n\n\nEl eje horizontal ya no representa el nivel educacional, sino cuánta educación tiene una persona por sobre o por debajo de lo esperable dado su ingreso y su edad."
+  },
+  {
+    "objectID": "practicos/practico-04.html#r2-y-r2-ajustado",
+    "href": "practicos/practico-04.html#r2-y-r2-ajustado",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "7.1 \\(R^2\\) y \\(R^2\\) ajustado",
+    "text": "7.1 \\(R^2\\) y \\(R^2\\) ajustado\n\ndata.frame(\n  Modelo = c(\"Modelo 1\", \"Modelo 2\", \"Modelo 3\"),\n  R2 = c(summary(modelo1)$r.squared,\n         summary(modelo2)$r.squared,\n         summary(modelo3)$r.squared),\n  R2_ajustado = c(summary(modelo1)$adj.r.squared,\n                  summary(modelo2)$adj.r.squared,\n                  summary(modelo3)$adj.r.squared)\n) %&gt;%\n  kable(\"markdown\", digits = 4)\n\n\n\n\nModelo\nR2\nR2_ajustado\n\n\n\n\nModelo 1\n0.0848\n0.0844\n\n\nModelo 2\n0.1092\n0.1085\n\n\nModelo 3\n0.1126\n0.1115\n\n\n\n\n\nEl \\(R^2\\) nunca disminuye al agregar predictores, incluso si son irrelevantes, porque siempre captura algo de varianza por azar. El \\(R^2\\) ajustado penaliza la incorporación de variables adicionales, de modo que es el indicador apropiado para comparar modelos con distinto número de predictores."
+  },
+  {
+    "objectID": "practicos/practico-04.html#comparación-formal-de-modelos",
+    "href": "practicos/practico-04.html#comparación-formal-de-modelos",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "7.2 Comparación formal de modelos",
+    "text": "7.2 Comparación formal de modelos\nLa función anova() permite contrastar si la mejora en el ajuste al agregar un predictor es estadísticamente significativa:\n\nanova(modelo1, modelo2, modelo3)\n\nAnalysis of Variance Table\n\nModel 1: estatus ~ educacion\nModel 2: estatus ~ educacion + ing100\nModel 3: estatus ~ educacion + ing100 + edad\n  Res.Df    RSS Df Sum of Sq       F               Pr(&gt;F)    \n1   2299 4908.3                                              \n2   2298 4777.3  1   130.944 63.1993 0.000000000000002902 ***\n3   2297 4759.2  1    18.122  8.7464             0.003134 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nCada fila compara un modelo con el anterior. Un valor p pequeño indica que el predictor agregado mejora significativamente el ajuste."
+  },
+  {
+    "objectID": "practicos/practico-04.html#una-nota-sobre-la-magnitud",
+    "href": "practicos/practico-04.html#una-nota-sobre-la-magnitud",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "7.3 Una nota sobre la magnitud",
+    "text": "7.3 Una nota sobre la magnitud\n\nround(summary(modelo3)$r.squared * 100, 1)\n\n[1] 11.3\n\n\nEl modelo completo explica alrededor de un 11% de la varianza del estatus subjetivo. Lejos de ser una debilidad, ese resultado es el hallazgo del artículo de referencia: la posición objetiva de las personas predice muy poco la posición que ellas mismas se atribuyen."
+  },
+  {
+    "objectID": "practicos/practico-04.html#preparación-1",
+    "href": "practicos/practico-04.html#preparación-1",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "9.1 Preparación",
+    "text": "9.1 Preparación\n\nCargar la base ELSOC y filtrar por la ola 4 (2019)\nSeleccionar las mismas variables utilizadas en este práctico, recodificar los valores perdidos, aplicar el mismo criterio de limpieza al ingreso y expresarlo en cientos de miles\nReportar cuántos casos quedan disponibles"
+  },
+  {
+    "objectID": "practicos/practico-04.html#correlaciones-1",
+    "href": "practicos/practico-04.html#correlaciones-1",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "9.2 Correlaciones",
+    "text": "9.2 Correlaciones\n\nEstimar la matriz de correlaciones entre las cuatro variables\nA partir de ella, anticipar qué ocurrirá con el coeficiente de educación al agregar ingreso al modelo, y justificar la expectativa"
+  },
+  {
+    "objectID": "practicos/practico-04.html#modelos-anidados",
+    "href": "practicos/practico-04.html#modelos-anidados",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "9.3 Modelos anidados",
+    "text": "9.3 Modelos anidados\n\nEstimar los tres modelos anidados de este práctico\nPresentar una tabla comparativa con tab_model, con nombres de variables legibles\nElaborar una tabla propia que muestre cómo cambia el coeficiente de educación a través de los tres modelos\nComparar el resultado con lo que había anticipado en el punto anterior"
+  },
+  {
+    "objectID": "practicos/practico-04.html#parcialización-1",
+    "href": "practicos/practico-04.html#parcialización-1",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "9.5 Parcialización",
+    "text": "9.5 Parcialización\n\nReproducir manualmente la parcialización del ingreso (no de la educación) respecto de los otros dos predictores\nVerificar que el coeficiente obtenido coincide con el del modelo múltiple"
+  },
+  {
+    "objectID": "practicos/practico-04.html#ajuste",
+    "href": "practicos/practico-04.html#ajuste",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "9.6 Ajuste",
+    "text": "9.6 Ajuste\n\nComparar el \\(R^2\\) y el \\(R^2\\) ajustado de los tres modelos\nAplicar anova() y señalar si cada predictor agregado mejora significativamente el ajuste"
+  },
+  {
+    "objectID": "practicos/practico-04.html#predicción",
+    "href": "practicos/practico-04.html#predicción",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "9.7 Predicción",
+    "text": "9.7 Predicción\n\nCalcular el estatus subjetivo predicho para una persona de 30 años, con nivel educacional 8 e ingreso del hogar de un millón de pesos\nRepetir el cálculo para una persona con las mismas características pero de 60 años, y comentar la diferencia\nElaborar un gráfico que muestre el estatus predicho según el ingreso, manteniendo la educación y la edad en sus promedios, con el eje vertical fijado en la escala completa de la variable dependiente\nElaborar el mismo gráfico sin fijar el eje, es decir, dejando que R lo ajuste automáticamente, y comentar en qué se diferencia la impresión que produce cada versión"
+  },
+  {
+    "objectID": "practicos/practico-04.html#reporte",
+    "href": "practicos/practico-04.html#reporte",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "9.8 Reporte",
+    "text": "9.8 Reporte\n\nRedactar un párrafo (máximo 300 palabras) que reporte los tres modelos, interprete el coeficiente de educación en el modelo completo, explique por qué cambia entre especificaciones, y comente el valor del \\(R^2\\) a la luz de la literatura sobre estatus social subjetivo"
+  },
+  {
+    "objectID": "practicos/practico-04.html#los-tres-valores",
+    "href": "practicos/practico-04.html#los-tres-valores",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "5.1 Los tres valores",
+    "text": "5.1 Los tres valores\nPara cada caso podemos obtener:\n\nel valor observado de la variable dependiente (\\(Y_i\\))\nel valor predicho por el modelo (\\(\\widehat{Y}_i\\))\nel residuo, que es la diferencia entre ambos (\\(e_i = Y_i - \\widehat{Y}_i\\))\n\n\nproc_data$predicho &lt;- fitted.values(modelo3)\nproc_data$residuo &lt;- residuals(modelo3)\n\nLa diferencia respecto del práctico anterior es que ahora el valor predicho no proviene de una recta, sino de la combinación de los tres predictores:\n\\[\\widehat{estatus} = b_0 + b_1(educacion) + b_2(ing100) + b_3(edad)\\]"
+  },
+  {
+    "objectID": "practicos/practico-04.html#la-tabla",
+    "href": "practicos/practico-04.html#la-tabla",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "5.2 La tabla",
+    "text": "5.2 La tabla\n\nhead(proc_data %&gt;%\n       select(educacion, ing100, edad, estatus, predicho, residuo), 10) %&gt;%\n  kable(\"markdown\", digits = 2,\n        col.names = c(\"Educación\", \"Ingreso\", \"Edad\",\n                      \"Observado\", \"Predicho\", \"Residuo\"))\n\n\n\n\nEducación\nIngreso\nEdad\nObservado\nPredicho\nResiduo\n\n\n\n\n2\n3.0\n64\n5\n3.79\n1.21\n\n\n4\n5.0\n60\n5\n4.18\n0.82\n\n\n5\n5.0\n54\n6\n4.31\n1.69\n\n\n5\n3.5\n38\n4\n4.13\n-0.13\n\n\n5\n7.0\n34\n6\n4.28\n1.72\n\n\n9\n8.0\n53\n7\n5.09\n1.91\n\n\n9\n7.0\n55\n6\n5.05\n0.95\n\n\n4\n7.0\n42\n5\n4.17\n0.83\n\n\n5\n7.0\n28\n6\n4.24\n1.76\n\n\n7\n4.0\n28\n6\n4.42\n1.58\n\n\n\n\n\nLea la tabla fila por fila. Las tres primeras columnas describen a la persona; la cuarta indica dónde declaró ubicarse en la escalera social; la quinta, dónde el modelo esperaría encontrarla dadas sus características; y la sexta, la distancia entre ambas.\nUn residuo positivo indica que la persona se ubica más arriba de lo que predicen su educación, su ingreso y su edad. Uno negativo, más abajo."
+  },
+  {
+    "objectID": "practicos/practico-04.html#comprobaciones",
+    "href": "practicos/practico-04.html#comprobaciones",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "5.3 Comprobaciones",
+    "text": "5.3 Comprobaciones\nComo en el práctico anterior, la suma de los residuos es prácticamente cero:\n\nsum(proc_data$residuo)\n\n[1] -0.0000000000001184833\n\n\nY el promedio de los valores predichos coincide con el promedio de la variable observada:\n\nc(observado = mean(proc_data$estatus), predicho = mean(proc_data$predicho))\n\nobservado  predicho \n 4.325511  4.325511"
+  },
+  {
+    "objectID": "practicos/practico-04.html#casos-extremos",
+    "href": "practicos/practico-04.html#casos-extremos",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "5.4 Casos extremos",
+    "text": "5.4 Casos extremos\nResulta ilustrativo mirar quiénes se apartan más del modelo. Primero, los cinco residuos más altos:\n\nproc_data %&gt;%\n  arrange(desc(residuo)) %&gt;%\n  head(5) %&gt;%\n  select(educacion, ing100, edad, estatus, predicho, residuo) %&gt;%\n  kable(\"markdown\", digits = 2,\n        col.names = c(\"Educación\", \"Ingreso\", \"Edad\",\n                      \"Observado\", \"Predicho\", \"Residuo\"))\n\n\n\n\nEducación\nIngreso\nEdad\nObservado\nPredicho\nResiduo\n\n\n\n\n2\n4.0\n67\n10\n3.86\n6.14\n\n\n2\n5.0\n62\n10\n3.87\n6.13\n\n\n5\n1.0\n45\n10\n4.06\n5.94\n\n\n5\n3.2\n29\n10\n4.06\n5.94\n\n\n4\n4.0\n60\n10\n4.14\n5.86\n\n\n\n\n\nY los cinco más bajos:\n\nproc_data %&gt;%\n  arrange(residuo) %&gt;%\n  head(5) %&gt;%\n  select(educacion, ing100, edad, estatus, predicho, residuo) %&gt;%\n  kable(\"markdown\", digits = 2,\n        col.names = c(\"Educación\", \"Ingreso\", \"Edad\",\n                      \"Observado\", \"Predicho\", \"Residuo\"))\n\n\n\n\nEducación\nIngreso\nEdad\nObservado\nPredicho\nResiduo\n\n\n\n\n9\n30.0\n25\n1\n5.98\n-4.98\n\n\n5\n8.0\n60\n0\n4.49\n-4.49\n\n\n7\n3.0\n37\n0\n4.43\n-4.43\n\n\n5\n3.1\n57\n0\n4.23\n-4.23\n\n\n5\n44.0\n48\n2\n6.15\n-4.15\n\n\n\n\n\nEstos casos no son errores ni datos defectuosos: son personas cuya percepción de su propia posición se distancia de lo que sugieren sus características objetivas. Precisamente esa distancia es el fenómeno que estudia la literatura sobre estatus subjetivo."
+  },
+  {
+    "objectID": "practicos/practico-04.html#predichos-contra-observados",
+    "href": "practicos/practico-04.html#predichos-contra-observados",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "8.1 Predichos contra observados",
+    "text": "8.1 Predichos contra observados\nUna primera forma de visualizar el modelo completo consiste en graficar, para todos los casos de la base, el valor predicho frente al valor observado:\n\nggplot(proc_data, aes(x = predicho, y = estatus)) +\n  geom_jitter(alpha = 0.2, size = 0.8, width = 0, height = 0.2) +\n  geom_abline(intercept = 0, slope = 1,\n              color = \"#c0392b\", linetype = \"dashed\", linewidth = 1) +\n  labs(x = \"Estatus predicho por el modelo\", y = \"Estatus observado\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 2: Valores predichos y valores observados del estatus subjetivo\n\n\n\n\n\nLa línea segmentada roja marca la predicción perfecta, es decir, los puntos donde el valor predicho coincide exactamente con el observado. Dos cosas saltan a la vista.\nLa primera es la dispersión vertical: para un mismo valor predicho hay personas que se ubican en casi cualquier peldaño de la escalera. Eso es lo que significa, en términos visuales, un \\(R^2\\) bajo.\nLa segunda es el rango restringido del eje horizontal: mientras el estatus observado recorre toda la escala de 0 a 10, las predicciones se concentran en un tramo mucho más estrecho. Un modelo con poco poder explicativo predice valores cercanos al promedio para casi todo el mundo."
+  },
+  {
+    "objectID": "practicos/practico-04.html#el-efecto-de-un-predictor",
+    "href": "practicos/practico-04.html#el-efecto-de-un-predictor",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "8.1 El efecto de un predictor",
+    "text": "8.1 El efecto de un predictor\nTambién podemos aislar el efecto de un solo predictor, manteniendo los demás en su promedio:\n\nperfil &lt;- data.frame(\n  educacion = 1:10,\n  ing100 = mean(proc_data$ing100),\n  edad = mean(proc_data$edad)\n)\n\nperfil$prediccion &lt;- predict(modelo3, newdata = perfil)\n\n\nggplot(perfil, aes(x = educacion, y = prediccion)) +\n  geom_line(color = \"#04245f\", linewidth = 1.2) +\n  geom_point(color = \"#4f97ff\", size = 3) +\n  scale_x_continuous(breaks = 1:10) +\n  scale_y_continuous(limits = c(0, 10), breaks = 0:10) +\n  labs(x = \"Nivel educacional\", y = \"Estatus subjetivo predicho\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 2: Estatus subjetivo predicho según nivel educacional, a ingreso y edad promedio\n\n\n\n\n\n\n\n\n\n\n\nAdvertenciaCuidado con los ejes\n\n\n\nObserve que el eje vertical recorre toda la escala de la variable dependiente, de 0 a 10. Esa decisión no es cosmética.\nSi dejáramos que R ajustara el eje automáticamente al rango de los valores predichos, la línea ocuparía todo el alto del gráfico y la pendiente se vería pronunciada, sugiriendo un efecto mucho mayor del que existe. Con el eje completo se aprecia lo que el modelo realmente dice: pasar del nivel educacional más bajo al más alto desplaza la predicción apenas un tramo de la escalera social.\nAjustar los ejes al rango de los datos es una práctica frecuente y una fuente habitual de lecturas exageradas. Al graficar valores predichos, use siempre la escala completa de la variable dependiente."
+  },
+  {
+    "objectID": "practicos/practico-04.html#valores-predichos-y-residuos-1",
+    "href": "practicos/practico-04.html#valores-predichos-y-residuos-1",
+    "title": "Práctico 04. Regresión lineal múltiple",
+    "section": "9.4 Valores predichos y residuos",
+    "text": "9.4 Valores predichos y residuos\n\nCalcular los valores predichos y los residuos del modelo completo\nPresentar una tabla con los diez primeros casos que incluya los predictores, el valor observado, el predicho y el residuo\nIdentificar los tres casos con mayor residuo positivo y comentar brevemente qué caracteriza a esas personas"
   }
 ]

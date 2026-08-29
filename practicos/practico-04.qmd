@@ -1,270 +1,422 @@
 ---
-title: "Práctico 04. Índices y estandarización de coeficientes"
+title: "Práctico 04. Regresión lineal múltiple"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2025-09-08"
+date: "2026-08-31"
 lang: es
-output:
-  number_sections: true
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-copy: true
+    code-overflow: wrap
+execute:
+  warning: false
+  message: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE)
 ```
 
+# Presentación
+
+## Objetivo de la práctica
+
+Los tres prácticos anteriores trabajaron con un solo predictor. Esta guía incorpora **varias variables independientes** al mismo modelo. Al terminar, usted debería ser capaz de:
+
+1. Estimar modelos de regresión múltiple e interpretar sus coeficientes correctamente
+2. Comparar **modelos** y explicar por qué cambian los coeficientes al agregar predictores
+3. Reproducir manualmente la **parcialización** que realiza el modelo múltiple
+4. Distinguir entre $R^2$ y $R^2$ ajustado, y comparar formalmente el ajuste de dos modelos
+5. Obtener valores predichos con más de un predictor
+
+## Los datos
+
+Trabajaremos con el ejemplo visto en clases: el **estatus social subjetivo** en ELSOC 2016. La pregunta de investigación proviene de Castillo, Miranda y Madero Cabib (2013), *Todos somos de clase media: sobre el estatus social subjetivo en Chile*, publicado en *Latin American Research Review*. La investigación original está disponible [acá](https://www.researchgate.net/publication/236870281_Todos_somos_de_clase_media_Sobre_el_estatus_social_subjetivo_en_Chile).
+
+La idea central es que, en un país con alta concentración del ingreso, cabría esperar percepciones dispersas sobre la propia posición social. Sin embargo, se observa una fuerte tendencia a ubicarse en el medio de la escala. La pregunta que abordaremos es **cuánto pesan la educación y el ingreso en la posición que las personas se atribuyen**.
+
+# Preparación
+
+## Librerías
+
 ```{r}
-pacman::p_load(tidyverse, #Conjunto de paquetes, sobre todo dplyr y ggplot2
-               car, #Para recodificar
-               haven,
-               summarytools, #Para descriptivos
+pacman::p_load(dplyr,
                sjmisc,
+               sjPlot,
                kableExtra,
-               psych     # para Alfa de Chronbach
-               )
-
-options(scipen = 999) # para desactivar notacion cientifica
-rm(list = ls()) # para limpiar el entorno de trabajo
+               ggplot2)
 ```
-
-## Presentación
-
-Para el taller práctico de hoy utilizaremos la base de datos del Estudio Longitudinal Social de Chile, realizado por el Centro de estudios del conflicto y la cohesión social [COES](https://coes.cl/).
-
-El Estudio Longitudinal Social del Chile [ELSOC](https://coes.cl/encuesta-panel/), único en Chile y América Latina, consiste en encuestar a casi 3.000 chilenos, anualmente, a lo largo de una década. ELSOC ha sido diseñado para evaluar la manera cómo piensan, sienten y se comportan los chilenos en torno a un conjunto de temas referidos al conflicto y la cohesión social en Chile. La población objetivo son hombres y mujeres entre 15 y 75 años de edad, tiene una representación de la población nacional urbana, donde se obtuvo una muestra original de **2927** casos en el año 2016 y mantiene **1728** en 2022, además de una muestra de refresco en 2018.
-
-## Objetivo general
-
-El objetivo de este ejercicio del práctico es revisar el proceso de construcción y validación de escalas en R.
-
-### Cargar base de datos
-
-```{r }
-load(url("https://dataverse.harvard.edu/api/access/datafile/7245118")) #Cargar base de datos
-```
-
-### Visualización de datos
 
 ```{r}
-dim(elsoc_long_2016_2022.2)
+rm(list = ls())
+options(scipen = 999)
 ```
 
-Debido a la naturaleza longitudinal de ELSOC, la base de datos contiene 18035 casos (las mismas personas durante 6 años) y 750 variables (las mismas variables en 6 periodos distintos). Por lo tanto, para simplificar el proceso de análisis de este práctico trabajaremos solo con los casos y variables de quienes participaron en la primera ola (2016)
-
-## Datos y variables
-
-Para el ejercicio de escalas, utilizaremos nuevamente la base de datos de ELSOC (que ya se enceuntra cargada), específicamente el módulo de **Salud y Bienestar**. De este módulo utilizaremos un concepto en particular llamado *Estado de ánimo: sintomatología depresiva* con los ítems:
-
-- Frecuencia: Poco interés o alegría
-- Frecuencia: Decaimiento, pesadez o desesperanza
-- Frecuencia: Dificultad para dormir o exceso de sueño
-- Frecuencia: Cansancio o sensación de falta de energía
-- Frecuencia: Apetito disminuido o aumentado
-- Frecuencia: Dificultad para concentrarse
-- Frecuencia: Mala opinión de sí mismo
-- Frecuencia: Enlentecimiento físico
-- Frecuencia: Pensamiento de muerte o dañarse
-
-Esta escala tiene solamente una dimensión, por lo que no es necesario crear objetos que contengan a cada dimensión (como vimos la clase pasada).
-
-## Filtrar base de datos
-
-Filtraremos la base de datos para quedarnos con las observaciones correspondientes solamente a la ola 1, y además seleccionaremos los ítems de interés.
+## Carga y procesamiento
 
 ```{r}
-data <- elsoc_long_2016_2022.2 %>% filter(ola==1) %>%  # seleccionamos solo los casos de la ola 1
-  select(s11_01,s11_02,s11_03,s11_04,s11_05,s11_06,s11_07,s11_08,s11_09, # items sintomatologia depresiva
-  edad=m0_edad, educacion=m01, sexo=m0_sexo) 
-
-head(data)
-table(data$s11_01)
-table(data$s11_02)
-table(data$s11_03)
-table(data$s11_04)
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
 ```
 
-Estos ítems cuentan con las mismas categorías de respuesta: (1) Nunca, (2) Algunos dias, (3) Mas de la mitad de los dias, (4) Casi todos los dias, y (5) Todos los dias. Además de los valores codificados como -888 y -999.
+Seleccionamos las variables de interés de la primera ola:
 
-### Recodificar
+- `d01_01`: estatus social subjetivo, medido en una escalera de 0 a 10
+- `m01`: nivel educacional (1 a 10)
+- `m29`: ingreso total del hogar
+- `m0_edad`: edad en años
 
-Recodificamos los valores -888 y -999 en NA y eliminamos los NAs.
-
-```{r, message=FALSE, warning=FALSE}
-data <- data %>% 
-  set_na(., na = c(-888, -999)) %>% 
+```{r}
+proc_data <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(d01_01, m01, m29, m0_edad) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("estatus" = d01_01,
+         "educacion" = m01,
+         "ingreso" = m29,
+         "edad" = m0_edad) %>%
   na.omit()
+
+dim(proc_data)
 ```
 
-Dejamos la categoría 'nunca' como 0
+## Un paso necesario: revisar el ingreso
+
+Antes de estimar, conviene mirar la variable de ingreso:
 
 ```{r}
-data$s11_01 <- car::recode(data$s11_01, "1=0; 2=1; 3=2; 4=3; 5=4")
-data$s11_02 <- car::recode(data$s11_02, "1=0; 2=1; 3=2; 4=3; 5=4")
-data$s11_03 <- car::recode(data$s11_03, "1=0; 2=1; 3=2; 4=3; 5=4")
-data$s11_04 <- car::recode(data$s11_04, "1=0; 2=1; 3=2; 4=3; 5=4")
-data$s11_05 <- car::recode(data$s11_05, "1=0; 2=1; 3=2; 4=3; 5=4")
-data$s11_06 <- car::recode(data$s11_06, "1=0; 2=1; 3=2; 4=3; 5=4")
-data$s11_07 <- car::recode(data$s11_07, "1=0; 2=1; 3=2; 4=3; 5=4")
-data$s11_08 <- car::recode(data$s11_08, "1=0; 2=1; 3=2; 4=3; 5=4")
-data$s11_09 <- car::recode(data$s11_09, "1=0; 2=1; 3=2; 4=3; 5=4")
+summary(proc_data$ingreso)
 ```
 
+El máximo resulta implausible: se trata de errores de registro. Un valor extremo puede alterar sustancialmente un coeficiente de regresión, de modo que corresponde acotarlo:
+
 ```{r}
-table(data$s11_01)
-table(data$s11_02)
+proc_data <- proc_data %>%
+  filter(ingreso >= 50000, ingreso <= 5000000)
+
+nrow(proc_data)
 ```
 
-## Análisis
+::: {.callout-note}
+## Decisiones de limpieza
+Todo criterio de este tipo es una **decisión del investigador** y debe declararse en el reporte. Aquí descartamos ingresos menores a 50 mil y mayores a 5 millones de pesos mensuales por hogar. Otro criterio razonable habría sido recortar el 1% superior de la distribución. De todas formas, ingreso siempre es una variable difícil de trabajar porque las personas suelen no responder (en este caso, 587 personas no la respondieron). Esto puede tener distintas implicancias en la validez de los resultados.
+:::
 
-
-### Estimar correlación
-
-Dado que la escala tiene solamente una dimensión, estimaremos la correlación de toda la escala.
-
-```{r}
-cor(data)
-```
-
-Podemos observar que todas las correlaciones son positivas, por lo que no quedaron ítems invertidos.
-
-
-### Estimar consistencia interna
-
-
-#### Alfa de Chronbach
-
-Primero, estimaremos la consistencia interna de cada dimensión con un **Alfa de Chronbach**.
+Finalmente, expresamos el ingreso en **cientos de miles de pesos**, para que el coeficiente no quede con cinco ceros a la derecha del punto decimal:
 
 ```{r}
-psych::alpha(data)
-
-```
-
-```{r}
-data2 <- dplyr::select(data, s11_01,s11_02,s11_03,s11_04,s11_05,s11_06,s11_07,s11_08,s11_09)
-psych::alpha(data2)
-```
-```{r}
-data <- data %>% 
-  rowwise() %>% 
-  mutate(sintomatologia_depresiva = sum(s11_01,s11_02,s11_03,s11_04,s11_05,s11_06,s11_07,s11_08,s11_09))
-summary(data$sintomatologia_depresiva)
-```
-
-# Estandarización de variables
-
-
-```{r}
-data <- data %>% 
-  select(sintomatologia_depresiva, edad, educacion, sexo) 
+proc_data$ing100 <- proc_data$ingreso / 100000
 ```
 
 ## Descriptivos
 
 ```{r}
-sjmisc::descr(data,
-      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
-      kable(.,"markdown") # Esto es para que se vea bien en quarto
+proc_data %>%
+  summarise(across(c(estatus, educacion, ing100, edad),
+                   list(media = mean, de = sd))) %>%
+  round(2) %>%
+  kable("markdown")
 ```
 
-## Estandarización
+## Correlaciones
+
+Antes de estimar cualquier modelo múltiple, conviene revisar cómo se relacionan los predictores **entre sí**. Como veremos, eso permite anticipar qué ocurrirá con los coeficientes:
 
 ```{r}
-data_std = data.frame(scale(data))
+cor(proc_data[, c("estatus", "educacion", "ing100", "edad")]) %>%
+  round(3) %>%
+  kable("markdown")
+```
+
+Retenga dos cosas: educación e ingreso se correlacionan **positivamente** entre sí, mientras que educación y edad lo hacen de forma **negativa**.
+
+# Estimación de modelos anidados
+
+La sintaxis de la regresión múltiple simplemente agrega predictores con el signo `+`:
+
+::: {.callout-note}
+## Regresión múltiple
+`modelo <- lm(y ~ x1 + x2 + x3, data = datos)`
+:::
+
+```{r}
+modelo1 <- lm(estatus ~ educacion, data = proc_data)
+modelo2 <- lm(estatus ~ educacion + ing100, data = proc_data)
+modelo3 <- lm(estatus ~ educacion + ing100 + edad, data = proc_data)
+```
+
+Se denominan **anidados** porque cada modelo contiene a los predictores del anterior más uno adicional. Esto permite observar qué le ocurre a cada coeficiente a medida que se incorporan controles.
+
+```{r}
+tab_model(list(modelo1, modelo2, modelo3),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso (cientos de miles)", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+# Interpretación
+
+## La regla general
+
+En regresión múltiple, cada coeficiente se interpreta **manteniendo constantes las demás variables del modelo**. Esa cláusula no es un adorno: cambia el significado de lo que se afirma.
+
+```{r}
+coef(modelo3)
+```
+
+Redactado con precisión:
+
+- **Nivel educacional**: por cada nivel educacional adicional, el estatus social subjetivo aumenta en el valor del coeficiente, entre personas de **igual ingreso y edad**
+- **Ingreso**: por cada cien mil pesos adicionales de ingreso del hogar, el estatus aumenta en el valor del coeficiente, entre personas de **igual nivel educacional y edad**
+- **Edad**: por cada año adicional, el estatus aumenta en el valor del coeficiente, entre personas de **igual educación e ingreso**
+
+## Por qué cambian los coeficientes
+
+Compare el coeficiente de educación entre los modelos:
+
+```{r}
+data.frame(
+  Modelo = c("1. Solo educación", "2. + ingreso", "3. + ingreso y edad"),
+  Coef_educacion = c(coef(modelo1)[2], coef(modelo2)[2], coef(modelo3)[2])
+) %>%
+  kable("markdown", digits = 3)
+```
+
+Al agregar ingreso, el coeficiente **disminuye**: parte de lo que el modelo 1 atribuía a la educación correspondía en realidad al ingreso que suele acompañarla. Al agregar edad, en cambio, **aumenta**, porque educación y edad se correlacionan negativamente.
+
+## El caso de la edad
+
+Estimemos la edad por separado y comparemos con su coeficiente en el modelo completo:
+
+```{r}
+modelo_edad <- lm(estatus ~ edad, data = proc_data)
+
+c(bivariado = coef(modelo_edad)[2], multiple = coef(modelo3)[4])
+```
+
+El signo **se invierte**. La lectura sustantiva es la siguiente: las personas mayores tienen en promedio menor nivel educacional, y eso arrastra hacia abajo la asociación bruta entre edad y estatus. Al comparar personas con la misma educación e ingreso, las de mayor edad se ubican **más arriba** en la escalera social.
+
+::: {.callout-important}
+## Una lección para el reporte
+Nunca se interpreta un coeficiente sin señalar qué variables están en el modelo. El mismo predictor puede tener signos opuestos según lo que se controle, y ambas cifras son correctas: responden a preguntas distintas.
+:::
+
+# Valores predichos y residuos
+
+Antes de entrar en la parcialización, conviene recuperar tres cantidades que ya conocemos del práctico anterior, ahora en un modelo con varios predictores.
+
+## Los tres valores
+
+Para cada caso podemos obtener:
+
+- el valor **observado** de la variable dependiente ($Y_i$)
+- el valor **predicho** por el modelo ($\widehat{Y}_i$)
+- el **residuo**, que es la diferencia entre ambos ($e_i = Y_i - \widehat{Y}_i$)
+
+```{r}
+proc_data$predicho <- fitted.values(modelo3)
+proc_data$residuo <- residuals(modelo3)
+```
+
+La diferencia respecto del práctico anterior es que ahora el valor predicho no proviene de una recta, sino de la combinación de los tres predictores:
+
+$$\widehat{estatus} = b_0 + b_1(educacion) + b_2(ing100) + b_3(edad)$$
+
+## La tabla
+
+```{r}
+head(proc_data %>%
+       select(educacion, ing100, edad, estatus, predicho, residuo), 10) %>%
+  kable("markdown", digits = 2,
+        col.names = c("Educación", "Ingreso", "Edad",
+                      "Observado", "Predicho", "Residuo"))
+```
+
+Lea la tabla fila por fila. Las tres primeras columnas describen a la persona; la cuarta indica dónde declaró ubicarse en la escalera social; la quinta, dónde el modelo esperaría encontrarla dadas sus características; y la sexta, la distancia entre ambas.
+
+Un residuo **positivo** indica que la persona se ubica más arriba de lo que predicen su educación, su ingreso y su edad. Uno **negativo**, más abajo.
+
+## Comprobaciones
+
+Como en el práctico anterior, la suma de los residuos es prácticamente cero:
+
+```{r}
+sum(proc_data$residuo)
+```
+
+Y el promedio de los valores predichos coincide con el promedio de la variable observada:
+
+```{r}
+c(observado = mean(proc_data$estatus), predicho = mean(proc_data$predicho))
+```
+
+## Casos extremos
+
+Resulta ilustrativo mirar quiénes se apartan más del modelo. Primero, los cinco residuos más altos:
+
+```{r}
+proc_data %>%
+  arrange(desc(residuo)) %>%
+  head(5) %>%
+  select(educacion, ing100, edad, estatus, predicho, residuo) %>%
+  kable("markdown", digits = 2,
+        col.names = c("Educación", "Ingreso", "Edad",
+                      "Observado", "Predicho", "Residuo"))
+```
+
+Y los cinco más bajos:
+
+```{r}
+proc_data %>%
+  arrange(residuo) %>%
+  head(5) %>%
+  select(educacion, ing100, edad, estatus, predicho, residuo) %>%
+  kable("markdown", digits = 2,
+        col.names = c("Educación", "Ingreso", "Edad",
+                      "Observado", "Predicho", "Residuo"))
+```
+
+Estos casos no son errores ni datos defectuosos: son personas cuya percepción de su propia posición se distancia de lo que sugieren sus características objetivas. Precisamente esa distancia es el fenómeno que estudia la literatura sobre estatus subjetivo.
+
+# Parcialización
+
+En clases vimos que la regresión múltiple **parcializa** cada predictor respecto de los demás. Reproduzcamos ese procedimiento manualmente para comprobar que efectivamente es lo que ocurre.
+
+## Paso 1: predecir un predictor con los otros
+
+```{r}
+aux <- lm(educacion ~ ing100 + edad, data = proc_data)
+```
+
+## Paso 2: extraer los residuos
+
+Los residuos de esa regresión corresponden a la parte de la educación que **no** es explicada por el ingreso ni por la edad:
+
+```{r}
+proc_data$educacion_parcializada <- residuals(aux)
 ```
 
 ```{r}
-sjmisc::descr(data_std,
-      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
-      kable(.,"markdown") # Esto es para que se vea bien en quarto
+summary(proc_data$educacion_parcializada)
 ```
 
-## Estimar regresiones
+Note que su promedio es cero, como corresponde a cualquier conjunto de residuos.
+
+## Paso 3: estimar el estatus con la variable parcializada
 
 ```{r}
-reg <- lm(sintomatologia_depresiva ~ educacion + edad + sexo, data=data)
+modelo_parcial <- lm(estatus ~ educacion_parcializada, data = proc_data)
 
-reg_std <- lm(sintomatologia_depresiva ~ educacion + edad + sexo, data=data_std)
+c(parcializado = coef(modelo_parcial)[2], multiple = coef(modelo3)[2])
 ```
 
+Los valores coinciden. Esto confirma que el coeficiente de un predictor en la regresión múltiple equivale al de una regresión simple sobre ese mismo predictor **una vez descontado lo que comparte con los demás**.
+
+## Visualización
 
 ```{r}
-sjPlot::tab_model(list(reg, reg_std), 
-  show.ci=FALSE, 
-  show.se = TRUE,
-  p.style = "stars", 
-  dv.labels = c("Modelo lineal", "Modelo estandarizado"),
-  string.pred = "Predictores", 
-  string.est = "β")
+#| label: fig-parcial
+#| fig-cap: "Estatus subjetivo según educación parcializada"
+
+ggplot(proc_data, aes(x = educacion_parcializada, y = estatus)) +
+  geom_jitter(alpha = 0.2, size = 0.8, width = 0.1, height = 0.2) +
+  geom_smooth(method = "lm", se = FALSE, color = "#04245f", linewidth = 1.2) +
+  labs(x = "Educación parcializada (residuos)", y = "Estatus social subjetivo") +
+  theme_minimal()
 ```
 
-## Ejercicio
+El eje horizontal ya no representa el nivel educacional, sino cuánta educación tiene una persona **por sobre o por debajo** de lo esperable dado su ingreso y su edad.
 
-1. Interprete los coeficientes
+# Ajuste del modelo
 
-- Modelo lineal (coeficientes no estandarizados)
+## $R^2$ y $R^2$ ajustado
 
-  * Intercepto (5.44, p < 0.001): Cuando todas las variables independientes (educación, edad, sexo) valen 0, el puntaje esperado en sintomatología depresiva es 5.44. Como las escalas de las variables predictores pueden no tener un 0 “realista”, el intercepto no suele ser de interés sustantivo aquí, pero es necesario en el modelo.
+```{r}
+data.frame(
+  Modelo = c("Modelo 1", "Modelo 2", "Modelo 3"),
+  R2 = c(summary(modelo1)$r.squared,
+         summary(modelo2)$r.squared,
+         summary(modelo3)$r.squared),
+  R2_ajustado = c(summary(modelo1)$adj.r.squared,
+                  summary(modelo2)$adj.r.squared,
+                  summary(modelo3)$adj.r.squared)
+) %>%
+  kable("markdown", digits = 4)
+```
 
-  * Educación (β = -0.37, p < 0.001): Cada incremento en el nivel educativo se asocia con una disminución de 0.37 puntos en sintomatología depresiva, en promedio y controlando por edad y sexo. Es un efecto negativo y estadísticamente significativo con un 99,9% de confianza
+El $R^2$ **nunca disminuye** al agregar predictores, incluso si son irrelevantes, porque siempre captura algo de varianza por azar. El $R^2$ ajustado penaliza la incorporación de variables adicionales, de modo que es el indicador apropiado para **comparar modelos con distinto número de predictores**.
 
-  * Edad (β = -0.02, p < 0.05): Por cada año adicional de edad, los síntomas depresivos disminuyen en 0.02 puntos, controlando por educación y sexo. Efecto estadísticamente significativo con un 95% de confianza
+## Comparación formal de modelos
 
-  * Sexo (β = 1.99, p < 0.001): Pertenecer a la categoría 'mujeres' se asocia con un aumento promedio de 1.99 puntos en sintomatología depresiva respecto al grupo de referencia (hombres), controlando por educación y edad. Efecto estadísticamente significativo con un 99,9% de confianza
+La función `anova()` permite contrastar si la mejora en el ajuste al agregar un predictor es estadísticamente significativa:
 
-- Modelo estandarizado
+```{r}
+anova(modelo1, modelo2, modelo3)
+```
 
-  * Intercepto (-0.00, ns): No tiene interpretación relevante en el modelo estandarizado, ya que todas las variables fueron centradas en media cero.
+Cada fila compara un modelo con el anterior. Un valor p pequeño indica que el predictor agregado mejora significativamente el ajuste.
 
-  * Educación (β = -0.14, p < 0.001): Un aumento de una desviación estándar en educación se asocia con una disminución de 0.14 desviaciones estándar en sintomatología depresiva.  Es un efecto negativo y estadísticamente significativo con un 99,9% de confianz
+## Una nota sobre la magnitud
 
-  * Edad (β = -0.04, p < 0.05): Cada desviación estándar adicional en edad se asocia con 0.04 desviaciones estándar menos en síntomas depresivos. Efecto estadísticamente significativo con un 95% de confianza
+```{r}
+round(summary(modelo3)$r.squared * 100, 1)
+```
 
-  * Sexo (β = 0.17, p < 0.001): Ser mujer aumenta en 0.17 desviaciones estándar la sintomatología depresiva respecto a hombres, en promedio. Efecto estadísticamente significativo con un 99,9% de confianza
-
-- R² = 0.049 (ajustado 0.048): El modelo explica aproximadamente un 5% de la varianza en sintomatología depresiva. Esto indica que, aunque los predictores son significativos, la mayor parte de la variación en los síntomas se explica por otros factores no incluidos.
+El modelo completo explica alrededor de un 11% de la varianza del estatus subjetivo. Lejos de ser una debilidad, ese resultado **es el hallazgo** del artículo de referencia: la posición objetiva de las personas predice muy poco la posición que ellas mismas se atribuyen.
 
 
-2. ¿Qué diferencias hay entre un modelo y otro?
 
- - Escala de los coeficientes
+# Tarea
 
-En el modelo lineal (no estandarizado), los coeficientes están en las unidades originales de las variables. Ejemplo: un año más de edad equivale a -0.02 puntos en síntomas depresivos.
+## Preparación
 
-En el modelo estandarizado, los coeficientes están expresados en desviaciones estándar, lo que permite comparar directamente la magnitud de los efectos. Ejemplo: un aumento de 1 desviación estándar en educación equivale a -0.14 desviaciones estándar en síntomas depresivos.
+- Cargar la base ELSOC y filtrar por la **ola 4** (2019)
 
-- Interpretación del intercepto
+- Seleccionar las mismas variables utilizadas en este práctico, recodificar los valores perdidos, aplicar el mismo criterio de limpieza al ingreso y expresarlo en cientos de miles
 
-En el modelo lineal, el intercepto tiene un valor “real” (5.44), aunque no siempre interpretable si los predictores no toman valor 0 en la práctica.
+- Reportar cuántos casos quedan disponibles
 
-En el modelo estandarizado, el intercepto suele quedar cercano a 0 y no tiene interpretación sustantiva, porque las variables se centraron en la media.
+## Correlaciones
 
-- Comparabilidad de predictores
+- Estimar la matriz de correlaciones entre las cuatro variables
 
-En el modelo lineal no puedes comparar directamente la magnitud de educación, edad y sexo, ya que cada uno tiene escalas distintas.
+- A partir de ella, **anticipar** qué ocurrirá con el coeficiente de educación al agregar ingreso al modelo, y justificar la expectativa
 
-En el modelo estandarizado sí puedes hacerlo: se observa, por ejemplo, que sexo (β=0.17) y educación (β=-0.14) tienen un peso mayor que edad (β=-0.04).
+## Modelos múltiples
 
-- Bondad de ajuste
+- Estimar los tres modelos múltiples de este práctico
 
-El R² se mantiene idéntico (0.049), porque estandarizar las variables no cambia el poder explicativo del modelo, solo la escala de los coeficientes.
+- Presentar una tabla comparativa con `tab_model`, con nombres de variables legibles
 
-3. ¿Qué ventajas o desventajas tiene trabajar con un modelo estandarizado?
+- Elaborar una tabla propia que muestre cómo cambia el coeficiente de educación a través de los tres modelos
 
-- Ventajas
+- Comparar el resultado con lo que había anticipado en el punto anterior
 
-Comparabilidad entre predictores: permite identificar cuáles variables tienen mayor peso relativo sobre la variable dependiente.
 
-Neutraliza escalas distintas: útil cuando se combinan variables con diferentes unidades (años, niveles, categorías dummy, etc.).
+## Parcialización
 
-Facilita la interpretación en términos relativos: por ejemplo, puedes decir que el sexo tiene un efecto mayor que la edad.
+- Reproducir manualmente la parcialización del **ingreso** (no de la educación) respecto de los otros dos predictores
 
-- Desventajas
+- Verificar que el coeficiente obtenido coincide con el del modelo múltiple
 
-Pérdida de interpretación sustantiva: los coeficientes dejan de estar en las unidades originales, por lo que no puedes decir “un año más de edad reduce 0.02 puntos en síntomas”.
+## Ajuste
 
-Intercepto poco informativo: al centrar y escalar, el intercepto no tiene sentido práctico.
+- Comparar el $R^2$ y el $R^2$ ajustado de los tres modelos
 
-En variables dicotómicas (como sexo), la interpretación en desviaciones estándar puede ser menos intuitiva que en unidades originales.
+- Aplicar `anova()` y señalar si cada predictor agregado mejora significativamente el ajuste
 
-Dificultad para comunicar los resultados.
+
+
+## Reporte
+
+- Redactar un párrafo (máximo 300 palabras) que reporte los tres modelos, interprete el coeficiente de educación en el modelo completo, explique por qué cambia entre especificaciones, y comente el valor del $R^2$ a la luz de la literatura sobre estatus social subjetivo
