@@ -1,1033 +1,1697 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>Métodos estadísticos para Ciencias Sociales III</title>
-    <meta charset="utf-8" />
-    <meta name="author" content=".small[Kevin Carrasco    Departamento de Sociología - UCH / COES   ]" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view/tile-view.js"></script>
-    <link href="libs/animate.css/animate.xaringan.css" rel="stylesheet" />
-    <script src="libs/fabric/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <link rel="stylesheet" href="../../files/css/custom_2020.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-
-class: front
-
-
-
-
-
-
-
-
-
-
-&lt;!---
-Para correr en ATOM
-- open terminal, abrir R (simplemente, R y enter)
-- rmarkdown::render('static/docpres/07_interacciones/7interacciones.Rmd', 'xaringan::moon_reader')
-
-About macros.js: permite escalar las imágenes como [scale 50%](path to image), hay si que grabar ese archivo js en el directorio.
----&gt;
-
-
-.pull-left[
-# Métodos estadísticos para Ciencias Sociales III
-## **Kevin Carrasco**
-## Sociología - UNAB
-## 2do semestre 2025
-## .green[[metod3-unab.netlify.app](metod3-unab.netlify.app)] 
-]
-
-.pull-right[
-.right[
-&lt;br&gt;
-## .yellow[Sesión 5: Regresión múltiple y estandarización de coeficientes]
-![:scale 70%](../../files/img/eval-hires.png)
-
-
-
-]
-
-]
----
-
-layout: true
-class: animated, fadeIn
-
----
-class: inverse, bottom, right, animated, slideInRight
-
-
-# .red[Sesión 5]
-&lt;br&gt;
-
-Repaso sesión anterior
-
-Estandarización de coeficientes
-
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
----
-class: inverse, bottom, right
-
-
-# .red[Sesión 5]
-&lt;br&gt;
-
-.yellow[Repaso sesión anterior]
-
-Estandarización de coeficientes
-
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-
----
-# Regresión simple vs múltiple
-
-
-
-.small[
-
-]
-.small[
-&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
-&lt;caption&gt; &lt;/caption&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
-&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
-&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 2&lt;/th&gt;
-&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 3&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr style="border-top: 1px solid #000000;"&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(Intercept)&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-91566.27&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;93442.62&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-270638.30&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(183509.80)&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(302389.31)&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(241882.27)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;educ&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;150401.61&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;137092.20&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(43618.69)&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(44602.35)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;intelig&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;174590.16&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;100425.53&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(124491.71)&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(90114.05)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style="border-top: 1px solid #000000;"&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.60&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.20&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.66&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.55&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.10&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.56&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr style="border-bottom: 2px solid #000000;"&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;10&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;10&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;10&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;tfoot&gt;
-&lt;tr&gt;
-&lt;td style="font-size: 0.8em;" colspan="4"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tfoot&gt;
-&lt;/table&gt;
-]
-
-
----
-# Parcialización
-
-_¿Cómo se despeja la regresión de `\(Y\)` en `\(X_1\)` del efecto de `\(X_2\)`?_
-
-.pull-left[
-.center[![:scale 65%](../../files/img/ingresoeducexp.png)]
-]
-
---
-
-.pull-right[
-.center[![:scale 65%](../../files/img/ingeduc_parint.png)]
-]
-
----
-.pull-left[
-# Parcialización
-
-.medium[
-¿Como obtenemos una variable `\(X_1\)` parcializada de `\(X_2\)`?
-]
-
-.center[
-![:scale 100%](../../files/img/partial2.png)]
-]
---
-
-.pull-right[
-
-&lt;br&gt;
-&lt;br&gt;
-
-.medium[
-- Pensemos en que `\(X_1\)` parcializada (de `\(X_2\)` ) es todo lo de `\(X_1\)` (varianza) que no tiene que ver con `\(X_2\)`
-
-- En otras palabras, en un modelo donde `\(X_1\)` es la variable dependiente y `\(X_2\)` la independiente, `\(X_1\)` parcializada equivale al **residuo** de esta regresión
-]
-]
-
----
-class: inverse
-
-## RESUMEN
-
-- Si hay correlación entre predictores, el valor de los coeficientes de regresión será **distinto** en modelos simples y en modelos múltiples
-
-- Esta diferencia se relaciona con el concepto de  **parcialización**: se extrae la varianza común entre predictores
-
-- La parcialización permite el **control estadístico**: *limpiar* o despejar los efectos de la influencia de otras variables
-
----
-
-### ejemplo
-.small[
-
-| Caso    | X (años educación)  | Y (nivel de ingresos)    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
-|---------|---------------------|--------------------------|--------|--------|--------------------|------------|
-| Caso 1  | 1                   | 250                      |    |   |              |     |
-| Caso 2  | 2                   | 200                      |    |  |              |        |
-| Caso 3  | 3                   | 250                      |    |   |              |        |
-| Caso 4  | 4                   | 300                      |    |   |               |        |
-| Caso 5  | 5                   | 400                      |    |    |               |        |
-| Caso 6  | 6                   | 350                      |     |   |               |        |
-| Caso 7  | 7                   | 400                      |     |    |              |        |
-| Caso 8  | 8                   | 350                      |     |    |              |       |
-| **Promedios / Sumas** | **X̄ = **| **Ȳ = **      |        |        | **Σ = **       | **Σ = ** |
-
-]
-
----
-
-### Otro ejemplo
-.small[
-
-| Caso    | X (años educación)  | Y (nivel de ingresos)    | X - X̄ | Y - Ȳ  | (X - X̄) * (Y - Ȳ) |  (X - X̄)² |
-|---------|---------------------|--------------------------|--------|--------|--------------------|------------|
-| Caso 1  | 1                   | 250                      | -3.5   | -62.5  | 218.75             | 12.25      |
-| Caso 2  | 2                   | 200                      | -2.5   | -112.5 | 281.25             | 6.25       |
-| Caso 3  | 3                   | 250                      | -1.5   | -62.5  | 93.75              | 2.25       |
-| Caso 4  | 4                   | 300                      | -0.5   | -12.5  | 6.25               | 0.25       |
-| Caso 5  | 5                   | 400                      | 0.5    | 87.5   | 43.75              | 0.25       |
-| Caso 6  | 6                   | 350                      | 1.5    | 37.5   | 56.25              | 2.25       |
-| Caso 7  | 7                   | 400                      | 2.5    | 87.5   | 218.75             | 6.25       |
-| Caso 8  | 8                   | 350                      | 3.5    | 37.5   | 131.25             | 12.25      |
-| **Promedios / Sumas** | **X̄ = 4.5**| **Ȳ = 312.5**      |        |        | **Σ = 1050**       | **Σ = 42** |
-
-]
----
-
-### Cálculo de coeficiente de regresión
-
-`$$b_{1}=\frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})} {\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})}=\frac{1050} {42}=25$$`
-
----
-### Estimación de los coeficientes de la ecuación:
-
-`$$\bar{Y}=b_{0}+b_{1}\bar{X}$$`
-Reemplazando:
-
-`$$\bar{Y}=b_{0}+25\bar{X}$$`
-
-Despejando el valor de `\(b_{0}\)`
-
-`$$b_{0}=312.5-25*4.5=200$$`
-  - Una propiedad de la recta de regresión es que siempre pasa por las coordenadas X̄Ȳ. Esto es, pasa por los valores promedios de X e Y 
-
----
-class: inverse
-
-## Hasta ahora deberíamos saber:
-
---
-
-1- Modelo de regresión como una **representación simplificada** de la relación compleja entre variables
-
---
-
-2- El `\(\beta\)` de regresión nos dice **cuanto aumenta `\(Y\)` ** (variable dependiente) *en promedio* por ** cada punto que aumenta** `\(X\)` (variable independiente).
-
---
-
-3- El modelo nos permite **estimar** el puntaje de `\(Y\)` para cada valor de `\(X\)`
-
----
-
-# ¿Qué tan bueno es nuestro modelo?
-
-- El cálculo del `\(\beta\)` busca minimizar los residuos (de ahí "mínimos cuadrados ordinarios")
-
-- Una vez minimizados los residuos, se puede evaluar el ajuste
-  - qué tan bien representa nuestro modelo la realidad
+<html lang="en"><head>
+<link href="../..//files/icon-513.png" rel="icon" type="image/png">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Kevin Carrasco">
+  <title>Metodos 3 - Universidad Andrés Bello – Métodos estadísticos para Ciencias Sociales III</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-c1e39225afc1b2f4af7fd1df49eece50.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="Métodos estadísticos para Ciencias Sociales III">
+<meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
+<meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:height" content="500">
+<meta property="og:image:width" content="500">
+<meta name="twitter:title" content="Métodos estadísticos para Ciencias Sociales III">
+<meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
+<meta name="twitter:creator" content="@kevincarrascoq1">
+<meta name="twitter:site" content="@kevincarrascoq1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="500">
+<meta name="twitter:image-width" content="500">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="section" class="slide level2" data-background-color="black">
+<h2></h2>
+<div class="columns v-center-container">
+<div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../files/img/eval-hires.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:80%;">
+<h3 id="métodos-estadísticos-para">Métodos estadísticos para</h3>
+<h3 id="ciencias-sociales-iii">Ciencias Sociales III</h3>
+<hr>
+<h3 id="kevin-carrasco"><strong>Kevin Carrasco</strong></h3>
+<h3 id="sociología---unab">Sociología - UNAB</h3>
+<h3 id="do-sem-2026">2do Sem 2026</h3>
+<h3 id="httpsmetod3-unab.netlify.app"><a href="https://metod3-unab.netlify.app/">https://metod3-unab.netlify.app/</a></h3>
+</div></div>
+</section>
+<section>
+<section id="sesión-5" class="title-slide slide level1 center" data-background-color="black">
+<h1>Sesión 5</h1>
+<p>Repaso sesión anterior</p>
+<p>Reporte de resultados</p>
+<p>Estandarización de coeficientes</p>
+<p>Síntesis del curso hasta aquí</p>
+</section>
+<section id="dónde-quedamos" class="slide level2">
+<h2>¿Dónde quedamos?</h2>
+<ul>
+<li class="fragment"><p>La regresión múltiple incorpora varios predictores y <strong>parcializa</strong> cada uno respecto de los demás</p></li>
+<li class="fragment"><p>Por eso los coeficientes <strong>cambian</strong> entre modelos: agregar ingreso redujo el coeficiente de educación, agregar edad lo aumentó, y la edad incluso invirtió su signo</p></li>
+<li class="fragment"><p>Cada especificación responde a una <strong>pregunta distinta</strong>, y siempre debe explicitarse qué se está controlando</p></li>
+</ul>
+</section>
+<section id="inferencia" class="slide level2">
+<h2>Inferencia</h2>
+<ul>
+<li class="fragment"><p>Nuestros datos son <strong>una muestra</strong>: la inferencia pregunta si lo observado permite afirmar algo sobre la <strong>población</strong></p></li>
+<li class="fragment"><p>La hipótesis nula sostiene que en la población <span class="math inline">\(\beta = 0\)</span>, es decir, que <strong>no hay asociación</strong></p></li>
+<li class="fragment"><p>El <strong>error estándar</strong> mide la imprecisión del coeficiente: aumenta con residuos grandes, disminuye con más casos</p></li>
+<li class="fragment"><p>El estadístico <span class="math inline">\(t = \beta / se(\beta)\)</span> compara el coeficiente con su propia imprecisión</p></li>
+</ul>
+</section>
+<section id="reglas-de-decisión" class="slide level2">
+<h2>Reglas de decisión</h2>
+<ul>
+<li class="fragment"><p>Para muestras grandes: <span class="math inline">\(t &gt; 1{,}96\)</span> permite rechazar <span class="math inline">\(H_0\)</span> a un <span class="math inline">\(p&lt;0{,}05\)</span>, y <span class="math inline">\(t &gt; 2{,}58\)</span> a un <span class="math inline">\(p&lt;0{,}01\)</span></p></li>
+<li class="fragment"><p>Equivalente: si el <strong>intervalo de confianza no contiene el cero</strong>, el coeficiente es significativo</p></li>
+<li class="fragment"><p>En las tablas: * <span class="math inline">\(p&lt;0{,}05\)</span>, ** <span class="math inline">\(p&lt;0{,}01\)</span>, *** <span class="math inline">\(p&lt;0{,}001\)</span></p></li>
+</ul>
+</section>
+<section id="section-1" class="slide level2" data-background-color="black">
+<h2></h2>
+<h3 id="dos-advertencias-que-conviene-tener-presentes">Dos advertencias que conviene tener presentes</h3>
+<div class="fragment fade-up">
+<h3 id="el-valor-p-no-indica-la-magnitud-ni-la-importancia-del-efecto">El valor p <strong>no</strong> indica la magnitud ni la importancia del efecto</h3>
+</div>
+<div class="fragment fade-up">
+<h3 id="con-muestras-grandes-coeficientes-muy-pequeños-resultan-significativos-significación-estadística-neq-relevancia">Con muestras grandes, coeficientes muy pequeños resultan significativos: significación estadística <span class="math inline">\(\neq\)</span> relevancia</h3>
+</div>
+</section>
+<section id="hoy" class="slide level2">
+<h2>Hoy</h2>
+<ul>
+<li class="fragment"><p>Ya sabemos estimar e interpretar. Ahora: ¿cómo se <strong>comunican</strong> estos resultados?</p></li>
+<li class="fragment"><p>Y una pregunta que quedó pendiente: si los predictores están en escalas distintas, ¿<strong>cuál pesa más</strong>?</p></li>
+<li class="fragment"><p>Al final, una síntesis de todo lo visto en estas cinco sesiones</p></li>
+</ul>
+</section></section>
+<section>
+<section id="reporte-de-resultados" class="title-slide slide level1 center" data-background-color="black">
+<h1>Reporte de resultados</h1>
+
+</section>
+<section id="del-output-de-r-al-reporte" class="slide level2">
+<h2>Del output de R al reporte</h2>
+<ul>
+<li class="fragment"><p>La salida de <code>summary()</code> sirve para trabajar, no para publicar</p></li>
+<li class="fragment"><p>Un artículo, una tesis o un informe presentan los resultados en una <strong>tabla de regresión</strong></p></li>
+<li class="fragment"><p>En R es posible automatizar ese reporte, pero se requieren especificaciones para lograr una presentación adecuada</p></li>
+<li class="fragment"><p>En ocasiones se acompaña de la <strong>ecuación</strong> del modelo, aunque esto es opcional</p></li>
+</ul>
+</section>
+<section id="contenidos-mínimos-de-una-tabla" class="slide level2">
+<h2>Contenidos mínimos de una tabla</h2>
+<ul>
+<li class="fragment"><p>Los <strong>coeficientes</strong> de cada predictor</p></li>
+<li class="fragment"><p>Una medida de precisión: <strong>error estándar</strong> o intervalo de confianza</p></li>
+<li class="fragment"><p>Indicación de <strong>significación estadística</strong> (asteriscos o valores p)</p></li>
+<li class="fragment"><p>El <strong>número de casos</strong> (N)</p></li>
+<li class="fragment"><p>Medidas de <strong>ajuste</strong>: <span class="math inline">\(R^2\)</span> y <span class="math inline">\(R^2\)</span> ajustado</p></li>
+<li class="fragment"><p>Nombres de variables <strong>legibles</strong>, no los códigos del cuestionario</p></li>
+</ul>
+</section>
+<section id="un-ejemplo" class="slide level2">
+<h2>Un ejemplo</h2>
+
+<img data-src="../../files/img/tabreg.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
+<section id="sentido-de-presentación-de-modelos" class="slide level2">
+<h2>Sentido de presentación de modelos</h2>
+<ul>
+<li class="fragment"><p>Se comienza ingresando las variables de la <strong>hipótesis principal</strong></p></li>
+<li class="fragment"><p>Los modelos siguientes incorporan hipótesis secundarias o <strong>variables de control</strong></p></li>
+<li class="fragment"><p>La interpretación de la tabla se realiza, en general, <strong>para cada variable independiente a través de los modelos</strong>, no modelo por modelo</p></li>
+<li class="fragment"><p>El objetivo es que el lector vea <strong>qué le ocurre</strong> al coeficiente de interés a medida que se agregan controles</p></li>
+</ul>
+</section>
+<section id="nuestro-ejemplo" class="slide level2">
+<h2>Nuestro ejemplo</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>e1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(estatus <span class="sc">~</span> educacion, <span class="at">data =</span> elsoc)</span>
+<span id="cb1-2"><a></a>e2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(estatus <span class="sc">~</span> educacion <span class="sc">+</span> ing100, <span class="at">data =</span> elsoc)</span>
+<span id="cb1-3"><a></a>e3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(estatus <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> elsoc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 1</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 2</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Modelo 3</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.273 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.078</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.290 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.077</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.922 <sup>***</sup></td>
+<td style="text-align: center;">0.146</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.204 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.014</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.145 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.016</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.161 <sup>***</sup></td>
+<td style="text-align: center;">0.016</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso (cientos de miles)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.049 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.048 <sup>***</sup></td>
+<td style="text-align: center;">0.006</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006 <sup>**</sup></td>
+<td style="text-align: center;">0.002</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.085 / 0.084</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.109 / 0.108</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="opciones-de-tab_model" class="slide level2">
+<h2>Opciones de <code>tab_model</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(<span class="fu">list</span>(e1, e2, e3),</span>
+<span id="cb2-2"><a></a>                  <span class="at">show.se =</span> <span class="cn">TRUE</span>,        <span class="co"># mostrar errores estándar</span></span>
+<span id="cb2-3"><a></a>                  <span class="at">show.ci =</span> <span class="cn">FALSE</span>,       <span class="co"># ocultar intervalos de confianza</span></span>
+<span id="cb2-4"><a></a>                  <span class="at">digits =</span> <span class="dv">3</span>,            <span class="co"># decimales</span></span>
+<span id="cb2-5"><a></a>                  <span class="at">p.style =</span> <span class="st">"stars"</span>,     <span class="co"># significación con asteriscos</span></span>
+<span id="cb2-6"><a></a>                  <span class="at">collapse.se =</span> <span class="cn">TRUE</span>,    <span class="co"># SE bajo el coeficiente</span></span>
+<span id="cb2-7"><a></a>                  <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>, <span class="st">"Modelo 2"</span>, <span class="st">"Modelo 3"</span>),</span>
+<span id="cb2-8"><a></a>                  <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Nivel educacional"</span>,</span>
+<span id="cb2-9"><a></a>                                  <span class="st">"Ingreso"</span>, <span class="st">"Edad"</span>),</span>
+<span id="cb2-10"><a></a>                  <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
+<span id="cb2-11"><a></a>                  <span class="at">string.est =</span> <span class="st">"β"</span>,</span>
+<span id="cb2-12"><a></a>                  <span class="at">title =</span> <span class="st">"Modelos de regresión para estatus social subjetivo"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="small">
+<p>Los argumentos <code>dv.labels</code> y <code>pred.labels</code> son los que transforman una salida técnica en una tabla presentable</p>
+</div>
+</section>
+<section id="errores-frecuentes-al-reportar" class="slide level2">
+<h2>Errores frecuentes al reportar</h2>
+<ul>
+<li class="fragment"><p>Dejar los <strong>códigos</strong> del cuestionario como nombres de variables (<code>m01</code>, <code>d01_01</code>)</p></li>
+<li class="fragment"><p>Reportar demasiados decimales, o un número distinto en cada columna</p></li>
+<li class="fragment"><p>Omitir el N, sobre todo cuando <strong>cambia</strong> entre modelos por casos perdidos</p></li>
+<li class="fragment"><p>Interpretar el intercepto cuando el valor 0 no es plausible</p></li>
+<li class="fragment"><p>Confundir la significación estadística con la <strong>magnitud</strong> del efecto</p></li>
+</ul>
+</section>
+<section id="alternativa-gráfico-de-coeficientes" class="slide level2">
+<h2>Alternativa: gráfico de coeficientes</h2>
+
+<img data-src="05-clase5_files/figure-revealjs/fig-coef-1.png" id="fig-coef" width="864" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;1
+</p><div class="small">
+<p>Útil para presentaciones. No reemplaza a la tabla en un reporte escrito</p>
+</div>
+</section></section>
+<section>
+<section id="estandarización-de-coeficientes" class="title-slide slide level1 center" data-background-color="black">
+<h1>Estandarización de coeficientes</h1>
+
+</section>
+<section id="el-problema" class="slide level2">
+<h2>El problema</h2>
+<p>Mirando la tabla anterior, ¿cuál de los tres predictores es <strong>más importante</strong>?</p>
+<ul>
+<li class="fragment"><p>Nivel educacional: 0.161</p></li>
+<li class="fragment"><p>Ingreso (cientos de miles): 0.048</p></li>
+<li class="fragment"><p>Edad: 0.0063</p></li>
+<li class="fragment"><p>¿Significa esto que la educación importa 25 veces más que la edad?</p></li>
+</ul>
+</section>
+<section id="section-2" class="slide level2" data-background-color="black">
+<h2></h2>
+<h3 id="los-coeficientes-están-en-escalas-distintas-y-no-son-directamente-comparables">Los coeficientes están en <strong>escalas distintas</strong> y no son directamente comparables</h3>
+</section>
+<section id="escalas-distintas" class="slide level2">
+<h2>Escalas distintas</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Unidad</th>
+<th style="text-align: right;">DE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Estatus subjetivo</td>
+<td style="text-align: left;">peldaño (0-10)</td>
+<td style="text-align: right;">1.53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nivel educacional</td>
+<td style="text-align: left;">nivel (1-10)</td>
+<td style="text-align: right;">2.18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ingreso (cientos de miles)</td>
+<td style="text-align: left;">cien mil pesos</td>
+<td style="text-align: right;">5.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Edad</td>
+<td style="text-align: left;">año</td>
+<td style="text-align: right;">15.14</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li class="fragment"><p>Un año más de edad es un cambio <strong>muy pequeño</strong> en su escala; un nivel educacional más es un cambio <strong>grande</strong> en la suya</p></li>
+<li class="fragment"><p>Comparar 0,161 con 0,0063 es comparar cantidades medidas en unidades diferentes</p></li>
+</ul>
+</section>
+<section id="la-solución-una-escala-común" class="slide level2">
+<h2>La solución: una escala común</h2>
+<ul>
+<li class="fragment"><p>Para comparar la magnitud de un coeficiente respecto de los otros se requiere pasar a una <strong>escala común</strong></p></li>
+<li class="fragment"><p>Esto se efectúa mediante la <strong>estandarización</strong></p></li>
+<li class="fragment"><p>Cada valor se pondera respecto de la desviación estándar de su propia variable</p></li>
+</ul>
+</section>
+<section id="el-puntaje-z" class="slide level2">
+<h2>El puntaje Z</h2>
+<p>A cada valor se le resta el promedio y se divide por la desviación estándar:</p>
+<p><span class="math display">\[z_x=\frac{x-\bar{x}}{sd(x)}\]</span></p>
+<ul>
+<li class="fragment"><p>El resultado tiene media 0 y desviación estándar 1</p></li>
+<li class="fragment"><p>El procedimiento se aplica <strong>tanto a la dependiente como a las independientes</strong></p></li>
+<li class="fragment"><p>Un valor de <span class="math inline">\(z = 1\)</span> significa “una desviación estándar por sobre el promedio”</p></li>
+</ul>
+</section>
+<section id="estandarización-en-r" class="slide level2">
+<h2>Estandarización en R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># La función scale() estandariza todas las variables de la base</span></span>
+<span id="cb3-2"><a></a>elsoc_std <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(elsoc))</span>
+<span id="cb3-3"><a></a></span>
+<span id="cb3-4"><a></a>e3_std <span class="ot">&lt;-</span> <span class="fu">lm</span>(estatus <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> elsoc_std)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment fade-up">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">round</span>(<span class="fu">colMeans</span>(elsoc_std), <span class="dv">3</span>)</span>
+<span id="cb4-2"><a></a><span class="co">#&gt;   estatus educacion    ing100      edad </span></span>
+<span id="cb4-3"><a></a><span class="co">#&gt;         0         0         0         0</span></span>
+<span id="cb4-4"><a></a><span class="fu">round</span>(<span class="fu">apply</span>(elsoc_std, <span class="dv">2</span>, sd), <span class="dv">3</span>)</span>
+<span id="cb4-5"><a></a><span class="co">#&gt;   estatus educacion    ing100      edad </span></span>
+<span id="cb4-6"><a></a><span class="co">#&gt;         1         1         1         1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="comparación-de-modelos" class="slide level2">
+<h2>Comparación de modelos</h2>
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">No estandarizado</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Estandarizado</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.922 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.146</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.020</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.161 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.016</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.230 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.048 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.176 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006 <sup>**</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.002</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.062 <sup>**</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.021</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
+</tr>
+<tr class="odd">
+<td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interpretación" class="slide level2">
+<h2>Interpretación</h2>
+<ul>
+<li class="fragment"><p>Al estandarizar, los coeficientes reflejan cuántas <strong>desviaciones estándar</strong> cambia <span class="math inline">\(Y\)</span> ante el cambio de <strong>una desviación estándar</strong> en <span class="math inline">\(X\)</span></p></li>
+<li class="fragment"><p>Nivel educacional (0.23): por cada desviación estándar adicional de educación, el estatus subjetivo aumenta 0.23 desviaciones estándar</p></li>
+<li class="fragment"><p>Ahora sí son comparables: educación (0.23) e ingreso (0.176) tienen pesos similares, y ambos claramente mayores que edad (0.062)</p></li>
+</ul>
+</section>
+<section id="section-3" class="slide level2" data-background-color="black">
+<h2></h2>
+<h3 id="lo-que-revela-la-estandarización">Lo que revela la estandarización</h3>
+<div class="fragment fade-up">
+<h3 id="en-la-escala-original-el-coeficiente-del-ingreso-0.048-parecía-casi-despreciable-frente-al-de-educación-0.161">En la escala original, el coeficiente del ingreso (0.048) parecía casi despreciable frente al de educación (0.161)</h3>
+</div>
+<div class="fragment fade-up">
+<h3 id="estandarizados-0.176-frente-a-0.23-el-ingreso-pesa-casi-tanto-como-la-educación">Estandarizados, 0.176 frente a 0.23: el ingreso pesa casi tanto como la educación</h3>
+</div>
+</section>
+<section id="qué-no-cambia-al-estandarizar" class="slide level2">
+<h2>¿Qué NO cambia al estandarizar?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">summary</span>(e3)<span class="sc">$</span>r.squared</span>
+<span id="cb5-2"><a></a><span class="co">#&gt; [1] 0.1126182</span></span>
+<span id="cb5-3"><a></a><span class="fu">summary</span>(e3_std)<span class="sc">$</span>r.squared</span>
+<span id="cb5-4"><a></a><span class="co">#&gt; [1] 0.1126182</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment"><p>El <span class="math inline">\(R^2\)</span> es <strong>idéntico</strong>: estandarizar no altera el poder explicativo, solo la escala de los coeficientes</p></li>
+<li class="fragment"><p>Los valores <span class="math inline">\(t\)</span> y los niveles de significación tampoco cambian</p></li>
+<li class="fragment"><p>El intercepto pasa a ser 0, y deja de tener interpretación sustantiva</p></li>
+</ul>
+</section>
+<section id="ventajas" class="slide level2">
+<h2>Ventajas</h2>
+<ul>
+<li class="fragment"><p><strong>Comparabilidad</strong> entre predictores: permite identificar cuáles tienen mayor peso relativo</p></li>
+<li class="fragment"><p>Neutraliza escalas distintas, lo que resulta útil al combinar variables con unidades muy diferentes</p></li>
+<li class="fragment"><p>Facilita la interpretación en términos relativos</p></li>
+</ul>
+</section>
+<section id="desventajas" class="slide level2">
+<h2>Desventajas</h2>
+<ul>
+<li class="fragment"><p><strong>Pérdida de interpretación sustantiva</strong>: ya no se puede decir “un año más de edad implica tantos puntos”</p></li>
+<li class="fragment"><p>El intercepto deja de ser informativo</p></li>
+<li class="fragment"><p>En variables <strong>dicotómicas</strong>, la interpretación en desviaciones estándar es poco intuitiva</p></li>
+<li class="fragment"><p>Dificulta la comunicación a audiencias no especializadas</p></li>
+<li class="fragment"><p>Los coeficientes dependen de la variabilidad de <strong>esta</strong> muestra, por lo que no son comparables entre estudios con muestras distintas</p></li>
+</ul>
+</section>
+<section id="section-4" class="slide level2" data-background-color="black">
+<h2></h2>
+<h3 id="en-la-práctica">En la práctica</h3>
+<h3 id="se-reportan-los-coeficientes-no-estandarizados-como-resultado-principal">Se reportan los coeficientes <strong>no estandarizados</strong> como resultado principal</h3>
+<h3 id="y-los-estandarizados-cuando-la-pregunta-es-explícitamente-sobre-importancia-relativa">Y los estandarizados cuando la pregunta es explícitamente sobre <strong>importancia relativa</strong></h3>
+</section></section>
+<section>
+<section id="un-segundo-ejemplo" class="title-slide slide level1 center" data-background-color="black">
+<h1>Un segundo ejemplo</h1>
+
+</section>
+<section id="la-pregunta" class="slide level2">
+<h2>La pregunta</h2>
+<ul>
+<li class="fragment"><p>La sociología de la salud estudia los <strong>determinantes sociales del bienestar</strong>: la idea de que la posición que se ocupa en la estructura social se asocia a diferencias sistemáticas en indicadores de salud</p></li>
+<li class="fragment"><p>La hipótesis clásica es la del <strong>gradiente social</strong>: a mayor posición socioeconómica, mejores indicadores de bienestar</p></li>
+<li class="fragment"><p>¿Se observa ese gradiente en ELSOC?</p></li>
+</ul>
+</section>
+<section id="la-variable-dependiente" class="slide level2">
+<h2>La variable dependiente</h2>
+<ul>
+<li class="fragment"><p>ELSOC incluye una escala de nueve ítems sobre la frecuencia de distintos estados anímicos durante las últimas dos semanas</p></li>
+<li class="fragment"><p>Cada ítem se responde en una escala de frecuencia, aquí recodificada de 0 a 4</p></li>
+<li class="fragment"><p>La suma de los nueve ítems entrega un puntaje de <strong>0 a 36</strong>: a mayor valor, mayor frecuencia de estados anímicos negativos</p></li>
+<li class="fragment"><p>La construcción y validación de escalas de este tipo es materia de la última unidad del curso; por ahora la usamos como una variable ya construida</p></li>
+</ul>
+</section>
+<section id="los-datos" class="slide level2">
+<h2>Los datos</h2>
+<p>2285 casos con información completa</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>animo <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">filter</span>(ola <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(items), m01, m29, m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a></a>  <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a></a>  <span class="fu">rename</span>(<span class="st">"educacion"</span> <span class="ot">=</span> m01, <span class="st">"ingreso"</span> <span class="ot">=</span> m29, <span class="st">"edad"</span> <span class="ot">=</span> m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a></a>  <span class="fu">filter</span>(ingreso <span class="sc">&gt;=</span> <span class="dv">50000</span>, ingreso <span class="sc">&lt;=</span> <span class="dv">5000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(items), <span class="sc">~</span> .x <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="cb6-9"><a></a>         <span class="at">ing100 =</span> ingreso <span class="sc">/</span> <span class="dv">100000</span>,</span>
+<span id="cb6-10"><a></a>         <span class="at">sintomas =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(items))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="descriptivos" class="slide level2">
+<h2>Descriptivos</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Media</th>
+<th style="text-align: right;">DE</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Escala anímica (0-36)</td>
+<td style="text-align: right;">6.12</td>
+<td style="text-align: right;">5.78</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nivel educacional (1-10)</td>
+<td style="text-align: right;">5.16</td>
+<td style="text-align: right;">2.18</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ingreso (cientos de miles)</td>
+<td style="text-align: right;">5.88</td>
+<td style="text-align: right;">5.58</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Edad</td>
+<td style="text-align: right;">46.03</td>
+<td style="text-align: right;">15.17</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">88</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="small">
+<p>Note el contraste de escalas: la dependiente recorre 37 valores posibles, la educación 10, y la edad más de 70</p>
+</div>
+</section>
+<section id="correlaciones" class="slide level2">
+<h2>Correlaciones</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">sintomas</th>
+<th style="text-align: right;">educacion</th>
+<th style="text-align: right;">ing100</th>
+<th style="text-align: right;">edad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sintomas</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">-0.141</td>
+<td style="text-align: right;">-0.131</td>
+<td style="text-align: right;">0.027</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">educacion</td>
+<td style="text-align: right;">-0.141</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">0.469</td>
+<td style="text-align: right;">-0.353</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ing100</td>
+<td style="text-align: right;">-0.131</td>
+<td style="text-align: right;">0.469</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">-0.160</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">edad</td>
+<td style="text-align: right;">0.027</td>
+<td style="text-align: right;">-0.353</td>
+<td style="text-align: right;">-0.160</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment fade-up">
+<p>Educación e ingreso se asocian <strong>negativamente</strong> con la escala, en la dirección que predice la hipótesis del gradiente social</p>
+</div>
+</section>
+<section id="el-modelo" class="slide level2">
+<h2>El modelo</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>a1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sintomas <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> animo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Escala anímica</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">8.581 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.582</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.294 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.066</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso (cientos de miles)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.086 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.024</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.010 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.008</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2285</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.026 / 0.024</td>
+</tr>
+<tr class="odd">
+<td colspan="3" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interpretación-1" class="slide level2">
+<h2>Interpretación</h2>
+<ul>
+<li class="fragment"><p><strong>Educación</strong> (-0.294): por cada nivel educacional adicional, el puntaje en la escala disminuye 0.294 puntos, a igual ingreso y edad</p></li>
+<li class="fragment"><p><strong>Ingreso</strong> (-0.086): por cada cien mil pesos adicionales, el puntaje disminuye 0.086 puntos, a igual educación y edad</p></li>
+<li class="fragment"><p>Ambos coeficientes son negativos y significativos: el gradiente social se observa</p></li>
+</ul>
+</section>
+<section id="un-coeficiente-no-significativo" class="slide level2">
+<h2>Un coeficiente no significativo</h2>
+<ul>
+<li class="fragment"><p>El coeficiente de la edad es -0.0096, con un valor p de 0.252</p></li>
+<li class="fragment"><p>Al no alcanzar el umbral convencional, <strong>no podemos rechazar</strong> la hipótesis nula</p></li>
+<li class="fragment"><p>Lectura correcta: los datos no permiten afirmar que exista asociación entre edad y esta escala, una vez controlados educación e ingreso</p></li>
+<li class="fragment"><p>Lectura <strong>incorrecta</strong>: “se demostró que la edad no tiene efecto”. No rechazar <span class="math inline">\(H_0\)</span> no equivale a probar que <span class="math inline">\(H_0\)</span> sea verdadera</p></li>
+</ul>
+</section>
+<section id="cuál-pesa-más" class="slide level2">
+<h2>¿Cuál pesa más?</h2>
+<p>En la escala original, la educación (-0.294) parece tener un efecto más de tres veces mayor que el ingreso (-0.086). Estandaricemos:</p>
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">No estandarizado</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Estandarizado</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">8.581 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.582</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.000 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.021</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.294 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.066</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.111 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.086 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.024</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.083 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.023</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.010 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.008</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.025 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2285</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2285</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.026 / 0.024</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.026 / 0.024</td>
+</tr>
+<tr class="odd">
+<td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="la-conclusión-cambia" class="slide level2">
+<h2>La conclusión cambia</h2>
+<ul>
+<li class="fragment"><p>Estandarizados: educación -0.111, ingreso -0.083</p></li>
+<li class="fragment"><p>La distancia entre ambos se reduce considerablemente</p></li>
+<li class="fragment"><p>La impresión de que la educación importaba mucho más que el ingreso era, en buena medida, un <strong>efecto de las unidades de medida</strong></p></li>
+<li class="fragment"><p>Igual que en el ejemplo anterior: los coeficientes en escala original no sirven para comparar importancia relativa</p></li>
+</ul>
+</section>
+<section id="cómo-se-reporta" class="slide level2">
+<h2>Cómo se reporta</h2>
+<div class="small">
+<blockquote>
+<p>Se estimó un modelo de regresión lineal sobre una escala sumativa de estados anímicos (rango 0-36), con datos de la primera ola de ELSOC (2016; N = 2285). Tanto el nivel educacional (β = -0.294) como el ingreso del hogar (β = -0.086) presentan asociaciones negativas y estadísticamente significativas, consistentes con la hipótesis del gradiente social. La edad no alcanza significación estadística (p = 0.252) una vez controladas las restantes variables. Los coeficientes estandarizados (-0.111 y -0.083, respectivamente) indican pesos relativos similares para ambos predictores, pese a que sus coeficientes en escala original difieren en un factor cercano a tres. El modelo explica un 2.6% de la varianza.</p>
+</blockquote>
+</div>
+</section>
+<section id="lo-que-enseña-este-ejemplo" class="slide level2">
+<h2>Lo que enseña este ejemplo</h2>
+<ol type="1">
+<li class="fragment"><p>Un predictor puede resultar <strong>no significativo</strong>, y eso también es un resultado que se reporta e interpreta</p></li>
+<li class="fragment"><p>La comparación de magnitudes en escala original puede ser francamente engañosa</p></li>
+<li class="fragment"><p>La estandarización responde a una pregunta específica, la de la <strong>importancia relativa</strong>, y no a la de significación ni a la de ajuste</p></li>
+</ol>
+</section></section>
+<section>
+<section id="síntesis-de-las-cinco-sesiones" class="title-slide slide level1 center" data-background-color="black">
+<h1>Síntesis de las cinco sesiones</h1>
+
+</section>
+<section id="el-recorrido" class="slide level2">
+<h2>El recorrido</h2>
+<ul>
+<li class="fragment"><p><strong>Sesión 1</strong>: qué es investigar cuantitativamente, cómo se organizan los datos, escalas de medición, correlación</p></li>
+<li class="fragment"><p><strong>Sesión 2</strong>: de las medias condicionales a la recta, estimación de <span class="math inline">\(b_0\)</span> y <span class="math inline">\(b_1\)</span> por mínimos cuadrados</p></li>
+<li class="fragment"><p><strong>Sesión 3</strong>: bondad de ajuste (<span class="math inline">\(R^2\)</span>) e inferencia</p></li>
+<li class="fragment"><p><strong>Sesión 4</strong>: regresión múltiple, parcialización y control estadístico</p></li>
+<li class="fragment"><p><strong>Sesión 5</strong>: reporte de resultados y estandarización</p></li>
+</ul>
+</section>
+<section id="objetivos-centrales-del-modelo-de-regresión" class="slide level2">
+<h2>Objetivos centrales del modelo de regresión</h2>
+<ol type="1">
+<li class="fragment"><p><strong>Conocer</strong>: la variación de la variable dependiente de acuerdo a la variación de otra(s) variable(s) independiente(s)</p></li>
+<li class="fragment"><p><strong>Predecir</strong>: estimar el valor de una variable (dependiente) de acuerdo al valor de otra(s)</p></li>
+<li class="fragment"><p><strong>Inferir</strong>: establecer en qué medida esta asociación es estadísticamente significativa</p></li>
+</ol>
+</section>
+<section id="el-modelo-en-una-línea" class="slide level2">
+<h2>El modelo, en una línea</h2>
+<p><span class="math display">\[\widehat{Y}=b_{0} + b_{1}X_{1} + b_{2}X_{2} + \dots + b_{k}X_{k}\]</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(\widehat{Y}\)</span>: valor predicho de la variable dependiente</p></li>
+<li class="fragment"><p><span class="math inline">\(b_0\)</span>: valor esperado de <span class="math inline">\(Y\)</span> cuando todas las independientes valen 0</p></li>
+<li class="fragment"><p><span class="math inline">\(b_j\)</span>: cambio esperado en <span class="math inline">\(Y\)</span> por cada unidad de <span class="math inline">\(X_j\)</span>, manteniendo constantes las demás</p></li>
+<li class="fragment"><p><span class="math inline">\(e_i = Y_i - \widehat{Y}_i\)</span>: residuo, lo que el modelo no logra explicar</p></li>
+</ul>
+</section>
+<section id="glosario-i-estimación" class="slide level2">
+<h2>Glosario I: estimación</h2>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concepto</th>
+<th>Qué es</th>
+<th>Cómo se dice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercepto</td>
+<td>Valor de <span class="math inline">\(Y\)</span> cuando <span class="math inline">\(X = 0\)</span></td>
+<td>“Cuando el predictor vale cero, el valor esperado es…”</td>
+</tr>
+<tr class="even">
+<td>Coeficiente</td>
+<td>Cambio en <span class="math inline">\(Y\)</span> por unidad de <span class="math inline">\(X\)</span></td>
+<td>“Por cada unidad adicional de X, Y cambia en…”</td>
+</tr>
+<tr class="odd">
+<td>Valor predicho</td>
+<td>Estimación de <span class="math inline">\(Y\)</span> para un caso</td>
+<td>“El modelo predice un valor de…”</td>
+</tr>
+<tr class="even">
+<td>Residuo</td>
+<td>Observado menos predicho</td>
+<td>“Esta persona está por sobre lo que predice el modelo”</td>
+</tr>
+<tr class="odd">
+<td>Mínimos cuadrados</td>
+<td>Criterio que minimiza <span class="math inline">\(\sum e_i^2\)</span></td>
+<td>“La recta que minimiza los errores al cuadrado”</td>
+</tr>
+<tr class="even">
+<td>Media condicional</td>
+<td>Promedio de <span class="math inline">\(Y\)</span> para un valor de <span class="math inline">\(X\)</span></td>
+<td>“El promedio de Y entre quienes tienen X = 5”</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="glosario-ii-ajuste" class="slide level2">
+<h2>Glosario II: ajuste</h2>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concepto</th>
+<th>Qué es</th>
+<th>Cómo se dice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(SS_{tot}\)</span></td>
+<td>Variación total de <span class="math inline">\(Y\)</span></td>
+<td>Suma de cuadrados totales</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(SS_{reg}\)</span></td>
+<td>Variación asociada al modelo</td>
+<td>Suma de cuadrados de regresión</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(SS_{error}\)</span></td>
+<td>Variación no explicada</td>
+<td>Suma de cuadrados del error</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R^2\)</span></td>
+<td><span class="math inline">\(SS_{reg}/SS_{tot}\)</span></td>
+<td>“El modelo explica un X% de la varianza”</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(R^2\)</span> ajustado</td>
+<td><span class="math inline">\(R^2\)</span> penalizado por número de predictores</td>
+<td>Se usa para comparar modelos</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="glosario-iii-inferencia" class="slide level2">
+<h2>Glosario III: inferencia</h2>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concepto</th>
+<th>Qué es</th>
+<th>Cómo se dice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Error estándar</td>
+<td>Imprecisión del coeficiente</td>
+<td>“El coeficiente se estima con un error de…”</td>
+</tr>
+<tr class="even">
+<td>Hipótesis nula</td>
+<td><span class="math inline">\(\beta = 0\)</span> en la población</td>
+<td>“No hay asociación en la población”</td>
+</tr>
+<tr class="odd">
+<td>Estadístico <span class="math inline">\(t\)</span></td>
+<td>Coeficiente dividido por su error estándar</td>
+<td>Se compara con el valor crítico</td>
+</tr>
+<tr class="even">
+<td>Valor crítico</td>
+<td>Umbral de la distribución <span class="math inline">\(t\)</span></td>
+<td>1,96 al 95%; 2,58 al 99%</td>
+</tr>
+<tr class="odd">
+<td>Valor p</td>
+<td>Probabilidad del resultado bajo <span class="math inline">\(H_0\)</span></td>
+<td>“Significativo al 95% de confianza”</td>
+</tr>
+<tr class="even">
+<td>Intervalo de confianza</td>
+<td>Rango plausible del parámetro</td>
+<td>“Si no contiene el cero, es significativo”</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="glosario-iv-regresión-múltiple" class="slide level2">
+<h2>Glosario IV: regresión múltiple</h2>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concepto</th>
+<th>Qué es</th>
+<th>Cómo se dice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Parcialización</td>
+<td>Extraer de un predictor lo que comparte con otros</td>
+<td>“Una vez descontado lo que comparte con…”</td>
+</tr>
+<tr class="even">
+<td>Control estadístico</td>
+<td>Comparar casos equivalentes en las demás variables</td>
+<td>“Manteniendo constantes las demás variables”</td>
+</tr>
+<tr class="odd">
+<td>Modelos anidados</td>
+<td>Cada modelo contiene los predictores del anterior</td>
+<td>“Al incorporar el segundo predictor…”</td>
+</tr>
+<tr class="even">
+<td>Variable omitida</td>
+<td>Predictor relevante ausente del modelo</td>
+<td>El coeficiente estimado absorbe su efecto</td>
+</tr>
+<tr class="odd">
+<td>Colinealidad</td>
+<td>Predictores muy correlacionados entre sí</td>
+<td>Aumenta los errores estándar</td>
+</tr>
+<tr class="even">
+<td>Coeficiente estandarizado</td>
+<td>Cambio en DE de <span class="math inline">\(Y\)</span> por una DE de <span class="math inline">\(X\)</span></td>
+<td>Permite comparar importancia relativa</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cómo-leer-una-tabla-de-regresión" class="slide level2">
+<h2>Cómo leer una tabla de regresión</h2>
+<ol type="1">
+<li class="fragment"><p>Identificar la <strong>variable dependiente</strong> y las unidades en que está medida</p></li>
+<li class="fragment"><p>Revisar qué predictores entran en <strong>cada modelo</strong></p></li>
+<li class="fragment"><p>Leer el coeficiente de interés: signo, magnitud y significación</p></li>
+<li class="fragment"><p>Seguir ese coeficiente <strong>a través de los modelos</strong> y explicar sus cambios</p></li>
+<li class="fragment"><p>Revisar el <span class="math inline">\(R^2\)</span> y el N</p></li>
+<li class="fragment"><p>Traducir el resultado a lenguaje sustantivo</p></li>
+</ol>
+</section>
+<section id="cinco-frases-que-evitar" class="slide level2">
+<h2>Cinco frases que evitar</h2>
+<ol type="1">
+<li class="fragment"><p>“La educación <strong>causa</strong> un aumento del estatus” (asociación, no causalidad)</p></li>
+<li class="fragment"><p>“El efecto es <strong>muy significativo</strong>” (o es significativo o no lo es)</p></li>
+<li class="fragment"><p>“El <span class="math inline">\(R^2\)</span> es bajo, por lo tanto el modelo <strong>está mal</strong>”</p></li>
+<li class="fragment"><p>“El coeficiente de educación es mayor que el de edad, por lo que <strong>importa más</strong>” (escalas distintas)</p></li>
+<li class="fragment"><p>“La edad <strong>no tiene efecto</strong>” cuando el resultado es no significativo</p></li>
+</ol>
+</section>
+<section id="para-la-prueba" class="slide level2">
+<h2>Para la prueba</h2>
+<ul>
+<li class="fragment"><p>Se evalúa <strong>interpretación</strong>, no cálculo computacional.</p></li>
+<li class="fragment"><p>deberán estimar un coeficiente de regresión e interpretarlo.</p></li>
+<li class="fragment"><p>Habrá tablas de regresión que deberán leer, interpretar y comentar.</p></li>
+<li class="fragment"><p>Conviene poder explicar, en lenguaje propio, qué significa cada columna de una tabla.</p></li>
+<li class="fragment"><p>Y poder justificar por qué un coeficiente cambia entre dos modelos.</p></li>
+</ul>
+</section>
+<section id="para-la-próxima-sesión" class="slide level2">
+<h2>Para la próxima sesión</h2>
+<ul>
+<li><p><strong>Prueba 1</strong>: lunes 7 de septiembre a las 15:00</p></li>
+<li><p>Contenidos: sesiones 1 a 5, es decir, regresión simple y múltiple, estimación e interpretación de coeficientes, bondad de ajuste e inferencia</p></li>
+</ul>
+</section>
+<section id="section-5" class="slide level2" data-background-color="black">
+<h2></h2>
+<div class="columns v-center-container">
+<div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="../../files/img/eval-hires.png" class="quarto-figure quarto-figure-right" style="width:80.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:80%;">
+<h3 id="métodos-estadísticos-para-ciencias-sociales-iii">Métodos estadísticos para Ciencias Sociales III</h3>
+<hr>
+<h3 id="kevin-carrasco-1"><strong>Kevin Carrasco</strong></h3>
+<h3 id="sociología---unab-1">Sociología - UNAB</h3>
+<h3 id="do-sem-2026-1">2do Sem 2026</h3>
+<h3 id="httpsmetod3-unab.netlify.app-1"><a href="https://metod3-unab.netlify.app/">https://metod3-unab.netlify.app/</a></h3>
+</div></div>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/icon-512.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
-  - cuánto error (de predicción) estamos cometiendo con nuestro modelo
 
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
----
-class: inverse, right
+  <script>
 
-## Un modelo es mejor mientras **mejor refleje** lo que sucede con los datos
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
 
---
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
 
-## En otras palabras, cuando se parece o **ajusta** mejor a los datos
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
 
---
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
 
-## ... y en otras: cuando los **residuos** son menores
+        // Display a presentation progress bar
+        progress: true,
 
----
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
 
-# Varianza explicada de Y
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
 
-¿Qué parte de la varianza de ingreso (Y) se asocia a educación? 
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
 
-.center[![:scale 50%](../../files/img/ingresoeduc.png)]
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
 
----
-# Varianza explicada de Y: `\(R^2\)`
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
 
-- ¿Cuánto de los ingresos puedo predecir con educación (regresión) y cuánto me estoy equivocando (residuos)?
+        // Push each slide change to the browser history
+        history: true,
 
---
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
 
-- el `\(R^2\)`
-  - es la proporción de la varianza de Y que se asocia a X
-  - varía entre 0 y 1, y se puede expresar en porcentaje
+        // Enable the slide overview mode
+        overview: true,
 
---
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
 
-- Entonces, podemos descomponer la varianza de Y en 2: aquella asociada a X (regresión) y la que no se asocia a X (residuos) 
+        // Vertical centering of slides
+        center: false,
 
----
+        // Enables touch navigation on devices with touch input
+        touch: true,
 
-# Inferencia: la otra mitad de la regresión
+        // Loop the presentation
+        loop: false,
 
+        // Change the presentation direction to be RTL
+        rtl: false,
 
-- hasta ahora hemos interpretado solo la magnitud de los `\(\beta\)` de regresión. Pero,
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
 
-  - ¿son estos `\(\beta\)` **_estadísticamente_** significativos?
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
 
-  - es algo que podemos extrapolar de nuestra muestra a la población?
+        // Turns fragments on and off globally
+        fragments: true,
 
-  - ... o es algo que se debe simplemente al azar?
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
 
----
-# Inferencia y tablas de regresión
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
 
-.content-box-red[
-- las tablas de regresión tienen información sobre inferencia reportada de manera automática (errores estándar, niveles de probabilidad de error, etc)
-]
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
 
---
-.content-box-purple[
-
-- sin embargo, antes de interpretar directamente esta información, es conveniente ahondar en cómo se obtiene esa información y cuál es su sentido
-]
----
-.pull-left-narrow[
-
-![](../../files/img/inference1.png)
-]
-.pull-right-wide[
-
-## Conceptos claves de inferencia
-- La **inferencia** en estadística se refiere a la relación que existe entre los resultados obtenidos basados en nuestra muestra y la población
-
-
-]
-
---
-
-- **¿En qué medida podemos hacer inferencias desde nuestra muestra a la población?**
-
-
---
-
-- Un concepto central es la probabilidad de **ERROR**
-
-
-
----
-# Bases de inferencia:
-
-- dispersión: varianza y desviación estandar
-
-- curva normal
-
-- error estándar
-
----
-.pull-left-narrow[
-# Dispersión:
-## Varianza
-]
-
-.pull-right-wide[
-
-![:scale 100%](../../files/img/varianza2.png)
-]
-
-
----
-# Medidas de Dispersión
-
-.pull-left[
-
-## Varianza
-&lt;br&gt;
-
-&lt;br&gt;
-
-## Desviación estándar
-]
-
-.pull-right[
-
-`$$s^2=\frac{\Sigma(x-\bar{x})²}{N-1}$$`
-
-&lt;br&gt;
-
-`$$s=\sqrt \frac{\Sigma(x-\bar{x})²}{N-1}$$`]
----
-.content-box-yellow[
-## Desviación estándar y curva normal]
-
-.center[![:scale 70%](../../files/img/normal.png)]
-
----
-
-.pull-left-narrow[
-![](../../files/img/inference1.png)
-
-]
-
-.pull-right-wide[
-.content-box-purple[
-
-## Desviación estándar y error estándar]
-- más que el promedio de la variable en nuestra **muestra**, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la **población**
-
-
-]
-
---
-
-- contamos con **una muestra**, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados.
-
----
-# Error estándar
-
-![](../../files/img/se_1.png)
----
-# Error estándar
-
-![](../../files/img/se_2.png)
----
-# Error estándar
-
-![](../../files/img/se_3.png)
----
-
-# Error estándar
-
-- ¿Cómo calculamos el error estándar a partir de **una** muestra?
-
-- Basados en el **teorema del límite central**, en muestras mayores a 30 la desviación estándar de los promedios (error estándar) equivale a:
-
-`$$\sigma_{\bar{X}}=SE(error estándar)=\frac{s}{\sqrt{N}}$$`
-
-
----
-# Error, rangos y probabilidad
-
-
-.pull-left[
-.medium[
-
-- Nuestro promedio muestral `\(\bar{x}\)` posee una distribución normal con una desviación estandar = SE (error estándar)
-
-- Esto nos permite calcular una probabilidad de error basados en los valores de la curva normal
-
-]
-]
-.pull-right[
-.center[![:scale 85%](../../files/img/normal.png)]]
-
----
-# Error, rangos y probabilidad
-
-
-.pull-left[
-.medium[
-
-- Por ejemplo, `\(\bar{x}\)` +/- 2 SE abarca aproximadamente el 95% de los valores probables
-
-- De otra manera, puedo dar un rango de valores donde se encuentra el promedio(+- 2 SE), con un nivel de confianza de 95%
-
-- ... o con una probabilidad de error p&lt;0.05
-
-]
-]
-.pull-right[
-.center[![:scale 85%](../../files/img/normal.png)]]
-
----
-# Inferencia y significación estadística
-
-- ¿Con qué nivel de **probabilidad** estamos dispuest_s a aceptar que las diferencias (entre promedios) son distintas de 0?
-
-- Por convención, una probabilidad de error (o valor *p*) de menos de 0.05 (1 de 20 veces)
-
-- Esto significa una probabilidad de acierto/nivel de confianza de 95% (2 SE)
-
----
-
-.center[![:scale 70%](../../files/img/inferencia1.png)]
-
----
-
-## Volviendo a regresión
-
-- el error estándar del promedio nos sirve como referencia cálculo de significación estadística de los coeficientes de regresión
-
---
-
-- en regresión, las variables independientes poseen distintos niveles/valores, y queremos saber si las diferencias en Y de los valores de X son significativas = **estadísticamente distintas de 0**.
-
-  - Ej: diferencias de ingreso (Y) entre hombres y mujeres (X)
-
----
-# Inferencia y prueba de hipótesis
-
-- La hipótesis nula (o `\(H_0\)` ) se refiere a que las diferencias son = 0
-
-- En regresión, `\(H_0\)` dice que nuestro beta no es distinto de cero
-
-- Por eso, queremos rechazar `\(H_0\)` y para eso tenemos que establecer un nivel de probabilidad aceptable (al menos p&lt;0.05)
-
----
-## Prueba de hipótesis en regresión
-
-Contrastamos la *hipótesis nula* (no hay asociación entre el predictor y la variable dependiente):
-
-`$$H_{0}: \beta_{j} = 0$$`
-
-En relación a la siguiente hipótesis alternativa:
-
-`$$H_{a}: \beta_{j} \neq 0$$`
-
----
-# Prueba T
-
-- para **mayor precisión**, la prueba T nos permite establecer el nivel de error que estamos cometiendo al rechazar `\(H_0\)`
-
-- para ello, T se ajusta por la cantidad de sujetos en la muestra (N), pero para un N&gt;120 se aproxima a la distribución normal.
-
-
----
-## Inferencia, diferencias y prueba _t_
-
-.medium[
-- La prueba _t_ se utiliza para inferencias sobre `\(\beta\)`  y básicamente es una razón entre
-
-.center[![:scale 40%](../../files/img/t1.png)]
-
-- Ya que la diferencia esperada si `\(H_0\)` es verdadera es 0, entonces:
-
-`$$t=\frac{b_j}{SE(b_j)}$$`
-]
-
-
----
-# Pasos
-
-1. obtener `\(\beta\)`
-
-2. obtener SE (error estándar) de `\(\beta\)`
-
-3.  calcular t: `\(t=\frac{b_j}{SE(b_j)}\)`
-
-4. determinar la probabilidad de error asociada al valor t
-
----
-# ¿Cómo utilizamos el valor T?
-
-- T ( `\(\beta/SE\)` ) se compara con un  **valor crítico**
-
-- El valor crítico se obtiene de una tabla según el nivel de probabilidad de error `\(\alpha\)` y los **grados de libertad** N-k-1 (siendo k el número de regresores)
-
-- Si nuestro T observado &gt; valor crítico de T, entonces rechazamos `\(H_0\)` al nivel de confianza establecido
-
----
-# Valor crítico de T
-
-
-![](../../files/img/imagen4.png)
-
----
-class: inverse
-
-## Resumen: inferencia en regresión
-
-- conceptos centrales: error estándar del `\(\beta\)` y **valor T**
-
-- el valor T se obtiene dividiendo el beta por el error estándar
-
-- para muestras grandes, un T &gt; 1.96 permite rechazar `\(H_0\)` a un p&lt;0.05, y T &gt; 2.58 a un p&gt;0.01
-
----
-class: roja, bottom, right, slideInRight
-
-# 4. Tabla de regresión
-
-
----
-## Reporte de regresión múltiple
-
-- en ocasiones se representa el modelo como una ecuación (opcional), y los resultados en una Tabla de Regresión
-
-- la tabla posee ciertas características y contenidos mínimos que deben ser considerados en el reporte
-
-- en R es posible automatizar el reporte en tablas, pero hay que agregar especificaciones para una visualización adecuada
-
----
-.pull-left-narrow[
-# Tabla de regresión
-
-## con sjPlot
-]
-
-.pull-right-wide[
-.smally[
-
-
-
-
-&lt;table style="border-collapse:collapse; border:none;"&gt;
-&lt;caption style="font-weight: bold; text-align:left;"&gt;Modelos de regresión para puntaje en ciencia &lt;br&gt; (Errores estándar entre paréntesis)&lt;/caption&gt;
-&lt;tr&gt;
-&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
-&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Modelo 1&lt;/th&gt;
-&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Modelo 2&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictores&lt;/td&gt;
-&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;β&lt;/td&gt;
-&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;β&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;11.616 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(3.054)&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;12.325 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(3.194)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;matematicas&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.402 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(0.073)&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.389 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(0.074)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;lectura&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.365 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(0.066)&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.335 &lt;sup&gt;***&lt;/sup&gt;&lt;br&gt;(0.073)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;mujer&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;2.010 &lt;sup&gt;&lt;/sup&gt;&lt;br&gt;(1.023)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;status&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.050 &lt;sup&gt;&lt;/sup&gt;&lt;br&gt;(0.062)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;200&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;200&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; / R&lt;sup&gt;2&lt;/sup&gt; adjusted&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.478 / 0.473&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.489 / 0.479&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;/table&gt;
-]]
-
----
-
-![:scale 90%](../../files/img/tabreg.png)
-
-
----
-class: inverse, bottom, right
-
-# .red[Sesión 5]
-&lt;br&gt;
-
-Repaso sesión anterior
-
-
-.yellow[estandarización de coeficientes]
-
----
-
-# Estandarización
-
-## ¿Qué coeficiente es mayor que otro?
-
-- usualmente, los coeficientes se encuentran en escalas diferentes
-
-- para poder comparar la magnitud de un coeficiente en relación a los otros se requiere pasar a una escala común
-
-- esto se efectúa mediante el proceso de **estandarización**
-
----
-## Estandarización de Coeficientes
-
-- Para poder expresar las variables en escalas comparables, sus valores se ponderan respecto de su desviación estándar.
-
-- Para ello, a cada valor de la variable se le resta el promedio y se divide por su desviación estándar, lo que se conoce como **puntaje Z**:
-
-`$$z_x=\frac{x-\bar{x}}{sd(x)}$$`
-
-- Este procedimiento se aplica tanto a la dependiente como a las independientes
-
----
-## Estandarización: interpretación
-
-- al estandarizar, los coeficientes de regresión reflejan cuantas **desviaciones estándar** cambia _Y_ como consecuencia del cambio en **una desviación estándar** _X_.
-
-- los coeficientes ahora son comparables entre sí en base a su magnitud
-
----
-## Estandarización de Coeficientes
-
-De la [Práctica 2 - regresión multiple](https://metod3-unab.netlify.app/practicos/practico-02):
-
-- *colGPA*: promedio general de calificaciones de la universidad, en escala de 0 a 4 puntos.
-
-- *hsGPA*: promedio general de calificaciones en la enseñanza media, en escala de 0 a 4 puntos
-
-- *ACT* : puntaje en el examen de admisión a la universidad, que va de 16 a 33 puntos
-
----
-## Estandarización de Coeficientes
-
-Función `scale`
-
-
-```r
-library(wooldridge)
-data('gpa1') # Cargar base de datos
-gpa1 &lt;- dplyr::select(gpa1, colGPA, hsGPA, ACT)
-
-col_model &lt;- lm(colGPA ~ ACT + hsGPA, data = gpa1)
-
-gpa1_std = data.frame(scale(gpa1))
-
-col_model_std &lt;- lm(colGPA ~ ACT + hsGPA, data = gpa1_std)
-```
-
----
-## Estandarización de Coeficientes
-
-
-.center[
-![:scale 80%](../../files/img/est_coef.png)
-]
-
-
----
-## Estandarización de Coeficientes
-
-
-En este caso se puede observar que por el aumento en **una desviación estándar** en las calificaciones de enseñanza media (hsGPA), el promedio de notas en la universidad (colGPA) aumenta  **0.39 desviaciones estándar**.
-
-Al estar en una misma unidad de medida, podemos comparar los coeficientes en términos de su tamaño.
-
-En este caso, el coeficiente de hsGPA (0.39) es mayor que el de ACT (0.29), por lo que podemos inferir que las calificaciones de enseñanza media tienen un mayor efecto en el promedio universitario que el puntaje en el examen de admisión.
-
----
-## Beta estandarizado o no estandarizado
-
-- Betas: 
-  - pueden aparecer en puntaje bruto (no estandarizado) o estandarizado
-
-  - beta estandarizado: se interpreta como cuantas unidades de desviación estándar aumenta Y por cada aumento de una desviación estándar de X
-
- - betas estandarizados permiten comparar el efecto de cada variable independiente en una misma escala (desviaciones estándar)
-
-
-
-
----
-
-.pull-left-narrow[
-#Tabla de regresión múltiple:
-
-
-## Sentido de presentación de modelos
-]
-
-.pull-right-wide[
-
-
-.content-box-gray[
-Se comienza ingresando variables de hipótesis principales]
-
-
-.content-box-purple[
-Modelos adicionales ingresan variables de hipótesis secundarias o variables de control]
-
-.content-box-yellow[
-La interpretación de la tabla se realiza en general para cada variable independiente a través de los modelos]
-]
-
-
----
-
-class: front
-
-.pull-left[
-# Métodos estadísticos para ciencias sociales III
-## **Kevin Carrasco**
-## Sociología - UNAB
-## 2do Semestre 2025
-## .green[[metod3-unab.netlify.com](metod3-unab.netlify.com)]
-] 
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: true,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
     
 
-.pull-right[
-.right[
-&lt;br&gt;
-## .yellow[Sesión 5: Regresión múltiple y estandarización de coeficientes]
-![:scale 70%](../../files/img/eval-hires.png)
+    <script>
 
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
 
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
 
-]
+      // slide changes (different for each slide format).
 
-]
+      (function () {
 
+        // dispatch for htmlwidgets
 
+        function fireSlideEnter() {
 
+          const event = window.document.createEvent("Event");
 
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script src="https://multinivel.netlify.app/docpres/xaringan_custom/macros.js"></script>
-<script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": false
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
+          event.initEvent("slideenter", true, true);
 
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
+          window.document.dispatchEvent(event);
 
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-<style>
-.logo {
-  background-image: url("../hex_multiva_white.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: absolute;
-  top: 16.3em;
-  right: 31em;
-  width: 110px;
-  height: 70px;
-  z-index: 0;
-}
-</style>
+        }
 
-<script>
-document
-  .querySelectorAll(
-    '.remark-slide-content' +
-    ':not(.title-slide)' +
-    // add additional classes to exclude here, e.g.
-    // ':not(.inverse)' +
-    ':not(.hide-logo)'
-  )
-  .forEach(el => {
-    el.innerHTML += '<div class="logo"></div>';
-  });
-</script>
+    
 
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/metod3-unab\.netlify\.app");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

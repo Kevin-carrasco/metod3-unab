@@ -3267,5 +3267,404 @@
     "title": "Práctico 04. Regresión lineal múltiple",
     "section": "9.4 Valores predichos y residuos",
     "text": "9.4 Valores predichos y residuos\n\nCalcular los valores predichos y los residuos del modelo completo\nPresentar una tabla con los diez primeros casos que incluya los predictores, el valor observado, el predicho y el residuo\nIdentificar los tres casos con mayor residuo positivo y comentar brevemente qué caracteriza a esas personas"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#section",
+    "href": "slides/05-clase5/05-clase5.html#section",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para\nCiencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#dónde-quedamos",
+    "href": "slides/05-clase5/05-clase5.html#dónde-quedamos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Dónde quedamos?",
+    "text": "¿Dónde quedamos?\n\nLa regresión múltiple incorpora varios predictores y parcializa cada uno respecto de los demás\nPor eso los coeficientes cambian entre modelos: agregar ingreso redujo el coeficiente de educación, agregar edad lo aumentó, y la edad incluso invirtió su signo\nCada especificación responde a una pregunta distinta, y siempre debe explicitarse qué se está controlando"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#hoy",
+    "href": "slides/05-clase5/05-clase5.html#hoy",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Hoy",
+    "text": "Hoy\n\nYa sabemos estimar e interpretar. Ahora: ¿cómo se comunican estos resultados?\nY una pregunta que quedó pendiente: si los predictores están en escalas distintas, ¿cuál pesa más?\nAl final, una síntesis de todo lo visto en estas cinco sesiones"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#del-output-de-r-al-reporte",
+    "href": "slides/05-clase5/05-clase5.html#del-output-de-r-al-reporte",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Del output de R al reporte",
+    "text": "Del output de R al reporte\n\nLa salida de summary() sirve para trabajar, no para publicar\nUn artículo, una tesis o un informe presentan los resultados en una tabla de regresión\nEn R es posible automatizar ese reporte, pero se requieren especificaciones para lograr una presentación adecuada\nEn ocasiones se acompaña de la ecuación del modelo, aunque esto es opcional"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#contenidos-mínimos-de-una-tabla",
+    "href": "slides/05-clase5/05-clase5.html#contenidos-mínimos-de-una-tabla",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Contenidos mínimos de una tabla",
+    "text": "Contenidos mínimos de una tabla\n\nLos coeficientes de cada predictor\nUna medida de precisión: error estándar o intervalo de confianza\nIndicación de significación estadística (asteriscos o valores p)\nEl número de casos (N)\nMedidas de ajuste: \\(R^2\\) y \\(R^2\\) ajustado\nNombres de variables legibles, no los códigos del cuestionario"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#un-ejemplo-anotado",
+    "href": "slides/05-clase5/05-clase5.html#un-ejemplo-anotado",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Un ejemplo anotado",
+    "text": "Un ejemplo anotado"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#sentido-de-presentación-de-modelos",
+    "href": "slides/05-clase5/05-clase5.html#sentido-de-presentación-de-modelos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Sentido de presentación de modelos",
+    "text": "Sentido de presentación de modelos\n\nSe comienza ingresando las variables de la hipótesis principal\nLos modelos siguientes incorporan hipótesis secundarias o variables de control\nLa interpretación de la tabla se realiza, en general, para cada variable independiente a través de los modelos, no modelo por modelo\nEl objetivo es que el lector vea qué le ocurre al coeficiente de interés a medida que se agregan controles"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#nuestro-ejemplo",
+    "href": "slides/05-clase5/05-clase5.html#nuestro-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Nuestro ejemplo",
+    "text": "Nuestro ejemplo\n\ne1 &lt;- lm(estatus ~ educacion, data = elsoc)\ne2 &lt;- lm(estatus ~ educacion + ing100, data = elsoc)\ne3 &lt;- lm(estatus ~ educacion + ing100 + edad, data = elsoc)\n\n\n\n\n \nModelo 1\nModelo 2\nModelo 3\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercepto)\n3.273 ***\n0.078\n3.290 ***\n0.077\n2.922 ***\n0.146\n\n\nNivel educacional\n0.204 ***\n0.014\n0.145 ***\n0.016\n0.161 ***\n0.016\n\n\nIngreso (cientos de miles)\n\n\n0.049 ***\n0.006\n0.048 ***\n0.006\n\n\nEdad\n\n\n\n\n0.006 **\n0.002\n\n\nObservations\n2301\n2301\n2301\n\n\nR2 / R2 adjusted\n0.085 / 0.084\n0.109 / 0.108\n0.113 / 0.111\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#opciones-de-tab_model",
+    "href": "slides/05-clase5/05-clase5.html#opciones-de-tab_model",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Opciones de tab_model",
+    "text": "Opciones de tab_model\n\nsjPlot::tab_model(list(e1, e2, e3),\n                  show.se = TRUE,        # mostrar errores estándar\n                  show.ci = FALSE,       # ocultar intervalos de confianza\n                  digits = 3,            # decimales\n                  p.style = \"stars\",     # significación con asteriscos\n                  collapse.se = TRUE,    # SE bajo el coeficiente\n                  dv.labels = c(\"Modelo 1\", \"Modelo 2\", \"Modelo 3\"),\n                  pred.labels = c(\"(Intercepto)\", \"Nivel educacional\",\n                                  \"Ingreso\", \"Edad\"),\n                  string.pred = \"Predictores\",\n                  string.est = \"β\",\n                  title = \"Modelos de regresión para estatus social subjetivo\")\n\n\nLos argumentos dv.labels y pred.labels son los que transforman una salida técnica en una tabla presentable"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#errores-frecuentes-al-reportar",
+    "href": "slides/05-clase5/05-clase5.html#errores-frecuentes-al-reportar",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Errores frecuentes al reportar",
+    "text": "Errores frecuentes al reportar\n\nDejar los códigos del cuestionario como nombres de variables (m01, d01_01)\nReportar demasiados decimales, o un número distinto en cada columna\nOmitir el N, sobre todo cuando cambia entre modelos por casos perdidos\nInterpretar el intercepto cuando el valor 0 no es plausible\nConfundir la significación estadística con la magnitud del efecto"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#alternativa-gráfico-de-coeficientes",
+    "href": "slides/05-clase5/05-clase5.html#alternativa-gráfico-de-coeficientes",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Alternativa: gráfico de coeficientes",
+    "text": "Alternativa: gráfico de coeficientes\n\n\nFigure 1\n\nÚtil para presentaciones. No reemplaza a la tabla en un reporte escrito"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#el-problema",
+    "href": "slides/05-clase5/05-clase5.html#el-problema",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El problema",
+    "text": "El problema\nMirando la tabla anterior, ¿cuál de los tres predictores es más importante?\n\nNivel educacional: 0.161\nIngreso (cientos de miles): 0.048\nEdad: 0.0063\n¿Significa esto que la educación importa 25 veces más que la edad?"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#section-1",
+    "href": "slides/05-clase5/05-clase5.html#section-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Dos advertencias que conviene tener presentes\n\nEl valor p no indica la magnitud ni la importancia del efecto\n\n\nCon muestras grandes, coeficientes muy pequeños resultan significativos: significación estadística \\(\\neq\\) relevancia"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#escalas-distintas",
+    "href": "slides/05-clase5/05-clase5.html#escalas-distintas",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Escalas distintas",
+    "text": "Escalas distintas\n\n\n\n\n\nVariable\nUnidad\nDE\n\n\n\n\nEstatus subjetivo\npeldaño (0-10)\n1.53\n\n\nNivel educacional\nnivel (1-10)\n2.18\n\n\nIngreso (cientos de miles)\ncien mil pesos\n5.58\n\n\nEdad\naño\n15.14\n\n\n\n\n\n\nUn año más de edad es un cambio muy pequeño en su escala; un nivel educacional más es un cambio grande en la suya\nComparar 0,161 con 0,0063 es comparar cantidades medidas en unidades diferentes"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#la-solución-una-escala-común",
+    "href": "slides/05-clase5/05-clase5.html#la-solución-una-escala-común",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La solución: una escala común",
+    "text": "La solución: una escala común\n\nPara comparar la magnitud de un coeficiente respecto de los otros se requiere pasar a una escala común\nEsto se efectúa mediante la estandarización\nCada valor se pondera respecto de la desviación estándar de su propia variable"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#el-puntaje-z",
+    "href": "slides/05-clase5/05-clase5.html#el-puntaje-z",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El puntaje Z",
+    "text": "El puntaje Z\nA cada valor se le resta el promedio y se divide por la desviación estándar:\n\\[z_x=\\frac{x-\\bar{x}}{sd(x)}\\]\n\nEl resultado tiene media 0 y desviación estándar 1\nEl procedimiento se aplica tanto a la dependiente como a las independientes\nUn valor de \\(z = 1\\) significa “una desviación estándar por sobre el promedio”"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#estandarización-en-r",
+    "href": "slides/05-clase5/05-clase5.html#estandarización-en-r",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Estandarización en R",
+    "text": "Estandarización en R\n\n# La función scale() estandariza todas las variables de la base\nelsoc_std &lt;- data.frame(scale(elsoc))\n\ne3_std &lt;- lm(estatus ~ educacion + ing100 + edad, data = elsoc_std)\n\n\n\nround(colMeans(elsoc_std), 3)\n#&gt;   estatus educacion    ing100      edad \n#&gt;         0         0         0         0\nround(apply(elsoc_std, 2, sd), 3)\n#&gt;   estatus educacion    ing100      edad \n#&gt;         1         1         1         1"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#comparación-de-modelos",
+    "href": "slides/05-clase5/05-clase5.html#comparación-de-modelos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Comparación de modelos",
+    "text": "Comparación de modelos\n\n\n\n \nNo estandarizado\nEstandarizado\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercepto)\n2.922 ***\n0.146\n0.000 \n0.020\n\n\nNivel educacional\n0.161 ***\n0.016\n0.230 ***\n0.024\n\n\nIngreso\n0.048 ***\n0.006\n0.176 ***\n0.022\n\n\nEdad\n0.006 **\n0.002\n0.062 **\n0.021\n\n\nObservations\n2301\n2301\n\n\nR2 / R2 adjusted\n0.113 / 0.111\n0.113 / 0.111\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#interpretación",
+    "href": "slides/05-clase5/05-clase5.html#interpretación",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Interpretación",
+    "text": "Interpretación\n\nAl estandarizar, los coeficientes reflejan cuántas desviaciones estándar cambia \\(Y\\) ante el cambio de una desviación estándar en \\(X\\)\nNivel educacional (0.23): por cada desviación estándar adicional de educación, el estatus subjetivo aumenta 0.23 desviaciones estándar\nAhora sí son comparables: educación (0.23) e ingreso (0.176) tienen pesos similares, y ambos claramente mayores que edad (0.062)"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#section-2",
+    "href": "slides/05-clase5/05-clase5.html#section-2",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Los coeficientes están en escalas distintas y no son directamente comparables"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#de-un-coeficiente-al-otro",
+    "href": "slides/05-clase5/05-clase5.html#de-un-coeficiente-al-otro",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "De un coeficiente al otro",
+    "text": "De un coeficiente al otro\nNo es necesario reestimar el modelo. El coeficiente estandarizado se obtiene como:\n\\[\\beta_{std} = b \\times \\frac{sd(X)}{sd(Y)}\\]\n\nPara el ingreso:\n\\[0.048 \\times \\frac{5.58}{1.53} = 0.176\\]"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#qué-no-cambia-al-estandarizar",
+    "href": "slides/05-clase5/05-clase5.html#qué-no-cambia-al-estandarizar",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Qué NO cambia al estandarizar?",
+    "text": "¿Qué NO cambia al estandarizar?\n\nsummary(e3)$r.squared\n#&gt; [1] 0.1126182\nsummary(e3_std)$r.squared\n#&gt; [1] 0.1126182\n\n\nEl \\(R^2\\) es idéntico: estandarizar no altera el poder explicativo, solo la escala de los coeficientes\nLos valores \\(t\\) y los niveles de significación tampoco cambian\nEl intercepto pasa a ser 0, y deja de tener interpretación sustantiva"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#ventajas",
+    "href": "slides/05-clase5/05-clase5.html#ventajas",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Ventajas",
+    "text": "Ventajas\n\nComparabilidad entre predictores: permite identificar cuáles tienen mayor peso relativo\nNeutraliza escalas distintas, lo que resulta útil al combinar variables con unidades muy diferentes\nFacilita la interpretación en términos relativos"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#desventajas",
+    "href": "slides/05-clase5/05-clase5.html#desventajas",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Desventajas",
+    "text": "Desventajas\n\nPérdida de interpretación sustantiva: ya no se puede decir “un año más de edad implica tantos puntos”\nEl intercepto deja de ser informativo\nEn variables dicotómicas, la interpretación en desviaciones estándar es poco intuitiva\nDificulta la comunicación a audiencias no especializadas\nLos coeficientes dependen de la variabilidad de esta muestra, por lo que no son comparables entre estudios con muestras distintas"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#section-3",
+    "href": "slides/05-clase5/05-clase5.html#section-3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Lo que revela la estandarización\n\nEn la escala original, el coeficiente del ingreso (0.048) parecía casi despreciable frente al de educación (0.161)\n\n\nEstandarizados, 0.176 frente a 0.23: el ingreso pesa casi tanto como la educación"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#hasta-ahora-deberíamos-saber",
+    "href": "slides/05-clase5/05-clase5.html#hasta-ahora-deberíamos-saber",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Hasta ahora deberíamos saber",
+    "text": "Hasta ahora deberíamos saber\n\nUna tabla de regresión tiene contenidos mínimos y sigue una lógica de presentación: de la hipótesis principal hacia los controles\nLos coeficientes en escala original no son comparables entre sí cuando las variables tienen unidades distintas\nLa estandarización los lleva a una escala común de desviaciones estándar\nEstandarizar no cambia el ajuste ni la significación: cambia únicamente la escala de interpretación"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#para-la-próxima-sesión",
+    "href": "slides/05-clase5/05-clase5.html#para-la-próxima-sesión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Para la próxima sesión",
+    "text": "Para la próxima sesión\n\nPrueba 1: lunes 7 de septiembre a las 15:00\nContenidos: sesiones 1 a 5, es decir, regresión simple y múltiple, estimación e interpretación de coeficientes, bondad de ajuste e inferencia"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#section-4",
+    "href": "slides/05-clase5/05-clase5.html#section-4",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "En la práctica\nSe reportan los coeficientes no estandarizados como resultado principal\nY los estandarizados cuando la pregunta es explícitamente sobre importancia relativa"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#lo-esencial",
+    "href": "slides/05-clase5/05-clase5.html#lo-esencial",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Lo esencial",
+    "text": "Lo esencial\n\nNuestros datos son una muestra: la inferencia pregunta si lo observado permite afirmar algo sobre la población\nLa hipótesis nula sostiene que en la población \\(\\beta = 0\\), es decir, que no hay asociación\nEl error estándar mide la imprecisión del coeficiente: aumenta con residuos grandes, disminuye con más casos\nEl estadístico \\(t = \\beta / se(\\beta)\\) compara el coeficiente con su propia imprecisión"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#reglas-de-decisión",
+    "href": "slides/05-clase5/05-clase5.html#reglas-de-decisión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Reglas de decisión",
+    "text": "Reglas de decisión\n\nPara muestras grandes: \\(t &gt; 1{,}96\\) permite rechazar \\(H_0\\) a un \\(p&lt;0{,}05\\), y \\(t &gt; 2{,}58\\) a un \\(p&lt;0{,}01\\)\nEquivalente: si el intervalo de confianza no contiene el cero, el coeficiente es significativo\nEn las tablas: * \\(p&lt;0{,}05\\), ** \\(p&lt;0{,}01\\), *** \\(p&lt;0{,}001\\)"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#la-pregunta",
+    "href": "slides/05-clase5/05-clase5.html#la-pregunta",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La pregunta",
+    "text": "La pregunta\n\nLa sociología de la salud estudia los determinantes sociales del bienestar: la idea de que la posición que se ocupa en la estructura social se asocia a diferencias sistemáticas en indicadores de salud\nLa hipótesis clásica es la del gradiente social: a mayor posición socioeconómica, mejores indicadores de bienestar\n¿Se observa ese gradiente en ELSOC?"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#la-variable-dependiente",
+    "href": "slides/05-clase5/05-clase5.html#la-variable-dependiente",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La variable dependiente",
+    "text": "La variable dependiente\n\nELSOC incluye una escala de nueve ítems sobre la frecuencia de distintos estados anímicos durante las últimas dos semanas\nCada ítem se responde en una escala de frecuencia, aquí recodificada de 0 a 4\nLa suma de los nueve ítems entrega un puntaje de 0 a 36: a mayor valor, mayor frecuencia de estados anímicos negativos\nLa construcción y validación de escalas de este tipo es materia de la última unidad del curso; por ahora la usamos como una variable ya construida"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#los-datos",
+    "href": "slides/05-clase5/05-clase5.html#los-datos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Los datos",
+    "text": "Los datos\n2285 casos con información completa\n\nanimo &lt;- elsoc_long_2016_2022.2 %&gt;%\n  filter(ola == 1) %&gt;%\n  select(all_of(items), m01, m29, m0_edad) %&gt;%\n  set_na(., na = c(-999, -888, -777, -666)) %&gt;%\n  na.omit() %&gt;%\n  rename(\"educacion\" = m01, \"ingreso\" = m29, \"edad\" = m0_edad) %&gt;%\n  filter(ingreso &gt;= 50000, ingreso &lt;= 5000000) %&gt;%\n  mutate(across(all_of(items), ~ .x - 1),\n         ing100 = ingreso / 100000,\n         sintomas = rowSums(across(all_of(items))))"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#descriptivos",
+    "href": "slides/05-clase5/05-clase5.html#descriptivos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Descriptivos",
+    "text": "Descriptivos\n\n\n\n\n\nVariable\nMedia\nDE\nMin\nMax\n\n\n\n\nEscala anímica (0-36)\n6.12\n5.78\n0.0\n36\n\n\nNivel educacional (1-10)\n5.16\n2.18\n1.0\n10\n\n\nIngreso (cientos de miles)\n5.88\n5.58\n0.5\n50\n\n\nEdad\n46.03\n15.17\n18.0\n88\n\n\n\n\n\n\nNote el contraste de escalas: la dependiente recorre 37 valores posibles, la educación 10, y la edad más de 70"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#correlaciones",
+    "href": "slides/05-clase5/05-clase5.html#correlaciones",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Correlaciones",
+    "text": "Correlaciones\n\n\n\n\n\n\nsintomas\neducacion\ning100\nedad\n\n\n\n\nsintomas\n1.000\n-0.141\n-0.131\n0.027\n\n\neducacion\n-0.141\n1.000\n0.469\n-0.353\n\n\ning100\n-0.131\n0.469\n1.000\n-0.160\n\n\nedad\n0.027\n-0.353\n-0.160\n1.000\n\n\n\n\n\n\nEducación e ingreso se asocian negativamente con la escala, en la dirección que predice la hipótesis del gradiente social"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#el-modelo",
+    "href": "slides/05-clase5/05-clase5.html#el-modelo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El modelo",
+    "text": "El modelo\n\na1 &lt;- lm(sintomas ~ educacion + ing100 + edad, data = animo)\n\n\n\n\n \nEscala anímica\n\n\nPredictores\nβ\nstd. Error\n\n\n(Intercepto)\n8.581 ***\n0.582\n\n\nNivel educacional\n-0.294 ***\n0.066\n\n\nIngreso (cientos de miles)\n-0.086 ***\n0.024\n\n\nEdad\n-0.010 \n0.008\n\n\nObservations\n2285\n\n\nR2 / R2 adjusted\n0.026 / 0.024\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#interpretación-1",
+    "href": "slides/05-clase5/05-clase5.html#interpretación-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Interpretación",
+    "text": "Interpretación\n\nEducación (-0.294): por cada nivel educacional adicional, el puntaje en la escala disminuye 0.294 puntos, a igual ingreso y edad\nIngreso (-0.086): por cada cien mil pesos adicionales, el puntaje disminuye 0.086 puntos, a igual educación y edad\nAmbos coeficientes son negativos y significativos: el gradiente social se observa"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#un-coeficiente-no-significativo",
+    "href": "slides/05-clase5/05-clase5.html#un-coeficiente-no-significativo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Un coeficiente no significativo",
+    "text": "Un coeficiente no significativo\n\nEl coeficiente de la edad es -0.0096, con un valor p de 0.252\nAl no alcanzar el umbral convencional, no podemos rechazar la hipótesis nula\nLectura correcta: los datos no permiten afirmar que exista asociación entre edad y esta escala, una vez controlados educación e ingreso\nLectura incorrecta: “se demostró que la edad no tiene efecto”. No rechazar \\(H_0\\) no equivale a probar que \\(H_0\\) sea verdadera"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#cuál-pesa-más",
+    "href": "slides/05-clase5/05-clase5.html#cuál-pesa-más",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Cuál pesa más?",
+    "text": "¿Cuál pesa más?\nEn la escala original, la educación (-0.294) parece tener un efecto más de tres veces mayor que el ingreso (-0.086). Estandaricemos:\n\n\n\n \nNo estandarizado\nEstandarizado\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercepto)\n8.581 ***\n0.582\n-0.000 \n0.021\n\n\nNivel educacional\n-0.294 ***\n0.066\n-0.111 ***\n0.025\n\n\nIngreso\n-0.086 ***\n0.024\n-0.083 ***\n0.023\n\n\nEdad\n-0.010 \n0.008\n-0.025 \n0.022\n\n\nObservations\n2285\n2285\n\n\nR2 / R2 adjusted\n0.026 / 0.024\n0.026 / 0.024\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#la-conclusión-cambia",
+    "href": "slides/05-clase5/05-clase5.html#la-conclusión-cambia",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La conclusión cambia",
+    "text": "La conclusión cambia\n\nEstandarizados: educación -0.111, ingreso -0.083\nLa distancia entre ambos se reduce considerablemente\nLa impresión de que la educación importaba mucho más que el ingreso era, en buena medida, un efecto de las unidades de medida\nIgual que en el ejemplo anterior: los coeficientes en escala original no sirven para comparar importancia relativa"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#cómo-se-reporta",
+    "href": "slides/05-clase5/05-clase5.html#cómo-se-reporta",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Cómo se reporta",
+    "text": "Cómo se reporta\n\n\nSe estimó un modelo de regresión lineal sobre una escala sumativa de estados anímicos (rango 0-36), con datos de la primera ola de ELSOC (2016; N = 2285). Tanto el nivel educacional (β = -0.294) como el ingreso del hogar (β = -0.086) presentan asociaciones negativas y estadísticamente significativas, consistentes con la hipótesis del gradiente social. La edad no alcanza significación estadística (p = 0.252) una vez controladas las restantes variables. Los coeficientes estandarizados (-0.111 y -0.083, respectivamente) indican pesos relativos similares para ambos predictores, pese a que sus coeficientes en escala original difieren en un factor cercano a tres. El modelo explica un 2.6% de la varianza."
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#lo-que-enseña-este-ejemplo",
+    "href": "slides/05-clase5/05-clase5.html#lo-que-enseña-este-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Lo que enseña este ejemplo",
+    "text": "Lo que enseña este ejemplo\n\nUn predictor puede resultar no significativo, y eso también es un resultado que se reporta e interpreta\nLa comparación de magnitudes en escala original puede ser francamente engañosa\nLa estandarización responde a una pregunta específica, la de la importancia relativa, y no a la de significación ni a la de ajuste"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#el-recorrido",
+    "href": "slides/05-clase5/05-clase5.html#el-recorrido",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El recorrido",
+    "text": "El recorrido\n\nSesión 1: qué es investigar cuantitativamente, cómo se organizan los datos, escalas de medición, correlación\nSesión 2: de las medias condicionales a la recta, estimación de \\(b_0\\) y \\(b_1\\) por mínimos cuadrados\nSesión 3: bondad de ajuste (\\(R^2\\)) e inferencia\nSesión 4: regresión múltiple, parcialización y control estadístico\nSesión 5: reporte de resultados y estandarización"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#el-modelo-en-una-línea",
+    "href": "slides/05-clase5/05-clase5.html#el-modelo-en-una-línea",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El modelo, en una línea",
+    "text": "El modelo, en una línea\n\\[\\widehat{Y}=b_{0} + b_{1}X_{1} + b_{2}X_{2} + \\dots + b_{k}X_{k}\\]\n\n\\(\\widehat{Y}\\): valor predicho de la variable dependiente\n\\(b_0\\): valor esperado de \\(Y\\) cuando todas las independientes valen 0\n\\(b_j\\): cambio esperado en \\(Y\\) por cada unidad de \\(X_j\\), manteniendo constantes las demás\n\\(e_i = Y_i - \\widehat{Y}_i\\): residuo, lo que el modelo no logra explicar"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#glosario-i-estimación",
+    "href": "slides/05-clase5/05-clase5.html#glosario-i-estimación",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Glosario I: estimación",
+    "text": "Glosario I: estimación\n\n\n\n\n\n\n\n\n\nConcepto\nQué es\nCómo se dice\n\n\n\n\nIntercepto\nValor de \\(Y\\) cuando \\(X = 0\\)\n“Cuando el predictor vale cero, el valor esperado es…”\n\n\nCoeficiente\nCambio en \\(Y\\) por unidad de \\(X\\)\n“Por cada unidad adicional de X, Y cambia en…”\n\n\nValor predicho\nEstimación de \\(Y\\) para un caso\n“El modelo predice un valor de…”\n\n\nResiduo\nObservado menos predicho\n“Esta persona está por sobre lo que predice el modelo”\n\n\nMínimos cuadrados\nCriterio que minimiza \\(\\sum e_i^2\\)\n“La recta que minimiza los errores al cuadrado”\n\n\nMedia condicional\nPromedio de \\(Y\\) para un valor de \\(X\\)\n“El promedio de Y entre quienes tienen X = 5”"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#glosario-ii-ajuste",
+    "href": "slides/05-clase5/05-clase5.html#glosario-ii-ajuste",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Glosario II: ajuste",
+    "text": "Glosario II: ajuste\n\n\n\n\n\n\n\n\n\nConcepto\nQué es\nCómo se dice\n\n\n\n\n\\(SS_{tot}\\)\nVariación total de \\(Y\\)\nSuma de cuadrados totales\n\n\n\\(SS_{reg}\\)\nVariación asociada al modelo\nSuma de cuadrados de regresión\n\n\n\\(SS_{error}\\)\nVariación no explicada\nSuma de cuadrados del error\n\n\n\\(R^2\\)\n\\(SS_{reg}/SS_{tot}\\)\n“El modelo explica un X% de la varianza”\n\n\n\\(R^2\\) ajustado\n\\(R^2\\) penalizado por número de predictores\nSe usa para comparar modelos"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#glosario-iii-inferencia",
+    "href": "slides/05-clase5/05-clase5.html#glosario-iii-inferencia",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Glosario III: inferencia",
+    "text": "Glosario III: inferencia\n\n\n\n\n\n\n\n\n\nConcepto\nQué es\nCómo se dice\n\n\n\n\nError estándar\nImprecisión del coeficiente\n“El coeficiente se estima con un error de…”\n\n\nHipótesis nula\n\\(\\beta = 0\\) en la población\n“No hay asociación en la población”\n\n\nEstadístico \\(t\\)\nCoeficiente dividido por su error estándar\nSe compara con el valor crítico\n\n\nValor crítico\nUmbral de la distribución \\(t\\)\n1,96 al 95%; 2,58 al 99%\n\n\nValor p\nProbabilidad del resultado bajo \\(H_0\\)\n“Significativo al 95% de confianza”\n\n\nIntervalo de confianza\nRango plausible del parámetro\n“Si no contiene el cero, es significativo”"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#glosario-iv-regresión-múltiple",
+    "href": "slides/05-clase5/05-clase5.html#glosario-iv-regresión-múltiple",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Glosario IV: regresión múltiple",
+    "text": "Glosario IV: regresión múltiple\n\n\n\n\n\n\n\n\n\nConcepto\nQué es\nCómo se dice\n\n\n\n\nParcialización\nExtraer de un predictor lo que comparte con otros\n“Una vez descontado lo que comparte con…”\n\n\nControl estadístico\nComparar casos equivalentes en las demás variables\n“Manteniendo constantes las demás variables”\n\n\nModelos anidados\nCada modelo contiene los predictores del anterior\n“Al incorporar el segundo predictor…”\n\n\nVariable omitida\nPredictor relevante ausente del modelo\nEl coeficiente estimado absorbe su efecto\n\n\nColinealidad\nPredictores muy correlacionados entre sí\nAumenta los errores estándar\n\n\nCoeficiente estandarizado\nCambio en DE de \\(Y\\) por una DE de \\(X\\)\nPermite comparar importancia relativa"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#cómo-leer-una-tabla-de-regresión",
+    "href": "slides/05-clase5/05-clase5.html#cómo-leer-una-tabla-de-regresión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Cómo leer una tabla de regresión",
+    "text": "Cómo leer una tabla de regresión\n\nIdentificar la variable dependiente y las unidades en que está medida\nRevisar qué predictores entran en cada modelo\nLeer el coeficiente de interés: signo, magnitud y significación\nSeguir ese coeficiente a través de los modelos y explicar sus cambios\nRevisar el \\(R^2\\) y el N\nTraducir el resultado a lenguaje sustantivo"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#section-5",
+    "href": "slides/05-clase5/05-clase5.html#section-5",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#cinco-frases-que-evitar",
+    "href": "slides/05-clase5/05-clase5.html#cinco-frases-que-evitar",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Cinco frases que evitar",
+    "text": "Cinco frases que evitar\n\n“La educación causa un aumento del estatus” (asociación, no causalidad)\n“El efecto es muy significativo” (o es significativo o no lo es)\n“El \\(R^2\\) es bajo, por lo tanto el modelo está mal”\n“El coeficiente de educación es mayor que el de edad, por lo que importa más” (escalas distintas)\n“La edad no tiene efecto” cuando el resultado es no significativo"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#para-la-prueba",
+    "href": "slides/05-clase5/05-clase5.html#para-la-prueba",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Para la prueba",
+    "text": "Para la prueba\n\nSe evalúa interpretación, no cálculo computacional.\ndeberán estimar un coeficiente de regresión e interpretarlo.\nHabrá tablas de regresión que deberán leer, interpretar y comentar.\nConviene poder explicar, en lenguaje propio, qué significa cada columna de una tabla.\nY poder justificar por qué un coeficiente cambia entre dos modelos."
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#section-6",
+    "href": "slides/05-clase5/05-clase5.html#section-6",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#lo-inferencia",
+    "href": "slides/05-clase5/05-clase5.html#lo-inferencia",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Lo inferencia",
+    "text": "Lo inferencia\n\nNuestros datos son una muestra: la inferencia pregunta si lo observado permite afirmar algo sobre la población\nLa hipótesis nula sostiene que en la población \\(\\beta = 0\\), es decir, que no hay asociación\nEl error estándar mide la imprecisión del coeficiente: aumenta con residuos grandes, disminuye con más casos\nEl estadístico \\(t = \\beta / se(\\beta)\\) compara el coeficiente con su propia imprecisión"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#inferencia",
+    "href": "slides/05-clase5/05-clase5.html#inferencia",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Inferencia",
+    "text": "Inferencia\n\nNuestros datos son una muestra: la inferencia pregunta si lo observado permite afirmar algo sobre la población\nLa hipótesis nula sostiene que en la población \\(\\beta = 0\\), es decir, que no hay asociación\nEl error estándar mide la imprecisión del coeficiente: aumenta con residuos grandes, disminuye con más casos\nEl estadístico \\(t = \\beta / se(\\beta)\\) compara el coeficiente con su propia imprecisión"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#un-ejemplo",
+    "href": "slides/05-clase5/05-clase5.html#un-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Un ejemplo",
+    "text": "Un ejemplo"
+  },
+  {
+    "objectID": "slides/05-clase5/05-clase5.html#objetivos-centrales-del-modelo-de-regresión",
+    "href": "slides/05-clase5/05-clase5.html#objetivos-centrales-del-modelo-de-regresión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Objetivos centrales del modelo de regresión",
+    "text": "Objetivos centrales del modelo de regresión\n\nConocer: la variación de la variable dependiente de acuerdo a la variación de otra(s) variable(s) independiente(s)\nPredecir: estimar el valor de una variable (dependiente) de acuerdo al valor de otra(s)\nInferir: establecer en qué medida esta asociación es estadísticamente significativa"
   }
 ]
