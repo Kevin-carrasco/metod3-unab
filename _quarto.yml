@@ -76,8 +76,8 @@ website:
               file: content/03-content.qmd
             - text: "04: Sesión 4"
               file: content/04-content.qmd
-            # - text: "05: Sesión 5"
-            #   file: content/05-content.qmd
+            - text: "05: Sesión 5"
+              file: content/05-content.qmd
             # - text: "06: Sesión 6"
             #   file: content/06-content.qmd
             # - text: "07: Sesión 7"
@@ -101,8 +101,8 @@ website:
           file: practicos/practico-02.qmd
         - text: "Práctico 3 - R2 e Inferencia"
           file: practicos/practico-03.qmd
-        # - text: "Práctico 4 - Taller Quarto"
-        #   file: practicos/taller-github-quarto/taller-quarto-github.qmd
+        - text: "Práctico 4 - Regresión lineal múltiple"
+          file: practicos/practico-04.qmd
         # - text: "Práctico 5 - Estandarización"
         #   file: practicos/practico-04.qmd
         # - text: "Práctico 6 - Valores predichos"

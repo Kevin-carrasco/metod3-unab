@@ -155,7 +155,7 @@ window.Quarto = {
 <meta name="twitter:image-width" content="500">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -189,7 +189,7 @@ window.Quarto = {
 <span class="menu-text">Trabajos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../practicos/index.html"> 
+    <a class="nav-link active" href="../practicos/index.html" aria-current="page"> 
 <span class="menu-text">Practicos</span></a>
   </li>  
 </ul>
@@ -198,10 +198,57 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicos/practico-04.html">Práctico 4 - Regresión lineal múltiple</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descripción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 1 - Asociación</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 2 - Regresión lineal simple</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 3 - R2 e Inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-04.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Práctico 4 - Regresión lineal múltiple</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -248,20 +295,14 @@ window.Quarto = {
   <li><a href="#comparación-formal-de-modelos" id="toc-comparación-formal-de-modelos" class="nav-link" data-scroll-target="#comparación-formal-de-modelos"><span class="header-section-number">7.2</span> Comparación formal de modelos</a></li>
   <li><a href="#una-nota-sobre-la-magnitud" id="toc-una-nota-sobre-la-magnitud" class="nav-link" data-scroll-target="#una-nota-sobre-la-magnitud"><span class="header-section-number">7.3</span> Una nota sobre la magnitud</a></li>
   </ul></li>
-  <li><a href="#predicción-con-varios-predictores" id="toc-predicción-con-varios-predictores" class="nav-link" data-scroll-target="#predicción-con-varios-predictores"><span class="header-section-number">8</span> Predicción con varios predictores</a>
+  <li><a href="#tarea" id="toc-tarea" class="nav-link" data-scroll-target="#tarea"><span class="header-section-number">8</span> Tarea</a>
   <ul class="collapse">
-  <li><a href="#el-efecto-de-un-predictor" id="toc-el-efecto-de-un-predictor" class="nav-link" data-scroll-target="#el-efecto-de-un-predictor"><span class="header-section-number">8.1</span> El efecto de un predictor</a></li>
-  </ul></li>
-  <li><a href="#tarea" id="toc-tarea" class="nav-link" data-scroll-target="#tarea"><span class="header-section-number">9</span> Tarea</a>
-  <ul class="collapse">
-  <li><a href="#preparación-1" id="toc-preparación-1" class="nav-link" data-scroll-target="#preparación-1"><span class="header-section-number">9.1</span> Preparación</a></li>
-  <li><a href="#correlaciones-1" id="toc-correlaciones-1" class="nav-link" data-scroll-target="#correlaciones-1"><span class="header-section-number">9.2</span> Correlaciones</a></li>
-  <li><a href="#modelos-anidados" id="toc-modelos-anidados" class="nav-link" data-scroll-target="#modelos-anidados"><span class="header-section-number">9.3</span> Modelos anidados</a></li>
-  <li><a href="#valores-predichos-y-residuos-1" id="toc-valores-predichos-y-residuos-1" class="nav-link" data-scroll-target="#valores-predichos-y-residuos-1"><span class="header-section-number">9.4</span> Valores predichos y residuos</a></li>
-  <li><a href="#parcialización-1" id="toc-parcialización-1" class="nav-link" data-scroll-target="#parcialización-1"><span class="header-section-number">9.5</span> Parcialización</a></li>
-  <li><a href="#ajuste" id="toc-ajuste" class="nav-link" data-scroll-target="#ajuste"><span class="header-section-number">9.6</span> Ajuste</a></li>
-  <li><a href="#predicción" id="toc-predicción" class="nav-link" data-scroll-target="#predicción"><span class="header-section-number">9.7</span> Predicción</a></li>
-  <li><a href="#reporte" id="toc-reporte" class="nav-link" data-scroll-target="#reporte"><span class="header-section-number">9.8</span> Reporte</a></li>
+  <li><a href="#preparación-1" id="toc-preparación-1" class="nav-link" data-scroll-target="#preparación-1"><span class="header-section-number">8.1</span> Preparación</a></li>
+  <li><a href="#correlaciones-1" id="toc-correlaciones-1" class="nav-link" data-scroll-target="#correlaciones-1"><span class="header-section-number">8.2</span> Correlaciones</a></li>
+  <li><a href="#modelos-múltiples" id="toc-modelos-múltiples" class="nav-link" data-scroll-target="#modelos-múltiples"><span class="header-section-number">8.3</span> Modelos múltiples</a></li>
+  <li><a href="#parcialización-1" id="toc-parcialización-1" class="nav-link" data-scroll-target="#parcialización-1"><span class="header-section-number">8.4</span> Parcialización</a></li>
+  <li><a href="#ajuste" id="toc-ajuste" class="nav-link" data-scroll-target="#ajuste"><span class="header-section-number">8.5</span> Ajuste</a></li>
+  <li><a href="#reporte" id="toc-reporte" class="nav-link" data-scroll-target="#reporte"><span class="header-section-number">8.6</span> Reporte</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1109,162 +1150,48 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>El modelo completo explica alrededor de un 11% de la varianza del estatus subjetivo. Lejos de ser una debilidad, ese resultado <strong>es el hallazgo</strong> del artículo de referencia: la posición objetiva de las personas predice muy poco la posición que ellas mismas se atribuyen.</p>
 </section>
 </section>
-<section id="predicción-con-varios-predictores" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Predicción con varios predictores</h1>
-<p>Con varios predictores, la predicción requiere especificar un valor para <strong>cada</strong> variable del modelo:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>casos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">educacion =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>),</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ing100 =</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">4.5</span>, <span class="dv">10</span>),</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">40</span>, <span class="dv">40</span>)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>casos<span class="sc">$</span>prediccion <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo3, <span class="at">newdata =</span> casos)</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(casos, <span class="st">"markdown"</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">educacion</th>
-<th style="text-align: right;">ing100</th>
-<th style="text-align: right;">edad</th>
-<th style="text-align: right;">prediccion</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2.5</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">3.78</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">4.5</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">4.20</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">10.0</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">4.94</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Cada fila describe un perfil hipotético. Note que al fijar la edad en 40 años en los tres casos, las diferencias en la predicción provienen únicamente de la educación y el ingreso.</p>
-<section id="el-efecto-de-un-predictor" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="el-efecto-de-un-predictor"><span class="header-section-number">8.1</span> El efecto de un predictor</h2>
-<p>También podemos aislar el efecto de un solo predictor, manteniendo los demás en su promedio:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>perfil <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">educacion =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ing100 =</span> <span class="fu">mean</span>(proc_data<span class="sc">$</span>ing100),</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">mean</span>(proc_data<span class="sc">$</span>edad)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>perfil<span class="sc">$</span>prediccion <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo3, <span class="at">newdata =</span> perfil)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(perfil, <span class="fu">aes</span>(<span class="at">x =</span> educacion, <span class="at">y =</span> prediccion)) <span class="sc">+</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#04245f"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#4f97ff"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nivel educacional"</span>, <span class="at">y =</span> <span class="st">"Estatus subjetivo predicho"</span>) <span class="sc">+</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-predichos" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-predichos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="practico-04_files/figure-html/fig-predichos-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-predichos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;2: Estatus subjetivo predicho según nivel educacional, a ingreso y edad promedio
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Advertencia</span>Cuidado con los ejes
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Observe que el eje vertical recorre <strong>toda la escala</strong> de la variable dependiente, de 0 a 10. Esa decisión no es cosmética.</p>
-<p>Si dejáramos que R ajustara el eje automáticamente al rango de los valores predichos, la línea ocuparía todo el alto del gráfico y la pendiente se vería pronunciada, sugiriendo un efecto mucho mayor del que existe. Con el eje completo se aprecia lo que el modelo realmente dice: pasar del nivel educacional más bajo al más alto desplaza la predicción apenas un tramo de la escalera social.</p>
-<p>Ajustar los ejes al rango de los datos es una práctica frecuente y una fuente habitual de lecturas exageradas. Al graficar valores predichos, use siempre la escala completa de la variable dependiente.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="tarea" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Tarea</h1>
-<section id="preparación-1" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="preparación-1"><span class="header-section-number">9.1</span> Preparación</h2>
+<section id="tarea" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Tarea</h1>
+<section id="preparación-1" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="preparación-1"><span class="header-section-number">8.1</span> Preparación</h2>
 <ul>
 <li><p>Cargar la base ELSOC y filtrar por la <strong>ola 4</strong> (2019)</p></li>
 <li><p>Seleccionar las mismas variables utilizadas en este práctico, recodificar los valores perdidos, aplicar el mismo criterio de limpieza al ingreso y expresarlo en cientos de miles</p></li>
 <li><p>Reportar cuántos casos quedan disponibles</p></li>
 </ul>
 </section>
-<section id="correlaciones-1" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="correlaciones-1"><span class="header-section-number">9.2</span> Correlaciones</h2>
+<section id="correlaciones-1" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="correlaciones-1"><span class="header-section-number">8.2</span> Correlaciones</h2>
 <ul>
 <li><p>Estimar la matriz de correlaciones entre las cuatro variables</p></li>
 <li><p>A partir de ella, <strong>anticipar</strong> qué ocurrirá con el coeficiente de educación al agregar ingreso al modelo, y justificar la expectativa</p></li>
 </ul>
 </section>
-<section id="modelos-anidados" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="modelos-anidados"><span class="header-section-number">9.3</span> Modelos anidados</h2>
+<section id="modelos-múltiples" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="modelos-múltiples"><span class="header-section-number">8.3</span> Modelos múltiples</h2>
 <ul>
-<li><p>Estimar los tres modelos anidados de este práctico</p></li>
+<li><p>Estimar los tres modelos múltiples de este práctico</p></li>
 <li><p>Presentar una tabla comparativa con <code>tab_model</code>, con nombres de variables legibles</p></li>
 <li><p>Elaborar una tabla propia que muestre cómo cambia el coeficiente de educación a través de los tres modelos</p></li>
 <li><p>Comparar el resultado con lo que había anticipado en el punto anterior</p></li>
 </ul>
 </section>
-<section id="valores-predichos-y-residuos-1" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="valores-predichos-y-residuos-1"><span class="header-section-number">9.4</span> Valores predichos y residuos</h2>
-<ul>
-<li><p>Calcular los valores predichos y los residuos del modelo completo</p></li>
-<li><p>Presentar una tabla con los diez primeros casos que incluya los predictores, el valor observado, el predicho y el residuo</p></li>
-<li><p>Identificar los tres casos con mayor residuo positivo y comentar brevemente qué caracteriza a esas personas</p></li>
-</ul>
-</section>
-<section id="parcialización-1" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="parcialización-1"><span class="header-section-number">9.5</span> Parcialización</h2>
+<section id="parcialización-1" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="parcialización-1"><span class="header-section-number">8.4</span> Parcialización</h2>
 <ul>
 <li><p>Reproducir manualmente la parcialización del <strong>ingreso</strong> (no de la educación) respecto de los otros dos predictores</p></li>
 <li><p>Verificar que el coeficiente obtenido coincide con el del modelo múltiple</p></li>
 </ul>
 </section>
-<section id="ajuste" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="ajuste"><span class="header-section-number">9.6</span> Ajuste</h2>
+<section id="ajuste" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="ajuste"><span class="header-section-number">8.5</span> Ajuste</h2>
 <ul>
 <li><p>Comparar el <span class="math inline">\(R^2\)</span> y el <span class="math inline">\(R^2\)</span> ajustado de los tres modelos</p></li>
 <li><p>Aplicar <code>anova()</code> y señalar si cada predictor agregado mejora significativamente el ajuste</p></li>
 </ul>
 </section>
-<section id="predicción" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="predicción"><span class="header-section-number">9.7</span> Predicción</h2>
-<ul>
-<li><p>Calcular el estatus subjetivo predicho para una persona de 30 años, con nivel educacional 8 e ingreso del hogar de un millón de pesos</p></li>
-<li><p>Repetir el cálculo para una persona con las mismas características pero de 60 años, y comentar la diferencia</p></li>
-<li><p>Elaborar un gráfico que muestre el estatus predicho según el <strong>ingreso</strong>, manteniendo la educación y la edad en sus promedios, con el eje vertical fijado en la escala completa de la variable dependiente</p></li>
-<li><p>Elaborar el mismo gráfico sin fijar el eje, es decir, dejando que R lo ajuste automáticamente, y comentar en qué se diferencia la impresión que produce cada versión</p></li>
-</ul>
-</section>
-<section id="reporte" class="level2" data-number="9.8">
-<h2 data-number="9.8" class="anchored" data-anchor-id="reporte"><span class="header-section-number">9.8</span> Reporte</h2>
+<section id="reporte" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="reporte"><span class="header-section-number">8.6</span> Reporte</h2>
 <ul>
 <li>Redactar un párrafo (máximo 300 palabras) que reporte los tres modelos, interprete el coeficiente de educación en el modelo completo, explique por qué cambia entre especificaciones, y comente el valor del <span class="math inline">\(R^2\)</span> a la luz de la literatura sobre estatus social subjetivo</li>
 </ul>
