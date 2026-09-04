@@ -140,6 +140,8 @@ Repaso sesión anterior
 
 Reporte de resultados
 
+Estandarización de coeficientes
+
 Síntesis del curso hasta aquí
 
 ## ¿Dónde quedamos?
@@ -353,6 +355,204 @@ plot_model(e3,
 Útil para presentaciones. No reemplaza a la tabla en un reporte escrito
 :::
 
+# Estandarización de coeficientes {data-background-color="black"}
+
+## El problema
+
+Mirando la tabla anterior, ¿cuál de los tres predictores es **más importante**?
+
+::: {.incremental}
+
+- Nivel educacional: `r b_ed`
+
+- Ingreso (cientos de miles): `r b_in`
+
+- Edad: `r b_ea`
+
+- ¿Significa esto que la educación importa 25 veces más que la edad?
+
+:::
+
+##  {data-background-color="black"}
+
+### Los coeficientes están en **escalas distintas** y no son directamente comparables
+
+## Escalas distintas
+
+```{r}
+#| label: escalas
+#| echo: false
+
+kable(data.frame(
+  Variable = c("Estatus subjetivo", "Nivel educacional", "Ingreso (cientos de miles)", "Edad"),
+  Unidad = c("peldaño (0-10)", "nivel (1-10)", "cien mil pesos", "año"),
+  DE = c(sd_es, sd_ed, sd_in, sd_ea)
+), digits = 2)
+```
+
+::: {.incremental}
+
+- Un año más de edad es un cambio **muy pequeño** en su escala; un nivel educacional más es un cambio **grande** en la suya
+
+- Comparar 0,161 con 0,0063 es comparar cantidades medidas en unidades diferentes
+
+:::
+
+## La solución: una escala común
+
+::: {.incremental}
+
+- Para comparar la magnitud de un coeficiente respecto de los otros se requiere pasar a una **escala común**
+
+- Esto se efectúa mediante la **estandarización**
+
+- Cada valor se pondera respecto de la desviación estándar de su propia variable
+
+:::
+
+## El puntaje Z
+
+A cada valor se le resta el promedio y se divide por la desviación estándar:
+
+$$z_x=\frac{x-\bar{x}}{sd(x)}$$
+
+::: {.incremental}
+
+- El resultado tiene media 0 y desviación estándar 1
+
+- El procedimiento se aplica **tanto a la dependiente como a las independientes**
+
+- Un valor de $z = 1$ significa "una desviación estándar por sobre el promedio"
+
+:::
+
+## Estandarización en R
+
+```{r}
+#| label: std
+#| echo: true
+#| eval: false
+
+# La función scale() estandariza todas las variables de la base
+elsoc_std <- data.frame(scale(elsoc))
+
+e3_std <- lm(estatus ~ educacion + ing100 + edad, data = elsoc_std)
+```
+
+::: {.fragment .fade-up}
+
+```{r}
+#| label: check-std
+#| echo: true
+
+round(colMeans(elsoc_std), 3)
+round(apply(elsoc_std, 2, sd), 3)
+```
+
+:::
+
+## Comparación de modelos
+
+```{r}
+#| label: tab-std
+#| echo: false
+#| results: asis
+
+tab_model(list(e3, e3_std),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("No estandarizado", "Estandarizado"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## Interpretación
+
+::: {.incremental}
+
+- Al estandarizar, los coeficientes reflejan cuántas **desviaciones estándar** cambia $Y$ ante el cambio de **una desviación estándar** en $X$
+
+- Nivel educacional (`r z_ed`): por cada desviación estándar adicional de educación, el estatus subjetivo aumenta `r z_ed` desviaciones estándar
+
+- Ahora sí son comparables: educación (`r z_ed`) e ingreso (`r z_in`) tienen pesos similares, y ambos claramente mayores que edad (`r z_ea`)
+
+:::
+
+##  {data-background-color="black"}
+
+### Lo que revela la estandarización
+
+::: {.fragment .fade-up}
+
+### En la escala original, el coeficiente del ingreso (`r b_in`) parecía casi despreciable frente al de educación (`r b_ed`)
+
+:::
+
+::: {.fragment .fade-up}
+
+### Estandarizados, `r z_in` frente a `r z_ed`: el ingreso pesa casi tanto como la educación
+
+:::
+
+## ¿Qué NO cambia al estandarizar?
+
+```{r}
+#| label: r2-comp
+#| echo: true
+
+summary(e3)$r.squared
+summary(e3_std)$r.squared
+```
+
+::: {.incremental}
+
+- El $R^2$ es **idéntico**: estandarizar no altera el poder explicativo, solo la escala de los coeficientes
+
+- Los valores $t$ y los niveles de significación tampoco cambian
+
+- El intercepto pasa a ser 0, y deja de tener interpretación sustantiva
+
+:::
+
+## Ventajas
+
+::: {.incremental}
+
+- **Comparabilidad** entre predictores: permite identificar cuáles tienen mayor peso relativo
+
+- Neutraliza escalas distintas, lo que resulta útil al combinar variables con unidades muy diferentes
+
+- Facilita la interpretación en términos relativos
+
+:::
+
+## Desventajas
+
+::: {.incremental}
+
+- **Pérdida de interpretación sustantiva**: ya no se puede decir "un año más de edad implica tantos puntos"
+
+- El intercepto deja de ser informativo
+
+- En variables **dicotómicas**, la interpretación en desviaciones estándar es poco intuitiva
+
+- Dificulta la comunicación a audiencias no especializadas
+
+- Los coeficientes dependen de la variabilidad de **esta** muestra, por lo que no son comparables entre estudios con muestras distintas
+
+:::
+
+##  {data-background-color="black"}
+
+### En la práctica
+
+### Se reportan los coeficientes **no estandarizados** como resultado principal
+
+### Y los estandarizados cuando la pregunta es explícitamente sobre **importancia relativa**
 
 # Un segundo ejemplo {data-background-color="black"}
 
@@ -495,6 +695,60 @@ tab_model(a1,
 
 :::
 
+## ¿Cuál pesa más?
+
+En la escala original, la educación (`r a_ed`) parece tener un efecto más de tres veces mayor que el ingreso (`r a_in`). Estandaricemos:
+
+```{r}
+#| label: tab-animo-std
+#| echo: false
+#| results: asis
+
+tab_model(list(a1, a1_std),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("No estandarizado", "Estandarizado"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## La conclusión cambia
+
+::: {.incremental}
+
+- Estandarizados: educación `r az_ed`, ingreso `r az_in`
+
+- La distancia entre ambos se reduce considerablemente
+
+- La impresión de que la educación importaba mucho más que el ingreso era, en buena medida, un **efecto de las unidades de medida**
+
+- Igual que en el ejemplo anterior: los coeficientes en escala original no sirven para comparar importancia relativa
+
+:::
+
+## Cómo se reporta
+
+::: {.small}
+
+> Se estimó un modelo de regresión lineal sobre una escala sumativa de estados anímicos (rango 0-36), con datos de la primera ola de ELSOC (2016; N = `r n_animo`). Tanto el nivel educacional (β = `r a_ed`) como el ingreso del hogar (β = `r a_in`) presentan asociaciones negativas y estadísticamente significativas, consistentes con la hipótesis del gradiente social. La edad no alcanza significación estadística (p = `r p_ea_a`) una vez controladas las restantes variables. Los coeficientes estandarizados (`r az_ed` y `r az_in`, respectivamente) indican pesos relativos similares para ambos predictores, pese a que sus coeficientes en escala original difieren en un factor cercano a tres. El modelo explica un `r r2_a1`% de la varianza.
+
+:::
+
+## Lo que enseña este ejemplo
+
+::: {.incremental}
+
+1. Un predictor puede resultar **no significativo**, y eso también es un resultado que se reporta e interpreta
+
+2. La comparación de magnitudes en escala original puede ser francamente engañosa
+
+3. La estandarización responde a una pregunta específica, la de la **importancia relativa**, y no a la de significación ni a la de ajuste
+
+:::
 
 # Síntesis de las cinco sesiones {data-background-color="black"}
 
@@ -510,7 +764,7 @@ tab_model(a1,
 
 - **Sesión 4**: regresión múltiple, parcialización y control estadístico
 
-- **Sesión 5**: reporte de resultados e interpretación
+- **Sesión 5**: reporte de resultados y estandarización
 
 :::
 

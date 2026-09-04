@@ -158,7 +158,7 @@
     "href": "slides/05-clase5/05-clase5.html#section-2",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "",
-    "text": "Los coeficientes están en escalas distintas y no son directamente comparables"
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
   },
   {
     "objectID": "slides/05-clase5/05-clase5.html#escalas-distintas",
@@ -200,7 +200,7 @@
     "href": "slides/05-clase5/05-clase5.html#interpretación",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Interpretación",
-    "text": "Interpretación\n\nAl estandarizar, los coeficientes reflejan cuántas desviaciones estándar cambia \\(Y\\) ante el cambio de una desviación estándar en \\(X\\)\nNivel educacional (0.23): por cada desviación estándar adicional de educación, el estatus subjetivo aumenta 0.23 desviaciones estándar\nAhora sí son comparables: educación (0.23) e ingreso (0.176) tienen pesos similares, y ambos claramente mayores que edad (0.062)"
+    "text": "Interpretación\n\nEducación (-0.294): por cada nivel educacional adicional, el puntaje en la escala disminuye 0.294 puntos, a igual ingreso y edad\nIngreso (-0.086): por cada cien mil pesos adicionales, el puntaje disminuye 0.086 puntos, a igual educación y edad\nAmbos coeficientes son negativos y significativos: el gradiente social se observa"
   },
   {
     "objectID": "slides/05-clase5/05-clase5.html#section-3",
@@ -326,7 +326,7 @@
     "href": "slides/05-clase5/05-clase5.html#el-recorrido",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "El recorrido",
-    "text": "El recorrido\n\nSesión 1: qué es investigar cuantitativamente, cómo se organizan los datos, escalas de medición, correlación\nSesión 2: de las medias condicionales a la recta, estimación de \\(b_0\\) y \\(b_1\\) por mínimos cuadrados\nSesión 3: bondad de ajuste (\\(R^2\\)) e inferencia\nSesión 4: regresión múltiple, parcialización y control estadístico\nSesión 5: reporte de resultados y estandarización"
+    "text": "El recorrido\n\nSesión 1: qué es investigar cuantitativamente, cómo se organizan los datos, escalas de medición, correlación\nSesión 2: de las medias condicionales a la recta, estimación de \\(b_0\\) y \\(b_1\\) por mínimos cuadrados\nSesión 3: bondad de ajuste (\\(R^2\\)) e inferencia\nSesión 4: regresión múltiple, parcialización y control estadístico\nSesión 5: reporte de resultados e interpretación"
   },
   {
     "objectID": "slides/05-clase5/05-clase5.html#objetivos-centrales-del-modelo-de-regresión",

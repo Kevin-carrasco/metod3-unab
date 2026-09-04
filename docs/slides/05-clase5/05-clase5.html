@@ -234,7 +234,6 @@
 <h1>Sesión 5</h1>
 <p>Repaso sesión anterior</p>
 <p>Reporte de resultados</p>
-<p>Estandarización de coeficientes</p>
 <p>Síntesis del curso hasta aquí</p>
 </section>
 <section id="dónde-quedamos" class="slide level2">
@@ -436,220 +435,6 @@ Figure&nbsp;1
 </div>
 </section></section>
 <section>
-<section id="estandarización-de-coeficientes" class="title-slide slide level1 center" data-background-color="black">
-<h1>Estandarización de coeficientes</h1>
-
-</section>
-<section id="el-problema" class="slide level2">
-<h2>El problema</h2>
-<p>Mirando la tabla anterior, ¿cuál de los tres predictores es <strong>más importante</strong>?</p>
-<ul>
-<li class="fragment"><p>Nivel educacional: 0.161</p></li>
-<li class="fragment"><p>Ingreso (cientos de miles): 0.048</p></li>
-<li class="fragment"><p>Edad: 0.0063</p></li>
-<li class="fragment"><p>¿Significa esto que la educación importa 25 veces más que la edad?</p></li>
-</ul>
-</section>
-<section id="section-2" class="slide level2" data-background-color="black">
-<h2></h2>
-<h3 id="los-coeficientes-están-en-escalas-distintas-y-no-son-directamente-comparables">Los coeficientes están en <strong>escalas distintas</strong> y no son directamente comparables</h3>
-</section>
-<section id="escalas-distintas" class="slide level2">
-<h2>Escalas distintas</h2>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Variable</th>
-<th style="text-align: left;">Unidad</th>
-<th style="text-align: right;">DE</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Estatus subjetivo</td>
-<td style="text-align: left;">peldaño (0-10)</td>
-<td style="text-align: right;">1.53</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Nivel educacional</td>
-<td style="text-align: left;">nivel (1-10)</td>
-<td style="text-align: right;">2.18</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Ingreso (cientos de miles)</td>
-<td style="text-align: left;">cien mil pesos</td>
-<td style="text-align: right;">5.58</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Edad</td>
-<td style="text-align: left;">año</td>
-<td style="text-align: right;">15.14</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<ul>
-<li class="fragment"><p>Un año más de edad es un cambio <strong>muy pequeño</strong> en su escala; un nivel educacional más es un cambio <strong>grande</strong> en la suya</p></li>
-<li class="fragment"><p>Comparar 0,161 con 0,0063 es comparar cantidades medidas en unidades diferentes</p></li>
-</ul>
-</section>
-<section id="la-solución-una-escala-común" class="slide level2">
-<h2>La solución: una escala común</h2>
-<ul>
-<li class="fragment"><p>Para comparar la magnitud de un coeficiente respecto de los otros se requiere pasar a una <strong>escala común</strong></p></li>
-<li class="fragment"><p>Esto se efectúa mediante la <strong>estandarización</strong></p></li>
-<li class="fragment"><p>Cada valor se pondera respecto de la desviación estándar de su propia variable</p></li>
-</ul>
-</section>
-<section id="el-puntaje-z" class="slide level2">
-<h2>El puntaje Z</h2>
-<p>A cada valor se le resta el promedio y se divide por la desviación estándar:</p>
-<p><span class="math display">\[z_x=\frac{x-\bar{x}}{sd(x)}\]</span></p>
-<ul>
-<li class="fragment"><p>El resultado tiene media 0 y desviación estándar 1</p></li>
-<li class="fragment"><p>El procedimiento se aplica <strong>tanto a la dependiente como a las independientes</strong></p></li>
-<li class="fragment"><p>Un valor de <span class="math inline">\(z = 1\)</span> significa “una desviación estándar por sobre el promedio”</p></li>
-</ul>
-</section>
-<section id="estandarización-en-r" class="slide level2">
-<h2>Estandarización en R</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># La función scale() estandariza todas las variables de la base</span></span>
-<span id="cb3-2"><a></a>elsoc_std <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(elsoc))</span>
-<span id="cb3-3"><a></a></span>
-<span id="cb3-4"><a></a>e3_std <span class="ot">&lt;-</span> <span class="fu">lm</span>(estatus <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> elsoc_std)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="fragment fade-up">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">round</span>(<span class="fu">colMeans</span>(elsoc_std), <span class="dv">3</span>)</span>
-<span id="cb4-2"><a></a><span class="co">#&gt;   estatus educacion    ing100      edad </span></span>
-<span id="cb4-3"><a></a><span class="co">#&gt;         0         0         0         0</span></span>
-<span id="cb4-4"><a></a><span class="fu">round</span>(<span class="fu">apply</span>(elsoc_std, <span class="dv">2</span>, sd), <span class="dv">3</span>)</span>
-<span id="cb4-5"><a></a><span class="co">#&gt;   estatus educacion    ing100      edad </span></span>
-<span id="cb4-6"><a></a><span class="co">#&gt;         1         1         1         1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</section>
-<section id="comparación-de-modelos" class="slide level2">
-<h2>Comparación de modelos</h2>
-<table class="caption-top" style="border-collapse:collapse; border:none;">
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">No estandarizado</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Estandarizado</th>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.922 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.146</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000 <sup></sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.020</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.161 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.016</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.230 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.024</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.048 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.176 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.022</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006 <sup>**</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.002</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.062 <sup>**</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.021</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
-</tr>
-<tr class="odd">
-<td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="interpretación" class="slide level2">
-<h2>Interpretación</h2>
-<ul>
-<li class="fragment"><p>Al estandarizar, los coeficientes reflejan cuántas <strong>desviaciones estándar</strong> cambia <span class="math inline">\(Y\)</span> ante el cambio de <strong>una desviación estándar</strong> en <span class="math inline">\(X\)</span></p></li>
-<li class="fragment"><p>Nivel educacional (0.23): por cada desviación estándar adicional de educación, el estatus subjetivo aumenta 0.23 desviaciones estándar</p></li>
-<li class="fragment"><p>Ahora sí son comparables: educación (0.23) e ingreso (0.176) tienen pesos similares, y ambos claramente mayores que edad (0.062)</p></li>
-</ul>
-</section>
-<section id="section-3" class="slide level2" data-background-color="black">
-<h2></h2>
-<h3 id="lo-que-revela-la-estandarización">Lo que revela la estandarización</h3>
-<div class="fragment fade-up">
-<h3 id="en-la-escala-original-el-coeficiente-del-ingreso-0.048-parecía-casi-despreciable-frente-al-de-educación-0.161">En la escala original, el coeficiente del ingreso (0.048) parecía casi despreciable frente al de educación (0.161)</h3>
-</div>
-<div class="fragment fade-up">
-<h3 id="estandarizados-0.176-frente-a-0.23-el-ingreso-pesa-casi-tanto-como-la-educación">Estandarizados, 0.176 frente a 0.23: el ingreso pesa casi tanto como la educación</h3>
-</div>
-</section>
-<section id="qué-no-cambia-al-estandarizar" class="slide level2">
-<h2>¿Qué NO cambia al estandarizar?</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">summary</span>(e3)<span class="sc">$</span>r.squared</span>
-<span id="cb5-2"><a></a><span class="co">#&gt; [1] 0.1126182</span></span>
-<span id="cb5-3"><a></a><span class="fu">summary</span>(e3_std)<span class="sc">$</span>r.squared</span>
-<span id="cb5-4"><a></a><span class="co">#&gt; [1] 0.1126182</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<ul>
-<li class="fragment"><p>El <span class="math inline">\(R^2\)</span> es <strong>idéntico</strong>: estandarizar no altera el poder explicativo, solo la escala de los coeficientes</p></li>
-<li class="fragment"><p>Los valores <span class="math inline">\(t\)</span> y los niveles de significación tampoco cambian</p></li>
-<li class="fragment"><p>El intercepto pasa a ser 0, y deja de tener interpretación sustantiva</p></li>
-</ul>
-</section>
-<section id="ventajas" class="slide level2">
-<h2>Ventajas</h2>
-<ul>
-<li class="fragment"><p><strong>Comparabilidad</strong> entre predictores: permite identificar cuáles tienen mayor peso relativo</p></li>
-<li class="fragment"><p>Neutraliza escalas distintas, lo que resulta útil al combinar variables con unidades muy diferentes</p></li>
-<li class="fragment"><p>Facilita la interpretación en términos relativos</p></li>
-</ul>
-</section>
-<section id="desventajas" class="slide level2">
-<h2>Desventajas</h2>
-<ul>
-<li class="fragment"><p><strong>Pérdida de interpretación sustantiva</strong>: ya no se puede decir “un año más de edad implica tantos puntos”</p></li>
-<li class="fragment"><p>El intercepto deja de ser informativo</p></li>
-<li class="fragment"><p>En variables <strong>dicotómicas</strong>, la interpretación en desviaciones estándar es poco intuitiva</p></li>
-<li class="fragment"><p>Dificulta la comunicación a audiencias no especializadas</p></li>
-<li class="fragment"><p>Los coeficientes dependen de la variabilidad de <strong>esta</strong> muestra, por lo que no son comparables entre estudios con muestras distintas</p></li>
-</ul>
-</section>
-<section id="section-4" class="slide level2" data-background-color="black">
-<h2></h2>
-<h3 id="en-la-práctica">En la práctica</h3>
-<h3 id="se-reportan-los-coeficientes-no-estandarizados-como-resultado-principal">Se reportan los coeficientes <strong>no estandarizados</strong> como resultado principal</h3>
-<h3 id="y-los-estandarizados-cuando-la-pregunta-es-explícitamente-sobre-importancia-relativa">Y los estandarizados cuando la pregunta es explícitamente sobre <strong>importancia relativa</strong></h3>
-</section></section>
-<section>
 <section id="un-segundo-ejemplo" class="title-slide slide level1 center" data-background-color="black">
 <h1>Un segundo ejemplo</h1>
 
@@ -675,16 +460,16 @@ Figure&nbsp;1
 <h2>Los datos</h2>
 <p>2285 casos con información completa</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>animo <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a></a>  <span class="fu">filter</span>(ola <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(items), m01, m29, m0_edad) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a></a>  <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-6"><a></a>  <span class="fu">rename</span>(<span class="st">"educacion"</span> <span class="ot">=</span> m01, <span class="st">"ingreso"</span> <span class="ot">=</span> m29, <span class="st">"edad"</span> <span class="ot">=</span> m0_edad) <span class="sc">%&gt;%</span></span>
-<span id="cb6-7"><a></a>  <span class="fu">filter</span>(ingreso <span class="sc">&gt;=</span> <span class="dv">50000</span>, ingreso <span class="sc">&lt;=</span> <span class="dv">5000000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-8"><a></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(items), <span class="sc">~</span> .x <span class="sc">-</span> <span class="dv">1</span>),</span>
-<span id="cb6-9"><a></a>         <span class="at">ing100 =</span> ingreso <span class="sc">/</span> <span class="dv">100000</span>,</span>
-<span id="cb6-10"><a></a>         <span class="at">sintomas =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(items))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>animo <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a></a>  <span class="fu">filter</span>(ola <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(items), m01, m29, m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a></a>  <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a></a>  <span class="fu">rename</span>(<span class="st">"educacion"</span> <span class="ot">=</span> m01, <span class="st">"ingreso"</span> <span class="ot">=</span> m29, <span class="st">"edad"</span> <span class="ot">=</span> m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a></a>  <span class="fu">filter</span>(ingreso <span class="sc">&gt;=</span> <span class="dv">50000</span>, ingreso <span class="sc">&lt;=</span> <span class="dv">5000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(items), <span class="sc">~</span> .x <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="cb3-9"><a></a>         <span class="at">ing100 =</span> ingreso <span class="sc">/</span> <span class="dv">100000</span>,</span>
+<span id="cb3-10"><a></a>         <span class="at">sintomas =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(items))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="descriptivos" class="slide level2">
@@ -792,7 +577,7 @@ Figure&nbsp;1
 <section id="el-modelo" class="slide level2">
 <h2>El modelo</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>a1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sintomas <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> animo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>a1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sintomas <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> animo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <table class="caption-top" style="border-collapse:collapse; border:none;">
 <tbody>
@@ -839,7 +624,7 @@ Figure&nbsp;1
 </tbody>
 </table>
 </section>
-<section id="interpretación-1" class="slide level2">
+<section id="interpretación" class="slide level2">
 <h2>Interpretación</h2>
 <ul>
 <li class="fragment"><p><strong>Educación</strong> (-0.294): por cada nivel educacional adicional, el puntaje en la escala disminuye 0.294 puntos, a igual ingreso y edad</p></li>
@@ -855,92 +640,6 @@ Figure&nbsp;1
 <li class="fragment"><p>Lectura correcta: los datos no permiten afirmar que exista asociación entre edad y esta escala, una vez controlados educación e ingreso</p></li>
 <li class="fragment"><p>Lectura <strong>incorrecta</strong>: “se demostró que la edad no tiene efecto”. No rechazar <span class="math inline">\(H_0\)</span> no equivale a probar que <span class="math inline">\(H_0\)</span> sea verdadera</p></li>
 </ul>
-</section>
-<section id="cuál-pesa-más" class="slide level2">
-<h2>¿Cuál pesa más?</h2>
-<p>En la escala original, la educación (-0.294) parece tener un efecto más de tres veces mayor que el ingreso (-0.086). Estandaricemos:</p>
-<table class="caption-top" style="border-collapse:collapse; border:none;">
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">No estandarizado</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Estandarizado</th>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">8.581 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.582</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.000 <sup></sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.021</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.294 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.066</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.111 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.025</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.086 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.024</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.083 <sup>***</sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.023</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.010 <sup></sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.008</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.025 <sup></sup></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.022</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2285</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2285</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.026 / 0.024</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.026 / 0.024</td>
-</tr>
-<tr class="odd">
-<td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="la-conclusión-cambia" class="slide level2">
-<h2>La conclusión cambia</h2>
-<ul>
-<li class="fragment"><p>Estandarizados: educación -0.111, ingreso -0.083</p></li>
-<li class="fragment"><p>La distancia entre ambos se reduce considerablemente</p></li>
-<li class="fragment"><p>La impresión de que la educación importaba mucho más que el ingreso era, en buena medida, un <strong>efecto de las unidades de medida</strong></p></li>
-<li class="fragment"><p>Igual que en el ejemplo anterior: los coeficientes en escala original no sirven para comparar importancia relativa</p></li>
-</ul>
-</section>
-<section id="cómo-se-reporta" class="slide level2">
-<h2>Cómo se reporta</h2>
-<div class="small">
-<blockquote>
-<p>Se estimó un modelo de regresión lineal sobre una escala sumativa de estados anímicos (rango 0-36), con datos de la primera ola de ELSOC (2016; N = 2285). Tanto el nivel educacional (β = -0.294) como el ingreso del hogar (β = -0.086) presentan asociaciones negativas y estadísticamente significativas, consistentes con la hipótesis del gradiente social. La edad no alcanza significación estadística (p = 0.252) una vez controladas las restantes variables. Los coeficientes estandarizados (-0.111 y -0.083, respectivamente) indican pesos relativos similares para ambos predictores, pese a que sus coeficientes en escala original difieren en un factor cercano a tres. El modelo explica un 2.6% de la varianza.</p>
-</blockquote>
-</div>
-</section>
-<section id="lo-que-enseña-este-ejemplo" class="slide level2">
-<h2>Lo que enseña este ejemplo</h2>
-<ol type="1">
-<li class="fragment"><p>Un predictor puede resultar <strong>no significativo</strong>, y eso también es un resultado que se reporta e interpreta</p></li>
-<li class="fragment"><p>La comparación de magnitudes en escala original puede ser francamente engañosa</p></li>
-<li class="fragment"><p>La estandarización responde a una pregunta específica, la de la <strong>importancia relativa</strong>, y no a la de significación ni a la de ajuste</p></li>
-</ol>
 </section></section>
 <section>
 <section id="síntesis-de-las-cinco-sesiones" class="title-slide slide level1 center" data-background-color="black">
@@ -954,7 +653,7 @@ Figure&nbsp;1
 <li class="fragment"><p><strong>Sesión 2</strong>: de las medias condicionales a la recta, estimación de <span class="math inline">\(b_0\)</span> y <span class="math inline">\(b_1\)</span> por mínimos cuadrados</p></li>
 <li class="fragment"><p><strong>Sesión 3</strong>: bondad de ajuste (<span class="math inline">\(R^2\)</span>) e inferencia</p></li>
 <li class="fragment"><p><strong>Sesión 4</strong>: regresión múltiple, parcialización y control estadístico</p></li>
-<li class="fragment"><p><strong>Sesión 5</strong>: reporte de resultados y estandarización</p></li>
+<li class="fragment"><p><strong>Sesión 5</strong>: reporte de resultados e interpretación</p></li>
 </ul>
 </section>
 <section id="objetivos-centrales-del-modelo-de-regresión" class="slide level2">
@@ -1212,7 +911,7 @@ Figure&nbsp;1
 <li><p>Contenidos: sesiones 1 a 5, es decir, regresión simple y múltiple, estimación e interpretación de coeficientes, bondad de ajuste e inferencia</p></li>
 </ul>
 </section>
-<section id="section-5" class="slide level2" data-background-color="black">
+<section id="section-2" class="slide level2" data-background-color="black">
 <h2></h2>
 <div class="columns v-center-container">
 <div class="column" style="width:20%;">
