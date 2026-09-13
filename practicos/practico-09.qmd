@@ -1,354 +1,362 @@
 ---
-title: "Práctico 09. Supuestos de regresión"
+title: "Práctico 08. Regresión logística II"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2025-11-03"
+date: "2025-10-27"
 lang: es
 output:
   number_sections: true
 ---
 
-# Objetivo
+# Regresión logística
 
-La siguiente práctica tiene el objetivo de introducir a los estudiantes en los **supuestos y robustez del modelo de regresión**. Por esta razón, volveremos a algunos de los contenidos previos relacionados con la estimación, análisis de residuos y ajuste.  Para ello, utilizaremos la base de datos de la tercera ola del [*Estudio Longitudinal Social del Chile 2018*](https://doi.org/10.7910/DVN/H8OVMF) con el objetivo de analizar los determinantes de la **Participación Ciudadana.**
+La Encuesta Mundial de Valores (EMV) o World Values Survey [WVS](https://www.worldvaluessurvey.org/wvs.jsp) es un proyecto global de investigación social que explora los valores y opiniones de la gente, cómo estos cambian con el tiempo, y su impacto social y político. Desde 1981 una red mundial de científicos sociales y politólogos llevan a cabo esta investigación, haciendo encuestas nacionales representativas en casi 100 países. La WVS es la única fuente de datos empíricos sobre actitudes y valores humanos que abarca a la mayoría de la población mundial (casi el 90%).
 
+## Objetivo
+
+En el ejemplo de esta práctica, que utiliza solo casos para Chile entre 2005 y 2022, se intentará responder la pregunta ¿existe una relación entre la afiliación a sindicatos y la participación en marchas?
+
+Debido a la naturaleza de la variable dependiente participación en marchas (si/no), el objetivo de esta práctica es estimar modelos de regresión logística binaria.
 
 # Librerías
 
 ```{r}
-pacman::p_load(dplyr, summarytools, sjPlot,texreg, corrplot,ggplot2,ggfortify,sandwich,lmtest,sjlabelled)
+pacman::p_load(tidyr,
+               dplyr,
+               sjPlot,
+               sjmisc,
+               psych,
+               texreg,
+               haven,
+               ggplot2,
+               lmtest,
+               DescTools)
 ```
-
 
 # Datos
 
-El Estudio Longitudinal Social del Chile, único en Chile y América Latina, consiste en encuestar a casi 3.000 chilenos, anualmente, a lo largo de una década. ELSOC ha sido diseñado para evaluar la manera cómo piensan, sienten y se comportan los chilenos en torno a un conjunto de temas referidos al conflicto y la cohesión social en Chile. La población objetivo son hombres y mujeres entre 15 y 75 años de edad con un alcance nacional, donde se obtuvo una muestra final de **3748** casos en el año 2018.
-
-
-```{r }
-#Cargamos la base de datos desde internet
-load(url("https://multivariada.netlify.app/assignment/data/elsoc18p11.RData"))
+```{r include=FALSE}
+WVS_2005_2022_Chl<- readRDS(file = "../files/data/WVS_2005_2022_Chl.rds")
 ```
+
+  * Como la universidad no permite el acceso a Github, pueden encontrar la base de datos en el canvas del curso, archivos, bajo el nombre datos-practico8.RData
+
+  * Si no están conectados mediante eduroam de la universidad, pueden usar el siguiente link:
+
+```{r eval=FALSE}
+#Cargamos la base de datos desde internet
+load(url("https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/WVS_2005_2022_Chl.RData"))
+```
+
 
 ## Explorar datos
 
-A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para realizar las transformaciones y análisis posteriores.
-
-```{r eval=FALSE}
-view(dfSummary(elsoc, headings = FALSE, method = "render"))
+```{r}
+summary(WVS_2005_2022_Chl) #con comando de paquete haven
+describe(WVS_2005_2022_Chl) #con comando de paquete psych
 ```
 
-```{r echo=FALSE}
-print(dfSummary(elsoc, headings = FALSE,), method = 'render')
-```
+# Regresiones logísticas
+
+El punto de partida es transformación de los coeficientes 𝛽 en coeficientes logit:
+
+* Se conoce como “logit” a la transformación logarítmica de los odds (traducidos comúnmente como “chances”)
+
+* ¿Qué son los odds? Una razón de probabilidades
+
+* Por lo tanto, para estimar probabilidades a través de una regresión logística hay que seguir estos pasos:
+  1. Estimar los odds o razón de probabilidades
+  2. Estimar odds ratios (razones entre odds)
+  3. Aplicar una transformación logarítmica a esos odds ratios para obtener coeficientes logit
+  4. Calcular las probabilidades
+
+## Tabla de contingencia bivariado: sindicalización / participación en marchas
 
 ```{r}
-view_df(elsoc,max.len = 50)
+WVS_2005_2022_Chl <- WVS_2005_2022_Chl %>%
+  mutate(Unionized = labelled(.$Unionized,c("No"=0,"Sí"=1)),
+         demonstr_dummy = labelled(.$demonstr_dummy,c("No"=0,"Sí"=1)))
+
+WVS_2005_2022_Chl <- as.data.frame(WVS_2005_2022_Chl) #para que la base quede como data frame (necesario para las figuras)
+
+frq(WVS_2005_2022_Chl$Unionized)
+frq(WVS_2005_2022_Chl$demonstr_dummy)
+
+sjPlot::tab_xtab(var.col = WVS_2005_2022_Chl$Unionized, 
+                 var.row = WVS_2005_2022_Chl$demonstr_dummy, 
+                 title = "Participación en marchas según afiliación sindical", 
+                 show.col.prc = TRUE,
+                 value.labels = TRUE,
+                 encoding = "UTF-8")
 ```
 
-```{r, fig.width=10, include=FALSE}
-plot_stackfrq(elsoc[,c("part01","part02","part03","part04")]) + theme(legend.position="bottom")
-```
+### Odds
 
-```{r, include=FALSE}
-corrplot.mixed(cor(select(elsoc,part01,part02,part03,part04),
-                   use = "complete.obs"))
-```
+$$Odds_{participar} = \frac{0.207}{0.793} = 0.26$$
+
+Las chances de participar en una marcha son de 0,26, respecto a las chances de no participar
+
+* En otras palabras: por cada 1 persona, hay sólo 0,26 personas que participan en marchas.
+
+* O más intuitivamente, por cada 100 personas, hay sólo 26 personas que participan
+
+¿Cambian las chances de participar según se esté afiliado/a a un sindicato
+
+$$Odds_{sindical} = \frac{0.26}{0.74} = 0.35$$
+
+$$Odds_{no.sindical} = \frac{0.194}{0.806} = 0.24$$
+
+¿Cómo se interpretan los odds?
+
+* Valores bajo 1 indican que las chances de que ocurra un evento son negativas
+
+* Valores iguales a 1 indican chances iguales
+
+* Valores sobre 1 indican chances positivas
+
+### Odds ratios (razones de chances)
+
+* Cálculo que permite reflejar asociación entre dos variables dicotómicas, a partir de una comparación entre chances
+
+* Siguiendo con el ejemplo anterior, ¿tienen los/as sindicalizados más chances de participar en marchas que quienes no están sindicalizados/as?
+
+$$OR = \frac{P_{sindical}/(1-P_{sindical})}{P_{no.sindical}/(1-P_{no.sindical})}$$
+
+$$OR = \frac{0.26/0.74}{0.194/0.806} = \frac{0.35}{0.24} = 1.46$$
+
+Las chances de participar en marchas de los/as sindicalizados/as son 1,5 veces más que las de quienes no están sindicalizados/as
+
+* Implicancias:
+
+  1. El odds ratio o razones de chances es útil porque nos permite expresar en un número la relación entre dos variables categóricas
+  2. En las regresiones logísticas, el odds ratio es la primera manera de aproximarnos a relación entre variables
+  3. Sin embargo, falta un paso más necesario para construir modelos de regresión logística
+  
+## Logit
+
+* Es una unidad de medida de la relación entre dos variables (VD: dicotómica), que en regresión logística se calcula a partir del logaritmo natural de los odds
+
+* Esta transformación logarítmica es la base de la estimación de parámetros en la regresión logística:
+
+La mejor combinación lineal de predictores no se obtiene a través de MCO, sino a través del procedimiento de máxima verosimilitud
+
+* A diferencia de los odds ratio, los coeficientes logit tienen valores que van de –\infty a +\infty
+
+## Modelo de probabilidad lineal
+
+Primero, solo para comparación, estimamos un modelo de probabilidad lineal.
 
 ```{r}
-elsoc <- elsoc %>% mutate(partpol=rowSums(select(., part01,part02,part03,part04)))
-```
-
-```{r echo=TRUE, include=FALSE}
-descr(elsoc$partpol,style = "rmarkdown",stats = "common", transpose = T,headings = F)
-plot_frq(data = elsoc$partpol,type = "hist",show.mean = T)
+m1mpl <- lm(demonstr_dummy ~ Unionized + Wave, data = WVS_2005_2022_Chl)
 ```
 
 
-```{r echo=TRUE, include=FALSE}
-descr(elsoc$inghogar,style = "rmarkdown",stats = "common", transpose = T,headings = F)
+```{r results='asis'}
+htmlreg(m1mpl,
+          custom.model.names = "Modelo de Prob Lineal",
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
 ```
 
-```{r, include=FALSE}
-sjmisc::frq(elsoc$inghogar_t,
-            out = "txt",
-            show.na = T) %>% knitr::kable()
-```
+## Modelo de regresión logística
 
 ```{r}
-elsoc$inghogar_t[elsoc$inghogar_t==1] <-(       220000 )    # [1]  "Menos de $220.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==2] <-(220001 +280000 )/2 # [2]  "De $220.001 a $280.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==3] <-(280001 +330000 )/2 # [3]  "De $280.001 a $330.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==4] <-(330001 +380000 )/2 # [4]  "De $330.001 a $380.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==5] <-(380001 +420000 )/2 # [5]  "De $380.001 a $420.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==6] <-(420001 +470000 )/2 # [6]  "De $420.001 a $470.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==7] <-(470001 +510000 )/2 # [7]  "De $470.001 a $510.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==8] <-(510001 +560000 )/2 # [8]  "De $510.001 a $560.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==9] <-(560001 +610000 )/2 # [9]  "De $560.001 a $610.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==10]<-(610001 +670000 )/2 # [10] "De $610.001 a $670.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==11]<-(670001 +730000 )/2 # [11] "De $670.001 a $730.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==12]<-(730001 +800000 )/2 # [12] "De $730.001 a $800.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==13]<-(800001 +890000 )/2 # [13] "De $800.001 a $890.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==14]<-(890001 +980000 )/2 # [14] "De $890.001 a $980.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==15]<-(980001 +1100000)/2 # [15] "De $980.001 a $1.100.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==16]<-(1100001+1260000)/2 # [16] "De $1.100.001 a $1.260.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==17]<-(1260001+1490000)/2 # [17] "De $1.260.001 a $1.490.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==18]<-(1490001+1850000)/2 # [18] "De $1.490.001 a $1.850.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==19]<-(1850001+2700000)/2 # [19] "De $1.850.001 a $2.700.000 mensuales liquidos"
-elsoc$inghogar_t[elsoc$inghogar_t==20]<-(2700000)           # [20] "Mas de $2.700.000 a mensuales liquidos"
+m0log <- glm(demonstr_dummy~ Unionized, data = WVS_2005_2022_Chl, family = "binomial"(link = "logit"))
+m1log <- glm(demonstr_dummy~ Unionized + Wave, data = WVS_2005_2022_Chl, family = "binomial"(link = "logit"))
+#nota: "logit" viene por defecto en la opción "binomial", por eso no es necesario 
+#incluirla explícitamente en el código (tal como lo hago en los modelos sgtes)
+m2log <- glm(demonstr_dummy~ Unionized + Female + X003 + Educ + private_sector + Wave, data = WVS_2005_2022_Chl,family = "binomial")
+m3log <- glm(demonstr_dummy~ Unionized + Female + X003 + Educ + private_sector + politicization + Wave, data = WVS_2005_2022_Chl,family = "binomial")
 ```
 
+
+```{r results='asis'}
+htmlreg(list(m1mpl, m1log,m2log,m3log),
+          custom.model.names = c("M1 (m prob lineal)","M1 (log odds)","M2 (log odds)","M3 (log odds)"),
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
+```
+
+En el Modelo 1 (M1), el log-odds de participación en marchas para afiliados a sindicatos aumenta en 0.418 en comparación con los no sindicalizados (p<0.01). Este resultado mantiene su significación estadística en el Modelo 2 y baja su significación a p<0.1 en el Modelo 3, al controlar por las demás variables independientes.
+
+En el Modelo 2, En comparación a los/as trabajadores/as del sector público (categoría de referencia), el log-odds de participación en marchas para los/as del sector privado disminuye en 0,52 (p < 0,01), manteniendo el resto de variables constantes.
+
+En el Modelo 3, por cada unidad de aumento en la escala de politización, el log-odds de participación en marchas aumenta en 0,28 (p < 0,001), manteniendo el resto de las variables constantes.
+
+### Problemas de interpretación 
+
+A pesar de sus ventajas, los coeficientes logit son difíciles de interpretar:
+
+* Los coef. logit son el resultado de una transformación de la escala original
+
+* Ellos no muestran directamente probabilidades
+
+* Entonces: Volver a la escala original de **odds ratio** mediante la **exponenciación de los coeficientes** (la función exponencial es la inversa del logaritmo)
+
+$$logit_x = log(odds)$$
+
+$$e^{logit} = odds_x$$
+
+$$e^{0.39} = odds_x = 1.477$$
+
+Las chances (odds) de participar en marchas de los/as sindicalizados/as son 1,5 veces más que las de quienes no están sindicalizados/as, controlando por las otras variables incluidas en el modelo
+
+## Estimación de odds ratios
 
 ```{r}
-elsoc$inghogar_i <- ifelse(test = (is.na(elsoc$inghogar)), #¿existen NA en ingresos?
-                           yes = elsoc$inghogar_t,         #VERDADERO, remplazar con la media del tramo
-                           no = elsoc$inghogar)            #FALSE, mantener la variable original.
+exp(coef(m1log)) #comando básico
 
-elsoc$inghogar_i <- set_label(elsoc$inghogar_i,"Ingreso total del hogar (imputada)")
+### Cálculo de OR para cada modelo
+m0log_OR <- exp(coef(m0log))
+m1log_OR <- exp(coef(m1log))
+m2log_OR <- exp(coef(m2log))
+m3log_OR <- exp(coef(m3log))
 ```
 
 
-```{r include=FALSE}
-sjmisc::descr(elsoc[,c("inghogar","inghogar_i")],
-              show =c("label", "n", "NA.prc", "mean", "md","sd")) %>% knitr::kable(digits = 2)
+```{r results='asis'}
+##Odds ratios en tabla de texreg
+htmlreg(list(m1log,m2log,m3log), 
+          override.coef = list(m1log_OR,m2log_OR,m3log_OR), # Sobreescribir coeficientes
+          custom.model.names = c("m1 (OR)","m2 (OR)","m3 (OR)"),
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
+#Nota: errores estándares en esta tabla NO tienen  sentido (no están calculados a partir de OR, sino de log odds)
+#Es mejor no reportarlos si solo se van a presentar odds ratios
 ```
 
+Sin embargo, los coeficientes de un modelo de reg. logística (log-odds u odds-ratios) no son comparables con los coeficientes de otro modelo
+
+## Cálculo de probabilidades predichas
+
+```{r results='asis'}
+# Tabla básica: sólo sindicalizacion como vble independ
+htmlreg(m0log,
+          custom.model.names = c("m0 (log odds)"),
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
+```
+
+A partir de este modelo se pueden predecir log-odds y, más importante aún, probabilidades para personas con distintos atributos controlados en el modelo (ej., sindicalizadas o no)
+
+$$logit(prob.marcha) = 𝛼+ 𝛽_1X_1 $$
+
+$$logit(prob.marcha)_{sindical} = -1.422 + (0.374 * Unionized=1) = -1.048 $$
+
+$$logit(prob.marcha)_{no.sindical} = -1.422 + (0.374 * Unionized=0) = -1.422 $$
+
+Este “puntaje predicho” (log-odds) no tiene interpretación, por lo que hay que pasarlo a Odds
+
+
+$$Odds_x = e^{𝛼+𝛽_jX_j}$$
+
+$$Odds_{sindicalizados} = e^{-1.048} = 0.35$$
+
+$$Odds_{no.sindicalizados} = e^{-1.422} = 0.24$$
+
+Finalmente, habiendo calculado los odds para cada tipo de persona se pueden calcular sus probabilidades predichas
+
+$$p = \frac{e^{𝛼+𝛽_jX_j}}{1+e^{𝛼+𝛽_jX_j}} = \frac{odds_{xj}}{1+odds_{xj}}$$
+
+$$p_{sindicalizados} = \frac{0.35}{1+0.35} = \frac{0.35}{1.35} = 0.26$$
+
+$$p_{no.sindicalizados} = \frac{0.24}{1+0.24} = \frac{0.24}{1.24} = 0.19$$
+
+La probabilidad de que un/a sindicalizado participe en marchas es del 26%, mientras que la probabilidad de que alguien que no esté sindicalizado/a es del 19%
+
+
+## Cálculo de probabilidades predichas en R
+
+* Paquete ggeffects de R: últil para estimar probabilidades predichas a partir de modelos de regresión logísticas
+
+* Combinado con ggplot2, se pueden generar gráficos que muestran de modo más intuitivo la relación entre variables
+
+Gráfico de probabilidades predichas para sindicalizados/as y no sindicalizados/as
 
 ```{r}
-elsoc$ing_pcap <- elsoc$inghogar_i/elsoc$tamhogar
-elsoc$ing_pcap <- set_label(elsoc$ing_pcap,"Ingreso per cápita del hogar")
-```
-
-```{r, include=FALSE}
-sjmisc::descr(elsoc[,c("inghogar","inghogar_i","tamhogar","ing_pcap")],
-              show =c("label", "n", "NA.prc", "mean", "md","sd")) %>% knitr::kable(digits = 2)
-```
-
-```{r}
-elsoc$quintile<- dplyr::ntile(x = elsoc$ing_pcap,
-                              n = 5) # n de categorias, para quintiles usamos 5
-elsoc$quintile <- factor(elsoc$quintile,c(1,2,3,4,5), c("Quintil 1","Quintil 2","Quintil 3","Quintil 4","Quintil 5"))
-elsoc %>%
-  group_by(quintile) %>%
-  summarise(n=n(),
-            Media=mean(ing_pcap,na.rm = T),
-            Mediana=median(ing_pcap,na.rm = T)) %>%
-  knitr::kable()
-
-```
-
-```{r}
-elsoc$quintilemiss <- factor(elsoc$quintile,ordered = T)
-elsoc$quintilemiss <- ifelse(is.na(elsoc$quintilemiss),yes = 6,no = elsoc$quintilemiss)
-elsoc$quintilemiss <- factor(elsoc$quintilemiss ,levels = c(1,2,3,4,5,6),labels =  c("Quintil 1","Quintil 2","Quintil 3","Quintil 4","Quintil 5","Missing"))
-elsoc %>% group_by(quintilemiss) %>% summarise(n=n())
-```
-
-# Estimación
-
-```{r}
-fit01<- lm(partpol~sexo+edad+ing_pcap+pospol,data=elsoc)
-fit02<- lm(partpol~sexo+edad+quintile+pospol,data=elsoc)
-fit03<- lm(partpol~sexo+edad+quintilemiss+pospol,data=elsoc)
-```
-
-```{r, results='asis'}
-labs01 <- c("Intercepto","Sexo (mujer=1)","Edad","Ingreso per/cap","Centro (ref. derecha)","Izquierda","Idep./Ninguno",
-            "Quintil 2","Quintil 3","Quintil 4","Quintil 5",
-            "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Quintil perdido")
-htmlreg(list(fit01,fit02,fit03),doctype = FALSE,
-        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3"),
-        custom.coef.names = labs01)
-```
-
-```{r eval=FALSE, include=FALSE}
-screenreg(list(fit01,fit02,fit03),custom.coef.names = labs01)
-```
-
-## Diágnosticos
-
-### Casos influyentes
-
-Para determinar si un outlier es un caso influyente, es decir que su presencia/ausencia genera un cambio importante en la estimación de los coeficientes de regresión, calculamos la **Distancia de Cook.**.
-
-Posteriormente, se establece un punto de corte de $4/(n-k-1)$:
-
-```{r}
-n<- nobs(fit03) #n de observaciones
-k<- length(coef(fit03)) # n de parametros
-dcook<- 4/(n-k-1) #punt de corte
-```
-
-Si lo graficamos se ve de la siguiente manera:
-
-```{r, fig.width=10}
-final <- broom::augment_columns(fit03,data = elsoc)
-final$id <- as.numeric(row.names(final))
-# identify obs with Cook's D above cutoff
-ggplot(final, aes(id, .cooksd))+
-geom_bar(stat="identity", position="identity")+
-xlab("Obs. Number")+ylab("Cook's distance")+
-geom_hline(yintercept=dcook)+
-geom_text(aes(label=ifelse((.cooksd>dcook),id,"")),
-vjust=-0.2, hjust=0.5)
-```
-
-Identificamos los casos influyentes y filtramos la base de datos:
-
-```{r}
-ident<- final %>% filter(.cooksd>dcook)
-elsoc02 <- final %>% filter(!(id %in% ident$id))
-```
-
-Estimación sin casos influyentes:
-
-```{r}
-fit04<- lm(partpol~sexo+edad+quintilemiss+pospol,data=elsoc02)
-```
-
-```{r, results='asis'}
-labs02 <- c("Intercepto","Sexo (mujer=1)","Edad",
-            "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Quintil perdido",
-            "Izquierda (ref. derecha)","Centro","Idep./Ninguno")
-
-htmlreg(list(fit03,fit04),
-        doctype = FALSE,
-        custom.model.names = c("Modelo 3", "Modelo 4"),
-        custom.coef.names = labs02)
-```
-
-```{r eval=FALSE, include=FALSE}
-screenreg(list(fit03,fit04),
-        custom.model.names = c("Modelo 3", "Modelo 4"),
-        custom.coef.names = labs02
-        )
-```
-
-
-En términos generales, el sentido y significación estadística de los coeficientes del Modelo 4 se mantiene respecto al Modelo 3. Adicionalmente, si observamos que el modelo sin casos influyentes presenta una mejora en ajuste. Por lo tanto, los análisis posteriores se realizaran en base a este modelo.
-
-
-### Linealidad
-
-Para analizar la linealidad respecto de un modelo de regresión, debemos analizar la distribución de los residuos con respecto a la recta de regresión.
-
-* Los residuos deben ser independientes de los valores predichos (fitted values).
-* Cualquier correlación entre residuo y valores predichos violarían este supuesto.
-* La presencia de un patrón no lineal, es señal de que el modelo está especificado incorrectamente.
-
-
-```{r, fig.cap="Relación entre residuos y valores predichos", fig.width=10}
-ggplot(fit04, aes(.fitted, .resid)) +
-  geom_point() +
-  geom_hline(yintercept = 0) +
-  geom_smooth(se = TRUE)
-```
-
-El gráfico nos indica que existe un patrón en la distribución de los residuos. Para intentar mejorar la estimación podemos realizar una transformación de variables. A continuación presentaremos un ejemplo para la Edad y para los Ingresos.
-
-* Polinomio: $\text{Edad}^2$
-
-```{r}
-elsoc02$edad2 <- elsoc02$edad^2
-fit05<- lm(partpol~sexo+edad+edad2+quintilemiss+pospol,data=elsoc02)
-```
-
-```{r, fig.cap="Efecto cuadrático de la edad (Modelo 5)", fig.width=10}
-edad<- fit05$model$edad
-fit<- fit05$fitted.values
-data01 <- as.data.frame(cbind(edad,fit))
-
-ggplot(data01, aes(x = edad, y = fit)) +
+FigSind_1_Prob <- ggeffects::ggpredict(m3log, terms = c("Unionized")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Sindicalización", x = "", y = "") +
   theme_bw() +
-  geom_point()+
-  geom_smooth()
+  theme(plot.title = element_text(size = 12), 
+        axis.text.x = element_text(angle = 0, vjust = 0.5, size = 12),
+        axis.text.y = element_text(vjust = 0.5, size = 10)) +
+  scale_x_continuous(name = "",
+                     breaks = c(0,1),
+                     labels = c("Non-union members", "Union members")) +
+  scale_y_continuous(limits = c(0,0.35), 
+                     breaks = seq(0,0.35, by = 0.05),
+                     labels = scales::percent_format(accuracy = 1L))
+
+FigSind_1_Prob
 ```
 
-* Logaritmo: $\log(\text{ingreso})$
+Gráfico de probabilidades predichas para variable politización
 
 ```{r}
-elsoc02$lningreso <- log(elsoc02$ing_pcap)
-elsoc02$lningreso <- set_label(elsoc02$lningreso,"log(ingreso per cap)")
-fit06 <- lm(partpol~sexo+edad+edad2+lningreso+pospol,data=elsoc02)
+FigPolit_1_Prob<- ggeffects::ggpredict(m3log, terms="politicization") %>%
+  ggplot(mapping=aes(x = x, y=predicted)) +
+  labs(title="Politización", x = "", y = "")+
+  theme_bw() +
+  geom_smooth()+
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "black") +
+  theme(plot.title = element_text(size = 12), 
+        axis.text.x = element_text(angle = 0, vjust = 0.5, size = 10),
+        axis.text.y = element_text(vjust = 0.5, size = 10))+
+  scale_x_continuous(breaks = seq(0,6, by = 1))+
+  scale_y_continuous(limits = c(0,0.6), breaks=seq(0,0.6, by = 0.1),
+                     labels = scales::percent_format(accuracy = 1L))
+
+FigPolit_1_Prob
 ```
 
-```{r out.width=c('50%', '50%'), fig.show='hold'}
-plot_frq(elsoc02$ing_pcap,type = "hist",normal.curve = T, show.mean = T)
-plot_frq(elsoc02$lningreso,type = "hist", normal.curve = T,show.mean = T)
-```
-
-```{r, results='asis'}
-labs03 <- c("Intercepto","Sexo (mujer=1)","Edad",
-            "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Quintil perdido",
-            "Izquierda (ref. derecha)","Centro","Idep./Ninguno", "Edad²","Ingreso per cap (log)")
-
-htmlreg(list(fit04, fit05, fit06), doctype = FALSE,
-        custom.model.names = c("Modelo 4", "Modelo 5", "Modelo 6"),
-          custom.coef.names = labs03)
-```
-
-```{r eval=FALSE, include=FALSE}
-screenreg(list(fit04, fit05, fit06),
-        custom.model.names = c("Modelo 4", "Modelo 5", "Modelo 6"),
-          custom.coef.names = labs03)
-```
-
-
-**Interpretación**: Vemos que el coeficiente de `lningreso` es de 0.24, sin embargo, debido a que la unidad de medida es logarítmica decimos que por una unidad de porcentaje (1%) de incremento en los ingresos per cápita del hogar, el promedio del índice de participación política aumenta en 0.24/100 = 0.0024, manteniendo todas las demás variables constantes. El coeficiente es estadísticamente significativo a uno 99.9% de confianza. En este caso particular, no es muy informativo, pero corresponde a una manera de especificar un modelo con los ingresos como una variable logaritmizada para hacernos cargo de posible problemas de linealidad.
-
-Debemos tener cautela al interpretar el ajuste del Modelo 5 y 6 debido a que las observaciones empleadas no son las mismas (3462 comparado con 3304) debido a que en el Modelo 5 se incluye la variable ingresos en quintiles con la categoría adicional para los casos perdidos. En este caso, realizamos la especificación a modo de ejemplo. Por lo tanto, seguiremos trabajando con el Modelo 5 para realizar los análisis posteriores.
-
-# Test homogeneidad de varianza
+# Bondad de ajuste
 
 ```{r}
-car::ncvTest(fit05)
+anova(m1log, m2log, test = "Chisq")
 ```
 
 ```{r}
-lmtest::bptest(fit05)
+anova(m2log, m3log, test = "Chisq") 
 ```
-
-Tanto el test Breush-Pagan como el de Cook-Weisberg nos indican que existen problemas con respecto a homogeneidad en la distribución de los residuos del modelo debido a que $p>0.05$ en ambos casos. Es decir, se rechaza $H_0$ donde se asume que la varianza del error es constante, lo cual nos indica que tenemos problemas de **heterocedasticidad** en los residuos.
-
-Para hacer frente a este problema, debemos calcular los errores estándar robustos para nuestra última estimación para corregir problemas de heterocedasticidad y así estimar el último modelo nuevamente:
 
 ```{r}
-model_robust<- coeftest(fit05, vcov=vcovHC)
+lrtest(m1log, m2log) #likelihood ratio test / Prueba de razón de verosimilitud (comparación m1-m2)
 ```
 
-**Comparemos los resultados:**
-
-```{r, results='asis'}
-labs04 <- c("Intercepto","Sexo (mujer=1)","Edad",
-            "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Quintil perdido",
-            "Izquierda (ref. derecha)","Centro","Idep./Ninguno", "Edad²")
-
-htmlreg(list(fit04, fit05, model_robust), doctype = FALSE,
-          custom.model.names = c("Modelo 4","Modelo 5", "M5 Robust"), custom.coef.names = labs04)
+```{r}
+lrtest(m2log, m3log) #likelihood ratio test / Prueba de razón de verosimilitud (comparación m2-m3)
 ```
 
-```{r eval=FALSE, include=FALSE}
-screenreg(list(fit04, fit05, model_robust),
-          custom.model.names = c("Modelo 4","Modelo 5", "M5 Robust"), custom.coef.names = labs04)
+## Pseudo R2 (MCFadden)
+
+```{r}
+m1log_R2<-DescTools::PseudoR2(m1log)
+m2log_R2<-DescTools::PseudoR2(m2log)
+m3log_R2<-DescTools::PseudoR2(m3log)
+```
+
+```{r results='asis'}
+#Misma tabla, en log odds, con Pseudo R2
+htmlreg(list(m1log,m2log,m3log),
+          custom.model.names = c("m1 (log odds)","m2 (log odds)","m3 (log odds)"),
+          custom.gof.rows=list("Pseudo R2" = c(m1log_R2, m2log_R2,m3log_R2)),
+          digits = 3, 
+          stars = c(0.001, 0.01, 0.05, 0.1),symbol = "†")
 ```
 
 
-Los resultados del modelo con errores estándar robustos nos indica que nuestras estimaciones son robustas a la presencia de heterocedasticidad en los residuos, debido a que la significancia de los coeficientes se mantiene si lo comparamos con el Modelo 4.
+# Ejercicio
 
-# Multicolinealidad
+1- Estima un modelo de regresión logística que tenga como variable dependiente `petition_dummy` (Frecuence de participación: firmar una petición). Propon la mejor forma de estimar la participación en peticiones a partir de las siguientes variables: `Unionized` (afiliación sindicatos), `pol_pos_left` (dummy ser de izquierda o no), `civic_involvement` (compromiso cívico), `X003` (edad), `female` (mujer), `educ` (educación).
 
-```{r, results='hold'}
-car::vif(fit04)
-car::vif(fit05)
-```
+Antes de estimar los modelos, reflexionar entorno a:
 
-Entonces, asumiendo que valores del VIF (Variance Inflation Factor) mayores a 2.5, vemos que en el modelo que no incorpora el término cuadrático de edad no tendríamos problemas de multicolinealidad. Sin embargo, al incorporar el término cuadrático, nos muestra un VIF de 6.2 en la variable `edad` y `edad2`.
+  - ¿Qué variable sería el principal predictor de firmar una petición?
+  - ¿Se deben agregar primero las variables socioeconómicas o las de opinión pública?
+  - Van todas las variables independientes juntas, se agregan unas primero y otras después?
 
+2- Interpretar los coeficientes de los modelos estimados.
 
-
-## Referencias
-
-[Darlington & Hayes 2016 Cap16 Detecting and Managing Irregularities](https://multivariada.netlify.app/docs/lecturas/Darlington&Hayes_16irregularities.pdf)
-
-[Darlington & Hayes 2016 Cap12 Nonlinear relationships ](https://multivariada.netlify.app/docs/lecturas/Darlington&Hayes_13nonlinear.pdf)
-
-
+3- Estimar y graficar las probabilidades predichas de firmar una petición para las variables independientes `pol_pos_left` y `civic_involvement`

@@ -1,258 +1,415 @@
 ---
-title: "Práctico 07. Regresión logística I"
+title: "Práctico 06. Resumen de regresión lineal"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2025-10-20"
+date: "2025-09-29"
 lang: es
 output:
   number_sections: true
 ---
 
-# Objetivo
+# Presentación
 
-La siguiente práctica tiene el objetivo de introducir a los estudiantes en los **modelos de regresión logística**, que permite la estimación con una variable dependiente categórica **dicotómica**. En esta primera parte nos centraremos en conceptos centrales para estos modelos, que son probabilidades, chances (odds) y razón de chances (odds-ratio).
+## Objetivo de la práctica
 
-# Librerías
-
-```{r}
-pacman::p_load(dplyr, summarytools, ggmosaic, finalfit)
-```
-
-# Datos
-
-El **Titanic** fue un transatlántico británico, el mayor barco del mundo al finalizar su construcción, que se hundió en la madrugada del 15 de abril de 1912 durante su viaje inaugural desde Southampton a Nueva York. En el hundimiento del Titanic **murieron 619 personas** de las **1046** que iban a bordo, lo que convierte a esta tragedia en uno de los mayores naufragios de la historia ocurridos en tiempo de paz. Con esta base realizaremos una serie de ejercicios para determinar la probabilidad de sobrevivir en base al sexo de los tripulantes.
+El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales y múltiples en R.
 
 
-```{r eval=TRUE}
-#Cargamos la base de datos desde internet
-load(url("https://multivariada.netlify.app/assignment/data/titanic.RData"))
-data(Titanic)
-```
+# Análisis
 
-## Explorar datos
-
-A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para la interpretación de nuestros modelos.
-
-```{r eval=FALSE}
-view(dfSummary(tt, headings = FALSE, method = "render"))
-```
-
-```{r echo=FALSE}
-print(dfSummary(tt, headings = FALSE), method = 'render')
-```
-
-Para esta práctica nos centraremos en las variables `sex` y `survived`. Como podemos notar la categoría de respuesta de estas variables posee dos niveles (1 y 2), es decir, estamos ante variables dicotómicas.
-
-Con la función `ctable` del paquete `summarytools` podemos realizar una tabla de contingencia donde se señala la proporción de sobrevivientes según sexo
-
-```{r, eval = F}
-ctable(tt$sex, tt$survived)
-```
-
-```{r, echo = F}
-table <- ctable(tt$sex, tt$survived)
-print(table, method='render')
-```
-
-
-
-La tabla muestra que la mayoría de los tripulantes no sobrevivió (619, 59,2% no sobreviven, mientras que 427, 40.8% si sobreviven). A su vez, solo un 20.5% de los hombres sobrevive, contrastando con un 75% para las mujeres.
-
-Una forma gráfica de verlo es por medio del paquete `ggmosaic` que con su función `geom_mosaic`  permite construir visualizaciones para datos categóricos. El mosaico general corresponde al total de tripulantes del titanic. Como podrán notar, hay más hombres tripulantes que mujeres, por lo que las barras para hombres son mas anchas. Luego, gracias al comando `fill` del `geom_mosaic` podemos distinguir en hombres y mujeres la proporción de cuantos **sobrevivieron** y cuantos **no sobrevivieron**.
+## 1. Librerías principales (de R) a utilizar en el análisis{#librerias}
 
 ```{r}
-p1 <- ggplot(data = tt) +
-  geom_mosaic(aes(product(survived, sex), fill= survived)) + labs(y = "Sobreviviente", x = "Sexo")
-p1
+pacman::p_load(dplyr, car, sjmisc, haven, sjPlot, sjlabelled, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr, psych)
 ```
 
-# Conceptos centrales
-
-## Probabilidades
-
-Una **probabilidad** es la posibilidad de ocurrencia de un evento de interés, usando como referencia todos los eventos. Por ejemplo, la probabilidad de "ser sobreviviente en el titanic" se calcula en relación a todos los tripulantes del titanic.
-
-En primera instancia, podríamos decir que del total de pasajeros, un 40.8% de ellos sobrevive, es decir, la probabilidad de sobrevivir es de 0.408
-
-$$Probabilidades_{sobrevivientes} = \frac{427}{1046} = 0.408$$
-Mientras que un 59.2% de los tripulantes no sobrevive, es decir, la probabilidad de no sobrevivir es de 0.592
-
-$$Probabilidades_{sobrevivientes} = \frac{619}{1046} = 0.592$$
-
-En R se realiza a través de la función `prop.table`
+desde internet:
 
 ```{r}
-prop.table(table(tt$survived))
+#cargamos la base de datos desde internet
+load(url("https://dataverse.harvard.edu/api/access/datafile/7245118")) #Cargar base de datos
 ```
 
-## Odds
+## Selección de variables
 
-Una forma alternativa de representar una probabilidad son las chances o _odds_ que se definen como la división entre el número de ocurrencias ($\pi$) y el numero de "no ocurrencias" ($1-\pi$).
-
-$$Odd =  \frac{\pi}{1-\pi}$$
-
-Si seguimos el ejemplo del Titanic
-
-$$Odds = \frac{Sobrevivientes}{No{Sobrevivientes}}$$
-
-La función `addmargins` nos entrega las frecuencias marginales y absolutas para columnas (sexo) y filas (sobrevivencia)
+Este paso consiste en crear un subset reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de cada base de datos. Además filtramos por la ola 1 para trabajar solo con datos del 2016.
 
 ```{r}
-addmargins(table(tt$survived,tt$sex))
+proc_data <- elsoc_long_2016_2022.2 %>% filter(ola=="1") %>% 
+  select(t02_01, # Este barrio es ideal para mi
+         t02_02, # Me siento incluido en este barrio
+         t02_03, # Me identifico con la gente de este barrio
+         t02_04, # Este barrio es parte de mi
+         m01,# nivel educacional
+         m0_sexo,# sexo
+         m0_edad# edad
+         )
+
+# Comprobar
+names(proc_data)
 ```
 
-$$Odds = \frac{Sobrevivientes}{No{Sobrevivientes}}=\frac{427}{619}=0.68$$
-
-Si hacemos el cálculo de los **odds** obtenemos 0.68 (427/619), es decir, hay 0.68 sobrevivientes por cada no sobreviviente. Aunque parezca poco "lógico" hablar de 0.68 sobrevivientes, esto indica que la relación entre sobrevivientes y no sobrevivientes no es 1:1 y de hecho **existen más chances de morir que de sobrevivir**.
-
-Otra forma de leer este dato es decir que por cada 100 no sobrevivientes, hay 68 sobrevivientes.
-
-Podríamos también calcular el **odds** de sobrevivencia de hombres y mujeres
-
-$$Odds{hombres} = \frac{135}{523} = 0.258$$
-$$Odds{mujeres} = \frac{292}{96} = 3.04$$
-
-Para los hombres, hay más chances de no sobrevivir que de sobrevivir (odds < 1), mientras que para mujeres hay más chances de sobrevivir que de no sobrevivir (odds > 1)
-
-**Propiedades de Odds**
-
-- Odds **menores** que 1, indican una chance negativa
-- Odds **mayores** que 1, indican una chance positiva
-
-
-En R podemos realizar este calculo directamente a través de las probabilidades marginales para cada sexo que entrega `prop.table`.El número 2 indica que las proporciones están calculadas por columna, es decir, las probabilidades indicadas se calculan considerando como total cada sexo.
+Mediante el comando `get_label` obtenemos el atributo label de las variables.
 
 ```{r}
-prop.table(table(tt$survived,tt$sex),2)
+sjlabelled::get_label(proc_data)
 ```
 
+Podemos ver que son largas o con códigos poco informativos, por lo tanto, es necesario cambiarlas por etiquetas más cortas y de fácil identificación.
 
-## Odds Ratio (OR)
+## Procesamiento de variables
 
-Ahora bien, con los datos hasta ahí podriamos llegar a la conclusión de que las mujeres tienen más chances de sobrevivir que los hombres. Pero, **¿cuánto más sobreviven las mujeres que los hombres?**
+Para el procesamiento de cada variable se seguirá el siguiente flujo de trabajo:
 
-Esta pregunta implica la **asociación** entre `sobrevivencia` y `sexo` y ya no solo hablar de las chances de sobrevivencia de cada sexo por separado. Para hacer esa relación se requiere calcular los `odds ratio` o razón de chances.
+a. Descriptivo general
+b. Recodificación: de casos perdidos y otros valores (en caso necesario)
+c. Etiquetado: cambio de nombres de variables y valores (en caso necesario)
+d. Otros ajustes
 
-$$Odds Ratio = \frac{Odds_{mujeres}}{Odds_{hombres}} = \frac{3.04}{0.258} = 11.78$$
+Y se recomienda también un descriptivo final para revisar que el procesamiento de cada variable está ok.
 
-El resultado que obtenemos se lee de la siguiente manera: las chances de sobrevivir de las mujeres es 11.78 veces más grande que la de los hombres.
+### cohesión barrial
 
-**¿Qué ganamos con el odds-ratio?**
+_a. Descriptivo_
 
-El OR permite expresar **en un número** la relación entre variables categóricas, o al menos cuando una de ellas es categórica. De esta forma, es una medida de asociación similar al sentido del $\beta$ de regresión, y que nos permitirá aprovechar las ventajas del modelo de regresión (principalmente el control estadístico) cuando tenemos variables dependientes categóricas.
-
-Sin embargo, los odds también poseen algunas limitaciones por resolver y que requieren su transformación para ajustarlos al modelo de regresión. Esta transformación es el **logaritmo de los odds o logit** (de ahí el nombre de regresión logística)
-
-# Con datos reales
-
-La siguiente práctica tiene el objetivo de introducir a los estudiantes en los **modelos de regresión logística multivariada**. Al igual que en la práctica anterior emplearemos una variable dependiente *dicotómica*, de modo tal que veremos de qué una serie de variables independientes nos permiten predecir la ocurrencia de un determinado evento. Para ello, utilizaremos la base de datos de la [*Encuesta sobre Conflicto y Cohesion Social en Chile 2014*](https://doi.org/10.7910/DVN/SRPWFW) para analizar los determinantes de la participación en las elecciones del año 2013.
-
-# Librerías
+Para los descriptivos se utilizará la función `frq`, de la librería `sjmisc`:
 
 ```{r}
-pacman::p_load(dplyr, summarytools, ggmosaic, sjPlot, texreg)
+frq(proc_data$t02_01)
 ```
 
-# Datos
+En esta variable vemos valores asociados a la opción "No contesta" (-999) y "No sabe" (-888), (-777) y (-666) que corresponde definirlos como casos perdidos (en el caso de R, como casos NA). El resto de los valores y etiquetas se encuentran en un orden correcto. Sin embargo, si queremos construir una escala, lo mejor es dejar los valores de 0 a 4
 
-La Encuesta sobre Conflicto y Cohesión Social en Chile (ENACOES 2014) es el primer estudio de este tipo que busca mapear los conflictos y la cohesión en el país. Su objetivo fundamental es aportar a la comprensión de las creencias, actitudes y percepciones de los chilenos hacia las distintas dimensiones de la convivencia y el conflicto. La población objetivo son hombres y mujeres entre 15 y 75 años de edad con un alcance nacional, donde se obtuvo una muestra final de **2025** casos. Para el caso de este ejercicio, se trabajará con una submuestra de **1974** individuos que estuvieron habilitados para votar en el año 2013.
+_b. Recodificación_
 
+Después de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar set_na
 
-```{r eval=TRUE}
-#Cargamos la base de datos desde internet
-load(url("https://multivariada.netlify.app/assignment/data/enacoes.RData"))
+```{r }
+proc_data <- proc_data %>% set_na(., na = c(-999, -888, -777, -666))
 ```
-
-## Explorar datos
-
-A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para la interpretación de nuestros modelos.
-
-```{r eval=FALSE}
-view(dfSummary(enacoes, headings = FALSE, method = "render"))
-```
-
-```{r echo=FALSE}
-print(dfSummary(enacoes, headings = FALSE), method = 'render')
-```
-
-Lo primero que debemos observar es la distribución de la participación electoral, donde 0 son quienes nos votaron en la última elección y 1 los que sí lo hicieron. En este caso, vemos que un 67,1% (1325) señaló haber participado en la última elección, en contraste de un 32,9% que no lo hizo. En este sentido, vemos que existen aproximadamente 2/3 de los individuos de la muestra que sí acudieron a votar, por tanto ahora vamos a revisar cómo se distribuyen estas respuestas según el sexo y el nivel educacional de el entrevistado.
-
-En primera instancia nos centraremos en las variables `sexo` y `voto`. Como podemos notar la categoría de respuesta de estas variables son 0 y 1, es decir, estamos ante variables dicotómicas.
-
-En segunda instancia, observaremos la distribución de participación electoral según el Nivel educacional (`educ`), la cual en este caso hemos recodificado en cinco niveles educacionales.
-
-Con la función `tab_xtab` del paquete `sjPlot` podemos realizar una tabla de contingencia donde se señala la proporción de la participación electoral según sexo.
-
-```{r, eval = TRUE}
-tab_xtab(var.row = enacoes$voto,enacoes$sexo,show.cell.prc = T,show.summary = F)
-```
-
-Teniendo en cuenta que existen 2/3 (67,1%) de las personas en Chile que han declarado haber votado en la última elección, la tabla anterior nos muestra que del total de personas que votan, las participación electoral es mayor en las mujeres, lo cual equivale a un 39,3% del total en desmedro del 27,8% que representado por los hombres.
-
-```{r, eval = TRUE}
-tab_xtab(var.row = enacoes$voto,enacoes$educ,
-         show.cell.prc = T,show.summary = F, encoding = " ")
-```
-
-Adicionalmente, la tabla anterior nos muestra la distribución de la participación electoral según cinco categorías de nivel educacional. Como podemos observar, la participación electoral se concentra en los niveles educacionales secundario con un 28,3% y superior técnica y universitaria, con un 16,8% y 9,7% respectivamente. Por otro lado, podemos observar una baja participación electoral de los grupos con nivel educacional más bajo, donde las personas con Primaria incompleta o menos representan un 6,3% y aquellas con Primaria completa son el 6,1%.
-
-Al igual que la práctica anterior, podemos representar gráficamente estas distribuciones a través del paquete `ggmosaic` que con su función `geom_mosaic`. A continuación se presentan dos gráficos para la participación electoral según sexo y nivel educacional.
-
-```{r, fig.cap="Participación electoral en 2013 según Sexo y Nivel Educacional", out.width=c('75%', '75%'), fig.show='hold', fig.width=10}
-ggplot(enacoes) +
-  geom_mosaic(aes(x=product(voto, sexo), fill=sexo)) +
-  geom_label(data = layer_data(last_plot(), 1),
-             aes(x = (xmin + xmax)/ 2,
-                 y = (ymin + ymax)/ 2,
-                 label = paste0(round((.wt/sum(.wt))*100,1),"%"))) +
-  labs(y = "Voto última elección",
-       x = "Sexo") +
-  scale_fill_discrete(name = "",
-                      labels = c("Hombre","Mujer"))+
-  scale_y_continuous(breaks = c(0,1),
-                   labels = c("No votó","Votó")) +
-  theme(legend.position="bottom")
-
-
-ggplot(enacoes) +
-  geom_mosaic(aes(x=product(voto, educ), fill=educ)) +
-  geom_label(data = layer_data(last_plot(), 1),
-             aes(x = (xmin + xmax)/2,
-                 y = (ymin + ymax)/2,
-                 label = paste0(round((.wt/sum(.wt))*100,1),"%"))) +
-  labs(y = "Voto última elección",
-       x = "Nivel Educacional") +
-  scale_fill_discrete(name = "",
-                      labels = c("Primaria incompleta o menos",
-                                 "Primaria",
-                                 "Secundaria", "Técnica o Superior",
-                                 "Universitaria o postgrado"))+
-  scale_y_continuous(breaks = c(0,1),labels = c("No votó","Votó")) +
-  theme(legend.position="bottom")
-
-```
-
-# Estimación
-
-  La función pincipal para la estimación de modelos de regresión logística es `glm()`, especificando el argumento `family="binomial"`, lo cual le indica a la función que estamos prediciendo una variable binaria. Al igual que con `lm()`, debemos especificar los predictores y la base de datos a emplear. A continuación, estimaremos una serie de modelos de regresión logística que nos permitan determinar de qué manera el sexo, la edad y el nivel educacional de las personas pueden predecir la participación electoral.
-
-
-
 
 ```{r}
-m00 <- glm(voto~1,data = enacoes,family = "binomial")
-m01 <- glm(voto~sexo,data = enacoes,family = "binomial")
-m02 <- glm(voto~edad,data = enacoes,family = "binomial")
-m03 <- glm(voto~sexo+edad+educ,data = enacoes,family = "binomial")
+frq(proc_data$t02_01)
 ```
 
-## Tabla de regresión
 
-```{r echo=FALSE, results='asis'}
-coef.labs <- c("Intercepto","Sexo (Mujer=1)","Edad","Primaria","Secundaria", "Técnica o Superior","Universitaria o postgrado" )
-htmlreg(l = list(m00,m01,m02,m03),doctype = F,caption = "",caption.above = T,
-        include.bic = FALSE,
-        custom.coef.names = coef.labs,
-        custom.model.names = c("Modelo 0","Modelo 1","Modelo 2", "Modelo 3"),
-        custom.note = "$^{***}$ p < 0.001; $^{**}$ p < 0.01; $^{*}$ p < 0.05 <br> Errores estándar entre paréntesis")
+Para reordenar las categorías volvemos a utilizar la función `recode`, de la librería `car`
+
+```{r}
+proc_data$t02_01 <- recode(proc_data$t02_01, "1=0; 2=1; 3=2; 4=3; 5=4")
+proc_data$t02_02 <- recode(proc_data$t02_02, "1=0; 2=1; 3=2; 4=3; 5=4")
+proc_data$t02_03 <- recode(proc_data$t02_03, "1=0; 2=1; 3=2; 4=3; 5=4")
+proc_data$t02_04 <- recode(proc_data$t02_04, "1=0; 2=1; 3=2; 4=3; 5=4")
 ```
+
+_c - Etiquetado_
+
+Vamos a dar un nombre más sustantivo a las variables con la función `rename`, de la librería `dplyr`:
+
+```{r}
+proc_data <- proc_data %>% rename("ideal"=t02_01, 
+                                  "integracion"=t02_02, 
+                                  "identificacion"=t02_03, 
+                                  "pertenencia"=t02_04)
+
+```
+
+
+Además de cambiar el nombre, queremos cambiar las etiquetas de las variables.
+
+```{r}
+proc_data$ideal <- set_label(x = proc_data$ideal,label = "Este barrio es ideal para mi")
+get_label(proc_data$ideal)
+
+proc_data$integracion  <- set_label(x = proc_data$integracion, label = "Me siento integrado en este barrio")
+get_label(proc_data$integracion)
+
+proc_data$identificacion  <- set_label(x = proc_data$identificacion, label = "Me identifico con la gente de este barrio")
+get_label(proc_data$identificacion)
+
+proc_data$pertenencia  <- set_label(x = proc_data$pertenencia, label = "Me siento parte de este barrio")
+get_label(proc_data$pertenencia)
+```
+
+_Revisión final_
+
+Nuevamente un descriptivo de cada variable para confirmar que el procesamiento está ok:
+
+```{r}
+frq(proc_data$ideal)
+frq(proc_data$integracion)
+frq(proc_data$identificacion)
+frq(proc_data$pertenencia)
+```
+
+Vemos que los valores (labels) de cada categoría de las variables que recodificamos no se corresponden con el nuevo valor. Para re-etiquetar valores usamos la función `set_labels`, de la librería `sjlabelled`
+
+```{r}
+proc_data$ideal <- set_labels(proc_data$ideal,
+            labels=c( "Totalmente en desacuerdo"=0,
+                      "En desacuerdo"=1,
+                      "Ni de acuerdo ni en desacuerdo"=2,
+                      "De acuerdo"=3,
+                      "Totalmente de acuerdo"=4))
+
+proc_data$integracion <- set_labels(proc_data$integracion,
+            labels=c( "Totalmente en desacuerdo"=0,
+                      "En desacuerdo"=1,
+                      "Ni de acuerdo ni en desacuerdo"=2,
+                      "De acuerdo"=3,
+                      "Totalmente de acuerdo"=4))
+
+proc_data$identificacion <- set_labels(proc_data$identificacion,
+            labels=c( "Totalmente en desacuerdo"=0,
+                      "En desacuerdo"=1,
+                      "Ni de acuerdo ni en desacuerdo"=2,
+                      "De acuerdo"=3,
+                      "Totalmente de acuerdo"=4))
+
+proc_data$pertenencia <- set_labels(proc_data$pertenencia,
+            labels=c( "Totalmente en desacuerdo"=0,
+                      "En desacuerdo"=1,
+                      "Ni de acuerdo ni en desacuerdo"=2,
+                      "De acuerdo"=3,
+                      "Totalmente de acuerdo"=4))
+```
+
+y volvemos a revisar
+
+```{r}
+frq(proc_data$ideal)
+frq(proc_data$pertenencia)
+```
+
+#### 4.2. Educación
+
+* [`m01`] =  Nivel de estudios alcanzado - Entrevistado 
+
+_a. Descriptivo_
+
+```{r}
+frq(proc_data$m01)
+```
+
+Esta vez la vamos a dejar así
+
+### 4.3. Sexo
+
+* [`m0_sexo`]	=	SEXO Sexo
+
+_a. Descriptivo_
+
+```{r}
+frq(proc_data$m0_sexo)
+```
+
+
+
+### 4.4 Edad
+
+* [`m0_edad`]	=	EDAD Edad.
+
+
+_a. Descriptivo_
+
+```{r}
+summary(proc_data$m0_edad)
+```
+
+# Análisis
+
+Una vez que tenemos recodificadas nuestras variables en el archivo de preparación y logramos exportar la base de datos procesada en la carpeta input/data, abrimos un documento de quarto (.qmd) para realizar el análisis.
+
+Al trabajar con quarto (y al intentar renderizar), el documento leerá todos lo que esté escrito en el documento desde 0, por lo que es necesario **siempre** cargar de nuevo los paquetes y bases de datos.
+
+## Análisis descriptivo
+
+```{r}
+#| label: tbl-sjmisc
+#| tbl-cap: "Descriptivos"
+
+sjmisc::descr(proc_data,
+      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
+      kable(.,"markdown") # Esto es para que se vea bien en quarto
+```
+
+En la @tbl-sjmisc podemos observar los descriptivos generales de la base de datos procesada que utilizamos en el práctico anterior. Contiene ya creado el índice de cohesión barrial cuya **media es de 10,33**
+
+Y si queremos visualizar algo más:
+
+```{r}
+#| label: fig-descriptivos
+#| fig-cap: "Frecuencias Cohesión barrial"
+proc_data %>% dplyr::select(ideal, integracion, identificacion, pertenencia) %>% 
+  sjPlot::plot_stackfrq()+
+  theme(legend.position = "bottom")
+
+```
+
+En la @fig-descriptivos podemos ver la distribución de las variables de cohesión barrial, donde se puede observar que más del 65% de la muestra está de acuerdo o totalmente de acuerdo con las afirmaciones indicadas.
+
+
+## Asociación de variables
+
+Seleccionamos las principales variables y cambiamos su nombre. No seleccionaremos las variables originales que construyeron el índice.
+
+```{r}
+proc_data <- proc_data %>% select(ideal, integracion, identificacion, pertenencia, edad=m0_edad, educacion=m01, sexo=m0_sexo)
+```
+
+Podemos ver la asociación de todas las variables, como lo muestra la @cor-complete
+
+```{r}
+M <- cor(proc_data, use = "complete.obs") # Usar solo casos con observaciones completas
+diag(M) = NA # Elimina la diagonal (correlaciones absolutas de cada variable consigmo misma)
+rownames(M) <- c("A. Este barrio es ideal",
+                 "B. Me siento integrado",
+                 "C. Me identifico con la gente",
+                 "D. Este barrio es parte de mi",
+                         "E. Edad",
+                         "F. Educación",
+                         "G. Sexo")
+colnames(M) <-c("(A)", "(B)","(C)", "(D)", "(E)", "(F)", "(G)")
+```
+
+```{r}
+#| label: cor-complete
+#| fig-cap: "Correlación variables elsoc 2016"
+
+corrplot::corrplot(M,
+  method = "color", # Cambia los círculos por color completo de cada cuadrante
+  addCoef.col = "#000390", # Color de los coeficientes
+  type = "upper", # Deja solo las correlaciones de arriba
+  tl.col = "black", # COlor letras, rojo por defecto
+  na.label = "-")
+```
+
+### Construcción de escala
+
+```{r}
+psych::alpha(dplyr::select(proc_data, ideal, integracion, identificacion, pertenencia))
+```
+
+La consistencia interna de una posible escala entre estos cuatro ítems es de 0.87, lo que representa una alta consistencia interna. Si quitaramos alguno de estos ítems la consistencia interna solo bajaría, así que podemos construir una escala con los cuatro ítems.
+
+```{r}
+proc_data <- proc_data %>% 
+  rowwise() %>% 
+  mutate(cohesion_barrial = sum(ideal, integracion, identificacion, pertenencia))
+summary(proc_data$cohesion_barrial)
+```
+
+y la podemos visualizar en un gráfico:
+
+```{r}
+#| label: fig-plot-cohesion
+#| fig-cap: "Histograma Cohesión barrial"
+
+
+ggplot(proc_data, aes(x = cohesion_barrial)) +
+  geom_histogram(binwidth=0.6, colour="black", fill="yellow") +
+  theme_bw() +
+  xlab("Cohesión barrial") +
+  ylab("Cantidad")
+```
+
+La @fig-plot-cohesion muestra la distribución de la nueva escala de Cohesión Barrial que construimos. En general, la mayor concentración de casos está en la categoría 12 y que sumado a un promedio de 10.33 según los descriptivos anteriores, podríamos afirmar que la cohesión barrial en Chile es alta.
+
+
+## Regresión lineal
+
+Para facilitar la interpretación de los coeficientes de regresión vamos a recodificar la variable de educación (10 categorías) en tres categorías (básica, media y universitaria).
+
+Además, nos aseguramos que las variables categóricas estén como variables categóricas con as_factor. De esta forma nos aseguramos que la estimación de los modelos sea correcta ya que no se úede interpretar educación como si fuera una variable numérica.
+
+```{r}
+proc_data$educacion <- car::recode(proc_data$educacion, "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
+
+proc_data$educacion <- set_labels(proc_data$educacion,
+            labels=c( "Educacion básica"=1,
+                      "Educación media"=2,
+                      "Educación superior"=3))
+
+frq(proc_data$educacion)
+
+proc_data$educacion_rec <- as_factor(proc_data$educacion)
+proc_data$sexo_rec <- as_factor(proc_data$sexo)
+
+proc_data <- na.omit(proc_data)
+
+reg1 <- lm(cohesion_barrial ~ 1, data=proc_data)
+
+stargazer(reg1, type="text")
+```
+
+¿Qué valor toma una regresión lineal cuando no incluímos predictores en nuestro modelo?
+
+En este caso, lo que nos interesa observar es el intercepto. Un intercepto de 10.336 nos indica la media de la cohesión barrial.
+
+# Ejercicio
+
+1- Estima un modelo de regresión lineal simple para cada variable independiente (edad, educación, sexo). Luego estima un modelo de regresión lineal múltiple que incluya las tres variables independientes. Representalo en una tabla de regresión e interpreta los resultados de cada modelo.
+
+```{r}
+reg1 <- lm(cohesion_barrial ~ edad, data=proc_data)
+reg2 <- lm(cohesion_barrial ~ educacion_rec, data=proc_data)
+reg3 <- lm(cohesion_barrial ~ sexo_rec, data=proc_data)
+reg4 <- lm(cohesion_barrial ~ edad + educacion_rec + sexo_rec, data=proc_data)
+
+tab_model(reg1, reg2, reg3, reg4, show.ci=FALSE)
+```
+
+
+2. Estima un modelo de regresión con variables estandarizadas y compáralo con el modelo de regresión lineal múltiple (¿qué diferencias hay entre los valores de los coeficientes de un modelo y otro?)
+
+```{r}
+data <- dplyr::select(proc_data, cohesion_barrial, educacion, edad, sexo)
+data_std = data.frame(scale(data))
+
+reg_std <- lm(cohesion_barrial ~ edad + educacion + sexo, data=data_std)
+
+tab_model(reg4, reg_std, show.ci=FALSE)
+```
+
+
+3. Gráfica los valores predichos de los coeficientes estadísticamente significativos.
+
+```{r}
+library(ggeffects)
+
+ggeffects::ggpredict(reg4, terms = c("sexo_rec")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Sexo", x = "", y = "") +
+  theme_bw() +
+  scale_x_discrete(name = "",
+                     breaks = c(1,2),
+                     labels = c("Hombre", "Mujer"))+
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+```
+
+```{r}
+ggeffects::ggpredict(reg4, terms="edad") %>%
+  ggplot(mapping=aes(x = x, y=predicted)) +
+  labs(title="Edad", x = "", y = "")+
+  theme_bw() +
+  geom_smooth()+
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "black") +
+  scale_x_continuous(breaks = seq(0,100, by = 10))+
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+```
+
+
+4. Estima una interacción entre dos variables independientes. Gráfica e interpreta el resultado.
+
+```{r}
+reg_int <- lm(cohesion_barrial ~ edad * sexo_rec + educacion_rec, data=proc_data)
+```
+
+```{r}
+plot_model(reg_int, type="int")
+```
+
 

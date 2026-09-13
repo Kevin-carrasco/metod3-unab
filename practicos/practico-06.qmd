@@ -1,7 +1,7 @@
 ---
-title: "Práctico 06. Resumen de regresión lineal"
+title: "Práctico 05. Estimación de valores predichos"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2025-09-29"
+date: "2025-09-22"
 lang: es
 output:
   number_sections: true
@@ -9,388 +9,137 @@ output:
 
 # Presentación
 
-## Objetivo de la práctica
+La siguiente práctica tiene el objetivo de repasar en la interpretación de coeficientes de correlación y la construcción de escalas, así como también en la interpretación de coeficientes de regresión lineal. Para ello, utilizaremos la base de datos de la tercera ola del [*Estudio Longitudinal Social del Chile 2018*](https://doi.org/10.7910/DVN/H8OVMF) con el objetivo de analizar los determinantes de la **Participación Ciudadana.**
 
-El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales y múltiples en R.
+La versión original de este ejercicio proviene del curso de [Estadística multivariada](https://multivariada.netlify.app/assignment/10-code/) versión 2022.
 
-
-# Análisis
-
-## 1. Librerías principales (de R) a utilizar en el análisis{#librerias}
+# Librerías
 
 ```{r}
-pacman::p_load(dplyr, car, sjmisc, haven, sjPlot, sjlabelled, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr, psych)
+pacman::p_load(dplyr, 
+               car, 
+               summarytools, 
+               sjPlot, 
+               texreg, 
+               corrplot, 
+               ggplot2, 
+               sjlabelled, 
+               ggeffects)
 ```
 
-desde internet:
+# Datos
+
+El Estudio Longitudinal Social del Chile [ELSOC](https://coes.cl/encuesta-panel/), único en Chile y América Latina, consiste en encuestar a casi 3.000 chilenos, anualmente, a lo largo de una década. ELSOC ha sido diseñado para evaluar la manera cómo piensan, sienten y se comportan los chilenos en torno a un conjunto de temas referidos al conflicto y la cohesión social en Chile. La población objetivo son hombres y mujeres entre 15 y 75 años de edad con un alcance nacional, donde se obtuvo una muestra final de **3748** casos en el año 2018.
 
 ```{r}
-#cargamos la base de datos desde internet
-load(url("https://dataverse.harvard.edu/api/access/datafile/7245118")) #Cargar base de datos
+#Cargamos la base de datos desde internet
+load(url("https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/elsoc2.RData"))
 ```
 
-## Selección de variables
+O descargamos de [acá](https://github.com/cursos-metodos-facso/metod1-MCS/blob/main/files/data/elsoc2.RData) y cargamos de manera local.
 
-Este paso consiste en crear un subset reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de cada base de datos. Además filtramos por la ola 1 para trabajar solo con datos del 2016.
+## Explorar datos
+
+A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para realizar las transformaciones y análisis posteriores.
 
 ```{r}
-proc_data <- elsoc_long_2016_2022.2 %>% filter(ola=="1") %>% 
-  select(t02_01, # Este barrio es ideal para mi
-         t02_02, # Me siento incluido en este barrio
-         t02_03, # Me identifico con la gente de este barrio
-         t02_04, # Este barrio es parte de mi
-         m01,# nivel educacional
-         m0_sexo,# sexo
-         m0_edad# edad
-         )
-
-# Comprobar
-names(proc_data)
+view_df(elsoc,max.len = 50)
 ```
 
-Mediante el comando `get_label` obtenemos el atributo label de las variables.
+## Variable dependiente: participación política
 
-```{r}
-sjlabelled::get_label(proc_data)
-```
-
-Podemos ver que son largas o con códigos poco informativos, por lo tanto, es necesario cambiarlas por etiquetas más cortas y de fácil identificación.
-
-## Procesamiento de variables
-
-Para el procesamiento de cada variable se seguirá el siguiente flujo de trabajo:
-
-a. Descriptivo general
-b. Recodificación: de casos perdidos y otros valores (en caso necesario)
-c. Etiquetado: cambio de nombres de variables y valores (en caso necesario)
-d. Otros ajustes
-
-Y se recomienda también un descriptivo final para revisar que el procesamiento de cada variable está ok.
-
-### cohesión barrial
-
-_a. Descriptivo_
-
-Para los descriptivos se utilizará la función `frq`, de la librería `sjmisc`:
-
-```{r}
-frq(proc_data$t02_01)
-```
-
-En esta variable vemos valores asociados a la opción "No contesta" (-999) y "No sabe" (-888), (-777) y (-666) que corresponde definirlos como casos perdidos (en el caso de R, como casos NA). El resto de los valores y etiquetas se encuentran en un orden correcto. Sin embargo, si queremos construir una escala, lo mejor es dejar los valores de 0 a 4
-
-_b. Recodificación_
-
-Después de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar set_na
-
-```{r }
-proc_data <- proc_data %>% set_na(., na = c(-999, -888, -777, -666))
+```{r, fig.width=10}
+plot_stackfrq(elsoc[,c("part01","part02","part03","part04")]) + theme(legend.position="bottom")
 ```
 
 ```{r}
-frq(proc_data$t02_01)
-```
-
-
-Para reordenar las categorías volvemos a utilizar la función `recode`, de la librería `car`
-
-```{r}
-proc_data$t02_01 <- recode(proc_data$t02_01, "1=0; 2=1; 3=2; 4=3; 5=4")
-proc_data$t02_02 <- recode(proc_data$t02_02, "1=0; 2=1; 3=2; 4=3; 5=4")
-proc_data$t02_03 <- recode(proc_data$t02_03, "1=0; 2=1; 3=2; 4=3; 5=4")
-proc_data$t02_04 <- recode(proc_data$t02_04, "1=0; 2=1; 3=2; 4=3; 5=4")
-```
-
-_c - Etiquetado_
-
-Vamos a dar un nombre más sustantivo a las variables con la función `rename`, de la librería `dplyr`:
-
-```{r}
-proc_data <- proc_data %>% rename("ideal"=t02_01, 
-                                  "integracion"=t02_02, 
-                                  "identificacion"=t02_03, 
-                                  "pertenencia"=t02_04)
-
-```
-
-
-Además de cambiar el nombre, queremos cambiar las etiquetas de las variables.
-
-```{r}
-proc_data$ideal <- set_label(x = proc_data$ideal,label = "Este barrio es ideal para mi")
-get_label(proc_data$ideal)
-
-proc_data$integracion  <- set_label(x = proc_data$integracion, label = "Me siento integrado en este barrio")
-get_label(proc_data$integracion)
-
-proc_data$identificacion  <- set_label(x = proc_data$identificacion, label = "Me identifico con la gente de este barrio")
-get_label(proc_data$identificacion)
-
-proc_data$pertenencia  <- set_label(x = proc_data$pertenencia, label = "Me siento parte de este barrio")
-get_label(proc_data$pertenencia)
-```
-
-_Revisión final_
-
-Nuevamente un descriptivo de cada variable para confirmar que el procesamiento está ok:
-
-```{r}
-frq(proc_data$ideal)
-frq(proc_data$integracion)
-frq(proc_data$identificacion)
-frq(proc_data$pertenencia)
-```
-
-Vemos que los valores (labels) de cada categoría de las variables que recodificamos no se corresponden con el nuevo valor. Para re-etiquetar valores usamos la función `set_labels`, de la librería `sjlabelled`
-
-```{r}
-proc_data$ideal <- set_labels(proc_data$ideal,
-            labels=c( "Totalmente en desacuerdo"=0,
-                      "En desacuerdo"=1,
-                      "Ni de acuerdo ni en desacuerdo"=2,
-                      "De acuerdo"=3,
-                      "Totalmente de acuerdo"=4))
-
-proc_data$integracion <- set_labels(proc_data$integracion,
-            labels=c( "Totalmente en desacuerdo"=0,
-                      "En desacuerdo"=1,
-                      "Ni de acuerdo ni en desacuerdo"=2,
-                      "De acuerdo"=3,
-                      "Totalmente de acuerdo"=4))
-
-proc_data$identificacion <- set_labels(proc_data$identificacion,
-            labels=c( "Totalmente en desacuerdo"=0,
-                      "En desacuerdo"=1,
-                      "Ni de acuerdo ni en desacuerdo"=2,
-                      "De acuerdo"=3,
-                      "Totalmente de acuerdo"=4))
-
-proc_data$pertenencia <- set_labels(proc_data$pertenencia,
-            labels=c( "Totalmente en desacuerdo"=0,
-                      "En desacuerdo"=1,
-                      "Ni de acuerdo ni en desacuerdo"=2,
-                      "De acuerdo"=3,
-                      "Totalmente de acuerdo"=4))
-```
-
-y volvemos a revisar
-
-```{r}
-frq(proc_data$ideal)
-frq(proc_data$pertenencia)
-```
-
-#### 4.2. Educación
-
-* [`m01`] =  Nivel de estudios alcanzado - Entrevistado 
-
-_a. Descriptivo_
-
-```{r}
-frq(proc_data$m01)
-```
-
-Esta vez la vamos a dejar así
-
-### 4.3. Sexo
-
-* [`m0_sexo`]	=	SEXO Sexo
-
-_a. Descriptivo_
-
-```{r}
-frq(proc_data$m0_sexo)
-```
-
-
-
-### 4.4 Edad
-
-* [`m0_edad`]	=	EDAD Edad.
-
-
-_a. Descriptivo_
-
-```{r}
-summary(proc_data$m0_edad)
-```
-
-# Análisis
-
-Una vez que tenemos recodificadas nuestras variables en el archivo de preparación y logramos exportar la base de datos procesada en la carpeta input/data, abrimos un documento de quarto (.qmd) para realizar el análisis.
-
-Al trabajar con quarto (y al intentar renderizar), el documento leerá todos lo que esté escrito en el documento desde 0, por lo que es necesario **siempre** cargar de nuevo los paquetes y bases de datos.
-
-## Análisis descriptivo
-
-```{r}
-#| label: tbl-sjmisc
-#| tbl-cap: "Descriptivos"
-
-sjmisc::descr(proc_data,
-      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
-      kable(.,"markdown") # Esto es para que se vea bien en quarto
-```
-
-En la @tbl-sjmisc podemos observar los descriptivos generales de la base de datos procesada que utilizamos en el práctico anterior. Contiene ya creado el índice de cohesión barrial cuya **media es de 10,33**
-
-Y si queremos visualizar algo más:
-
-```{r}
-#| label: fig-descriptivos
-#| fig-cap: "Frecuencias Cohesión barrial"
-proc_data %>% dplyr::select(ideal, integracion, identificacion, pertenencia) %>% 
-  sjPlot::plot_stackfrq()+
-  theme(legend.position = "bottom")
-
-```
-
-En la @fig-descriptivos podemos ver la distribución de las variables de cohesión barrial, donde se puede observar que más del 65% de la muestra está de acuerdo o totalmente de acuerdo con las afirmaciones indicadas.
-
-
-## Asociación de variables
-
-Seleccionamos las principales variables y cambiamos su nombre. No seleccionaremos las variables originales que construyeron el índice.
-
-```{r}
-proc_data <- proc_data %>% select(ideal, integracion, identificacion, pertenencia, edad=m0_edad, educacion=m01, sexo=m0_sexo)
-```
-
-Podemos ver la asociación de todas las variables, como lo muestra la @cor-complete
-
-```{r}
-M <- cor(proc_data, use = "complete.obs") # Usar solo casos con observaciones completas
-diag(M) = NA # Elimina la diagonal (correlaciones absolutas de cada variable consigmo misma)
-rownames(M) <- c("A. Este barrio es ideal",
-                 "B. Me siento integrado",
-                 "C. Me identifico con la gente",
-                 "D. Este barrio es parte de mi",
-                         "E. Edad",
-                         "F. Educación",
-                         "G. Sexo")
-colnames(M) <-c("(A)", "(B)","(C)", "(D)", "(E)", "(F)", "(G)")
+corrplot.mixed(cor(select(elsoc,part01,part02,part03,part04),
+                   use = "complete.obs"))
 ```
 
 ```{r}
-#| label: cor-complete
-#| fig-cap: "Correlación variables elsoc 2016"
+elsoc$part01 <- car::recode(elsoc$part01, "1=0; 2=1; 3=2; 4=3; 5=4")
+elsoc$part02 <- car::recode(elsoc$part02, "1=0; 2=1; 3=2; 4=3; 5=4")
+elsoc$part03 <- car::recode(elsoc$part03, "1=0; 2=1; 3=2; 4=3; 5=4")
+elsoc$part04 <- car::recode(elsoc$part04, "1=0; 2=1; 3=2; 4=3; 5=4")
 
-corrplot::corrplot(M,
-  method = "color", # Cambia los círculos por color completo de cada cuadrante
-  addCoef.col = "#000390", # Color de los coeficientes
-  type = "upper", # Deja solo las correlaciones de arriba
-  tl.col = "black", # COlor letras, rojo por defecto
-  na.label = "-")
+elsoc <- elsoc %>% mutate(partpol=rowSums(select(., part01,part02,part03,part04)))
+summary(elsoc$partpol)
 ```
 
-### Construcción de escala
+# Regresión lineal
+
+veamos primero las diferencias de usar cada tipo de variable de ingreso
+
+
 
 ```{r}
-psych::alpha(dplyr::select(proc_data, ideal, integracion, identificacion, pertenencia))
+fit01<- lm(partpol~sexo,data=elsoc)
+fit02<- lm(partpol~sexo+edad,data=elsoc)
+fit03<- lm(partpol~sexo+edad+pospol,data=elsoc)
+
+labs02 <- c("Intercepto","Sexo (mujer=1)","Edad",
+            "Centro (ref. derecha)","Izquierda","Idep./Ninguno")
 ```
 
-La consistencia interna de una posible escala entre estos cuatro ítems es de 0.87, lo que representa una alta consistencia interna. Si quitaramos alguno de estos ítems la consistencia interna solo bajaría, así que podemos construir una escala con los cuatro ítems.
-
-```{r}
-proc_data <- proc_data %>% 
-  rowwise() %>% 
-  mutate(cohesion_barrial = sum(ideal, integracion, identificacion, pertenencia))
-summary(proc_data$cohesion_barrial)
+```{r, results='asis', eval=FALSE}
+screenreg(list(fit01,fit02,fit03),custom.coef.names = labs02)
 ```
 
-y la podemos visualizar en un gráfico:
-
-```{r}
-#| label: fig-plot-cohesion
-#| fig-cap: "Histograma Cohesión barrial"
-
-
-ggplot(proc_data, aes(x = cohesion_barrial)) +
-  geom_histogram(binwidth=0.6, colour="black", fill="yellow") +
-  theme_bw() +
-  xlab("Cohesión barrial") +
-  ylab("Cantidad")
+```{r, results='asis'}
+knitreg(list(fit01,fit02,fit03),
+        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3"),
+        custom.coef.names = c("Intercepto",
+                              "Sexo (mujer=1)",
+                              "Edad",
+                              "Centro (ref. derecha)",
+                              "Izquierda",
+                              "Indep./Ninguno"))
 ```
 
-La @fig-plot-cohesion muestra la distribución de la nueva escala de Cohesión Barrial que construimos. En general, la mayor concentración de casos está en la categoría 12 y que sumado a un promedio de 10.33 según los descriptivos anteriores, podríamos afirmar que la cohesión barrial en Chile es alta.
+El Modelo 1 indica que las mujeres participan 0.13 unidades menos en comparación con los hombres, sin embargo, esta relación no es estadísticamente significativa (p>0.05).
 
+El Modelo 2 indica que por cada unidad que aumenta la edad, la participación política disminuye en promedio 0.04 unidades, con un 99.9% de significación estadístico y manteniendo el sexo constante. Esta relación es consistente en los otros dos modelos.
 
-## Regresión lineal
+En el Modelo 3 que incluye la posición política de los/as encuestados, la participación política de las personas de izquierda, centro o independiente/ninguno es menor en comparación con las personas de derecha, con una significación estadística del 99.9%, manteniendo el resto de las variables constantes.
 
-Para facilitar la interpretación de los coeficientes de regresión vamos a recodificar la variable de educación (10 categorías) en tres categorías (básica, media y universitaria).
+## Cálculo de valores predichos
 
-Además, nos aseguramos que las variables categóricas estén como variables categóricas con as_factor. De esta forma nos aseguramos que la estimación de los modelos sea correcta ya que no se úede interpretar educación como si fuera una variable numérica.
+* Paquete ggeffects de R: últil para estimar Valores predichos a partir de modelos de regresión
 
-```{r}
-proc_data$educacion <- car::recode(proc_data$educacion, "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
-
-proc_data$educacion <- set_labels(proc_data$educacion,
-            labels=c( "Educacion básica"=1,
-                      "Educación media"=2,
-                      "Educación superior"=3))
-
-frq(proc_data$educacion)
-
-proc_data$educacion_rec <- as_factor(proc_data$educacion)
-proc_data$sexo_rec <- as_factor(proc_data$sexo)
-
-proc_data <- na.omit(proc_data)
-
-reg1 <- lm(cohesion_barrial ~ 1, data=proc_data)
-
-stargazer(reg1, type="text")
-```
-
-¿Qué valor toma una regresión lineal cuando no incluímos predictores en nuestro modelo?
-
-En este caso, lo que nos interesa observar es el intercepto. Un intercepto de 10.336 nos indica la media de la cohesión barrial.
-
-# Ejercicio
-
-1- Estima un modelo de regresión lineal simple para cada variable independiente (edad, educación, sexo). Luego estima un modelo de regresión lineal múltiple que incluya las tres variables independientes. Representalo en una tabla de regresión e interpreta los resultados de cada modelo.
+* Combinado con ggplot2, se pueden generar gráficos que muestran de modo más intuitivo la relación entre variables
 
 ```{r}
-reg1 <- lm(cohesion_barrial ~ edad, data=proc_data)
-reg2 <- lm(cohesion_barrial ~ educacion_rec, data=proc_data)
-reg3 <- lm(cohesion_barrial ~ sexo_rec, data=proc_data)
-reg4 <- lm(cohesion_barrial ~ edad + educacion_rec + sexo_rec, data=proc_data)
-
-tab_model(reg1, reg2, reg3, reg4, show.ci=FALSE)
-```
-
-
-2. Estima un modelo de regresión con variables estandarizadas y compáralo con el modelo de regresión lineal múltiple (¿qué diferencias hay entre los valores de los coeficientes de un modelo y otro?)
-
-```{r}
-data <- dplyr::select(proc_data, cohesion_barrial, educacion, edad, sexo)
-data_std = data.frame(scale(data))
-
-reg_std <- lm(cohesion_barrial ~ edad + educacion + sexo, data=data_std)
-
-tab_model(reg4, reg_std, show.ci=FALSE)
-```
-
-
-3. Gráfica los valores predichos de los coeficientes estadísticamente significativos.
-
-```{r}
-library(ggeffects)
-
-ggeffects::ggpredict(reg4, terms = c("sexo_rec")) %>%
+ggeffects::ggpredict(fit03, terms = c("sexo")) %>%
   ggplot(aes(x=x, y=predicted)) +
   geom_bar(stat="identity", color="grey", fill="grey")+
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
   labs(title="Sexo", x = "", y = "") +
   theme_bw() +
-  scale_x_discrete(name = "",
-                     breaks = c(1,2),
+  scale_x_continuous(name = "",
+                     breaks = c(0,1),
                      labels = c("Hombre", "Mujer"))+
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+
+```
+
+
+```{r}
+ggeffects::ggpredict(fit03, terms = c("pospol")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Posición política", x = "", y = "") +
+  theme_bw() +
+  scale_x_discrete(name = "",
+                   labels = c("Derecha", "Centro", "Izquierda", "Independiente/ninguno")) +
   scale_y_continuous(limits = c(0,16), 
                      breaks = seq(0,16, by = 1))
 ```
 
 ```{r}
-ggeffects::ggpredict(reg4, terms="edad") %>%
+ggeffects::ggpredict(fit03, terms="edad") %>%
   ggplot(mapping=aes(x = x, y=predicted)) +
   labs(title="Edad", x = "", y = "")+
   theme_bw() +
@@ -401,15 +150,78 @@ ggeffects::ggpredict(reg4, terms="edad") %>%
                      breaks = seq(0,16, by = 1))
 ```
 
+## Interacciones
 
-4. Estima una interacción entre dos variables independientes. Gráfica e interpreta el resultado.
+```{r results='asis'}
 
-```{r}
-reg_int <- lm(cohesion_barrial ~ edad * sexo_rec + educacion_rec, data=proc_data)
+fit04<- lm(partpol~sexo+edad+pospol*edad,data=elsoc)
+sjPlot::tab_model(fit03,fit04, show.ci = FALSE, pred.labels=c("Intercepto",
+                              "Sexo (mujer=1)",
+                              "Edad",
+                              "Centro (ref. derecha)",
+                              "Izquierda",
+                              "Indep./Ninguno",
+                              "Centro * Edad",
+                              "Izquierda * Edad",
+                              "Indep./Ninguno * Edad"))
 ```
 
+En comparación con las personas de Derecha, el efecto negativo de la edad no es tan pronunciado en personas de Centro, Izquierda o independientes.
+
 ```{r}
-plot_model(reg_int, type="int")
+sjPlot::plot_model(fit04, type = "int") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+En el fondo lo que muestra el gráfico es que el efecto negativo de la edad es mucho mayor en personas de derecha. O el efecto negativo de la edad es más tenue en personas de centro, izquierda o independientes. U otra opción aún: los jóvenes de derecha son los que más participan.
+
+## Ejercicios
+
+1- Estima un nuevo modelo de regresión lineal múltiple que incluya como predictores: sexo, edad, posición política y nivel educacional.
+
+```{r}
+fit05<- lm(partpol~sexo+edad+pospol+educ,data=elsoc)
+sjPlot::tab_model(fit05,
+                  show.ci=FALSE)
 ```
 
 
+Con base en este modelo crea un gráfico de valores predichos para la variable de nivel educacional.
+
+```{r}
+ggeffects::ggpredict(fit05, terms = c("educ")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Posición política", x = "", y = "") +
+  theme_bw() +
+  scale_x_discrete(name = "",
+                   labels = c("Básica incompleta", "Básica completa", "Educación media", "Técnico profesional", "Universitaria")) +
+  scale_y_continuous(limits = c(0,16), 
+                     breaks = seq(0,16, by = 1))
+```
+
+
+2- Estima un nuevo modelo de regresión que incluya un término de interacción entre edad y nivel educacional
+
+```{r}
+fit06<- lm(partpol~sexo+edad+pospol+educ*edad,data=elsoc)
+sjPlot::tab_model(fit06,
+                  show.ci=FALSE)
+```
+
+
+Grafica la interacción estimada en este modelo
+
+```{r}
+sjPlot::plot_model(fit06, type = "int") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+3- Interpreta los gráficos elaborados.
+
+- Gráfico 1: a mayor educación, más participación política
+
+- Gráfico 2: el efecto de la edad se mantiene negativo para todos los grupos educacionales. Los jóvenes con educación universitaria son quienes más participan.
