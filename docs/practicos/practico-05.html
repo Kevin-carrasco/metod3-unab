@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Práctico 05. Estimación de valores predichos – Metodos 3 - Universidad Andrés Bello</title>
+<title>Práctico 05. Estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-9de9f6925d305bcf5b7eb9351f368d06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aba9a859bd7e1bf5cf92f9c98e80b511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-83babd3dfd23c8593dfd134f395f3b97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -107,16 +107,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Buscar"
   }
 }</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Práctico 05. Estimación de valores predichos – Metodos 3 - Universidad Andrés Bello">
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Práctico 05. Estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello">
 <meta property="og:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="500">
 <meta property="og:image:width" content="500">
-<meta name="twitter:title" content="Práctico 05. Estimación de valores predichos – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:title" content="Práctico 05. Estandarización de coeficientes – Metodos 3 - Universidad Andrés Bello">
 <meta name="twitter:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta name="twitter:creator" content="@kevincarrascoq1">
@@ -126,7 +159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="twitter:image-width" content="500">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -160,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Trabajos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../practicos/index.html"> 
+    <a class="nav-link active" href="../practicos/index.html" aria-current="page"> 
 <span class="menu-text">Practicos</span></a>
   </li>  
 </ul>
@@ -169,28 +202,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicos/practico-05.html">Práctico 5 - Estandarización</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descripción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 1 - Asociación</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 2 - Regresión lineal simple</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 3 - R2 e Inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 4 - Regresión lineal múltiple</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicos/practico-05.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Práctico 5 - Estandarización</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#presentación" id="toc-presentación" class="nav-link active" data-scroll-target="#presentación">Presentación</a></li>
-  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías">Librerías</a></li>
-  <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos">Datos</a>
+  <li><a href="#presentación" id="toc-presentación" class="nav-link active" data-scroll-target="#presentación"><span class="header-section-number">1</span> Presentación</a>
   <ul class="collapse">
-  <li><a href="#explorar-datos" id="toc-explorar-datos" class="nav-link" data-scroll-target="#explorar-datos">Explorar datos</a></li>
-  <li><a href="#variable-dependiente-participación-política" id="toc-variable-dependiente-participación-política" class="nav-link" data-scroll-target="#variable-dependiente-participación-política">Variable dependiente: participación política</a></li>
+  <li><a href="#objetivo-de-la-práctica" id="toc-objetivo-de-la-práctica" class="nav-link" data-scroll-target="#objetivo-de-la-práctica"><span class="header-section-number">1.1</span> Objetivo de la práctica</a></li>
+  <li><a href="#los-datos" id="toc-los-datos" class="nav-link" data-scroll-target="#los-datos"><span class="header-section-number">1.2</span> Los datos</a></li>
   </ul></li>
-  <li><a href="#regresión-lineal" id="toc-regresión-lineal" class="nav-link" data-scroll-target="#regresión-lineal">Regresión lineal</a>
+  <li><a href="#preparación" id="toc-preparación" class="nav-link" data-scroll-target="#preparación"><span class="header-section-number">2</span> Preparación</a>
   <ul class="collapse">
-  <li><a href="#cálculo-de-valores-predichos" id="toc-cálculo-de-valores-predichos" class="nav-link" data-scroll-target="#cálculo-de-valores-predichos">Cálculo de valores predichos</a></li>
-  <li><a href="#interacciones" id="toc-interacciones" class="nav-link" data-scroll-target="#interacciones">Interacciones</a></li>
-  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios">Ejercicios</a></li>
+  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías"><span class="header-section-number">2.1</span> Librerías</a></li>
+  <li><a href="#carga-y-procesamiento" id="toc-carga-y-procesamiento" class="nav-link" data-scroll-target="#carga-y-procesamiento"><span class="header-section-number">2.2</span> Carga y procesamiento</a></li>
+  <li><a href="#el-modelo-del-práctico-anterior" id="toc-el-modelo-del-práctico-anterior" class="nav-link" data-scroll-target="#el-modelo-del-práctico-anterior"><span class="header-section-number">2.3</span> El modelo del práctico anterior</a></li>
+  </ul></li>
+  <li><a href="#el-problema" id="toc-el-problema" class="nav-link" data-scroll-target="#el-problema"><span class="header-section-number">3</span> El problema</a>
+  <ul class="collapse">
+  <li><a href="#cuál-predictor-pesa-más" id="toc-cuál-predictor-pesa-más" class="nav-link" data-scroll-target="#cuál-predictor-pesa-más"><span class="header-section-number">3.1</span> ¿Cuál predictor pesa más?</a></li>
+  <li><a href="#una-comprobación" id="toc-una-comprobación" class="nav-link" data-scroll-target="#una-comprobación"><span class="header-section-number">3.2</span> Una comprobación</a></li>
+  </ul></li>
+  <li><a href="#la-estandarización" id="toc-la-estandarización" class="nav-link" data-scroll-target="#la-estandarización"><span class="header-section-number">4</span> La estandarización</a>
+  <ul class="collapse">
+  <li><a href="#el-puntaje-z" id="toc-el-puntaje-z" class="nav-link" data-scroll-target="#el-puntaje-z"><span class="header-section-number">4.1</span> El puntaje Z</a></li>
+  <li><a href="#cálculo-manual" id="toc-cálculo-manual" class="nav-link" data-scroll-target="#cálculo-manual"><span class="header-section-number">4.2</span> Cálculo manual</a></li>
+  <li><a href="#la-función-scale" id="toc-la-función-scale" class="nav-link" data-scroll-target="#la-función-scale"><span class="header-section-number">4.3</span> La función <code>scale()</code></a></li>
+  </ul></li>
+  <li><a href="#el-modelo-estandarizado" id="toc-el-modelo-estandarizado" class="nav-link" data-scroll-target="#el-modelo-estandarizado"><span class="header-section-number">5</span> El modelo estandarizado</a>
+  <ul class="collapse">
+  <li><a href="#estimación" id="toc-estimación" class="nav-link" data-scroll-target="#estimación"><span class="header-section-number">5.1</span> Estimación</a></li>
+  <li><a href="#comparación" id="toc-comparación" class="nav-link" data-scroll-target="#comparación"><span class="header-section-number">5.2</span> Comparación</a></li>
+  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación"><span class="header-section-number">5.3</span> Interpretación</a></li>
+  </ul></li>
+  <li><a href="#qué-cambia-y-qué-no" id="toc-qué-cambia-y-qué-no" class="nav-link" data-scroll-target="#qué-cambia-y-qué-no"><span class="header-section-number">6</span> Qué cambia y qué no</a>
+  <ul class="collapse">
+  <li><a href="#el-ajuste-no-cambia" id="toc-el-ajuste-no-cambia" class="nav-link" data-scroll-target="#el-ajuste-no-cambia"><span class="header-section-number">6.1</span> El ajuste no cambia</a></li>
+  <li><a href="#la-inferencia-tampoco" id="toc-la-inferencia-tampoco" class="nav-link" data-scroll-target="#la-inferencia-tampoco"><span class="header-section-number">6.2</span> La inferencia tampoco</a></li>
+  <li><a href="#el-intercepto-sí-cambia" id="toc-el-intercepto-sí-cambia" class="nav-link" data-scroll-target="#el-intercepto-sí-cambia"><span class="header-section-number">6.3</span> El intercepto sí cambia</a></li>
+  <li><a href="#una-alternativa-con-tab_model" id="toc-una-alternativa-con-tab_model" class="nav-link" data-scroll-target="#una-alternativa-con-tab_model"><span class="header-section-number">6.4</span> Una alternativa con <code>tab_model</code></a></li>
+  </ul></li>
+  <li><a href="#un-segundo-ejemplo" id="toc-un-segundo-ejemplo" class="nav-link" data-scroll-target="#un-segundo-ejemplo"><span class="header-section-number">7</span> Un segundo ejemplo</a>
+  <ul class="collapse">
+  <li><a href="#construcción-de-una-escala" id="toc-construcción-de-una-escala" class="nav-link" data-scroll-target="#construcción-de-una-escala"><span class="header-section-number">7.1</span> Construcción de una escala</a></li>
+  <li><a href="#el-problema-de-las-unidades-arbitrarias" id="toc-el-problema-de-las-unidades-arbitrarias" class="nav-link" data-scroll-target="#el-problema-de-las-unidades-arbitrarias"><span class="header-section-number">7.2</span> El problema de las unidades arbitrarias</a></li>
+  </ul></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios"><span class="header-section-number">8</span> Ejercicios</a>
+  <ul class="collapse">
+  <li><a href="#estandarización" id="toc-estandarización" class="nav-link" data-scroll-target="#estandarización"><span class="header-section-number">8.1</span> Estandarización</a></li>
+  <li><a href="#interpretación-1" id="toc-interpretación-1" class="nav-link" data-scroll-target="#interpretación-1"><span class="header-section-number">8.2</span> Interpretación</a></li>
+  <li><a href="#reporte" id="toc-reporte" class="nav-link" data-scroll-target="#reporte"><span class="header-section-number">8.3</span> Reporte</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -200,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Práctico 05. Estimación de valores predichos</h1>
+<h1 class="title">Práctico 05. Estandarización de coeficientes</h1>
 <p class="subtitle lead">Métodos estadísticos para Ciencias Sociales III</p>
 </div>
 
@@ -212,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">22 de septiembre de 2025</p>
+      <p class="date">14 de septiembre de 2026</p>
     </div>
   </div>
   
@@ -224,41 +343,159 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="presentación" class="level1">
-<h1>Presentación</h1>
-<p>La siguiente práctica tiene el objetivo de repasar en la interpretación de coeficientes de correlación y la construcción de escalas, así como también en la interpretación de coeficientes de regresión lineal. Para ello, utilizaremos la base de datos de la tercera ola del <a href="https://doi.org/10.7910/DVN/H8OVMF"><em>Estudio Longitudinal Social del Chile 2018</em></a> con el objetivo de analizar los determinantes de la <strong>Participación Ciudadana.</strong></p>
-<p>La versión original de este ejercicio proviene del curso de <a href="https://multivariada.netlify.app/assignment/10-code/">Estadística multivariada</a> versión 2022.</p>
+<section id="presentación" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Presentación</h1>
+<section id="objetivo-de-la-práctica" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="objetivo-de-la-práctica"><span class="header-section-number">1.1</span> Objetivo de la práctica</h2>
+<p>En el práctico anterior estimamos modelos de regresión múltiple y quedó planteada una pregunta que no pudimos responder: si un modelo tiene varios predictores medidos en unidades distintas, ¿<strong>cuál de ellos pesa más</strong>?</p>
+<p>Esta guía responde esa pregunta mediante la <strong>estandarización</strong> de variables. Al terminar, usted debería ser capaz de:</p>
+<ol type="1">
+<li>Explicar por qué dos coeficientes de regresión no siempre son comparables entre sí</li>
+<li>Calcular un <strong>puntaje Z</strong> a mano y con la función <code>scale()</code></li>
+<li>Estimar un modelo con variables estandarizadas e interpretar sus coeficientes</li>
+<li>Verificar qué cambia y qué permanece idéntico al estandarizar</li>
+<li>Convertir un coeficiente de una escala a la otra sin reestimar el modelo</li>
+<li>Decidir cuándo conviene reportar coeficientes estandarizados y cuándo no</li>
+</ol>
+<p>Esta mañana trabajaremos el procedimiento en R. En la sesión de la tarde revisaremos con más detalle sus fundamentos y sus límites.</p>
 </section>
-<section id="librerías" class="level1">
-<h1>Librerías</h1>
+<section id="los-datos" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="los-datos"><span class="header-section-number">1.2</span> Los datos</h2>
+<p>Continuamos con el <strong>estatus social subjetivo</strong> en ELSOC 2016, el mismo modelo del práctico anterior. Más adelante incorporaremos un segundo ejemplo con una variable construida a partir de una escala.</p>
+</section>
+</section>
+<section id="preparación" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Preparación</h1>
+<section id="librerías" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="librerías"><span class="header-section-number">2.1</span> Librerías</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               car, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               summarytools, </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               sjPlot, </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               texreg, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               corrplot, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               ggplot2, </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               sjlabelled, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               ggeffects)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               sjmisc,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               sjPlot,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               summarytools,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               psych,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               ggplot2)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustes para que las tablas de summarytools se vean bien en Quarto</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_options</span>(<span class="at">bootstrap.css =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">style =</span> <span class="st">"rmarkdown"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">dfSummary.silent =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">footnote =</span> <span class="cn">NA</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">subtitle.emphasis =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="datos" class="level1">
-<h1>Datos</h1>
-<p>El Estudio Longitudinal Social del Chile <a href="https://coes.cl/encuesta-panel/">ELSOC</a>, único en Chile y América Latina, consiste en encuestar a casi 3.000 chilenos, anualmente, a lo largo de una década. ELSOC ha sido diseñado para evaluar la manera cómo piensan, sienten y se comportan los chilenos en torno a un conjunto de temas referidos al conflicto y la cohesión social en Chile. La población objetivo son hombres y mujeres entre 15 y 75 años de edad con un alcance nacional, donde se obtuvo una muestra final de <strong>3748</strong> casos en el año 2018.</p>
+<section id="carga-y-procesamiento" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="carga-y-procesamiento"><span class="header-section-number">2.2</span> Carga y procesamiento</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cargamos la base de datos desde internet</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/elsoc2.RData"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>O descargamos de <a href="https://github.com/cursos-metodos-facso/metod1-MCS/blob/main/files/data/elsoc2.RData">acá</a> y cargamos de manera local.</p>
-<section id="explorar-datos" class="level2">
-<h2 class="anchored" data-anchor-id="explorar-datos">Explorar datos</h2>
-<p>A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para realizar las transformaciones y análisis posteriores.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(elsoc,<span class="at">max.len =</span> <span class="dv">50</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(d01_01, m01, m29, m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"estatus"</span> <span class="ot">=</span> d01_01,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">"educacion"</span> <span class="ot">=</span> m01,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">"ingreso"</span> <span class="ot">=</span> m29,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">"edad"</span> <span class="ot">=</span> m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ingreso <span class="sc">&gt;=</span> <span class="dv">50000</span>, ingreso <span class="sc">&lt;=</span> <span class="dv">5000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ing100 =</span> ingreso <span class="sc">/</span> <span class="dv">100000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(estatus, educacion, ing100, edad)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2301    4</code></pre>
+</div>
+</div>
+</section>
+<section id="el-modelo-del-práctico-anterior" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="el-modelo-del-práctico-anterior"><span class="header-section-number">2.3</span> El modelo del práctico anterior</h2>
+<p>Retomamos el modelo con el que cerramos el práctico anterior:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(estatus <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(modelo,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"Estatus social subjetivo"</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Nivel educacional"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Ingreso (cientos de miles)"</span>, <span class="st">"Edad"</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.est =</span> <span class="st">"β"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Data frame: elsoc</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Estatus social subjetivo</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.9215 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.1465</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.1611 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0165</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso (cientos de miles)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0483 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0061</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0063 <sup>**</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0021</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
+</tr>
+<tr class="odd">
+<td colspan="3" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Los tres predictores son estadísticamente significativos y el modelo explica algo más de un 11% de la varianza. Hasta aquí, todo conocido.</p>
+</section>
+</section>
+<section id="el-problema" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> El problema</h1>
+<section id="cuál-predictor-pesa-más" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="cuál-predictor-pesa-más"><span class="header-section-number">3.1</span> ¿Cuál predictor pesa más?</h2>
+<p>Observe la columna de coeficientes. El de educación es aproximadamente veinticinco veces mayor que el de edad. ¿Significa eso que la educación es veinticinco veces más importante?</p>
+<p>La respuesta es que no, y la razón está en las <strong>unidades de medida</strong> de cada variable. Revisemos los descriptivos:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dfSummary</span>(proc_data,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">varnumbers =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">valid.col =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">graph.magnif =</span> <span class="fl">0.75</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">headings =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">method =</span> <span class="st">"render"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="container st-container">
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline caption-top">
 <colgroup>
 <col style="width: 20%">
 <col style="width: 20%">
@@ -266,913 +503,882 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <col style="width: 20%">
 <col style="width: 20%">
 </colgroup>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">ID</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Name</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Label</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Values</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Value Labels</th>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">sexo</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo entrevistado</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0<br>
-1</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Hombre<br>
-Mujer</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">2</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">edad</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Edad entrevistado</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;"><em>range: 18-90</em></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">educ</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1<br>
-2<br>
-3<br>
-4<br>
-5</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Primaria incompleta menos<br>
-Primaria y secundaria baja<br>
-Secundaria alta<br>
-Terciaria ciclo corto<br>
-Terciaria y Postgrado</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">4</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">pospol</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Autoubicacion escala izquierda-derecha</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">1<br>
-2<br>
-3<br>
-4</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Derecha<br>
-Centro<br>
-Izquierda<br>
-Indep./Ninguno</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">5</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">part01</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Frecuencia: Firma carta o peticion apoyando causa</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1<br>
-2<br>
-3<br>
-4<br>
-5</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nunca<br>
-Casi nunca<br>
-A veces<br>
-Frecuentemente<br>
-Muy frecuentemente</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">6</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">part02</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Frecuencia: Asiste a mbackground-color:#eeeeeeha o manifestacion<br>
-pacifica</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">1<br>
-2<br>
-3<br>
-4<br>
-5</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Nunca<br>
-Casi nunca<br>
-A veces<br>
-Frecuentemente<br>
-Muy frecuentemente</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">7</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">part03</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Frecuencia: Participa en huelga</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1<br>
-2<br>
-3<br>
-4<br>
-5</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nunca<br>
-Casi nunca<br>
-A veces<br>
-Frecuentemente<br>
-Muy frecuentemente</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">8</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">part04</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Frecuencia: Usa redes sociales para opinar en<br>
-temas publicos</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">1<br>
-2<br>
-3<br>
-4<br>
-5</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Nunca<br>
-Casi nunca<br>
-A veces<br>
-Frecuentemente<br>
-Muy frecuentemente</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">9</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">inghogar</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso total del hogar</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: 30000-17000000</em></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">10</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">inghogar_t</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Ingreso total del hogar (en tramos)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">1<br>
-2<br>
-3<br>
-4<br>
-5<br>
-6<br>
-7<br>
-8<br>
-9<br>
-10<br>
-11<br>
-12<br>
-13<br>
-14<br>
-15<br>
-16<br>
-17<br>
-18<br>
-19<br>
-20</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Menos de $220.000 mensuales liquidos<br>
-De $220.001 a $280.000 mensuales liquidos<br>
-De $280.001 a $330.000 mensuales liquidos<br>
-De $330.001 a $380.000 mensuales liquidos<br>
-De $380.001 a $420.000 mensuales liquidos<br>
-De $420.001 a $470.000 mensuales liquidos<br>
-De $470.001 a $510.000 mensuales liquidos<br>
-De $510.001 a $560.000 mensuales liquidos<br>
-De $560.001 a $610.000 mensuales liquidos<br>
-De $610.001 a $670.000 mensuales liquidos<br>
-De $670.001 a $730.000 mensuales liquidos<br>
-De $730.001 a $800.000 mensuales liquidos<br>
-De $800.001 a $890.000 mensuales liquidos<br>
-De $890.001 a $980.000 mensuales liquidos<br>
-De $980.001 a $1.100.000 mensuales liquidos<br>
-De $1.100.001 a $1.260.000 mensuales liquidos<br>
-De $1.260.001 a $1.490.000 mensuales liquidos<br>
-De $1.490.001 a $1.850.000 mensuales liquidos<br>
-De $1.850.001 a $2.700.000 mensuales liquidos<br>
-Mas de $2.700.000 a mensuales liquidos</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">11</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">tamhogar</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Habitantes del hogar</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: 1-14</em></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="variable-dependiente-participación-política" class="level2">
-<h2 class="anchored" data-anchor-id="variable-dependiente-participación-política">Variable dependiente: participación política</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_stackfrq</span>(elsoc[,<span class="fu">c</span>(<span class="st">"part01"</span>,<span class="st">"part02"</span>,<span class="st">"part03"</span>,<span class="st">"part04"</span>)]) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-05_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(<span class="fu">cor</span>(<span class="fu">select</span>(elsoc,part01,part02,part03,part04),</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">use =</span> <span class="st">"complete.obs"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-05_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part01 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part01, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part02 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part02, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part03 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part03, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>elsoc<span class="sc">$</span>part04 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(elsoc<span class="sc">$</span>part04, <span class="st">"1=0; 2=1; 3=2; 4=3; 5=4"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>elsoc <span class="ot">&lt;-</span> elsoc <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">partpol=</span><span class="fu">rowSums</span>(<span class="fu">select</span>(., part01,part02,part03,part04)))</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(elsoc<span class="sc">$</span>partpol)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-  0.000   0.000   0.000   1.473   2.000  16.000       8 </code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="regresión-lineal" class="level1">
-<h1>Regresión lineal</h1>
-<p>veamos primero las diferencias de usar cada tipo de variable de ingreso</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit01<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo,<span class="at">data=</span>elsoc)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fit02<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad,<span class="at">data=</span>elsoc)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fit03<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol,<span class="at">data=</span>elsoc)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>labs02 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Intercepto"</span>,<span class="st">"Sexo (mujer=1)"</span>,<span class="st">"Edad"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Centro (ref. derecha)"</span>,<span class="st">"Izquierda"</span>,<span class="st">"Idep./Ninguno"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(fit01,fit02,fit03),<span class="at">custom.coef.names =</span> labs02)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">knitreg</span>(<span class="fu">list</span>(fit01,fit02,fit03),</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>,<span class="st">"Modelo 2"</span>,<span class="st">"Modelo 3"</span>),</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">"Intercepto"</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Sexo (mujer=1)"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Edad"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Centro (ref. derecha)"</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Izquierda"</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Indep./Ninguno"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>
-Statistical models
-</caption>
 <thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-Modelo 1
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-Modelo 2
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-Modelo 3
-</th>
+<tr class="header">
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Variable</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Stats / Values</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Freqs (% of Valid)</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Graph</strong></th>
+<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Missing</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Intercepto
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.56<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-3.62<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-4.53<sup>***</sup>
-</td>
+<tr class="odd">
+<td style="text-align: left;">estatus [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 4.3 (1.5)</td>
 </tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.06)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.12)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.13)
-</td>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
 </tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Sexo (mujer=1)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.13
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.08
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.00
-</td>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">0 ≤ 5 ≤ 10</td>
 </tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.08)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.07)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.07)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Edad
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.04<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.04<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.00)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.00)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Centro (ref. derecha)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.06<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.10)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Izquierda
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.11<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.11)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Indep./Ninguno
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.67<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.10)
-</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-R<sup>2</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.00
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.09
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.16
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Adj. R<sup>2</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.00
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.09
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.16
-</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Num. obs.
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-3740
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-3740
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-3656
-</td>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 2 (0.4)</td>
 </tr>
 </tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="4">
-<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05
-</td>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">11 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XIzgLs1LiAAAAe0lEQVRYw+3Vuw3AIAxFUVYgGwQ2CPvvlmAigZCJBHIV7ivojlz4g3N7xSs5Qo4f5oumJxcUCoX+gZZjuEZFQaFQqC1tztI0rQoK1agM17lE85OgNjR0Wz5Bo6KgRlTaMqbq+rxU1JhGrTTUmvYdmqC1dPmD25GYjNsrNy0cmsdqB9qLAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">0 (0.0%)</td>
 </tr>
-</tfoot>
+<tr class="even">
+<td style="text-align: left;">educacion [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 5.2 (2.2)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">1 ≤ 5 ≤ 10</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 3 (0.4)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">1</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">31</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">1.3%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">2</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">272</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">11.8%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">238</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">10.3%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">4</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">325</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">14.1%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">5</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">677</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">29.4%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">6</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">75</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">3.3%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">7</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">296</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">12.9%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">8</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">135</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">5.9%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">9</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">221</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">9.6%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">10</td>
+<td style="text-align: left; padding: 0 2px; border: 0;">:</td>
+<td style="text-align: right; padding: 0 4px 0 6px; margin: 0; border: 0;">31</td>
+<td style="text-align: left; padding: 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0 2px; margin: 0; border: 0;">1.3%</td>
+<td style="text-align: left; padding: 0 4px 0 0; border: 0;">)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAC4AAAC3BAMAAACf/nGPAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XIzgLs1LiAAAAjUlEQVRYw+3T0Q2AIAwEUFZgBMoGZf/djDEaxF4itfh19/k+ILmDlNZH8hD6Es+TLkceXtsepQc56tm3V7bvVXqUo559e4kU8520Ro9x1LN3ryvDvWeU/spRn7O74L1sr0r3OOpzfpf7dxz+Lz3IUc+OvYrltb+T/tlRz4697if174Qe5qjn6b3ov/jKbOQEL5PzZJv8AAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">0 (0.0%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ing100 [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 5.9 (5.6)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">0.5 ≤ 4.5 ≤ 50</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 4.2 (0.9)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">178 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XIzl8tGJ0AAAAXklEQVRYw+3Wuw3AIAwAUa+QEexsEPbfjY+iNBHIIIpEvivcPdkdiMTKanpMddMzlaBQKBQKhUKhX6btt2dLtI0LCoVCob+l7ifgTd2r91PP1R3qWT2i9qQDagtJrDIyAVaLS+gTZAAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">0 (0.0%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">edad [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 46.1 (15.1)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">18 ≤ 46 ≤ 88</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 23 (0.3)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">63 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XIzl8tGJ0AAAAlUlEQVRYw+3WYQqAIAwFYK+gN8hu0O5/t5SJKcxwglDsvT/9eR9UbKVztuKFhBjj4cd5o0T0O5oeNy7Sk+gCFWio71RPa9kMzRNY6Gj3RJrK2RQ62gKRPmae8m0uUW6C7qGhDoKe1qZtKv4E5qi48aAD2n/g5imP+BLlCygoKCjoFtqcYbW0q4CCfp42p8Vm/LVxtnIDeGQVNUz9NRoAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">0 (0.0%)</td>
+</tr>
+</tbody>
 </table>
-<p>El Modelo 1 indica que las mujeres participan 0.13 unidades menos en comparación con los hombres, sin embargo, esta relación no es estadísticamente significativa (p&gt;0.05).</p>
-<p>El Modelo 2 indica que por cada unidad que aumenta la edad, la participación política disminuye en promedio 0.04 unidades, con un 99.9% de significación estadístico y manteniendo el sexo constante. Esta relación es consistente en los otros dos modelos.</p>
-<p>En el Modelo 3 que incluye la posición política de los/as encuestados, la participación política de las personas de izquierda, centro o independiente/ninguno es menor en comparación con las personas de derecha, con una significación estadística del 99.9%, manteniendo el resto de las variables constantes.</p>
-<section id="cálculo-de-valores-predichos" class="level2">
-<h2 class="anchored" data-anchor-id="cálculo-de-valores-predichos">Cálculo de valores predichos</h2>
-<ul>
-<li><p>Paquete ggeffects de R: últil para estimar Valores predichos a partir de modelos de regresión</p></li>
-<li><p>Combinado con ggplot2, se pueden generar gráficos que muestran de modo más intuitivo la relación entre variables</p></li>
-</ul>
+</div>
+<p>Un año adicional de edad es un cambio muy pequeño dentro de una variable que recorre más de cincuenta años. Un nivel educacional adicional, en cambio, es un cambio grande dentro de una escala de diez categorías. Comparar ambos coeficientes es como comparar una distancia medida en milímetros con otra medida en kilómetros.</p>
+</section>
+<section id="una-comprobación" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="una-comprobación"><span class="header-section-number">3.2</span> Una comprobación</h2>
+<p>Para ver que el problema es de unidades y no sustantivo, hagamos un experimento: expresemos la edad en <strong>décadas</strong> en lugar de años.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"sexo"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Sexo"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Hombre"</span>, <span class="st">"Mujer"</span>))<span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), </span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-05_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>edad_decadas <span class="ot">&lt;-</span> proc_data<span class="sc">$</span>edad <span class="sc">/</span> <span class="dv">10</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>modelo_decadas <span class="ot">&lt;-</span> <span class="fu">lm</span>(estatus <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad_decadas,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> proc_data)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">edad_en_anios =</span> <span class="fu">coef</span>(modelo)[<span class="dv">4</span>],</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">edad_en_decadas =</span> <span class="fu">coef</span>(modelo_decadas)[<span class="dv">4</span>])</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          edad_en_anios.edad edad_en_decadas.edad_decadas 
+                 0.006267146                  0.062671459 </code></pre>
 </div>
+</div>
+<p>El coeficiente se multiplicó por diez sin que nada haya cambiado en los datos ni en la relación entre las variables. Lo único que cambió fue la unidad en que medimos el predictor.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">r2_original =</span> <span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">r2_decadas =</span> <span class="fu">summary</span>(modelo_decadas)<span class="sc">$</span>r.squared)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>r2_original  r2_decadas 
+  0.1126182   0.1126182 </code></pre>
+</div>
+</div>
+<p>El ajuste del modelo es idéntico. Esto confirma que la magnitud de un coeficiente, por sí sola, no informa nada sobre la importancia de un predictor.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>edad_decadas <span class="ot">&lt;-</span> <span class="cn">NULL</span> <span class="co"># eliminamos la variable auxiliar</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="la-estandarización" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> La estandarización</h1>
+<section id="el-puntaje-z" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="el-puntaje-z"><span class="header-section-number">4.1</span> El puntaje Z</h2>
+<p>La solución consiste en llevar todas las variables a una <strong>escala común</strong>. El procedimiento es el puntaje Z: a cada valor se le resta el promedio de su variable y se divide por su desviación estándar.</p>
+<p><span class="math display">\[z_x=\frac{x-\bar{x}}{sd(x)}\]</span></p>
+<p>El resultado se interpreta en desviaciones estándar: un valor de <span class="math inline">\(z = 1\)</span> indica que el caso está una desviación estándar por sobre el promedio, y uno de <span class="math inline">\(z = -0{,}5\)</span>, media desviación estándar por debajo.</p>
+</section>
+<section id="cálculo-manual" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="cálculo-manual"><span class="header-section-number">4.2</span> Cálculo manual</h2>
+<p>Hagámoslo primero a mano, para una sola variable:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>media_educacion <span class="ot">&lt;-</span> <span class="fu">mean</span>(proc_data<span class="sc">$</span>educacion)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>de_educacion <span class="ot">&lt;-</span> <span class="fu">sd</span>(proc_data<span class="sc">$</span>educacion)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>educacion_z <span class="ot">&lt;-</span> (proc_data<span class="sc">$</span>educacion <span class="sc">-</span> media_educacion) <span class="sc">/</span> de_educacion</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Comparemos los primeros casos:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(proc_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educacion, educacion_z), <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Educación (original)"</span>, <span class="st">"Educación (estandarizada)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table table-striped table-hover caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Educación (original)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Educación (estandarizada)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-1.449</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-0.532</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">-0.074</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">-0.074</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">-0.074</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1.760</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1.760</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-0.532</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Verifiquemos que la variable transformada tiene las propiedades esperadas:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">media =</span> <span class="fu">mean</span>(proc_data<span class="sc">$</span>educacion_z), <span class="at">de =</span> <span class="fu">sd</span>(proc_data<span class="sc">$</span>educacion_z))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   media                       de 
+0.0000000000000001779002 1.0000000000000000000000 </code></pre>
+</div>
+</div>
+<p>El promedio es cero (salvo error de redondeo computacional) y la desviación estándar es uno.</p>
+</section>
+<section id="la-función-scale" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="la-función-scale"><span class="header-section-number">4.3</span> La función <code>scale()</code></h2>
+<p>Naturalmente, no haremos esto variable por variable. La función <code>scale()</code> estandariza todas las columnas de una base de datos:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Estandarizar una base completa
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>datos_std &lt;- data.frame(scale(datos))</code></p>
+<p>La función <code>data.frame()</code> es necesaria porque <code>scale()</code> devuelve una matriz, y <code>lm()</code> espera un <code>data.frame</code>.</p>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"pospol"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Posición política"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Derecha"</span>, <span class="st">"Centro"</span>, <span class="st">"Izquierda"</span>, <span class="st">"Independiente/ninguno"</span>)) <span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), </span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-05_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>proc_data<span class="sc">$</span>educacion_z <span class="ot">&lt;-</span> <span class="cn">NULL</span> <span class="co"># eliminamos la variable que creamos a mano</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>proc_data_std <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(proc_data))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Comparemos los descriptivos antes y después:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(proc_data,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"med"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">transpose =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">order =</span> <span class="st">"preserve"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">"Variables originales"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table table-striped table-hover caption-top table-sm small">
+<caption>Variables originales</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Std.Dev</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Max</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">N.Valid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">estatus</td>
+<td style="text-align: right;">4.33</td>
+<td style="text-align: right;">1.53</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">educacion</td>
+<td style="text-align: right;">5.16</td>
+<td style="text-align: right;">2.18</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2301</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ing100</td>
+<td style="text-align: right;">5.88</td>
+<td style="text-align: right;">5.58</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">edad</td>
+<td style="text-align: right;">46.07</td>
+<td style="text-align: right;">15.14</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">46.0</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">2301</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit03, <span class="at">terms=</span><span class="st">"edad"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Edad"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>)<span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">fill =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(proc_data_std,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"med"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">transpose =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">order =</span> <span class="st">"preserve"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">"Variables estandarizadas"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-05_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<table class="table table-striped table-hover caption-top table-sm small">
+<caption>Variables estandarizadas</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Std.Dev</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Max</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">N.Valid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">estatus</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-2.83</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">3.72</td>
+<td style="text-align: right;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">educacion</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-1.91</td>
+<td style="text-align: right;">-0.07</td>
+<td style="text-align: right;">2.22</td>
+<td style="text-align: right;">2301</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ing100</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.96</td>
+<td style="text-align: right;">-0.25</td>
+<td style="text-align: right;">7.91</td>
+<td style="text-align: right;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">edad</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-1.85</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2.77</td>
+<td style="text-align: right;">2301</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+<p>Note que <strong>todas</strong> las variables quedaron con media 0 y desviación estándar 1, incluida la variable dependiente. El mínimo y el máximo, en cambio, son distintos para cada una, porque dependen de cuán alejados estén los valores extremos respecto del promedio.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>Dos paquetes, una misma función
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tanto <code>sjmisc</code> como <code>summarytools</code> incluyen una función llamada <code>descr</code>, y hacen cosas distintas. Cuando dos paquetes cargados definen el mismo nombre, R usa el del paquete cargado <strong>más recientemente</strong>, que aquí es <code>summarytools</code>.</p>
+<p>De ahí el argumento <code>transpose = TRUE</code>: sin él, <code>summarytools::descr</code> ubica los estadísticos en las filas y las variables en las columnas, que es lo contrario de lo habitual. El argumento <code>order = "preserve"</code> evita además que las variables se ordenen alfabéticamente.</p>
+<p>Si quiere asegurarse de cuál función está usando, escriba el nombre del paquete de forma explícita, como en <code>sjmisc::descr()</code> o <code>summarytools::descr()</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>Una advertencia sobre <code>scale()</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La función estandariza <strong>todas</strong> las columnas de la base, sin distinguir. Si su base contiene identificadores, variables categóricas o cualquier columna que no corresponda estandarizar, debe seleccionar antes las variables del modelo. Por eso en el procesamiento inicial nos quedamos únicamente con las cuatro variables de interés.</p>
 </div>
 </div>
 </section>
-<section id="interacciones" class="level2">
-<h2 class="anchored" data-anchor-id="interacciones">Interacciones</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit04<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">*</span>edad,<span class="at">data=</span>elsoc)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(fit03,fit04, <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">pred.labels=</span><span class="fu">c</span>(<span class="st">"Intercepto"</span>,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Sexo (mujer=1)"</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Edad"</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Centro (ref. derecha)"</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Izquierda"</span>,</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Indep./Ninguno"</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Centro * Edad"</span>,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Izquierda * Edad"</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Indep./Ninguno * Edad"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="caption-top table">
+</section>
+<section id="el-modelo-estandarizado" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> El modelo estandarizado</h1>
+<section id="estimación" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="estimación"><span class="header-section-number">5.1</span> Estimación</h2>
+<p>La sintaxis es exactamente la misma; lo único que cambia es la base de datos:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>modelo_std <span class="ot">&lt;-</span> <span class="fu">lm</span>(estatus <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> proc_data_std)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo_std)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              (Intercept)                 educacion                    ing100 
+0.00000000000000004624409 0.23011065196029412138756 0.17646974878240034856347 
+                     edad 
+0.06215195141068993039957 </code></pre>
+</div>
+</div>
+</section>
+<section id="comparación" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="comparación"><span class="header-section-number">5.2</span> Comparación</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(<span class="fu">list</span>(modelo, modelo_std),</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"No estandarizado"</span>, <span class="st">"Estandarizado"</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Nivel educacional"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Ingreso (cientos de miles)"</span>, <span class="st">"Edad"</span>),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.est =</span> <span class="st">"β"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">No estandarizado</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Estandarizado</th>
 </tr>
 <tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Intercepto</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">4.53</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">6.05</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.922 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.146</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.020</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo (mujer=1)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.00</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.949</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.846</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.161 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.016</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.230 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.024</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso (cientos de miles)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.048 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.176 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.022</td>
+</tr>
+<tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.04</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.08</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Centro (ref. derecha)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.06</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.93</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006 <sup>**</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.002</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.062 <sup>**</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.021</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Izquierda</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.11</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.72</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Indep./Ninguno</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.67</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.95</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Centro * Edad</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Izquierda * Edad</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Indep./Ninguno * Edad</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">3656</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">3656</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.159 / 0.158</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.175 / 0.174</td>
+<td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
 </tr>
 </tbody>
 </table>
-<p>En comparación con las personas de Derecha, el efecto negativo de la edad no es tan pronunciado en personas de Centro, Izquierda o independientes.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit04, <span class="at">type =</span> <span class="st">"int"</span>) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-05_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
 </div>
-</div>
-<p>En el fondo lo que muestra el gráfico es que el efecto negativo de la edad es mucho mayor en personas de derecha. O el efecto negativo de la edad es más tenue en personas de centro, izquierda o independientes. U otra opción aún: los jóvenes de derecha son los que más participan.</p>
 </section>
-<section id="ejercicios" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicios">Ejercicios</h2>
-<p>1- Estima un nuevo modelo de regresión lineal múltiple que incluya como predictores: sexo, edad, posición política y nivel educacional.</p>
+<section id="interpretación" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="interpretación"><span class="header-section-number">5.3</span> Interpretación</h2>
+<p>Los coeficientes estandarizados se leen en desviaciones estándar de la variable dependiente por cada desviación estándar de la independiente.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fit05<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">+</span>educ,<span class="at">data=</span>elsoc)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(fit05,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.ci=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</th>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.09</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo entrevistado</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.572</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad entrevistado</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.03</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Autoubicacion escala<br>
-izquierda-derecha: Centro</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.96</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Autoubicacion escala<br>
-izquierda-derecha:<br>
-Izquierda</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.09</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Autoubicacion escala<br>
-izquierda-derecha:<br>
-Indep/Ninguno</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.39</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional:<br>
-Primaria y secundaria<br>
-baja</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.02</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.867</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional:<br>
-Secundaria alta</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.45</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional:<br>
-Terciaria ciclo corto</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.01</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional:<br>
-Terciaria y Postgrado</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.67</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">3651</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.209 / 0.207</td>
-</tr>
-</tbody>
-</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(modelo_std), <span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)   educacion      ing100        edad 
+      0.000       0.230       0.176       0.062 </code></pre>
 </div>
 </div>
-<p>Con base en este modelo crea un gráfico de valores predichos para la variable de nivel educacional.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(fit05, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"educ"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Posición política"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Básica incompleta"</span>, <span class="st">"Básica completa"</span>, <span class="st">"Educación media"</span>, <span class="st">"Técnico profesional"</span>, <span class="st">"Universitaria"</span>)) <span class="sc">+</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">16</span>), </span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">16</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-05_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>2- Estima un nuevo modelo de regresión que incluya un término de interacción entre edad y nivel educacional</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fit06<span class="ot">&lt;-</span> <span class="fu">lm</span>(partpol<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pospol<span class="sc">+</span>educ<span class="sc">*</span>edad,<span class="at">data=</span>elsoc)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(fit06,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.ci=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">partpol</th>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.98</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo entrevistado</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.536</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad entrevistado</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.163</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Autoubicacion escala<br>
-izquierda-derecha: Centro</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.95</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Autoubicacion escala<br>
-izquierda-derecha:<br>
-Izquierda</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.09</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Autoubicacion escala<br>
-izquierda-derecha:<br>
-Indep/Ninguno</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.39</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional:<br>
-Primaria y secundaria<br>
-baja</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.64</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.340</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional:<br>
-Secundaria alta</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.54</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.003</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional:<br>
-Terciaria ciclo corto</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.08</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional:<br>
-Terciaria y Postgrado</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.24</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">edad:educ2</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.391</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">edad:educ3</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.034</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">edad:educ4</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.076</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">edad:educ5</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.03</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">3651</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.212 / 0.209</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Grafica la interacción estimada en este modelo</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">plot_model</span>(fit06, <span class="at">type =</span> <span class="st">"int"</span>) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-05_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>3- Interpreta los gráficos elaborados.</p>
 <ul>
-<li><p>Gráfico 1: a mayor educación, más participación política</p></li>
-<li><p>Gráfico 2: el efecto de la edad se mantiene negativo para todos los grupos educacionales. Los jóvenes con educación universitaria son quienes más participan.</p></li>
+<li><strong>Educación</strong>: por cada desviación estándar adicional de nivel educacional, el estatus subjetivo aumenta el valor del coeficiente en desviaciones estándar, manteniendo constantes el ingreso y la edad</li>
+<li><strong>Ingreso</strong>: la misma lectura, por cada desviación estándar adicional de ingreso del hogar</li>
+<li><strong>Edad</strong>: ídem</li>
 </ul>
+<p>Y ahora sí pueden compararse entre sí. Observe que la distancia entre educación e ingreso es mucho menor de lo que sugerían los coeficientes originales: en escala bruta el de educación parecía más de tres veces mayor, y estandarizados resultan bastante cercanos.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>El hallazgo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En la escala original, el coeficiente del ingreso parecía casi despreciable. Estandarizado, resulta tener un peso comparable al de la educación. La impresión inicial era un artefacto de las unidades de medida.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="qué-cambia-y-qué-no" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Qué cambia y qué no</h1>
+<section id="el-ajuste-no-cambia" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="el-ajuste-no-cambia"><span class="header-section-number">6.1</span> El ajuste no cambia</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">original =</span> <span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">estandarizado =</span> <span class="fu">summary</span>(modelo_std)<span class="sc">$</span>r.squared)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     original estandarizado 
+    0.1126182     0.1126182 </code></pre>
+</div>
+</div>
+<p>Estandarizar no altera el poder explicativo del modelo. Es la misma información expresada en otra escala.</p>
+</section>
+<section id="la-inferencia-tampoco" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="la-inferencia-tampoco"><span class="header-section-number">6.2</span> La inferencia tampoco</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>coefficients[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            t value Pr(&gt;|t|)
+(Intercept) 19.9484   0.0000
+educacion    9.7820   0.0000
+ing100       7.9194   0.0000
+edad         2.9574   0.0031</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(modelo_std)<span class="sc">$</span>coefficients[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            t value Pr(&gt;|t|)
+(Intercept)  0.0000   1.0000
+educacion    9.7820   0.0000
+ing100       7.9194   0.0000
+edad         2.9574   0.0031</code></pre>
+</div>
+</div>
+<p>Los valores <span class="math inline">\(t\)</span> y los valores p de los predictores son <strong>idénticos</strong>. Un coeficiente significativo lo sigue siendo, y uno que no lo era tampoco pasa a serlo. La estandarización responde a la pregunta de la importancia relativa, no a la de significación.</p>
+</section>
+<section id="el-intercepto-sí-cambia" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="el-intercepto-sí-cambia"><span class="header-section-number">6.3</span> El intercepto sí cambia</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">original =</span> <span class="fu">coef</span>(modelo)[<span class="dv">1</span>], <span class="at">estandarizado =</span> <span class="fu">coef</span>(modelo_std)[<span class="dv">1</span>])</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     original.(Intercept) estandarizado.(Intercept) 
+2.92152986247441726064267 0.00000000000000004624409 </code></pre>
+</div>
+</div>
+<p>En el modelo estandarizado el intercepto es cero, porque todas las variables fueron centradas en su promedio. Deja de tener cualquier interpretación sustantiva.</p>
+</section>
+<section id="una-alternativa-con-tab_model" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="una-alternativa-con-tab_model"><span class="header-section-number">6.4</span> Una alternativa con <code>tab_model</code></h2>
+<p>La librería <code>sjPlot</code> puede mostrar ambas columnas en una sola tabla, sin necesidad de estimar un segundo modelo:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(modelo,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.std =</span> <span class="st">"std"</span>,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"Estatus subjetivo"</span>),</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Nivel educacional"</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Ingreso (cientos de miles)"</span>, <span class="st">"Edad"</span>),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.pred =</span> <span class="st">"Predictores"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Estatus subjetivo</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Beta</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">standardized std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.922 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.146</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.020</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.161 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.016</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.230</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso (cientos de miles)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.048 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.176</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.006 <sup>**</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.002</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.062</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.021</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="4" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="4" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.113 / 0.111</td>
+</tr>
+<tr class="odd">
+<td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Esta es la forma habitual de reportarlo en un artículo cuando interesan ambas lecturas.</p>
+</section>
+</section>
+<section id="un-segundo-ejemplo" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Un segundo ejemplo</h1>
+<p>Hasta aquí trabajamos con variables medidas directamente. El caso donde la estandarización resulta más necesaria es el de las variables <strong>construidas</strong>, cuyas unidades son arbitrarias.</p>
+<section id="construcción-de-una-escala" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="construcción-de-una-escala"><span class="header-section-number">7.1</span> Construcción de una escala</h2>
+<p>El módulo de salud y bienestar de ELSOC incluye nueve ítems sobre la frecuencia de distintos estados anímicos durante las últimas dos semanas, con categorías de respuesta que van desde “nunca” hasta “todos los días”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>animo <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(s11_01, s11_02, s11_03, s11_04, s11_05,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>         s11_06, s11_07, s11_08, s11_09,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">educacion =</span> m01,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">ingreso =</span> m29,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">edad =</span> m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ingreso <span class="sc">&gt;=</span> <span class="dv">50000</span>, ingreso <span class="sc">&lt;=</span> <span class="dv">5000000</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Recodificamos los ítems para que la categoría más baja sea 0:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>animo <span class="ot">&lt;-</span> animo <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(s11_01<span class="sc">:</span>s11_09, <span class="sc">~</span> .x <span class="sc">-</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Antes de sumar los ítems conviene verificar que efectivamente miden lo mismo. Una medida habitual de consistencia interna es el <strong>alfa de Cronbach</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">alpha</span>(animo <span class="sc">%&gt;%</span> <span class="fu">select</span>(s11_01<span class="sc">:</span>s11_09))<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8520755</code></pre>
+</div>
+</div>
+<p>El valor obtenido es alto, lo que respalda la decisión de combinarlos en un solo puntaje. La construcción y validación de escalas es materia de la última unidad del curso; aquí nos basta con esta verificación mínima.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>animo <span class="ot">&lt;-</span> animo <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ing100 =</span> ingreso <span class="sc">/</span> <span class="dv">100000</span>,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sintomas =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(s11_01<span class="sc">:</span>s11_09))) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sintomas, educacion, ing100, edad)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(animo<span class="sc">$</span>sintomas)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   2.000   5.000   6.121   9.000  36.000 </code></pre>
+</div>
+</div>
+</section>
+<section id="el-problema-de-las-unidades-arbitrarias" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="el-problema-de-las-unidades-arbitrarias"><span class="header-section-number">7.2</span> El problema de las unidades arbitrarias</h2>
+<p>¿Cuánto es “un punto” en esta escala? La respuesta es que depende enteramente de cómo la construimos: si hubiéramos promediado en lugar de sumar, o si la escala tuviera doce ítems en lugar de nueve, el mismo fenómeno produciría coeficientes de magnitud muy distinta.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>modelo_animo <span class="ot">&lt;-</span> <span class="fu">lm</span>(sintomas <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> animo)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>animo_std <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(animo))</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>modelo_animo_std <span class="ot">&lt;-</span> <span class="fu">lm</span>(sintomas <span class="sc">~</span> educacion <span class="sc">+</span> ing100 <span class="sc">+</span> edad, <span class="at">data =</span> animo_std)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(<span class="fu">list</span>(modelo_animo, modelo_animo_std),</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">"No estandarizado"</span>, <span class="st">"Estandarizado"</span>),</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Nivel educacional"</span>,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Ingreso"</span>, <span class="st">"Edad"</span>),</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.est =</span> <span class="st">"β"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">No estandarizado</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Estandarizado</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">β</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">8.581 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.582</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.000 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.021</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.294 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.066</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.111 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Ingreso</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.086 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.024</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.083 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.023</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.010 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.008</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.025 <sup></sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2285</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2285</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.026 / 0.024</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.026 / 0.024</td>
+</tr>
+<tr class="odd">
+<td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Observe nuevamente el patrón: en escala original el coeficiente de educación parece más de tres veces mayor que el de ingreso, y estandarizados resultan mucho más cercanos. Note también que la edad no alcanza significación estadística en ninguno de los dos modelos, lo que confirma que estandarizar no modifica la inferencia.</p>
+</section>
+</section>
+<section id="ejercicios" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Ejercicios</h1>
+<ol type="1">
+<li><p>Cargue la base ELSOC y filtre por la <strong>ola 4</strong> (2019). Seleccione <code>d01_01</code>, <code>m01</code>, <code>m29</code> y <code>m0_edad</code>, recodifique los valores perdidos, aplique el mismo criterio de limpieza al ingreso y exprese el ingreso en cientos de miles.</p></li>
+<li><p>Estime el modelo de estatus subjetivo con los tres predictores y reporte sus coeficientes.</p></li>
+</ol>
+<section id="estandarización" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="estandarización"><span class="header-section-number">8.1</span> Estandarización</h2>
+<ol start="3" type="1">
+<li><p>Estandarice <strong>a mano</strong> la variable de edad, creando una nueva columna. Verifique que su media es cero y su desviación estándar uno.</p></li>
+<li><p>Estandarice la base completa con <code>scale()</code> y confirme que su cálculo manual coincide con la columna correspondiente.</p></li>
+<li><p>Estime el modelo estandarizado y presente una tabla comparativa con ambos modelos.</p></li>
+</ol>
+</section>
+<section id="interpretación-1" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="interpretación-1"><span class="header-section-number">8.2</span> Interpretación</h2>
+<ol start="6" type="1">
+<li><p>Interprete el coeficiente estandarizado de cada predictor, redactando una oración completa para cada uno.</p></li>
+<li><p>Ordene los tres predictores según su peso relativo y justifique por qué ese orden no puede establecerse a partir de los coeficientes originales.</p></li>
+<li><p>Verifique que el <span class="math inline">\(R^2\)</span> y los valores p son idénticos en ambos modelos, y explique por qué ocurre esto.</p></li>
+</ol>
+</section>
+<section id="reporte" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="reporte"><span class="header-section-number">8.3</span> Reporte</h2>
+<ol start="9" type="1">
+<li><p>Redacte un párrafo de máximo 250 palabras que reporte el modelo, interprete el predictor de mayor peso relativo y señale explícitamente qué agrega la lectura estandarizada respecto de la no estandarizada.</p></li>
+<li><p>Señale una situación de investigación en la que <strong>no</strong> convendría reportar coeficientes estandarizados, y justifique brevemente.</p></li>
+</ol>
 
 
 </section>

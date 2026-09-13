@@ -1,0 +1,454 @@
+---
+title: "Práctico 05. Estandarización de coeficientes"
+subtitle: "Métodos estadísticos para Ciencias Sociales III"
+date: "2026-09-14"
+lang: es
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-copy: true
+    code-overflow: wrap
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+# Presentación
+
+## Objetivo de la práctica
+
+En el práctico anterior estimamos modelos de regresión múltiple y quedó planteada una pregunta que no pudimos responder: si un modelo tiene varios predictores medidos en unidades distintas, ¿**cuál de ellos pesa más**?
+
+Esta guía responde esa pregunta mediante la **estandarización** de variables. Al terminar, usted debería ser capaz de:
+
+1. Explicar por qué dos coeficientes de regresión no siempre son comparables entre sí
+2. Calcular un **puntaje Z** a mano y con la función `scale()`
+3. Estimar un modelo con variables estandarizadas e interpretar sus coeficientes
+4. Verificar qué cambia y qué permanece idéntico al estandarizar
+5. Convertir un coeficiente de una escala a la otra sin reestimar el modelo
+6. Decidir cuándo conviene reportar coeficientes estandarizados y cuándo no
+
+Esta mañana trabajaremos el procedimiento en R. En la sesión de la tarde revisaremos con más detalle sus fundamentos y sus límites.
+
+## Los datos
+
+Continuamos con el **estatus social subjetivo** en ELSOC 2016, el mismo modelo del práctico anterior. Más adelante incorporaremos un segundo ejemplo con una variable construida a partir de una escala.
+
+# Preparación
+
+## Librerías
+
+```{r}
+pacman::p_load(dplyr,
+               sjmisc,
+               sjPlot,
+               kableExtra,
+               summarytools,
+               psych,
+               ggplot2)
+```
+
+```{r}
+rm(list = ls())
+options(scipen = 999)
+
+# Ajustes para que las tablas de summarytools se vean bien en Quarto
+st_options(bootstrap.css = FALSE,
+           plain.ascii = FALSE,
+           style = "rmarkdown",
+           dfSummary.silent = TRUE,
+           footnote = NA,
+           subtitle.emphasis = FALSE)
+```
+
+## Carga y procesamiento
+
+```{r}
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
+```
+
+```{r}
+proc_data <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(d01_01, m01, m29, m0_edad) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("estatus" = d01_01,
+         "educacion" = m01,
+         "ingreso" = m29,
+         "edad" = m0_edad) %>%
+  na.omit() %>%
+  filter(ingreso >= 50000, ingreso <= 5000000) %>%
+  mutate(ing100 = ingreso / 100000) %>%
+  select(estatus, educacion, ing100, edad)
+
+dim(proc_data)
+```
+
+## El modelo del práctico anterior
+
+Retomamos el modelo con el que cerramos el práctico anterior:
+
+```{r}
+modelo <- lm(estatus ~ educacion + ing100 + edad, data = proc_data)
+```
+
+```{r}
+tab_model(modelo,
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 4,
+          p.style = "stars",
+          dv.labels = c("Estatus social subjetivo"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso (cientos de miles)", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+Los tres predictores son estadísticamente significativos y el modelo explica algo más de un 11% de la varianza. Hasta aquí, todo conocido.
+
+# El problema
+
+## ¿Cuál predictor pesa más?
+
+Observe la columna de coeficientes. El de educación es aproximadamente veinticinco veces mayor que el de edad. ¿Significa eso que la educación es veinticinco veces más importante?
+
+La respuesta es que no, y la razón está en las **unidades de medida** de cada variable. Revisemos los descriptivos:
+
+```{r}
+#| results: asis
+
+dfSummary(proc_data,
+          varnumbers = FALSE,
+          valid.col = FALSE,
+          graph.magnif = 0.75,
+          headings = FALSE) %>%
+  print(method = "render")
+```
+
+Un año adicional de edad es un cambio muy pequeño dentro de una variable que recorre más de cincuenta años. Un nivel educacional adicional, en cambio, es un cambio grande dentro de una escala de diez categorías. Comparar ambos coeficientes es como comparar una distancia medida en milímetros con otra medida en kilómetros.
+
+## Una comprobación
+
+Para ver que el problema es de unidades y no sustantivo, hagamos un experimento: expresemos la edad en **décadas** en lugar de años.
+
+```{r}
+proc_data$edad_decadas <- proc_data$edad / 10
+
+modelo_decadas <- lm(estatus ~ educacion + ing100 + edad_decadas,
+                     data = proc_data)
+
+c(edad_en_anios = coef(modelo)[4],
+  edad_en_decadas = coef(modelo_decadas)[4])
+```
+
+El coeficiente se multiplicó por diez sin que nada haya cambiado en los datos ni en la relación entre las variables. Lo único que cambió fue la unidad en que medimos el predictor.
+
+```{r}
+c(r2_original = summary(modelo)$r.squared,
+  r2_decadas = summary(modelo_decadas)$r.squared)
+```
+
+El ajuste del modelo es idéntico. Esto confirma que la magnitud de un coeficiente, por sí sola, no informa nada sobre la importancia de un predictor.
+
+```{r}
+proc_data$edad_decadas <- NULL # eliminamos la variable auxiliar
+```
+
+# La estandarización
+
+## El puntaje Z
+
+La solución consiste en llevar todas las variables a una **escala común**. El procedimiento es el puntaje Z: a cada valor se le resta el promedio de su variable y se divide por su desviación estándar.
+
+$$z_x=\frac{x-\bar{x}}{sd(x)}$$
+
+El resultado se interpreta en desviaciones estándar: un valor de $z = 1$ indica que el caso está una desviación estándar por sobre el promedio, y uno de $z = -0{,}5$, media desviación estándar por debajo.
+
+## Cálculo manual
+
+Hagámoslo primero a mano, para una sola variable:
+
+```{r}
+media_educacion <- mean(proc_data$educacion)
+de_educacion <- sd(proc_data$educacion)
+
+proc_data$educacion_z <- (proc_data$educacion - media_educacion) / de_educacion
+```
+
+Comparemos los primeros casos:
+
+```{r}
+head(proc_data %>% select(educacion, educacion_z), 8) %>%
+  kable(digits = 3,
+        col.names = c("Educación (original)", "Educación (estandarizada)")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+Verifiquemos que la variable transformada tiene las propiedades esperadas:
+
+```{r}
+c(media = mean(proc_data$educacion_z), de = sd(proc_data$educacion_z))
+```
+
+El promedio es cero (salvo error de redondeo computacional) y la desviación estándar es uno.
+
+## La función `scale()`
+
+Naturalmente, no haremos esto variable por variable. La función `scale()` estandariza todas las columnas de una base de datos:
+
+::: {.callout-note}
+## Estandarizar una base completa
+`datos_std <- data.frame(scale(datos))`
+
+La función `data.frame()` es necesaria porque `scale()` devuelve una matriz, y `lm()` espera un `data.frame`.
+:::
+
+```{r}
+proc_data$educacion_z <- NULL # eliminamos la variable que creamos a mano
+
+proc_data_std <- data.frame(scale(proc_data))
+```
+
+Comparemos los descriptivos antes y después:
+
+```{r}
+descr(proc_data,
+      stats = c("mean", "sd", "min", "med", "max", "n.valid"),
+      transpose = TRUE,
+      order = "preserve") %>%
+  kable(digits = 2, caption = "Variables originales") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+```{r}
+descr(proc_data_std,
+      stats = c("mean", "sd", "min", "med", "max", "n.valid"),
+      transpose = TRUE,
+      order = "preserve") %>%
+  kable(digits = 2, caption = "Variables estandarizadas") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+Note que **todas** las variables quedaron con media 0 y desviación estándar 1, incluida la variable dependiente. El mínimo y el máximo, en cambio, son distintos para cada una, porque dependen de cuán alejados estén los valores extremos respecto del promedio.
+
+::: {.callout-warning}
+## Dos paquetes, una misma función
+Tanto `sjmisc` como `summarytools` incluyen una función llamada `descr`, y hacen cosas distintas. Cuando dos paquetes cargados definen el mismo nombre, R usa el del paquete cargado **más recientemente**, que aquí es `summarytools`.
+
+De ahí el argumento `transpose = TRUE`: sin él, `summarytools::descr` ubica los estadísticos en las filas y las variables en las columnas, que es lo contrario de lo habitual. El argumento `order = "preserve"` evita además que las variables se ordenen alfabéticamente.
+
+Si quiere asegurarse de cuál función está usando, escriba el nombre del paquete de forma explícita, como en `sjmisc::descr()` o `summarytools::descr()`.
+:::
+
+::: {.callout-warning}
+## Una advertencia sobre `scale()`
+La función estandariza **todas** las columnas de la base, sin distinguir. Si su base contiene identificadores, variables categóricas o cualquier columna que no corresponda estandarizar, debe seleccionar antes las variables del modelo. Por eso en el procesamiento inicial nos quedamos únicamente con las cuatro variables de interés.
+:::
+
+# El modelo estandarizado
+
+## Estimación
+
+La sintaxis es exactamente la misma; lo único que cambia es la base de datos:
+
+```{r}
+modelo_std <- lm(estatus ~ educacion + ing100 + edad, data = proc_data_std)
+
+coef(modelo_std)
+```
+
+## Comparación
+
+```{r}
+tab_model(list(modelo, modelo_std),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("No estandarizado", "Estandarizado"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso (cientos de miles)", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## Interpretación
+
+Los coeficientes estandarizados se leen en desviaciones estándar de la variable dependiente por cada desviación estándar de la independiente.
+
+```{r}
+round(coef(modelo_std), 3)
+```
+
+- **Educación**: por cada desviación estándar adicional de nivel educacional, el estatus subjetivo aumenta el valor del coeficiente en desviaciones estándar, manteniendo constantes el ingreso y la edad
+- **Ingreso**: la misma lectura, por cada desviación estándar adicional de ingreso del hogar
+- **Edad**: ídem
+
+Y ahora sí pueden compararse entre sí. Observe que la distancia entre educación e ingreso es mucho menor de lo que sugerían los coeficientes originales: en escala bruta el de educación parecía más de tres veces mayor, y estandarizados resultan bastante cercanos.
+
+::: {.callout-important}
+## El hallazgo
+En la escala original, el coeficiente del ingreso parecía casi despreciable. Estandarizado, resulta tener un peso comparable al de la educación. La impresión inicial era un artefacto de las unidades de medida.
+:::
+
+# Qué cambia y qué no
+
+## El ajuste no cambia
+
+```{r}
+c(original = summary(modelo)$r.squared,
+  estandarizado = summary(modelo_std)$r.squared)
+```
+
+Estandarizar no altera el poder explicativo del modelo. Es la misma información expresada en otra escala.
+
+## La inferencia tampoco
+
+```{r}
+round(summary(modelo)$coefficients[, 3:4], 4)
+```
+
+```{r}
+round(summary(modelo_std)$coefficients[, 3:4], 4)
+```
+
+Los valores $t$ y los valores p de los predictores son **idénticos**. Un coeficiente significativo lo sigue siendo, y uno que no lo era tampoco pasa a serlo. La estandarización responde a la pregunta de la importancia relativa, no a la de significación.
+
+## El intercepto sí cambia
+
+```{r}
+c(original = coef(modelo)[1], estandarizado = coef(modelo_std)[1])
+```
+
+En el modelo estandarizado el intercepto es cero, porque todas las variables fueron centradas en su promedio. Deja de tener cualquier interpretación sustantiva.
+
+## Una alternativa con `tab_model`
+
+La librería `sjPlot` puede mostrar ambas columnas en una sola tabla, sin necesidad de estimar un segundo modelo:
+
+```{r}
+tab_model(modelo,
+          show.std = "std",
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Estatus subjetivo"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso (cientos de miles)", "Edad"),
+          string.pred = "Predictores")
+```
+
+Esta es la forma habitual de reportarlo en un artículo cuando interesan ambas lecturas.
+
+# Un segundo ejemplo
+
+Hasta aquí trabajamos con variables medidas directamente. El caso donde la estandarización resulta más necesaria es el de las variables **construidas**, cuyas unidades son arbitrarias.
+
+## Construcción de una escala
+
+El módulo de salud y bienestar de ELSOC incluye nueve ítems sobre la frecuencia de distintos estados anímicos durante las últimas dos semanas, con categorías de respuesta que van desde "nunca" hasta "todos los días".
+
+```{r}
+animo <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(s11_01, s11_02, s11_03, s11_04, s11_05,
+         s11_06, s11_07, s11_08, s11_09,
+         educacion = m01,
+         ingreso = m29,
+         edad = m0_edad) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  na.omit() %>%
+  filter(ingreso >= 50000, ingreso <= 5000000)
+```
+
+Recodificamos los ítems para que la categoría más baja sea 0:
+
+```{r}
+animo <- animo %>%
+  mutate(across(s11_01:s11_09, ~ .x - 1))
+```
+
+Antes de sumar los ítems conviene verificar que efectivamente miden lo mismo. Una medida habitual de consistencia interna es el **alfa de Cronbach**:
+
+```{r}
+psych::alpha(animo %>% select(s11_01:s11_09))$total$raw_alpha
+```
+
+El valor obtenido es alto, lo que respalda la decisión de combinarlos en un solo puntaje. La construcción y validación de escalas es materia de la última unidad del curso; aquí nos basta con esta verificación mínima.
+
+```{r}
+animo <- animo %>%
+  mutate(ing100 = ingreso / 100000,
+         sintomas = rowSums(across(s11_01:s11_09))) %>%
+  select(sintomas, educacion, ing100, edad)
+
+summary(animo$sintomas)
+```
+
+## El problema de las unidades arbitrarias
+
+¿Cuánto es "un punto" en esta escala? La respuesta es que depende enteramente de cómo la construimos: si hubiéramos promediado en lugar de sumar, o si la escala tuviera doce ítems en lugar de nueve, el mismo fenómeno produciría coeficientes de magnitud muy distinta.
+
+```{r}
+modelo_animo <- lm(sintomas ~ educacion + ing100 + edad, data = animo)
+
+animo_std <- data.frame(scale(animo))
+modelo_animo_std <- lm(sintomas ~ educacion + ing100 + edad, data = animo_std)
+```
+
+```{r}
+tab_model(list(modelo_animo, modelo_animo_std),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("No estandarizado", "Estandarizado"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+Observe nuevamente el patrón: en escala original el coeficiente de educación parece más de tres veces mayor que el de ingreso, y estandarizados resultan mucho más cercanos. Note también que la edad no alcanza significación estadística en ninguno de los dos modelos, lo que confirma que estandarizar no modifica la inferencia.
+
+# Ejercicios
+
+1. Cargue la base ELSOC y filtre por la **ola 4** (2019). Seleccione `d01_01`, `m01`, `m29` y `m0_edad`, recodifique los valores perdidos, aplique el mismo criterio de limpieza al ingreso y exprese el ingreso en cientos de miles.
+
+2. Estime el modelo de estatus subjetivo con los tres predictores y reporte sus coeficientes.
+
+## Estandarización
+
+3. Estandarice **a mano** la variable de edad, creando una nueva columna. Verifique que su media es cero y su desviación estándar uno.
+
+4. Estandarice la base completa con `scale()` y confirme que su cálculo manual coincide con la columna correspondiente.
+
+5. Estime el modelo estandarizado y presente una tabla comparativa con ambos modelos.
+
+## Interpretación
+
+6. Interprete el coeficiente estandarizado de cada predictor, redactando una oración completa para cada uno.
+
+7. Ordene los tres predictores según su peso relativo y justifique por qué ese orden no puede establecerse a partir de los coeficientes originales.
+
+8. Verifique que el $R^2$ y los valores p son idénticos en ambos modelos, y explique por qué ocurre esto.
+
+## Reporte
+
+9. Redacte un párrafo de máximo 250 palabras que reporte el modelo, interprete el predictor de mayor peso relativo y señale explícitamente qué agrega la lectura estandarizada respecto de la no estandarizada.
+
+10. Señale una situación de investigación en la que **no** convendría reportar coeficientes estandarizados, y justifique brevemente.
