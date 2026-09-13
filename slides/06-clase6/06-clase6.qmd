@@ -1,0 +1,931 @@
+---
+pagetitle: Métodos estadísticos para Ciencias Sociales III
+author: Kevin Carrasco
+#bibliography: ../../input/bib/soci133.bib
+#csl: ../../input/bib/apa7-singlespace.csl
+
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    R.options:
+      knitr.graphics.auto_pdf: true
+
+format:
+  revealjs:
+    logo: images/icon-512.png
+    slide-number: true
+    theme: presentaciones
+    navigationMode: linear
+    transition: fade
+    title-slide-attributes:
+      visibility: false
+    auto-play-media: true
+
+
+editor:
+  render-on-save: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(ggplot2)
+library(knitr)
+library(sjPlot)
+library(dplyr)
+library(sjmisc)
+library(ggeffects)
+
+azul <- "#04245f"
+azul_claro <- "#4f97ff"
+rojo <- "#c0392b"
+
+theme_set(theme_minimal(base_size = 16))
+
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
+
+elsoc <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(d01_01, m01, m29, m0_edad) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("estatus" = d01_01,
+         "educacion" = m01,
+         "ingreso" = m29,
+         "edad" = m0_edad) %>%
+  na.omit() %>%
+  filter(ingreso >= 50000, ingreso <= 5000000) %>%
+  mutate(ing100 = ingreso / 100000)
+
+elsoc <- elsoc %>% select(estatus, educacion, ing100, edad)
+
+e1 <- lm(estatus ~ educacion, data = elsoc)
+e2 <- lm(estatus ~ educacion + ing100, data = elsoc)
+e3 <- lm(estatus ~ educacion + ing100 + edad, data = elsoc)
+
+elsoc_std <- data.frame(scale(elsoc))
+e3_std <- lm(estatus ~ educacion + ing100 + edad, data = elsoc_std)
+
+b0 <- round(coef(e3)[1], 4)
+b_ed <- round(coef(e3)[2], 4)
+b_in <- round(coef(e3)[3], 4)
+b_ea <- round(coef(e3)[4], 4)
+
+z_ed <- round(coef(e3_std)[2], 3)
+z_in <- round(coef(e3_std)[3], 3)
+z_ea <- round(coef(e3_std)[4], 3)
+
+sd_ed <- round(sd(elsoc$educacion), 2)
+sd_in <- round(sd(elsoc$ing100), 2)
+sd_ea <- round(sd(elsoc$edad), 2)
+sd_es <- round(sd(elsoc$estatus), 2)
+
+n_elsoc <- nrow(elsoc)
+r2_e3 <- round(summary(e3)$r.squared, 4)
+r2_std <- round(summary(e3_std)$r.squared, 4)
+
+perfiles <- data.frame(
+  educacion = c(3, 8, 3, 8),
+  ing100 = c(2.5, 10, 2.5, 10),
+  edad = c(30, 30, 60, 60)
+)
+perfiles$predicho <- predict(e3, newdata = perfiles)
+
+pred_b <- round(perfiles$predicho[2], 2)
+
+ic_media <- predict(e3, newdata = perfiles[2, 1:3],
+                    interval = "confidence")
+ic_indiv <- predict(e3, newdata = perfiles[2, 1:3],
+                    interval = "prediction")
+
+# --- Segundo ejemplo: bienestar anímico (visto en la sesión 5) ---
+items <- paste0("s11_0", 1:9)
+
+animo <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(all_of(items), m01, m29, m0_edad) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  na.omit() %>%
+  rename("educacion" = m01, "ingreso" = m29, "edad" = m0_edad) %>%
+  filter(ingreso >= 50000, ingreso <= 5000000) %>%
+  mutate(across(all_of(items), ~ .x - 1),
+         ing100 = ingreso / 100000,
+         sintomas = rowSums(across(all_of(items))))
+
+animo <- animo %>% select(sintomas, educacion, ing100, edad)
+
+a1 <- lm(sintomas ~ educacion + ing100 + edad, data = animo)
+animo_std <- data.frame(scale(animo))
+a1_std <- lm(sintomas ~ educacion + ing100 + edad, data = animo_std)
+
+a_ed <- round(coef(a1)[2], 3)
+a_in <- round(coef(a1)[3], 3)
+az_ed <- round(coef(a1_std)[2], 3)
+az_in <- round(coef(a1_std)[3], 3)
+n_animo <- nrow(animo)
+r2_a1 <- round(summary(a1)$r.squared * 100, 1)
+p_ea_a <- round(summary(a1)$coefficients[4, 4], 3)
+```
+
+##  {data-background-color="black"}
+
+::: {.columns .v-center-container}
+::: {.column width="20%"}
+![](../../files/img/eval-hires.png){width="100%" fig-align="center"}
+:::
+
+::: {.column width="80%"}
+### Métodos estadísticos para 
+### Ciencias Sociales III
+
+------------------------------------------------------------------------
+
+### **Kevin Carrasco**
+### Sociología - UNAB
+### 2do Sem 2026
+### [https://metod3-unab.netlify.app/](https://metod3-unab.netlify.app/)
+:::
+:::
+
+# Sesión 6 {data-background-color="black"}
+
+Recordatorio de la unidad anterior
+
+Estandarización de coeficientes
+
+Estimación de valores predichos
+
+## Retomando
+
+::: {.incremental}
+
+- Antes de la prueba dejamos cerrada la primera parte del curso: estimación, ajuste, inferencia, regresión múltiple y reporte
+
+- Hoy retomamos con un contenido que quedó pendiente, la **estandarización** de coeficientes
+
+- Y avanzamos al tercer objetivo del modelo de regresión: la **predicción**
+
+:::
+
+# Recordatorio: lo que llevamos {data-background-color="black"}
+
+## Los tres objetivos del modelo de regresion
+
+::: {.incremental}
+
+1. **Conocer**: la variación de la variable dependiente según la variación de una o más independientes
+
+2. **Inferir**: establecer en qué medida esa asociación es estadísticamente significativa
+
+3. **Predecir**: estimar el valor de la variable dependiente según el valor de las independientes
+
+:::
+
+::: {.fragment .fade-up}
+
+Los dos primeros ya los trabajamos. El tercero es el contenido de hoy
+
+:::
+
+## El modelo, en una línea
+
+$$\widehat{Y}=b_{0} + b_{1}X_{1} + b_{2}X_{2} + \dots + b_{k}X_{k}$$
+
+::: {.incremental}
+
+- $b_0$: valor esperado de $Y$ cuando todas las independientes valen 0
+
+- $b_j$: cambio esperado en $Y$ por cada unidad de $X_j$, manteniendo constantes las demás
+
+- $e_i = Y_i - \widehat{Y}_i$: residuo, lo que el modelo no logra explicar
+
+:::
+
+## Estimación
+
+$$b_{1}=\frac{\sum(x_i - \bar{x})(y_i - \bar{y})} {\sum(x_i - \bar{x})^2} \qquad b_{0}=\bar{Y}-b_{1}\bar{X}$$
+
+::: {.incremental}
+
+- El criterio es el de **mínimos cuadrados ordinarios**: la recta que minimiza la suma de los residuos al cuadrado
+
+- La recta siempre pasa por el punto de los promedios $(\bar{X}, \bar{Y})$
+
+:::
+
+## Parcialización y control estadístico
+
+::: {.incremental}
+
+- En regresión múltiple, cada coeficiente está **parcializado** respecto de los demás predictores
+
+- Por eso los coeficientes **cambian** al agregar variables: pueden disminuir, aumentar o incluso invertir su signo
+
+- Siempre debe explicitarse qué variables están en el modelo al interpretar un coeficiente
+
+:::
+
+## Ajuste e inferencia
+
+::: {.incremental}
+
+- $R^2 = SS_{reg}/SS_{tot}$: proporción de la varianza de $Y$ asociada al modelo. El $R^2$ ajustado penaliza el número de predictores
+
+- El **error estándar** mide la imprecisión del coeficiente
+
+- $t = \beta / se(\beta)$. Para muestras grandes, $t > 1{,}96$ permite rechazar $H_0$ a un $p<0{,}05$
+
+- Significación estadística **no** equivale a relevancia sustantiva
+
+:::
+
+## Nuestro modelo de referencia
+
+Seguimos con el estatus social subjetivo en ELSOC 2016 (N = `r n_elsoc`)
+
+```{r}
+#| label: tab-referencia
+#| echo: false
+#| results: asis
+
+tab_model(e3,
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 4,
+          p.style = "stars",
+          dv.labels = c("Estatus subjetivo"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso (cientos de miles)", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+# Estandarización de coeficientes {data-background-color="black"}
+
+## El problema
+
+Mirando la tabla anterior, ¿cuál de los tres predictores es **más importante**?
+
+::: {.incremental}
+
+- Nivel educacional: `r b_ed`
+
+- Ingreso (cientos de miles): `r b_in`
+
+- Edad: `r b_ea`
+
+- ¿Significa esto que la educación importa 25 veces más que la edad?
+
+:::
+
+##  {data-background-color="black"}
+
+### Los coeficientes están en **escalas distintas** y no son directamente comparables
+
+## Escalas distintas
+
+```{r}
+#| label: escalas
+#| echo: false
+
+kable(data.frame(
+  Variable = c("Estatus subjetivo", "Nivel educacional",
+               "Ingreso (cientos de miles)", "Edad"),
+  Unidad = c("peldaño (0-10)", "nivel (1-10)", "cien mil pesos", "año"),
+  DE = c(sd_es, sd_ed, sd_in, sd_ea)
+), digits = 2)
+```
+
+::: {.incremental}
+
+- Un año más de edad es un cambio **muy pequeño** en su escala; un nivel educacional más es un cambio **grande** en la suya
+
+- Comparar `r b_ed` con `r b_ea` es comparar cantidades medidas en unidades diferentes
+
+:::
+
+## La solución: una escala común
+
+::: {.incremental}
+
+- Para comparar la magnitud de un coeficiente respecto de los otros se requiere pasar a una **escala común**
+
+- Esto se efectúa mediante la **estandarización**
+
+- Cada valor se pondera respecto de la desviación estándar de su propia variable
+
+:::
+
+## El puntaje Z
+
+A cada valor se le resta el promedio y se divide por la desviación estándar:
+
+$$z_x=\frac{x-\bar{x}}{sd(x)}$$
+
+::: {.incremental}
+
+- El resultado tiene media 0 y desviación estándar 1
+
+- El procedimiento se aplica **tanto a la dependiente como a las independientes**
+
+- Un valor de $z = 1$ significa "una desviación estándar por sobre el promedio"
+
+:::
+
+## Estandarización en R
+
+```{r}
+#| label: std
+#| echo: true
+#| eval: false
+
+# scale() estandariza todas las variables de la base
+elsoc_std <- data.frame(scale(elsoc))
+
+e3_std <- lm(estatus ~ educacion + ing100 + edad, data = elsoc_std)
+```
+
+::: {.fragment .fade-up}
+
+```{r}
+#| label: check-std
+#| echo: true
+
+round(colMeans(elsoc_std), 3)
+round(apply(elsoc_std, 2, sd), 3)
+```
+
+:::
+
+## Comparación de modelos
+
+```{r}
+#| label: tab-std
+#| echo: false
+#| results: asis
+
+tab_model(list(e3, e3_std),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("No estandarizado", "Estandarizado"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## Interpretación
+
+::: {.incremental}
+
+- Los coeficientes reflejan cuántas **desviaciones estándar** cambia $Y$ ante el cambio de **una desviación estándar** en $X$
+
+- Nivel educacional (`r z_ed`): por cada desviación estándar adicional de educación, el estatus subjetivo aumenta `r z_ed` desviaciones estándar
+
+- Ahora sí son comparables: educación (`r z_ed`) e ingreso (`r z_in`) tienen pesos similares, y ambos claramente mayores que edad (`r z_ea`)
+
+:::
+
+##  {data-background-color="black"}
+
+### Lo que revela la estandarización
+
+::: {.fragment .fade-up}
+
+### En la escala original, el coeficiente del ingreso (`r b_in`) parecía casi despreciable frente al de educación (`r b_ed`)
+
+:::
+
+::: {.fragment .fade-up}
+
+### Estandarizados, `r z_in` frente a `r z_ed`: el ingreso pesa casi tanto como la educación
+
+:::
+
+## De un coeficiente al otro
+
+No es necesario reestimar el modelo. El coeficiente estandarizado se obtiene como:
+
+$$\beta_{std} = b \times \frac{sd(X)}{sd(Y)}$$
+
+::: {.fragment .fade-up}
+
+Para el ingreso:
+
+$$`r b_in` \times \frac{`r sd_in`}{`r sd_es`} = `r z_in`$$
+
+:::
+
+## ¿Qué NO cambia al estandarizar?
+
+```{r}
+#| label: r2-comp
+#| echo: true
+
+summary(e3)$r.squared
+summary(e3_std)$r.squared
+```
+
+::: {.incremental}
+
+- El $R^2$ es **idéntico**: estandarizar no altera el poder explicativo, solo la escala de los coeficientes
+
+- Los valores $t$ y los niveles de significación tampoco cambian
+
+- El intercepto pasa a ser 0, y deja de tener interpretación sustantiva
+
+:::
+
+## Ventajas y desventajas
+
+::: {.columns}
+::: {.column width="45%"}
+
+**Ventajas**
+
+- Permite **comparar** predictores entre sí
+- Neutraliza escalas distintas
+- Facilita la interpretación en términos relativos
+
+:::
+
+::: {.column width="10%"}
+
+:::
+
+::: {.column width="45%"}
+
+**Desventajas**
+
+- Se pierde la interpretación sustantiva
+- El intercepto deja de ser informativo
+- En variables dicotómicas resulta poco intuitivo
+- Dependen de la variabilidad de **esta** muestra
+
+:::
+:::
+
+##  {data-background-color="black"}
+
+### En la práctica
+
+### Se reportan los coeficientes **no estandarizados** como resultado principal
+
+### Y los estandarizados cuando la pregunta es explícitamente sobre **importancia relativa**
+
+## Volviendo al segundo ejemplo
+
+::: {.incremental}
+
+- En la sesión anterior estimamos un modelo sobre la escala de bienestar anímico (rango 0-36), con educación, ingreso y edad como predictores
+
+- La educación (`r a_ed`) parecía tener un efecto más de tres veces mayor que el ingreso (`r a_in`)
+
+- La edad no resultó significativa (p = `r p_ea_a`)
+
+- Quedó pendiente la pregunta: ¿realmente la educación pesa tres veces más?
+
+:::
+
+## Estandarizando ese modelo
+
+```{r}
+#| label: tab-animo-std
+#| echo: false
+#| results: asis
+
+tab_model(list(a1, a1_std),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("No estandarizado", "Estandarizado"),
+          pred.labels = c("(Intercepto)", "Nivel educacional",
+                          "Ingreso", "Edad"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## La conclusión cambia
+
+::: {.incremental}
+
+- Estandarizados: educación `r az_ed`, ingreso `r az_in`
+
+- La distancia entre ambos se reduce considerablemente
+
+- La impresión de que la educación importaba mucho más que el ingreso era, en buena medida, un **efecto de las unidades de medida**
+
+- Igual que en el ejemplo del estatus subjetivo: los coeficientes en escala original no sirven para comparar importancia relativa
+
+:::
+
+## Cómo se reporta
+
+::: {.small}
+
+> Se estimó un modelo de regresión lineal sobre una escala sumativa de estados anímicos (rango 0-36), con datos de la primera ola de ELSOC (2016; N = `r n_animo`). Tanto el nivel educacional (β = `r a_ed`) como el ingreso del hogar (β = `r a_in`) presentan asociaciones negativas y estadísticamente significativas, consistentes con la hipótesis del gradiente social. La edad no alcanza significación estadística (p = `r p_ea_a`) una vez controladas las restantes variables. Los coeficientes estandarizados (`r az_ed` y `r az_in`, respectivamente) indican pesos relativos similares para ambos predictores, pese a que sus coeficientes en escala original difieren en un factor cercano a tres. El modelo explica un `r r2_a1`% de la varianza.
+
+:::
+
+## Lo que enseñan los dos ejemplos
+
+::: {.incremental}
+
+1. La comparación de magnitudes en escala original puede ser francamente engañosa
+
+2. La estandarización responde a una pregunta específica, la de la **importancia relativa**, y no a la de significación ni a la de ajuste
+
+3. Un predictor puede resultar **no significativo**, y eso también es un resultado que se reporta e interpreta
+
+:::
+
+# Estimación de valores predichos {data-background-color="black"}
+
+## El tercer objetivo
+
+::: {.incremental}
+
+- Hasta ahora usamos el modelo para **describir** una asociación y para **inferir** si se generaliza
+
+- Pero la ecuación también responde otra pregunta: dado un perfil determinado de características, ¿**qué valor esperaríamos** en la variable dependiente?
+
+- Eso es un **valor predicho**
+
+:::
+
+## La ecuación como herramienta
+
+$$\widehat{Y}=b_{0} + b_{1}X_{1} + b_{2}X_{2} + b_{3}X_{3}$$
+
+En nuestro modelo:
+
+$$\widehat{estatus} = `r b0` + `r b_ed`(educ) + `r b_in`(ing100) + `r b_ea`(edad)$$
+
+::: {.fragment .fade-up}
+
+Para obtener un valor predicho basta **reemplazar** los valores de las variables independientes
+
+:::
+
+## Un caso concreto
+
+*¿Qué estatus subjetivo esperaríamos de una persona de 30 años, con nivel educacional 8 y un ingreso del hogar de un millón de pesos?*
+
+::: {.fragment .fade-up}
+
+$$\widehat{estatus} = `r b0` + `r b_ed`(8) + `r b_in`(10) + `r b_ea`(30)$$
+
+:::
+
+::: {.fragment .fade-up}
+
+$$\widehat{estatus} = `r pred_b`$$
+
+Esa persona se ubicaría, en promedio, en el peldaño `r pred_b` de la escalera social
+
+:::
+
+## En R: la función `predict()`
+
+```{r}
+#| label: predict-basico
+#| echo: true
+
+nuevo <- data.frame(educacion = 8, ing100 = 10, edad = 30)
+
+predict(e3, newdata = nuevo)
+```
+
+::: {.incremental}
+
+- `newdata` debe contener **todas** las variables independientes del modelo
+
+- Los nombres deben coincidir exactamente con los del modelo
+
+- El resultado es el mismo número que obtuvimos a mano
+
+:::
+
+## Comparando perfiles
+
+```{r}
+#| label: perfiles
+#| echo: true
+#| eval: false
+
+perfiles <- data.frame(
+  educacion = c(3, 8, 3, 8),
+  ing100 = c(2.5, 10, 2.5, 10),
+  edad = c(30, 30, 60, 60)
+)
+
+perfiles$predicho <- predict(e3, newdata = perfiles)
+```
+
+```{r}
+#| label: tab-perfiles
+#| echo: false
+
+kable(perfiles, digits = 2,
+      col.names = c("Educación", "Ingreso", "Edad", "Estatus predicho"))
+```
+
+## Leyendo la tabla de perfiles
+
+::: {.incremental}
+
+- Comparando las filas 1 y 2 (misma edad): la diferencia proviene de educación e ingreso
+
+- Comparando las filas 1 y 3 (mismas características socioeconómicas): la diferencia proviene solo de la edad
+
+- Toda la distancia entre el perfil más bajo y el más alto es de poco más de un peldaño, en una escala de 0 a 10
+
+:::
+
+## Valores predichos para todos los casos
+
+Hasta aquí predijimos perfiles hipotéticos. También podemos obtener el valor predicho de **cada caso de la base**:
+
+```{r}
+#| label: fitted
+#| echo: true
+
+elsoc$predicho <- fitted.values(e3)
+elsoc$residuo <- residuals(e3)
+```
+
+```{r}
+#| label: tab-fitted
+#| echo: false
+
+kable(head(elsoc[, c("educacion", "ing100", "edad", "estatus",
+                     "predicho", "residuo")], 5), digits = 2,
+      col.names = c("Educación", "Ingreso", "Edad",
+                    "Observado", "Predicho", "Residuo"))
+```
+
+## Predicho y residuo
+
+::: {.incremental}
+
+- El **residuo** es la distancia entre lo observado y lo predicho: $e_i = Y_i - \widehat{Y}_i$
+
+- Un residuo positivo indica que la persona se ubica **más arriba** de lo que el modelo predice para alguien con sus características
+
+- Los residuos son, en sí mismos, un objeto de interés sociológico: identifican a quienes se apartan del patrón general
+
+:::
+
+# Graficar valores predichos {data-background-color="black"}
+
+## ¿Por qué graficar?
+
+::: {.incremental}
+
+- Una tabla de regresión comunica bien a una audiencia especializada
+
+- Un gráfico de valores predichos traduce el coeficiente a la **escala sustantiva** de la variable dependiente
+
+- Permite responder de un vistazo: ¿cuánto cambia realmente $Y$ a lo largo del rango de $X$?
+
+:::
+
+## La lógica
+
+::: {.incremental}
+
+- Fijamos todas las variables menos una en un valor de referencia, habitualmente su **promedio**
+
+- Hacemos variar el predictor de interés a lo largo de su rango observado
+
+- Calculamos el valor predicho para cada uno de esos valores
+
+- Es, exactamente, la tabla de perfiles pero con muchas filas
+
+:::
+
+## Con la librería `ggeffects`
+
+```{r}
+#| label: ggpredict-code
+#| echo: true
+#| eval: false
+
+library(ggeffects)
+
+ggpredict(e3, terms = "educacion")
+```
+
+```{r}
+#| label: ggpredict-out
+#| echo: false
+
+pred_educ <- ggpredict(e3, terms = "educacion")
+kable(head(as.data.frame(pred_educ)[, c("x", "predicted", "conf.low", "conf.high")], 6),
+      digits = 3,
+      col.names = c("Educación", "Predicho", "IC inferior", "IC superior"))
+```
+
+::: {.small}
+La función fija automáticamente las demás variables en su promedio
+:::
+
+## El gráfico
+
+```{r}
+#| label: fig-ggpredict
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4.3
+
+plot(pred_educ) +
+  scale_y_continuous(limits = c(0, 10), breaks = 0:10) +
+  labs(title = NULL,
+       x = "Nivel educacional",
+       y = "Estatus subjetivo predicho")
+```
+
+## Cómo leerlo
+
+::: {.incremental}
+
+- La línea recorre los valores predichos a lo largo del nivel educacional, con ingreso y edad fijados en su promedio
+
+- La banda es el **intervalo de confianza** de la predicción
+
+- Note el eje vertical: recorre la escala completa de 0 a 10, y la pendiente se aprecia modesta
+
+:::
+
+##  {data-background-color="black"}
+
+### Una advertencia sobre los ejes
+
+::: {.fragment .fade-up}
+
+### Si dejamos que el eje se ajuste automáticamente al rango de los valores predichos, la misma línea ocupa todo el alto del gráfico
+
+:::
+
+::: {.fragment .fade-up}
+
+### La pendiente parece pronunciada y el efecto, mucho mayor de lo que es
+
+:::
+
+## El mismo gráfico, otro eje
+
+```{r}
+#| label: fig-ejes
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4
+
+plot(pred_educ) +
+  labs(title = NULL,
+       x = "Nivel educacional",
+       y = "Estatus subjetivo predicho",
+       subtitle = "Eje ajustado automáticamente")
+```
+
+::: {.small}
+Los datos son idénticos a los de la diapositiva anterior. Al graficar valores predichos, use siempre la escala completa de la variable dependiente
+:::
+
+## Dos tipos de intervalo
+
+::: {.incremental}
+
+- **Intervalo de confianza**: rango plausible para el estatus **promedio** de las personas con ese perfil
+
+- **Intervalo de predicción**: rango plausible para el estatus de **una persona concreta** con ese perfil
+
+- El segundo es siempre mucho más amplio, porque incorpora la variabilidad individual además de la incertidumbre de la estimación
+
+:::
+
+## La diferencia, en números
+
+Para el perfil de 30 años, educación 8 e ingreso de un millón:
+
+```{r}
+#| label: intervalos
+#| echo: true
+
+predict(e3, newdata = nuevo, interval = "confidence")
+predict(e3, newdata = nuevo, interval = "prediction")
+```
+
+::: {.fragment .fade-up}
+
+El promedio está bien estimado; el caso individual, en cambio, puede ubicarse casi en cualquier lugar de la escala
+
+:::
+
+## Un límite: la extrapolación
+
+::: {.incremental}
+
+- La ecuación permite reemplazar **cualquier** valor de $X$, incluso uno que no existe en los datos
+
+- Nada impide calcular el estatus predicho para una persona de 150 años o con un ingreso de cien millones
+
+- Pero el modelo fue estimado dentro de un rango determinado, y **no hay evidencia** de que la relación se mantenga fuera de él
+
+- Los valores predichos solo son defendibles dentro del rango observado de las variables
+
+:::
+
+# Un ejemplo publicado {data-background-color="black"}
+
+## Una tabla real
+
+Variable dependiente: participación en protestas
+
+::: {.small}
+
+| Variable | Std(B) | IC 95% |
+|---|---|---|
+| Ingreso mensual del hogar | .175*** | [.117, .232] |
+| Satisfacción con situación económica del país | −.131** | [−.191, −.071] |
+| Identificación política de izquierda | .150*** | [.091, .209] |
+| Identificación con causas sociales | .233*** | [.172, .294] |
+| Participación en organizaciones | .270*** | [.214, .326] |
+| Edad | .076* | [.017, .135] |
+| Nivel educacional | .073* | [.008, .138] |
+| R² | .269 | |
+| N | 930 | |
+
+:::
+
+::: {.small}
+\* p<.05, \*\* p<.01, \*\*\* p<.001
+:::
+
+## Qué observar en esta tabla
+
+::: {.incremental}
+
+- Los coeficientes son **estandarizados**, de modo que pueden compararse entre sí: el predictor de mayor peso es la participación en organizaciones
+
+- No se reportan errores estándar sino **intervalos de confianza**: ninguno contiene el cero, lo que es coherente con los asteriscos
+
+- El signo negativo de la satisfacción económica indica que, a mayor satisfacción con la situación del país, menor participación en protestas
+
+- La identificación política es una variable **dicotómica**; su interpretación la veremos en dos sesiones más
+
+:::
+
+## Para revisar
+
+Un ejemplo completo de reporte de resultados en un artículo publicado:
+
+[Revista de Sociología, Universidad de Chile](https://revistadesociologia.uchile.cl/index.php/RDS/article/view/47884/50543)
+
+::: {.small}
+Revisar la sección de resultados, desde la página 43
+:::
+
+##  {data-background-color="black"}
+
+### Hasta ahora deberíamos saber
+
+::: {.incremental}
+
+1. Los coeficientes en escala original **no son comparables** entre sí; la estandarización los lleva a una escala común
+
+2. Estandarizar no cambia el ajuste ni la significación, solo la escala de interpretación
+
+3. La ecuación de regresión permite **predecir** el valor esperado de $Y$ para cualquier perfil de características
+
+4. Los gráficos de valores predichos traducen los coeficientes a la escala sustantiva, siempre que los ejes no exageren el efecto
+
+:::
+
+## Para la próxima sesión
+
+- Wooldridge, *Introducción a la econometría*: secciones 3.2 y 3.3
+
+- La próxima clase profundizaremos en la estimación y presentación de valores predichos
+
+##  {data-background-color="black"}
+
+::: {.columns .v-center-container}
+::: {.column width="20%"}
+![](../../files/img/eval-hires.png){width="80%" fig-align="right"}
+:::
+
+::: {.column width="80%"}
+### Métodos estadísticos para Ciencias Sociales III
+
+------------------------------------------------------------------------
+
+### **Kevin Carrasco**
+### Sociología - UNAB
+### 2do Sem 2026
+### [https://metod3-unab.netlify.app/](https://metod3-unab.netlify.app/)
+:::
+:::
