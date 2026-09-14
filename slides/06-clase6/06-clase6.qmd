@@ -149,7 +149,7 @@ p_ea_a <- round(summary(a1)$coefficients[4, 4], 3)
 
 # Sesión 6 {data-background-color="black"}
 
-Recordatorio de la unidad anterior
+Revisión de la prueba
 
 Estandarización de coeficientes
 
@@ -159,23 +159,35 @@ Estimación de valores predichos
 
 ::: {.incremental}
 
-- Antes de la prueba dejamos cerrada la primera parte del curso: estimación, ajuste, inferencia, regresión múltiple y reporte
+- Partimos revisando las respuestas de la evaluación, que es también un repaso de toda la primera parte del curso
 
-- Hoy retomamos con un contenido que quedó pendiente, la **estandarización** de coeficientes
+- Luego retomamos con un contenido que quedó pendiente, la **estandarización** de coeficientes
 
 - Y avanzamos al tercer objetivo del modelo de regresión: la **predicción**
 
 :::
 
-# Recordatorio: lo que llevamos {data-background-color="black"}
+# Revisión de la prueba {data-background-color="black"}
 
-## Los tres objetivos del modelo de regresion
+## Antes de avanzar
+
+::: {.incremental}
+
+- El mejor repaso de lo que llevamos son las preguntas de la evaluación
+
+- Revisemos las respuestas esperadas de cada una
+
+- Aprovechen de contrastarlas con lo que respondieron
+
+:::
+
+## 1a. Los tres objetivos del modelo
 
 ::: {.incremental}
 
 1. **Conocer**: la variación de la variable dependiente según la variación de una o más independientes
 
-2. **Inferir**: establecer en qué medida esa asociación es estadísticamente significativa
+2. **Inferir**: establecer en qué medida esa asociación es estadísticamente significativa, es decir, si puede generalizarse a la población
 
 3. **Predecir**: estimar el valor de la variable dependiente según el valor de las independientes
 
@@ -187,55 +199,173 @@ Los dos primeros ya los trabajamos. El tercero es el contenido de hoy
 
 :::
 
-## El modelo, en una línea
-
-$$\widehat{Y}=b_{0} + b_{1}X_{1} + b_{2}X_{2} + \dots + b_{k}X_{k}$$
+## 1b. ¿Por qué cambia un coeficiente?
 
 ::: {.incremental}
 
-- $b_0$: valor esperado de $Y$ cuando todas las independientes valen 0
+- Porque en regresión múltiple cada coeficiente está **parcializado** respecto de los demás predictores
 
-- $b_j$: cambio esperado en $Y$ por cada unidad de $X_j$, manteniendo constantes las demás
+- Cuando dos variables independientes se correlacionan entre sí, comparten varianza; al entrar ambas al modelo, cada una conserva solo su aporte propio
 
-- $e_i = Y_i - \widehat{Y}_i$: residuo, lo que el modelo no logra explicar
+- Por eso el coeficiente puede **disminuir**, **aumentar** o incluso **invertir su signo**
 
 :::
 
-## Estimación
-
-$$b_{1}=\frac{\sum(x_i - \bar{x})(y_i - \bar{y})} {\sum(x_i - \bar{x})^2} \qquad b_{0}=\bar{Y}-b_{1}\bar{X}$$
+## 1b. Un ejemplo
 
 ::: {.incremental}
 
-- El criterio es el de **mínimos cuadrados ordinarios**: la recta que minimiza la suma de los residuos al cuadrado
+- Si estimamos el ingreso solo a partir de la educación, el coeficiente recoge también el efecto de la experiencia laboral que suele acompañarla
 
-- La recta siempre pasa por el punto de los promedios $(\bar{X}, \bar{Y})$
+- Al incorporar la experiencia al modelo, el coeficiente de educación **disminuye**: ahora compara personas con la misma trayectoria laboral
+
+- Ambos resultados son correctos: responden a **preguntas distintas**
 
 :::
 
-## Parcialización y control estadístico
+## 1c. Significación y relevancia
 
 ::: {.incremental}
 
-- En regresión múltiple, cada coeficiente está **parcializado** respecto de los demás predictores
+- **Significación estadística**: responde si el coeficiente es distinto de cero en la población, dado un nivel de error aceptado
 
-- Por eso los coeficientes **cambian** al agregar variables: pueden disminuir, aumentar o incluso invertir su signo
+- **Relevancia sustantiva**: responde si la magnitud del efecto es lo bastante grande como para importar teórica o prácticamente
 
-- Siempre debe explicitarse qué variables están en el modelo al interpretar un coeficiente
+- Con muestras grandes, coeficientes muy pequeños resultan significativos
+
+- Un resultado puede ser significativo y trivial, o sustantivamente interesante y no significativo
 
 :::
 
-## Ajuste e inferencia
+## 2. La estimación
+
+::: {.small}
+
+| ID | X | Y | X − X̄ | Y − Ȳ | (X − X̄)(Y − Ȳ) | (X − X̄)² |
+|---|---|---|---|---|---|---|
+| 1 | 2 | 8 | −3 | −11 | 33 | 9 |
+| 2 | 7 | 23 | 2 | 4 | 8 | 4 |
+| 3 | 4 | 18 | −1 | −1 | 1 | 1 |
+| 4 | 9 | 33 | 4 | 14 | 56 | 16 |
+| 5 | 1 | 9 | −4 | −10 | 40 | 16 |
+| 6 | 6 | 24 | 1 | 5 | 5 | 1 |
+| 7 | 3 | 11 | −2 | −8 | 16 | 4 |
+| 8 | 8 | 26 | 3 | 7 | 21 | 9 |
+| | **X̄ = 5** | **Ȳ = 19** | | | **Σ = 180** | **Σ = 60** |
+
+:::
+
+::: {.small}
+Verificación útil: las columnas de diferencias siempre suman cero
+:::
+
+## 2a. Los coeficientes
+
+$$b_{1}=\frac{\sum(x_i - \bar{x})(y_i - \bar{y})} {\sum(x_i - \bar{x})^2}=\frac{180} {60}=3$$
+
+::: {.fragment .fade-up}
+
+$$b_{0}=\bar{Y}-b_{1}\bar{X} = 19-(3 \times 5)=4$$
+
+$$\widehat{Y}=4+3X$$
+
+:::
+
+## 2b. Interpretación
 
 ::: {.incremental}
 
-- $R^2 = SS_{reg}/SS_{tot}$: proporción de la varianza de $Y$ asociada al modelo. El $R^2$ ajustado penaliza el número de predictores
+- **Pendiente**: por cada nivel educacional adicional, la satisfacción con la vida aumenta en 3 puntos
 
-- El **error estándar** mide la imprecisión del coeficiente
+- **Intercepto**: cuando el nivel educacional es 0, la satisfacción esperada es de 4 puntos
 
-- $t = \beta / se(\beta)$. Para muestras grandes, $t > 1{,}96$ permite rechazar $H_0$ a un $p<0{,}05$
+- Observación pertinente: el valor 0 no existe en el rango de la variable, de modo que el intercepto **no tiene interpretación sustantiva** en este caso
 
-- Significación estadística **no** equivale a relevancia sustantiva
+:::
+
+## 3. La tabla
+
+::: {.small}
+
+| | Modelo 1 | Modelo 2 | Modelo 3 |
+|---|---|---|---|
+| Intercepto | 3.85*** (0.19) | 3.21*** (0.22) | 3.44*** (0.31) |
+| Años de educación | 0.11*** (0.01) | 0.06*** (0.02) | 0.07*** (0.02) |
+| Ingreso | | 0.08*** (0.01) | 0.08** (0.01) |
+| Edad | | | −0.01 (0.01) |
+| R² | 0.10 | 0.12 | 0.15 |
+| Adj. R² | 0.09 | 0.11 | 0.13 |
+| N | 2915 | 2915 | 2915 |
+
+:::
+
+## 3a. Años de educación
+
+::: {.incremental}
+
+- **Modelo 1**: por cada año adicional de educación, la cohesión barrial aumenta 0,11 puntos. Significativo al 99,9%
+
+- **Modelo 2**: el coeficiente baja a 0,06, casi la mitad. Parte de lo que el modelo 1 atribuía a la educación correspondía al ingreso asociado a ella
+
+- **Modelo 3**: sube levemente a 0,07 al controlar por edad, y se mantiene significativo
+
+:::
+
+## 3a. Ingreso
+
+::: {.incremental}
+
+- Por cada unidad adicional de ingreso, la cohesión barrial aumenta 0,08 puntos, **manteniendo constante** el nivel educacional
+
+- El coeficiente permanece estable entre los modelos 2 y 3: la edad no altera esa asociación
+
+- Es significativo en ambos modelos
+
+:::
+
+## 3a. Edad
+
+::: {.incremental}
+
+- El coeficiente es −0,01 y **no alcanza significación estadística**
+
+- Lectura correcta: los datos no permiten afirmar que exista asociación entre edad y cohesión barrial, una vez controlados educación e ingreso
+
+- Lectura **incorrecta**: "se demostró que la edad no influye". No rechazar la hipótesis nula no equivale a probar que sea verdadera
+
+:::
+
+## 3a. Intercepto y ajuste
+
+::: {.incremental}
+
+- **Intercepto**: valor esperado de cohesión barrial cuando todas las independientes valen cero. No tiene interpretación sustantiva plausible, porque no existen personas con cero años de educación, cero ingreso y cero edad
+
+- **$R^2$**: el modelo 3 da cuenta de un 15% de la varianza de la cohesión barrial. Es un valor bajo, esperable en investigación social, y no invalida los hallazgos
+
+- **N**: 2915 casos en los tres modelos, de modo que las diferencias no se deben a cambios en la muestra
+
+:::
+
+##  {data-background-color="black"}
+
+### Un error frecuente
+
+::: {.fragment .fade-up}
+
+### "La educación importa más que el ingreso porque 0,07 es menor que 0,08"
+
+:::
+
+::: {.fragment .fade-up}
+
+### Los coeficientes están en **escalas distintas** y no son comparables entre sí
+
+:::
+
+::: {.fragment .fade-up}
+
+### Resolver eso es justamente el contenido de la primera parte de hoy
 
 :::
 
@@ -766,23 +896,37 @@ plot(pred_educ) +
 
 ::: {.fragment .fade-up}
 
-### Si dejamos que el eje se ajuste automáticamente al rango de los valores predichos, la misma línea ocupa todo el alto del gráfico
+### ¿Qué pasa si dejamos que el eje se ajuste automáticamente al rango de los valores predichos?
 
 :::
 
-::: {.fragment .fade-up}
+## Los mismos datos, dos ejes
 
-### La pendiente parece pronunciada y el efecto, mucho mayor de lo que es
-
-:::
-
-## El mismo gráfico, otro eje
+::: {.columns}
+::: {.column width="50%"}
 
 ```{r}
-#| label: fig-ejes
+#| label: fig-eje-completo
 #| echo: false
-#| fig-width: 9
-#| fig-height: 4
+#| fig-width: 5.5
+#| fig-height: 4.5
+
+plot(pred_educ) +
+  scale_y_continuous(limits = c(0, 10), breaks = 0:10) +
+  labs(title = NULL,
+       x = "Nivel educacional",
+       y = "Estatus subjetivo predicho",
+       subtitle = "Escala completa de la variable")
+```
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: fig-eje-automatico
+#| echo: false
+#| fig-width: 5.5
+#| fig-height: 4.5
 
 plot(pred_educ) +
   labs(title = NULL,
@@ -791,8 +935,25 @@ plot(pred_educ) +
        subtitle = "Eje ajustado automáticamente")
 ```
 
+:::
+:::
+
 ::: {.small}
-Los datos son idénticos a los de la diapositiva anterior. Al graficar valores predichos, use siempre la escala completa de la variable dependiente
+Los datos, el modelo y los coeficientes son **idénticos** en ambos gráficos. Solo cambia el eje vertical
+:::
+
+## Lo que enseña la comparación
+
+::: {.incremental}
+
+- A la derecha la pendiente parece pronunciada y el efecto, mucho mayor de lo que es
+
+- La diferencia entre el nivel educacional más bajo y el más alto es de poco más de un peldaño, en una escala de 0 a 10
+
+- Ajustar los ejes al rango de los datos es una práctica frecuente y una fuente habitual de lecturas exageradas
+
+- Al graficar valores predichos, use siempre la escala completa de la variable dependiente
+
 :::
 
 ## Dos tipos de intervalo
@@ -841,52 +1002,28 @@ El promedio está bien estimado; el caso individual, en cambio, puede ubicarse c
 
 # Un ejemplo publicado {data-background-color="black"}
 
-## Una tabla real
+## Revisemos un artículo
 
-Variable dependiente: participación en protestas
+Un ejemplo completo de reporte de resultados en una publicación:
 
-::: {.small}
-
-| Variable | Std(B) | IC 95% |
-|---|---|---|
-| Ingreso mensual del hogar | .175*** | [.117, .232] |
-| Satisfacción con situación económica del país | −.131** | [−.191, −.071] |
-| Identificación política de izquierda | .150*** | [.091, .209] |
-| Identificación con causas sociales | .233*** | [.172, .294] |
-| Participación en organizaciones | .270*** | [.214, .326] |
-| Edad | .076* | [.017, .135] |
-| Nivel educacional | .073* | [.008, .138] |
-| R² | .269 | |
-| N | 930 | |
-
-:::
+### [Revista de Sociología, Universidad de Chile](https://revistadesociologia.uchile.cl/index.php/RDS/article/view/47884/50543)
 
 ::: {.small}
-\* p<.05, \*\* p<.01, \*\*\* p<.001
+Sección de resultados, desde la página 43. Variable dependiente: participación en protestas
 :::
 
-## Qué observar en esta tabla
+## Qué observar en la tabla
 
 ::: {.incremental}
 
-- Los coeficientes son **estandarizados**, de modo que pueden compararse entre sí: el predictor de mayor peso es la participación en organizaciones
+- Los coeficientes son **estandarizados**, de modo que pueden compararse entre sí: ¿cuál es el predictor de mayor peso?
 
-- No se reportan errores estándar sino **intervalos de confianza**: ninguno contiene el cero, lo que es coherente con los asteriscos
+- No se reportan errores estándar sino **intervalos de confianza**: ¿alguno contiene el cero?, ¿es coherente con los asteriscos?
 
-- El signo negativo de la satisfacción económica indica que, a mayor satisfacción con la situación del país, menor participación en protestas
+- Hay un coeficiente con signo negativo: ¿cómo se interpreta?
 
-- La identificación política es una variable **dicotómica**; su interpretación la veremos en dos sesiones más
+- Uno de los predictores es una variable **dicotómica**; su interpretación la veremos en dos sesiones más
 
-:::
-
-## Para revisar
-
-Un ejemplo completo de reporte de resultados en un artículo publicado:
-
-[Revista de Sociología, Universidad de Chile](https://revistadesociologia.uchile.cl/index.php/RDS/article/view/47884/50543)
-
-::: {.small}
-Revisar la sección de resultados, desde la página 43
 :::
 
 ##  {data-background-color="black"}

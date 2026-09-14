@@ -232,67 +232,290 @@
 <section>
 <section id="sesión-6" class="title-slide slide level1 center" data-background-color="black">
 <h1>Sesión 6</h1>
-<p>Recordatorio de la unidad anterior</p>
+<p>Revisión de la prueba</p>
 <p>Estandarización de coeficientes</p>
 <p>Estimación de valores predichos</p>
 </section>
 <section id="retomando" class="slide level2">
 <h2>Retomando</h2>
 <ul>
-<li class="fragment"><p>Antes de la prueba dejamos cerrada la primera parte del curso: estimación, ajuste, inferencia, regresión múltiple y reporte</p></li>
-<li class="fragment"><p>Hoy retomamos con un contenido que quedó pendiente, la <strong>estandarización</strong> de coeficientes</p></li>
+<li class="fragment"><p>Partimos revisando las respuestas de la evaluación, que es también un repaso de toda la primera parte del curso</p></li>
+<li class="fragment"><p>Luego retomamos con un contenido que quedó pendiente, la <strong>estandarización</strong> de coeficientes</p></li>
 <li class="fragment"><p>Y avanzamos al tercer objetivo del modelo de regresión: la <strong>predicción</strong></p></li>
 </ul>
 </section></section>
 <section>
-<section id="recordatorio-lo-que-llevamos" class="title-slide slide level1 center" data-background-color="black">
-<h1>Recordatorio: lo que llevamos</h1>
+<section id="revisión-de-la-prueba" class="title-slide slide level1 center" data-background-color="black">
+<h1>Revisión de la prueba</h1>
 
 </section>
-<section id="los-tres-objetivos-del-modelo-de-regresion" class="slide level2">
-<h2>Los tres objetivos del modelo de regresion</h2>
+<section id="antes-de-avanzar" class="slide level2">
+<h2>Antes de avanzar</h2>
+<ul>
+<li class="fragment"><p>El mejor repaso de lo que llevamos son las preguntas de la evaluación</p></li>
+<li class="fragment"><p>Revisemos las respuestas esperadas de cada una</p></li>
+<li class="fragment"><p>Aprovechen de contrastarlas con lo que respondieron</p></li>
+</ul>
+</section>
+<section id="a.-los-tres-objetivos-del-modelo" class="slide level2">
+<h2>1a. Los tres objetivos del modelo</h2>
 <ol type="1">
 <li class="fragment"><p><strong>Conocer</strong>: la variación de la variable dependiente según la variación de una o más independientes</p></li>
-<li class="fragment"><p><strong>Inferir</strong>: establecer en qué medida esa asociación es estadísticamente significativa</p></li>
+<li class="fragment"><p><strong>Inferir</strong>: establecer en qué medida esa asociación es estadísticamente significativa, es decir, si puede generalizarse a la población</p></li>
 <li class="fragment"><p><strong>Predecir</strong>: estimar el valor de la variable dependiente según el valor de las independientes</p></li>
 </ol>
 <div class="fragment fade-up">
 <p>Los dos primeros ya los trabajamos. El tercero es el contenido de hoy</p>
 </div>
 </section>
-<section id="el-modelo-en-una-línea" class="slide level2">
-<h2>El modelo, en una línea</h2>
-<p><span class="math display">\[\widehat{Y}=b_{0} + b_{1}X_{1} + b_{2}X_{2} + \dots + b_{k}X_{k}\]</span></p>
+<section id="b.-por-qué-cambia-un-coeficiente" class="slide level2">
+<h2>1b. ¿Por qué cambia un coeficiente?</h2>
 <ul>
-<li class="fragment"><p><span class="math inline">\(b_0\)</span>: valor esperado de <span class="math inline">\(Y\)</span> cuando todas las independientes valen 0</p></li>
-<li class="fragment"><p><span class="math inline">\(b_j\)</span>: cambio esperado en <span class="math inline">\(Y\)</span> por cada unidad de <span class="math inline">\(X_j\)</span>, manteniendo constantes las demás</p></li>
-<li class="fragment"><p><span class="math inline">\(e_i = Y_i - \widehat{Y}_i\)</span>: residuo, lo que el modelo no logra explicar</p></li>
+<li class="fragment"><p>Porque en regresión múltiple cada coeficiente está <strong>parcializado</strong> respecto de los demás predictores</p></li>
+<li class="fragment"><p>Cuando dos variables independientes se correlacionan entre sí, comparten varianza; al entrar ambas al modelo, cada una conserva solo su aporte propio</p></li>
+<li class="fragment"><p>Por eso el coeficiente puede <strong>disminuir</strong>, <strong>aumentar</strong> o incluso <strong>invertir su signo</strong></p></li>
 </ul>
 </section>
-<section id="estimación" class="slide level2">
-<h2>Estimación</h2>
-<p><span class="math display">\[b_{1}=\frac{\sum(x_i - \bar{x})(y_i - \bar{y})} {\sum(x_i - \bar{x})^2} \qquad b_{0}=\bar{Y}-b_{1}\bar{X}\]</span></p>
+<section id="b.-un-ejemplo" class="slide level2">
+<h2>1b. Un ejemplo</h2>
 <ul>
-<li class="fragment"><p>El criterio es el de <strong>mínimos cuadrados ordinarios</strong>: la recta que minimiza la suma de los residuos al cuadrado</p></li>
-<li class="fragment"><p>La recta siempre pasa por el punto de los promedios <span class="math inline">\((\bar{X}, \bar{Y})\)</span></p></li>
+<li class="fragment"><p>Si estimamos el ingreso solo a partir de la educación, el coeficiente recoge también el efecto de la experiencia laboral que suele acompañarla</p></li>
+<li class="fragment"><p>Al incorporar la experiencia al modelo, el coeficiente de educación <strong>disminuye</strong>: ahora compara personas con la misma trayectoria laboral</p></li>
+<li class="fragment"><p>Ambos resultados son correctos: responden a <strong>preguntas distintas</strong></p></li>
 </ul>
 </section>
-<section id="parcialización-y-control-estadístico" class="slide level2">
-<h2>Parcialización y control estadístico</h2>
+<section id="c.-significación-y-relevancia" class="slide level2">
+<h2>1c. Significación y relevancia</h2>
 <ul>
-<li class="fragment"><p>En regresión múltiple, cada coeficiente está <strong>parcializado</strong> respecto de los demás predictores</p></li>
-<li class="fragment"><p>Por eso los coeficientes <strong>cambian</strong> al agregar variables: pueden disminuir, aumentar o incluso invertir su signo</p></li>
-<li class="fragment"><p>Siempre debe explicitarse qué variables están en el modelo al interpretar un coeficiente</p></li>
+<li class="fragment"><p><strong>Significación estadística</strong>: responde si el coeficiente es distinto de cero en la población, dado un nivel de error aceptado</p></li>
+<li class="fragment"><p><strong>Relevancia sustantiva</strong>: responde si la magnitud del efecto es lo bastante grande como para importar teórica o prácticamente</p></li>
+<li class="fragment"><p>Con muestras grandes, coeficientes muy pequeños resultan significativos</p></li>
+<li class="fragment"><p>Un resultado puede ser significativo y trivial, o sustantivamente interesante y no significativo</p></li>
 </ul>
 </section>
-<section id="ajuste-e-inferencia" class="slide level2">
-<h2>Ajuste e inferencia</h2>
+<section id="la-estimación" class="slide level2">
+<h2>2. La estimación</h2>
+<div class="small">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>X</th>
+<th>Y</th>
+<th>X − X̄</th>
+<th>Y − Ȳ</th>
+<th>(X − X̄)(Y − Ȳ)</th>
+<th>(X − X̄)²</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2</td>
+<td>8</td>
+<td>−3</td>
+<td>−11</td>
+<td>33</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>7</td>
+<td>23</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>4</td>
+<td>18</td>
+<td>−1</td>
+<td>−1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>9</td>
+<td>33</td>
+<td>4</td>
+<td>14</td>
+<td>56</td>
+<td>16</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>1</td>
+<td>9</td>
+<td>−4</td>
+<td>−10</td>
+<td>40</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>6</td>
+<td>24</td>
+<td>1</td>
+<td>5</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>3</td>
+<td>11</td>
+<td>−2</td>
+<td>−8</td>
+<td>16</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>8</td>
+<td>26</td>
+<td>3</td>
+<td>7</td>
+<td>21</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><strong>X̄ = 5</strong></td>
+<td><strong>Ȳ = 19</strong></td>
+<td></td>
+<td></td>
+<td><strong>Σ = 180</strong></td>
+<td><strong>Σ = 60</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="small">
+<p>Verificación útil: las columnas de diferencias siempre suman cero</p>
+</div>
+</section>
+<section id="a.-los-coeficientes" class="slide level2">
+<h2>2a. Los coeficientes</h2>
+<p><span class="math display">\[b_{1}=\frac{\sum(x_i - \bar{x})(y_i - \bar{y})} {\sum(x_i - \bar{x})^2}=\frac{180} {60}=3\]</span></p>
+<div class="fragment fade-up">
+<p><span class="math display">\[b_{0}=\bar{Y}-b_{1}\bar{X} = 19-(3 \times 5)=4\]</span></p>
+<p><span class="math display">\[\widehat{Y}=4+3X\]</span></p>
+</div>
+</section>
+<section id="b.-interpretación" class="slide level2">
+<h2>2b. Interpretación</h2>
 <ul>
-<li class="fragment"><p><span class="math inline">\(R^2 = SS_{reg}/SS_{tot}\)</span>: proporción de la varianza de <span class="math inline">\(Y\)</span> asociada al modelo. El <span class="math inline">\(R^2\)</span> ajustado penaliza el número de predictores</p></li>
-<li class="fragment"><p>El <strong>error estándar</strong> mide la imprecisión del coeficiente</p></li>
-<li class="fragment"><p><span class="math inline">\(t = \beta / se(\beta)\)</span>. Para muestras grandes, <span class="math inline">\(t &gt; 1{,}96\)</span> permite rechazar <span class="math inline">\(H_0\)</span> a un <span class="math inline">\(p&lt;0{,}05\)</span></p></li>
-<li class="fragment"><p>Significación estadística <strong>no</strong> equivale a relevancia sustantiva</p></li>
+<li class="fragment"><p><strong>Pendiente</strong>: por cada nivel educacional adicional, la satisfacción con la vida aumenta en 3 puntos</p></li>
+<li class="fragment"><p><strong>Intercepto</strong>: cuando el nivel educacional es 0, la satisfacción esperada es de 4 puntos</p></li>
+<li class="fragment"><p>Observación pertinente: el valor 0 no existe en el rango de la variable, de modo que el intercepto <strong>no tiene interpretación sustantiva</strong> en este caso</p></li>
 </ul>
+</section>
+<section id="la-tabla" class="slide level2">
+<h2>3. La tabla</h2>
+<div class="small">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Modelo 1</th>
+<th>Modelo 2</th>
+<th>Modelo 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercepto</td>
+<td>3.85*** (0.19)</td>
+<td>3.21*** (0.22)</td>
+<td>3.44*** (0.31)</td>
+</tr>
+<tr class="even">
+<td>Años de educación</td>
+<td>0.11*** (0.01)</td>
+<td>0.06*** (0.02)</td>
+<td>0.07*** (0.02)</td>
+</tr>
+<tr class="odd">
+<td>Ingreso</td>
+<td></td>
+<td>0.08*** (0.01)</td>
+<td>0.08** (0.01)</td>
+</tr>
+<tr class="even">
+<td>Edad</td>
+<td></td>
+<td></td>
+<td>−0.01 (0.01)</td>
+</tr>
+<tr class="odd">
+<td>R²</td>
+<td>0.10</td>
+<td>0.12</td>
+<td>0.15</td>
+</tr>
+<tr class="even">
+<td>Adj. R²</td>
+<td>0.09</td>
+<td>0.11</td>
+<td>0.13</td>
+</tr>
+<tr class="odd">
+<td>N</td>
+<td>2915</td>
+<td>2915</td>
+<td>2915</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="a.-años-de-educación" class="slide level2">
+<h2>3a. Años de educación</h2>
+<ul>
+<li class="fragment"><p><strong>Modelo 1</strong>: por cada año adicional de educación, la cohesión barrial aumenta 0,11 puntos. Significativo al 99,9%</p></li>
+<li class="fragment"><p><strong>Modelo 2</strong>: el coeficiente baja a 0,06, casi la mitad. Parte de lo que el modelo 1 atribuía a la educación correspondía al ingreso asociado a ella</p></li>
+<li class="fragment"><p><strong>Modelo 3</strong>: sube levemente a 0,07 al controlar por edad, y se mantiene significativo</p></li>
+</ul>
+</section>
+<section id="a.-ingreso" class="slide level2">
+<h2>3a. Ingreso</h2>
+<ul>
+<li class="fragment"><p>Por cada unidad adicional de ingreso, la cohesión barrial aumenta 0,08 puntos, <strong>manteniendo constante</strong> el nivel educacional</p></li>
+<li class="fragment"><p>El coeficiente permanece estable entre los modelos 2 y 3: la edad no altera esa asociación</p></li>
+<li class="fragment"><p>Es significativo en ambos modelos</p></li>
+</ul>
+</section>
+<section id="a.-edad" class="slide level2">
+<h2>3a. Edad</h2>
+<ul>
+<li class="fragment"><p>El coeficiente es −0,01 y <strong>no alcanza significación estadística</strong></p></li>
+<li class="fragment"><p>Lectura correcta: los datos no permiten afirmar que exista asociación entre edad y cohesión barrial, una vez controlados educación e ingreso</p></li>
+<li class="fragment"><p>Lectura <strong>incorrecta</strong>: “se demostró que la edad no influye”. No rechazar la hipótesis nula no equivale a probar que sea verdadera</p></li>
+</ul>
+</section>
+<section id="a.-intercepto-y-ajuste" class="slide level2">
+<h2>3a. Intercepto y ajuste</h2>
+<ul>
+<li class="fragment"><p><strong>Intercepto</strong>: valor esperado de cohesión barrial cuando todas las independientes valen cero. No tiene interpretación sustantiva plausible, porque no existen personas con cero años de educación, cero ingreso y cero edad</p></li>
+<li class="fragment"><p><strong><span class="math inline">\(R^2\)</span></strong>: el modelo 3 da cuenta de un 15% de la varianza de la cohesión barrial. Es un valor bajo, esperable en investigación social, y no invalida los hallazgos</p></li>
+<li class="fragment"><p><strong>N</strong>: 2915 casos en los tres modelos, de modo que las diferencias no se deben a cambios en la muestra</p></li>
+</ul>
+</section>
+<section id="section-1" class="slide level2" data-background-color="black">
+<h2></h2>
+<h3 id="un-error-frecuente">Un error frecuente</h3>
+<div class="fragment fade-up">
+<h3 id="la-educación-importa-más-que-el-ingreso-porque-007-es-menor-que-008">“La educación importa más que el ingreso porque 0,07 es menor que 0,08”</h3>
+</div>
+<div class="fragment fade-up">
+<h3 id="los-coeficientes-están-en-escalas-distintas-y-no-son-comparables-entre-sí">Los coeficientes están en <strong>escalas distintas</strong> y no son comparables entre sí</h3>
+</div>
+<div class="fragment fade-up">
+<h3 id="resolver-eso-es-justamente-el-contenido-de-la-primera-parte-de-hoy">Resolver eso es justamente el contenido de la primera parte de hoy</h3>
+</div>
 </section>
 <section id="nuestro-modelo-de-referencia" class="slide level2">
 <h2>Nuestro modelo de referencia</h2>
@@ -357,7 +580,7 @@
 <li class="fragment"><p>¿Significa esto que la educación importa 25 veces más que la edad?</p></li>
 </ul>
 </section>
-<section id="section-1" class="slide level2" data-background-color="black">
+<section id="section-2" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="los-coeficientes-están-en-escalas-distintas-y-no-son-directamente-comparables">Los coeficientes están en <strong>escalas distintas</strong> y no son directamente comparables</h3>
 </section>
@@ -508,7 +731,7 @@
 <li class="fragment"><p>Ahora sí son comparables: educación (0.23) e ingreso (0.176) tienen pesos similares, y ambos claramente mayores que edad (0.062)</p></li>
 </ul>
 </section>
-<section id="section-2" class="slide level2" data-background-color="black">
+<section id="section-3" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="lo-que-revela-la-estandarización">Lo que revela la estandarización</h3>
 <div class="fragment fade-up">
@@ -563,7 +786,7 @@
 </ul>
 </div></div>
 </section>
-<section id="section-3" class="slide level2" data-background-color="black">
+<section id="section-4" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="en-la-práctica">En la práctica</h3>
 <h3 id="se-reportan-los-coeficientes-no-estandarizados-como-resultado-principal">Se reportan los coeficientes <strong>no estandarizados</strong> como resultado principal</h3>
@@ -944,24 +1167,59 @@ Figure&nbsp;1
 <li class="fragment"><p>Note el eje vertical: recorre la escala completa de 0 a 10, y la pendiente se aprecia modesta</p></li>
 </ul>
 </section>
-<section id="section-4" class="slide level2" data-background-color="black">
+<section id="section-5" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="una-advertencia-sobre-los-ejes">Una advertencia sobre los ejes</h3>
 <div class="fragment fade-up">
-<h3 id="si-dejamos-que-el-eje-se-ajuste-automáticamente-al-rango-de-los-valores-predichos-la-misma-línea-ocupa-todo-el-alto-del-gráfico">Si dejamos que el eje se ajuste automáticamente al rango de los valores predichos, la misma línea ocupa todo el alto del gráfico</h3>
-</div>
-<div class="fragment fade-up">
-<h3 id="la-pendiente-parece-pronunciada-y-el-efecto-mucho-mayor-de-lo-que-es">La pendiente parece pronunciada y el efecto, mucho mayor de lo que es</h3>
+<h3 id="qué-pasa-si-dejamos-que-el-eje-se-ajuste-automáticamente-al-rango-de-los-valores-predichos">¿Qué pasa si dejamos que el eje se ajuste automáticamente al rango de los valores predichos?</h3>
 </div>
 </section>
-<section id="el-mismo-gráfico-otro-eje" class="slide level2">
-<h2>El mismo gráfico, otro eje</h2>
-
-<img data-src="06-clase6_files/figure-revealjs/fig-ejes-1.png" id="fig-ejes" width="864" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;2
-</p><div class="small">
-<p>Los datos son idénticos a los de la diapositiva anterior. Al graficar valores predichos, use siempre la escala completa de la variable dependiente</p>
+<section id="los-mismos-datos-dos-ejes" class="slide level2">
+<h2>Los mismos datos, dos ejes</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-eje-completo" class="quarto-float quarto-figure quarto-figure-center" width="528">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-eje-completo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="06-clase6_files/figure-revealjs/fig-eje-completo-1.png" id="fig-eje-completo" width="528">
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-eje-completo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-eje-automatico" class="quarto-float quarto-figure quarto-figure-center" width="528">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-eje-automatico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="06-clase6_files/figure-revealjs/fig-eje-automatico-1.png" id="fig-eje-automatico" width="528">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-eje-automatico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="small">
+<p>Los datos, el modelo y los coeficientes son <strong>idénticos</strong> en ambos gráficos. Solo cambia el eje vertical</p>
+</div>
+</section>
+<section id="lo-que-enseña-la-comparación" class="slide level2">
+<h2>Lo que enseña la comparación</h2>
+<ul>
+<li class="fragment"><p>A la derecha la pendiente parece pronunciada y el efecto, mucho mayor de lo que es</p></li>
+<li class="fragment"><p>La diferencia entre el nivel educacional más bajo y el más alto es de poco más de un peldaño, en una escala de 0 a 10</p></li>
+<li class="fragment"><p>Ajustar los ejes al rango de los datos es una práctica frecuente y una fuente habitual de lecturas exageradas</p></li>
+<li class="fragment"><p>Al graficar valores predichos, use siempre la escala completa de la variable dependiente</p></li>
+</ul>
 </section>
 <section id="dos-tipos-de-intervalo" class="slide level2">
 <h2>Dos tipos de intervalo</h2>
@@ -1000,94 +1258,24 @@ Figure&nbsp;2
 <h1>Un ejemplo publicado</h1>
 
 </section>
-<section id="una-tabla-real" class="slide level2">
-<h2>Una tabla real</h2>
-<p>Variable dependiente: participación en protestas</p>
+<section id="revisemos-un-artículo" class="slide level2">
+<h2>Revisemos un artículo</h2>
+<p>Un ejemplo completo de reporte de resultados en una publicación:</p>
+<h3 id="revista-de-sociología-universidad-de-chile"><a href="https://revistadesociologia.uchile.cl/index.php/RDS/article/view/47884/50543">Revista de Sociología, Universidad de Chile</a></h3>
 <div class="small">
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Std(B)</th>
-<th>IC 95%</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Ingreso mensual del hogar</td>
-<td>.175***</td>
-<td>[.117, .232]</td>
-</tr>
-<tr class="even">
-<td>Satisfacción con situación económica del país</td>
-<td>−.131**</td>
-<td>[−.191, −.071]</td>
-</tr>
-<tr class="odd">
-<td>Identificación política de izquierda</td>
-<td>.150***</td>
-<td>[.091, .209]</td>
-</tr>
-<tr class="even">
-<td>Identificación con causas sociales</td>
-<td>.233***</td>
-<td>[.172, .294]</td>
-</tr>
-<tr class="odd">
-<td>Participación en organizaciones</td>
-<td>.270***</td>
-<td>[.214, .326]</td>
-</tr>
-<tr class="even">
-<td>Edad</td>
-<td>.076*</td>
-<td>[.017, .135]</td>
-</tr>
-<tr class="odd">
-<td>Nivel educacional</td>
-<td>.073*</td>
-<td>[.008, .138]</td>
-</tr>
-<tr class="even">
-<td>R²</td>
-<td>.269</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>N</td>
-<td>930</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="small">
-<p>* p&lt;.05, ** p&lt;.01, *** p&lt;.001</p>
+<p>Sección de resultados, desde la página 43. Variable dependiente: participación en protestas</p>
 </div>
 </section>
-<section id="qué-observar-en-esta-tabla" class="slide level2">
-<h2>Qué observar en esta tabla</h2>
+<section id="qué-observar-en-la-tabla" class="slide level2">
+<h2>Qué observar en la tabla</h2>
 <ul>
-<li class="fragment"><p>Los coeficientes son <strong>estandarizados</strong>, de modo que pueden compararse entre sí: el predictor de mayor peso es la participación en organizaciones</p></li>
-<li class="fragment"><p>No se reportan errores estándar sino <strong>intervalos de confianza</strong>: ninguno contiene el cero, lo que es coherente con los asteriscos</p></li>
-<li class="fragment"><p>El signo negativo de la satisfacción económica indica que, a mayor satisfacción con la situación del país, menor participación en protestas</p></li>
-<li class="fragment"><p>La identificación política es una variable <strong>dicotómica</strong>; su interpretación la veremos en dos sesiones más</p></li>
+<li class="fragment"><p>Los coeficientes son <strong>estandarizados</strong>, de modo que pueden compararse entre sí: ¿cuál es el predictor de mayor peso?</p></li>
+<li class="fragment"><p>No se reportan errores estándar sino <strong>intervalos de confianza</strong>: ¿alguno contiene el cero?, ¿es coherente con los asteriscos?</p></li>
+<li class="fragment"><p>Hay un coeficiente con signo negativo: ¿cómo se interpreta?</p></li>
+<li class="fragment"><p>Uno de los predictores es una variable <strong>dicotómica</strong>; su interpretación la veremos en dos sesiones más</p></li>
 </ul>
 </section>
-<section id="para-revisar" class="slide level2">
-<h2>Para revisar</h2>
-<p>Un ejemplo completo de reporte de resultados en un artículo publicado:</p>
-<p><a href="https://revistadesociologia.uchile.cl/index.php/RDS/article/view/47884/50543">Revista de Sociología, Universidad de Chile</a></p>
-<div class="small">
-<p>Revisar la sección de resultados, desde la página 43</p>
-</div>
-</section>
-<section id="section-5" class="slide level2" data-background-color="black">
+<section id="section-6" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="hasta-ahora-deberíamos-saber">Hasta ahora deberíamos saber</h3>
 <ol type="1">
@@ -1104,7 +1292,7 @@ Figure&nbsp;2
 <li><p>La próxima clase profundizaremos en la estimación y presentación de valores predichos</p></li>
 </ul>
 </section>
-<section id="section-6" class="slide level2" data-background-color="black">
+<section id="section-7" class="slide level2" data-background-color="black">
 <h2></h2>
 <div class="columns v-center-container">
 <div class="column" style="width:20%;">
