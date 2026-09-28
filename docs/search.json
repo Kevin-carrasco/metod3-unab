@@ -1613,7 +1613,7 @@
     "href": "practicos/practico-07.html#variables-categóricas-1",
     "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
     "section": "7.2 Variables categóricas",
-    "text": "7.2 Variables categóricas\n\nRecodifique el nivel educacional en tres categorías y declárelo como factor. Reporte la distribución de frecuencias.\nEstime un modelo que incluya únicamente el sexo como variable independiente. Verifique que el intercepto coincide con el promedio del grupo de referencia y que cada coeficiente equivale a la diferencia de promedios correspondiente.\nCambie la categoría de referencia a hombre y vuelva a estimar. Compare el \\(R^2\\) de ambos modelos y explique por qué es idéntico.",
+    "text": "7.2 Variables categóricas\n\nRecodifique el nivel educacional en tres categorías y declárelo como factor. Reporte la distribución de frecuencias.\nEstime un modelo que incluya únicamente el sexo como variable independiente. Verifique que el intercepto coincide con el promedio del grupo de referencia y que cada coeficiente equivale a la diferencia de promedios correspondiente.\nCambie la categoría de referencia a mujer y vuelva a estimar. Compare el \\(R^2\\) de ambos modelos y explique por qué es idéntico.",
     "crumbs": [
       "Practicos",
       "Práctico 7 - Predictores categóricos"

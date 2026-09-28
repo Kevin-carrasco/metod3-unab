@@ -528,7 +528,7 @@ Los siguientes ejercicios reproducen el flujo completo con otras variables. Sirv
 
 5. Estime un modelo que incluya únicamente el sexo como variable independiente. Verifique que el intercepto coincide con el promedio del grupo de referencia y que cada coeficiente equivale a la diferencia de promedios correspondiente.
 
-6. Cambie la categoría de referencia a hombre y vuelva a estimar. Compare el $R^2$ de ambos modelos y explique por qué es idéntico.
+6. Cambie la categoría de referencia a **mujer** y vuelva a estimar. Compare el $R^2$ de ambos modelos y explique por qué es idéntico.
 
 ## Modelos
 
