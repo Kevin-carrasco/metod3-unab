@@ -152,8 +152,15 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#informe-1" id="toc-informe-1" class="nav-link" data-scroll-target="#informe-1">Informe 1</a>
   <ul class="collapse">
-  <li><a href="#instrucciones-para-el-informe" id="toc-instrucciones-para-el-informe" class="nav-link" data-scroll-target="#instrucciones-para-el-informe">Instrucciones para el Informe</a></li>
-  <li><a href="#fecha-y-formato-de-entrega" id="toc-fecha-y-formato-de-entrega" class="nav-link" data-scroll-target="#fecha-y-formato-de-entrega">Fecha y formato de entrega</a></li>
+  <li><a href="#instrucciones-para-el-informe" id="toc-instrucciones-para-el-informe" class="nav-link" data-scroll-target="#instrucciones-para-el-informe">Instrucciones para el Informe</a>
+  <ul class="collapse">
+  <li><a href="#selección-de-variables" id="toc-selección-de-variables" class="nav-link" data-scroll-target="#selección-de-variables">Selección de variables</a></li>
+  <li><a href="#componentes-del-informe" id="toc-componentes-del-informe" class="nav-link" data-scroll-target="#componentes-del-informe">Componentes del informe</a></li>
+  </ul></li>
+  <li><a href="#fecha-y-formato-de-entrega" id="toc-fecha-y-formato-de-entrega" class="nav-link" data-scroll-target="#fecha-y-formato-de-entrega">Fecha y formato de entrega</a>
+  <ul class="collapse">
+  <li><a href="#sobre-el-uso-de-quarto" id="toc-sobre-el-uso-de-quarto" class="nav-link" data-scroll-target="#sobre-el-uso-de-quarto">Sobre el uso de Quarto</a></li>
+  </ul></li>
   <li><a href="#aspectos-formales" id="toc-aspectos-formales" class="nav-link" data-scroll-target="#aspectos-formales">Aspectos formales</a></li>
   </ul></li>
   </ul>
@@ -169,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>Trabajos</h1>
 <section id="presentación-y-directrices-generales" class="level2">
 <h2 class="anchored" data-anchor-id="presentación-y-directrices-generales">Presentación y directrices generales</h2>
-<p>Las presentes evaluacones tienen por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC). Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.</p>
+<p>Las presentes evaluaciones tienen por objetivo que las y los estudiantes apliquen de forma integral los contenidos del curso a una temática de interés específica utilizando la base de datos del Estudio Social Longitudinal de Chile (ELSOC). Se espera un ejercicio de investigación que logre dar cuenta del aprendizaje de las herramientas de análisis estadístico que configuran las habilidades básicas para desarrollar procesos de investigación social, analizando fuentes de información de carácter cuantitativo desde una perspectiva sociológica.</p>
 <section id="sobre-elsoc" class="level3">
 <h3 class="anchored" data-anchor-id="sobre-elsoc">Sobre ELSOC</h3>
 <ul>
@@ -181,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="cuestiones-a-considerar" class="level3">
 <h3 class="anchored" data-anchor-id="cuestiones-a-considerar">Cuestiones a considerar:</h3>
 <ol type="1">
-<li><p>El trabajo debe ser realizado en parejas.</p></li>
+<li><p>El trabajo <strong>puede</strong> ser realizado en parejas.</p></li>
 <li><p>Se realizará una entrega tipo <strong>reporte de investigación breve</strong>.</p></li>
 <li><p>Se recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún <strong>problema actual de la sociedad chilena</strong>, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).</p></li>
 </ol>
@@ -192,77 +199,84 @@ ul.task-list li input[type="checkbox"] {
 <h1>Informe 1</h1>
 <section id="instrucciones-para-el-informe" class="level2">
 <h2 class="anchored" data-anchor-id="instrucciones-para-el-informe">Instrucciones para el Informe</h2>
-<p>Para la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, puedan <strong>seleccionar 5 variables de la base de datos ELSOC (1 dependiente, 4 independientes)</strong>. Deben considerar la estructura longitudinal de ELSOC, por lo que es de suma importancia revisar bien el listado de variables y asegurarse en qué años se encuentran disponibles sus variables.</p>
+<p>Para la entrega del informe se espera que, habiendo seleccionado un fenómeno específico de interés, puedan <strong>seleccionar 5 variables de la base de datos ELSOC (1 dependiente, 4 independientes)</strong>.</p>
+<section id="selección-de-variables" class="level3">
+<h3 class="anchored" data-anchor-id="selección-de-variables">Selección de variables</h3>
+<p>Al momento de elegir sus variables, tengan presente lo siguiente:</p>
+<ul>
+<li><p><strong>Variable dependiente</strong>: dado que el análisis a realizar es una regresión lineal, la variable dependiente debe ser <strong>continua</strong>, o bien una variable ordinal o una escala sumativa que pueda ser tratada como continua (por ejemplo, un índice construido a partir de varios ítems). No corresponde utilizar variables dicotómicas como dependiente, ya que ese caso requiere técnicas que se abordarán más adelante en el curso.</p></li>
+<li><p><strong>Variables independientes</strong>: al menos una de las cuatro debe ser <strong>categórica</strong>, de modo que puedan aplicar la codificación de variables dummy y la interpretación respecto de una categoría de referencia.</p></li>
+<li><p><strong>Disponibilidad temporal</strong>: ELSOC tiene una estructura longitudinal, es decir, las mismas personas fueron encuestadas en distintos años. Para efectos de este informe <strong>trabajarán con una sola ola</strong>, la que ustedes elijan. La revisión del listado de variables tiene por objetivo verificar en qué años están disponibles las cinco variables seleccionadas, y así decidir con qué año conviene trabajar. No se espera ningún tipo de análisis longitudinal.</p></li>
+</ul>
+</section>
+<section id="componentes-del-informe" class="level3">
+<h3 class="anchored" data-anchor-id="componentes-del-informe">Componentes del informe</h3>
 <p>Luego desarrollen los siguientes temas:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 86%">
-<col style="width: 2%">
+<col style="width: 38%">
+<col style="width: 30%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Componente</strong></th>
-<th><strong>Detalle</strong></th>
-<th><strong>Puntaje</strong></th>
+<th style="text-align: left;"><strong>Componente</strong></th>
+<th style="text-align: left;"><strong>Detalle</strong></th>
+<th style="text-align: center;"><strong>Puntaje</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Formulación del problema</strong></td>
-<td>Formular una pregunta y un objetivo general de investigación. Fundamentar el interés sociológico que habilita el estudio de la temática elegida, utilizando al menos 3 referencias bibliográficas. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. (1/2 plana)</td>
-<td>2.0</td>
+<td style="text-align: left;"><strong>Formulación del problema</strong></td>
+<td style="text-align: left;">Formular una pregunta y un objetivo general de investigación. Fundamentar el interés sociológico que habilita el estudio de la temática elegida, utilizando al menos 3 referencias bibliográficas. El objetivo de investigación formulado debe permitir entender cómo se analizará la temática elegida. (1 plana)</td>
+<td style="text-align: center;">2.0</td>
 </tr>
 <tr class="even">
-<td><strong>Definición base de datos</strong></td>
-<td>Definir la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC), se espera que las parejas describan qué busca medir y representar el módulo (o selección de variables) elegido. (½ plana)</td>
-<td>2.0</td>
+<td style="text-align: left;"><strong>Definición base de datos</strong></td>
+<td style="text-align: left;">Definir la fuente de información a utilizar indicando el nombre de la base de datos y la institución que la disponibiliza, la población que busca representar el estudio, el procedimiento de muestreo utilizado y el tamaño de la muestra. Dado que trabajaremos solo con el Estudio Social Longitudinal de Chile (ELSOC), se espera que las parejas describan qué busca medir y representar el módulo (o selección de variables) elegido, y que indiquen con qué año u ola trabajarán. (½ plana)</td>
+<td style="text-align: center;">2.0</td>
 </tr>
 <tr class="odd">
-<td><strong>Operacionalización y descripción de variables</strong></td>
-<td><p>Operacionalizar correctamente las variables de interés. Esta sección también incluye una tabla de descriptivos básicos, y una descripción detallada de la operacionalización y medición de las variables.</p>
-<p>- Tabla de descriptivos: etiquetas claras, debe ser posible identificar cada variable</p>
-<p>- Descripción de la operacionalización de cada variable y recodificación apropiada (por ejemplo, de menos a más presencia del atributo medido)</p></td>
-<td>3.0</td>
+<td style="text-align: left;"><strong>Operacionalización y descripción de variables</strong></td>
+<td style="text-align: left;">Operacionalizar correctamente las variables de interés. Esta sección también incluye una tabla de descriptivos básicos, y una descripción detallada de la operacionalización y medición de las variables.<br><br>- Tabla de descriptivos: etiquetas claras, debe ser posible identificar cada variable. La tabla debe distinguir entre variables continuas y categóricas, presentando para cada una los estadísticos que correspondan a su nivel de medición<br><br>- Descripción de la operacionalización de cada variable y recodificación apropiada (por ejemplo, de menos a más presencia del atributo medido)</td>
+<td style="text-align: center;">3.0</td>
 </tr>
 <tr class="even">
-<td>Asociación de variables</td>
-<td><p>Estimar, visualizar e interpretar la asociación entre variables (correlación).</p>
-<p>- Matriz de correlaciones (tabla o gráfico): 1</p>
-<p>- interpretación de tamaño de efecto y dirección: 1</p></td>
-<td>2.0</td>
+<td style="text-align: left;"><strong>Asociación de variables</strong></td>
+<td style="text-align: left;">Estimar, visualizar e interpretar la asociación entre variables (correlación).<br><br>- Matriz de correlaciones (tabla o gráfico): 1<br><br>- Interpretación de tamaño de efecto y dirección: 1</td>
+<td style="text-align: center;">2.0</td>
 </tr>
 <tr class="odd">
-<td><strong>Regresión lineal</strong></td>
-<td><p>Estimar, visualizar e interpretar coeficientes de regresión lineal</p>
-<p>- tabla de regresión: 1</p>
-<p>- interpretación de coeficientes (interpretación de efectos de interacción es opcional, pero se valorará positivamente): 2</p>
-<p>- inferencia/significación: 1</p>
-<p>- ajuste global del modelo (R2): 1</p></td>
-<td>5.0</td>
+<td style="text-align: left;"><strong>Regresión lineal</strong></td>
+<td style="text-align: left;">Estimar, visualizar e interpretar coeficientes de regresión lineal.<br><br>- Tabla de regresión con al menos dos modelos de regresión múltiple, incorporando progresivamente las variables independientes: 1<br><br>- Interpretación de coeficientes, incluyendo el comportamiento del coeficiente de interés al incorporar las demás variables: 2<br><br>- Inferencia y significación estadística: 1<br><br>- Ajuste global del modelo (R²): 1</td>
+<td style="text-align: center;">5.0</td>
 </tr>
 <tr class="even">
-<td><strong>Conclusiones</strong></td>
-<td>En las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones (1/2 plana).</td>
-<td>2.0</td>
+<td style="text-align: left;"><strong>Conclusiones</strong></td>
+<td style="text-align: left;">En las conclusiones se deben sintetizar los aspectos más relevantes de los análisis estadísticos ya expuestos, articulando toda la información trabajada debe presentarse una respuesta tentativa a la pregunta de investigación. Además, debe reflexionar sobre los límites de su diseño de investigación y señalar posibles ejes de investigación que podrían ser considerados en futuras indagaciones. (½ plana)</td>
+<td style="text-align: center;">2.0</td>
 </tr>
 <tr class="odd">
-<td><strong>Trabajo en R</strong></td>
-<td><p>Además del informe, entregar la carpeta con el Proyecto R.</p>
-<p>- Se evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.</p></td>
-<td>2.0</td>
+<td style="text-align: left;"><strong>Trabajo en R</strong></td>
+<td style="text-align: left;">Además del informe, entregar la carpeta con el Proyecto R.<br><br>- Se evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.</td>
+<td style="text-align: center;">2.0</td>
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 <section id="fecha-y-formato-de-entrega" class="level2">
 <h2 class="anchored" data-anchor-id="fecha-y-formato-de-entrega">Fecha y formato de entrega</h2>
 <p>El formato de cada informe debe ser un documento en <strong>formato PDF (.pdf)</strong>.</p>
 <ul>
-<li><p>Fecha entrega: Viernes 09 de octubre, 23:59 hrs.</p></li>
-<li><p>Se aceptan entregas atrasadas sin descuento hasta el domingo 12 de octubre a las 23:59.</p></li>
-<li><p>Desde el lunes 13 de octubre en adelante se aplicará un descuento de 0,5 décimas por cada día de atraso.</p></li>
+<li><p>Fecha entrega: <strong>Viernes 09 de octubre, 23:59 hrs.</strong></p></li>
+<li><p>Se aceptan entregas atrasadas hasta el <strong>domingo 11 de octubre a las 23:59</strong>. Se aplicará un descuento de 0,5 décimas por cada día de atraso.</p></li>
 </ul>
+<section id="sobre-el-uso-de-quarto" class="level3">
+<h3 class="anchored" data-anchor-id="sobre-el-uso-de-quarto">Sobre el uso de Quarto</h3>
+<p>El informe puede ser elaborado en Quarto, integrando en un mismo documento el texto, el código y sus salidas. Es la opción recomendada, ya que asegura que las tablas y gráficos presentados correspondan exactamente al código entregado. De todos modos, su uso es <strong>opcional</strong>: quienes lo prefieran pueden elaborar el informe en un procesador de texto y entregar por separado la carpeta con el proyecto de R.</p>
+<p>Revisaremos el uso de Quarto en una de las sesiones previas a la entrega.</p>
+</section>
 </section>
 <section id="aspectos-formales" class="level2">
 <h2 class="anchored" data-anchor-id="aspectos-formales">Aspectos formales</h2>
@@ -270,6 +284,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><p>El trabajo debe tener una portada que incluya: título, logo de la universidad, nombre de los estudiantes, profesor/a, fecha y ayudante.</p></li>
 <li><p>Debe incluirse un índice. Tablas, referencias y bibliografía utilizada debe presentarse en formato APA.</p></li>
+<li><p>La extensión total del informe debe situarse entre <strong>4 y 8 páginas</strong>, sin considerar portada, índice, bibliografía ni anexos.</p></li>
 <li><p>La fuente a utilizar debe ser Letra Times New Roman 12, interlineado simple y justificado. Notas a pie de página en tamaño 10, en mismo formato que el texto central.</p></li>
 <li><p>El trabajo debe tener una redacción adecuada y sin errores de ortografía.</p></li>
 <li><p>Se descontarán hasta 5 décimas sobre la nota final por errores de este tipo.</p></li>
