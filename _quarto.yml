@@ -50,9 +50,9 @@ website:
 #        file: assignment/index.qmd
 #      - text: "Examples"
 #        file: example/index.qmd
-      - trabajos.qmd
       - text: "Practicos"
         file: practicos/index.qmd
+      - trabajos.qmd
 #     - icon: slack
 #        href: "https://www.slack.com"
 #        aria-label: Slack
