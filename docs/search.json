@@ -1339,16 +1339,24 @@
   {
     "objectID": "practicos/practico-07.html",
     "href": "practicos/practico-07.html",
-    "title": "Práctico 06. Resumen de regresión lineal",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
     "section": "",
-    "text": "El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales y múltiples en R."
+    "text": "Esta guía cumple dos propósitos.\nEl primero es cerrar el contenido que quedaba pendiente: la incorporación de variables categóricas como predictores en un modelo de regresión.\nEl segundo es sintetizar todo el recorrido de la primera parte del curso. Desde la construcción de una escala hasta la presentación de valores predichos, aquí encontrará el flujo completo de un análisis de regresión, que es el mismo que deberán seguir en el informe.\nAl terminar, usted debería ser capaz de:\n\nDeclarar correctamente una variable como categórica en R e incorporarla a un modelo\nInterpretar el coeficiente de una variable dummy y el de una politómica\nIdentificar la categoría de referencia y modificarla\nRecorrer de manera autónoma el flujo completo: procesamiento, descriptivos, asociación, modelos, ajuste, inferencia y valores predichos\n\n\n\n\nTrabajaremos con la cohesión barrial en ELSOC 2016, construida a partir de cuatro ítems del módulo de territorio. Es un ejemplo distinto de los que hemos usado hasta ahora, de modo que sirve también como ensayo del informe.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
   },
   {
     "objectID": "practicos/practico-07.html#objetivo-de-la-práctica",
     "href": "practicos/practico-07.html#objetivo-de-la-práctica",
-    "title": "Práctico 06. Resumen de regresión lineal",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
     "section": "",
-    "text": "El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales y múltiples en R."
+    "text": "Esta guía cumple dos propósitos.\nEl primero es cerrar el contenido que quedaba pendiente: la incorporación de variables categóricas como predictores en un modelo de regresión.\nEl segundo es sintetizar todo el recorrido de la primera parte del curso. Desde la construcción de una escala hasta la presentación de valores predichos, aquí encontrará el flujo completo de un análisis de regresión, que es el mismo que deberán seguir en el informe.\nAl terminar, usted debería ser capaz de:\n\nDeclarar correctamente una variable como categórica en R e incorporarla a un modelo\nInterpretar el coeficiente de una variable dummy y el de una politómica\nIdentificar la categoría de referencia y modificarla\nRecorrer de manera autónoma el flujo completo: procesamiento, descriptivos, asociación, modelos, ajuste, inferencia y valores predichos",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
   },
   {
     "objectID": "practicos/practico-07.html#librerias",
@@ -1360,9 +1368,13 @@
   {
     "objectID": "practicos/practico-07.html#selección-de-variables",
     "href": "practicos/practico-07.html#selección-de-variables",
-    "title": "Práctico 06. Resumen de regresión lineal",
-    "section": "Selección de variables",
-    "text": "Selección de variables\nEste paso consiste en crear un subset reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de cada base de datos. Además filtramos por la ola 1 para trabajar solo con datos del 2016.\n\nproc_data &lt;- elsoc_long_2016_2022.2 %&gt;% filter(ola==\"1\") %&gt;% \n  select(t02_01, # Este barrio es ideal para mi\n         t02_02, # Me siento incluido en este barrio\n         t02_03, # Me identifico con la gente de este barrio\n         t02_04, # Este barrio es parte de mi\n         m01,# nivel educacional\n         m0_sexo,# sexo\n         m0_edad# edad\n         )\n\n# Comprobar\nnames(proc_data)\n\n[1] \"t02_01\"  \"t02_02\"  \"t02_03\"  \"t02_04\"  \"m01\"     \"m0_sexo\" \"m0_edad\"\n\n\nMediante el comando get_label obtenemos el atributo label de las variables.\n\nsjlabelled::get_label(proc_data)\n\n                                                       t02_01 \n          \"Grado de acuerdo: Este es el barrio ideal para mi\" \n                                                       t02_02 \n     \"Grado de acuerdo: Me siento integrado/a en este barrio\" \n                                                       t02_03 \n\"Grado de acuerdo: Me identifico con la gente de este barrio\" \n                                                       t02_04 \n               \"Grado de acuerdo: Este barrio es parte de mi\" \n                                                          m01 \n                                          \"Nivel educacional\" \n                                                      m0_sexo \n                                      \"Sexo del entrevistado\" \n                                                      m0_edad \n                                      \"Edad del entrevistado\" \n\n\nPodemos ver que son largas o con códigos poco informativos, por lo tanto, es necesario cambiarlas por etiquetas más cortas y de fácil identificación."
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "2.3 Selección de variables",
+    "text": "2.3 Selección de variables\n\nproc_data &lt;- elsoc_long_2016_2022.2 %&gt;%\n  filter(ola == 1) %&gt;%\n  select(t02_01,   # Este barrio es ideal para mí\n         t02_02,   # Me siento integrado en este barrio\n         t02_03,   # Me identifico con la gente de este barrio\n         t02_04,   # Este barrio es parte de mí\n         m01,      # Nivel educacional\n         m0_sexo,  # Sexo\n         m0_edad)  # Edad\n\nnames(proc_data)\n\n[1] \"t02_01\"  \"t02_02\"  \"t02_03\"  \"t02_04\"  \"m01\"     \"m0_sexo\" \"m0_edad\"\n\n\n\nget_label(proc_data)\n\n                                                       t02_01 \n          \"Grado de acuerdo: Este es el barrio ideal para mi\" \n                                                       t02_02 \n     \"Grado de acuerdo: Me siento integrado/a en este barrio\" \n                                                       t02_03 \n\"Grado de acuerdo: Me identifico con la gente de este barrio\" \n                                                       t02_04 \n               \"Grado de acuerdo: Este barrio es parte de mi\" \n                                                          m01 \n                                          \"Nivel educacional\" \n                                                      m0_sexo \n                                      \"Sexo del entrevistado\" \n                                                      m0_edad \n                                      \"Edad del entrevistado\"",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
   },
   {
     "objectID": "practicos/practico-07.html#procesamiento-de-variables",
@@ -4764,5 +4776,291 @@
     "title": "Programa",
     "section": "Palabras clave",
     "text": "Palabras clave\n\nRegresión lineal, regresión logística, modelos lineales generalizados, supuestos de regresión, interpretación de coeficientes, fiabilidad de escalas"
+  },
+  {
+    "objectID": "practicos/practico-07.html#los-datos",
+    "href": "practicos/practico-07.html#los-datos",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "",
+    "text": "Trabajaremos con la cohesión barrial en ELSOC 2016, construida a partir de cuatro ítems del módulo de territorio. Es un ejemplo distinto de los que hemos usado hasta ahora, de modo que sirve también como ensayo del informe.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#librerías",
+    "href": "practicos/practico-07.html#librerías",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "2.1 Librerías",
+    "text": "2.1 Librerías\n\npacman::p_load(dplyr,\n               car,\n               sjmisc,\n               sjlabelled,\n               sjPlot,\n               kableExtra,\n               summarytools,\n               corrplot,\n               psych,\n               ggeffects,\n               ggplot2)\n\n\nrm(list = ls())\noptions(scipen = 999)\n\nst_options(bootstrap.css = FALSE,\n           plain.ascii = FALSE,\n           style = \"rmarkdown\",\n           dfSummary.silent = TRUE,\n           footnote = NA,\n           subtitle.emphasis = FALSE)",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#carga-de-datos",
+    "href": "practicos/practico-07.html#carga-de-datos",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "2.2 Carga de datos",
+    "text": "2.2 Carga de datos\n\nload(url(\"https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData\"))",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#casos-perdidos",
+    "href": "practicos/practico-07.html#casos-perdidos",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "3.1 Casos perdidos",
+    "text": "3.1 Casos perdidos\n\nfrq(proc_data$t02_01)\n\nGrado de acuerdo: Este es el barrio ideal para mi (x) &lt;numeric&gt; \n# total N=2927 valid N=2927 mean=3.31 sd=16.51\n\nValue |                                 Label |    N | Raw % | Valid % | Cum. %\n-------------------------------------------------------------------------------\n -999 |                           No Responde |    0 |  0.00 |    0.00 |   0.00\n -888 |                               No Sabe |    1 |  0.03 |    0.03 |   0.03\n -777 |       Valor perdido por error tecnico |    0 |  0.00 |    0.00 |   0.03\n -666 | Valor perdido por encuesta incompleta |    0 |  0.00 |    0.00 |   0.03\n    1 |              Totalmente en desacuerdo |  114 |  3.89 |    3.89 |   3.93\n    2 |                         En desacuerdo |  413 | 14.11 |   14.11 |  18.04\n    3 |        Ni de acuerdo ni en desacuerdo |  379 | 12.95 |   12.95 |  30.99\n    4 |                            De acuerdo | 1599 | 54.63 |   54.63 |  85.62\n    5 |                 Totalmente de acuerdo |  421 | 14.38 |   14.38 | 100.00\n &lt;NA&gt; |                                  &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nAparecen los códigos −999, −888, −777 y −666, que corresponden a no respuesta y que debemos declarar como casos perdidos:\n\nproc_data &lt;- proc_data %&gt;%\n  set_na(., na = c(-999, -888, -777, -666))",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#recodificación-de-los-ítems",
+    "href": "practicos/practico-07.html#recodificación-de-los-ítems",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "3.2 Recodificación de los ítems",
+    "text": "3.2 Recodificación de los ítems\nLas categorías van de 1 a 5. Para construir la escala conviene que la más baja sea 0:\n\nproc_data$t02_01 &lt;- recode(proc_data$t02_01, \"1=0; 2=1; 3=2; 4=3; 5=4\")\nproc_data$t02_02 &lt;- recode(proc_data$t02_02, \"1=0; 2=1; 3=2; 4=3; 5=4\")\nproc_data$t02_03 &lt;- recode(proc_data$t02_03, \"1=0; 2=1; 3=2; 4=3; 5=4\")\nproc_data$t02_04 &lt;- recode(proc_data$t02_04, \"1=0; 2=1; 3=2; 4=3; 5=4\")",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#nombres-y-etiquetas",
+    "href": "practicos/practico-07.html#nombres-y-etiquetas",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "3.3 Nombres y etiquetas",
+    "text": "3.3 Nombres y etiquetas\n\nproc_data &lt;- proc_data %&gt;%\n  rename(\"ideal\" = t02_01,\n         \"integracion\" = t02_02,\n         \"identificacion\" = t02_03,\n         \"pertenencia\" = t02_04,\n         \"educacion\" = m01,\n         \"sexo\" = m0_sexo,\n         \"edad\" = m0_edad)\n\n\nproc_data$ideal &lt;- set_label(proc_data$ideal,\n                             label = \"Este barrio es ideal para mí\")\nproc_data$integracion &lt;- set_label(proc_data$integracion,\n                                   label = \"Me siento integrado en este barrio\")\nproc_data$identificacion &lt;- set_label(proc_data$identificacion,\n                                      label = \"Me identifico con la gente de este barrio\")\nproc_data$pertenencia &lt;- set_label(proc_data$pertenencia,\n                                   label = \"Este barrio es parte de mí\")\n\nAl recodificar, las etiquetas de los valores quedaron desalineadas respecto de los nuevos códigos. Las corregimos con set_labels:\n\netiquetas &lt;- c(\"Totalmente en desacuerdo\" = 0,\n               \"En desacuerdo\" = 1,\n               \"Ni de acuerdo ni en desacuerdo\" = 2,\n               \"De acuerdo\" = 3,\n               \"Totalmente de acuerdo\" = 4)\n\nproc_data$ideal &lt;- set_labels(proc_data$ideal, labels = etiquetas)\nproc_data$integracion &lt;- set_labels(proc_data$integracion, labels = etiquetas)\nproc_data$identificacion &lt;- set_labels(proc_data$identificacion, labels = etiquetas)\nproc_data$pertenencia &lt;- set_labels(proc_data$pertenencia, labels = etiquetas)\n\nfrq(proc_data$ideal)\n\nEste barrio es ideal para mí (x) &lt;numeric&gt; \n# total N=2927 valid N=2926 mean=2.62 sd=1.02\n\nValue |                          Label |    N | Raw % | Valid % | Cum. %\n------------------------------------------------------------------------\n    0 |       Totalmente en desacuerdo |  114 |  3.89 |    3.90 |   3.90\n    1 |                  En desacuerdo |  413 | 14.11 |   14.11 |  18.01\n    2 | Ni de acuerdo ni en desacuerdo |  379 | 12.95 |   12.95 |  30.96\n    3 |                     De acuerdo | 1599 | 54.63 |   54.65 |  85.61\n    4 |          Totalmente de acuerdo |  421 | 14.38 |   14.39 | 100.00\n &lt;NA&gt; |                           &lt;NA&gt; |    1 |  0.03 |    &lt;NA&gt; |   &lt;NA&gt;",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#casos-completos",
+    "href": "practicos/practico-07.html#casos-completos",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "3.4 Casos completos",
+    "text": "3.4 Casos completos\n\nproc_data &lt;- na.omit(proc_data)\n\nnrow(proc_data)\n\n[1] 2915",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#consistencia-interna",
+    "href": "practicos/practico-07.html#consistencia-interna",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "4.1 Consistencia interna",
+    "text": "4.1 Consistencia interna\n\npsych::alpha(proc_data %&gt;% select(ideal, integracion, identificacion, pertenencia))$total$raw_alpha\n\n[1] 0.871842\n\n\nLa consistencia interna es alta, lo que respalda la construcción de una escala con los cuatro ítems. La salida completa de psych::alpha permite además verificar si la consistencia mejoraría al eliminar alguno.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#el-puntaje",
+    "href": "practicos/practico-07.html#el-puntaje",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "4.2 El puntaje",
+    "text": "4.2 El puntaje\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(cohesion = ideal + integracion + identificacion + pertenencia)\n\nsummary(proc_data$cohesion)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   0.00    8.00   12.00   10.34   12.00   16.00 \n\n\nLa escala va de 0 a 16, con una media cercana a 10,3.\n\nggplot(proc_data, aes(x = cohesion)) +\n  geom_bar(fill = \"#4f97ff\", alpha = 0.85) +\n  scale_x_continuous(breaks = 0:16) +\n  labs(x = \"Cohesión barrial\", y = \"Frecuencia\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 1: Distribución de la escala de cohesión barrial",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#el-problema",
+    "href": "practicos/practico-07.html#el-problema",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "5.1 El problema",
+    "text": "5.1 El problema\nRevisemos nuestras variables independientes:\n\nfrq(proc_data$sexo)\n\nx &lt;numeric&gt; \n# total N=2915 valid N=2915 mean=1.60 sd=0.49\n\nValue |    N | Raw % | Valid % | Cum. %\n---------------------------------------\n    1 | 1158 | 39.73 |   39.73 |  39.73\n    2 | 1757 | 60.27 |   60.27 | 100.00\n &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nfrq(proc_data$educacion)\n\nx &lt;numeric&gt; \n# total N=2915 valid N=2915 mean=5.26 sd=2.20\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    1 |  37 |  1.27 |    1.27 |   1.27\n    2 | 321 | 11.01 |   11.01 |  12.28\n    3 | 297 | 10.19 |   10.19 |  22.47\n    4 | 394 | 13.52 |   13.52 |  35.99\n    5 | 854 | 29.30 |   29.30 |  65.28\n    6 | 102 |  3.50 |    3.50 |  68.78\n    7 | 379 | 13.00 |   13.00 |  81.78\n    8 | 183 |  6.28 |    6.28 |  88.06\n    9 | 302 | 10.36 |   10.36 |  98.42\n   10 |  46 |  1.58 |    1.58 | 100.00\n &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nAmbas están guardadas como números, pero esos números son etiquetas y no cantidades. Si las incorporamos tal cual, R las tratará como continuas y estimará un único coeficiente, lo que supondría que las categorías están ordenadas y son equidistantes.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#declarar-una-variable-como-categórica",
+    "href": "practicos/practico-07.html#declarar-una-variable-como-categórica",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "5.2 Declarar una variable como categórica",
+    "text": "5.2 Declarar una variable como categórica\nLa función as_factor() convierte una variable etiquetada en un factor, utilizando sus etiquetas como niveles:\n\nproc_data$sexo_f &lt;- as_factor(proc_data$sexo)\n\nclass(proc_data$sexo_f)\n\n[1] \"factor\"\n\nlevels(proc_data$sexo_f)\n\n[1] \"1\" \"2\"\n\n\n\n\n\n\n\n\nNotaLa regla\n\n\n\nas_factor() para variables que ya traen etiquetas desde la base original.\nfactor() cuando usted mismo define las categorías y sus nombres.\n\n\nEl primer nivel del factor pasa a ser la categoría de referencia del modelo.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#una-variable-dicotómica",
+    "href": "practicos/practico-07.html#una-variable-dicotómica",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "5.3 Una variable dicotómica",
+    "text": "5.3 Una variable dicotómica\n\nmodelo_sexo &lt;- lm(cohesion ~ sexo_f, data = proc_data)\n\ncoef(modelo_sexo)\n\n(Intercept)     sexo_f2 \n 10.4948187  -0.2631738 \n\n\nComparemos con los promedios de cada grupo:\n\nproc_data %&gt;%\n  group_by(sexo_f) %&gt;%\n  summarise(media = mean(cohesion), n = n())\n\n# A tibble: 2 × 3\n  sexo_f media     n\n  &lt;fct&gt;  &lt;dbl&gt; &lt;int&gt;\n1 1       10.5  1158\n2 2       10.2  1757\n\n\nEl intercepto coincide exactamente con el promedio del primer grupo, y el coeficiente es la diferencia entre ambos promedios. Esa es la interpretación de una variable dummy: una diferencia de medias.\n\ntab_model(modelo_sexo,\n          show.se = TRUE,\n          show.ci = FALSE,\n          digits = 3,\n          p.style = \"stars\",\n          dv.labels = c(\"Cohesión barrial\"),\n          string.pred = \"Predictores\",\n          string.est = \"β\")\n\n\n\n\n \nCohesión barrial\n\n\nPredictores\nβ\nstd. Error\n\n\n(Intercept)\n10.495 ***\n0.100\n\n\nsexo f [2]\n-0.263 *\n0.129\n\n\nObservations\n2915\n\n\nR2 / R2 adjusted\n0.001 / 0.001\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#una-variable-con-más-de-dos-categorías",
+    "href": "practicos/practico-07.html#una-variable-con-más-de-dos-categorías",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "5.4 Una variable con más de dos categorías",
+    "text": "5.4 Una variable con más de dos categorías\nEl nivel educacional tiene diez categorías. Para facilitar la interpretación lo agrupamos en tres:\n\nproc_data$educ_rec &lt;- car::recode(proc_data$educacion,\n                                  \"c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3\")\n\nproc_data$educ_f &lt;- factor(proc_data$educ_rec,\n                           levels = c(1, 2, 3),\n                           labels = c(\"Educación básica\",\n                                      \"Educación media\",\n                                      \"Educación superior\"))\n\nfrq(proc_data$educ_f)\n\nx &lt;categorical&gt; \n# total N=2915 valid N=2915 mean=2.12 sd=0.75\n\nValue              |    N | Raw % | Valid % | Cum. %\n----------------------------------------------------\nEducación básica   |  655 | 22.47 |   22.47 |  22.47\nEducación media    | 1248 | 42.81 |   42.81 |  65.28\nEducación superior | 1012 | 34.72 |   34.72 | 100.00\n&lt;NA&gt;               |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nmodelo_educ &lt;- lm(cohesion ~ educ_f, data = proc_data)\n\ntab_model(modelo_educ,\n          show.se = TRUE,\n          show.ci = FALSE,\n          digits = 3,\n          p.style = \"stars\",\n          dv.labels = c(\"Cohesión barrial\"),\n          string.pred = \"Predictores\",\n          string.est = \"β\")\n\n\n\n\n\n\n\n\n\n \nCohesión barrial\n\n\nPredictores\nβ\nstd. Error\n\n\n(Intercept)\n10.515 ***\n0.133\n\n\neduc f [Educación media]\n-0.134 \n0.164\n\n\neduc f [Educación\nsuperior]\n-0.348 *\n0.170\n\n\nObservations\n2915\n\n\nR2 / R2 adjusted\n0.002 / 0.001\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\nObserve que con tres categorías aparecen dos coeficientes. La regla general es que con \\(k\\) categorías se estiman \\(k-1\\) coeficientes: la categoría omitida es la de referencia y queda representada en el intercepto.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#la-categoría-de-referencia",
+    "href": "practicos/practico-07.html#la-categoría-de-referencia",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "5.5 La categoría de referencia",
+    "text": "5.5 La categoría de referencia\n\nproc_data %&gt;%\n  group_by(educ_f) %&gt;%\n  summarise(media = mean(cohesion))\n\n# A tibble: 3 × 2\n  educ_f             media\n  &lt;fct&gt;              &lt;dbl&gt;\n1 Educación básica    10.5\n2 Educación media     10.4\n3 Educación superior  10.2\n\n\nCada coeficiente es la diferencia respecto de educación básica, no respecto de la categoría anterior. Verifíquelo sumando el intercepto y cada coeficiente: obtendrá exactamente los promedios de la tabla.\nSi nos interesa otro punto de comparación, podemos cambiar la referencia:\n\nproc_data$educ_f2 &lt;- relevel(proc_data$educ_f, ref = \"Educación superior\")\n\ntab_model(lm(cohesion ~ educ_f2, data = proc_data),\n          show.se = TRUE,\n          show.ci = FALSE,\n          digits = 3,\n          p.style = \"stars\",\n          dv.labels = c(\"Cohesión barrial\"),\n          string.pred = \"Predictores\",\n          string.est = \"β\")\n\n\n\n\n\n\n\n\n\n \nCohesión barrial\n\n\nPredictores\nβ\nstd. Error\n\n\n(Intercept)\n10.166 ***\n0.107\n\n\neduc f2 [Educación\nbásica]\n0.348 *\n0.170\n\n\neduc f2 [Educación media]\n0.215 \n0.144\n\n\nObservations\n2915\n\n\nR2 / R2 adjusted\n0.002 / 0.001\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n\n\n\n\n\nImportanteQué cambia y qué no\n\n\n\nCambiar la categoría de referencia no modifica el modelo: el \\(R^2\\), los valores predichos y las diferencias entre grupos son idénticos. Lo único que cambia es respecto de qué grupo se expresan los coeficientes.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#paso-1-descriptivos",
+    "href": "practicos/practico-07.html#paso-1-descriptivos",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "6.1 Paso 1: descriptivos",
+    "text": "6.1 Paso 1: descriptivos\n\nproc_data_an &lt;- proc_data %&gt;%\n  select(cohesion, edad, educacion, sexo)\n\ndescr(proc_data_an,\n      stats = c(\"mean\", \"sd\", \"min\", \"med\", \"max\", \"n.valid\"),\n      transpose = TRUE,\n      order = \"preserve\") %&gt;%\n  kable(digits = 2) %&gt;%\n  kable_styling(bootstrap_options = c(\"striped\", \"hover\"),\n                full_width = FALSE)\n\n\n\n\n\nMean\nStd.Dev\nMin\nMedian\nMax\nN.Valid\n\n\n\n\ncohesion\n10.34\n3.40\n0\n12\n16\n2915\n\n\nedad\n46.11\n15.29\n18\n46\n88\n2915\n\n\neducacion\n5.26\n2.20\n1\n5\n10\n2915\n\n\nsexo\n1.60\n0.49\n1\n2\n2\n2915",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#paso-2-asociación",
+    "href": "practicos/practico-07.html#paso-2-asociación",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "6.2 Paso 2: asociación",
+    "text": "6.2 Paso 2: asociación\n\nM &lt;- cor(proc_data_an, use = \"complete.obs\")\ndiag(M) &lt;- NA\n\nrownames(M) &lt;- c(\"A. Cohesión barrial\", \"B. Edad\",\n                 \"C. Educación\", \"D. Sexo\")\ncolnames(M) &lt;- c(\"(A)\", \"(B)\", \"(C)\", \"(D)\")\n\ncorrplot(M,\n         method = \"color\",\n         addCoef.col = \"#000390\",\n         type = \"upper\",\n         tl.col = \"black\",\n         na.label = \"-\")\n\n\n\n\n\n\n\nFigura 2: Matriz de correlaciones\n\n\n\n\n\n\n\n\n\n\n\nAdvertenciaUna advertencia sobre esta matriz\n\n\n\nLa variable sexo es nominal, de modo que su correlación de Pearson con las demás no tiene una interpretación válida. Aparece aquí únicamente porque cor() opera sobre columnas numéricas sin distinguir su nivel de medición.\nEn su informe, incluya en la matriz de correlaciones solo las variables continuas.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#paso-3-el-modelo-nulo",
+    "href": "practicos/practico-07.html#paso-3-el-modelo-nulo",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "6.3 Paso 3: el modelo nulo",
+    "text": "6.3 Paso 3: el modelo nulo\n¿Qué ocurre si estimamos una regresión sin ningún predictor?\n\nreg0 &lt;- lm(cohesion ~ 1, data = proc_data)\n\ncoef(reg0)\n\n(Intercept) \n   10.33619 \n\n\n\nmean(proc_data$cohesion)\n\n[1] 10.33619\n\n\nEl intercepto equivale a la media de la variable dependiente. Sin información adicional, la mejor predicción para cualquier persona es el promedio general. Todo lo que hacen las variables independientes es mejorar esa predicción.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#paso-4-modelos-simples-y-múltiple",
+    "href": "practicos/practico-07.html#paso-4-modelos-simples-y-múltiple",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "6.4 Paso 4: modelos simples y múltiple",
+    "text": "6.4 Paso 4: modelos simples y múltiple\n\nreg1 &lt;- lm(cohesion ~ edad, data = proc_data)\nreg2 &lt;- lm(cohesion ~ educ_f, data = proc_data)\nreg3 &lt;- lm(cohesion ~ sexo_f, data = proc_data)\nreg4 &lt;- lm(cohesion ~ edad + educ_f + sexo_f, data = proc_data)\n\n\ntab_model(list(reg1, reg2, reg3, reg4),\n          show.se = TRUE,\n          show.ci = FALSE,\n          digits = 3,\n          p.style = \"stars\",\n          dv.labels = c(\"Modelo 1\", \"Modelo 2\", \"Modelo 3\", \"Modelo 4\"),\n          string.pred = \"Predictores\",\n          string.est = \"β\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nModelo 1\nModelo 2\nModelo 3\nModelo 4\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercept)\n8.425 ***\n0.197\n10.515 ***\n0.133\n10.495 ***\n0.100\n8.188 ***\n0.289\n\n\nedad\n0.041 ***\n0.004\n\n\n\n\n0.045 ***\n0.004\n\n\neduc f [Educación media]\n\n\n-0.134 \n0.164\n\n\n0.327 \n0.168\n\n\neduc f [Educación\nsuperior]\n\n\n-0.348 *\n0.170\n\n\n0.332 \n0.181\n\n\nsexo f [2]\n\n\n\n\n-0.263 *\n0.129\n-0.327 **\n0.127\n\n\nObservations\n2915\n2915\n2915\n2915\n\n\nR2 / R2 adjusted\n0.035 / 0.034\n0.002 / 0.001\n0.001 / 0.001\n0.039 / 0.037\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#paso-5-interpretación",
+    "href": "practicos/practico-07.html#paso-5-interpretación",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "6.5 Paso 5: interpretación",
+    "text": "6.5 Paso 5: interpretación\nObserve con atención qué le ocurre al coeficiente de educación entre el modelo 2 y el modelo 4.\n\ndata.frame(\n  Coeficiente = c(\"Educación media\", \"Educación superior\"),\n  Modelo_2 = coef(reg2)[2:3],\n  Modelo_4 = coef(reg4)[3:4]\n) %&gt;%\n  kable(digits = 3, row.names = FALSE) %&gt;%\n  kable_styling(full_width = FALSE)\n\n\n\n\nCoeficiente\nModelo_2\nModelo_4\n\n\n\n\nEducación media\n-0.134\n0.327\n\n\nEducación superior\n-0.348\n0.332\n\n\n\n\n\nLos coeficientes cambian de signo. Estimada por sí sola, la educación se asocia negativamente con la cohesión barrial; al controlar por edad, la asociación se vuelve positiva.\nLa explicación está en la correlación entre los predictores: las personas mayores tienen en promedio menor nivel educacional y mayor cohesión barrial. En el modelo 2, el coeficiente de educación arrastraba ese efecto de la edad. Al parcializar, la asociación se limpia.\n\n\n\n\n\n\nImportanteLo que esto enseña\n\n\n\nNunca se interpreta un coeficiente sin señalar qué variables están en el modelo. El mismo predictor puede tener signos opuestos según lo que se controle, y ambas cifras son correctas: responden a preguntas distintas.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#paso-6-ajuste",
+    "href": "practicos/practico-07.html#paso-6-ajuste",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "6.6 Paso 6: ajuste",
+    "text": "6.6 Paso 6: ajuste\nEl modelo completo explica alrededor de un 4% de la varianza de la cohesión barrial. Es un valor bajo, esperable cuando se trabaja únicamente con variables sociodemográficas: la cohesión de un barrio depende de muchos factores que no están en el modelo, como el tiempo de residencia, el tipo de vivienda o la seguridad del sector.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#paso-7-estandarización",
+    "href": "practicos/practico-07.html#paso-7-estandarización",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "6.7 Paso 7: estandarización",
+    "text": "6.7 Paso 7: estandarización\n\ndatos_std &lt;- proc_data %&gt;%\n  select(cohesion, edad) %&gt;%\n  scale() %&gt;%\n  data.frame()\n\ndatos_std$educ_f &lt;- proc_data$educ_f\ndatos_std$sexo_f &lt;- proc_data$sexo_f\n\nreg4_std &lt;- lm(cohesion ~ edad + educ_f + sexo_f, data = datos_std)\n\ntab_model(list(reg4, reg4_std),\n          show.se = FALSE,\n          show.ci = FALSE,\n          digits = 3,\n          p.style = \"stars\",\n          dv.labels = c(\"No estandarizado\", \"Estandarizado\"),\n          string.pred = \"Predictores\",\n          string.est = \"β\")\n\n\n\n\n\n\n\n\n\n \nNo estandarizado\nEstandarizado\n\n\nPredictores\nβ\nβ\n\n\n(Intercept)\n8.188 ***\n-0.017 \n\n\nedad\n0.045 ***\n0.204 ***\n\n\neduc f [Educación media]\n0.327 \n0.096 \n\n\neduc f [Educación\nsuperior]\n0.332 \n0.098 \n\n\nsexo f [2]\n-0.327 **\n-0.096 **\n\n\nObservations\n2915\n2915\n\n\nR2 / R2 adjusted\n0.039 / 0.037\n0.039 / 0.037\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n\n\n\n\n\nAdvertenciaQué estandarizar y qué no\n\n\n\nNote que estandarizamos únicamente la variable dependiente y la edad, dejando los factores sin transformar.\nEstandarizar una variable categórica no tiene sentido: una desviación estándar de sexo o de nivel educacional no corresponde a ninguna cantidad interpretable. Cuando el modelo combina predictores continuos y categóricos, la práctica habitual es estandarizar solo los continuos, y los coeficientes de las categóricas se siguen leyendo como diferencias de medias, ahora expresadas en desviaciones estándar de la variable dependiente.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#paso-8-valores-predichos",
+    "href": "practicos/practico-07.html#paso-8-valores-predichos",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "6.8 Paso 8: valores predichos",
+    "text": "6.8 Paso 8: valores predichos\nPara un predictor continuo:\n\nggpredict(reg4, terms = \"edad\") %&gt;%\n  ggplot(aes(x = x, y = predicted)) +\n  geom_line(color = \"#04245f\", linewidth = 1.2) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high),\n              alpha = 0.2, fill = \"#04245f\") +\n  scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2)) +\n  labs(x = \"Edad\", y = \"Cohesión barrial predicha\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 3: Cohesión barrial predicha según edad\n\n\n\n\n\nPara un predictor categórico:\n\nggpredict(reg4, terms = \"educ_f\") %&gt;%\n  ggplot(aes(x = x, y = predicted)) +\n  geom_col(fill = \"#4f97ff\", alpha = 0.85, width = 0.6) +\n  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.12) +\n  scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2)) +\n  labs(x = NULL, y = \"Cohesión barrial predicha\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 4: Cohesión barrial predicha según nivel educacional\n\n\n\n\n\nEn ambos casos el eje vertical recorre la escala completa de la variable dependiente, de 0 a 16. Recuerde que ajustar el eje al rango de los valores predichos exagera visualmente la magnitud del efecto.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#procesamiento-1",
+    "href": "practicos/practico-07.html#procesamiento-1",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "7.1 Procesamiento",
+    "text": "7.1 Procesamiento\n\nCargue la base ELSOC y filtre por la ola 4 (2019). Seleccione los cuatro ítems de cohesión barrial, más educación, sexo y edad.\nDeclare los casos perdidos, recodifique los ítems de 0 a 4, renombre las variables y conserve los casos completos. Reporte el N final.\nVerifique la consistencia interna de los cuatro ítems y construya la escala.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#variables-categóricas-1",
+    "href": "practicos/practico-07.html#variables-categóricas-1",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "7.2 Variables categóricas",
+    "text": "7.2 Variables categóricas\n\nRecodifique el nivel educacional en tres categorías y declárelo como factor. Reporte la distribución de frecuencias.\nEstime un modelo que incluya únicamente el sexo como variable independiente. Verifique que el intercepto coincide con el promedio del grupo de referencia y que cada coeficiente equivale a la diferencia de promedios correspondiente.\nCambie la categoría de referencia a hombre y vuelva a estimar. Compare el \\(R^2\\) de ambos modelos y explique por qué es idéntico.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#modelos",
+    "href": "practicos/practico-07.html#modelos",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "7.3 Modelos",
+    "text": "7.3 Modelos\n\nEstime los tres modelos simples y el modelo múltiple, y preséntelos en una tabla conjunta.\nIdentifique algún coeficiente que cambie de manera relevante entre el modelo simple y el múltiple, y explique a qué se debe.\nCompare el \\(R^2\\) y el \\(R^2\\) ajustado de los cuatro modelos.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
+  },
+  {
+    "objectID": "practicos/practico-07.html#presentación-1",
+    "href": "practicos/practico-07.html#presentación-1",
+    "title": "Práctico 07. Variables categóricas y síntesis de regresión lineal",
+    "section": "7.4 Presentación",
+    "text": "7.4 Presentación\n\nEstandarice la variable dependiente y los predictores continuos, y compare los coeficientes con los del modelo original.\nElabore un gráfico de valores predichos para cada predictor estadísticamente significativo, con el eje vertical en la escala completa de la variable dependiente.\nRedacte un párrafo de máximo 300 palabras que reporte el modelo múltiple: interprete los coeficientes de la variable categórica indicando la categoría de referencia, señale cuáles resultan significativos, comente el \\(R^2\\) y mencione una limitación del análisis.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 7 - Predictores categóricos"
+    ]
   }
 ]

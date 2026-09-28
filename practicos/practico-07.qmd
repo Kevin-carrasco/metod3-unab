@@ -1,98 +1,122 @@
 ---
-title: "Práctico 06. Resumen de regresión lineal"
+title: "Práctico 07. Variables categóricas y síntesis de regresión lineal"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2025-09-29"
+date: "2026-09-28"
 lang: es
-output:
-  number_sections: true
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-copy: true
+    code-overflow: wrap
+execute:
+  warning: false
+  message: false
 ---
+
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+```
 
 # Presentación
 
 ## Objetivo de la práctica
 
-El desarrollo de esta guía tiene por objetivo revisar algunos procedimientos para la estimación de regresiones lineales y múltiples en R.
+Esta guía cumple dos propósitos.
 
+El primero es cerrar el contenido que quedaba pendiente: la incorporación de **variables categóricas** como predictores en un modelo de regresión.
 
-# Análisis
+El segundo es **sintetizar** todo el recorrido de la primera parte del curso. Desde la construcción de una escala hasta la presentación de valores predichos, aquí encontrará el flujo completo de un análisis de regresión, que es el mismo que deberán seguir en el informe.
 
-## 1. Librerías principales (de R) a utilizar en el análisis{#librerias}
+Al terminar, usted debería ser capaz de:
+
+1. Declarar correctamente una variable como categórica en R e incorporarla a un modelo
+2. Interpretar el coeficiente de una variable dummy y el de una politómica
+3. Identificar la categoría de referencia y modificarla
+4. Recorrer de manera autónoma el flujo completo: procesamiento, descriptivos, asociación, modelos, ajuste, inferencia y valores predichos
+
+## Los datos
+
+Trabajaremos con la **cohesión barrial** en ELSOC 2016, construida a partir de cuatro ítems del módulo de territorio. Es un ejemplo distinto de los que hemos usado hasta ahora, de modo que sirve también como ensayo del informe.
+
+# Preparación
+
+## Librerías
 
 ```{r}
-pacman::p_load(dplyr, car, sjmisc, haven, sjPlot, sjlabelled, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr, psych)
+pacman::p_load(dplyr,
+               car,
+               sjmisc,
+               sjlabelled,
+               sjPlot,
+               kableExtra,
+               summarytools,
+               corrplot,
+               psych,
+               ggeffects,
+               ggplot2)
 ```
 
-desde internet:
+```{r}
+rm(list = ls())
+options(scipen = 999)
+
+st_options(bootstrap.css = FALSE,
+           plain.ascii = FALSE,
+           style = "rmarkdown",
+           dfSummary.silent = TRUE,
+           footnote = NA,
+           subtitle.emphasis = FALSE)
+```
+
+## Carga de datos
 
 ```{r}
-#cargamos la base de datos desde internet
-load(url("https://dataverse.harvard.edu/api/access/datafile/7245118")) #Cargar base de datos
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
 ```
 
 ## Selección de variables
 
-Este paso consiste en crear un subset reducido de datos que contenga solo las variables de interés. Para ello lo más fácil es revisar el libro de códigos de cada base de datos. Además filtramos por la ola 1 para trabajar solo con datos del 2016.
-
 ```{r}
-proc_data <- elsoc_long_2016_2022.2 %>% filter(ola=="1") %>% 
-  select(t02_01, # Este barrio es ideal para mi
-         t02_02, # Me siento incluido en este barrio
-         t02_03, # Me identifico con la gente de este barrio
-         t02_04, # Este barrio es parte de mi
-         m01,# nivel educacional
-         m0_sexo,# sexo
-         m0_edad# edad
-         )
+proc_data <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(t02_01,   # Este barrio es ideal para mí
+         t02_02,   # Me siento integrado en este barrio
+         t02_03,   # Me identifico con la gente de este barrio
+         t02_04,   # Este barrio es parte de mí
+         m01,      # Nivel educacional
+         m0_sexo,  # Sexo
+         m0_edad)  # Edad
 
-# Comprobar
 names(proc_data)
 ```
 
-Mediante el comando `get_label` obtenemos el atributo label de las variables.
-
 ```{r}
-sjlabelled::get_label(proc_data)
+get_label(proc_data)
 ```
 
-Podemos ver que son largas o con códigos poco informativos, por lo tanto, es necesario cambiarlas por etiquetas más cortas y de fácil identificación.
+# Procesamiento
 
-## Procesamiento de variables
-
-Para el procesamiento de cada variable se seguirá el siguiente flujo de trabajo:
-
-a. Descriptivo general
-b. Recodificación: de casos perdidos y otros valores (en caso necesario)
-c. Etiquetado: cambio de nombres de variables y valores (en caso necesario)
-d. Otros ajustes
-
-Y se recomienda también un descriptivo final para revisar que el procesamiento de cada variable está ok.
-
-### cohesión barrial
-
-_a. Descriptivo_
-
-Para los descriptivos se utilizará la función `frq`, de la librería `sjmisc`:
+## Casos perdidos
 
 ```{r}
 frq(proc_data$t02_01)
 ```
 
-En esta variable vemos valores asociados a la opción "No contesta" (-999) y "No sabe" (-888), (-777) y (-666) que corresponde definirlos como casos perdidos (en el caso de R, como casos NA). El resto de los valores y etiquetas se encuentran en un orden correcto. Sin embargo, si queremos construir una escala, lo mejor es dejar los valores de 0 a 4
-
-_b. Recodificación_
-
-Después de revisar el libro de códigos, no hay variables en que los valores negativos representen alguna otra característica, así que podemos usar set_na
-
-```{r }
-proc_data <- proc_data %>% set_na(., na = c(-999, -888, -777, -666))
-```
+Aparecen los códigos −999, −888, −777 y −666, que corresponden a no respuesta y que debemos declarar como casos perdidos:
 
 ```{r}
-frq(proc_data$t02_01)
+proc_data <- proc_data %>%
+  set_na(., na = c(-999, -888, -777, -666))
 ```
 
+## Recodificación de los ítems
 
-Para reordenar las categorías volvemos a utilizar la función `recode`, de la librería `car`
+Las categorías van de 1 a 5. Para construir la escala conviene que la más baja sea 0:
 
 ```{r}
 proc_data$t02_01 <- recode(proc_data$t02_01, "1=0; 2=1; 3=2; 4=3; 5=4")
@@ -101,315 +125,423 @@ proc_data$t02_03 <- recode(proc_data$t02_03, "1=0; 2=1; 3=2; 4=3; 5=4")
 proc_data$t02_04 <- recode(proc_data$t02_04, "1=0; 2=1; 3=2; 4=3; 5=4")
 ```
 
-_c - Etiquetado_
-
-Vamos a dar un nombre más sustantivo a las variables con la función `rename`, de la librería `dplyr`:
+## Nombres y etiquetas
 
 ```{r}
-proc_data <- proc_data %>% rename("ideal"=t02_01, 
-                                  "integracion"=t02_02, 
-                                  "identificacion"=t02_03, 
-                                  "pertenencia"=t02_04)
-
+proc_data <- proc_data %>%
+  rename("ideal" = t02_01,
+         "integracion" = t02_02,
+         "identificacion" = t02_03,
+         "pertenencia" = t02_04,
+         "educacion" = m01,
+         "sexo" = m0_sexo,
+         "edad" = m0_edad)
 ```
 
-
-Además de cambiar el nombre, queremos cambiar las etiquetas de las variables.
-
 ```{r}
-proc_data$ideal <- set_label(x = proc_data$ideal,label = "Este barrio es ideal para mi")
-get_label(proc_data$ideal)
-
-proc_data$integracion  <- set_label(x = proc_data$integracion, label = "Me siento integrado en este barrio")
-get_label(proc_data$integracion)
-
-proc_data$identificacion  <- set_label(x = proc_data$identificacion, label = "Me identifico con la gente de este barrio")
-get_label(proc_data$identificacion)
-
-proc_data$pertenencia  <- set_label(x = proc_data$pertenencia, label = "Me siento parte de este barrio")
-get_label(proc_data$pertenencia)
+proc_data$ideal <- set_label(proc_data$ideal,
+                             label = "Este barrio es ideal para mí")
+proc_data$integracion <- set_label(proc_data$integracion,
+                                   label = "Me siento integrado en este barrio")
+proc_data$identificacion <- set_label(proc_data$identificacion,
+                                      label = "Me identifico con la gente de este barrio")
+proc_data$pertenencia <- set_label(proc_data$pertenencia,
+                                   label = "Este barrio es parte de mí")
 ```
 
-_Revisión final_
-
-Nuevamente un descriptivo de cada variable para confirmar que el procesamiento está ok:
+Al recodificar, las etiquetas de los valores quedaron desalineadas respecto de los nuevos códigos. Las corregimos con `set_labels`:
 
 ```{r}
+etiquetas <- c("Totalmente en desacuerdo" = 0,
+               "En desacuerdo" = 1,
+               "Ni de acuerdo ni en desacuerdo" = 2,
+               "De acuerdo" = 3,
+               "Totalmente de acuerdo" = 4)
+
+proc_data$ideal <- set_labels(proc_data$ideal, labels = etiquetas)
+proc_data$integracion <- set_labels(proc_data$integracion, labels = etiquetas)
+proc_data$identificacion <- set_labels(proc_data$identificacion, labels = etiquetas)
+proc_data$pertenencia <- set_labels(proc_data$pertenencia, labels = etiquetas)
+
 frq(proc_data$ideal)
-frq(proc_data$integracion)
-frq(proc_data$identificacion)
-frq(proc_data$pertenencia)
 ```
 
-Vemos que los valores (labels) de cada categoría de las variables que recodificamos no se corresponden con el nuevo valor. Para re-etiquetar valores usamos la función `set_labels`, de la librería `sjlabelled`
+## Casos completos
 
 ```{r}
-proc_data$ideal <- set_labels(proc_data$ideal,
-            labels=c( "Totalmente en desacuerdo"=0,
-                      "En desacuerdo"=1,
-                      "Ni de acuerdo ni en desacuerdo"=2,
-                      "De acuerdo"=3,
-                      "Totalmente de acuerdo"=4))
-
-proc_data$integracion <- set_labels(proc_data$integracion,
-            labels=c( "Totalmente en desacuerdo"=0,
-                      "En desacuerdo"=1,
-                      "Ni de acuerdo ni en desacuerdo"=2,
-                      "De acuerdo"=3,
-                      "Totalmente de acuerdo"=4))
-
-proc_data$identificacion <- set_labels(proc_data$identificacion,
-            labels=c( "Totalmente en desacuerdo"=0,
-                      "En desacuerdo"=1,
-                      "Ni de acuerdo ni en desacuerdo"=2,
-                      "De acuerdo"=3,
-                      "Totalmente de acuerdo"=4))
-
-proc_data$pertenencia <- set_labels(proc_data$pertenencia,
-            labels=c( "Totalmente en desacuerdo"=0,
-                      "En desacuerdo"=1,
-                      "Ni de acuerdo ni en desacuerdo"=2,
-                      "De acuerdo"=3,
-                      "Totalmente de acuerdo"=4))
-```
-
-y volvemos a revisar
-
-```{r}
-frq(proc_data$ideal)
-frq(proc_data$pertenencia)
-```
-
-#### 4.2. Educación
-
-* [`m01`] =  Nivel de estudios alcanzado - Entrevistado 
-
-_a. Descriptivo_
-
-```{r}
-frq(proc_data$m01)
-```
-
-Esta vez la vamos a dejar así
-
-### 4.3. Sexo
-
-* [`m0_sexo`]	=	SEXO Sexo
-
-_a. Descriptivo_
-
-```{r}
-frq(proc_data$m0_sexo)
-```
-
-
-
-### 4.4 Edad
-
-* [`m0_edad`]	=	EDAD Edad.
-
-
-_a. Descriptivo_
-
-```{r}
-summary(proc_data$m0_edad)
-```
-
-# Análisis
-
-Una vez que tenemos recodificadas nuestras variables en el archivo de preparación y logramos exportar la base de datos procesada en la carpeta input/data, abrimos un documento de quarto (.qmd) para realizar el análisis.
-
-Al trabajar con quarto (y al intentar renderizar), el documento leerá todos lo que esté escrito en el documento desde 0, por lo que es necesario **siempre** cargar de nuevo los paquetes y bases de datos.
-
-## Análisis descriptivo
-
-```{r}
-#| label: tbl-sjmisc
-#| tbl-cap: "Descriptivos"
-
-sjmisc::descr(proc_data,
-      show = c("label","range", "mean", "sd", "NA.prc", "n"))%>% # Selecciona estadísticos
-      kable(.,"markdown") # Esto es para que se vea bien en quarto
-```
-
-En la @tbl-sjmisc podemos observar los descriptivos generales de la base de datos procesada que utilizamos en el práctico anterior. Contiene ya creado el índice de cohesión barrial cuya **media es de 10,33**
-
-Y si queremos visualizar algo más:
-
-```{r}
-#| label: fig-descriptivos
-#| fig-cap: "Frecuencias Cohesión barrial"
-proc_data %>% dplyr::select(ideal, integracion, identificacion, pertenencia) %>% 
-  sjPlot::plot_stackfrq()+
-  theme(legend.position = "bottom")
-
-```
-
-En la @fig-descriptivos podemos ver la distribución de las variables de cohesión barrial, donde se puede observar que más del 65% de la muestra está de acuerdo o totalmente de acuerdo con las afirmaciones indicadas.
-
-
-## Asociación de variables
-
-Seleccionamos las principales variables y cambiamos su nombre. No seleccionaremos las variables originales que construyeron el índice.
-
-```{r}
-proc_data <- proc_data %>% select(ideal, integracion, identificacion, pertenencia, edad=m0_edad, educacion=m01, sexo=m0_sexo)
-```
-
-Podemos ver la asociación de todas las variables, como lo muestra la @cor-complete
-
-```{r}
-M <- cor(proc_data, use = "complete.obs") # Usar solo casos con observaciones completas
-diag(M) = NA # Elimina la diagonal (correlaciones absolutas de cada variable consigmo misma)
-rownames(M) <- c("A. Este barrio es ideal",
-                 "B. Me siento integrado",
-                 "C. Me identifico con la gente",
-                 "D. Este barrio es parte de mi",
-                         "E. Edad",
-                         "F. Educación",
-                         "G. Sexo")
-colnames(M) <-c("(A)", "(B)","(C)", "(D)", "(E)", "(F)", "(G)")
-```
-
-```{r}
-#| label: cor-complete
-#| fig-cap: "Correlación variables elsoc 2016"
-
-corrplot::corrplot(M,
-  method = "color", # Cambia los círculos por color completo de cada cuadrante
-  addCoef.col = "#000390", # Color de los coeficientes
-  type = "upper", # Deja solo las correlaciones de arriba
-  tl.col = "black", # COlor letras, rojo por defecto
-  na.label = "-")
-```
-
-### Construcción de escala
-
-```{r}
-psych::alpha(dplyr::select(proc_data, ideal, integracion, identificacion, pertenencia))
-```
-
-La consistencia interna de una posible escala entre estos cuatro ítems es de 0.87, lo que representa una alta consistencia interna. Si quitaramos alguno de estos ítems la consistencia interna solo bajaría, así que podemos construir una escala con los cuatro ítems.
-
-```{r}
-proc_data <- proc_data %>% 
-  rowwise() %>% 
-  mutate(cohesion_barrial = sum(ideal, integracion, identificacion, pertenencia))
-summary(proc_data$cohesion_barrial)
-```
-
-y la podemos visualizar en un gráfico:
-
-```{r}
-#| label: fig-plot-cohesion
-#| fig-cap: "Histograma Cohesión barrial"
-
-
-ggplot(proc_data, aes(x = cohesion_barrial)) +
-  geom_histogram(binwidth=0.6, colour="black", fill="yellow") +
-  theme_bw() +
-  xlab("Cohesión barrial") +
-  ylab("Cantidad")
-```
-
-La @fig-plot-cohesion muestra la distribución de la nueva escala de Cohesión Barrial que construimos. En general, la mayor concentración de casos está en la categoría 12 y que sumado a un promedio de 10.33 según los descriptivos anteriores, podríamos afirmar que la cohesión barrial en Chile es alta.
-
-
-## Regresión lineal
-
-Para facilitar la interpretación de los coeficientes de regresión vamos a recodificar la variable de educación (10 categorías) en tres categorías (básica, media y universitaria).
-
-Además, nos aseguramos que las variables categóricas estén como variables categóricas con as_factor. De esta forma nos aseguramos que la estimación de los modelos sea correcta ya que no se úede interpretar educación como si fuera una variable numérica.
-
-```{r}
-proc_data$educacion <- car::recode(proc_data$educacion, "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
-
-proc_data$educacion <- set_labels(proc_data$educacion,
-            labels=c( "Educacion básica"=1,
-                      "Educación media"=2,
-                      "Educación superior"=3))
-
-frq(proc_data$educacion)
-
-proc_data$educacion_rec <- as_factor(proc_data$educacion)
-proc_data$sexo_rec <- as_factor(proc_data$sexo)
-
 proc_data <- na.omit(proc_data)
 
-reg1 <- lm(cohesion_barrial ~ 1, data=proc_data)
-
-stargazer(reg1, type="text")
+nrow(proc_data)
 ```
 
-¿Qué valor toma una regresión lineal cuando no incluímos predictores en nuestro modelo?
+# Construcción de la escala
 
-En este caso, lo que nos interesa observar es el intercepto. Un intercepto de 10.336 nos indica la media de la cohesión barrial.
-
-# Ejercicio
-
-1- Estima un modelo de regresión lineal simple para cada variable independiente (edad, educación, sexo). Luego estima un modelo de regresión lineal múltiple que incluya las tres variables independientes. Representalo en una tabla de regresión e interpreta los resultados de cada modelo.
+## Consistencia interna
 
 ```{r}
-reg1 <- lm(cohesion_barrial ~ edad, data=proc_data)
-reg2 <- lm(cohesion_barrial ~ educacion_rec, data=proc_data)
-reg3 <- lm(cohesion_barrial ~ sexo_rec, data=proc_data)
-reg4 <- lm(cohesion_barrial ~ edad + educacion_rec + sexo_rec, data=proc_data)
-
-tab_model(reg1, reg2, reg3, reg4, show.ci=FALSE)
+psych::alpha(proc_data %>% select(ideal, integracion, identificacion, pertenencia))$total$raw_alpha
 ```
 
+La consistencia interna es alta, lo que respalda la construcción de una escala con los cuatro ítems. La salida completa de `psych::alpha` permite además verificar si la consistencia mejoraría al eliminar alguno.
 
-2. Estima un modelo de regresión con variables estandarizadas y compáralo con el modelo de regresión lineal múltiple (¿qué diferencias hay entre los valores de los coeficientes de un modelo y otro?)
+## El puntaje
 
 ```{r}
-data <- dplyr::select(proc_data, cohesion_barrial, educacion, edad, sexo)
-data_std = data.frame(scale(data))
+proc_data <- proc_data %>%
+  mutate(cohesion = ideal + integracion + identificacion + pertenencia)
 
-reg_std <- lm(cohesion_barrial ~ edad + educacion + sexo, data=data_std)
-
-tab_model(reg4, reg_std, show.ci=FALSE)
+summary(proc_data$cohesion)
 ```
 
-
-3. Gráfica los valores predichos de los coeficientes estadísticamente significativos.
+La escala va de 0 a 16, con una media cercana a 10,3.
 
 ```{r}
-library(ggeffects)
+#| label: fig-cohesion
+#| fig-cap: "Distribución de la escala de cohesión barrial"
 
-ggeffects::ggpredict(reg4, terms = c("sexo_rec")) %>%
-  ggplot(aes(x=x, y=predicted)) +
-  geom_bar(stat="identity", color="grey", fill="grey")+
-  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
-  labs(title="Sexo", x = "", y = "") +
-  theme_bw() +
-  scale_x_discrete(name = "",
-                     breaks = c(1,2),
-                     labels = c("Hombre", "Mujer"))+
-  scale_y_continuous(limits = c(0,16), 
-                     breaks = seq(0,16, by = 1))
+ggplot(proc_data, aes(x = cohesion)) +
+  geom_bar(fill = "#4f97ff", alpha = 0.85) +
+  scale_x_continuous(breaks = 0:16) +
+  labs(x = "Cohesión barrial", y = "Frecuencia") +
+  theme_minimal()
+```
+
+# Variables categóricas
+
+Esta sección cubre el contenido que quedó pendiente: cómo incorporar predictores que no son numéricos.
+
+## El problema
+
+Revisemos nuestras variables independientes:
+
+```{r}
+frq(proc_data$sexo)
 ```
 
 ```{r}
-ggeffects::ggpredict(reg4, terms="edad") %>%
-  ggplot(mapping=aes(x = x, y=predicted)) +
-  labs(title="Edad", x = "", y = "")+
-  theme_bw() +
-  geom_smooth()+
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "black") +
-  scale_x_continuous(breaks = seq(0,100, by = 10))+
-  scale_y_continuous(limits = c(0,16), 
-                     breaks = seq(0,16, by = 1))
+frq(proc_data$educacion)
 ```
 
+Ambas están guardadas como números, pero esos números son **etiquetas** y no cantidades. Si las incorporamos tal cual, R las tratará como continuas y estimará un único coeficiente, lo que supondría que las categorías están ordenadas y son equidistantes.
 
-4. Estima una interacción entre dos variables independientes. Gráfica e interpreta el resultado.
+## Declarar una variable como categórica
+
+La función `as_factor()` convierte una variable etiquetada en un factor, utilizando sus etiquetas como niveles:
 
 ```{r}
-reg_int <- lm(cohesion_barrial ~ edad * sexo_rec + educacion_rec, data=proc_data)
+proc_data$sexo_f <- as_factor(proc_data$sexo)
+
+class(proc_data$sexo_f)
+levels(proc_data$sexo_f)
+```
+
+::: {.callout-note}
+## La regla
+`as_factor()` para variables que ya traen etiquetas desde la base original.
+
+`factor()` cuando usted mismo define las categorías y sus nombres.
+:::
+
+El **primer nivel** del factor pasa a ser la categoría de referencia del modelo.
+
+## Una variable dicotómica
+
+```{r}
+modelo_sexo <- lm(cohesion ~ sexo_f, data = proc_data)
+
+coef(modelo_sexo)
+```
+
+Comparemos con los promedios de cada grupo:
+
+```{r}
+proc_data %>%
+  group_by(sexo_f) %>%
+  summarise(media = mean(cohesion), n = n())
+```
+
+El intercepto coincide exactamente con el promedio del primer grupo, y el coeficiente es la diferencia entre ambos promedios. Esa es la interpretación de una variable dummy: **una diferencia de medias**.
+
+```{r}
+tab_model(modelo_sexo,
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Cohesión barrial"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## Una variable con más de dos categorías
+
+El nivel educacional tiene diez categorías. Para facilitar la interpretación lo agrupamos en tres:
+
+```{r}
+proc_data$educ_rec <- car::recode(proc_data$educacion,
+                                  "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
+
+proc_data$educ_f <- factor(proc_data$educ_rec,
+                           levels = c(1, 2, 3),
+                           labels = c("Educación básica",
+                                      "Educación media",
+                                      "Educación superior"))
+
+frq(proc_data$educ_f)
 ```
 
 ```{r}
-plot_model(reg_int, type="int")
+modelo_educ <- lm(cohesion ~ educ_f, data = proc_data)
+
+tab_model(modelo_educ,
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Cohesión barrial"),
+          string.pred = "Predictores",
+          string.est = "β")
 ```
 
+Observe que con tres categorías aparecen **dos** coeficientes. La regla general es que con $k$ categorías se estiman $k-1$ coeficientes: la categoría omitida es la de referencia y queda representada en el intercepto.
 
+## La categoría de referencia
+
+```{r}
+proc_data %>%
+  group_by(educ_f) %>%
+  summarise(media = mean(cohesion))
+```
+
+Cada coeficiente es la diferencia respecto de **educación básica**, no respecto de la categoría anterior. Verifíquelo sumando el intercepto y cada coeficiente: obtendrá exactamente los promedios de la tabla.
+
+Si nos interesa otro punto de comparación, podemos cambiar la referencia:
+
+```{r}
+proc_data$educ_f2 <- relevel(proc_data$educ_f, ref = "Educación superior")
+
+tab_model(lm(cohesion ~ educ_f2, data = proc_data),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Cohesión barrial"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+::: {.callout-important}
+## Qué cambia y qué no
+Cambiar la categoría de referencia **no modifica el modelo**: el $R^2$, los valores predichos y las diferencias entre grupos son idénticos. Lo único que cambia es respecto de qué grupo se expresan los coeficientes.
+:::
+
+# Síntesis: el flujo completo
+
+De aquí en adelante recorremos el procedimiento completo de un análisis de regresión, que es el mismo que utilizarán en el informe.
+
+## Paso 1: descriptivos
+
+```{r}
+proc_data_an <- proc_data %>%
+  select(cohesion, edad, educacion, sexo)
+
+descr(proc_data_an,
+      stats = c("mean", "sd", "min", "med", "max", "n.valid"),
+      transpose = TRUE,
+      order = "preserve") %>%
+  kable(digits = 2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+## Paso 2: asociación
+
+```{r}
+#| label: fig-cor
+#| fig-cap: "Matriz de correlaciones"
+
+M <- cor(proc_data_an, use = "complete.obs")
+diag(M) <- NA
+
+rownames(M) <- c("A. Cohesión barrial", "B. Edad",
+                 "C. Educación", "D. Sexo")
+colnames(M) <- c("(A)", "(B)", "(C)", "(D)")
+
+corrplot(M,
+         method = "color",
+         addCoef.col = "#000390",
+         type = "upper",
+         tl.col = "black",
+         na.label = "-")
+```
+
+::: {.callout-warning}
+## Una advertencia sobre esta matriz
+La variable sexo es **nominal**, de modo que su correlación de Pearson con las demás no tiene una interpretación válida. Aparece aquí únicamente porque `cor()` opera sobre columnas numéricas sin distinguir su nivel de medición.
+
+En su informe, incluya en la matriz de correlaciones solo las variables continuas.
+:::
+
+## Paso 3: el modelo nulo
+
+¿Qué ocurre si estimamos una regresión sin ningún predictor?
+
+```{r}
+reg0 <- lm(cohesion ~ 1, data = proc_data)
+
+coef(reg0)
+```
+
+```{r}
+mean(proc_data$cohesion)
+```
+
+El intercepto equivale a la media de la variable dependiente. Sin información adicional, la mejor predicción para cualquier persona es el promedio general. Todo lo que hacen las variables independientes es **mejorar esa predicción**.
+
+## Paso 4: modelos simples y múltiple
+
+```{r}
+reg1 <- lm(cohesion ~ edad, data = proc_data)
+reg2 <- lm(cohesion ~ educ_f, data = proc_data)
+reg3 <- lm(cohesion ~ sexo_f, data = proc_data)
+reg4 <- lm(cohesion ~ edad + educ_f + sexo_f, data = proc_data)
+```
+
+```{r}
+tab_model(list(reg1, reg2, reg3, reg4),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+## Paso 5: interpretación
+
+Observe con atención qué le ocurre al coeficiente de educación entre el modelo 2 y el modelo 4.
+
+```{r}
+data.frame(
+  Coeficiente = c("Educación media", "Educación superior"),
+  Modelo_2 = coef(reg2)[2:3],
+  Modelo_4 = coef(reg4)[3:4]
+) %>%
+  kable(digits = 3, row.names = FALSE) %>%
+  kable_styling(full_width = FALSE)
+```
+
+Los coeficientes **cambian de signo**. Estimada por sí sola, la educación se asocia negativamente con la cohesión barrial; al controlar por edad, la asociación se vuelve positiva.
+
+La explicación está en la correlación entre los predictores: las personas mayores tienen en promedio menor nivel educacional y mayor cohesión barrial. En el modelo 2, el coeficiente de educación arrastraba ese efecto de la edad. Al parcializar, la asociación se limpia.
+
+::: {.callout-important}
+## Lo que esto enseña
+Nunca se interpreta un coeficiente sin señalar qué variables están en el modelo. El mismo predictor puede tener signos opuestos según lo que se controle, y ambas cifras son correctas: responden a preguntas distintas.
+:::
+
+## Paso 6: ajuste
+
+El modelo completo explica alrededor de un 4% de la varianza de la cohesión barrial. Es un valor bajo, esperable cuando se trabaja únicamente con variables sociodemográficas: la cohesión de un barrio depende de muchos factores que no están en el modelo, como el tiempo de residencia, el tipo de vivienda o la seguridad del sector.
+
+## Paso 7: estandarización
+
+```{r}
+datos_std <- proc_data %>%
+  select(cohesion, edad) %>%
+  scale() %>%
+  data.frame()
+
+datos_std$educ_f <- proc_data$educ_f
+datos_std$sexo_f <- proc_data$sexo_f
+
+reg4_std <- lm(cohesion ~ edad + educ_f + sexo_f, data = datos_std)
+
+tab_model(list(reg4, reg4_std),
+          show.se = FALSE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("No estandarizado", "Estandarizado"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+::: {.callout-warning}
+## Qué estandarizar y qué no
+Note que estandarizamos únicamente la variable dependiente y la edad, dejando los factores sin transformar.
+
+Estandarizar una variable categórica no tiene sentido: una desviación estándar de sexo o de nivel educacional no corresponde a ninguna cantidad interpretable. Cuando el modelo combina predictores continuos y categóricos, la práctica habitual es estandarizar solo los continuos, y los coeficientes de las categóricas se siguen leyendo como diferencias de medias, ahora expresadas en desviaciones estándar de la variable dependiente.
+:::
+
+## Paso 8: valores predichos
+
+Para un predictor continuo:
+
+```{r}
+#| label: fig-pred-edad
+#| fig-cap: "Cohesión barrial predicha según edad"
+
+ggpredict(reg4, terms = "edad") %>%
+  ggplot(aes(x = x, y = predicted)) +
+  geom_line(color = "#04245f", linewidth = 1.2) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high),
+              alpha = 0.2, fill = "#04245f") +
+  scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2)) +
+  labs(x = "Edad", y = "Cohesión barrial predicha") +
+  theme_minimal()
+```
+
+Para un predictor categórico:
+
+```{r}
+#| label: fig-pred-educ
+#| fig-cap: "Cohesión barrial predicha según nivel educacional"
+
+ggpredict(reg4, terms = "educ_f") %>%
+  ggplot(aes(x = x, y = predicted)) +
+  geom_col(fill = "#4f97ff", alpha = 0.85, width = 0.6) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.12) +
+  scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2)) +
+  labs(x = NULL, y = "Cohesión barrial predicha") +
+  theme_minimal()
+```
+
+En ambos casos el eje vertical recorre la escala completa de la variable dependiente, de 0 a 16. Recuerde que ajustar el eje al rango de los valores predichos exagera visualmente la magnitud del efecto.
+
+# Ejercicios
+
+Los siguientes ejercicios reproducen el flujo completo con otras variables. Sirven como ensayo directo del informe.
+
+## Procesamiento
+
+1. Cargue la base ELSOC y filtre por la **ola 4** (2019). Seleccione los cuatro ítems de cohesión barrial, más educación, sexo y edad.
+
+2. Declare los casos perdidos, recodifique los ítems de 0 a 4, renombre las variables y conserve los casos completos. Reporte el N final.
+
+3. Verifique la consistencia interna de los cuatro ítems y construya la escala.
+
+## Variables categóricas
+
+4. Recodifique el nivel educacional en tres categorías y declárelo como factor. Reporte la distribución de frecuencias.
+
+5. Estime un modelo que incluya únicamente el sexo como variable independiente. Verifique que el intercepto coincide con el promedio del grupo de referencia y que cada coeficiente equivale a la diferencia de promedios correspondiente.
+
+6. Cambie la categoría de referencia a hombre y vuelva a estimar. Compare el $R^2$ de ambos modelos y explique por qué es idéntico.
+
+## Modelos
+
+7. Estime los tres modelos simples y el modelo múltiple, y preséntelos en una tabla conjunta.
+
+8. Identifique algún coeficiente que cambie de manera relevante entre el modelo simple y el múltiple, y explique a qué se debe.
+
+9. Compare el $R^2$ y el $R^2$ ajustado de los cuatro modelos.
+
+## Presentación
+
+10. Estandarice la variable dependiente y los predictores continuos, y compare los coeficientes con los del modelo original.
+
+11. Elabore un gráfico de valores predichos para cada predictor estadísticamente significativo, con el eje vertical en la escala completa de la variable dependiente.
+
+12. Redacte un párrafo de máximo 300 palabras que reporte el modelo múltiple: interprete los coeficientes de la variable categórica indicando la categoría de referencia, señale cuáles resultan significativos, comente el $R^2$ y mencione una limitación del análisis.

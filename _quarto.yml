@@ -107,17 +107,17 @@ website:
           file: practicos/practico-05.qmd
         - text: "Práctico 6 - Valores predichos"
           file: practicos/practico-06.qmd
-        # - text: "Práctico 6 - Resumen regresión lineal"
-        #   file: practicos/practico-06.qmd
-        # - text: "Práctico 7 - Regresión logística I"
-        #   file: practicos/practico-07.qmd
-        # - text: "Práctico 8 - Regresión logística II"
+        - text: "Práctico 7 - Predictores categóricos"
+          file: practicos/practico-07.qmd
+        # - text: "Práctico 8 - Regresión logística I"
         #   file: practicos/practico-08.qmd
-        # - text: "Práctico 9 - Supuestos de regresión"
+        # - text: "Práctico 9 - Regresión logística II"
         #   file: practicos/practico-09.qmd
+        # - text: "Práctico 10 - Supuestos de regresión"
+        #   file: practicos/practico-10.qmd
         # - text: "Ejemplos prueba 2"
         #   file: practicos/ejemplos-prueba-2.qmd
-        # - text: "Práctico 10 - Plantillas reportes dinámicos"
+        # - text: "Práctico 11 - Plantillas reportes dinámicos"
         #   file: practicos/07-practico-quarto.qmd
 
   page-footer:
