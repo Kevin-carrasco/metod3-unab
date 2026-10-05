@@ -1,7 +1,7 @@
 ---
 title: "Documentos dinámicos con Quarto"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
-date: "2026-10-07"
+date: "2026-10-05"
 lang: es
 format:
   html:
@@ -47,8 +47,6 @@ Los documentos dinámicos integran en un solo archivo el texto, el código y los
 
 La base de este tipo de documentos es [**Markdown**](https://www.markdownguide.org/), un lenguaje de texto plano con marcas mínimas de edición que, al estar en código simple, puede ampliarse para incluir código ejecutable, como R. Esto permite crear documentos que son legibles para humanos, procesables por máquinas y exportables a múltiples formatos. El principio es simple: escribir en texto plano y dejar que el documento se encargue de automatizar el resto.
 
-<iframe src=https://kevin-carrasco.github.io/presentacion-quarto/presentacion-quarto.html#/por-qu%C3%A9-utilizar-documentos-din%C3%A1micos height="550" width=100% allowfullscreen="true">
-</iframe>
 
 ::: {.callout-note}
 ## Un problema que todos conocen
@@ -447,7 +445,7 @@ No espere a terminar el informe para compilar por primera vez. Renderice despué
 
 # Actividad 2
 
-En el sitio del curso encontrarán el archivo **`plantilla-informe.qmd`**, que contiene la estructura completa del informe: el YAML configurado, las secciones de la rúbrica como títulos y los chunks preparados para cargar, procesar y analizar los datos.
+En el sitio del curso encontrarán el archivo **`plantilla-informe.qmd`**, que contiene la estructura completa del informe: el YAML configurado, las secciones de la rúbrica como títulos y los chunks preparados para cargar, procesar y analizar los datos. También se puede descargar de [acá](files/plantilla-informe.qmd){download="plantilla-informe.qmd"}
 
 Descárguenlo, ábranlo en su proyecto de RStudio y realicen lo siguiente:
 
