@@ -190,7 +190,6 @@ Las opciones se escriben al comienzo del chunk, precedidas de `#|`:
 El procesamiento de las variables es un buen ejemplo de código que conviene ejecutar sin mostrar. Usamos `include: false`:
 
 ```{r}
-#| include: false
 
 proc_data <- elsoc_long_2016_2022.2 %>%
   filter(ola == 1) %>%
