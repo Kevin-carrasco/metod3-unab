@@ -296,7 +296,6 @@ Observe que esas dos cifras también están escritas como código en línea.
 ```{r}
 #| label: fig-predichos
 #| fig-cap: "Estatus subjetivo predicho según nivel educacional"
-#| echo: false
 
 ggpredict(modelo2, terms = "educacion") %>%
   ggplot(aes(x = x, y = predicted)) +

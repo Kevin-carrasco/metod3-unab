@@ -3908,7 +3908,7 @@
     "href": "practicos/practico-quarto.html#una-figura",
     "title": "Documentos dinámicos con Quarto",
     "section": "8.4 Una figura",
-    "text": "8.4 Una figura\n\n\n\n\n\n\n\n\nFigura 1: Estatus subjetivo predicho según nivel educacional\n\n\n\n\n\nY se referencia igual: los valores predichos se presentan en la Figura 1.\nNote que en este chunk usamos echo: false, de modo que el gráfico aparece sin el código que lo genera. Es lo habitual en un informe.",
+    "text": "8.4 Una figura\n\nggpredict(modelo2, terms = \"educacion\") %&gt;%\n  ggplot(aes(x = x, y = predicted)) +\n  geom_line(color = \"#04245f\", linewidth = 1.2) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high),\n              alpha = 0.2, fill = \"#04245f\") +\n  scale_x_continuous(breaks = 1:10) +\n  scale_y_continuous(limits = c(0, 10), breaks = 0:10) +\n  labs(x = \"Nivel educacional\", y = \"Estatus subjetivo predicho\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 1: Estatus subjetivo predicho según nivel educacional\n\n\n\n\n\nY se referencia igual: los valores predichos se presentan en la Figura 1.\nNote que en este chunk usamos echo: false, de modo que el gráfico aparece sin el código que lo genera. Es lo habitual en un informe.",
     "crumbs": [
       "Practicos",
       "Taller Quarto"
