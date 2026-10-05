@@ -111,6 +111,8 @@ website:
           file: practicos/practico-06.qmd
         - text: "Práctico 7 - Predictores categóricos"
           file: practicos/practico-07.qmd
+        - text: "Taller Quarto"
+          file: practicos/practico-quarto.qmd
         # - text: "Práctico 8 - Regresión logística I"
         #   file: practicos/practico-08.qmd
         # - text: "Práctico 9 - Regresión logística II"

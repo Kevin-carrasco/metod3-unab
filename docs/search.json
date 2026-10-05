@@ -3787,126 +3787,198 @@
     "href": "practicos/practico-quarto.html",
     "title": "Documentos dinámicos con Quarto",
     "section": "",
-    "text": "Esta guía introduce Quarto, el sistema que permite escribir en un mismo archivo el texto, el código y los resultados de un análisis.\nEl objetivo es práctico: que puedan elaborar el informe del curso en Quarto, de modo que las tablas y gráficos que aparecen en el documento sean exactamente los que produce su código. Su uso en el informe es opcional, pero recomendable, porque elimina de raíz el problema de copiar resultados a mano y olvidar actualizarlos cuando el análisis cambia.\nAl terminar, usted debería ser capaz de:\n\nCrear un documento Quarto y renderizarlo a HTML o PDF\nEscribir texto con formato utilizando Markdown\nInsertar código en bloques y controlar qué se muestra de cada uno\nIncluir resultados numéricos directamente en el texto\nElaborar tablas y figuras con títulos y referencias cruzadas\nConfigurar el documento mediante el YAML\n\nTrabajaremos con la misma base de datos de los prácticos anteriores, de modo que el ejercicio sea directamente trasladable al informe."
+    "text": "Esta guía introduce Quarto, el sistema que permite escribir en un mismo archivo el texto, el código y los resultados de un análisis.\nEl objetivo es práctico: que puedan elaborar el informe del curso en Quarto, de modo que las tablas y gráficos que aparecen en el documento sean exactamente los que produce su código. Su uso en el informe es opcional, pero recomendable, porque elimina de raíz el problema de copiar resultados a mano y olvidar actualizarlos cuando el análisis cambia.\nAl terminar, usted debería ser capaz de:\n\nCrear un documento Quarto y renderizarlo a HTML o PDF\nEscribir texto con formato utilizando Markdown\nInsertar código en bloques y controlar qué se muestra de cada uno\nIncluir resultados numéricos directamente en el texto\nElaborar tablas y figuras con títulos y referencias cruzadas\nConfigurar el documento mediante el YAML\n\nTrabajaremos con la misma base de datos de los prácticos anteriores, de modo que el ejercicio sea directamente trasladable al informe.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#objetivo-de-la-práctica",
     "href": "practicos/practico-quarto.html#objetivo-de-la-práctica",
     "title": "Documentos dinámicos con Quarto",
     "section": "",
-    "text": "Esta guía introduce Quarto, el sistema que permite escribir en un mismo archivo el texto, el código y los resultados de un análisis.\nEl objetivo es práctico: que puedan elaborar el informe del curso en Quarto, de modo que las tablas y gráficos que aparecen en el documento sean exactamente los que produce su código. Su uso en el informe es opcional, pero recomendable, porque elimina de raíz el problema de copiar resultados a mano y olvidar actualizarlos cuando el análisis cambia.\nAl terminar, usted debería ser capaz de:\n\nCrear un documento Quarto y renderizarlo a HTML o PDF\nEscribir texto con formato utilizando Markdown\nInsertar código en bloques y controlar qué se muestra de cada uno\nIncluir resultados numéricos directamente en el texto\nElaborar tablas y figuras con títulos y referencias cruzadas\nConfigurar el documento mediante el YAML\n\nTrabajaremos con la misma base de datos de los prácticos anteriores, de modo que el ejercicio sea directamente trasladable al informe."
+    "text": "Esta guía introduce Quarto, el sistema que permite escribir en un mismo archivo el texto, el código y los resultados de un análisis.\nEl objetivo es práctico: que puedan elaborar el informe del curso en Quarto, de modo que las tablas y gráficos que aparecen en el documento sean exactamente los que produce su código. Su uso en el informe es opcional, pero recomendable, porque elimina de raíz el problema de copiar resultados a mano y olvidar actualizarlos cuando el análisis cambia.\nAl terminar, usted debería ser capaz de:\n\nCrear un documento Quarto y renderizarlo a HTML o PDF\nEscribir texto con formato utilizando Markdown\nInsertar código en bloques y controlar qué se muestra de cada uno\nIncluir resultados numéricos directamente en el texto\nElaborar tablas y figuras con títulos y referencias cruzadas\nConfigurar el documento mediante el YAML\n\nTrabajaremos con la misma base de datos de los prácticos anteriores, de modo que el ejercicio sea directamente trasladable al informe.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#crear-un-documento-quarto",
     "href": "practicos/practico-quarto.html#crear-un-documento-quarto",
     "title": "Documentos dinámicos con Quarto",
     "section": "3.1 Crear un documento Quarto",
-    "text": "3.1 Crear un documento Quarto\nQuarto ya se encuentra integrado en RStudio. Abrimos nuestro proyecto y seleccionamos: File → New File → Quarto Document.\n\n\nLos documentos Quarto se distinguen por su extensión .qmd.\n\n\n\n\n\n\nTipTrabajen siempre dentro de un proyecto\n\n\n\nAntes de crear el documento, asegúrese de estar dentro de un proyecto de RStudio (File → New Project). Esto fija la carpeta de trabajo y permite usar rutas relativas como input/data/elsoc.RData, que funcionan en cualquier computador. Las rutas absolutas del tipo C:/Users/.../Escritorio/... solo funcionan en el suyo, y son la causa más frecuente de que el documento de una pareja no compile en el computador de la otra."
+    "text": "3.1 Crear un documento Quarto\nQuarto ya se encuentra integrado en RStudio. Abrimos nuestro proyecto y seleccionamos: File → New File → Quarto Document.\n\n\nLos documentos Quarto se distinguen por su extensión .qmd.\n\n\n\n\n\n\nTipTrabajen siempre dentro de un proyecto\n\n\n\nAntes de crear el documento, asegúrese de estar dentro de un proyecto de RStudio (File → New Project). Esto fija la carpeta de trabajo y permite usar rutas relativas como input/data/elsoc.RData, que funcionan en cualquier computador. Las rutas absolutas del tipo C:/Users/.../Escritorio/... solo funcionan en el suyo, y son la causa más frecuente de que el documento de una pareja no compile en el computador de la otra.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#cómo-funciona",
     "href": "practicos/practico-quarto.html#cómo-funciona",
     "title": "Documentos dinámicos con Quarto",
     "section": "3.2 Cómo funciona",
-    "text": "3.2 Cómo funciona\n\nEl documento .qmd contiene texto y código. Para transformarse en un documento final debe ser renderizado. Ese proceso convierte primero todo a Markdown mediante la librería knitr, ejecutando el código en el camino, y luego Pandoc transforma ese archivo intermedio al formato de salida. Todo ocurre automáticamente: ustedes solo ven el .qmd y el documento final."
+    "text": "3.2 Cómo funciona\n\nEl documento .qmd contiene texto y código. Para transformarse en un documento final debe ser renderizado. Ese proceso convierte primero todo a Markdown mediante la librería knitr, ejecutando el código en el camino, y luego Pandoc transforma ese archivo intermedio al formato de salida. Todo ocurre automáticamente: ustedes solo ven el .qmd y el documento final.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#estructura-del-documento",
     "href": "practicos/practico-quarto.html#estructura-del-documento",
     "title": "Documentos dinámicos con Quarto",
     "section": "3.3 Estructura del documento",
-    "text": "3.3 Estructura del documento\nUn documento Quarto tiene tres partes:\n\nYAML: metadatos y configuración del documento\nCuerpo: el texto escrito en Markdown\nChunks de código: bloques ejecutables cuyos resultados se incorporan al documento\n\n\nComenzaremos por el cuerpo, luego veremos los chunks y finalmente el YAML."
+    "text": "3.3 Estructura del documento\nUn documento Quarto tiene tres partes:\n\nYAML: metadatos y configuración del documento\nCuerpo: el texto escrito en Markdown\nChunks de código: bloques ejecutables cuyos resultados se incorporan al documento\n\n\nComenzaremos por el cuerpo, luego veremos los chunks y finalmente el YAML.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#notas-al-pie",
     "href": "practicos/practico-quarto.html#notas-al-pie",
     "title": "Documentos dinámicos con Quarto",
     "section": "4.1 Notas al pie",
-    "text": "4.1 Notas al pie\nPara insertar una nota al pie1 se escribe [^1] en el lugar correspondiente, y en otra línea del documento:\n[^1]: Este es el texto de la nota."
+    "text": "4.1 Notas al pie\nPara insertar una nota al pie1 se escribe [^1] en el lugar correspondiente, y en otra línea del documento:\n[^1]: Este es el texto de la nota.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#opciones-de-chunk",
     "href": "practicos/practico-quarto.html#opciones-de-chunk",
     "title": "Documentos dinámicos con Quarto",
     "section": "7.1 Opciones de chunk",
-    "text": "7.1 Opciones de chunk\nLas opciones se escriben al comienzo del chunk, precedidas de #|:\n\n\n\n\n\n\n\nOpción\nDescripción\n\n\n\n\neval\nEvalúa el bloque de código. Si es false, muestra el código sin ejecutarlo\n\n\necho\nIncluye el código en la salida. Si es false, muestra solo el resultado\n\n\noutput\nIncluye los resultados de la ejecución (true, false o asis)\n\n\nwarning\nIncluye las advertencias en la salida\n\n\nmessage\nIncluye los mensajes en la salida\n\n\nerror\nIncluye los errores en la salida, sin detener la compilación\n\n\ninclude\nControl general: include: false ejecuta el código pero no muestra nada\n\n\nlabel\nAsigna un nombre al chunk, necesario para las referencias cruzadas\n\n\n\nEl procesamiento de las variables es un buen ejemplo de código que conviene ejecutar sin mostrar. Usamos include: false:\nEl código se ejecutó y el objeto proc_data ya existe, pero nada apareció en el documento.\n\n\n\n\n\n\nTipUna configuración global\n\n\n\nSi quiere aplicar las mismas opciones a todo el documento, agréguelas en el YAML:\nexecute:\n  warning: false\n  message: false\n  echo: true\nY modifique solo los chunks que requieran otro comportamiento."
+    "text": "7.1 Opciones de chunk\nLas opciones se escriben al comienzo del chunk, precedidas de #|:\n\n\n\n\n\n\n\nOpción\nDescripción\n\n\n\n\neval\nEvalúa el bloque de código. Si es false, muestra el código sin ejecutarlo\n\n\necho\nIncluye el código en la salida. Si es false, muestra solo el resultado\n\n\noutput\nIncluye los resultados de la ejecución (true, false o asis)\n\n\nwarning\nIncluye las advertencias en la salida\n\n\nmessage\nIncluye los mensajes en la salida\n\n\nerror\nIncluye los errores en la salida, sin detener la compilación\n\n\ninclude\nControl general: include: false ejecuta el código pero no muestra nada\n\n\nlabel\nAsigna un nombre al chunk, necesario para las referencias cruzadas\n\n\n\nEl procesamiento de las variables es un buen ejemplo de código que conviene ejecutar sin mostrar. Usamos include: false:\nEl código se ejecutó y el objeto proc_data ya existe, pero nada apareció en el documento.\n\n\n\n\n\n\nTipUna configuración global\n\n\n\nSi quiere aplicar las mismas opciones a todo el documento, agréguelas en el YAML:\nexecute:\n  warning: false\n  message: false\n  echo: true\nY modifique solo los chunks que requieran otro comportamiento.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#código-en-línea",
     "href": "practicos/practico-quarto.html#código-en-línea",
     "title": "Documentos dinámicos con Quarto",
     "section": "7.2 Código en línea",
-    "text": "7.2 Código en línea\nEsta es una de las funciones más útiles para un informe. Se puede insertar un resultado directamente en medio del texto, escribiendo el código entre comillas invertidas y precedido de r.\nPor ejemplo: la base procesada contiene 2301 casos, y el promedio de estatus social subjetivo es de 4.33 puntos en una escala de 0 a 10.\nEsos dos números no fueron escritos a mano: se calcularon al renderizar. Si ustedes cambian el criterio de limpieza del ingreso, o eligen otra ola, el texto se actualiza solo.\n\n\n\n\n\n\nImportantePor qué importa para el informe\n\n\n\nEscribir en el texto “el coeficiente de educación es 0,161” obliga a corregir esa cifra cada vez que el modelo cambie. Escribirla como código en línea elimina el riesgo de que el texto contradiga la tabla, que es uno de los errores más frecuentes al redactar resultados."
+    "text": "7.2 Código en línea\nEsta es una de las funciones más útiles para un informe. Se puede insertar un resultado directamente en medio del texto, escribiendo el código entre comillas invertidas y precedido de r.\nPor ejemplo: la base procesada contiene 2301 casos, y el promedio de estatus social subjetivo es de 4.33 puntos en una escala de 0 a 10.\nEsos dos números no fueron escritos a mano: se calcularon al renderizar. Si ustedes cambian el criterio de limpieza del ingreso, o eligen otra ola, el texto se actualiza solo.\n\n\n\n\n\n\nImportantePor qué importa para el informe\n\n\n\nEscribir en el texto “el coeficiente de educación es 0,161” obliga a corregir esa cifra cada vez que el modelo cambie. Escribirla como código en línea elimina el riesgo de que el texto contradiga la tabla, que es uno de los errores más frecuentes al redactar resultados.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#referencias-cruzadas",
     "href": "practicos/practico-quarto.html#referencias-cruzadas",
     "title": "Documentos dinámicos con Quarto",
     "section": "8.1 Referencias cruzadas",
-    "text": "8.1 Referencias cruzadas\nPara poder referenciar una tabla o un gráfico desde el texto, el chunk necesita dos opciones: una etiqueta y un título.\n\n\n\n\n\n\nNotaLa regla de los prefijos\n\n\n\nLa etiqueta debe comenzar con tbl- si el chunk produce una tabla, y con fig- si produce un gráfico. Sin ese prefijo, la referencia no funciona.\nAdemás, dos chunks no pueden tener la misma etiqueta."
+    "text": "8.1 Referencias cruzadas\nPara poder referenciar una tabla o un gráfico desde el texto, el chunk necesita dos opciones: una etiqueta y un título.\n\n\n\n\n\n\nNotaLa regla de los prefijos\n\n\n\nLa etiqueta debe comenzar con tbl- si el chunk produce una tabla, y con fig- si produce un gráfico. Sin ese prefijo, la referencia no funciona.\nAdemás, dos chunks no pueden tener la misma etiqueta.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#una-tabla-de-descriptivos",
     "href": "practicos/practico-quarto.html#una-tabla-de-descriptivos",
     "title": "Documentos dinámicos con Quarto",
     "section": "8.2 Una tabla de descriptivos",
-    "text": "8.2 Una tabla de descriptivos\nEl chunk lleva dos opciones adicionales, label y tbl-cap:\n\ndescr(proc_data,\n      stats = c(\"mean\", \"sd\", \"min\", \"med\", \"max\", \"n.valid\"),\n      transpose = TRUE,\n      order = \"preserve\") %&gt;%\n  kable(digits = 2) %&gt;%\n  kable_styling(bootstrap_options = c(\"striped\", \"hover\"),\n                full_width = FALSE)\n\n\n\nTabla 1: Descriptivos de las variables\n\n\n\n\n\n\n\nMean\nStd.Dev\nMin\nMedian\nMax\nN.Valid\n\n\n\n\nestatus\n4.33\n1.53\n0.0\n5.0\n10\n2301\n\n\neducacion\n5.16\n2.18\n1.0\n5.0\n10\n2301\n\n\ning100\n5.88\n5.58\n0.5\n4.5\n50\n2301\n\n\nedad\n46.07\n15.14\n18.0\n46.0\n88\n2301\n\n\n\n\n\n\n\n\nPara referenciarla en el texto se escribe @tbl-descriptivos, lo que se renderiza así: los descriptivos de las variables se presentan en la Tabla 1."
+    "text": "8.2 Una tabla de descriptivos\nEl chunk lleva dos opciones adicionales, label y tbl-cap:\n\ndescr(proc_data,\n      stats = c(\"mean\", \"sd\", \"min\", \"med\", \"max\", \"n.valid\"),\n      transpose = TRUE,\n      order = \"preserve\") %&gt;%\n  kable(digits = 2) %&gt;%\n  kable_styling(bootstrap_options = c(\"striped\", \"hover\"),\n                full_width = FALSE)\n\n\n\nTabla 1: Descriptivos de las variables\n\n\n\n\n\n\n\nMean\nStd.Dev\nMin\nMedian\nMax\nN.Valid\n\n\n\n\nestatus\n4.33\n1.53\n0.0\n5.0\n10\n2301\n\n\neducacion\n5.16\n2.18\n1.0\n5.0\n10\n2301\n\n\ning100\n5.88\n5.58\n0.5\n4.5\n50\n2301\n\n\nedad\n46.07\n15.14\n18.0\n46.0\n88\n2301\n\n\n\n\n\n\n\n\nPara referenciarla en el texto se escribe @tbl-descriptivos, lo que se renderiza así: los descriptivos de las variables se presentan en la Tabla 1.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#una-tabla-de-regresión",
     "href": "practicos/practico-quarto.html#una-tabla-de-regresión",
     "title": "Documentos dinámicos con Quarto",
     "section": "8.3 Una tabla de regresión",
-    "text": "8.3 Una tabla de regresión\nLas tablas de tab_model funcionan igual:\n\nmodelo1 &lt;- lm(estatus ~ educacion, data = proc_data)\nmodelo2 &lt;- lm(estatus ~ educacion + ing100 + edad, data = proc_data)\n\ntab_model(list(modelo1, modelo2),\n          show.se = TRUE,\n          show.ci = FALSE,\n          digits = 3,\n          p.style = \"stars\",\n          dv.labels = c(\"Modelo 1\", \"Modelo 2\"),\n          pred.labels = c(\"(Intercepto)\", \"Nivel educacional\",\n                          \"Ingreso (cientos de miles)\", \"Edad\"),\n          string.pred = \"Predictores\",\n          string.est = \"β\")\n\n\n\nTabla 2: Modelos de regresión para el estatus social subjetivo\n\n\n\n\n\n\n \nModelo 1\nModelo 2\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercepto)\n3.273 ***\n0.078\n2.922 ***\n0.146\n\n\nNivel educacional\n0.204 ***\n0.014\n0.161 ***\n0.016\n\n\nIngreso (cientos de miles)\n\n\n0.048 ***\n0.006\n\n\nEdad\n\n\n0.006 **\n0.002\n\n\nObservations\n2301\n2301\n\n\nR2 / R2 adjusted\n0.085 / 0.084\n0.113 / 0.111\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n\n\nLos resultados se presentan en la Tabla 2. El coeficiente de educación en el modelo completo es de 0.161, y el modelo explica un 11.3% de la varianza.\nObserve que esas dos cifras también están escritas como código en línea."
+    "text": "8.3 Una tabla de regresión\nLas tablas de tab_model funcionan igual:\n\nmodelo1 &lt;- lm(estatus ~ educacion, data = proc_data)\nmodelo2 &lt;- lm(estatus ~ educacion + ing100 + edad, data = proc_data)\n\ntab_model(list(modelo1, modelo2),\n          show.se = TRUE,\n          show.ci = FALSE,\n          digits = 3,\n          p.style = \"stars\",\n          dv.labels = c(\"Modelo 1\", \"Modelo 2\"),\n          pred.labels = c(\"(Intercepto)\", \"Nivel educacional\",\n                          \"Ingreso (cientos de miles)\", \"Edad\"),\n          string.pred = \"Predictores\",\n          string.est = \"β\")\n\n\n\nTabla 2: Modelos de regresión para el estatus social subjetivo\n\n\n\n\n\n\n \nModelo 1\nModelo 2\n\n\nPredictores\nβ\nstd. Error\nβ\nstd. Error\n\n\n(Intercepto)\n3.273 ***\n0.078\n2.922 ***\n0.146\n\n\nNivel educacional\n0.204 ***\n0.014\n0.161 ***\n0.016\n\n\nIngreso (cientos de miles)\n\n\n0.048 ***\n0.006\n\n\nEdad\n\n\n0.006 **\n0.002\n\n\nObservations\n2301\n2301\n\n\nR2 / R2 adjusted\n0.085 / 0.084\n0.113 / 0.111\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n\n\nLos resultados se presentan en la Tabla 2. El coeficiente de educación en el modelo completo es de 0.161, y el modelo explica un 11.3% de la varianza.\nObserve que esas dos cifras también están escritas como código en línea.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#una-figura",
     "href": "practicos/practico-quarto.html#una-figura",
     "title": "Documentos dinámicos con Quarto",
     "section": "8.4 Una figura",
-    "text": "8.4 Una figura\n\n\n\n\n\n\n\n\nFigura 1: Estatus subjetivo predicho según nivel educacional\n\n\n\n\n\nY se referencia igual: los valores predichos se presentan en la Figura 1.\nNote que en este chunk usamos echo: false, de modo que el gráfico aparece sin el código que lo genera. Es lo habitual en un informe."
+    "text": "8.4 Una figura\n\n\n\n\n\n\n\n\nFigura 1: Estatus subjetivo predicho según nivel educacional\n\n\n\n\n\nY se referencia igual: los valores predichos se presentan en la Figura 1.\nNote que en este chunk usamos echo: false, de modo que el gráfico aparece sin el código que lo genera. Es lo habitual en un informe.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#opciones-útiles-para-figuras",
     "href": "practicos/practico-quarto.html#opciones-útiles-para-figuras",
     "title": "Documentos dinámicos con Quarto",
     "section": "8.5 Opciones útiles para figuras",
-    "text": "8.5 Opciones útiles para figuras\n\n\n\n\n\n\n\nOpción\nPara qué sirve\n\n\n\n\nfig-cap\nTítulo de la figura\n\n\nfig-cap-location\nUbicación del título (top, bottom)\n\n\nfig-align\nAlineación (left, center, right)\n\n\nfig-width, fig-height\nDimensiones en pulgadas\n\n\nout-width\nAncho de la imagen en el documento (por ejemplo, \"80%\")"
+    "text": "8.5 Opciones útiles para figuras\n\n\n\n\n\n\n\nOpción\nPara qué sirve\n\n\n\n\nfig-cap\nTítulo de la figura\n\n\nfig-cap-location\nUbicación del título (top, bottom)\n\n\nfig-align\nAlineación (left, center, right)\n\n\nfig-width, fig-height\nDimensiones en pulgadas\n\n\nout-width\nAncho de la imagen en el documento (por ejemplo, \"80%\")",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#opciones-frecuentes",
     "href": "practicos/practico-quarto.html#opciones-frecuentes",
     "title": "Documentos dinámicos con Quarto",
     "section": "9.1 Opciones frecuentes",
-    "text": "9.1 Opciones frecuentes\n\n\n\n\n\n\n\nOpción\nQué hace\n\n\n\n\ntoc: true\nGenera un índice automático a partir de los títulos\n\n\ntoc-depth: 3\nDefine hasta qué nivel de título incluir en el índice\n\n\nnumber-sections: true\nNumera automáticamente las secciones\n\n\ncode-fold: true\nOculta los bloques de código, con un botón para desplegarlos\n\n\ntitle-block-banner: true\nAgrega un banner al bloque de título\n\n\ntheme: united\nAplica un tema visual\n\n\nembed-resources: true\nGenera un HTML autocontenido, en un solo archivo\n\n\n\n\n\n\n\n\n\nTipPara entregar el informe en HTML\n\n\n\nLa opción embed-resources: true incrusta imágenes y estilos dentro del propio archivo .html. Sin ella, el documento depende de una carpeta auxiliar que suele olvidarse al momento de subir la entrega."
+    "text": "9.1 Opciones frecuentes\n\n\n\n\n\n\n\nOpción\nQué hace\n\n\n\n\ntoc: true\nGenera un índice automático a partir de los títulos\n\n\ntoc-depth: 3\nDefine hasta qué nivel de título incluir en el índice\n\n\nnumber-sections: true\nNumera automáticamente las secciones\n\n\ncode-fold: true\nOculta los bloques de código, con un botón para desplegarlos\n\n\ntitle-block-banner: true\nAgrega un banner al bloque de título\n\n\ntheme: united\nAplica un tema visual\n\n\nembed-resources: true\nGenera un HTML autocontenido, en un solo archivo\n\n\n\n\n\n\n\n\n\nTipPara entregar el informe en HTML\n\n\n\nLa opción embed-resources: true incrusta imágenes y estilos dentro del propio archivo .html. Sin ella, el documento depende de una carpeta auxiliar que suele olvidarse al momento de subir la entrega.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#indentación",
     "href": "practicos/practico-quarto.html#indentación",
     "title": "Documentos dinámicos con Quarto",
     "section": "9.2 Indentación",
-    "text": "9.2 Indentación\nLa indentación organiza las opciones jerárquicamente. Las opciones que dependen de otra se escriben con sangría debajo de ella:\n---\ntitle: \"Mi informe\"\nformat:\n  html:\n    theme:\n      - united\n      - estilos.scss\n    toc: true\n---\nAquí html depende de format, y theme y toc dependen de html. Una indentación incorrecta hace que Quarto no reconozca la opción, o que el documento no compile."
+    "text": "9.2 Indentación\nLa indentación organiza las opciones jerárquicamente. Las opciones que dependen de otra se escriben con sangría debajo de ella:\n---\ntitle: \"Mi informe\"\nformat:\n  html:\n    theme:\n      - united\n      - estilos.scss\n    toc: true\n---\nAquí html depende de format, y theme y toc dependen de html. Una indentación incorrecta hace que Quarto no reconozca la opción, o que el documento no compile.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#formatos-de-salida",
     "href": "practicos/practico-quarto.html#formatos-de-salida",
     "title": "Documentos dinámicos con Quarto",
     "section": "9.3 Formatos de salida",
-    "text": "9.3 Formatos de salida\nformat: html      # página web\nformat: pdf       # requiere una instalación de LaTeX\nformat: docx      # documento Word\n\n\n\n\n\n\nAdvertenciaSobre el formato PDF\n\n\n\nRenderizar a PDF requiere LaTeX instalado. Si no lo tiene, ejecute una sola vez en la consola:\nquarto::quarto_install_tinytex()\nSi el plazo de entrega está próximo y surge algún problema con la instalación, la alternativa segura es renderizar a HTML y exportar a PDF desde el navegador."
+    "text": "9.3 Formatos de salida\nformat: html      # página web\nformat: pdf       # requiere una instalación de LaTeX\nformat: docx      # documento Word\n\n\n\n\n\n\nAdvertenciaSobre el formato PDF\n\n\n\nRenderizar a PDF requiere LaTeX instalado. Si no lo tiene, ejecute una sola vez en la consola:\nquarto::quarto_install_tinytex()\nSi el plazo de entrega está próximo y surge algún problema con la instalación, la alternativa segura es renderizar a HTML y exportar a PDF desde el navegador.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#temas",
     "href": "practicos/practico-quarto.html#temas",
     "title": "Documentos dinámicos con Quarto",
     "section": "9.4 Temas",
-    "text": "9.4 Temas\nQuarto incluye varios temas que modifican la apariencia del documento. Se aplican con el argumento theme en el YAML.\n\n\n\n\n\n\n\n\nFigura 2: Estilo base de Quarto\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigura 3: Estilo Solar de Quarto\n\n\n\n\n\nEl listado completo está disponible en la documentación de temas de Quarto. También es posible personalizar la apariencia con un archivo .scss propio."
+    "text": "9.4 Temas\nQuarto incluye varios temas que modifican la apariencia del documento. Se aplican con el argumento theme en el YAML.\n\n\n\n\n\n\n\n\nFigura 2: Estilo base de Quarto\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigura 3: Estilo Solar de Quarto\n\n\n\n\n\nEl listado completo está disponible en la documentación de temas de Quarto. También es posible personalizar la apariencia con un archivo .scss propio.",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "practicos/practico-quarto.html#footnotes",
     "href": "practicos/practico-quarto.html#footnotes",
     "title": "Documentos dinámicos con Quarto",
     "section": "Notas",
-    "text": "Notas\n\n\nEste es el texto de la nota al pie.↩︎"
+    "text": "Notas\n\n\nEste es el texto de la nota al pie.↩︎",
+    "crumbs": [
+      "Practicos",
+      "Taller Quarto"
+    ]
   },
   {
     "objectID": "schedule.html",
