@@ -1,0 +1,296 @@
+---
+title: "Título de la investigación"
+subtitle: "Informe 1 - Métodos estadísticos para Ciencias Sociales III"
+author: "Nombre Apellido y Nombre Apellido"
+date: "2026-10-09"
+lang: es
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+execute:
+  warning: false
+  message: false
+  echo: false
+---
+
+<!--
+INSTRUCCIONES DE USO
+
+Esta plantilla contiene la estructura completa del informe. Para utilizarla:
+
+1. Reemplace el YAML con los datos de su trabajo (título, autores, fecha)
+2. Reemplace las variables de ejemplo por las suyas en el chunk de procesamiento
+3. Escriba el contenido de cada sección, reemplazando el texto entre corchetes
+4. Renderice con el botón Render o con Ctrl + Shift + K
+
+Los comentarios como este no aparecen en el documento final.
+
+Las opciones del YAML incluyen echo: false, de modo que el código no se
+muestra. Si desea mostrar el código de algún chunk, agregue #| echo: true
+a ese chunk en particular.
+-->
+
+```{r librerias}
+#| include: false
+
+pacman::p_load(dplyr,
+               car,
+               sjmisc,
+               sjlabelled,
+               sjPlot,
+               knitr,
+               kableExtra,
+               summarytools,
+               corrplot,
+               ggeffects,
+               ggplot2)
+
+options(scipen = 999)
+
+st_options(bootstrap.css = FALSE,
+           plain.ascii = FALSE,
+           style = "rmarkdown",
+           dfSummary.silent = TRUE,
+           footnote = NA,
+           subtitle.emphasis = FALSE)
+```
+
+```{r datos}
+#| include: false
+
+# ---------------------------------------------------------------
+# CARGA DE DATOS
+# ---------------------------------------------------------------
+
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
+
+# ---------------------------------------------------------------
+# PROCESAMIENTO
+#
+# REEMPLACE las variables de ejemplo por las suyas.
+# Recuerde: la dependiente debe ser continua, y al menos una
+# independiente debe ser categórica.
+#
+# Variables de ejemplo utilizadas aquí:
+#   d01_01  = estatus social subjetivo (dependiente, 0 a 10)
+#   m01     = nivel educacional (se recodifica como categórica)
+#   m29     = ingreso del hogar
+#   m0_edad = edad
+#   m0_sexo = sexo (categórica)
+# ---------------------------------------------------------------
+
+proc_data <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%                     # elija la ola con que trabajará
+  select(d01_01, m01, m29, m0_edad, m0_sexo) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("estatus" = d01_01,
+         "educacion" = m01,
+         "ingreso" = m29,
+         "edad" = m0_edad,
+         "sexo" = m0_sexo) %>%
+  na.omit()
+
+# Limpieza de valores implausibles de ingreso
+proc_data <- proc_data %>%
+  filter(ingreso >= 50000, ingreso <= 5000000) %>%
+  mutate(ing100 = ingreso / 100000)
+
+# Variable categórica: nivel educacional en tres grupos
+proc_data$educ_rec <- car::recode(proc_data$educacion,
+                                  "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
+
+proc_data$educ_f <- factor(proc_data$educ_rec,
+                           levels = c(1, 2, 3),
+                           labels = c("Educación básica",
+                                      "Educación media",
+                                      "Educación superior"))
+
+# Variable categórica: sexo
+proc_data$sexo_f <- as_factor(proc_data$sexo)
+
+# Base final con las variables del análisis
+proc_data <- proc_data %>%
+  select(estatus, ing100, edad, educ_f, sexo_f)
+```
+
+# Introducción
+
+[Formule aquí el problema de investigación. Debe incluir la pregunta y el objetivo general, y fundamentar el interés sociológico de la temática elegida utilizando al menos tres referencias bibliográficas. Extensión aproximada: media plana.]
+
+**Pregunta de investigación:** [escriba aquí su pregunta]
+
+**Objetivo general:** [escriba aquí su objetivo]
+
+# Datos y variables
+
+## Fuente de información
+
+[Describa la base de datos: nombre, institución que la disponibiliza, población que busca representar, procedimiento de muestreo y tamaño de la muestra. Indique además con qué año u ola trabajará y por qué. Extensión aproximada: media plana.]
+
+La base procesada contiene `r nrow(proc_data)` casos con información completa en todas las variables del análisis.
+
+## Operacionalización
+
+[Describa cómo se mide cada variable y qué recodificaciones aplicó. Explicite cuál es la variable dependiente y cuáles las independientes.]
+
+| Variable | Rol | Nivel de medición | Descripción |
+|:---------|:----|:------------------|:------------|
+| [Nombre] | Dependiente | Continua | [Descripción] |
+| [Nombre] | Independiente | Continua | [Descripción] |
+| [Nombre] | Independiente | Continua | [Descripción] |
+| [Nombre] | Independiente | Categórica | [Descripción] |
+| [Nombre] | Independiente | Categórica | [Descripción] |
+
+## Descripción de las variables
+
+Los descriptivos de las variables continuas se presentan en la @tbl-descriptivos.
+
+```{r}
+#| label: tbl-descriptivos
+#| tbl-cap: "Descriptivos de las variables continuas"
+
+proc_data %>%
+  select(where(is.numeric)) %>%
+  descr(stats = c("mean", "sd", "min", "med", "max", "n.valid"),
+        transpose = TRUE,
+        order = "preserve") %>%
+  kable(digits = 2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+La distribución de las variables categóricas se presenta en la @tbl-categoricas.
+
+```{r}
+#| label: tbl-categoricas
+#| tbl-cap: "Distribución de las variables categóricas"
+
+bind_rows(
+  proc_data %>%
+    count(Categoria = educ_f) %>%
+    mutate(Variable = "Nivel educacional"),
+  proc_data %>%
+    count(Categoria = sexo_f) %>%
+    mutate(Variable = "Sexo")
+) %>%
+  group_by(Variable) %>%
+  mutate(Porcentaje = round(n / sum(n) * 100, 1)) %>%
+  ungroup() %>%
+  select(Variable, Categoria, n, Porcentaje) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+[Comente brevemente los descriptivos: qué muestran sobre la distribución de su variable dependiente y de las independientes.]
+
+```{r}
+#| label: fig-dependiente
+#| fig-cap: "Distribución de la variable dependiente"
+
+ggplot(proc_data, aes(x = estatus)) +
+  geom_bar(fill = "#4f97ff", alpha = 0.85) +
+  labs(x = "Estatus social subjetivo", y = "Frecuencia") +
+  theme_minimal()
+```
+
+Como se observa en la @fig-dependiente, [comente la distribución].
+
+# Resultados
+
+## Asociación entre variables
+
+La matriz de correlaciones entre las variables continuas se presenta en la @fig-correlaciones.
+
+```{r}
+#| label: fig-correlaciones
+#| fig-cap: "Matriz de correlaciones entre variables continuas"
+
+M <- proc_data %>%
+  select(where(is.numeric)) %>%
+  cor(use = "complete.obs")
+
+diag(M) <- NA
+
+corrplot(M,
+         method = "color",
+         addCoef.col = "#000390",
+         type = "upper",
+         tl.col = "black",
+         na.label = "-")
+```
+
+[Interprete la dirección y el tamaño de las asociaciones observadas. Recuerde que la matriz solo incluye variables continuas, porque la correlación de Pearson no es apropiada para variables categóricas.]
+
+## Modelos de regresión
+
+Los resultados de los modelos de regresión se presentan en la @tbl-regresion.
+
+```{r}
+#| include: false
+
+# Modelo 1: variable independiente principal
+modelo1 <- lm(estatus ~ educ_f, data = proc_data)
+
+# Modelo 2: se agregan el resto de las variables independientes
+modelo2 <- lm(estatus ~ educ_f + ing100 + edad + sexo_f, data = proc_data)
+```
+
+```{r}
+#| label: tbl-regresion
+#| tbl-cap: "Modelos de regresión lineal"
+
+tab_model(list(modelo1, modelo2),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Modelo 1", "Modelo 2"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+### Interpretación de los coeficientes
+
+[Interprete los coeficientes del modelo completo. Para las variables categóricas, señale cuál es la categoría de referencia. Para las continuas, indique el cambio esperado por cada unidad adicional, manteniendo constantes las demás variables.]
+
+[Comente además qué le ocurre al coeficiente de su variable principal al incorporar las demás variables, y a qué se debe ese cambio.]
+
+### Significación estadística
+
+[Indique qué coeficientes alcanzan significación estadística y qué significa eso. Recuerde que un coeficiente no significativo no demuestra ausencia de efecto.]
+
+### Ajuste del modelo
+
+El modelo completo explica un `r round(summary(modelo2)$r.squared * 100, 1)`% de la varianza de la variable dependiente.
+
+[Comente el valor obtenido. Un R² bajo es habitual en investigación social y no invalida los hallazgos.]
+
+## Valores predichos
+
+```{r}
+#| label: fig-predichos
+#| fig-cap: "Valores predichos según nivel educacional"
+
+ggpredict(modelo2, terms = "educ_f") %>%
+  ggplot(aes(x = x, y = predicted)) +
+  geom_col(fill = "#4f97ff", alpha = 0.85, width = 0.6) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.12) +
+  scale_y_continuous(limits = c(0, 10), breaks = 0:10) +
+  labs(x = NULL, y = "Estatus subjetivo predicho") +
+  theme_minimal()
+```
+
+[Interprete la @fig-predichos. Recuerde fijar el eje vertical en la escala completa de su variable dependiente.]
+
+# Conclusiones
+
+[Sintetice los aspectos más relevantes de los análisis presentados y entregue una respuesta tentativa a su pregunta de investigación. Reflexione sobre los límites de su diseño y señale posibles ejes para futuras indagaciones. Extensión aproximada: media plana.]
+
+# Referencias
+
+[Incluya aquí las referencias utilizadas, en formato APA 7.]

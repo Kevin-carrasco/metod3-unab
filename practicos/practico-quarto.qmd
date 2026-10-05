@@ -445,7 +445,7 @@ No espere a terminar el informe para compilar por primera vez. Renderice despué
 
 # Actividad 2
 
-En el sitio del curso encontrarán el archivo **`plantilla-informe.qmd`**, que contiene la estructura completa del informe: el YAML configurado, las secciones de la rúbrica como títulos y los chunks preparados para cargar, procesar y analizar los datos. También se puede descargar de [acá](files/plantilla-informe.qmd){download="plantilla-informe.qmd"}
+En el sitio del curso encontrarán el archivo **`plantilla-informe.qmd`**, que contiene la estructura completa del informe: el YAML configurado, las secciones de la rúbrica como títulos y los chunks preparados para cargar, procesar y analizar los datos. También se puede descargar de [acá](plantilla-informe.qmd){download="plantilla-informe.qmd"}
 
 Descárguenlo, ábranlo en su proyecto de RStudio y realicen lo siguiente:
 
