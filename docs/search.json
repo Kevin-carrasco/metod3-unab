@@ -1276,9 +1276,9 @@
   {
     "objectID": "practicos/practico-08.html",
     "href": "practicos/practico-08.html",
-    "title": "Práctico 07. Regresión logística I",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
     "section": "",
-    "text": "La siguiente práctica tiene el objetivo de introducir a los estudiantes en los modelos de regresión logística, que permite la estimación con una variable dependiente categórica dicotómica. En esta primera parte nos centraremos en conceptos centrales para estos modelos, que son probabilidades, chances (odds) y razón de chances (odds-ratio)."
+    "text": "Con esta guía comenzamos la segunda parte del curso. Hasta ahora, todas nuestras variables dependientes fueron continuas. A partir de aquí trabajaremos con variables dependientes categóricas dicotómicas, es decir, que solo admiten dos valores: ocurre o no ocurre, vota o no vota, aprueba o reprueba.\nEl modelo que permite ese tipo de análisis es la regresión logística. Antes de estimarlo, necesitamos comprender tres conceptos que son su base: probabilidades, chances (u odds) y razón de chances (u odds ratio).\nEsta guía es deliberadamente introductoria y se concentra en esos tres conceptos, que calcularemos a mano a partir de tablas de contingencia. La estimación del modelo mediante glm, la interpretación de sus coeficientes y la evaluación de su ajuste corresponden a la sesión teórica de esta tarde y al próximo práctico.\nAl terminar, usted debería ser capaz de:\n\nExplicar por qué el modelo de regresión lineal no sirve para una variable dependiente dicotómica\nCalcular e interpretar una probabilidad a partir de una tabla de frecuencias\nCalcular e interpretar un odd, y distinguirlo de una probabilidad\nCalcular e interpretar un odds ratio como medida de asociación\nComprender por qué los odds se transforman en logit"
   },
   {
     "objectID": "practicos/practico-08.html#explorar-datos",
@@ -1290,16 +1290,16 @@
   {
     "objectID": "practicos/practico-08.html#probabilidades",
     "href": "practicos/practico-08.html#probabilidades",
-    "title": "Práctico 07. Regresión logística I",
-    "section": "Probabilidades",
-    "text": "Probabilidades\nUna probabilidad es la posibilidad de ocurrencia de un evento de interés, usando como referencia todos los eventos. Por ejemplo, la probabilidad de “ser sobreviviente en el titanic” se calcula en relación a todos los tripulantes del titanic.\nEn primera instancia, podríamos decir que del total de pasajeros, un 40.8% de ellos sobrevive, es decir, la probabilidad de sobrevivir es de 0.408\n\\[Probabilidades_{sobrevivientes} = \\frac{427}{1046} = 0.408\\] Mientras que un 59.2% de los tripulantes no sobrevive, es decir, la probabilidad de no sobrevivir es de 0.592\n\\[Probabilidades_{sobrevivientes} = \\frac{619}{1046} = 0.592\\]\nEn R se realiza a través de la función prop.table\n\nprop.table(table(tt$survived))\n\n\nNo sobrevive    Sobrevive \n   0.5917782    0.4082218"
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "5.1 Probabilidades",
+    "text": "5.1 Probabilidades\nUna probabilidad es la posibilidad de ocurrencia de un evento de interés, usando como referencia todos los eventos posibles. La probabilidad de “ser sobreviviente del Titanic” se calcula, entonces, en relación con el total de tripulantes.\nDel total de pasajeros, un 40,8% sobrevive, es decir, la probabilidad de sobrevivir es de 0,408:\n\\[P_{sobrevivir} = \\frac{427}{1046} = 0.408\\]\nMientras que un 59,2% no sobrevive:\n\\[P_{no\\ sobrevivir} = \\frac{619}{1046} = 0.592\\]\nEn R se obtiene con la función prop.table:\n\nprop.table(table(tt$survived))\n\n\nNo sobrevive    Sobrevive \n   0.5917782    0.4082218 \n\n\n\n\n\n\n\n\nNotaPropiedades de una probabilidad\n\n\n\n\nVaría siempre entre 0 y 1\nLa probabilidad del evento y la de su complemento suman 1\nSe expresa habitualmente en porcentaje"
   },
   {
     "objectID": "practicos/practico-08.html#odds",
     "href": "practicos/practico-08.html#odds",
-    "title": "Práctico 07. Regresión logística I",
-    "section": "Odds",
-    "text": "Odds\nUna forma alternativa de representar una probabilidad son las chances o odds que se definen como la división entre el número de ocurrencias (\\(\\pi\\)) y el numero de “no ocurrencias” (\\(1-\\pi\\)).\n\\[Odd =  \\frac{\\pi}{1-\\pi}\\]\nSi seguimos el ejemplo del Titanic\n\\[Odds = \\frac{Sobrevivientes}{No{Sobrevivientes}}\\]\nLa función addmargins nos entrega las frecuencias marginales y absolutas para columnas (sexo) y filas (sobrevivencia)\n\naddmargins(table(tt$survived,tt$sex))\n\n              \n               Hombre Mujer  Sum\n  No sobrevive    523    96  619\n  Sobrevive       135   292  427\n  Sum             658   388 1046\n\n\n\\[Odds = \\frac{Sobrevivientes}{No{Sobrevivientes}}=\\frac{427}{619}=0.68\\]\nSi hacemos el cálculo de los odds obtenemos 0.68 (427/619), es decir, hay 0.68 sobrevivientes por cada no sobreviviente. Aunque parezca poco “lógico” hablar de 0.68 sobrevivientes, esto indica que la relación entre sobrevivientes y no sobrevivientes no es 1:1 y de hecho existen más chances de morir que de sobrevivir.\nOtra forma de leer este dato es decir que por cada 100 no sobrevivientes, hay 68 sobrevivientes.\nPodríamos también calcular el odds de sobrevivencia de hombres y mujeres\n\\[Odds{hombres} = \\frac{135}{523} = 0.258\\] \\[Odds{mujeres} = \\frac{292}{96} = 3.04\\]\nPara los hombres, hay más chances de no sobrevivir que de sobrevivir (odds &lt; 1), mientras que para mujeres hay más chances de sobrevivir que de no sobrevivir (odds &gt; 1)\nPropiedades de Odds\n\nOdds menores que 1, indican una chance negativa\nOdds mayores que 1, indican una chance positiva\n\nEn R podemos realizar este calculo directamente a través de las probabilidades marginales para cada sexo que entrega prop.table.El número 2 indica que las proporciones están calculadas por columna, es decir, las probabilidades indicadas se calculan considerando como total cada sexo.\n\nprop.table(table(tt$survived,tt$sex),2)\n\n              \n                  Hombre     Mujer\n  No sobrevive 0.7948328 0.2474227\n  Sobrevive    0.2051672 0.7525773"
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "5.2 Odds",
+    "text": "5.2 Odds\nUna forma alternativa de representar una probabilidad son las chances u odds, que se definen como la división entre el número de ocurrencias (\\(\\pi\\)) y el número de “no ocurrencias” (\\(1-\\pi\\)):\n\\[Odds = \\frac{\\pi}{1-\\pi}\\]\nSiguiendo el ejemplo del Titanic:\n\\[Odds = \\frac{Sobrevivientes}{No\\ sobrevivientes}\\]\nLa función addmargins entrega las frecuencias absolutas y marginales por filas y columnas:\n\naddmargins(table(tt$survived, tt$sex))\n\n              \n               Hombre Mujer  Sum\n  No sobrevive    523    96  619\n  Sobrevive       135   292  427\n  Sum             658   388 1046\n\n\n\\[Odds = \\frac{427}{619} = 0.69\\]\nEl resultado es 0,69, es decir, hay 0,69 sobrevivientes por cada no sobreviviente. Aunque parezca poco intuitivo hablar de 0,69 personas, lo que indica es que la relación entre sobrevivientes y no sobrevivientes no es 1 a 1, y que de hecho existen más chances de morir que de sobrevivir.\nOtra forma de leerlo: por cada 100 no sobrevivientes, hay 69 sobrevivientes.\n\n5.2.1 Odds por grupo\nTambién podemos calcular los odds de sobrevivencia separadamente para hombres y mujeres:\n\\[Odds_{hombres} = \\frac{135}{523} = 0.258\\]\n\\[Odds_{mujeres} = \\frac{292}{96} = 3.042\\]\nPara los hombres hay más chances de no sobrevivir que de sobrevivir, ya que el odds es menor que 1. Para las mujeres ocurre lo contrario.\n\n\n\n\n\n\nImportantePropiedades de los odds\n\n\n\n\nOdds menores que 1 indican que el evento es menos probable que su complemento\nOdds mayores que 1 indican que el evento es más probable que su complemento\nUn odds igual a 1 indica que ambos resultados son igualmente probables\nA diferencia de una probabilidad, un odds no tiene techo: varía entre 0 e infinito\n\n\n\nEn R podemos obtener las probabilidades marginales por sexo con prop.table. El número 2 indica que las proporciones se calculan por columna, es decir, tomando como total cada sexo:\n\nprop.table(table(tt$survived, tt$sex), 2)\n\n              \n                  Hombre     Mujer\n  No sobrevive 0.7948328 0.2474227\n  Sobrevive    0.2051672 0.7525773\n\n\nA partir de esas proporciones también se puede llegar al odds. Para los hombres, 0,205 dividido por 0,795 entrega 0,258, el mismo valor calculado con las frecuencias.\n\n0.205 / 0.795\n\n[1] 0.2578616\n\n\n\n\n\n\n\n\nNotaProbabilidad y odds no son lo mismo\n\n\n\nLa probabilidad de que una mujer sobreviva es 0,753. Su odds de sobrevivir es 3,042. Ambos describen el mismo hecho, pero en escalas distintas: la probabilidad compara los sobrevivientes con el total, y el odds los compara con los no sobrevivientes."
   },
   {
     "objectID": "practicos/practico-08.html#odds-ratio-or",
@@ -2508,7 +2508,7 @@
     "href": "content/08-content.html",
     "title": "Presentación",
     "section": "",
-    "text": "Sesión del lunes, 20 de octubre de 2025"
+    "text": "Sesión del lunes, 19 de octubre de 2026"
   },
   {
     "objectID": "content/08-content.html#documento-de-presentación",
@@ -5694,5 +5694,103 @@
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "",
     "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "practicos/practico-08.html#objetivo-de-la-práctica",
+    "href": "practicos/practico-08.html#objetivo-de-la-práctica",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "",
+    "text": "Con esta guía comenzamos la segunda parte del curso. Hasta ahora, todas nuestras variables dependientes fueron continuas. A partir de aquí trabajaremos con variables dependientes categóricas dicotómicas, es decir, que solo admiten dos valores: ocurre o no ocurre, vota o no vota, aprueba o reprueba.\nEl modelo que permite ese tipo de análisis es la regresión logística. Antes de estimarlo, necesitamos comprender tres conceptos que son su base: probabilidades, chances (u odds) y razón de chances (u odds ratio).\nEsta guía es deliberadamente introductoria y se concentra en esos tres conceptos, que calcularemos a mano a partir de tablas de contingencia. La estimación del modelo mediante glm, la interpretación de sus coeficientes y la evaluación de su ajuste corresponden a la sesión teórica de esta tarde y al próximo práctico.\nAl terminar, usted debería ser capaz de:\n\nExplicar por qué el modelo de regresión lineal no sirve para una variable dependiente dicotómica\nCalcular e interpretar una probabilidad a partir de una tabla de frecuencias\nCalcular e interpretar un odd, y distinguirlo de una probabilidad\nCalcular e interpretar un odds ratio como medida de asociación\nComprender por qué los odds se transforman en logit"
+  },
+  {
+    "objectID": "practicos/practico-08.html#explorar-los-datos",
+    "href": "practicos/practico-08.html#explorar-los-datos",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "4.1 Explorar los datos",
+    "text": "4.1 Explorar los datos\nprint(dfSummary(tt, headings = FALSE), method = \"render\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo\nVariable\nStats / Values\nFreqs (% of Valid)\nGraph\nValid\nMissing\n\n\n\n\n1\npclass [factor]\n\n\n\n1. Clase Alta\n\n\n2. Clase Intermedia\n\n\n3. Clase Baja\n\n\n\n\n\n\n284\n(\n27.2%\n)\n\n\n261\n(\n25.0%\n)\n\n\n501\n(\n47.9%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n2\nsurvived [factor]\n\n\n\n1. No sobrevive\n\n\n2. Sobrevive\n\n\n\n\n\n\n619\n(\n59.2%\n)\n\n\n427\n(\n40.8%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n3\nsex [factor]\n\n\n\n1. Hombre\n\n\n2. Mujer\n\n\n\n\n\n\n658\n(\n62.9%\n)\n\n\n388\n(\n37.1%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n4\nage [numeric]\n\n\n\nMean (sd) : 29.9 (14.4)\n\n\nmin ≤ med ≤ max:\n\n\n0.2 ≤ 28 ≤ 80\n\n\nIQR (CV) : 18 (0.5)\n\n\n\n98 distinct values\n\n1046 (100.0%)\n0 (0.0%)\n\n\n5\nsibsp [numeric]\n\n\n\nMean (sd) : 0.5 (0.9)\n\n\nmin ≤ med ≤ max:\n\n\n0 ≤ 0 ≤ 8\n\n\nIQR (CV) : 1 (1.8)\n\n\n\n\n\n\n0\n:\n685\n(\n65.5%\n)\n\n\n1\n:\n280\n(\n26.8%\n)\n\n\n2\n:\n36\n(\n3.4%\n)\n\n\n3\n:\n16\n(\n1.5%\n)\n\n\n4\n:\n22\n(\n2.1%\n)\n\n\n5\n:\n6\n(\n0.6%\n)\n\n\n8\n:\n1\n(\n0.1%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n6\nparch [numeric]\n\n\n\nMean (sd) : 0.4 (0.8)\n\n\nmin ≤ med ≤ max:\n\n\n0 ≤ 0 ≤ 6\n\n\nIQR (CV) : 1 (2)\n\n\n\n\n\n\n0\n:\n768\n(\n73.4%\n)\n\n\n1\n:\n160\n(\n15.3%\n)\n\n\n2\n:\n97\n(\n9.3%\n)\n\n\n3\n:\n8\n(\n0.8%\n)\n\n\n4\n:\n5\n(\n0.5%\n)\n\n\n5\n:\n6\n(\n0.6%\n)\n\n\n6\n:\n2\n(\n0.2%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n\n\nNos centraremos en las variables sex y survived. Ambas tienen dos categorías, es decir, son variables dicotómicas."
+  },
+  {
+    "objectID": "practicos/practico-08.html#tabla-de-contingencia",
+    "href": "practicos/practico-08.html#tabla-de-contingencia",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "4.2 Tabla de contingencia",
+    "text": "4.2 Tabla de contingencia\nCon la función ctable del paquete summarytools obtenemos la proporción de sobrevivientes según sexo:\n\nctable(tt$sex, tt$survived)\n\n\n\n\nCross-Tabulation, Row Proportions\n\nsex * survived\n\n\nData Frame: tt\n\n\n\n\n\n\nsurvived\n\n\n\nsex\nNo sobrevive\nSobrevive\nTotal\n\n\n\n\nHombre\n523\n(\n79.5%\n)\n135\n(\n20.5%\n)\n658\n(\n100.0%\n)\n\n\nMujer\n96\n(\n24.7%\n)\n292\n(\n75.3%\n)\n388\n(\n100.0%\n)\n\n\nTotal\n619\n(\n59.2%\n)\n427\n(\n40.8%\n)\n1046\n(\n100.0%\n)\n\n\n\n\n\n\n\nLa tabla muestra que la mayoría de los tripulantes no sobrevivió: 619 personas, un 59,2%, frente a 427 que sí sobrevivieron, un 40,8%. Al desagregar por sexo, solo un 20,5% de los hombres sobrevive, en contraste con un 75,3% de las mujeres."
+  },
+  {
+    "objectID": "practicos/practico-08.html#visualización",
+    "href": "practicos/practico-08.html#visualización",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "4.3 Visualización",
+    "text": "4.3 Visualización\nEl paquete ggmosaic, con su función geom_mosaic, permite construir visualizaciones para datos categóricos. El mosaico completo corresponde al total de tripulantes. Como hay más hombres que mujeres a bordo, la columna de hombres es más ancha. El argumento fill distingue, dentro de cada sexo, la proporción de quienes sobrevivieron y quienes no sobrevivieron.\n\nggplot(data = tt) +\n  geom_mosaic(aes(product(survived, sex), fill = survived)) +\n  labs(y = \"Sobreviviente\", x = \"Sexo\", fill = NULL) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 1: Sobrevivencia en el Titanic según sexo"
+  },
+  {
+    "objectID": "practicos/practico-08.html#odds-ratio",
+    "href": "practicos/practico-08.html#odds-ratio",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "5.3 Odds ratio",
+    "text": "5.3 Odds ratio\nCon lo anterior podríamos concluir que las mujeres tienen más chances de sobrevivir que los hombres. Pero queda pendiente una pregunta: ¿cuánto más?\nEsa pregunta ya no se refiere a cada grupo por separado, sino a la asociación entre sobrevivencia y sexo. Para responderla se calcula la razón de chances u odds ratio:\n\\[OR = \\frac{Odds_{mujeres}}{Odds_{hombres}} = \\frac{3.042}{0.258} = 11.78\\]\nEl resultado se lee así: las chances de sobrevivir de las mujeres son 11,78 veces las de los hombres.\n\nodds_mujeres &lt;- 292 / 96\nodds_hombres &lt;- 135 / 523\n\nodds_mujeres / odds_hombres\n\n[1] 11.78364\n\n\n\n5.3.1 Cómo se interpreta\n\n\n\n\n\n\nImportantePropiedades del odds ratio\n\n\n\n\n\\(OR = 1\\): no hay asociación, ambos grupos tienen las mismas chances\n\\(OR &gt; 1\\): el primer grupo tiene más chances que el de referencia\n\\(OR &lt; 1\\): el primer grupo tiene menos chances que el de referencia\n\n\n\nNote que el odds ratio depende de cuál grupo se ponga en el numerador. Si invertimos la comparación:\n\nodds_hombres / odds_mujeres\n\n[1] 0.08486341\n\n\nLas chances de sobrevivir de los hombres son 0,085 veces las de las mujeres, que es exactamente \\(1/11{,}78\\). Se trata del mismo hallazgo expresado al revés, igual que ocurría con la categoría de referencia en las variables dummy.\n\n\n5.3.2 ¿Qué ganamos con el odds ratio?\nEl OR permite expresar en un solo número la relación entre dos variables categóricas. En ese sentido, cumple una función análoga a la del coeficiente \\(\\beta\\) en la regresión lineal, y es lo que nos permitirá aprovechar las ventajas del modelo de regresión, en particular el control estadístico, cuando la variable dependiente es categórica."
+  },
+  {
+    "objectID": "practicos/practico-08.html#del-odds-al-logit",
+    "href": "practicos/practico-08.html#del-odds-al-logit",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "5.4 Del odds al logit",
+    "text": "5.4 Del odds al logit\nLos odds resuelven buena parte del problema, pero tienen una limitación que impide usarlos directamente en un modelo de regresión: no son simétricos.\nObserve los dos valores que calculamos:\n\nc(hombres = odds_hombres, mujeres = odds_mujeres)\n\n  hombres   mujeres \n0.2581262 3.0416667 \n\n\nLas mujeres tienen un odds de 3,04 y los hombres de 0,26. Si quisiéramos decir que una chance es “el doble de favorable” y otra “el doble de desfavorable”, los números no se comportan de manera equivalente: los odds favorables se extienden de 1 a infinito, mientras que los desfavorables quedan comprimidos entre 0 y 1.\nLa solución es aplicar el logaritmo natural:\n\nlog(c(hombres = odds_hombres, mujeres = odds_mujeres))\n\n  hombres   mujeres \n-1.354307  1.112406 \n\n\nAhora los valores son simétricos en torno a cero: −1,36 y 1,11. Un valor negativo indica chances desfavorables, uno positivo chances favorables, y el cero indica ausencia de asociación.\n\\[logit(\\pi) = \\ln\\left(\\frac{\\pi}{1-\\pi}\\right)\\]\nEsta transformación es el logaritmo de los odds, o logit, y de ahí proviene el nombre de la regresión logística. El modelo que veremos esta tarde estima, precisamente, una ecuación lineal sobre esta escala transformada.\n\n\n\n\n\n\nNotaLas tres escalas\n\n\n\nUn mismo fenómeno puede expresarse de tres formas:\n\n\n\nEscala\nRango\nEjemplo (mujeres)\n\n\n\n\nProbabilidad\n0 a 1\n0,753\n\n\nOdds\n0 a infinito\n3,042\n\n\nLogit\n−infinito a +infinito\n1,113\n\n\n\nEl modelo trabaja en la tercera porque es la única no acotada, y por tanto la única compatible con una ecuación lineal. La interpretación, en cambio, suele hacerse volviendo a las dos primeras."
+  },
+  {
+    "objectID": "practicos/practico-08.html#preparación",
+    "href": "practicos/practico-08.html#preparación",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "7.1 Preparación",
+    "text": "7.1 Preparación\n\nload(url(\"https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData\"))\n\n\nproc_data &lt;- elsoc_long_2016_2022.2 %&gt;%\n  filter(ola == 1) %&gt;%\n  select(t01, m01, m0_sexo, m0_edad) %&gt;%\n  set_na(., na = c(-999, -888, -777, -666)) %&gt;%\n  rename(\"confianza\" = t01,\n         \"educacion\" = m01,\n         \"sexo\" = m0_sexo,\n         \"edad\" = m0_edad) %&gt;%\n  na.omit()\n\nnrow(proc_data)\n\n[1] 2906"
+  },
+  {
+    "objectID": "practicos/practico-08.html#construir-una-variable-dicotómica",
+    "href": "practicos/practico-08.html#construir-una-variable-dicotómica",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "7.2 Construir una variable dicotómica",
+    "text": "7.2 Construir una variable dicotómica\nLa confianza en los vecinos se mide en una escala de 1 a 5. Para este ejercicio la convertiremos en una variable dicotómica: confía quien responde 4 o 5, y no confía quien responde 1, 2 o 3.\n\nfrq(proc_data$confianza)\n\nx &lt;numeric&gt; \n# total N=2906 valid N=2906 mean=3.20 sd=1.20\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    1 | 332 | 11.42 |   11.42 |  11.42\n    2 | 502 | 17.27 |   17.27 |  28.70\n    3 | 711 | 24.47 |   24.47 |  53.17\n    4 | 987 | 33.96 |   33.96 |  87.13\n    5 | 374 | 12.87 |   12.87 | 100.00\n &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(confia = ifelse(confianza &gt;= 4, 1, 0),\n         confia = factor(confia,\n                         levels = c(0, 1),\n                         labels = c(\"No confía\", \"Confía\")),\n         sexo_f = as_factor(sexo))\n\nfrq(proc_data$confia)\n\nx &lt;categorical&gt; \n# total N=2906 valid N=2906 mean=1.47 sd=0.50\n\nValue     |    N | Raw % | Valid % | Cum. %\n-------------------------------------------\nNo confía | 1545 | 53.17 |   53.17 |  53.17\nConfía    | 1361 | 46.83 |   46.83 | 100.00\n&lt;NA&gt;      |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\n\n\n\n\n\nAdvertenciaDicotomizar tiene un costo\n\n\n\nAl convertir una variable de cinco categorías en una de dos, perdemos información: alguien que responde 1 y alguien que responde 3 quedan en el mismo grupo, aunque sus respuestas sean distintas.\nLo hacemos aquí porque necesitamos una variable dicotómica para trabajar estos conceptos. En una investigación, el punto de corte debe justificarse teóricamente, y siempre conviene revisar si los resultados cambian al moverlo."
+  },
+  {
+    "objectID": "practicos/practico-08.html#probabilidades-y-odds",
+    "href": "practicos/practico-08.html#probabilidades-y-odds",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "7.3 Probabilidades y odds",
+    "text": "7.3 Probabilidades y odds\n\n\n\nCross-Tabulation, Row Proportions\n\nsexo_f * confia\n\n\nData Frame: proc_data\n\n\n\n\n\n\nconfia\n\n\n\nsexo_f\nNo confía\nConfía\nTotal\n\n\n\n\n1\n598\n(\n51.6%\n)\n560\n(\n48.4%\n)\n1158\n(\n100.0%\n)\n\n\n2\n947\n(\n54.2%\n)\n801\n(\n45.8%\n)\n1748\n(\n100.0%\n)\n\n\nTotal\n1545\n(\n53.2%\n)\n1361\n(\n46.8%\n)\n2906\n(\n100.0%\n)\n\n\n\n\n\n\n\n\naddmargins(table(proc_data$confia, proc_data$sexo_f))\n\n           \n               1    2  Sum\n  No confía  598  947 1545\n  Confía     560  801 1361\n  Sum       1158 1748 2906\n\n\n\n7.3.1 Ejercicio guiado\nA partir de la tabla anterior, calcule:\n\nLa probabilidad de confiar en los vecinos para el total de la muestra\nEl odds de confiar para los hombres\nEl odds de confiar para las mujeres\nEl odds ratio entre ambos grupos\n\n\n\nVer solución\ntabla &lt;- table(proc_data$confia, proc_data$sexo_f)\n\n# 1. Probabilidad total de confiar\nprop.table(table(proc_data$confia))\n\n\n\nNo confía    Confía \n0.5316586 0.4683414 \n\n\nVer solución\n# 2 y 3. Odds por sexo\nodds_h &lt;- tabla[\"Confía\", 1] / tabla[\"No confía\", 1]\nodds_m &lt;- tabla[\"Confía\", 2] / tabla[\"No confía\", 2]\n\nc(hombres = odds_h, mujeres = odds_m)\n\n\n  hombres   mujeres \n0.9364548 0.8458289 \n\n\nVer solución\n# 4. Odds ratio\nodds_m / odds_h\n\n\n[1] 0.9032245\n\n\nAmbos odds son cercanos a 1, lo que indica que en los dos grupos las chances de confiar y de no confiar son parecidas. El odds ratio también resulta próximo a 1, de modo que la asociación entre sexo y confianza vecinal es débil.\n\n\n\n\n\n\nNotaUna lección del contraste\n\n\n\nEn el Titanic obtuvimos un OR de 11,78. Aquí obtenemos uno cercano a 0,9. La diferencia no es un error: la mayoría de las asociaciones en investigación social son modestas, y el Titanic es excepcional precisamente porque la evacuación siguió una regla explícita de prioridad.\nAl igual que con el \\(R^2\\), un valor pequeño no invalida el análisis. Lo que sí exige es prudencia al redactar la interpretación."
+  },
+  {
+    "objectID": "practicos/practico-08.html#con-una-variable-de-tres-categorías",
+    "href": "practicos/practico-08.html#con-una-variable-de-tres-categorías",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "7.4 Con una variable de tres categorías",
+    "text": "7.4 Con una variable de tres categorías\nRecodifiquemos el nivel educacional y repitamos el ejercicio:\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(educ_rec = case_when(educacion &lt;= 3 ~ 1,\n                              educacion &lt;= 5 ~ 2,\n                              TRUE ~ 3),\n         educ_f = factor(educ_rec,\n                         levels = c(1, 2, 3),\n                         labels = c(\"Educación básica\",\n                                    \"Educación media\",\n                                    \"Educación superior\")))\n\ntable(proc_data$confia, proc_data$educ_f)\n\n           \n            Educación básica Educación media Educación superior\n  No confía              371             676                498\n  Confía                 282             565                514\n\n\n\ntabla_educ &lt;- table(proc_data$confia, proc_data$educ_f)\n\nodds_educ &lt;- tabla_educ[\"Confía\", ] / tabla_educ[\"No confía\", ]\n\nround(odds_educ, 3)\n\n  Educación básica    Educación media Educación superior \n             0.760              0.836              1.032 \n\n\nLos odds aumentan de manera sostenida con el nivel educacional. Calculemos ahora los odds ratio tomando la educación básica como categoría de referencia:\n\nround(odds_educ / odds_educ[\"Educación básica\"], 3)\n\n  Educación básica    Educación media Educación superior \n             1.000              1.100              1.358 \n\n\nQuienes tienen educación superior presentan chances de confiar en sus vecinos aproximadamente 1,36 veces mayores que quienes tienen educación básica.\n\n\n\n\n\n\nNotaLa conexión con la sesión pasada\n\n\n\nNote la similitud con las variables dummy: hay una categoría de referencia, y cada coeficiente se interpreta respecto de ella. Esa es exactamente la lógica que seguirá el modelo de regresión logística."
+  },
+  {
+    "objectID": "practicos/practico-08.html#conceptos",
+    "href": "practicos/practico-08.html#conceptos",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "9.1 Conceptos",
+    "text": "9.1 Conceptos\n\nExplique con sus palabras la diferencia entre una probabilidad y un odds. Utilice como ejemplo un grupo de la base del Titanic.\nUn odds ratio de 0,45, ¿indica una asociación positiva o negativa? ¿Cómo se expresaría ese mismo resultado invirtiendo la comparación?\n¿Por qué un modelo de regresión lineal no resulta adecuado cuando la variable dependiente es dicotómica? Mencione al menos dos razones."
+  },
+  {
+    "objectID": "practicos/practico-08.html#cálculo-con-el-titanic",
+    "href": "practicos/practico-08.html#cálculo-con-el-titanic",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "9.2 Cálculo con el Titanic",
+    "text": "9.2 Cálculo con el Titanic\n\nConstruya la tabla de contingencia entre pclass y survived.\nCalcule la probabilidad de sobrevivir para cada una de las tres clases.\nCalcule el odds de sobrevivir para cada clase.\nCalcule el odds ratio tomando la clase baja como categoría de referencia, e interprete los dos valores obtenidos.\nCalcule el logit correspondiente a cada clase y comente qué ocurre con el signo."
+  },
+  {
+    "objectID": "practicos/practico-08.html#cálculo-con-elsoc",
+    "href": "practicos/practico-08.html#cálculo-con-elsoc",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "9.3 Cálculo con ELSOC",
+    "text": "9.3 Cálculo con ELSOC\n\nCargue la base ELSOC y filtre por la ola 4 (2019). Construya una variable dicotómica a partir de la confianza en los vecinos, usando el mismo punto de corte de esta guía.\nElabore la tabla de contingencia entre esa variable y el nivel educacional recodificado en tres categorías.\nCalcule los odds por grupo y los odds ratio respecto de la educación básica.\nCompare los resultados con los obtenidos para 2016 en esta guía y comente brevemente si el patrón se mantiene."
+  },
+  {
+    "objectID": "practicos/practico-08.html#reflexión",
+    "href": "practicos/practico-08.html#reflexión",
+    "title": "Práctico 08. Regresión logística I: probabilidades, odds y odds ratio",
+    "section": "9.4 Reflexión",
+    "text": "9.4 Reflexión\n\nElija un fenómeno social que podría estudiarse con una variable dependiente dicotómica, señale cuál sería esa variable y qué dos predictores le parecen teóricamente relevantes. Anticipe el signo que esperaría para cada uno."
   }
 ]

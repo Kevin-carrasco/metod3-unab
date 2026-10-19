@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Práctico 07. Regresión logística I – Metodos 3 - Universidad Andrés Bello</title>
+<title>Práctico 08. Regresión logística I: probabilidades, odds y odds ratio – Metodos 3 - Universidad Andrés Bello</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-9de9f6925d305bcf5b7eb9351f368d06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aba9a859bd7e1bf5cf92f9c98e80b511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-83babd3dfd23c8593dfd134f395f3b97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -138,14 +138,14 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Práctico 07. Regresión logística I – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:title" content="Práctico 08. Regresión logística I: probabilidades, odds y odds ratio – Metodos 3 - Universidad Andrés Bello">
 <meta property="og:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="500">
 <meta property="og:image:width" content="500">
-<meta name="twitter:title" content="Práctico 07. Regresión logística I – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:title" content="Práctico 08. Regresión logística I: probabilidades, odds y odds ratio – Metodos 3 - Universidad Andrés Bello">
 <meta name="twitter:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta name="twitter:creator" content="@kevincarrascoq1">
@@ -208,27 +208,50 @@ window.Quarto = {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
-  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías">Librerías</a></li>
-  <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos">Datos</a>
+  <li><a href="#presentación" id="toc-presentación" class="nav-link active" data-scroll-target="#presentación"><span class="header-section-number">1</span> Presentación</a>
   <ul class="collapse">
-  <li><a href="#explorar-datos" id="toc-explorar-datos" class="nav-link" data-scroll-target="#explorar-datos">Explorar datos</a></li>
+  <li><a href="#objetivo-de-la-práctica" id="toc-objetivo-de-la-práctica" class="nav-link" data-scroll-target="#objetivo-de-la-práctica"><span class="header-section-number">1.1</span> Objetivo de la práctica</a></li>
   </ul></li>
-  <li><a href="#conceptos-centrales" id="toc-conceptos-centrales" class="nav-link" data-scroll-target="#conceptos-centrales">Conceptos centrales</a>
+  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías"><span class="header-section-number">2</span> Librerías</a></li>
+  <li><a href="#por-qué-no-basta-con-la-regresión-lineal" id="toc-por-qué-no-basta-con-la-regresión-lineal" class="nav-link" data-scroll-target="#por-qué-no-basta-con-la-regresión-lineal"><span class="header-section-number">3</span> ¿Por qué no basta con la regresión lineal?</a></li>
+  <li><a href="#los-datos" id="toc-los-datos" class="nav-link" data-scroll-target="#los-datos"><span class="header-section-number">4</span> Los datos</a>
   <ul class="collapse">
-  <li><a href="#probabilidades" id="toc-probabilidades" class="nav-link" data-scroll-target="#probabilidades">Probabilidades</a></li>
-  <li><a href="#odds" id="toc-odds" class="nav-link" data-scroll-target="#odds">Odds</a></li>
-  <li><a href="#odds-ratio-or" id="toc-odds-ratio-or" class="nav-link" data-scroll-target="#odds-ratio-or">Odds Ratio (OR)</a></li>
+  <li><a href="#explorar-los-datos" id="toc-explorar-los-datos" class="nav-link" data-scroll-target="#explorar-los-datos"><span class="header-section-number">4.1</span> Explorar los datos</a></li>
+  <li><a href="#tabla-de-contingencia" id="toc-tabla-de-contingencia" class="nav-link" data-scroll-target="#tabla-de-contingencia"><span class="header-section-number">4.2</span> Tabla de contingencia</a></li>
+  <li><a href="#visualización" id="toc-visualización" class="nav-link" data-scroll-target="#visualización"><span class="header-section-number">4.3</span> Visualización</a></li>
   </ul></li>
-  <li><a href="#con-datos-reales" id="toc-con-datos-reales" class="nav-link" data-scroll-target="#con-datos-reales">Con datos reales</a></li>
-  <li><a href="#librerías-1" id="toc-librerías-1" class="nav-link" data-scroll-target="#librerías-1">Librerías</a></li>
-  <li><a href="#datos-1" id="toc-datos-1" class="nav-link" data-scroll-target="#datos-1">Datos</a>
+  <li><a href="#conceptos-centrales" id="toc-conceptos-centrales" class="nav-link" data-scroll-target="#conceptos-centrales"><span class="header-section-number">5</span> Conceptos centrales</a>
   <ul class="collapse">
-  <li><a href="#explorar-datos-1" id="toc-explorar-datos-1" class="nav-link" data-scroll-target="#explorar-datos-1">Explorar datos</a></li>
+  <li><a href="#probabilidades" id="toc-probabilidades" class="nav-link" data-scroll-target="#probabilidades"><span class="header-section-number">5.1</span> Probabilidades</a></li>
+  <li><a href="#odds" id="toc-odds" class="nav-link" data-scroll-target="#odds"><span class="header-section-number">5.2</span> Odds</a>
+  <ul class="collapse">
+  <li><a href="#odds-por-grupo" id="toc-odds-por-grupo" class="nav-link" data-scroll-target="#odds-por-grupo"><span class="header-section-number">5.2.1</span> Odds por grupo</a></li>
   </ul></li>
-  <li><a href="#estimación" id="toc-estimación" class="nav-link" data-scroll-target="#estimación">Estimación</a>
+  <li><a href="#odds-ratio" id="toc-odds-ratio" class="nav-link" data-scroll-target="#odds-ratio"><span class="header-section-number">5.3</span> Odds ratio</a>
   <ul class="collapse">
-  <li><a href="#tabla-de-regresión" id="toc-tabla-de-regresión" class="nav-link" data-scroll-target="#tabla-de-regresión">Tabla de regresión</a></li>
+  <li><a href="#cómo-se-interpreta" id="toc-cómo-se-interpreta" class="nav-link" data-scroll-target="#cómo-se-interpreta"><span class="header-section-number">5.3.1</span> Cómo se interpreta</a></li>
+  <li><a href="#qué-ganamos-con-el-odds-ratio" id="toc-qué-ganamos-con-el-odds-ratio" class="nav-link" data-scroll-target="#qué-ganamos-con-el-odds-ratio"><span class="header-section-number">5.3.2</span> ¿Qué ganamos con el odds ratio?</a></li>
+  </ul></li>
+  <li><a href="#del-odds-al-logit" id="toc-del-odds-al-logit" class="nav-link" data-scroll-target="#del-odds-al-logit"><span class="header-section-number">5.4</span> Del odds al logit</a></li>
+  </ul></li>
+  <li><a href="#una-demostración-del-problema" id="toc-una-demostración-del-problema" class="nav-link" data-scroll-target="#una-demostración-del-problema"><span class="header-section-number">6</span> Una demostración del problema</a></li>
+  <li><a href="#aplicación-con-datos-de-elsoc" id="toc-aplicación-con-datos-de-elsoc" class="nav-link" data-scroll-target="#aplicación-con-datos-de-elsoc"><span class="header-section-number">7</span> Aplicación con datos de ELSOC</a>
+  <ul class="collapse">
+  <li><a href="#preparación" id="toc-preparación" class="nav-link" data-scroll-target="#preparación"><span class="header-section-number">7.1</span> Preparación</a></li>
+  <li><a href="#construir-una-variable-dicotómica" id="toc-construir-una-variable-dicotómica" class="nav-link" data-scroll-target="#construir-una-variable-dicotómica"><span class="header-section-number">7.2</span> Construir una variable dicotómica</a></li>
+  <li><a href="#probabilidades-y-odds" id="toc-probabilidades-y-odds" class="nav-link" data-scroll-target="#probabilidades-y-odds"><span class="header-section-number">7.3</span> Probabilidades y odds</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-guiado" id="toc-ejercicio-guiado" class="nav-link" data-scroll-target="#ejercicio-guiado"><span class="header-section-number">7.3.1</span> Ejercicio guiado</a></li>
+  </ul></li>
+  <li><a href="#con-una-variable-de-tres-categorías" id="toc-con-una-variable-de-tres-categorías" class="nav-link" data-scroll-target="#con-una-variable-de-tres-categorías"><span class="header-section-number">7.4</span> Con una variable de tres categorías</a></li>
+  </ul></li>
+  <li><a href="#lo-que-viene" id="toc-lo-que-viene" class="nav-link" data-scroll-target="#lo-que-viene"><span class="header-section-number">8</span> Lo que viene</a></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios"><span class="header-section-number">9</span> Ejercicios</a>
+  <ul class="collapse">
+  <li><a href="#conceptos" id="toc-conceptos" class="nav-link" data-scroll-target="#conceptos"><span class="header-section-number">9.1</span> Conceptos</a></li>
+  <li><a href="#cálculo-con-el-titanic" id="toc-cálculo-con-el-titanic" class="nav-link" data-scroll-target="#cálculo-con-el-titanic"><span class="header-section-number">9.2</span> Cálculo con el Titanic</a></li>
+  <li><a href="#cálculo-con-elsoc" id="toc-cálculo-con-elsoc" class="nav-link" data-scroll-target="#cálculo-con-elsoc"><span class="header-section-number">9.3</span> Cálculo con ELSOC</a></li>
+  <li><a href="#reflexión" id="toc-reflexión" class="nav-link" data-scroll-target="#reflexión"><span class="header-section-number">9.4</span> Reflexión</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -238,7 +261,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Práctico 07. Regresión logística I</h1>
+<h1 class="title">Práctico 08. Regresión logística I: probabilidades, odds y odds ratio</h1>
 <p class="subtitle lead">Métodos estadísticos para Ciencias Sociales III</p>
 </div>
 
@@ -250,7 +273,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">20 de octubre de 2025</p>
+      <p class="date">19 de octubre de 2026</p>
     </div>
   </div>
   
@@ -262,35 +285,79 @@ window.Quarto = {
 </header>
 
 
-<section id="objetivo" class="level1">
-<h1>Objetivo</h1>
-<p>La siguiente práctica tiene el objetivo de introducir a los estudiantes en los <strong>modelos de regresión logística</strong>, que permite la estimación con una variable dependiente categórica <strong>dicotómica</strong>. En esta primera parte nos centraremos en conceptos centrales para estos modelos, que son probabilidades, chances (odds) y razón de chances (odds-ratio).</p>
+<section id="presentación" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Presentación</h1>
+<section id="objetivo-de-la-práctica" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="objetivo-de-la-práctica"><span class="header-section-number">1.1</span> Objetivo de la práctica</h2>
+<p>Con esta guía comenzamos la <strong>segunda parte del curso</strong>. Hasta ahora, todas nuestras variables dependientes fueron continuas. A partir de aquí trabajaremos con variables dependientes <strong>categóricas dicotómicas</strong>, es decir, que solo admiten dos valores: ocurre o no ocurre, vota o no vota, aprueba o reprueba.</p>
+<p>El modelo que permite ese tipo de análisis es la <strong>regresión logística</strong>. Antes de estimarlo, necesitamos comprender tres conceptos que son su base: <strong>probabilidades</strong>, <strong>chances</strong> (u <em>odds</em>) y <strong>razón de chances</strong> (u <em>odds ratio</em>).</p>
+<p>Esta guía es deliberadamente introductoria y se concentra en esos tres conceptos, que calcularemos <strong>a mano</strong> a partir de tablas de contingencia. La estimación del modelo mediante <code>glm</code>, la interpretación de sus coeficientes y la evaluación de su ajuste corresponden a la sesión teórica de esta tarde y al próximo práctico.</p>
+<p>Al terminar, usted debería ser capaz de:</p>
+<ol type="1">
+<li>Explicar por qué el modelo de regresión lineal no sirve para una variable dependiente dicotómica</li>
+<li>Calcular e interpretar una <strong>probabilidad</strong> a partir de una tabla de frecuencias</li>
+<li>Calcular e interpretar un <strong>odd</strong>, y distinguirlo de una probabilidad</li>
+<li>Calcular e interpretar un <strong>odds ratio</strong> como medida de asociación</li>
+<li>Comprender por qué los odds se transforman en <strong>logit</strong></li>
+</ol>
 </section>
-<section id="librerías" class="level1">
-<h1>Librerías</h1>
+</section>
+<section id="librerías" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Librerías</h1>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, summarytools, ggmosaic, finalfit)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               sjmisc,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               sjPlot,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               summarytools,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               ggmosaic,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               ggplot2,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               haven)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_options</span>(<span class="at">bootstrap.css =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">style =</span> <span class="st">"rmarkdown"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">dfSummary.silent =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">footnote =</span> <span class="cn">NA</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">subtitle.emphasis =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="datos" class="level1">
-<h1>Datos</h1>
-<p>El <strong>Titanic</strong> fue un transatlántico británico, el mayor barco del mundo al finalizar su construcción, que se hundió en la madrugada del 15 de abril de 1912 durante su viaje inaugural desde Southampton a Nueva York. En el hundimiento del Titanic <strong>murieron 619 personas</strong> de las <strong>1046</strong> que iban a bordo, lo que convierte a esta tragedia en uno de los mayores naufragios de la historia ocurridos en tiempo de paz. Con esta base realizaremos una serie de ejercicios para determinar la probabilidad de sobrevivir en base al sexo de los tripulantes.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cargamos la base de datos desde internet</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/titanic.RData"</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Titanic)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="por-qué-no-basta-con-la-regresión-lineal" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> ¿Por qué no basta con la regresión lineal?</h1>
+<p>Antes de introducir conceptos nuevos, conviene entender qué problema estamos resolviendo.</p>
+<p>Supongamos que codificamos nuestra variable dependiente como 0 y 1, y estimamos un modelo lineal corriente. El valor predicho de ese modelo se interpretaría como la <strong>probabilidad</strong> de que ocurra el evento, que por definición debe estar entre 0 y 1.</p>
+<p>El problema es que nada en el modelo lineal garantiza ese límite. Lo veremos con datos concretos más adelante en esta guía.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<section id="explorar-datos" class="level2">
-<h2 class="anchored" data-anchor-id="explorar-datos">Explorar datos</h2>
-<p>A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para la interpretación de nuestros modelos.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(tt, <span class="at">headings =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"render"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>La intuición
 </div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Una recta no tiene techo ni piso: crece o decrece indefinidamente. Una probabilidad, en cambio, está acotada entre 0 y 1, y además debe “aplanarse” cerca de esos extremos: si alguien ya tiene 95% de probabilidad de sobrevivir, una característica adicional favorable no puede sumarle otro 20%.</p>
+<p>La regresión logística resuelve ese problema transformando la escala en la que se modela el fenómeno. Esa transformación es lo que construiremos paso a paso.</p>
+</div>
+</div>
+</section>
+<section id="los-datos" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Los datos</h1>
+<p>El <strong>Titanic</strong> fue un transatlántico británico, el mayor barco del mundo al finalizar su construcción, que se hundió en la madrugada del 15 de abril de 1912 durante su viaje inaugural desde Southampton a Nueva York. En el hundimiento <strong>murieron 619 personas</strong> de las <strong>1046</strong> que iban a bordo, lo que lo convierte en uno de los mayores naufragios ocurridos en tiempo de paz.</p>
+<p>Usaremos esta base para determinar las chances de sobrevivir según el sexo de los tripulantes. Es un ejemplo clásico para introducir estos conceptos, porque la asociación entre ambas variables es muy marcada y por tanto fácil de seguir.</p>
 <div class="cell">
-<div class="cell-output-display">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/practicos/data/titanic.Rdata"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="explorar-los-datos" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="explorar-los-datos"><span class="header-section-number">4.1</span> Explorar los datos</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dfSummary</span>(tt, <span class="at">headings =</span> <span class="cn">FALSE</span>), <span class="at">method =</span> <span class="st">"render"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="container st-container">
-
-<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline caption-top table-sm small">
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline caption-top">
 <colgroup>
 <col style="width: 14%">
 <col style="width: 14%">
@@ -315,7 +382,7 @@ window.Quarto = {
 <tr class="odd">
 <td style="text-align: center;">1</td>
 <td style="text-align: left;">pclass [factor]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">1. Clase Alta</td>
@@ -328,7 +395,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">284</td>
@@ -350,14 +417,14 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFQAAABOBAMAAABMCCwPAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLjpQE02DAAAAVElEQVRIx+3UsQ0AIAhEUVdgBHED3X83GxsFDXQQ79evkeQsJVesVGlv0TZkoKCgF+rYFhmKQpVX3ag8VgcF/Yw6BkOGolA29Pg0z+uBgoL6t5WlCdVfacV/sZTKAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFQAAABOBAMAAABMCCwPAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMECx8a4g52AAAAVElEQVRIx+3UsQ0AIAhEUVdgBHED3X83GxsFDXQQ79evkeQsJVesVGlv0TZkoKCgF+rYFhmKQpVX3ag8VgcF/Yw6BkOGolA29Pg0z+uBgoL6t5WlCdVfacV/sZTKAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1046 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2</td>
 <td style="text-align: left;">survived [factor]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">1. No sobrevive</td>
@@ -367,7 +434,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">619</td>
@@ -383,14 +450,14 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGUAAAA3BAMAAADnFJkAAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLjsnFH0VAAAAP0lEQVRIx2NgGH5AiQSgANWjbEw8GNUzqmdUz/DWQ04ZIkgCEKCzHgJewKoHf7gZjeoZ1TOqZwTpIacMGU4AAM9RXE6bK1iVAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGUAAAA3BAMAAADnFJkAAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMECx8a4g52AAAAP0lEQVRIx2NgGH5AiQSgANWjbEw8GNUzqmdUz/DWQ04ZIkgCEKCzHgJewKoHf7gZjeoZ1TOqZwTpIacMGU4AAM9RXE6bK1iVAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1046 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">3</td>
 <td style="text-align: left;">sex [factor]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">1. Hombre</td>
@@ -400,7 +467,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">658</td>
@@ -416,14 +483,14 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGsAAAA3BAMAAAD53amzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLjsnFH0VAAAAQklEQVRIx2NgGN5AiTSgANWmbEwSGNU2qm1U26g2rNrILIIESQMCA6INn0fwaMMTkkaj2ka1jWob1UasNjKLoOEKAI3JZavyhCAkAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGsAAAA3BAMAAAD53amzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMECyCshCNLAAAAQklEQVRIx2NgGN5AiTSgANWmbEwSGNU2qm1U26g2rNrILIIESQMCA6INn0fwaMMTkkaj2ka1jWob1UasNjKLoOEKAI3JZavyhCAkAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1046 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">4</td>
 <td style="text-align: left;">age [numeric]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 29.9 (14.4)</td>
@@ -440,14 +507,14 @@ window.Quarto = {
 </tbody>
 </table></td>
 <td style="text-align: left; vertical-align: middle;">98 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLjsnFH0VAAAAu0lEQVRo3u3X4Q2DIBCGYVagG0g3KPvvphBJtC1yh6fR9v3+kegjIXCHzpGe+Pc8wpTB61LF4hQwMDAwHaYtQ5vYUzk7MDAwsIthqSYGKywZLzCwM7G8g62wPAAD+29MeKRkmHB2YGBgMkzwJyvHYrsjgx2NNW4xOqzREGZs9cm92OopMLBfw+rnswOrz+4wrLQME6xULDNs+f5Z2Pcm2omVFQlW2OcOBgO7AxbmDBZYGWRxeXHZHUd6MgLupwTfqRi/2QAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMECyCshCNLAAAAu0lEQVRo3u3X4Q2DIBCGYVagG0g3KPvvphBJtC1yh6fR9v3+kegjIXCHzpGe+Pc8wpTB61LF4hQwMDAwHaYtQ5vYUzk7MDAwsIthqSYGKywZLzCwM7G8g62wPAAD+29MeKRkmHB2YGBgMkzwJyvHYrsjgx2NNW4xOqzREGZs9cm92OopMLBfw+rnswOrz+4wrLQME6xULDNs+f5Z2Pcm2omVFQlW2OcOBgO7AxbmDBZYGWRxeXHZHUd6MgLupwTfqRi/2QAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1046 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">5</td>
 <td style="text-align: left;">sibsp [numeric]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 0.5 (0.9)</td>
@@ -463,7 +530,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">0</td>
@@ -523,14 +590,14 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAG8AAACsBAMAAACHl+9JAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLwCPBKVwAAAAi0lEQVRo3u3VwQ2AIBBEUUqQDkQ6kP5782LihaCzHjYLf+7vICZ/U1pjh7r9hrWJAwKBwB/Nyeo2N9j7jPIF9l4VCAQCX6C5OVmda1dtsLYTCAQuC83p0FRMOD4UA1iBQODC0JwOkYWE6s15fod45YBA4EzQnA6RueYRCAQCI0DVOcICBAKBEeDsuwABiOcgH5fb9AAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAG8AAACsBAMAAACHl+9JAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMECyCshCNLAAAAi0lEQVRo3u3VwQ2AIBBEUUqQDkQ6kP5782LihaCzHjYLf+7vICZ/U1pjh7r9hrWJAwKBwB/Nyeo2N9j7jPIF9l4VCAQCX6C5OVmda1dtsLYTCAQuC83p0FRMOD4UA1iBQODC0JwOkYWE6s15fod45YBA4EzQnA6RueYRCAQCI0DVOcICBAKBEeDsuwABiOcgH5fb9AAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1046 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">6</td>
 <td style="text-align: left;">parch [numeric]</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 0.4 (0.8)</td>
@@ -546,7 +613,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table">
 <tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: right; padding: 0 2px 0 7px; margin: 0; border: 0;">0</td>
@@ -606,27 +673,29 @@ window.Quarto = {
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHoAAACsBAMAAABGEKXlAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLwCPBKVwAAAAhklEQVRo3u3VsRGAMAxD0azACIENwv670bhwQWOF3Nnkq3+FlTultX1zajF93UoGGo1GL9Rzu3ZoSaD9MXHtOh9oNBqdQ8/tWkAk03Zy17R1jkaj0Z/quWUKqt/oyOeFRqPRFbSG6+u6L4ZGo9HvWsMZdN3O0Wg0eoXWcAbd0Wg0Gu30jnkAdGcdwyVsvXoAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHoAAACsBAMAAABGEKXlAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMECyCshCNLAAAAhklEQVRo3u3VsRGAMAxD0azACIENwv670bhwQWOF3Nnkq3+FlTultX1zajF93UoGGo1GL9Rzu3ZoSaD9MXHtOh9oNBqdQ8/tWkAk03Zy17R1jkaj0Z/quWUKqt/oyOeFRqPRFbSG6+u6L4ZGo9HvWsMZdN3O0Wg0eoXWcAbd0Wg0Gu30jnkAdGcdwyVsvXoAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">1046 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 </tbody>
 </table>
-
-<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.2)<br>2026-09-13</p>
 </div>
-</div>
-</div>
-<p>Para esta práctica nos centraremos en las variables <code>sex</code> y <code>survived</code>. Como podemos notar la categoría de respuesta de estas variables posee dos niveles (1 y 2), es decir, estamos ante variables dicotómicas.</p>
-<p>Con la función <code>ctable</code> del paquete <code>summarytools</code> podemos realizar una tabla de contingencia donde se señala la proporción de sobrevivientes según sexo</p>
+<p>Nos centraremos en las variables <code>sex</code> y <code>survived</code>. Ambas tienen <strong>dos categorías</strong>, es decir, son variables dicotómicas.</p>
+</section>
+<section id="tabla-de-contingencia" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="tabla-de-contingencia"><span class="header-section-number">4.2</span> Tabla de contingencia</h2>
+<p>Con la función <code>ctable</code> del paquete <code>summarytools</code> obtenemos la proporción de sobrevivientes según sexo:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ctable</span>(tt<span class="sc">$</span>sex, tt<span class="sc">$</span>survived)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ctable</span>(tt<span class="sc">$</span>sex, tt<span class="sc">$</span>survived)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div class="container st-container">
 <h3 class="anchored">Cross-Tabulation, Row Proportions</h3>
-<h4 class="anchored">sex * survived</h4>
+<strong>
+sex * survived
+<br>
+</strong>
 <strong>Data Frame</strong>: tt
 <br>
 
@@ -693,67 +762,79 @@ window.Quarto = {
 </tbody>
 </table>
 
-<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.2)<br>2026-09-13</p>
 </div>
 </div>
 </div>
-<p>La tabla muestra que la mayoría de los tripulantes no sobrevivió (619, 59,2% no sobreviven, mientras que 427, 40.8% si sobreviven). A su vez, solo un 20.5% de los hombres sobrevive, contrastando con un 75% para las mujeres.</p>
-<p>Una forma gráfica de verlo es por medio del paquete <code>ggmosaic</code> que con su función <code>geom_mosaic</code> permite construir visualizaciones para datos categóricos. El mosaico general corresponde al total de tripulantes del titanic. Como podrán notar, hay más hombres tripulantes que mujeres, por lo que las barras para hombres son mas anchas. Luego, gracias al comando <code>fill</code> del <code>geom_mosaic</code> podemos distinguir en hombres y mujeres la proporción de cuantos <strong>sobrevivieron</strong> y cuantos <strong>no sobrevivieron</strong>.</p>
+<p>La tabla muestra que la mayoría de los tripulantes no sobrevivió: 619 personas, un 59,2%, frente a 427 que sí sobrevivieron, un 40,8%. Al desagregar por sexo, solo un 20,5% de los hombres sobrevive, en contraste con un 75,3% de las mujeres.</p>
+</section>
+<section id="visualización" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="visualización"><span class="header-section-number">4.3</span> Visualización</h2>
+<p>El paquete <code>ggmosaic</code>, con su función <code>geom_mosaic</code>, permite construir visualizaciones para datos categóricos. El mosaico completo corresponde al total de tripulantes. Como hay más hombres que mujeres a bordo, la columna de hombres es más ancha. El argumento <code>fill</code> distingue, dentro de cada sexo, la proporción de quienes <strong>sobrevivieron</strong> y quienes <strong>no sobrevivieron</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> tt) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_mosaic</span>(<span class="fu">aes</span>(<span class="fu">product</span>(survived, sex), <span class="at">fill=</span> survived)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Sobreviviente"</span>, <span class="at">x =</span> <span class="st">"Sexo"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: The `scale_name` argument of `continuous_scale()` is deprecated as of ggplot2
-3.5.0.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: The `trans` argument of `continuous_scale()` is deprecated as of ggplot2 3.5.0.
-ℹ Please use the `transform` argument instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: `unite_()` was deprecated in tidyr 1.2.0.
-ℹ Please use `unite()` instead.
-ℹ The deprecated feature was likely used in the ggmosaic package.
-  Please report the issue at &lt;https://github.com/haleyjeppson/ggmosaic&gt;.</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tt) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_mosaic</span>(<span class="fu">aes</span>(<span class="fu">product</span>(survived, sex), <span class="at">fill =</span> survived)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Sobreviviente"</span>, <span class="at">x =</span> <span class="st">"Sexo"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-08_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<div id="fig-mosaico" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mosaico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="practico-08_files/figure-html/fig-mosaico-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mosaico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Sobrevivencia en el Titanic según sexo
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="conceptos-centrales" class="level1">
-<h1>Conceptos centrales</h1>
-<section id="probabilidades" class="level2">
-<h2 class="anchored" data-anchor-id="probabilidades">Probabilidades</h2>
-<p>Una <strong>probabilidad</strong> es la posibilidad de ocurrencia de un evento de interés, usando como referencia todos los eventos. Por ejemplo, la probabilidad de “ser sobreviviente en el titanic” se calcula en relación a todos los tripulantes del titanic.</p>
-<p>En primera instancia, podríamos decir que del total de pasajeros, un 40.8% de ellos sobrevive, es decir, la probabilidad de sobrevivir es de 0.408</p>
-<p><span class="math display">\[Probabilidades_{sobrevivientes} = \frac{427}{1046} = 0.408\]</span> Mientras que un 59.2% de los tripulantes no sobrevive, es decir, la probabilidad de no sobrevivir es de 0.592</p>
-<p><span class="math display">\[Probabilidades_{sobrevivientes} = \frac{619}{1046} = 0.592\]</span></p>
-<p>En R se realiza a través de la función <code>prop.table</code></p>
+<section id="conceptos-centrales" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Conceptos centrales</h1>
+<section id="probabilidades" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="probabilidades"><span class="header-section-number">5.1</span> Probabilidades</h2>
+<p>Una <strong>probabilidad</strong> es la posibilidad de ocurrencia de un evento de interés, usando como referencia <strong>todos</strong> los eventos posibles. La probabilidad de “ser sobreviviente del Titanic” se calcula, entonces, en relación con el total de tripulantes.</p>
+<p>Del total de pasajeros, un 40,8% sobrevive, es decir, la probabilidad de sobrevivir es de 0,408:</p>
+<p><span class="math display">\[P_{sobrevivir} = \frac{427}{1046} = 0.408\]</span></p>
+<p>Mientras que un 59,2% no sobrevive:</p>
+<p><span class="math display">\[P_{no\ sobrevivir} = \frac{619}{1046} = 0.592\]</span></p>
+<p>En R se obtiene con la función <code>prop.table</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(tt<span class="sc">$</span>survived))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(tt<span class="sc">$</span>survived))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 No sobrevive    Sobrevive 
    0.5917782    0.4082218 </code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Propiedades de una probabilidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Varía siempre entre <strong>0 y 1</strong></li>
+<li>La probabilidad del evento y la de su complemento <strong>suman 1</strong></li>
+<li>Se expresa habitualmente en porcentaje</li>
+</ul>
+</div>
+</div>
 </section>
-<section id="odds" class="level2">
-<h2 class="anchored" data-anchor-id="odds">Odds</h2>
-<p>Una forma alternativa de representar una probabilidad son las chances o <em>odds</em> que se definen como la división entre el número de ocurrencias (<span class="math inline">\(\pi\)</span>) y el numero de “no ocurrencias” (<span class="math inline">\(1-\pi\)</span>).</p>
-<p><span class="math display">\[Odd =  \frac{\pi}{1-\pi}\]</span></p>
-<p>Si seguimos el ejemplo del Titanic</p>
-<p><span class="math display">\[Odds = \frac{Sobrevivientes}{No{Sobrevivientes}}\]</span></p>
-<p>La función <code>addmargins</code> nos entrega las frecuencias marginales y absolutas para columnas (sexo) y filas (sobrevivencia)</p>
+<section id="odds" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="odds"><span class="header-section-number">5.2</span> Odds</h2>
+<p>Una forma alternativa de representar una probabilidad son las <strong>chances</strong> u <em>odds</em>, que se definen como la división entre el número de ocurrencias (<span class="math inline">\(\pi\)</span>) y el número de “no ocurrencias” (<span class="math inline">\(1-\pi\)</span>):</p>
+<p><span class="math display">\[Odds = \frac{\pi}{1-\pi}\]</span></p>
+<p>Siguiendo el ejemplo del Titanic:</p>
+<p><span class="math display">\[Odds = \frac{Sobrevivientes}{No\ sobrevivientes}\]</span></p>
+<p>La función <code>addmargins</code> entrega las frecuencias absolutas y marginales por filas y columnas:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(tt<span class="sc">$</span>survived,tt<span class="sc">$</span>sex))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(tt<span class="sc">$</span>survived, tt<span class="sc">$</span>sex))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              
                Hombre Mujer  Sum
@@ -762,20 +843,36 @@ No sobrevive    Sobrevive
   Sum             658   388 1046</code></pre>
 </div>
 </div>
-<p><span class="math display">\[Odds = \frac{Sobrevivientes}{No{Sobrevivientes}}=\frac{427}{619}=0.68\]</span></p>
-<p>Si hacemos el cálculo de los <strong>odds</strong> obtenemos 0.68 (427/619), es decir, hay 0.68 sobrevivientes por cada no sobreviviente. Aunque parezca poco “lógico” hablar de 0.68 sobrevivientes, esto indica que la relación entre sobrevivientes y no sobrevivientes no es 1:1 y de hecho <strong>existen más chances de morir que de sobrevivir</strong>.</p>
-<p>Otra forma de leer este dato es decir que por cada 100 no sobrevivientes, hay 68 sobrevivientes.</p>
-<p>Podríamos también calcular el <strong>odds</strong> de sobrevivencia de hombres y mujeres</p>
-<p><span class="math display">\[Odds{hombres} = \frac{135}{523} = 0.258\]</span> <span class="math display">\[Odds{mujeres} = \frac{292}{96} = 3.04\]</span></p>
-<p>Para los hombres, hay más chances de no sobrevivir que de sobrevivir (odds &lt; 1), mientras que para mujeres hay más chances de sobrevivir que de no sobrevivir (odds &gt; 1)</p>
-<p><strong>Propiedades de Odds</strong></p>
+<p><span class="math display">\[Odds = \frac{427}{619} = 0.69\]</span></p>
+<p>El resultado es 0,69, es decir, hay 0,69 sobrevivientes por cada no sobreviviente. Aunque parezca poco intuitivo hablar de 0,69 personas, lo que indica es que la relación entre sobrevivientes y no sobrevivientes <strong>no es 1 a 1</strong>, y que de hecho existen más chances de morir que de sobrevivir.</p>
+<p>Otra forma de leerlo: por cada 100 no sobrevivientes, hay 69 sobrevivientes.</p>
+<section id="odds-por-grupo" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="odds-por-grupo"><span class="header-section-number">5.2.1</span> Odds por grupo</h3>
+<p>También podemos calcular los odds de sobrevivencia separadamente para hombres y mujeres:</p>
+<p><span class="math display">\[Odds_{hombres} = \frac{135}{523} = 0.258\]</span></p>
+<p><span class="math display">\[Odds_{mujeres} = \frac{292}{96} = 3.042\]</span></p>
+<p>Para los hombres hay más chances de no sobrevivir que de sobrevivir, ya que el odds es menor que 1. Para las mujeres ocurre lo contrario.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Propiedades de los odds
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li>Odds <strong>menores</strong> que 1, indican una chance negativa</li>
-<li>Odds <strong>mayores</strong> que 1, indican una chance positiva</li>
+<li>Odds <strong>menores</strong> que 1 indican que el evento es <strong>menos</strong> probable que su complemento</li>
+<li>Odds <strong>mayores</strong> que 1 indican que el evento es <strong>más</strong> probable que su complemento</li>
+<li>Un odds igual a 1 indica que ambos resultados son igualmente probables</li>
+<li>A diferencia de una probabilidad, un odds <strong>no tiene techo</strong>: varía entre 0 e infinito</li>
 </ul>
-<p>En R podemos realizar este calculo directamente a través de las probabilidades marginales para cada sexo que entrega <code>prop.table</code>.El número 2 indica que las proporciones están calculadas por columna, es decir, las probabilidades indicadas se calculan considerando como total cada sexo.</p>
+</div>
+</div>
+<p>En R podemos obtener las probabilidades marginales por sexo con <code>prop.table</code>. El número 2 indica que las proporciones se calculan <strong>por columna</strong>, es decir, tomando como total cada sexo:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(tt<span class="sc">$</span>survived,tt<span class="sc">$</span>sex),<span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(tt<span class="sc">$</span>survived, tt<span class="sc">$</span>sex), <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              
                   Hombre     Mujer
@@ -783,765 +880,537 @@ No sobrevive    Sobrevive
   Sobrevive    0.2051672 0.7525773</code></pre>
 </div>
 </div>
-</section>
-<section id="odds-ratio-or" class="level2">
-<h2 class="anchored" data-anchor-id="odds-ratio-or">Odds Ratio (OR)</h2>
-<p>Ahora bien, con los datos hasta ahí podriamos llegar a la conclusión de que las mujeres tienen más chances de sobrevivir que los hombres. Pero, <strong>¿cuánto más sobreviven las mujeres que los hombres?</strong></p>
-<p>Esta pregunta implica la <strong>asociación</strong> entre <code>sobrevivencia</code> y <code>sexo</code> y ya no solo hablar de las chances de sobrevivencia de cada sexo por separado. Para hacer esa relación se requiere calcular los <code>odds ratio</code> o razón de chances.</p>
-<p><span class="math display">\[Odds Ratio = \frac{Odds_{mujeres}}{Odds_{hombres}} = \frac{3.04}{0.258} = 11.78\]</span></p>
-<p>El resultado que obtenemos se lee de la siguiente manera: las chances de sobrevivir de las mujeres es 11.78 veces más grande que la de los hombres.</p>
-<p><strong>¿Qué ganamos con el odds-ratio?</strong></p>
-<p>El OR permite expresar <strong>en un número</strong> la relación entre variables categóricas, o al menos cuando una de ellas es categórica. De esta forma, es una medida de asociación similar al sentido del <span class="math inline">\(\beta\)</span> de regresión, y que nos permitirá aprovechar las ventajas del modelo de regresión (principalmente el control estadístico) cuando tenemos variables dependientes categóricas.</p>
-<p>Sin embargo, los odds también poseen algunas limitaciones por resolver y que requieren su transformación para ajustarlos al modelo de regresión. Esta transformación es el <strong>logaritmo de los odds o logit</strong> (de ahí el nombre de regresión logística)</p>
-</section>
-</section>
-<section id="con-datos-reales" class="level1">
-<h1>Con datos reales</h1>
-<p>La siguiente práctica tiene el objetivo de introducir a los estudiantes en los <strong>modelos de regresión logística multivariada</strong>. Al igual que en la práctica anterior emplearemos una variable dependiente <em>dicotómica</em>, de modo tal que veremos de qué una serie de variables independientes nos permiten predecir la ocurrencia de un determinado evento. Para ello, utilizaremos la base de datos de la <a href="https://doi.org/10.7910/DVN/SRPWFW"><em>Encuesta sobre Conflicto y Cohesion Social en Chile 2014</em></a> para analizar los determinantes de la participación en las elecciones del año 2013.</p>
-</section>
-<section id="librerías-1" class="level1">
-<h1>Librerías</h1>
+<p>A partir de esas proporciones también se puede llegar al odds. Para los hombres, 0,205 dividido por 0,795 entrega 0,258, el mismo valor calculado con las frecuencias.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, summarytools, ggmosaic, sjPlot, texreg)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.205</span> <span class="sc">/</span> <span class="fl">0.795</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2578616</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Probabilidad y odds no son lo mismo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La probabilidad de que una mujer sobreviva es 0,753. Su odds de sobrevivir es 3,042. Ambos describen el mismo hecho, pero en escalas distintas: la probabilidad compara los sobrevivientes con el <strong>total</strong>, y el odds los compara con los <strong>no sobrevivientes</strong>.</p>
+</div>
 </div>
 </section>
-<section id="datos-1" class="level1">
-<h1>Datos</h1>
-<p>La Encuesta sobre Conflicto y Cohesión Social en Chile (ENACOES 2014) es el primer estudio de este tipo que busca mapear los conflictos y la cohesión en el país. Su objetivo fundamental es aportar a la comprensión de las creencias, actitudes y percepciones de los chilenos hacia las distintas dimensiones de la convivencia y el conflicto. La población objetivo son hombres y mujeres entre 15 y 75 años de edad con un alcance nacional, donde se obtuvo una muestra final de <strong>2025</strong> casos. Para el caso de este ejercicio, se trabajará con una submuestra de <strong>1974</strong> individuos que estuvieron habilitados para votar en el año 2013.</p>
+</section>
+<section id="odds-ratio" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="odds-ratio"><span class="header-section-number">5.3</span> Odds ratio</h2>
+<p>Con lo anterior podríamos concluir que las mujeres tienen más chances de sobrevivir que los hombres. Pero queda pendiente una pregunta: <strong>¿cuánto más?</strong></p>
+<p>Esa pregunta ya no se refiere a cada grupo por separado, sino a la <strong>asociación</strong> entre <code>sobrevivencia</code> y <code>sexo</code>. Para responderla se calcula la <strong>razón de chances</strong> u <em>odds ratio</em>:</p>
+<p><span class="math display">\[OR = \frac{Odds_{mujeres}}{Odds_{hombres}} = \frac{3.042}{0.258} = 11.78\]</span></p>
+<p>El resultado se lee así: las chances de sobrevivir de las mujeres son <strong>11,78 veces</strong> las de los hombres.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cargamos la base de datos desde internet</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://multivariada.netlify.app/assignment/data/enacoes.RData"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>odds_mujeres <span class="ot">&lt;-</span> <span class="dv">292</span> <span class="sc">/</span> <span class="dv">96</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>odds_hombres <span class="ot">&lt;-</span> <span class="dv">135</span> <span class="sc">/</span> <span class="dv">523</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>odds_mujeres <span class="sc">/</span> odds_hombres</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11.78364</code></pre>
 </div>
-<section id="explorar-datos-1" class="level2">
-<h2 class="anchored" data-anchor-id="explorar-datos-1">Explorar datos</h2>
-<p>A partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para la interpretación de nuestros modelos.</p>
+</div>
+<section id="cómo-se-interpreta" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="cómo-se-interpreta"><span class="header-section-number">5.3.1</span> Cómo se interpreta</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Propiedades del odds ratio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="math inline">\(OR = 1\)</span>: <strong>no hay asociación</strong>, ambos grupos tienen las mismas chances</li>
+<li><span class="math inline">\(OR &gt; 1\)</span>: el primer grupo tiene <strong>más</strong> chances que el de referencia</li>
+<li><span class="math inline">\(OR &lt; 1\)</span>: el primer grupo tiene <strong>menos</strong> chances que el de referencia</li>
+</ul>
+</div>
+</div>
+<p>Note que el odds ratio <strong>depende de cuál grupo se ponga en el numerador</strong>. Si invertimos la comparación:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(enacoes, <span class="at">headings =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"render"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>odds_hombres <span class="sc">/</span> odds_mujeres</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08486341</code></pre>
 </div>
+</div>
+<p>Las chances de sobrevivir de los hombres son 0,085 veces las de las mujeres, que es exactamente <span class="math inline">\(1/11{,}78\)</span>. Se trata del mismo hallazgo expresado al revés, igual que ocurría con la categoría de referencia en las variables dummy.</p>
+</section>
+<section id="qué-ganamos-con-el-odds-ratio" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="qué-ganamos-con-el-odds-ratio"><span class="header-section-number">5.3.2</span> ¿Qué ganamos con el odds ratio?</h3>
+<p>El OR permite expresar <strong>en un solo número</strong> la relación entre dos variables categóricas. En ese sentido, cumple una función análoga a la del coeficiente <span class="math inline">\(\beta\)</span> en la regresión lineal, y es lo que nos permitirá aprovechar las ventajas del modelo de regresión, en particular el <strong>control estadístico</strong>, cuando la variable dependiente es categórica.</p>
+</section>
+</section>
+<section id="del-odds-al-logit" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="del-odds-al-logit"><span class="header-section-number">5.4</span> Del odds al logit</h2>
+<p>Los odds resuelven buena parte del problema, pero tienen una limitación que impide usarlos directamente en un modelo de regresión: <strong>no son simétricos</strong>.</p>
+<p>Observe los dos valores que calculamos:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">hombres =</span> odds_hombres, <span class="at">mujeres =</span> odds_mujeres)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  hombres   mujeres 
+0.2581262 3.0416667 </code></pre>
+</div>
+</div>
+<p>Las mujeres tienen un odds de 3,04 y los hombres de 0,26. Si quisiéramos decir que una chance es “el doble de favorable” y otra “el doble de desfavorable”, los números no se comportan de manera equivalente: los odds favorables se extienden de 1 a infinito, mientras que los desfavorables quedan comprimidos entre 0 y 1.</p>
+<p>La solución es aplicar el <strong>logaritmo natural</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fu">c</span>(<span class="at">hombres =</span> odds_hombres, <span class="at">mujeres =</span> odds_mujeres))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  hombres   mujeres 
+-1.354307  1.112406 </code></pre>
+</div>
+</div>
+<p>Ahora los valores son simétricos en torno a cero: −1,36 y 1,11. Un valor negativo indica chances desfavorables, uno positivo chances favorables, y el cero indica ausencia de asociación.</p>
+<p><span class="math display">\[logit(\pi) = \ln\left(\frac{\pi}{1-\pi}\right)\]</span></p>
+<p>Esta transformación es el <strong>logaritmo de los odds</strong>, o <strong>logit</strong>, y de ahí proviene el nombre de la regresión logística. El modelo que veremos esta tarde estima, precisamente, una ecuación lineal sobre esta escala transformada.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Las tres escalas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un mismo fenómeno puede expresarse de tres formas:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Escala</th>
+<th style="text-align: left;">Rango</th>
+<th style="text-align: left;">Ejemplo (mujeres)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Probabilidad</td>
+<td style="text-align: left;">0 a 1</td>
+<td style="text-align: left;">0,753</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Odds</td>
+<td style="text-align: left;">0 a infinito</td>
+<td style="text-align: left;">3,042</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Logit</td>
+<td style="text-align: left;">−infinito a +infinito</td>
+<td style="text-align: left;">1,113</td>
+</tr>
+</tbody>
+</table>
+<p>El modelo trabaja en la tercera porque es la única no acotada, y por tanto la única compatible con una ecuación lineal. La interpretación, en cambio, suele hacerse volviendo a las dos primeras.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="una-demostración-del-problema" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Una demostración del problema</h1>
+<p>Volvamos a la pregunta del comienzo. ¿Qué ocurre si, en lugar de todo esto, simplemente estimamos un modelo lineal sobre la variable dicotómica?</p>
+<p>Recodificamos la sobrevivencia como 0 y 1, y estimamos un modelo lineal corriente:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tt_lm <span class="ot">&lt;-</span> tt <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sobrevive =</span> <span class="fu">ifelse</span>(survived <span class="sc">==</span> <span class="st">"Sobrevive"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>modelo_lineal <span class="ot">&lt;-</span> <span class="fu">lm</span>(sobrevive <span class="sc">~</span> sex <span class="sc">+</span> age <span class="sc">+</span> pclass <span class="sc">+</span> sibsp <span class="sc">+</span> parch,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> tt_lm)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Si el modelo fuese adecuado, cada valor predicho debería ser una probabilidad, y por lo tanto situarse entre 0 y 1. Veamos:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">fitted.values</span>(modelo_lineal))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-0.1909  0.1462  0.3267  0.4082  0.6638  1.1167 </code></pre>
+</div>
+</div>
+<p>El valor mínimo es negativo y el máximo supera 1. Contemos cuántos casos quedan fuera del rango posible:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>predichos <span class="ot">&lt;-</span> <span class="fu">fitted.values</span>(modelo_lineal)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(predichos <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">|</span> predichos <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 46</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">predichos =</span> predichos) <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> predichos)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">"#4f97ff"</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">color =</span> <span class="st">"#c0392b"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probabilidad predicha"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-lpm" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lpm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="practico-08_files/figure-html/fig-lpm-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lpm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Valores predichos por un modelo lineal sobre una variable dicotómica
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>El problema, en concreto
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Decenas de casos reciben una probabilidad predicha <strong>negativa</strong> o <strong>superior a 1</strong>. Son valores imposibles: no existe una probabilidad de −0,19 ni de 1,12.</p>
+<p>Y no se trata de una extrapolación hacia valores absurdos de las variables independientes: son personas que efectivamente iban a bordo. El modelo lineal, aplicado a una variable dicotómica, produce predicciones que no pueden interpretarse.</p>
+</div>
+</div>
+</section>
+<section id="aplicación-con-datos-de-elsoc" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Aplicación con datos de ELSOC</h1>
+<p>Trabajemos ahora los mismos conceptos con la base del curso, donde las asociaciones son bastante más modestas que en el Titanic.</p>
+<section id="preparación" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="preparación"><span class="header-section-number">7.1</span> Preparación</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(t01, m01, m0_sexo, m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"confianza"</span> <span class="ot">=</span> t01,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">"educacion"</span> <span class="ot">=</span> m01,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">"sexo"</span> <span class="ot">=</span> m0_sexo,</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">"edad"</span> <span class="ot">=</span> m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2906</code></pre>
+</div>
+</div>
+</section>
+<section id="construir-una-variable-dicotómica" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="construir-una-variable-dicotómica"><span class="header-section-number">7.2</span> Construir una variable dicotómica</h2>
+<p>La confianza en los vecinos se mide en una escala de 1 a 5. Para este ejercicio la convertiremos en una variable dicotómica: confía quien responde 4 o 5, y no confía quien responde 1, 2 o 3.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>confianza)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x &lt;numeric&gt; 
+# total N=2906 valid N=2906 mean=3.20 sd=1.20
+
+Value |   N | Raw % | Valid % | Cum. %
+--------------------------------------
+    1 | 332 | 11.42 |   11.42 |  11.42
+    2 | 502 | 17.27 |   17.27 |  28.70
+    3 | 711 | 24.47 |   24.47 |  53.17
+    4 | 987 | 33.96 |   33.96 |  87.13
+    5 | 374 | 12.87 |   12.87 | 100.00
+ &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">confia =</span> <span class="fu">ifelse</span>(confianza <span class="sc">&gt;=</span> <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">confia =</span> <span class="fu">factor</span>(confia,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No confía"</span>, <span class="st">"Confía"</span>)),</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">sexo_f =</span> <span class="fu">as_factor</span>(sexo))</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>confia)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x &lt;categorical&gt; 
+# total N=2906 valid N=2906 mean=1.47 sd=0.50
+
+Value     |    N | Raw % | Valid % | Cum. %
+-------------------------------------------
+No confía | 1545 | 53.17 |   53.17 |  53.17
+Confía    | 1361 | 46.83 |   46.83 | 100.00
+&lt;NA&gt;      |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>Dicotomizar tiene un costo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Al convertir una variable de cinco categorías en una de dos, perdemos información: alguien que responde 1 y alguien que responde 3 quedan en el mismo grupo, aunque sus respuestas sean distintas.</p>
+<p>Lo hacemos aquí porque necesitamos una variable dicotómica para trabajar estos conceptos. En una investigación, el punto de corte debe justificarse teóricamente, y siempre conviene revisar si los resultados cambian al moverlo.</p>
+</div>
+</div>
+</section>
+<section id="probabilidades-y-odds" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="probabilidades-y-odds"><span class="header-section-number">7.3</span> Probabilidades y odds</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div class="container st-container">
+<h3 class="anchored">Cross-Tabulation, Row Proportions</h3>
+<strong>
+sexo_f * confia
+<br>
+</strong>
+<strong>Data Frame</strong>: proc_data
+<br>
 
-<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline caption-top table-sm small">
-<colgroup>
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-</colgroup>
+<table class="table table-bordered st-table st-table-bordered st-cross-table caption-top table-sm table-striped small">
 <thead>
 <tr class="header">
-<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>No</strong></th>
-<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Variable</strong></th>
-<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Label</strong></th>
-<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Stats / Values</strong></th>
-<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Freqs (% of Valid)</strong></th>
-<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Graph</strong></th>
-<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Valid</strong></th>
-<th class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th"><strong>Missing</strong></th>
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="8" class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th">confia</th>
+<th colspan="4" style="text-align: right;" data-quarto-table-cell-role="th"></th>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>sexo_f</strong></td>
+<th colspan="4" style="text-align: center;" data-quarto-table-cell-role="th">No confía</th>
+<th colspan="4" style="text-align: center;" data-quarto-table-cell-role="th">Confía</th>
+<th colspan="4" style="text-align: center;" data-quarto-table-cell-role="th">Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: left;">voto [factor]</td>
-<td style="text-align: left;">Votó en última elección</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
-<tbody>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">1. 0</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">2. 1</td>
-</tr>
-</tbody>
-</table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
-<tbody>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">649</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">32.9%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1325</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">67.1%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-</tbody>
-</table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAHEAAAA3BAMAAADJUbiSAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLwJhCsRcAAAARUlEQVRIx2NgGDlACRcQxAUEoDqVjbEDo1GdozpHdY7qpJNO8kswQZLBQOpUIhkoEAhb3GBU56jOUZ2jOqmrk/wSbCQAAMh/bwhRThS9AAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">1974 (100.0%)</td>
-<td style="text-align: center;">0 (0.0%)</td>
+<td><strong>1</strong></td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">598</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">51.6%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">560</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">48.4%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">1158</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">100.0%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">2</td>
-<td style="text-align: left;">sexo [factor]</td>
-<td style="text-align: left;">Sexo entrevistado</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
-<tbody>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">1. 0</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">2. 1</td>
-</tr>
-</tbody>
-</table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
-<tbody>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">803</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">40.7%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1171</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">59.3%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-</tbody>
-</table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGUAAAA3BAMAAADnFJkAAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLwMWDfTKAAAAQUlEQVRIx2NgGH5ACT8QRAYCUD3KxviA0aieUT2jekaQHnLKEEESAL31KJEAFIgKN1QwqmdUz6ie4a2HnDJkOAEAQ+hcTtbY2kcAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">1974 (100.0%)</td>
-<td style="text-align: center;">0 (0.0%)</td>
+<td><strong>2</strong></td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">947</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">54.2%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">801</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">45.8%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">1748</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">100.0%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">3</td>
-<td style="text-align: left;">edad [numeric]</td>
-<td style="text-align: left;">Edad entrevistado</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
-<tbody>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 45.1 (16)</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
-</tr>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">18 ≤ 45 ≤ 75</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 26 (0.4)</td>
-</tr>
-</tbody>
-</table></td>
-<td style="text-align: left; vertical-align: middle;">58 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLwMWDfTKAAAAqklEQVRo3u3WYQ6DIAyGYa7gbmC5wXb/uxnpD5qoU1qywPJ+P4hB+wRRkqZEPFlu85KSr888xz573mBOTD/G2gkr12ATYBeH0Imd/53/jEk9NyGsMLlWhbAyjo7pzrVitspguU40YLZqOszsRBwzIxjYLzA5dBwBLB/WBwY2BWYbsDCmN8fF9GU7YToN5sakdp1x7KIKDAwMDAwMDAwMDAwMDCyESZck4skGJ3mIx9nAlmsAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">1974 (100.0%)</td>
-<td style="text-align: center;">0 (0.0%)</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: left;">educ [factor]</td>
-<td style="text-align: left;">Nivel Educacional</td>
-<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
-<tbody>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">1. 1</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">2. 2</td>
-</tr>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">3. 3</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">4. 4</td>
-</tr>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">5. 5</td>
-</tr>
-</tbody>
-</table></td>
-<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="caption-top table table-sm table-striped small">
-<tbody>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">179</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">9.1%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">167</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">8.5%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">878</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">44.5%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-<tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">513</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">26.0%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-<tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">237</td>
-<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">12.0%</td>
-<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
-</tr>
-</tbody>
-</table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAE8AAAB9BAMAAAARqCMTAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqCQ0XLwMWDfTKAAAAcUlEQVRYw+3UMQ6AIBBEUY7g3gD0Bnj/uxmDMaFwdxoIZubXr2CLIaV/tLfss+2Bx3lXBQXZIbwZixoH2xMLerWgID2EN2NRo3ftlLurnQQFOSC8mcV27fxmXVVQkBDCm7GoCbsuAXyvFhTkhvBmVu8CjQHM1yYu5aEAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">1974 (100.0%)</td>
-<td style="text-align: center;">0 (0.0%)</td>
+<td><strong>Total</strong></td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">1545</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">53.2%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">1361</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">46.8%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">2906</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">100.0%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
 </tr>
 </tbody>
 </table>
 
-<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.2)<br>2026-09-13</p>
 </div>
 </div>
 </div>
-<p>Lo primero que debemos observar es la distribución de la participación electoral, donde 0 son quienes nos votaron en la última elección y 1 los que sí lo hicieron. En este caso, vemos que un 67,1% (1325) señaló haber participado en la última elección, en contraste de un 32,9% que no lo hizo. En este sentido, vemos que existen aproximadamente 2/3 de los individuos de la muestra que sí acudieron a votar, por tanto ahora vamos a revisar cómo se distribuyen estas respuestas según el sexo y el nivel educacional de el entrevistado.</p>
-<p>En primera instancia nos centraremos en las variables <code>sexo</code> y <code>voto</code>. Como podemos notar la categoría de respuesta de estas variables son 0 y 1, es decir, estamos ante variables dicotómicas.</p>
-<p>En segunda instancia, observaremos la distribución de participación electoral según el Nivel educacional (<code>educ</code>), la cual en este caso hemos recodificado en cinco niveles educacionales.</p>
-<p>Con la función <code>tab_xtab</code> del paquete <code>sjPlot</code> podemos realizar una tabla de contingencia donde se señala la proporción de la participación electoral según sexo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_xtab</span>(<span class="at">var.row =</span> enacoes<span class="sc">$</span>voto,enacoes<span class="sc">$</span>sexo,<span class="at">show.cell.prc =</span> T,<span class="at">show.summary =</span> F)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">Votó en última<br>
-elección</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">Sexo entrevistado</th>
-<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</th>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Hombre</td>
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Mujer</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No votó</td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">254</span><br>
-<span style="color:#993333;">12.9&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">395</span><br>
-<span style="color:#993333;">20&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">649</span><br>
-<span style="color:#993333;">32.9&nbsp;%</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Votó</td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">549</span><br>
-<span style="color:#993333;">27.8&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">776</span><br>
-<span style="color:#993333;">39.3&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1325</span><br>
-<span style="color:#993333;">67.1&nbsp;%</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">803</span><br>
-<span style="color:#993333;">40.7&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1171</span><br>
-<span style="color:#993333;">59.3&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1974</span><br>
-<span style="color:#993333;">100&nbsp;%</span></td>
-</tr>
-</tbody>
-</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(proc_data<span class="sc">$</span>confia, proc_data<span class="sc">$</span>sexo_f))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           
+               1    2  Sum
+  No confía  598  947 1545
+  Confía     560  801 1361
+  Sum       1158 1748 2906</code></pre>
 </div>
 </div>
-<p>Teniendo en cuenta que existen 2/3 (67,1%) de las personas en Chile que han declarado haber votado en la última elección, la tabla anterior nos muestra que del total de personas que votan, las participación electoral es mayor en las mujeres, lo cual equivale a un 39,3% del total en desmedro del 27,8% que representado por los hombres.</p>
+<section id="ejercicio-guiado" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="ejercicio-guiado"><span class="header-section-number">7.3.1</span> Ejercicio guiado</h3>
+<p>A partir de la tabla anterior, calcule:</p>
+<ol type="1">
+<li>La probabilidad de confiar en los vecinos para el total de la muestra</li>
+<li>El odds de confiar para los hombres</li>
+<li>El odds de confiar para las mujeres</li>
+<li>El odds ratio entre ambos grupos</li>
+</ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_xtab</span>(<span class="at">var.row =</span> enacoes<span class="sc">$</span>voto,enacoes<span class="sc">$</span>educ,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">show.cell.prc =</span> T,<span class="at">show.summary =</span> F, <span class="at">encoding =</span> <span class="st">" "</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">Votó en última<br>
-elección</th>
-<th colspan="5" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">Nivel Educacional</th>
-<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</th>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Primaria incompleta<br>
-o menos</td>
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Primaria</td>
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Secundaria</td>
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Técnica Superior</td>
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Universitaria o<br>
-postgrado</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No votó</td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">55</span><br>
-<span style="color:#993333;">2.8&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">47</span><br>
-<span style="color:#993333;">2.4&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">320</span><br>
-<span style="color:#993333;">16.2&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">182</span><br>
-<span style="color:#993333;">9.2&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">45</span><br>
-<span style="color:#993333;">2.3&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">649</span><br>
-<span style="color:#993333;">32.9&nbsp;%</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Votó</td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">124</span><br>
-<span style="color:#993333;">6.3&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">120</span><br>
-<span style="color:#993333;">6.1&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">558</span><br>
-<span style="color:#993333;">28.3&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">331</span><br>
-<span style="color:#993333;">16.8&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">192</span><br>
-<span style="color:#993333;">9.7&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1325</span><br>
-<span style="color:#993333;">67.2&nbsp;%</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">179</span><br>
-<span style="color:#993333;">9.1&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">167</span><br>
-<span style="color:#993333;">8.5&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">878</span><br>
-<span style="color:#993333;">44.5&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">513</span><br>
-<span style="color:#993333;">26&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">237</span><br>
-<span style="color:#993333;">12&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1974</span><br>
-<span style="color:#993333;">100&nbsp;%</span></td>
-</tr>
-</tbody>
-</table>
+<details class="code-fold">
+<summary>Ver solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(proc_data<span class="sc">$</span>confia, proc_data<span class="sc">$</span>sexo_f)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Probabilidad total de confiar</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(proc_data<span class="sc">$</span>confia))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+No confía    Confía 
+0.5316586 0.4683414 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Ver solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 y 3. Odds por sexo</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>odds_h <span class="ot">&lt;-</span> tabla[<span class="st">"Confía"</span>, <span class="dv">1</span>] <span class="sc">/</span> tabla[<span class="st">"No confía"</span>, <span class="dv">1</span>]</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>odds_m <span class="ot">&lt;-</span> tabla[<span class="st">"Confía"</span>, <span class="dv">2</span>] <span class="sc">/</span> tabla[<span class="st">"No confía"</span>, <span class="dv">2</span>]</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">hombres =</span> odds_h, <span class="at">mujeres =</span> odds_m)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  hombres   mujeres 
+0.9364548 0.8458289 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Ver solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Odds ratio</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>odds_m <span class="sc">/</span> odds_h</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9032245</code></pre>
 </div>
 </div>
-<p>Adicionalmente, la tabla anterior nos muestra la distribución de la participación electoral según cinco categorías de nivel educacional. Como podemos observar, la participación electoral se concentra en los niveles educacionales secundario con un 28,3% y superior técnica y universitaria, con un 16,8% y 9,7% respectivamente. Por otro lado, podemos observar una baja participación electoral de los grupos con nivel educacional más bajo, donde las personas con Primaria incompleta o menos representan un 6,3% y aquellas con Primaria completa son el 6,1%.</p>
-<p>Al igual que la práctica anterior, podemos representar gráficamente estas distribuciones a través del paquete <code>ggmosaic</code> que con su función <code>geom_mosaic</code>. A continuación se presentan dos gráficos para la participación electoral según sexo y nivel educacional.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(enacoes) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_mosaic</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">product</span>(voto, sexo), <span class="at">fill=</span>sexo)) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> <span class="fu">layer_data</span>(<span class="fu">last_plot</span>(), <span class="dv">1</span>),</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> (xmin <span class="sc">+</span> xmax)<span class="sc">/</span> <span class="dv">2</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> (ymin <span class="sc">+</span> ymax)<span class="sc">/</span> <span class="dv">2</span>,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>((.wt<span class="sc">/</span><span class="fu">sum</span>(.wt))<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>),<span class="st">"%"</span>))) <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Voto última elección"</span>,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Sexo"</span>) <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Hombre"</span>,<span class="st">"Mujer"</span>))<span class="sc">+</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No votó"</span>,<span class="st">"Votó"</span>)) <span class="sc">+</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"bottom"</span>)</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(enacoes) <span class="sc">+</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_mosaic</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">product</span>(voto, educ), <span class="at">fill=</span>educ)) <span class="sc">+</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> <span class="fu">layer_data</span>(<span class="fu">last_plot</span>(), <span class="dv">1</span>),</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> (xmin <span class="sc">+</span> xmax)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> (ymin <span class="sc">+</span> ymax)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>((.wt<span class="sc">/</span><span class="fu">sum</span>(.wt))<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>),<span class="st">"%"</span>))) <span class="sc">+</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Voto última elección"</span>,</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Nivel Educacional"</span>) <span class="sc">+</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Primaria incompleta o menos"</span>,</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Primaria"</span>,</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Secundaria"</span>, <span class="st">"Técnica o Superior"</span>,</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Universitaria o postgrado"</span>))<span class="sc">+</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No votó"</span>,<span class="st">"Votó"</span>)) <span class="sc">+</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"bottom"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="practico-08_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
-<figcaption>Participación electoral en 2013 según Sexo y Nivel Educacional</figcaption>
-</figure>
+<p>Ambos odds son cercanos a 1, lo que indica que en los dos grupos las chances de confiar y de no confiar son parecidas. El odds ratio también resulta próximo a 1, de modo que la asociación entre sexo y confianza vecinal es <strong>débil</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Una lección del contraste
 </div>
 </div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="practico-08_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" style="width:75.0%"></p>
-<figcaption>Participación electoral en 2013 según Sexo y Nivel Educacional</figcaption>
-</figure>
-</div>
+<div class="callout-body-container callout-body">
+<p>En el Titanic obtuvimos un OR de 11,78. Aquí obtenemos uno cercano a 0,9. La diferencia no es un error: la mayoría de las asociaciones en investigación social son modestas, y el Titanic es excepcional precisamente porque la evacuación siguió una regla explícita de prioridad.</p>
+<p>Al igual que con el <span class="math inline">\(R^2\)</span>, un valor pequeño no invalida el análisis. Lo que sí exige es prudencia al redactar la interpretación.</p>
 </div>
 </div>
 </section>
 </section>
-<section id="estimación" class="level1">
-<h1>Estimación</h1>
-<p>La función pincipal para la estimación de modelos de regresión logística es <code>glm()</code>, especificando el argumento <code>family="binomial"</code>, lo cual le indica a la función que estamos prediciendo una variable binaria. Al igual que con <code>lm()</code>, debemos especificar los predictores y la base de datos a emplear. A continuación, estimaremos una serie de modelos de regresión logística que nos permitan determinar de qué manera el sexo, la edad y el nivel educacional de las personas pueden predecir la participación electoral.</p>
+<section id="con-una-variable-de-tres-categorías" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="con-una-variable-de-tres-categorías"><span class="header-section-number">7.4</span> Con una variable de tres categorías</h2>
+<p>Recodifiquemos el nivel educacional y repitamos el ejercicio:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m00 <span class="ot">&lt;-</span> <span class="fu">glm</span>(voto<span class="sc">~</span><span class="dv">1</span>,<span class="at">data =</span> enacoes,<span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>m01 <span class="ot">&lt;-</span> <span class="fu">glm</span>(voto<span class="sc">~</span>sexo,<span class="at">data =</span> enacoes,<span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>m02 <span class="ot">&lt;-</span> <span class="fu">glm</span>(voto<span class="sc">~</span>edad,<span class="at">data =</span> enacoes,<span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>m03 <span class="ot">&lt;-</span> <span class="fu">glm</span>(voto<span class="sc">~</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>educ,<span class="at">data =</span> enacoes,<span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">educ_rec =</span> <span class="fu">case_when</span>(educacion <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>                              educacion <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>                              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">3</span>),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">educ_f =</span> <span class="fu">factor</span>(educ_rec,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Educación básica"</span>,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Educación media"</span>,</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Educación superior"</span>)))</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(proc_data<span class="sc">$</span>confia, proc_data<span class="sc">$</span>educ_f)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           
+            Educación básica Educación media Educación superior
+  No confía              371             676                498
+  Confía                 282             565                514</code></pre>
 </div>
-<section id="tabla-de-regresión" class="level2">
-<h2 class="anchored" data-anchor-id="tabla-de-regresión">Tabla de regresión</h2>
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-Modelo 0
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-Modelo 1
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-Modelo 2
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-Modelo 3
-</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Intercepto
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.71<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.77<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.07<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--2.04<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.05)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.08)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.15)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.29)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Sexo (Mujer=1)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.10
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.02
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.10)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.10)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Edad
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.04<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.05<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.00)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.00)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Primaria
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.34
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.25)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Secundaria
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.47<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.19)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Técnica o Superior
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.88<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.22)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Universitaria o postgrado
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.53<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.25)
-</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-AIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-2502.30
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-2503.34
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-2334.32
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-2290.54
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Log Likelihood
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1250.15
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1249.67
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1165.16
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1138.27
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Deviance
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-2500.30
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-2499.34
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-2330.32
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-2276.54
-</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Num. obs.
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1974
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1974
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1974
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1974
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="5">
-<span class="math inline">\(^{***}\)</span> p &lt; 0.001; <span class="math inline">\(^{**}\)</span> p &lt; 0.01; <span class="math inline">\(^{*}\)</span> p &lt; 0.05 <br> Errores estándar entre paréntesis
-</td>
-</tr>
-</tfoot>
-</table>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>tabla_educ <span class="ot">&lt;-</span> <span class="fu">table</span>(proc_data<span class="sc">$</span>confia, proc_data<span class="sc">$</span>educ_f)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>odds_educ <span class="ot">&lt;-</span> tabla_educ[<span class="st">"Confía"</span>, ] <span class="sc">/</span> tabla_educ[<span class="st">"No confía"</span>, ]</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(odds_educ, <span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Educación básica    Educación media Educación superior 
+             0.760              0.836              1.032 </code></pre>
+</div>
+</div>
+<p>Los odds aumentan de manera sostenida con el nivel educacional. Calculemos ahora los odds ratio tomando la educación básica como <strong>categoría de referencia</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(odds_educ <span class="sc">/</span> odds_educ[<span class="st">"Educación básica"</span>], <span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Educación básica    Educación media Educación superior 
+             1.000              1.100              1.358 </code></pre>
+</div>
+</div>
+<p>Quienes tienen educación superior presentan chances de confiar en sus vecinos aproximadamente 1,36 veces mayores que quienes tienen educación básica.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>La conexión con la sesión pasada
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note la similitud con las variables dummy: hay una categoría de referencia, y cada coeficiente se interpreta respecto de ella. Esa es exactamente la lógica que seguirá el modelo de regresión logística.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="lo-que-viene" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Lo que viene</h1>
+<p>Hasta aquí calculamos todo <strong>a mano</strong>, a partir de tablas de contingencia. Ese trabajo no se pierde: es exactamente lo que estima un modelo de regresión logística, solo que de manera automática y permitiendo incorporar varias variables independientes a la vez.</p>
+<p>Lo que aún no podemos hacer con tablas de contingencia es <strong>controlar estadísticamente</strong>. Si quisiéramos saber si la asociación entre educación y confianza se mantiene una vez considerada la edad, necesitaríamos un modelo.</p>
+<p>Ese es el contenido de la sesión teórica de esta tarde y del próximo práctico:</p>
+<ul>
+<li>La estimación mediante <code>glm</code></li>
+<li>La interpretación de los coeficientes logit y su conversión a odds ratio</li>
+<li>El cálculo de probabilidades predichas</li>
+<li>La evaluación del ajuste del modelo</li>
+</ul>
+</section>
+<section id="ejercicios" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Ejercicios</h1>
+<section id="conceptos" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="conceptos"><span class="header-section-number">9.1</span> Conceptos</h2>
+<ol type="1">
+<li><p>Explique con sus palabras la diferencia entre una probabilidad y un odds. Utilice como ejemplo un grupo de la base del Titanic.</p></li>
+<li><p>Un odds ratio de 0,45, ¿indica una asociación positiva o negativa? ¿Cómo se expresaría ese mismo resultado invirtiendo la comparación?</p></li>
+<li><p>¿Por qué un modelo de regresión lineal no resulta adecuado cuando la variable dependiente es dicotómica? Mencione al menos dos razones.</p></li>
+</ol>
+</section>
+<section id="cálculo-con-el-titanic" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="cálculo-con-el-titanic"><span class="header-section-number">9.2</span> Cálculo con el Titanic</h2>
+<ol start="4" type="1">
+<li><p>Construya la tabla de contingencia entre <code>pclass</code> y <code>survived</code>.</p></li>
+<li><p>Calcule la probabilidad de sobrevivir para cada una de las tres clases.</p></li>
+<li><p>Calcule el odds de sobrevivir para cada clase.</p></li>
+<li><p>Calcule el odds ratio tomando la clase baja como categoría de referencia, e interprete los dos valores obtenidos.</p></li>
+<li><p>Calcule el logit correspondiente a cada clase y comente qué ocurre con el signo.</p></li>
+</ol>
+</section>
+<section id="cálculo-con-elsoc" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="cálculo-con-elsoc"><span class="header-section-number">9.3</span> Cálculo con ELSOC</h2>
+<ol start="9" type="1">
+<li><p>Cargue la base ELSOC y filtre por la <strong>ola 4</strong> (2019). Construya una variable dicotómica a partir de la confianza en los vecinos, usando el mismo punto de corte de esta guía.</p></li>
+<li><p>Elabore la tabla de contingencia entre esa variable y el nivel educacional recodificado en tres categorías.</p></li>
+<li><p>Calcule los odds por grupo y los odds ratio respecto de la educación básica.</p></li>
+<li><p>Compare los resultados con los obtenidos para 2016 en esta guía y comente brevemente si el patrón se mantiene.</p></li>
+</ol>
+</section>
+<section id="reflexión" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="reflexión"><span class="header-section-number">9.4</span> Reflexión</h2>
+<ol start="13" type="1">
+<li>Elija un fenómeno social que podría estudiarse con una variable dependiente dicotómica, señale cuál sería esa variable y qué dos predictores le parecen teóricamente relevantes. Anticipe el signo que esperaría para cada uno.</li>
+</ol>
 
 
 </section>
