@@ -84,8 +84,8 @@ website:
               file: content/06-content.qmd
             - text: "07: Sesión 7"
               file: content/07-content.qmd
-            # - text: "08: Sesión 8"
-            #   file: content/08-content.qmd
+            - text: "08: Sesión 8"
+              file: content/08-content.qmd
             # - text: "09: Sesión 9"
             #   file: content/09-content.qmd
             # - text: "10: Sesión 10"
@@ -113,8 +113,8 @@ website:
           file: practicos/practico-07.qmd
         - text: "Taller Quarto"
           file: practicos/practico-quarto.qmd
-        # - text: "Práctico 8 - Regresión logística I"
-        #   file: practicos/practico-08.qmd
+        - text: "Práctico 8 - Regresión logística I"
+          file: practicos/practico-08.qmd
         # - text: "Práctico 9 - Regresión logística II"
         #   file: practicos/practico-09.qmd
         # - text: "Práctico 10 - Supuestos de regresión"
