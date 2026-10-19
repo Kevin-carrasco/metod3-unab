@@ -1,0 +1,1091 @@
+---
+pagetitle: Métodos estadísticos para Ciencias Sociales III
+author: Kevin Carrasco
+
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    R.options:
+      knitr.graphics.auto_pdf: true
+
+format:
+  revealjs:
+    logo: images/icon-512.png
+    slide-number: true
+    theme: presentaciones
+    navigationMode: linear
+    transition: fade
+    title-slide-attributes:
+      visibility: false
+    auto-play-media: true
+
+
+editor:
+  render-on-save: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(ggplot2)
+library(knitr)
+library(sjPlot)
+library(dplyr)
+library(sjmisc)
+library(summarytools)
+
+azul <- "#04245f"
+azul_claro <- "#4f97ff"
+rojo <- "#c0392b"
+
+theme_set(theme_minimal(base_size = 16))
+
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/practicos/data/titanic.Rdata"))
+
+tt <- tt %>%
+  mutate(survived_n = ifelse(survived == "Sobrevive", 1, 0))
+
+# Modelo de probabilidad lineal con sexo
+lpm_sexo <- lm(survived_n ~ sex, data = tt)
+
+medias_sexo <- tt %>%
+  group_by(sex) %>%
+  summarise(promedio = mean(survived_n), n = n())
+
+# Caso construido para ilustrar el problema del rango
+tt_edad <- tt %>% filter(!is.na(age))
+tt_edad$survived_n2 <- tt_edad$survived_n
+tt_edad$survived_n2[tt_edad$age > 40] <- 0
+tt_edad$survived_n2[tt_edad$age < 20] <- 1
+
+lpm_edad <- lm(survived_n2 ~ age, data = tt_edad)
+log_edad <- glm(survived_n2 ~ age, data = tt_edad, family = "binomial")
+
+pred_lpm <- fitted.values(lpm_edad)
+fuera <- sum(pred_lpm < 0 | pred_lpm > 1)
+
+# Odds
+tabla_tt <- table(tt$survived, tt$sex)
+odds_h <- tabla_tt["Sobrevive", "Hombre"] / tabla_tt["No sobrevive", "Hombre"]
+odds_m <- tabla_tt["Sobrevive", "Mujer"] / tabla_tt["No sobrevive", "Mujer"]
+or_tt <- odds_m / odds_h
+odds_total <- sum(tt$survived == "Sobrevive") / sum(tt$survived == "No sobrevive")
+
+# --- Segundo ejemplo: participación electoral (ELSOC 2016) ---
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
+
+elsoc <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%
+  select(c11, m01, m0_sexo, m0_edad) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("participacion" = c11,
+         "educacion" = m01,
+         "sexo" = m0_sexo,
+         "edad" = m0_edad) %>%
+  na.omit() %>%
+  filter(participacion < 3) %>%          # excluye "no tenía edad para votar"
+  mutate(voto = ifelse(participacion == 1, 1, 0),
+         voto_f = factor(voto, levels = c(0, 1),
+                         labels = c("No votó", "Votó")),
+         sexo_f = factor(sexo, levels = c(1, 2),
+                         labels = c("Hombre", "Mujer")),
+         tramo = cut(edad,
+                     breaks = c(17, 29, 39, 49, 59, 100),
+                     labels = c("18-29", "30-39", "40-49", "50-59", "60+")),
+         educ_cat = case_when(educacion <= 3 ~ 1,
+                              educacion <= 5 ~ 2,
+                              TRUE ~ 3),
+         educ_f = factor(educ_cat, levels = 1:3,
+                         labels = c("Básica", "Media", "Superior")))
+
+n_elsoc <- nrow(elsoc)
+pct_voto <- round(mean(elsoc$voto) * 100, 1)
+odds_voto <- sum(elsoc$voto) / sum(1 - elsoc$voto)
+
+ct_sexo <- table(elsoc$sexo_f, elsoc$voto_f)
+odds_vh <- ct_sexo["Hombre", "Votó"] / ct_sexo["Hombre", "No votó"]
+odds_vm <- ct_sexo["Mujer", "Votó"] / ct_sexo["Mujer", "No votó"]
+or_sexo <- odds_vm / odds_vh
+
+tabla_odds <- function(variable) {
+  elsoc %>%
+    group_by({{ variable }}) %>%
+    summarise(no_voto = sum(voto == 0),
+              voto = sum(voto == 1)) %>%
+    mutate(pct = round(voto / (voto + no_voto) * 100, 1),
+           odds = round(voto / no_voto, 3),
+           OR = round(odds / first(odds), 2))
+}
+
+tabla_edad <- tabla_odds(tramo)
+tabla_educ <- tabla_odds(educ_f)
+
+edad_educ <- elsoc %>%
+  group_by(educ_f) %>%
+  summarise(edad_promedio = round(mean(edad), 1))
+```
+
+##  {data-background-color="black"}
+
+::: {.columns .v-center-container}
+::: {.column width="20%"}
+![](../../files/img/eval-hires.png){width="100%" fig-align="center"}
+:::
+
+::: {.column width="80%"}
+### Métodos estadísticos para
+### Ciencias Sociales III
+
+------------------------------------------------------------------------
+
+### **Kevin Carrasco**
+### Sociología - UNAB
+### 2do Sem 2026
+### [https://metod3-unab.netlify.app/](https://metod3-unab.netlify.app/)
+:::
+:::
+
+# Sesión 8 {data-background-color="black"}
+
+Introducción a la regresión logística
+
+## ¿Dónde quedamos?
+
+::: {.incremental}
+
+- La sesión pasada incorporamos variables **categóricas** al modelo de regresión
+
+- Vimos que sus números son etiquetas, que se codifican como **dummy**, y que su coeficiente es una diferencia de promedios respecto de una categoría de referencia
+
+- Pero esas variables categóricas estaban siempre del lado **independiente** de la ecuación
+
+:::
+
+##  {data-background-color="black"}
+
+### Regresión logística (1)
+
+### Para variables dependientes **dicotómicas**
+
+## Hoy
+
+::: {.incremental}
+
+- ¿Por qué el modelo de regresión que conocemos **no sirve** cuando la dependiente es dicotómica?
+
+- ¿Qué alternativa existe?
+
+- Probabilidades, **odds** y **odds ratio**: las piezas que trabajamos esta mañana en el taller
+
+:::
+
+# Tipos de variables {data-background-color="black"}
+
+## Variables
+
+::: {.incremental}
+
+- **Discretas** (rango finito de valores):
+
+    - Dicotómicas
+    - Politómicas
+
+- **Continuas**:
+
+    - Rango (teóricamente) infinito de valores
+
+:::
+
+## Niveles de medición de variables
+
+- NOIR: Nominal, Ordinal, Intervalar, Razón
+
+::: {.small}
+
+| Tipo | Características | Propiedad de números | Ejemplo |
+|------|-----------------|----------------------|---------|
+| *Nominal* | Uso de números en lugar de palabras | Identidad | Nacionalidad |
+| *Ordinal* | Números se usan para ordenar series | + ranking | Nivel educacional |
+| *Intervalar* | Intervalos iguales entre números | + igualdad | Temperatura |
+| *Razón* | Cero real | + aditividad | Distancia |
+
+:::
+
+## Tipos de datos en relación a escalas de medición
+
+::: {.incremental}
+
+- **Datos categóricos**: pueden ser medidos solo mediante escalas nominales, u ordinales en caso de orden de rango
+
+- **Datos continuos**:
+
+    - Medidos en escalas intervalares o de razón
+    - Pueden ser transformados a datos categóricos
+
+:::
+
+## Descriptivos según tipo de variable
+
+::: {.small}
+
+| | Categórica | Continua | Categ.(y)/Categ.(x) | Cont.(y)/Categ.(x) |
+|---|---|---|---|---|
+| **Ejemplo** | **Estatus ocupacional** | **Ingreso** | **Estatus ocupacional (Y) / Sexo (X)** | **Ingreso (Y) / Sexo (X)** |
+| Tabla | Frecuencias / porcentajes | $\bar{X}$ / sd | Tabla de contingencia | Clasificar Y |
+| Gráfico | Barras | Histograma / boxplot | Barras condicionado | Histograma o boxplot condicionado |
+
+:::
+
+## Análisis estadístico según tipos de variables
+
+- Variable dependiente (y): lo que quiero explicar
+
+- Variable independiente (x): lo que me permite explicar la dependiente
+
+::: {.small}
+
+| Variable independiente (x) | Variable dependiente **categórica** | Variable dependiente **continua** |
+|---|---|---|
+| Categórica | Tabla de contingencia, Chi<sup>2</sup> | ANOVA, prueba t |
+| Continua | **Regresión logística** | Correlación / regresión lineal |
+
+:::
+
+::: {.fragment .fade-up}
+
+Todo el curso ha transcurrido en la **columna derecha**. Hoy nos movemos a la izquierda
+
+:::
+
+# El caso del Titanic {data-background-color="black"}
+
+##  {data-background-color="black"}
+
+::: {.columns .v-center-container}
+::: {.column width="45%"}
+![](../../files/img/postertitanic.jpg){width="85%"}
+:::
+
+::: {.column width="55%"}
+### ¿Se puede anticipar el final?
+:::
+:::
+
+## Titanic data
+
+```{r}
+#| label: desc-tt
+#| echo: false
+#| results: asis
+
+tt2 <- tt %>% select(survived, sex, age)
+
+print(dfSummary(tt2, headings = FALSE, valid.col = FALSE,
+                graph.magnif = 0.7), method = "render")
+```
+
+## Sobrevivientes
+
+```{r}
+#| label: fig-sobrevivientes
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4.2
+
+ggplot(tt, aes(survived, fill = survived)) +
+  geom_bar() +
+  geom_text(aes(label = scales::percent(after_stat(count) / sum(after_stat(count)))),
+            stat = "count", size = 7, vjust = 2, color = "white") +
+  scale_fill_manual(values = c(azul, azul_claro)) +
+  theme(legend.position = "none",
+        axis.title = element_blank())
+```
+
+## Sexo
+
+```{r}
+#| label: fig-sexo
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4.2
+
+ggplot(tt, aes(sex, fill = sex)) +
+  geom_bar() +
+  geom_text(aes(label = scales::percent(after_stat(count) / sum(after_stat(count)))),
+            stat = "count", size = 7, vjust = 2, color = "white") +
+  scale_fill_manual(values = c(azul, azul_claro)) +
+  theme(legend.position = "none",
+        axis.title = element_blank())
+```
+
+## Sobrevivencia / sexo
+
+::: {.columns}
+::: {.column width="50%"}
+
+![](../../files/img/mosaic.png){width="95%"}
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: prop-sexo
+#| echo: false
+
+kable(round(prop.table(table(tt$survived, tt$sex), 2), 2))
+```
+
+El 75% de las mujeres sobrevive, mientras el 25% no sobrevive
+
+:::
+:::
+
+##  {data-background-color="black"}
+
+### ¿En qué medida la probabilidad de sobrevivir depende del sexo?
+
+### ¿Es esta probabilidad estadísticamente significativa?
+
+## Alternativas
+
+::: {.incremental}
+
+- **Tabla de contingencia**, $\chi^2$:
+
+    - análisis de tendencia general, significación estadística
+    - pero es poco parsimoniosa, y no hay control estadístico
+
+- **¿Aprovechar las ventajas del modelo de regresión?**
+
+    - expresar la relación en un número ($\beta$)
+    - inferencia
+    - control estadístico
+
+:::
+
+# El modelo de probabilidad lineal {data-background-color="black"}
+
+## Modelando la probabilidad de sobrevivir con OLS
+
+```{r}
+#| label: lpm-intento
+#| echo: true
+#| eval: false
+
+reg_tit <- lm(survived ~ sex, data = tt)
+```
+
+::: {.fragment .fade-up}
+
+La variable dependiente está guardada como **factor**, de modo que primero debemos recodificarla como 0 y 1:
+
+```{r}
+#| label: recode-surv
+#| echo: true
+#| eval: false
+
+tt <- tt %>%
+  mutate(survived_n = ifelse(survived == "Sobrevive", 1, 0))
+
+reg_tit <- lm(survived_n ~ sex, data = tt)
+```
+
+:::
+
+## Modelo de probabilidad lineal
+
+::: {.columns}
+::: {.column width="48%"}
+
+::: {.small}
+
+Se da este nombre a los modelos de regresión donde una variable dependiente dicotómica se estima de manera tradicional, es decir, por mínimos cuadrados ordinarios
+
+:::
+
+:::
+::: {.column width="52%"}
+
+```{r}
+#| label: tab-lpm
+#| echo: false
+#| results: asis
+
+tab_model(lpm_sexo,
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Modelo 1"),
+          pred.labels = c("(Intercepto)", "Sexo (Mujer)"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+:::
+:::
+
+## Significado de los coeficientes
+
+::: {.columns}
+::: {.column width="45%"}
+
+**Promedio de supervivencia por sexo**
+
+```{r}
+#| label: medias-sexo
+#| echo: false
+
+kable(medias_sexo, digits = 3,
+      col.names = c("Sexo", "Promedio", "N"))
+```
+
+:::
+::: {.column width="55%"}
+
+::: {.incremental}
+
+- El valor del intercepto, `r round(coef(lpm_sexo)[1], 3)`, es el valor predicho para la categoría de referencia, "hombre"
+
+- El $\beta$ de sexo (mujer), `r round(coef(lpm_sexo)[2], 3)`, sumado al intercepto, equivale a la proporción de supervivencia de las mujeres
+
+:::
+
+:::
+:::
+
+##  {data-background-color="black"}
+
+### Funciona ...
+
+::: {.fragment .fade-up}
+
+### **PERO**
+
+:::
+
+## Limitaciones del modelo lineal para dependientes dicotómicas
+
+```{r}
+#| label: fig-lpm-sexo
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+
+ggplot(tt, aes(x = as.numeric(sex), y = survived_n)) +
+  geom_point(aes(color = as.factor(survived_n)), shape = 1, alpha = 0.5) +
+  geom_smooth(method = "lm", color = "gray20", se = FALSE) +
+  scale_color_manual(values = c(azul, azul_claro)) +
+  labs(title = "Regresión lineal por mínimos cuadrados",
+       x = "Sexo", y = "Sobrevive") +
+  theme(legend.position = "none")
+```
+
+## Problemas ...
+
+```{r}
+#| label: fig-lpm-edad
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4.2
+
+ggplot(tt_edad, aes(x = age, y = survived_n)) +
+  geom_point(aes(color = as.factor(survived_n)), shape = 1, alpha = 0.5) +
+  geom_smooth(method = "lm", color = "gray20", se = FALSE) +
+  scale_color_manual(values = c(azul, azul_claro)) +
+  labs(title = "Regresión lineal por mínimos cuadrados",
+       x = "Edad", y = "Sobrevive") +
+  theme(legend.position = "none")
+```
+
+## Problemas ...
+
+::: {.columns}
+::: {.column width="40%"}
+
+Si hubieran sobrevivido todos los menores de 20 y muerto todos los mayores de 40 ...
+
+```{r}
+#| label: construida
+#| echo: true
+#| eval: false
+
+tt$survived_n2 <- tt$survived_n
+tt$survived_n2[tt$age > 40] <- 0
+tt$survived_n2[tt$age < 20] <- 1
+```
+
+:::
+::: {.column width="60%"}
+
+```{r}
+#| label: fig-lpm-construida
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4.5
+
+ggplot(tt_edad, aes(x = age, y = survived_n2)) +
+  geom_point(aes(color = as.factor(survived_n2)), shape = 1, alpha = 0.5) +
+  geom_smooth(method = "lm", color = "gray20", se = FALSE) +
+  geom_hline(yintercept = c(0, 1), color = rojo, linetype = "dashed") +
+  scale_color_manual(values = c(azul, azul_claro)) +
+  labs(title = "Mínimos cuadrados",
+       x = "Edad", y = "Sobrevive") +
+  theme(legend.position = "none")
+```
+
+:::
+:::
+
+## Predicciones imposibles
+
+```{r}
+#| label: resumen-lpm
+#| echo: true
+
+summary(fitted.values(lpm_edad))
+```
+
+::: {.fragment .fade-up}
+
+```{r}
+#| label: fuera-rango
+#| echo: true
+
+predichos <- fitted.values(lpm_edad)
+
+sum(predichos < 0 | predichos > 1)
+```
+
+**`r fuera` casos** reciben una probabilidad predicha negativa o superior a 1
+
+:::
+
+##  {data-background-color="black"}
+
+### Problemas de la regresión tradicional (OLS) para dependientes dicotómicas
+
+::: {.incremental}
+
+- ### Eventuales predicciones fuera del rango de probabilidades posibles
+
+- ### Ajuste a los datos y residuos: ¿es la mejor aproximación una recta?
+
+:::
+
+# La solución {data-background-color="black"}
+
+##  {data-background-color="black"}
+
+### La regresión **logística** ofrece una solución a los problemas del rango de predicciones y de ajuste a los datos del modelo de probabilidad lineal
+
+::: {.fragment .fade-up}
+
+### Se logra mediante una *transformación* de los coeficientes a **LOGIT**
+
+:::
+
+##  {data-background-color="black"}
+
+![](../../files/img/bending.png){width="80%" fig-align="center"}
+
+## OLS vs Logit
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| label: fig-ols
+#| echo: false
+#| fig-width: 5.5
+#| fig-height: 4.5
+
+ggplot(tt_edad, aes(x = age, y = survived_n2)) +
+  geom_point(aes(color = as.factor(survived_n2)), shape = 1, alpha = 0.5) +
+  geom_smooth(method = "lm", color = "gray20", se = FALSE) +
+  geom_hline(yintercept = c(0, 1), color = rojo, linetype = "dashed") +
+  scale_color_manual(values = c(azul, azul_claro)) +
+  labs(title = "Regresión lineal", x = "Edad", y = "Sobrevive") +
+  theme(legend.position = "none")
+```
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: fig-logit
+#| echo: false
+#| fig-width: 5.5
+#| fig-height: 4.5
+
+ggplot(tt_edad, aes(x = age, y = survived_n2)) +
+  geom_point(aes(color = as.factor(survived_n2)), shape = 1, alpha = 0.5) +
+  stat_function(fun = function(x) {
+    predict(log_edad, newdata = data.frame(age = x), type = "response")
+  }, color = "gray20", linewidth = 1.1) +
+  geom_hline(yintercept = c(0, 1), color = rojo, linetype = "dashed") +
+  scale_color_manual(values = c(azul, azul_claro)) +
+  labs(title = "Regresión logística",
+       x = "Edad", y = "Probabilidad de sobrevivir") +
+  theme(legend.position = "none")
+```
+
+:::
+:::
+
+## ¿Qué es el logit?
+
+::: {.incremental}
+
+### Es el logaritmo de los odds
+
+### ... ¿y qué son los odds?
+
+### Una razón de *probabilidades*
+
+:::
+
+::: {.fragment .fade-up}
+
+### Para llegar hasta la regresión logística hay que pasar por los **odds** (chances) y los **odds ratio** (razón de chances)
+
+:::
+
+# Odds y odds ratio {data-background-color="black"}
+
+## Odds
+
+- **Odds** (chances): probabilidad de que algo ocurra dividido por la probabilidad de que no ocurra
+
+$$Odds=\frac{p}{1-p}$$
+
+::: {.fragment .fade-up}
+
+Ejemplo del Titanic: 427 sobrevivientes (41%) y 619 muertos (59%)
+
+$$Odds_{sobrevivir}=427/619=0.41/0.59=`r round(odds_total, 2)`$$
+
+**Es decir, las chances de sobrevivir son de `r round(odds_total, 2)`**
+
+:::
+
+## Odds
+
+::: {.incremental}
+
+- Odds de 1 significan chances iguales, menores a 1 son negativas y mayores a 1 son positivas
+
+- *Propiedad simétrica*:
+
+    - un $Odds=4$ es una asociación positiva proporcional a la asociación negativa $Odds=1/4=0.25$
+
+:::
+
+## Odds de sobrevivencia para los hombres
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| label: tabla-hombres
+#| echo: false
+
+kable(table(tt$survived, tt$sex))
+```
+
+```{r}
+#| label: prop-hombres
+#| echo: false
+
+kable(round(prop.table(table(tt$survived, tt$sex), 2), 2))
+```
+
+::: {.small}
+El 21% de los hombres sobrevive mientras el 79% no sobrevive
+:::
+
+:::
+::: {.column width="50%"}
+
+::: {.fragment .fade-up}
+
+$$Odds_{hombres}=\frac{0.21}{0.79}=`r round(odds_h, 2)`$$
+
+::: {.small}
+
+*La probabilidad de sobrevivencia en los hombres es `r round(odds_h, 2)` veces la de no sobrevivencia*
+
+... o en otros términos
+
+*Hay `r round(odds_h, 2)` hombres que sobreviven por cada uno que no sobrevive*
+
+*Hay 26 hombres que sobreviven por cada 100 hombres que no sobreviven*
+
+:::
+
+:::
+
+:::
+:::
+
+## Odds de sobrevivencia para las mujeres
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| label: prop-mujeres
+#| echo: false
+
+kable(round(prop.table(table(tt$survived, tt$sex), 2), 2))
+```
+
+::: {.small}
+El 75% de las mujeres sobrevive, mientras el 25% no sobrevive
+:::
+
+:::
+::: {.column width="50%"}
+
+::: {.fragment .fade-up}
+
+$$Odds_{mujeres}=\frac{0.75}{0.25}=3$$
+
+::: {.small}
+
+*La probabilidad de sobrevivencia en las mujeres es 3 veces la de no sobrevivencia*
+
+*Hay 3 mujeres que sobreviven por cada mujer que no sobrevive*
+
+o en otros términos
+
+*Hay 300 mujeres que sobreviven al Titanic por cada 100 mujeres que no sobreviven*
+
+:::
+
+:::
+
+:::
+:::
+
+## Odds ratio (OR)
+
+::: {.columns}
+::: {.column width="45%"}
+
+Los odds ratio, o razón de chances, permiten reflejar la **asociación** entre las chances de dos variables dicotómicas
+
+**¿Tienen las mujeres más chances de sobrevivir que los hombres?**
+
+:::
+::: {.column width="55%"}
+
+::: {.fragment .fade-up}
+
+```{r}
+#| label: tab-xtab
+#| echo: false
+#| results: asis
+
+tab_xtab(var.row = tt$survived,
+         var.col = tt$sex,
+         show.col.prc = TRUE,
+         show.summary = FALSE)
+```
+
+:::
+
+:::
+:::
+
+## Odds ratio
+
+**¿Cuántas más chances de sobrevivir tienen las mujeres respecto de los hombres?**
+
+- Odds supervivencia mujeres / odds supervivencia hombres
+
+$$OR=\frac{p_{m}/(1-p_{m})}{p_{h}/(1-p_{h})}=\frac{0.753/(1-0.753)}{0.205/(1-0.205)}=\frac{`r round(odds_m, 3)`}{`r round(odds_h, 3)`}=`r round(or_tt, 2)`$$
+
+::: {.fragment .fade-up}
+
+### Las chances de sobrevivir de las mujeres son **`r round(or_tt, 2)`** veces más que las de los hombres
+
+:::
+
+##  {data-background-color="black"}
+
+### El odds ratio nos permite expresar **en un número** la relación entre dos variables categóricas
+
+### Por lo tanto, es una versión del $\beta$ para dependientes categóricas
+
+##  {data-background-color="black"}
+
+### Pero ... el **OR** tiene algunas limitaciones que requieren una transformación adicional
+
+### Tema de la **próxima clase**
+
+# Un segundo ejemplo {data-background-color="black"}
+
+## Del Titanic a la sociología
+
+::: {.incremental}
+
+- El Titanic es un ejemplo claro, pero poco habitual: la asociación es enorme porque la evacuación siguió una regla explícita de prioridad
+
+- Veamos ahora un caso más propio de la investigación social, donde las asociaciones son más modestas
+
+- La pregunta: **¿quiénes votan?**
+
+:::
+
+## La participación electoral
+
+::: {.incremental}
+
+- Una de las preguntas clásicas de la sociología política
+
+- La literatura sobre **abstención** señala que la participación no se distribuye al azar: se concentra en ciertos grupos sociales
+
+- Nuestra variable dependiente es perfectamente dicotómica: se vota o no se vota
+
+:::
+
+## Los datos
+
+::: {.incremental}
+
+- La misma base del curso: **ELSOC 2016**, primera ola
+
+- La variable `c11` registra la **participación electoral retrospectiva**: si la persona votó en la última elección presidencial
+
+- Excluimos a quienes declaran no haber tenido edad para votar, y trabajamos con **`r n_elsoc`** casos
+
+- Variables independientes: sexo, edad y nivel educacional
+
+:::
+
+## La variable dependiente
+
+```{r}
+#| label: frq-voto
+#| echo: false
+
+kable(elsoc %>%
+        count(voto_f) %>%
+        mutate(porcentaje = round(n / sum(n) * 100, 1)),
+      col.names = c("Participación", "N", "%"))
+```
+
+::: {.fragment .fade-up}
+
+$$Odds_{votar}=\frac{`r sum(elsoc$voto)`}{`r sum(1 - elsoc$voto)`}=`r round(odds_voto, 2)`$$
+
+Hay `r round(odds_voto, 2)` personas que votan por cada una que no vota
+
+:::
+
+## Participación según sexo
+
+::: {.columns}
+::: {.column width="52%"}
+
+```{r}
+#| label: tab-voto-sexo
+#| echo: false
+
+kable(round(prop.table(table(elsoc$voto_f, elsoc$sexo_f), 2), 3))
+```
+
+:::
+::: {.column width="48%"}
+
+::: {.fragment .fade-up}
+
+$$Odds_{hombres}=`r round(odds_vh, 3)`$$
+
+$$Odds_{mujeres}=`r round(odds_vm, 3)`$$
+
+$$OR=`r round(or_sexo, 3)`$$
+
+:::
+
+:::
+:::
+
+::: {.fragment .fade-up}
+
+::: {.small}
+Las chances de votar de las mujeres son `r round(or_sexo, 2)` veces las de los hombres. Es una asociación **débil**
+:::
+
+:::
+
+##  {data-background-color="black"}
+
+### Recordemos: un OR de 1 significa **ausencia de asociación**
+
+### Aquí obtuvimos `r round(or_sexo, 2)`, y en el Titanic `r round(or_tt, 2)`
+
+## Participación según edad
+
+```{r}
+#| label: tab-voto-edad
+#| echo: false
+
+kable(tabla_edad,
+      col.names = c("Tramo de edad", "No votó", "Votó", "% votó", "Odds", "OR"))
+```
+
+::: {.small}
+Los odds ratio están calculados respecto del grupo de 18 a 29 años
+:::
+
+## El gradiente etario
+
+::: {.incremental}
+
+- Entre los más jóvenes, el odds es **menor que 1**: hay más chances de no votar que de votar
+
+- A partir de los 30 años el odds supera 1 y sigue aumentando de forma sostenida
+
+- Las chances de votar de las personas de 60 años o más son **`r tabla_edad$OR[5]` veces** las del grupo más joven
+
+:::
+
+::: {.fragment .fade-up}
+
+Aquí sí hay una asociación fuerte, y remite a un fenómeno conocido en el caso chileno: la baja participación de las generaciones jóvenes tras el paso al voto voluntario
+
+:::
+
+## Participación según nivel educacional
+
+```{r}
+#| label: tab-voto-educ
+#| echo: false
+
+kable(tabla_educ,
+      col.names = c("Nivel educacional", "No votó", "Votó", "% votó", "Odds", "OR"))
+```
+
+::: {.fragment .fade-up}
+
+::: {.small}
+Los odds ratio están calculados respecto de quienes tienen educación básica
+:::
+
+:::
+
+##  {data-background-color="black"}
+
+### ¿Qué ocurre aquí?
+
+::: {.fragment .fade-up}
+
+### La teoría predice que a mayor educación, mayor participación
+
+:::
+
+::: {.fragment .fade-up}
+
+### Pero obtenemos lo contrario: quienes tienen educación superior presentan **menos** chances de votar
+
+:::
+
+## La explicación
+
+```{r}
+#| label: edad-educ
+#| echo: false
+
+kable(edad_educ,
+      col.names = c("Nivel educacional", "Edad promedio"))
+```
+
+::: {.incremental}
+
+- Quienes tienen educación básica son, en promedio, **mucho mayores**
+
+- Y acabamos de ver que la edad es el predictor más fuerte de la participación
+
+- La comparación bivariada entre educación y voto mezcla entonces dos efectos que operan en direcciones **opuestas**
+
+:::
+
+##  {data-background-color="black"}
+
+### El resultado paradójico no proviene de los datos
+
+### Proviene de **no haber controlado por edad**
+
+### Es exactamente el problema que resolvimos en la primera parte del curso
+
+##  {data-background-color="black"}
+
+### Las tablas de contingencia y los odds ratio nos llevan hasta aquí
+
+### Para ir más allá necesitamos un **modelo**
+
+### Y eso es la regresión logística
+
+## Lo que enseña este ejemplo
+
+::: {.incremental}
+
+1. Los odds y los odds ratio se calculan igual en cualquier contexto, pero sus **magnitudes** en investigación social suelen ser más modestas que en el Titanic
+
+2. Un OR cercano a 1 es un resultado, no un fracaso
+
+3. El análisis bivariado puede entregar patrones **engañosos**, e incluso invertidos, cuando hay variables que confunden la relación
+
+:::
+
+##  {data-background-color="black"}
+
+### Resumen
+
+::: {.incremental}
+
+- Limitaciones de OLS para dependientes dicotómicas
+
+- Requiere de ajustes y transformaciones para que la estimación tenga sentido
+
+- La regresión logística ajusta el modelo para dependientes dicotómicas
+
+- Pasa por el cálculo de los odds ratio, que resumen en un número la relación entre dos variables categóricas
+
+:::
+
+## Siguiente sesión
+
+::: {.incremental}
+
+- El **logit**
+
+- Estimación e interpretación de la regresión logística
+
+- **Ajuste** de la regresión logística
+
+- Y la respuesta a lo que quedó pendiente hoy: qué le ocurre al efecto de la educación sobre el voto una vez que controlamos por edad
+
+:::
+
+##  {data-background-color="black"}
+
+::: {.columns .v-center-container}
+::: {.column width="20%"}
+![](../../files/img/eval-hires.png){width="80%" fig-align="right"}
+:::
+
+::: {.column width="80%"}
+### Métodos estadísticos para Ciencias Sociales III
+
+------------------------------------------------------------------------
+
+### **Kevin Carrasco**
+### Sociología - UNAB
+### 2do Sem 2026
+### [https://metod3-unab.netlify.app/](https://metod3-unab.netlify.app/)
+:::
+:::

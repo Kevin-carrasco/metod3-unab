@@ -5148,5 +5148,551 @@
     "title": "Programa",
     "section": "Palabras clave",
     "text": "Palabras clave\n\nRegresión lineal, regresión logística, modelos lineales generalizados, supuestos de regresión, interpretación de coeficientes, fiabilidad de escalas"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section",
+    "href": "slides/08-clase8/08-clase8.html#section",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para\nCiencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#dónde-quedamos",
+    "href": "slides/08-clase8/08-clase8.html#dónde-quedamos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Dónde quedamos?",
+    "text": "¿Dónde quedamos?\n\nLa sesión pasada incorporamos variables categóricas al modelo de regresión\nVimos que sus números son etiquetas, que se codifican como dummy, y que su coeficiente es una diferencia de promedios respecto de una categoría de referencia\nPero esas variables categóricas estaban siempre del lado independiente de la ecuación"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#el-giro-de-hoy",
+    "href": "slides/08-clase8/08-clase8.html#el-giro-de-hoy",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El giro de hoy",
+    "text": "El giro de hoy\n\nHoy la variable dependiente pasa a ser categórica\nConcretamente, dicotómica: ocurre o no ocurre, vota o no vota, aprueba o reprueba, sobrevive o no sobrevive\nEso exige un modelo distinto, y esta mañana en el taller ya construimos sus piezas: probabilidades, odds y odds ratio"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#hoy",
+    "href": "slides/08-clase8/08-clase8.html#hoy",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Hoy",
+    "text": "Hoy\n\n¿Por qué el modelo de regresión que conocemos no sirve cuando la dependiente es dicotómica?\n¿Qué alternativa existe?\nProbabilidades, odds y odds ratio: las piezas que trabajamos esta mañana en el taller"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#variables",
+    "href": "slides/08-clase8/08-clase8.html#variables",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Variables",
+    "text": "Variables\n\nDiscretas (rango finito de valores):\n\nDicotómicas\nPolitómicas\n\nContinuas:\n\nRango (teóricamente) infinito de valores"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#niveles-de-medición",
+    "href": "slides/08-clase8/08-clase8.html#niveles-de-medición",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Niveles de medición",
+    "text": "Niveles de medición\n\n\n\n\n\n\n\n\n\n\nTipo\nCaracterísticas\nPropiedad de números\nEjemplo\n\n\n\n\nNominal\nUso de números en lugar de palabras\nIdentidad\nNacionalidad\n\n\nOrdinal\nNúmeros se usan para ordenar series\n+ ranking\nNivel educacional\n\n\nIntervalar\nIntervalos iguales entre números\n+ igualdad\nTemperatura\n\n\nRazón\nCero real\n+ aditividad\nDistancia\n\n\n\n\n\nHoy el problema ya no está en los predictores, sino en la variable dependiente"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#descriptivos-según-tipo-de-variable",
+    "href": "slides/08-clase8/08-clase8.html#descriptivos-según-tipo-de-variable",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Descriptivos según tipo de variable",
+    "text": "Descriptivos según tipo de variable\n\n\n\n\n\n\n\n\n\n\n\n\nCategórica\nContinua\nCateg.(y)/Categ.(x)\nCont.(y)/Categ.(x)\n\n\n\n\nEjemplo\nEstatus ocupacional\nIngreso\nEstatus ocupacional (Y) / Sexo (X)\nIngreso (Y) / Sexo (X)\n\n\nTabla\nFrecuencias / porcentajes\n\\(\\bar{X}\\) / sd\nTabla de contingencia\nClasificar Y\n\n\nGráfico\nBarras\nHistograma / boxplot\nBarras condicionado\nHistograma o boxplot condicionado"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#análisis-estadístico-según-tipo-de-variables",
+    "href": "slides/08-clase8/08-clase8.html#análisis-estadístico-según-tipo-de-variables",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Análisis estadístico según tipo de variables",
+    "text": "Análisis estadístico según tipo de variables\n\n\n\n\n\n\n\n\n\nVariable independiente (x)\nVariable dependiente categórica\nVariable dependiente continua\n\n\n\n\nCategórica\nTabla de contingencia, Chi2\nANOVA, prueba t\n\n\nContinua\nRegresión logística\nCorrelación / regresión lineal\n\n\n\n\n\nDurante todo el curso trabajamos en la columna derecha. Hoy nos movemos a la izquierda"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-1",
+    "href": "slides/08-clase8/08-clase8.html#section-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Regresión logística (1)\nPara variables dependientes dicotómicas"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#los-datos",
+    "href": "slides/08-clase8/08-clase8.html#los-datos",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Los datos",
+    "text": "Los datos\n\nLa misma base del curso: ELSOC 2016, primera ola\nLa variable c11 registra la participación electoral retrospectiva: si la persona votó en la última elección presidencial\nExcluimos a quienes declaran no haber tenido edad para votar, y trabajamos con 2894 casos\nVariables independientes: sexo, edad y nivel educacional"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#sobrevivencia-según-sexo",
+    "href": "slides/08-clase8/08-clase8.html#sobrevivencia-según-sexo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Sobrevivencia según sexo",
+    "text": "Sobrevivencia según sexo\n\n\n\n\n\n\n\n\n\n\nHombre\nMujer\n\n\n\n\nNo sobrevive\n0.795\n0.247\n\n\nSobrevive\n0.205\n0.753\n\n\n\n\n\nEl 75,3% de las mujeres sobrevive, frente a un 20,5% de los hombres"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-2",
+    "href": "slides/08-clase8/08-clase8.html#section-2",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "¿Se puede anticipar el final?"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#alternativas",
+    "href": "slides/08-clase8/08-clase8.html#alternativas",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Alternativas",
+    "text": "Alternativas\n\nTabla de contingencia, \\(\\chi^2\\):\n\nanálisis de tendencia general, significación estadística\npero es poco parsimoniosa, y no hay control estadístico\n\n¿Aprovechar las ventajas del modelo de regresión?\n\nexpresar la relación en un número (\\(\\beta\\))\ninferencia\ncontrol estadístico"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#modelando-con-ols",
+    "href": "slides/08-clase8/08-clase8.html#modelando-con-ols",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Modelando con OLS",
+    "text": "Modelando con OLS\nSi codificamos la variable como 0 y 1, nada nos impide estimar un modelo lineal corriente:\n\ntt &lt;- tt %&gt;%\n  mutate(sobrevive = ifelse(survived == \"Sobrevive\", 1, 0))\n\nlpm_sexo &lt;- lm(sobrevive ~ sex, data = tt)\n\n\nA este tipo de modelo se le llama modelo de probabilidad lineal: una variable dependiente dicotómica estimada por mínimos cuadrados ordinarios"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#el-resultado",
+    "href": "slides/08-clase8/08-clase8.html#el-resultado",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El resultado",
+    "text": "El resultado\n\n\n\n \nSobrevive\n\n\nPredictores\nβ\nstd. Error\n\n\n(Intercepto)\n0.205 ***\n0.016\n\n\nSexo (Mujer)\n0.547 ***\n0.027\n\n\nObservations\n1046\n\n\nR2 / R2 adjusted\n0.289 / 0.289\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#qué-significan-esos-coeficientes",
+    "href": "slides/08-clase8/08-clase8.html#qué-significan-esos-coeficientes",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Qué significan esos coeficientes?",
+    "text": "¿Qué significan esos coeficientes?\n\n\n\n\n\n\n\nSexo\nPromedio\nN\n\n\n\n\nHombre\n0.205\n658\n\n\nMujer\n0.753\n388\n\n\n\n\n\n\n\nEl intercepto, 0.205, es el valor predicho para la categoría de referencia, es decir, los hombres\nY coincide exactamente con la proporción de hombres que sobrevive\nEl coeficiente de sexo, 0.547, sumado al intercepto, da la proporción de mujeres que sobrevive"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-3",
+    "href": "slides/08-clase8/08-clase8.html#section-3",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "¿En qué medida la probabilidad de sobrevivir depende del sexo?\n¿Es esta probabilidad estadísticamente significativa?"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#problema-1-el-rango",
+    "href": "slides/08-clase8/08-clase8.html#problema-1-el-rango",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Problema 1: el rango",
+    "text": "Problema 1: el rango\n\nUna probabilidad está acotada entre 0 y 1\nUna recta no tiene techo ni piso: crece o decrece indefinidamente\nCon un solo predictor dicotómico el problema no se nota, porque solo hay dos valores predichos posibles\nAparece apenas incorporamos un predictor continuo"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#un-caso-ilustrativo",
+    "href": "slides/08-clase8/08-clase8.html#un-caso-ilustrativo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Un caso ilustrativo",
+    "text": "Un caso ilustrativo\nSupongamos que hubieran sobrevivido todos los menores de 20 años y muerto todos los mayores de 40:\n\n\nFigure 1"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#predicciones-imposibles",
+    "href": "slides/08-clase8/08-clase8.html#predicciones-imposibles",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Predicciones imposibles",
+    "text": "Predicciones imposibles\n\nsummary(fitted.values(lpm_edad))\n#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n#&gt; -0.5467  0.2572  0.4728  0.4359  0.6101  1.0186\n\n\n\npredichos &lt;- fitted.values(lpm_edad)\n\nsum(predichos &lt; 0 | predichos &gt; 1)\n#&gt; [1] 103\n\n103 casos reciben una probabilidad predicha negativa o superior a 1"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-4",
+    "href": "slides/08-clase8/08-clase8.html#section-4",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Funciona …\n\nPERO"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#problema-2-el-ajuste",
+    "href": "slides/08-clase8/08-clase8.html#problema-2-el-ajuste",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Problema 2: el ajuste",
+    "text": "Problema 2: el ajuste\n\nAunque las predicciones cayeran dentro del rango, queda una pregunta previa: ¿es una recta la mejor aproximación?\nUna probabilidad debe aplanarse cerca de 0 y de 1\nSi alguien ya tiene un 95% de probabilidad de sobrevivir, una característica favorable adicional no puede sumarle otro 20%\nLa recta, en cambio, impone el mismo incremento a lo largo de toda la escala"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-5",
+    "href": "slides/08-clase8/08-clase8.html#section-5",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Problemas de la regresión tradicional (OLS) para dependientes dicotómicas\n\nEventuales predicciones fuera del rango de probabilidades posibles\nAjuste a los datos y residuos: ¿es la mejor aproximación una recta?"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-6",
+    "href": "slides/08-clase8/08-clase8.html#section-6",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "La regresión logística ofrece una solución a los problemas del rango de predicciones y de ajuste a los datos del modelo de probabilidad lineal\n\nSe logra mediante una transformación de los coeficientes a LOGIT"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#la-idea",
+    "href": "slides/08-clase8/08-clase8.html#la-idea",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La idea",
+    "text": "La idea\n\n\nEn lugar de una recta, ajustamos una curva que nunca cruza el 0 ni el 1"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#lineal-frente-a-logística",
+    "href": "slides/08-clase8/08-clase8.html#lineal-frente-a-logística",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Lineal frente a logística",
+    "text": "Lineal frente a logística\n\n\n\n\n\n\n\n\n\n\nFigure 2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 3\n\n\n\n\n\n\n\nLos mismos datos y el mismo predictor. A la derecha, la curva se aplana en los extremos y nunca abandona el rango posible"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#lo-que-vimos-en-el-taller",
+    "href": "slides/08-clase8/08-clase8.html#lo-que-vimos-en-el-taller",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Lo que vimos en el taller",
+    "text": "Lo que vimos en el taller\n\nProbabilidad: ocurrencias sobre el total. Varía entre 0 y 1\nOdds: ocurrencias sobre no ocurrencias. Varía entre 0 e infinito\n\n\\[Odds = \\frac{\\pi}{1-\\pi}\\]\n\nEn el Titanic: \\(427/619 = 0{,}69\\) chances de sobrevivir"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#odds-por-grupo",
+    "href": "slides/08-clase8/08-clase8.html#odds-por-grupo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Odds por grupo",
+    "text": "Odds por grupo\n\n\n\n\n\n\nHombre\nMujer\nSum\n\n\n\n\nNo sobrevive\n523\n96\n619\n\n\nSobrevive\n135\n292\n427\n\n\nSum\n658\n388\n1046\n\n\n\n\n\n\n\\[Odds_{hombres} = \\frac{135}{523} = 0.258 \\qquad Odds_{mujeres} = \\frac{292}{96} = 3.042\\]"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#propiedades-de-los-odds",
+    "href": "slides/08-clase8/08-clase8.html#propiedades-de-los-odds",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Propiedades de los odds",
+    "text": "Propiedades de los odds\n\nUn odds igual a 1 indica chances iguales\nMenor que 1, chances desfavorables; mayor que 1, chances favorables\nPropiedad simétrica: un \\(Odds = 4\\) expresa una asociación positiva proporcional a la asociación negativa de \\(Odds = 1/4 = 0{,}25\\)"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#odds-ratio",
+    "href": "slides/08-clase8/08-clase8.html#odds-ratio",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Odds ratio",
+    "text": "Odds ratio\n¿Cuántas más chances de sobrevivir tienen las mujeres respecto de los hombres?\n\nOdds supervivencia mujeres / odds supervivencia hombres\n\n\\[OR=\\frac{p_{m}/(1-p_{m})}{p_{h}/(1-p_{h})}=\\frac{0.753/(1-0.753)}{0.205/(1-0.205)}=\\frac{3.042}{0.258}=11.78\\]\n\nLas chances de sobrevivir de las mujeres son 11.78 veces más que las de los hombres"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-7",
+    "href": "slides/08-clase8/08-clase8.html#section-7",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "El odds ratio permite expresar en un número la relación entre dos variables categóricas\nEs, por lo tanto, una versión del \\(\\beta\\) para variables dependientes categóricas"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#pero-el-or-tiene-un-problema",
+    "href": "slides/08-clase8/08-clase8.html#pero-el-or-tiene-un-problema",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Pero el OR tiene un problema",
+    "text": "Pero el OR tiene un problema\n\nLos odds van de 0 a infinito, con el 1 como punto de equilibrio\nEso significa que la escala no es simétrica: lo favorable se extiende de 1 a infinito, mientras lo desfavorable queda comprimido entre 0 y 1\nUn modelo de regresión necesita una escala que se extienda sin límite en ambas direcciones"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#el-logit",
+    "href": "slides/08-clase8/08-clase8.html#el-logit",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El logit",
+    "text": "El logit\nLa solución es aplicar el logaritmo natural de los odds:\n\\[logit(\\pi)=\\ln\\left(\\frac{\\pi}{1-\\pi}\\right)\\]\n\nlog(c(hombres = odds_h, mujeres = odds_m))\n#&gt;   hombres   mujeres \n#&gt; -1.354307  1.112406\n\n\nAhora los valores son simétricos en torno a cero. El cero indica ausencia de asociación, los negativos chances desfavorables y los positivos chances favorables"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#las-tres-escalas",
+    "href": "slides/08-clase8/08-clase8.html#las-tres-escalas",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Las tres escalas",
+    "text": "Las tres escalas\n\n\n\n\nEscala\nFórmula\nRango\nMujeres (Titanic)\n\n\n\n\nProbabilidad\n\\(\\pi\\)\n0 a 1\n0,753\n\n\nOdds\n\\(\\pi/(1-\\pi)\\)\n0 a \\(+\\infty\\)\n3.042\n\n\nLogit\n\\(\\ln(\\pi/(1-\\pi))\\)\n\\(-\\infty\\) a \\(+\\infty\\)\n1.112\n\n\n\n\n\nEl modelo se estima en la tercera, porque es la única compatible con una ecuación lineal. La interpretación, en cambio, vuelve a las dos primeras"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#el-modelo-de-regresión-logística",
+    "href": "slides/08-clase8/08-clase8.html#el-modelo-de-regresión-logística",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El modelo de regresión logística",
+    "text": "El modelo de regresión logística\n\\[\\ln\\left(\\frac{\\pi}{1-\\pi}\\right)= b_{0} + b_{1}X_{1} + b_{2}X_{2} + \\dots + b_{k}X_{k}\\]\n\nA la derecha, exactamente la misma estructura que ya conocemos\nA la izquierda, ya no está \\(Y\\) sino el logit de la probabilidad de que \\(Y\\) ocurra\nTodo lo aprendido sobre parcialización y control estadístico se mantiene"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#estimación-en-r",
+    "href": "slides/08-clase8/08-clase8.html#estimación-en-r",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Estimación en R",
+    "text": "Estimación en R\n\nlog_sexo &lt;- glm(sobrevive ~ sex,\n                data = tt,\n                family = \"binomial\")\n\n\nLa función es glm, de generalized linear model\nEl argumento family = \"binomial\" le indica que la dependiente es dicotómica\nLa estimación ya no es por mínimos cuadrados sino por máxima verosimilitud, tema de la próxima sesión"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#los-coeficientes",
+    "href": "slides/08-clase8/08-clase8.html#los-coeficientes",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Los coeficientes",
+    "text": "Los coeficientes\n\ncoef(log_sexo)\n#&gt; (Intercept)    sexMujer \n#&gt;   -1.354307    2.466712\n\n\nEstán en escala logit, de modo que no se interpretan directamente. Al exponenciarlos recuperamos los odds ratio:\n\nexp(coef(log_sexo))\n#&gt; (Intercept)    sexMujer \n#&gt;   0.2581262  11.7836420"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#el-círculo-se-cierra",
+    "href": "slides/08-clase8/08-clase8.html#el-círculo-se-cierra",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El círculo se cierra",
+    "text": "El círculo se cierra\n\nEl intercepto exponenciado, 0.258, es el odds del grupo de referencia, los hombres\nEl coeficiente exponenciado, 11.78, es el odds ratio entre mujeres y hombres\nSon exactamente los valores que calculamos a mano esta mañana, a partir de una tabla de contingencia"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#de-logit-a-probabilidad",
+    "href": "slides/08-clase8/08-clase8.html#de-logit-a-probabilidad",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "De logit a probabilidad",
+    "text": "De logit a probabilidad\nPara volver de la escala del modelo a una probabilidad se aplica la función logística:\n\\[\\pi = \\frac{e^{logit}}{1+e^{logit}} = \\frac{1}{1+e^{-logit}}\\]\n\n\npredict(log_sexo,\n        newdata = data.frame(sex = c(\"Hombre\", \"Mujer\")),\n        type = \"response\")\n#&gt;         1         2 \n#&gt; 0.2051672 0.7525773\n\nQue son, nuevamente, las proporciones de sobrevivencia de cada grupo"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-8",
+    "href": "slides/08-clase8/08-clase8.html#section-8",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "El odds ratio nos permite expresar en un número la relación entre dos variables categóricas\nPor lo tanto, es una versión del \\(\\beta\\) para dependientes categóricas"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-9",
+    "href": "slides/08-clase8/08-clase8.html#section-9",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Pero … el OR tiene algunas limitaciones que requieren una transformación adicional\nTema de la próxima clase"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#para-la-próxima-sesión",
+    "href": "slides/08-clase8/08-clase8.html#para-la-próxima-sesión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Para la próxima sesión",
+    "text": "Para la próxima sesión\n\nEstimación por máxima verosimilitud\nInterpretación de coeficientes logit y de odds ratio en modelos con varios predictores\nAjuste de la regresión logística: por qué ya no existe el \\(R^2\\) que conocemos\nLectura: Camarero et al. (2017), Regresión logística: fundamentos y aplicación a la investigación sociológica, páginas 30 a 52"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-10",
+    "href": "slides/08-clase8/08-clase8.html#section-10",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Recordemos: un OR de 1 significa ausencia de asociación\nAquí obtuvimos 1.25, y en el Titanic 11.78"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#niveles-de-medición-de-variables",
+    "href": "slides/08-clase8/08-clase8.html#niveles-de-medición-de-variables",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Niveles de medición de variables",
+    "text": "Niveles de medición de variables\n\nNOIR: Nominal, Ordinal, Intervalar, Razón\n\n\n\n\n\n\n\n\n\n\n\nTipo\nCaracterísticas\nPropiedad de números\nEjemplo\n\n\n\n\nNominal\nUso de números en lugar de palabras\nIdentidad\nNacionalidad\n\n\nOrdinal\nNúmeros se usan para ordenar series\n+ ranking\nNivel educacional\n\n\nIntervalar\nIntervalos iguales entre números\n+ igualdad\nTemperatura\n\n\nRazón\nCero real\n+ aditividad\nDistancia"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#tipos-de-datos-en-relación-a-escalas-de-medición",
+    "href": "slides/08-clase8/08-clase8.html#tipos-de-datos-en-relación-a-escalas-de-medición",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Tipos de datos en relación a escalas de medición",
+    "text": "Tipos de datos en relación a escalas de medición\n\nDatos categóricos: pueden ser medidos solo mediante escalas nominales, u ordinales en caso de orden de rango\nDatos continuos:\n\nMedidos en escalas intervalares o de razón\nPueden ser transformados a datos categóricos"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#análisis-estadístico-según-tipos-de-variables",
+    "href": "slides/08-clase8/08-clase8.html#análisis-estadístico-según-tipos-de-variables",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Análisis estadístico según tipos de variables",
+    "text": "Análisis estadístico según tipos de variables\n\nVariable dependiente (y): lo que quiero explicar\nVariable independiente (x): lo que me permite explicar la dependiente\n\n\n\n\n\n\n\n\n\n\nVariable independiente (x)\nVariable dependiente categórica\nVariable dependiente continua\n\n\n\n\nCategórica\nTabla de contingencia, Chi2\nANOVA, prueba t\n\n\nContinua\nRegresión logística\nCorrelación / regresión lineal\n\n\n\n\n\nTodo el curso ha transcurrido en la columna derecha. Hoy nos movemos a la izquierda"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#titanic-data",
+    "href": "slides/08-clase8/08-clase8.html#titanic-data",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Titanic data",
+    "text": "Titanic data\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo\nVariable\nStats / Values\nFreqs (% of Valid)\nGraph\nMissing\n\n\n\n\n1\nsurvived [factor]\n\n\n\n1. No sobrevive\n\n\n2. Sobrevive\n\n\n\n\n\n\n619\n(\n59.2%\n)\n\n\n427\n(\n40.8%\n)\n\n\n\n\n0 (0.0%)\n\n\n2\nsex [factor]\n\n\n\n1. Hombre\n\n\n2. Mujer\n\n\n\n\n\n\n658\n(\n62.9%\n)\n\n\n388\n(\n37.1%\n)\n\n\n\n\n0 (0.0%)\n\n\n3\nage [numeric]\n\n\n\nMean (sd) : 29.9 (14.4)\n\n\nmin ≤ med ≤ max:\n\n\n0.2 ≤ 28 ≤ 80\n\n\nIQR (CV) : 18 (0.5)\n\n\n\n98 distinct values\n\n0 (0.0%)\n\n\n\n\nGenerated by summarytools 1.0.1 (R version 4.3.2)2026-10-19"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#sobrevivientes",
+    "href": "slides/08-clase8/08-clase8.html#sobrevivientes",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Sobrevivientes",
+    "text": "Sobrevivientes\n\n\nFigure 1"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#sexo",
+    "href": "slides/08-clase8/08-clase8.html#sexo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Sexo",
+    "text": "Sexo\n\n\nFigure 2"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#sobrevivencia-sexo",
+    "href": "slides/08-clase8/08-clase8.html#sobrevivencia-sexo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Sobrevivencia / sexo",
+    "text": "Sobrevivencia / sexo\n\n\n\n\n\n\n\n\n\n\nHombre\nMujer\n\n\n\n\nNo sobrevive\n0.79\n0.25\n\n\nSobrevive\n0.21\n0.75\n\n\n\n\n\nEl 75% de las mujeres sobrevive, mientras el 25% no sobrevive"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#modelando-la-probabilidad-de-sobrevivir-con-ols",
+    "href": "slides/08-clase8/08-clase8.html#modelando-la-probabilidad-de-sobrevivir-con-ols",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Modelando la probabilidad de sobrevivir con OLS",
+    "text": "Modelando la probabilidad de sobrevivir con OLS\n\nreg_tit &lt;- lm(survived ~ sex, data = tt)\n\n\nLa variable dependiente está guardada como factor, de modo que primero debemos recodificarla como 0 y 1:\n\ntt &lt;- tt %&gt;%\n  mutate(survived_n = ifelse(survived == \"Sobrevive\", 1, 0))\n\nreg_tit &lt;- lm(survived_n ~ sex, data = tt)"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#modelo-de-probabilidad-lineal",
+    "href": "slides/08-clase8/08-clase8.html#modelo-de-probabilidad-lineal",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Modelo de probabilidad lineal",
+    "text": "Modelo de probabilidad lineal\n\n\n\nSe da este nombre a los modelos de regresión donde una variable dependiente dicotómica se estima de manera tradicional, es decir, por mínimos cuadrados ordinarios\n\n\n\n\n\n \nModelo 1\n\n\nPredictores\nβ\nstd. Error\n\n\n(Intercepto)\n0.205 ***\n0.016\n\n\nSexo (Mujer)\n0.547 ***\n0.027\n\n\nObservations\n1046\n\n\nR2 / R2 adjusted\n0.289 / 0.289\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#significado-de-los-coeficientes",
+    "href": "slides/08-clase8/08-clase8.html#significado-de-los-coeficientes",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Significado de los coeficientes",
+    "text": "Significado de los coeficientes\n\n\nPromedio de supervivencia por sexo\n\n\n\n\n\nSexo\nPromedio\nN\n\n\n\n\nHombre\n0.205\n658\n\n\nMujer\n0.753\n388\n\n\n\n\n\n\n\nEl valor del intercepto, 0.205, es el valor predicho para la categoría de referencia, “hombre”\nEl \\(\\beta\\) de sexo (mujer), 0.547, sumado al intercepto, equivale a la proporción de supervivencia de las mujeres"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#limitaciones-del-modelo-lineal-para-dependientes-dicotómicas",
+    "href": "slides/08-clase8/08-clase8.html#limitaciones-del-modelo-lineal-para-dependientes-dicotómicas",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Limitaciones del modelo lineal para dependientes dicotómicas",
+    "text": "Limitaciones del modelo lineal para dependientes dicotómicas\n\n\nFigure 3"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#problemas",
+    "href": "slides/08-clase8/08-clase8.html#problemas",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Problemas …",
+    "text": "Problemas …\n\n\nFigure 4"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#problemas-1",
+    "href": "slides/08-clase8/08-clase8.html#problemas-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Problemas …",
+    "text": "Problemas …\n\n\nSi hubieran sobrevivido todos los menores de 20 y muerto todos los mayores de 40 …\n\ntt$survived_n2 &lt;- tt$survived_n\ntt$survived_n2[tt$age &gt; 40] &lt;- 0\ntt$survived_n2[tt$age &lt; 20] &lt;- 1\n\n\n\n\n\n\n\n\n\n\nFigure 5"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#ols-vs-logit",
+    "href": "slides/08-clase8/08-clase8.html#ols-vs-logit",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "OLS vs Logit",
+    "text": "OLS vs Logit\n\n\n\n\n\n\n\n\n\n\nFigure 6\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 7"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#qué-es-el-logit",
+    "href": "slides/08-clase8/08-clase8.html#qué-es-el-logit",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "¿Qué es el logit?",
+    "text": "¿Qué es el logit?\nEs el logaritmo de los odds\n… ¿y qué son los odds?\nUna razón de probabilidades\n\nPara llegar hasta la regresión logística hay que pasar por los odds (chances) y los odds ratio (razón de chances)"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#odds",
+    "href": "slides/08-clase8/08-clase8.html#odds",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Odds",
+    "text": "Odds\n\nOdds (chances): probabilidad de que algo ocurra dividido por la probabilidad de que no ocurra\n\n\\[Odds=\\frac{p}{1-p}\\]\n\nEjemplo del Titanic: 427 sobrevivientes (41%) y 619 muertos (59%)\n\\[Odds_{sobrevivir}=427/619=0.41/0.59=0.69\\]\nEs decir, las chances de sobrevivir son de 0.69"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#odds-1",
+    "href": "slides/08-clase8/08-clase8.html#odds-1",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Odds",
+    "text": "Odds\n\nOdds de 1 significan chances iguales, menores a 1 son negativas y mayores a 1 son positivas\nPropiedad simétrica:\n\nun \\(Odds=4\\) es una asociación positiva proporcional a la asociación negativa \\(Odds=1/4=0.25\\)"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#odds-de-sobrevivencia-para-los-hombres",
+    "href": "slides/08-clase8/08-clase8.html#odds-de-sobrevivencia-para-los-hombres",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Odds de sobrevivencia para los hombres",
+    "text": "Odds de sobrevivencia para los hombres\n\n\n\n\n\n\n\n\nHombre\nMujer\n\n\n\n\nNo sobrevive\n523\n96\n\n\nSobrevive\n135\n292\n\n\n\n\n\n\n\n\n\n\n\nHombre\nMujer\n\n\n\n\nNo sobrevive\n0.79\n0.25\n\n\nSobrevive\n0.21\n0.75\n\n\n\n\n\n\nEl 21% de los hombres sobrevive mientras el 79% no sobrevive\n\n\n\n\\[Odds_{hombres}=\\frac{0.21}{0.79}=0.26\\]\n\nLa probabilidad de sobrevivencia en los hombres es 0.26 veces la de no sobrevivencia\n… o en otros términos\nHay 0.26 hombres que sobreviven por cada uno que no sobrevive\nHay 26 hombres que sobreviven por cada 100 hombres que no sobreviven"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#odds-de-sobrevivencia-para-las-mujeres",
+    "href": "slides/08-clase8/08-clase8.html#odds-de-sobrevivencia-para-las-mujeres",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Odds de sobrevivencia para las mujeres",
+    "text": "Odds de sobrevivencia para las mujeres\n\n\n\n\n\n\n\n\nHombre\nMujer\n\n\n\n\nNo sobrevive\n0.79\n0.25\n\n\nSobrevive\n0.21\n0.75\n\n\n\n\n\n\nEl 75% de las mujeres sobrevive, mientras el 25% no sobrevive\n\n\n\n\\[Odds_{mujeres}=\\frac{0.75}{0.25}=3\\]\n\nLa probabilidad de sobrevivencia en las mujeres es 3 veces la de no sobrevivencia\nHay 3 mujeres que sobreviven por cada mujer que no sobrevive\no en otros términos\nHay 300 mujeres que sobreviven al Titanic por cada 100 mujeres que no sobreviven"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#odds-ratio-or",
+    "href": "slides/08-clase8/08-clase8.html#odds-ratio-or",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Odds ratio (OR)",
+    "text": "Odds ratio (OR)\n\n\nLos odds ratio, o razón de chances, permiten reflejar la asociación entre las chances de dos variables dicotómicas\n¿Tienen las mujeres más chances de sobrevivir que los hombres?\n\n\n\n\n\n\n\n\n\n\n\nsurvived\nsex\nTotal\n\n\nHombre\nMujer\n\n\nNo sobrevive\n523\n79.5 %\n96\n24.7 %\n619\n59.2 %\n\n\nSobrevive\n135\n20.5 %\n292\n75.3 %\n427\n40.8 %\n\n\nTotal\n658\n100 %\n388\n100 %\n1046\n100 %"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#siguiente-sesión",
+    "href": "slides/08-clase8/08-clase8.html#siguiente-sesión",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Siguiente sesión",
+    "text": "Siguiente sesión\n\nEl logit\nEstimación e interpretación de la regresión logística\nAjuste de la regresión logística\nY la respuesta a lo que quedó pendiente hoy: qué le ocurre al efecto de la educación sobre el voto una vez que controlamos por edad"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-11",
+    "href": "slides/08-clase8/08-clase8.html#section-11",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "¿Qué ocurre aquí?\n\nLa teoría predice que a mayor educación, mayor participación\n\n\nPero obtenemos lo contrario: quienes tienen educación superior presentan menos chances de votar"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#del-titanic-a-la-sociología",
+    "href": "slides/08-clase8/08-clase8.html#del-titanic-a-la-sociología",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Del Titanic a la sociología",
+    "text": "Del Titanic a la sociología\n\nEl Titanic es un ejemplo claro, pero poco habitual: la asociación es enorme porque la evacuación siguió una regla explícita de prioridad\nVeamos ahora un caso más propio de la investigación social, donde las asociaciones son más modestas\nLa pregunta: ¿quiénes votan?"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#la-participación-electoral",
+    "href": "slides/08-clase8/08-clase8.html#la-participación-electoral",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La participación electoral",
+    "text": "La participación electoral\n\nUna de las preguntas clásicas de la sociología política\nLa literatura sobre abstención señala que la participación no se distribuye al azar: se concentra en ciertos grupos sociales\nNuestra variable dependiente es perfectamente dicotómica: se vota o no se vota"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#la-variable-dependiente",
+    "href": "slides/08-clase8/08-clase8.html#la-variable-dependiente",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La variable dependiente",
+    "text": "La variable dependiente\n\n\n\n\n\nParticipación\nN\n%\n\n\n\n\nNo votó\n920\n31.8\n\n\nVotó\n1974\n68.2\n\n\n\n\n\n\n\\[Odds_{votar}=\\frac{1974}{920}=2.15\\]\nHay 2.15 personas que votan por cada una que no vota"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#participación-según-sexo",
+    "href": "slides/08-clase8/08-clase8.html#participación-según-sexo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Participación según sexo",
+    "text": "Participación según sexo\n\n\n\n\n\n\n\n\nHombre\nMujer\n\n\n\n\nNo votó\n0.347\n0.299\n\n\nVotó\n0.653\n0.701\n\n\n\n\n\n\n\n\\[Odds_{hombres}=1.883\\]\n\\[Odds_{mujeres}=2.348\\]\n\\[OR=1.247\\]\n\n\n\n\nLas chances de votar de las mujeres son 1.25 veces las de los hombres. Es una asociación débil"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#participación-según-edad",
+    "href": "slides/08-clase8/08-clase8.html#participación-según-edad",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Participación según edad",
+    "text": "Participación según edad\n\n\n\n\n\nTramo de edad\nNo votó\nVotó\n% votó\nOdds\nOR\n\n\n\n\n18-29\n284\n204\n41.8\n0.718\n1.00\n\n\n30-39\n258\n303\n54.0\n1.174\n1.64\n\n\n40-49\n182\n406\n69.0\n2.231\n3.11\n\n\n50-59\n104\n518\n83.3\n4.981\n6.94\n\n\n60+\n92\n543\n85.5\n5.902\n8.22\n\n\n\n\n\n\nLos odds ratio están calculados respecto del grupo de 18 a 29 años"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#el-gradiente-etario",
+    "href": "slides/08-clase8/08-clase8.html#el-gradiente-etario",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "El gradiente etario",
+    "text": "El gradiente etario\n\nEntre los más jóvenes, el odds es menor que 1: hay más chances de no votar que de votar\nA partir de los 30 años el odds supera 1 y sigue aumentando de forma sostenida\nLas chances de votar de las personas de 60 años o más son 8.22 veces las del grupo más joven\n\n\nAquí sí hay una asociación fuerte, y remite a un fenómeno conocido en el caso chileno: la baja participación de las generaciones jóvenes tras el paso al voto voluntario"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#participación-según-nivel-educacional",
+    "href": "slides/08-clase8/08-clase8.html#participación-según-nivel-educacional",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Participación según nivel educacional",
+    "text": "Participación según nivel educacional\n\n\n\n\n\nNivel educacional\nNo votó\nVotó\n% votó\nOdds\nOR\n\n\n\n\nBásica\n141\n514\n78.5\n3.645\n1.00\n\n\nMedia\n439\n794\n64.4\n1.809\n0.50\n\n\nSuperior\n340\n666\n66.2\n1.959\n0.54\n\n\n\n\n\n\n\nLos odds ratio están calculados respecto de quienes tienen educación básica"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#la-explicación",
+    "href": "slides/08-clase8/08-clase8.html#la-explicación",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "La explicación",
+    "text": "La explicación\n\n\n\n\n\nNivel educacional\nEdad promedio\n\n\n\n\nBásica\n56.2\n\n\nMedia\n45.6\n\n\nSuperior\n40.6\n\n\n\n\n\n\nQuienes tienen educación básica son, en promedio, mucho mayores\nY acabamos de ver que la edad es el predictor más fuerte de la participación\nLa comparación bivariada entre educación y voto mezcla entonces dos efectos que operan en direcciones opuestas"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-12",
+    "href": "slides/08-clase8/08-clase8.html#section-12",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "El resultado paradójico no proviene de los datos\nProviene de no haber controlado por edad\nEs exactamente el problema que resolvimos en la primera parte del curso"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-13",
+    "href": "slides/08-clase8/08-clase8.html#section-13",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Las tablas de contingencia y los odds ratio nos llevan hasta aquí\nPara ir más allá necesitamos un modelo\nY eso es la regresión logística"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#lo-que-enseña-este-ejemplo",
+    "href": "slides/08-clase8/08-clase8.html#lo-que-enseña-este-ejemplo",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Lo que enseña este ejemplo",
+    "text": "Lo que enseña este ejemplo\n\nLos odds y los odds ratio se calculan igual en cualquier contexto, pero sus magnitudes en investigación social suelen ser más modestas que en el Titanic\nUn OR cercano a 1 es un resultado, no un fracaso\nEl análisis bivariado puede entregar patrones engañosos, e incluso invertidos, cuando hay variables que confunden la relación"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-14",
+    "href": "slides/08-clase8/08-clase8.html#section-14",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Resumen\n\nLimitaciones de OLS para dependientes dicotómicas\nRequiere de ajustes y transformaciones para que la estimación tenga sentido\nLa regresión logística ajusta el modelo para dependientes dicotómicas\nPasa por el cálculo de los odds ratio, que resumen en un número la relación entre dos variables categóricas"
+  },
+  {
+    "objectID": "slides/08-clase8/08-clase8.html#section-15",
+    "href": "slides/08-clase8/08-clase8.html#section-15",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "",
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
   }
 ]
