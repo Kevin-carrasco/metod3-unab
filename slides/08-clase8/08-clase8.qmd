@@ -30,6 +30,7 @@ editor:
 #| include: false
 library(ggplot2)
 library(knitr)
+library(kableExtra)
 library(sjPlot)
 library(dplyr)
 library(sjmisc)
@@ -41,6 +42,7 @@ rojo <- "#c0392b"
 
 theme_set(theme_minimal(base_size = 16))
 
+# --- Titanic ---
 load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/practicos/data/titanic.Rdata"))
 
 tt <- tt %>%
@@ -65,12 +67,27 @@ log_edad <- glm(survived_n2 ~ age, data = tt_edad, family = "binomial")
 pred_lpm <- fitted.values(lpm_edad)
 fuera <- sum(pred_lpm < 0 | pred_lpm > 1)
 
-# Odds
+# Odds y odds ratio
 tabla_tt <- table(tt$survived, tt$sex)
 odds_h <- tabla_tt["Sobrevive", "Hombre"] / tabla_tt["No sobrevive", "Hombre"]
 odds_m <- tabla_tt["Sobrevive", "Mujer"] / tabla_tt["No sobrevive", "Mujer"]
 or_tt <- odds_m / odds_h
 odds_total <- sum(tt$survived == "Sobrevive") / sum(tt$survived == "No sobrevive")
+
+# Tabla probabilidades, odds y logit
+tabla_logit <- data.frame(prob = c(0.001, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5,
+                                   0.6, 0.7, 0.8, 0.9, 0.95, 0.999)) %>%
+  mutate(odds = prob / (1 - prob),
+         logit = log(odds))
+
+# Regresión logística con el Titanic
+modelo_titanic <- glm(survived ~ sex, data = tt, family = "binomial")
+b0_tt <- coef(modelo_titanic)[1]
+b1_tt <- coef(modelo_titanic)[2]
+
+modelo_titanic_age <- glm(survived ~ age, data = tt, family = "binomial")
+b_age <- coef(modelo_titanic_age)["age"]
+p_age <- summary(modelo_titanic_age)$coefficients["age", 4]
 
 # --- Segundo ejemplo: participación electoral (ELSOC 2016) ---
 load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
@@ -100,7 +117,6 @@ elsoc <- elsoc_long_2016_2022.2 %>%
                          labels = c("Básica", "Media", "Superior")))
 
 n_elsoc <- nrow(elsoc)
-pct_voto <- round(mean(elsoc$voto) * 100, 1)
 odds_voto <- sum(elsoc$voto) / sum(1 - elsoc$voto)
 
 ct_sexo <- table(elsoc$sexo_f, elsoc$voto_f)
@@ -124,6 +140,10 @@ tabla_educ <- tabla_odds(educ_f)
 edad_educ <- elsoc %>%
   group_by(educ_f) %>%
   summarise(edad_promedio = round(mean(edad), 1))
+
+m_sexo <- glm(voto ~ sexo_f, data = elsoc, family = "binomial")
+m_edad <- glm(voto ~ edad, data = elsoc, family = "binomial")
+or_edad <- exp(coef(m_edad)["edad"])
 ```
 
 ##  {data-background-color="black"}
@@ -148,23 +168,25 @@ edad_educ <- elsoc %>%
 
 # Sesión 8 {data-background-color="black"}
 
-Introducción a la regresión logística
+Regresión logística: odds, odds ratio y coeficientes logit
 
 ## ¿Dónde quedamos?
 
 ::: {.incremental}
 
-- La sesión pasada incorporamos variables **categóricas** al modelo de regresión
+- En la sesión de variables dummy incorporamos variables **categóricas** al modelo de regresión
 
 - Vimos que sus números son etiquetas, que se codifican como **dummy**, y que su coeficiente es una diferencia de promedios respecto de una categoría de referencia
 
 - Pero esas variables categóricas estaban siempre del lado **independiente** de la ecuación
 
+- En el último taller tuvimos un primer acercamiento a las dependientes **dicotómicas**
+
 :::
 
 ##  {data-background-color="black"}
 
-### Regresión logística (1)
+### Regresión logística
 
 ### Para variables dependientes **dicotómicas**
 
@@ -172,11 +194,17 @@ Introducción a la regresión logística
 
 ::: {.incremental}
 
-- ¿Por qué el modelo de regresión que conocemos **no sirve** cuando la dependiente es dicotómica?
+1. ¿Por qué el modelo de regresión que conocemos **no sirve** cuando la dependiente es dicotómica?
 
-- ¿Qué alternativa existe?
+2. ¿Qué alternativa existe?
 
-- Probabilidades, **odds** y **odds ratio**: las piezas que trabajamos esta mañana en el taller
+3. Probabilidades, **odds** y **odds ratio**
+
+4. El **logit** y la estimación de la regresión logística
+
+5. Interpretación de **coeficientes**
+
+6. Un ejemplo sociológico: la **participación electoral**
 
 :::
 
@@ -813,6 +841,24 @@ $$OR=\frac{p_{m}/(1-p_{m})}{p_{h}/(1-p_{h})}=\frac{0.753/(1-0.753)}{0.205/(1-0.2
 
 :::
 
+## Cómo leer un odds ratio
+
+::: {.small}
+
+| Valor del OR | Significado | Ejemplo |
+|---|---|---|
+| OR = 1 | Sin asociación: ambos grupos tienen las mismas chances | |
+| OR > 1 | El grupo comparado tiene **más** chances que el de referencia | Mujeres vs hombres en el Titanic: `r round(or_tt, 2)` |
+| 0 < OR < 1 | El grupo comparado tiene **menos** chances que el de referencia | Hombres vs mujeres: 1 / `r round(or_tt, 2)` = `r round(1 / or_tt, 3)` |
+
+:::
+
+::: {.fragment .fade-up}
+
+El OR depende de **qué grupo** se pone en el denominador. Por eso siempre hay que indicar cuál es la categoría de referencia
+
+:::
+
 ##  {data-background-color="black"}
 
 ### El odds ratio nos permite expresar **en un número** la relación entre dos variables categóricas
@@ -821,9 +867,575 @@ $$OR=\frac{p_{m}/(1-p_{m})}{p_{h}/(1-p_{h})}=\frac{0.753/(1-0.753)}{0.205/(1-0.2
 
 ##  {data-background-color="black"}
 
-### Pero ... el **OR** tiene algunas limitaciones que requieren una transformación adicional
+### Pero ... el **OR** por sí solo no permite inferencia ni control estadístico
 
-### Tema de la **próxima clase**
+### Para eso necesitamos una transformación adicional: el **logit**
+
+# El logit {data-background-color="black"}
+
+## Regresión logística y odds
+
+::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| label: fig-logit2
+#| echo: false
+#| fig-width: 5.5
+#| fig-height: 4.5
+
+ggplot(tt_edad, aes(x = age, y = survived_n2)) +
+  geom_point(aes(color = as.factor(survived_n2)), shape = 1, alpha = 0.5) +
+  stat_function(fun = function(x) {
+    predict(log_edad, newdata = data.frame(age = x), type = "response")
+  }, color = "gray20", linewidth = 1.1) +
+  scale_color_manual(values = c(azul, azul_claro)) +
+  labs(title = "Regresión logística",
+       x = "Edad", y = "Probabilidad de sobrevivir") +
+  theme(legend.position = "none")
+```
+
+:::
+::: {.column width="50%"}
+
+Una de las transformaciones que permite realizar una estimación de regresión con variables dependientes dicotómicas es el **logit**, que es el logaritmo de los odds
+
+:::
+:::
+
+## Logit
+
+$$Logit=ln(Odds)=ln\left(\frac{p}{1-p}\right)$$
+
+::: {.incremental}
+
+- Es la variable dependiente que **efectivamente** estima la regresión logística
+
+- La probabilidad está acotada entre 0 y 1; los odds, entre 0 e infinito
+
+- El logit, en cambio, puede tomar **cualquier valor**, positivo o negativo, igual que la dependiente de una regresión lineal
+
+:::
+
+## Probabilidades, odds y logit
+
+::: {.columns}
+::: {.column width="45%"}
+
+Partamos de un conjunto de probabilidades entre 0 y 1
+
+```{r}
+#| label: logit-tabla-code
+#| echo: true
+#| eval: false
+
+tabla <- data.frame(
+  prob = c(0.001, 0.05, 0.1, 0.2,
+           0.3, 0.4, 0.5, 0.6,
+           0.7, 0.8, 0.9, 0.95,
+           0.999))
+```
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: tabla-prob
+#| echo: false
+
+kable(tabla_logit %>% mutate(odds = "", logit = ""), digits = 3,
+      col.names = c("Probabilidad", "Odds", "Logit")) %>%
+  kable_styling(font_size = 20)
+```
+
+:::
+:::
+
+## Probabilidades, odds y logit
+
+::: {.columns}
+::: {.column width="45%"}
+
+```{r}
+#| label: logit-code
+#| echo: true
+#| eval: false
+
+tabla$odds <- tabla$prob /
+  (1 - tabla$prob)
+
+tabla$logit <- log(tabla$odds)
+```
+
+::: {.small}
+
+::: {.incremental}
+
+- Probabilidad 0.5 = odds 1 = logit **0**
+
+- Probabilidades bajo 0.5 = logits **negativos**
+
+- Probabilidades sobre 0.5 = logits **positivos**
+
+:::
+
+:::
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: tabla-logit
+#| echo: false
+
+kable(tabla_logit, digits = 3,
+      col.names = c("Probabilidad", "Odds", "Logit")) %>%
+  kable_styling(font_size = 20) %>%
+  row_spec(7, bold = TRUE, background = "#dbe8ff")
+```
+
+:::
+:::
+
+## Probabilidades, odds y logit
+
+::: {.columns}
+::: {.column width="45%"}
+
+::: {.small}
+
+::: {.incremental}
+
+- Los odds son **asimétricos**: van de 0 a 1 para las probabilidades bajo 0.5, y de 1 a infinito para las que están sobre 0.5
+
+- El logit es **simétrico**: 0.2 y 0.8 tienen logits de igual magnitud y signo opuesto
+
+- En los extremos, pequeños cambios en la probabilidad implican grandes cambios en el logit
+
+:::
+
+:::
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: tabla-logit-extremos
+#| echo: false
+
+kable(tabla_logit, digits = 3,
+      col.names = c("Probabilidad", "Odds", "Logit")) %>%
+  kable_styling(font_size = 20) %>%
+  row_spec(7, bold = TRUE, background = "#dbe8ff") %>%
+  row_spec(c(4, 10), bold = TRUE, color = azul) %>%
+  row_spec(c(1, 13), bold = TRUE, color = rojo)
+```
+
+:::
+:::
+
+## La curva logística
+
+```{r}
+#| label: fig-curva-logistica
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4.3
+
+ggplot(data.frame(logit = c(-6, 6)), aes(x = logit)) +
+  stat_function(fun = plogis, color = azul, linewidth = 1.3) +
+  geom_hline(yintercept = c(0, 1), color = rojo, linetype = "dashed") +
+  geom_vline(xintercept = 0, color = "gray60") +
+  geom_hline(yintercept = 0.5, color = "gray60") +
+  scale_y_continuous(breaks = seq(0, 1, 0.25)) +
+  labs(x = "Logit", y = "Probabilidad")
+```
+
+::: {.small}
+El modelo estima una **recta** en la escala del logit, que se transforma en una **curva** en la escala de la probabilidad. Por mucho que crezca o disminuya el logit, la probabilidad nunca sale del rango 0 a 1
+:::
+
+# Estimación {data-background-color="black"}
+
+## Estimación en R: `glm`
+
+```{r}
+#| label: glm-sintaxis
+#| echo: true
+#| eval: false
+
+modelo <- glm(dependiente ~ indep1 + indep2 + ...,
+              data = datos,
+              family = "binomial")
+```
+
+::: {.incremental}
+
+- `glm` (*generalized linear model*) es la función para variables dependientes categóricas
+
+- `family = "binomial"` indica que la dependiente es **dicotómica**
+
+- La dependiente puede ser una variable 0 y 1, o un factor de dos categorías. En este último caso, R modela la probabilidad de la **segunda** categoría
+
+:::
+
+## Ejemplo Titanic
+
+::: {.columns}
+::: {.column width="45%"}
+
+```{r}
+#| label: glm-titanic-code
+#| echo: true
+#| eval: false
+
+modelo_titanic <- glm(survived ~ sex,
+                      data = tt,
+                      family = "binomial")
+
+tab_model(modelo_titanic,
+          transform = NULL)
+```
+
+::: {.small}
+
+::: {.incremental}
+
+- `survived` tiene las categorías "No sobrevive" y "Sobrevive": se modela la probabilidad de **sobrevivir**
+
+- `transform = NULL` le indica a `tab_model` que muestre los coeficientes **logit**, tal como salen del modelo
+
+:::
+
+:::
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: tab-titanic-logit
+#| echo: false
+#| results: asis
+
+tab_model(modelo_titanic,
+          transform = NULL,
+          show.se = TRUE,
+          show.ci = FALSE,
+          show.r2 = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Sobrevivencia"),
+          pred.labels = c("(Intercepto)", "Sexo (Mujer)"),
+          string.pred = "Predictores",
+          string.est = "Logit")
+```
+
+:::
+:::
+
+## La ecuación
+
+Igual que en regresión lineal, el modelo puede escribirse como una ecuación, solo que ahora la dependiente es el logit:
+
+$$ln\left(\frac{p}{1-p}\right)=\beta_0+\beta_1X_1$$
+
+::: {.fragment .fade-up}
+
+$$ln\left(\frac{p_{sobrevivir}}{1-p_{sobrevivir}}\right)=`r round(b0_tt, 3)`+`r round(b1_tt, 3)` \times Mujer$$
+
+:::
+
+::: {.fragment .fade-up}
+
+::: {.small}
+Mujer es una dummy: vale 1 para las mujeres y 0 para los hombres
+:::
+
+:::
+
+## Interpretación de asociaciones y contraste de hipótesis
+
+::: {.incremental}
+
+- Coeficiente logit asociado a sexo (mujer) = **`r round(b1_tt, 3)`**
+
+    - El log-odds de sobrevivencia aumenta para las mujeres en `r round(b1_tt, 3)` en comparación con los hombres
+
+- **Contraste de hipótesis**
+
+    - La diferencia en las chances de sobrevivir entre hombres y mujeres es estadísticamente significativa, por lo que se rechaza la hipótesis nula (de ausencia de diferencias entre hombres y mujeres) con un nivel de probabilidad $p<0.001$
+
+:::
+
+## Interpretación de coeficientes logit
+
+::: {.incremental}
+
+- **El signo** se lee directamente: un coeficiente positivo indica que aumentan las chances de que ocurra el evento; uno negativo, que disminuyen
+
+- **La significación** se lee igual que en regresión lineal
+
+- **La magnitud**, sustantivamente, no nos dice mucho, ya que el logit es una transformación de la escala original
+
+:::
+
+::: {.fragment .fade-up}
+
+Para poder interpretar la magnitud del coeficiente se requiere volver a la métrica de odds mediante una transformación inversa o **exponenciación**
+
+:::
+
+## De logits a odds
+
+::: {.columns}
+::: {.column width="50%"}
+
+$$logit=ln(Odds)$$
+
+$$e^{logit}=Odds$$
+
+$$e^{`r round(b1_tt, 3)`}=`r round(exp(b1_tt), 2)`$$
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: exp-coef
+#| echo: true
+
+exp(2.467)
+```
+
+```{r}
+#| label: exp-coef-modelo
+#| echo: true
+
+exp(coef(modelo_titanic))
+```
+
+:::
+:::
+
+::: {.fragment .fade-up}
+
+### Las chances (odds) de sobrevivir siendo mujer son **`r round(exp(b1_tt), 2)`** veces las de un hombre
+
+:::
+
+##  {data-background-color="black"}
+
+### `r round(exp(b1_tt), 2)` ... ¿les suena?
+
+::: {.fragment .fade-up}
+
+### Es exactamente el **odds ratio** que calculamos a mano desde la tabla de contingencia
+
+:::
+
+::: {.fragment .fade-up}
+
+### El coeficiente exponenciado de la regresión logística **es** un odds ratio
+
+:::
+
+## ¿Y el intercepto?
+
+::: {.incremental}
+
+- El intercepto logit es `r round(b0_tt, 3)`: el logit de sobrevivir para la categoría de referencia (hombres)
+
+- Exponenciado: $e^{`r round(b0_tt, 3)`}=`r round(exp(b0_tt), 3)`$
+
+- Es el **odds de sobrevivir de los hombres**, el mismo que calculamos en la tabla
+
+:::
+
+::: {.fragment .fade-up}
+
+::: {.small}
+Igual que en la regresión lineal con dummies, donde el intercepto era el promedio de la categoría de referencia
+:::
+
+:::
+
+## De logits a odds: la ecuación
+
+$$Odds=e^{\beta_0 + \beta_1X_1}$$
+
+::: {.fragment .fade-up}
+
+- Predicción para **mujeres** = `r round(b0_tt, 3)` + (`r round(b1_tt, 3)` × 1) = `r round(b0_tt + b1_tt, 3)`
+
+- Predicción para **hombres** = `r round(b0_tt, 3)` + (`r round(b1_tt, 3)` × 0) = `r round(b0_tt, 3)`
+
+:::
+
+::: {.fragment .fade-up}
+
+$$Odds_{mujer}=e^{`r round(b0_tt + b1_tt, 3)`}=`r round(exp(b0_tt + b1_tt), 3)`$$
+
+$$Odds_{hombre}=e^{`r round(b0_tt, 3)`}=`r round(exp(b0_tt), 3)`$$
+
+:::
+
+::: {.fragment .fade-up}
+
+::: {.small}
+Y el cociente entre ambos vuelve a ser el OR: `r round(exp(b0_tt + b1_tt), 3)` / `r round(exp(b0_tt), 3)` = `r round(exp(b1_tt), 2)`
+:::
+
+:::
+
+## La tabla con odds ratio
+
+::: {.columns}
+::: {.column width="45%"}
+
+```{r}
+#| label: tab-or-code
+#| echo: true
+#| eval: false
+
+tab_model(modelo_titanic)
+```
+
+::: {.small}
+
+::: {.incremental}
+
+- Por defecto, `tab_model` muestra los coeficientes **ya exponenciados**, es decir, como odds ratio
+
+- Al reportar un modelo logístico hay que indicar siempre qué se está mostrando: **logit** u **OR**
+
+:::
+
+:::
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: tab-titanic-or
+#| echo: false
+#| results: asis
+
+tab_model(modelo_titanic,
+          show.se = FALSE,
+          show.ci = TRUE,
+          show.r2 = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Sobrevivencia"),
+          pred.labels = c("(Intercepto)", "Sexo (Mujer)"),
+          string.pred = "Predictores",
+          string.est = "OR",
+          string.ci = "IC 95%")
+```
+
+:::
+:::
+
+## Significación en odds ratio
+
+::: {.incremental}
+
+- En logit, la hipótesis nula es $\beta=0$ (ausencia de asociación)
+
+- En odds ratio, la ausencia de asociación es $OR=1$, porque $e^0=1$
+
+- Por lo tanto, un OR es estadísticamente significativo cuando su intervalo de confianza **no incluye el 1**
+
+- En el Titanic, el intervalo del OR de mujer va muy por sobre 1: la asociación es significativa
+
+:::
+
+## Logit y odds ratio: equivalencias
+
+::: {.small}
+
+| | Logit ($\beta$) | Odds ratio ($e^\beta$) |
+|---|---|---|
+| Sin asociación | 0 | 1 |
+| Asociación positiva | Mayor a 0 | Mayor a 1 |
+| Asociación negativa | Menor a 0 | Entre 0 y 1 |
+| Rango | $-\infty$ a $+\infty$ | 0 a $+\infty$ |
+
+:::
+
+::: {.fragment .fade-up}
+
+Una forma práctica de leer el OR es como **cambio porcentual** en las chances:
+
+$$(OR - 1) \times 100$$
+
+::: {.small}
+Un OR de 1.25 indica un 25% **más** de chances; un OR de 0.80, un 20% **menos**
+:::
+
+:::
+
+## Independientes continuas
+
+::: {.columns}
+::: {.column width="45%"}
+
+```{r}
+#| label: glm-age-code
+#| echo: true
+#| eval: false
+
+modelo_titanic_age <- glm(survived ~ age,
+                          data = tt,
+                          family = "binomial")
+```
+
+::: {.small}
+Volvemos a la variable original de sobrevivencia, ahora con la edad como predictor
+:::
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: tab-age
+#| echo: false
+#| results: asis
+
+tab_model(modelo_titanic_age,
+          transform = NULL,
+          show.se = TRUE,
+          show.ci = FALSE,
+          show.r2 = FALSE,
+          digits = 3,
+          p.style = "numeric",
+          dv.labels = c("Sobrevivencia"),
+          pred.labels = c("(Intercepto)", "Edad"),
+          string.pred = "Predictores",
+          string.est = "Logit")
+```
+
+:::
+:::
+
+## Interpretación con independientes continuas
+
+::: {.incremental}
+
+- **Logit**: el coeficiente de edad es negativo (`r round(b_age, 3)`): a mayor edad, menores chances de sobrevivir
+
+- **Odds ratio**: $e^{`r round(b_age, 3)`}=`r round(exp(b_age), 3)`$. Por cada año adicional de edad, las chances de sobrevivir se multiplican por `r round(exp(b_age), 3)`, es decir, disminuyen un `r round((1 - exp(b_age)) * 100, 1)`%
+
+- **Significación**: $p=`r round(p_age, 3)`$. No es significativo al 95% de confianza: no podemos afirmar que la edad se asocie con la sobrevivencia
+
+:::
+
+::: {.fragment .fade-up}
+
+::: {.small}
+Con predictores continuos el OR se refiere a un cambio de **una unidad** en $x$
+:::
+
+:::
 
 # Un segundo ejemplo {data-background-color="black"}
 
@@ -921,6 +1533,55 @@ Las chances de votar de las mujeres son `r round(or_sexo, 2)` veces las de los h
 
 :::
 
+## El mismo resultado con `glm`
+
+::: {.columns}
+::: {.column width="45%"}
+
+```{r}
+#| label: m-sexo-code
+#| echo: true
+#| eval: false
+
+m_sexo <- glm(voto ~ sexo_f,
+              data = elsoc,
+              family = "binomial")
+
+tab_model(m_sexo)
+```
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: tab-m-sexo
+#| echo: false
+#| results: asis
+
+tab_model(m_sexo,
+          show.se = FALSE,
+          show.ci = TRUE,
+          show.r2 = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Participación electoral"),
+          pred.labels = c("(Intercepto)", "Sexo (Mujer)"),
+          string.pred = "Predictores",
+          string.est = "OR",
+          string.ci = "IC 95%")
+```
+
+:::
+:::
+
+::: {.incremental}
+
+- El OR de mujer es el mismo que calculamos a mano. El intercepto es el odds de los hombres
+
+- Su intervalo de confianza **no incluye el 1**: la diferencia es pequeña, pero estadísticamente significativa
+
+:::
+
 ##  {data-background-color="black"}
 
 ### Recordemos: un OR de 1 significa **ausencia de asociación**
@@ -956,6 +1617,69 @@ Los odds ratio están calculados respecto del grupo de 18 a 29 años
 ::: {.fragment .fade-up}
 
 Aquí sí hay una asociación fuerte, y remite a un fenómeno conocido en el caso chileno: la baja participación de las generaciones jóvenes tras el paso al voto voluntario
+
+:::
+
+## Edad como variable continua
+
+::: {.columns}
+::: {.column width="45%"}
+
+```{r}
+#| label: m-edad-code
+#| echo: true
+#| eval: false
+
+m_edad <- glm(voto ~ edad,
+              data = elsoc,
+              family = "binomial")
+```
+
+::: {.small}
+En lugar de tramos, usamos la edad en años
+:::
+
+:::
+::: {.column width="55%"}
+
+```{r}
+#| label: tab-m-edad
+#| echo: false
+#| results: asis
+
+tab_model(m_edad,
+          transform = NULL,
+          show.se = TRUE,
+          show.ci = FALSE,
+          show.r2 = FALSE,
+          digits = 4,
+          p.style = "stars",
+          dv.labels = c("Participación electoral"),
+          pred.labels = c("(Intercepto)", "Edad"),
+          string.pred = "Predictores",
+          string.est = "Logit")
+```
+
+:::
+:::
+
+## Interpretación
+
+::: {.incremental}
+
+- **Logit**: el coeficiente de edad es positivo (`r round(coef(m_edad)["edad"], 4)`) y significativo: a mayor edad, mayores chances de votar
+
+- **Odds ratio**: $e^{`r round(coef(m_edad)["edad"], 4)`}=`r round(or_edad, 3)`$
+
+- Por cada año adicional de edad, las chances de votar se multiplican por `r round(or_edad, 3)`, es decir, aumentan un **`r round((or_edad - 1) * 100, 1)`%**
+
+:::
+
+::: {.fragment .fade-up}
+
+::: {.small}
+Para un cambio de 10 años: $e^{10 \times `r round(coef(m_edad)["edad"], 4)`}=`r round(exp(10 * coef(m_edad)["edad"]), 2)`$. Las chances de votar de una persona de 50 años son `r round(exp(10 * coef(m_edad)["edad"]), 2)` veces las de una de 40
+:::
 
 :::
 
@@ -1023,11 +1747,11 @@ kable(edad_educ,
 
 ##  {data-background-color="black"}
 
-### Las tablas de contingencia y los odds ratio nos llevan hasta aquí
+### Las tablas de contingencia y los odds ratio bivariados nos llevan hasta aquí
 
-### Para ir más allá necesitamos un **modelo**
+### Para ir más allá necesitamos la regresión logística **múltiple**
 
-### Y eso es la regresión logística
+### Tema de la próxima sesión
 
 ## Lo que enseña este ejemplo
 
@@ -1037,7 +1761,9 @@ kable(edad_educ,
 
 2. Un OR cercano a 1 es un resultado, no un fracaso
 
-3. El análisis bivariado puede entregar patrones **engañosos**, e incluso invertidos, cuando hay variables que confunden la relación
+3. El coeficiente exponenciado de una regresión logística con un predictor dicotómico **reproduce** el OR de la tabla de contingencia
+
+4. El análisis bivariado puede entregar patrones **engañosos**, e incluso invertidos, cuando hay variables que confunden la relación
 
 :::
 
@@ -1047,13 +1773,13 @@ kable(edad_educ,
 
 ::: {.incremental}
 
-- Limitaciones de OLS para dependientes dicotómicas
+- Limitaciones de OLS para dependientes dicotómicas: predicciones fuera de rango y mal ajuste
 
-- Requiere de ajustes y transformaciones para que la estimación tenga sentido
+- Los **odds** y **odds ratio** resumen en un número la relación entre dos variables categóricas
 
-- La regresión logística ajusta el modelo para dependientes dicotómicas
+- La regresión logística estima el **logit** (logaritmo de los odds) como dependiente
 
-- Pasa por el cálculo de los odds ratio, que resumen en un número la relación entre dos variables categóricas
+- Del logit leemos signo y significación; para la magnitud exponenciamos y obtenemos **odds ratio**
 
 :::
 
@@ -1061,13 +1787,11 @@ kable(edad_educ,
 
 ::: {.incremental}
 
-- El **logit**
+- Regresión logística **múltiple**, y la respuesta a lo que quedó pendiente hoy: qué le ocurre al efecto de la educación sobre el voto una vez que controlamos por edad
 
-- Estimación e interpretación de la regresión logística
+- **Probabilidades predichas**
 
 - **Ajuste** de la regresión logística
-
-- Y la respuesta a lo que quedó pendiente hoy: qué le ocurre al efecto de la educación sobre el voto una vez que controlamos por edad
 
 :::
 

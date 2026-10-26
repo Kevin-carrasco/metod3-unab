@@ -191,6 +191,10 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+  <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 <meta property="og:title" content="Métodos estadísticos para Ciencias Sociales III">
 <meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
@@ -232,28 +236,32 @@
 <section>
 <section id="sesión-8" class="title-slide slide level1 center" data-background-color="black">
 <h1>Sesión 8</h1>
-<p>Introducción a la regresión logística</p>
+<p>Regresión logística: odds, odds ratio y coeficientes logit</p>
 </section>
 <section id="dónde-quedamos" class="slide level2">
 <h2>¿Dónde quedamos?</h2>
 <ul>
-<li class="fragment"><p>La sesión pasada incorporamos variables <strong>categóricas</strong> al modelo de regresión</p></li>
+<li class="fragment"><p>En la sesión de variables dummy incorporamos variables <strong>categóricas</strong> al modelo de regresión</p></li>
 <li class="fragment"><p>Vimos que sus números son etiquetas, que se codifican como <strong>dummy</strong>, y que su coeficiente es una diferencia de promedios respecto de una categoría de referencia</p></li>
 <li class="fragment"><p>Pero esas variables categóricas estaban siempre del lado <strong>independiente</strong> de la ecuación</p></li>
+<li class="fragment"><p>En el último taller tuvimos un primer acercamiento a las dependientes <strong>dicotómicas</strong></p></li>
 </ul>
 </section>
 <section id="section-1" class="slide level2" data-background-color="black">
 <h2></h2>
-<h3 id="regresión-logística-1">Regresión logística (1)</h3>
+<h3 id="regresión-logística">Regresión logística</h3>
 <h3 id="para-variables-dependientes-dicotómicas">Para variables dependientes <strong>dicotómicas</strong></h3>
 </section>
 <section id="hoy" class="slide level2">
 <h2>Hoy</h2>
-<ul>
+<ol type="1">
 <li class="fragment"><p>¿Por qué el modelo de regresión que conocemos <strong>no sirve</strong> cuando la dependiente es dicotómica?</p></li>
 <li class="fragment"><p>¿Qué alternativa existe?</p></li>
-<li class="fragment"><p>Probabilidades, <strong>odds</strong> y <strong>odds ratio</strong>: las piezas que trabajamos esta mañana en el taller</p></li>
-</ul>
+<li class="fragment"><p>Probabilidades, <strong>odds</strong> y <strong>odds ratio</strong></p></li>
+<li class="fragment"><p>El <strong>logit</strong> y la estimación de la regresión logística</p></li>
+<li class="fragment"><p>Interpretación de <strong>coeficientes</strong></p></li>
+<li class="fragment"><p>Un ejemplo sociológico: la <strong>participación electoral</strong></p></li>
+</ol>
 </section></section>
 <section>
 <section id="tipos-de-variables" class="title-slide slide level1 center" data-background-color="black">
@@ -486,7 +494,7 @@
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img data-src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEsAAAAnBAMAAAC1Vqj4AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMDMh5mLqXfAAAANUlEQVQ4y2NgGNxACT9QgCpTNsYLRpUNQWVERr0gfiBAE2VYXaSIoQyrT0eVDWllREb9YAUAAwSbys445AgAAAAASUVORK5CYII=" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img data-src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEsAAAAnBAMAAAC1Vqj4AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChoANg5gu4FsAAAANUlEQVQ4y2NgGNxACT9QgCpTNsYLRpUNQWVERr0gfiBAE2VYXaSIoQyrT0eVDWllREb9YAUAAwSbys445AgAAAAASUVORK5CYII=" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
@@ -518,7 +526,7 @@
 </tr>
 </tbody>
 </table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img data-src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAE4AAAAnBAMAAABTf2O8AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMDMh5mLqXfAAAANUlEQVQ4y2NgGPxAiRCAqlM2xg+MRtUNaXXEpgNBQoBG6rA5CZs6LP41GlU3fNQRmw4GMwAArfWd2s8L0gEAAAAASUVORK5CYII=" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img data-src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAE4AAAAnBAMAAABTf2O8AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChoANg5gu4FsAAAANUlEQVQ4y2NgGPxAiRCAqlM2xg+MRtUNaXXEpgNBQoBG6rA5CZs6LP41GlU3fNQRmw4GMwAArfWd2s8L0gEAAAAASUVORK5CYII=" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
@@ -541,13 +549,13 @@
 </tbody>
 </table></td>
 <td style="text-align: left; vertical-align: middle;">98 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img data-src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAG0AAABPBAMAAAATslZYAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChMDMh5mLqXfAAAAk0lEQVRYw+3U0Q2AIAwEUEbQDQRHYP/dNBIIAm0BCR94F//I88QSlFo/exRjjN6FbAV3Wgv3TyceGcKJlXBwn9x9MrucQ3DDHX9V0I6vhOtwzChYx1TCzXXUCCVHVS7kir/Gu7CYu2Kld2ERboLLR1jn8srIuZe2O0e7HPMkW6x2CW1x8dfCDXHmiX7dL0051Pq5ALK2alEVlylAAAAAAElFTkSuQmCC" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img data-src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAG0AAABPBAMAAAATslZYAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAPUExURf////3+/aampvDw8P///7GHRIEAAAACdFJOUwAAdpPNOAAAAAFiS0dEAIgFHUgAAAAHdElNRQfqChoANg5gu4FsAAAAk0lEQVRYw+3U0Q2AIAwEUEbQDQRHYP/dNBIIAm0BCR94F//I88QSlFo/exRjjN6FbAV3Wgv3TyceGcKJlXBwn9x9MrucQ3DDHX9V0I6vhOtwzChYx1TCzXXUCCVHVS7kir/Gu7CYu2Kld2ERboLLR1jn8srIuZe2O0e7HPMkW6x2CW1x8dfCDXHmiX7dL0051Pq5ALK2alEVlylAAAAAAElFTkSuQmCC" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 </tbody>
 </table>
 
-<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.2)<br>2026-10-19</p>
+<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.3.2)<br>2026-10-25</p>
 </div>
 </section>
 <section id="sobrevivientes" class="slide level2">
@@ -1057,6 +1065,45 @@ Figure&nbsp;7
 <h3 id="las-chances-de-sobrevivir-de-las-mujeres-son-11.78-veces-más-que-las-de-los-hombres">Las chances de sobrevivir de las mujeres son <strong>11.78</strong> veces más que las de los hombres</h3>
 </div>
 </section>
+<section id="cómo-leer-un-odds-ratio" class="slide level2">
+<h2>Cómo leer un odds ratio</h2>
+<div class="small">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Valor del OR</th>
+<th>Significado</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OR = 1</td>
+<td>Sin asociación: ambos grupos tienen las mismas chances</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>OR &gt; 1</td>
+<td>El grupo comparado tiene <strong>más</strong> chances que el de referencia</td>
+<td>Mujeres vs hombres en el Titanic: 11.78</td>
+</tr>
+<tr class="odd">
+<td>0 &lt; OR &lt; 1</td>
+<td>El grupo comparado tiene <strong>menos</strong> chances que el de referencia</td>
+<td>Hombres vs mujeres: 1 / 11.78 = 0.085</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>El OR depende de <strong>qué grupo</strong> se pone en el denominador. Por eso siempre hay que indicar cuál es la categoría de referencia</p>
+</div>
+</section>
 <section id="section-8" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="el-odds-ratio-nos-permite-expresar-en-un-número-la-relación-entre-dos-variables-categóricas">El odds ratio nos permite expresar <strong>en un número</strong> la relación entre dos variables categóricas</h3>
@@ -1064,8 +1111,668 @@ Figure&nbsp;7
 </section>
 <section id="section-9" class="slide level2" data-background-color="black">
 <h2></h2>
-<h3 id="pero-el-or-tiene-algunas-limitaciones-que-requieren-una-transformación-adicional">Pero … el <strong>OR</strong> tiene algunas limitaciones que requieren una transformación adicional</h3>
-<h3 id="tema-de-la-próxima-clase">Tema de la <strong>próxima clase</strong></h3>
+<h3 id="pero-el-or-por-sí-solo-no-permite-inferencia-ni-control-estadístico">Pero … el <strong>OR</strong> por sí solo no permite inferencia ni control estadístico</h3>
+<h3 id="para-eso-necesitamos-una-transformación-adicional-el-logit">Para eso necesitamos una transformación adicional: el <strong>logit</strong></h3>
+</section></section>
+<section>
+<section id="el-logit" class="title-slide slide level1 center" data-background-color="black">
+<h1>El logit</h1>
+
+</section>
+<section id="regresión-logística-y-odds" class="slide level2">
+<h2>Regresión logística y odds</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-logit2" class="quarto-float quarto-figure quarto-figure-center" width="528">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-logit2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="08-clase8_files/figure-revealjs/fig-logit2-1.png" id="fig-logit2" width="528">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-logit2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Una de las transformaciones que permite realizar una estimación de regresión con variables dependientes dicotómicas es el <strong>logit</strong>, que es el logaritmo de los odds</p>
+</div></div>
+</section>
+<section id="logit" class="slide level2">
+<h2>Logit</h2>
+<p><span class="math display">\[Logit=ln(Odds)=ln\left(\frac{p}{1-p}\right)\]</span></p>
+<ul>
+<li class="fragment"><p>Es la variable dependiente que <strong>efectivamente</strong> estima la regresión logística</p></li>
+<li class="fragment"><p>La probabilidad está acotada entre 0 y 1; los odds, entre 0 e infinito</p></li>
+<li class="fragment"><p>El logit, en cambio, puede tomar <strong>cualquier valor</strong>, positivo o negativo, igual que la dependiente de una regresión lineal</p></li>
+</ul>
+</section>
+<section id="probabilidades-odds-y-logit" class="slide level2">
+<h2>Probabilidades, odds y logit</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>Partamos de un conjunto de probabilidades entre 0 y 1</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>tabla <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-2"><a></a>  <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>,</span>
+<span id="cb6-3"><a></a>           <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>,</span>
+<span id="cb6-4"><a></a>           <span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="fl">0.95</span>,</span>
+<span id="cb6-5"><a></a>           <span class="fl">0.999</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top" style="font-size: 20px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Probabilidad</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Odds</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Logit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.001</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.050</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.100</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.200</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.300</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.400</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.500</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.600</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.700</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.800</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.900</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.950</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.999</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="probabilidades-odds-y-logit-1" class="slide level2">
+<h2>Probabilidades, odds y logit</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>tabla<span class="sc">$</span>odds <span class="ot">&lt;-</span> tabla<span class="sc">$</span>prob <span class="sc">/</span></span>
+<span id="cb7-2"><a></a>  (<span class="dv">1</span> <span class="sc">-</span> tabla<span class="sc">$</span>prob)</span>
+<span id="cb7-3"><a></a></span>
+<span id="cb7-4"><a></a>tabla<span class="sc">$</span>logit <span class="ot">&lt;-</span> <span class="fu">log</span>(tabla<span class="sc">$</span>odds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="small">
+<ul>
+<li class="fragment"><p>Probabilidad 0.5 = odds 1 = logit <strong>0</strong></p></li>
+<li class="fragment"><p>Probabilidades bajo 0.5 = logits <strong>negativos</strong></p></li>
+<li class="fragment"><p>Probabilidades sobre 0.5 = logits <strong>positivos</strong></p></li>
+</ul>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top" style="font-size: 20px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Probabilidad</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Odds</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Logit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">-6.907</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.050</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">-2.944</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.100</td>
+<td style="text-align: right;">0.111</td>
+<td style="text-align: right;">-2.197</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.200</td>
+<td style="text-align: right;">0.250</td>
+<td style="text-align: right;">-1.386</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.300</td>
+<td style="text-align: right;">0.429</td>
+<td style="text-align: right;">-0.847</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.400</td>
+<td style="text-align: right;">0.667</td>
+<td style="text-align: right;">-0.405</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">0.500</td>
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">1.000</td>
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.600</td>
+<td style="text-align: right;">1.500</td>
+<td style="text-align: right;">0.405</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.700</td>
+<td style="text-align: right;">2.333</td>
+<td style="text-align: right;">0.847</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.800</td>
+<td style="text-align: right;">4.000</td>
+<td style="text-align: right;">1.386</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.900</td>
+<td style="text-align: right;">9.000</td>
+<td style="text-align: right;">2.197</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.950</td>
+<td style="text-align: right;">19.000</td>
+<td style="text-align: right;">2.944</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.999</td>
+<td style="text-align: right;">999.000</td>
+<td style="text-align: right;">6.907</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="probabilidades-odds-y-logit-2" class="slide level2">
+<h2>Probabilidades, odds y logit</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="small">
+<ul>
+<li class="fragment"><p>Los odds son <strong>asimétricos</strong>: van de 0 a 1 para las probabilidades bajo 0.5, y de 1 a infinito para las que están sobre 0.5</p></li>
+<li class="fragment"><p>El logit es <strong>simétrico</strong>: 0.2 y 0.8 tienen logits de igual magnitud y signo opuesto</p></li>
+<li class="fragment"><p>En los extremos, pequeños cambios en la probabilidad implican grandes cambios en el logit</p></li>
+</ul>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top" style="font-size: 20px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Probabilidad</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Odds</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Logit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; color: rgba(192, 57, 43, 255) !important;">0.001</td>
+<td style="text-align: right; font-weight: bold; color: rgba(192, 57, 43, 255) !important;">0.001</td>
+<td style="text-align: right; font-weight: bold; color: rgba(192, 57, 43, 255) !important;">-6.907</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.050</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">-2.944</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.100</td>
+<td style="text-align: right;">0.111</td>
+<td style="text-align: right;">-2.197</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; color: rgba(4, 36, 95, 255) !important;">0.200</td>
+<td style="text-align: right; font-weight: bold; color: rgba(4, 36, 95, 255) !important;">0.250</td>
+<td style="text-align: right; font-weight: bold; color: rgba(4, 36, 95, 255) !important;">-1.386</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.300</td>
+<td style="text-align: right;">0.429</td>
+<td style="text-align: right;">-0.847</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.400</td>
+<td style="text-align: right;">0.667</td>
+<td style="text-align: right;">-0.405</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">0.500</td>
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">1.000</td>
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.600</td>
+<td style="text-align: right;">1.500</td>
+<td style="text-align: right;">0.405</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.700</td>
+<td style="text-align: right;">2.333</td>
+<td style="text-align: right;">0.847</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; color: rgba(4, 36, 95, 255) !important;">0.800</td>
+<td style="text-align: right; font-weight: bold; color: rgba(4, 36, 95, 255) !important;">4.000</td>
+<td style="text-align: right; font-weight: bold; color: rgba(4, 36, 95, 255) !important;">1.386</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.900</td>
+<td style="text-align: right;">9.000</td>
+<td style="text-align: right;">2.197</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.950</td>
+<td style="text-align: right;">19.000</td>
+<td style="text-align: right;">2.944</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; color: rgba(192, 57, 43, 255) !important;">0.999</td>
+<td style="text-align: right; font-weight: bold; color: rgba(192, 57, 43, 255) !important;">999.000</td>
+<td style="text-align: right; font-weight: bold; color: rgba(192, 57, 43, 255) !important;">6.907</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="la-curva-logística" class="slide level2">
+<h2>La curva logística</h2>
+
+<img data-src="08-clase8_files/figure-revealjs/fig-curva-logistica-1.png" id="fig-curva-logistica" width="864" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;9
+</p><div class="small">
+<p>El modelo estima una <strong>recta</strong> en la escala del logit, que se transforma en una <strong>curva</strong> en la escala de la probabilidad. Por mucho que crezca o disminuya el logit, la probabilidad nunca sale del rango 0 a 1</p>
+</div>
+</section></section>
+<section>
+<section id="estimación" class="title-slide slide level1 center" data-background-color="black">
+<h1>Estimación</h1>
+
+</section>
+<section id="estimación-en-r-glm" class="slide level2">
+<h2>Estimación en R: <code>glm</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>modelo <span class="ot">&lt;-</span> <span class="fu">glm</span>(dependiente <span class="sc">~</span> indep1 <span class="sc">+</span> indep2 <span class="sc">+</span> ...,</span>
+<span id="cb8-2"><a></a>              <span class="at">data =</span> datos,</span>
+<span id="cb8-3"><a></a>              <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment"><p><code>glm</code> (<em>generalized linear model</em>) es la función para variables dependientes categóricas</p></li>
+<li class="fragment"><p><code>family = "binomial"</code> indica que la dependiente es <strong>dicotómica</strong></p></li>
+<li class="fragment"><p>La dependiente puede ser una variable 0 y 1, o un factor de dos categorías. En este último caso, R modela la probabilidad de la <strong>segunda</strong> categoría</p></li>
+</ul>
+</section>
+<section id="ejemplo-titanic" class="slide level2">
+<h2>Ejemplo Titanic</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>modelo_titanic <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> sex,</span>
+<span id="cb9-2"><a></a>                      <span class="at">data =</span> tt,</span>
+<span id="cb9-3"><a></a>                      <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb9-4"><a></a></span>
+<span id="cb9-5"><a></a><span class="fu">tab_model</span>(modelo_titanic,</span>
+<span id="cb9-6"><a></a>          <span class="at">transform =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="small">
+<ul>
+<li class="fragment"><p><code>survived</code> tiene las categorías “No sobrevive” y “Sobrevive”: se modela la probabilidad de <strong>sobrevivir</strong></p></li>
+<li class="fragment"><p><code>transform = NULL</code> le indica a <code>tab_model</code> que muestre los coeficientes <strong>logit</strong>, tal como salen del modelo</p></li>
+</ul>
+</div>
+</div><div class="column" style="width:55%;">
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Sobrevivencia</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Logit</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.354 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.097</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo (Mujer)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.467 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.152</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">1046</td>
+</tr>
+<tr class="even">
+<td colspan="3" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="la-ecuación" class="slide level2">
+<h2>La ecuación</h2>
+<p>Igual que en regresión lineal, el modelo puede escribirse como una ecuación, solo que ahora la dependiente es el logit:</p>
+<p><span class="math display">\[ln\left(\frac{p}{1-p}\right)=\beta_0+\beta_1X_1\]</span></p>
+<div class="fragment fade-up">
+<p><span class="math display">\[ln\left(\frac{p_{sobrevivir}}{1-p_{sobrevivir}}\right)=-1.354+2.467 \times Mujer\]</span></p>
+</div>
+<div class="fragment fade-up">
+<div class="small">
+<p>Mujer es una dummy: vale 1 para las mujeres y 0 para los hombres</p>
+</div>
+</div>
+</section>
+<section id="interpretación-de-asociaciones-y-contraste-de-hipótesis" class="slide level2">
+<h2>Interpretación de asociaciones y contraste de hipótesis</h2>
+<ul>
+<li class="fragment"><p>Coeficiente logit asociado a sexo (mujer) = <strong>2.467</strong></p>
+<ul>
+<li class="fragment">El log-odds de sobrevivencia aumenta para las mujeres en 2.467 en comparación con los hombres</li>
+</ul></li>
+<li class="fragment"><p><strong>Contraste de hipótesis</strong></p>
+<ul>
+<li class="fragment">La diferencia en las chances de sobrevivir entre hombres y mujeres es estadísticamente significativa, por lo que se rechaza la hipótesis nula (de ausencia de diferencias entre hombres y mujeres) con un nivel de probabilidad <span class="math inline">\(p&lt;0.001\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="interpretación-de-coeficientes-logit" class="slide level2">
+<h2>Interpretación de coeficientes logit</h2>
+<ul>
+<li class="fragment"><p><strong>El signo</strong> se lee directamente: un coeficiente positivo indica que aumentan las chances de que ocurra el evento; uno negativo, que disminuyen</p></li>
+<li class="fragment"><p><strong>La significación</strong> se lee igual que en regresión lineal</p></li>
+<li class="fragment"><p><strong>La magnitud</strong>, sustantivamente, no nos dice mucho, ya que el logit es una transformación de la escala original</p></li>
+</ul>
+<div class="fragment fade-up">
+<p>Para poder interpretar la magnitud del coeficiente se requiere volver a la métrica de odds mediante una transformación inversa o <strong>exponenciación</strong></p>
+</div>
+</section>
+<section id="de-logits-a-odds" class="slide level2">
+<h2>De logits a odds</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[logit=ln(Odds)\]</span></p>
+<p><span class="math display">\[e^{logit}=Odds\]</span></p>
+<p><span class="math display">\[e^{2.467}=11.78\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">exp</span>(<span class="fl">2.467</span>)</span>
+<span id="cb10-2"><a></a><span class="co">#&gt; [1] 11.78703</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">exp</span>(<span class="fu">coef</span>(modelo_titanic))</span>
+<span id="cb11-2"><a></a><span class="co">#&gt; (Intercept)    sexMujer </span></span>
+<span id="cb11-3"><a></a><span class="co">#&gt;   0.2581262  11.7836420</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<div class="fragment fade-up">
+<h3 id="las-chances-odds-de-sobrevivir-siendo-mujer-son-11.78-veces-las-de-un-hombre">Las chances (odds) de sobrevivir siendo mujer son <strong>11.78</strong> veces las de un hombre</h3>
+</div>
+</section>
+<section id="section-10" class="slide level2" data-background-color="black">
+<h2></h2>
+<h3 id="les-suena">11.78 … ¿les suena?</h3>
+<div class="fragment fade-up">
+<h3 id="es-exactamente-el-odds-ratio-que-calculamos-a-mano-desde-la-tabla-de-contingencia">Es exactamente el <strong>odds ratio</strong> que calculamos a mano desde la tabla de contingencia</h3>
+</div>
+<div class="fragment fade-up">
+<h3 id="el-coeficiente-exponenciado-de-la-regresión-logística-es-un-odds-ratio">El coeficiente exponenciado de la regresión logística <strong>es</strong> un odds ratio</h3>
+</div>
+</section>
+<section id="y-el-intercepto" class="slide level2">
+<h2>¿Y el intercepto?</h2>
+<ul>
+<li class="fragment"><p>El intercepto logit es -1.354: el logit de sobrevivir para la categoría de referencia (hombres)</p></li>
+<li class="fragment"><p>Exponenciado: <span class="math inline">\(e^{-1.354}=0.258\)</span></p></li>
+<li class="fragment"><p>Es el <strong>odds de sobrevivir de los hombres</strong>, el mismo que calculamos en la tabla</p></li>
+</ul>
+<div class="fragment fade-up">
+<div class="small">
+<p>Igual que en la regresión lineal con dummies, donde el intercepto era el promedio de la categoría de referencia</p>
+</div>
+</div>
+</section>
+<section id="de-logits-a-odds-la-ecuación" class="slide level2">
+<h2>De logits a odds: la ecuación</h2>
+<p><span class="math display">\[Odds=e^{\beta_0 + \beta_1X_1}\]</span></p>
+<div class="fragment fade-up">
+<ul>
+<li><p>Predicción para <strong>mujeres</strong> = -1.354 + (2.467 × 1) = 1.112</p></li>
+<li><p>Predicción para <strong>hombres</strong> = -1.354 + (2.467 × 0) = -1.354</p></li>
+</ul>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[Odds_{mujer}=e^{1.112}=3.042\]</span></p>
+<p><span class="math display">\[Odds_{hombre}=e^{-1.354}=0.258\]</span></p>
+</div>
+<div class="fragment fade-up">
+<div class="small">
+<p>Y el cociente entre ambos vuelve a ser el OR: 3.042 / 0.258 = 11.78</p>
+</div>
+</div>
+</section>
+<section id="la-tabla-con-odds-ratio" class="slide level2">
+<h2>La tabla con odds ratio</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">tab_model</span>(modelo_titanic)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="small">
+<ul>
+<li class="fragment"><p>Por defecto, <code>tab_model</code> muestra los coeficientes <strong>ya exponenciados</strong>, es decir, como odds ratio</p></li>
+<li class="fragment"><p>Al reportar un modelo logístico hay que indicar siempre qué se está mostrando: <strong>logit</strong> u <strong>OR</strong></p></li>
+</ul>
+</div>
+</div><div class="column" style="width:55%;">
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Sobrevivencia</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">OR</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">IC 95%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.258 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo (Mujer)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">11.784 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">1046</td>
+</tr>
+<tr class="even">
+<td colspan="3" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="significación-en-odds-ratio" class="slide level2">
+<h2>Significación en odds ratio</h2>
+<ul>
+<li class="fragment"><p>En logit, la hipótesis nula es <span class="math inline">\(\beta=0\)</span> (ausencia de asociación)</p></li>
+<li class="fragment"><p>En odds ratio, la ausencia de asociación es <span class="math inline">\(OR=1\)</span>, porque <span class="math inline">\(e^0=1\)</span></p></li>
+<li class="fragment"><p>Por lo tanto, un OR es estadísticamente significativo cuando su intervalo de confianza <strong>no incluye el 1</strong></p></li>
+<li class="fragment"><p>En el Titanic, el intervalo del OR de mujer va muy por sobre 1: la asociación es significativa</p></li>
+</ul>
+</section>
+<section id="logit-y-odds-ratio-equivalencias" class="slide level2">
+<h2>Logit y odds ratio: equivalencias</h2>
+<div class="small">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Logit (<span class="math inline">\(\beta\)</span>)</th>
+<th>Odds ratio (<span class="math inline">\(e^\beta\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sin asociación</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Asociación positiva</td>
+<td>Mayor a 0</td>
+<td>Mayor a 1</td>
+</tr>
+<tr class="odd">
+<td>Asociación negativa</td>
+<td>Menor a 0</td>
+<td>Entre 0 y 1</td>
+</tr>
+<tr class="even">
+<td>Rango</td>
+<td><span class="math inline">\(-\infty\)</span> a <span class="math inline">\(+\infty\)</span></td>
+<td>0 a <span class="math inline">\(+\infty\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>Una forma práctica de leer el OR es como <strong>cambio porcentual</strong> en las chances:</p>
+<p><span class="math display">\[(OR - 1) \times 100\]</span></p>
+<div class="small">
+<p>Un OR de 1.25 indica un 25% <strong>más</strong> de chances; un OR de 0.80, un 20% <strong>menos</strong></p>
+</div>
+</div>
+</section>
+<section id="independientes-continuas" class="slide level2">
+<h2>Independientes continuas</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>modelo_titanic_age <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> age,</span>
+<span id="cb13-2"><a></a>                          <span class="at">data =</span> tt,</span>
+<span id="cb13-3"><a></a>                          <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="small">
+<p>Volvemos a la variable original de sobrevivencia, ahora con la edad como predictor</p>
+</div>
+</div><div class="column" style="width:55%;">
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Sobrevivencia</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Logit</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.137</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.145</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.345</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.008</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.004</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.073</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">1046</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="interpretación-con-independientes-continuas" class="slide level2">
+<h2>Interpretación con independientes continuas</h2>
+<ul>
+<li class="fragment"><p><strong>Logit</strong>: el coeficiente de edad es negativo (-0.008): a mayor edad, menores chances de sobrevivir</p></li>
+<li class="fragment"><p><strong>Odds ratio</strong>: <span class="math inline">\(e^{-0.008}=0.992\)</span>. Por cada año adicional de edad, las chances de sobrevivir se multiplican por 0.992, es decir, disminuyen un 0.8%</p></li>
+<li class="fragment"><p><strong>Significación</strong>: <span class="math inline">\(p=0.073\)</span>. No es significativo al 95% de confianza: no podemos afirmar que la edad se asocie con la sobrevivencia</p></li>
+</ul>
+<div class="fragment fade-up">
+<div class="small">
+<p>Con predictores continuos el OR se refiere a un cambio de <strong>una unidad</strong> en <span class="math inline">\(x\)</span></p>
+</div>
+</div>
 </section></section>
 <section>
 <section id="un-segundo-ejemplo" class="title-slide slide level1 center" data-background-color="black">
@@ -1171,7 +1878,55 @@ Figure&nbsp;7
 </div>
 </div>
 </section>
-<section id="section-10" class="slide level2" data-background-color="black">
+<section id="el-mismo-resultado-con-glm" class="slide level2">
+<h2>El mismo resultado con <code>glm</code></h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>m_sexo <span class="ot">&lt;-</span> <span class="fu">glm</span>(voto <span class="sc">~</span> sexo_f,</span>
+<span id="cb14-2"><a></a>              <span class="at">data =</span> elsoc,</span>
+<span id="cb14-3"><a></a>              <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb14-4"><a></a></span>
+<span id="cb14-5"><a></a><span class="fu">tab_model</span>(m_sexo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:55%;">
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Participación electoral</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">OR</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">IC 95%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.882 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo (Mujer)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.247 <sup>**</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2894</td>
+</tr>
+<tr class="even">
+<td colspan="3" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<ul>
+<li class="fragment"><p>El OR de mujer es el mismo que calculamos a mano. El intercepto es el odds de los hombres</p></li>
+<li class="fragment"><p>Su intervalo de confianza <strong>no incluye el 1</strong>: la diferencia es pequeña, pero estadísticamente significativa</p></li>
+</ul>
+</section>
+<section id="section-11" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="recordemos-un-or-de-1-significa-ausencia-de-asociación">Recordemos: un OR de 1 significa <strong>ausencia de asociación</strong></h3>
 <h3 id="aquí-obtuvimos-1.25-y-en-el-titanic-11.78">Aquí obtuvimos 1.25, y en el Titanic 11.78</h3>
@@ -1251,6 +2006,64 @@ Figure&nbsp;7
 <p>Aquí sí hay una asociación fuerte, y remite a un fenómeno conocido en el caso chileno: la baja participación de las generaciones jóvenes tras el paso al voto voluntario</p>
 </div>
 </section>
+<section id="edad-como-variable-continua" class="slide level2">
+<h2>Edad como variable continua</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>m_edad <span class="ot">&lt;-</span> <span class="fu">glm</span>(voto <span class="sc">~</span> edad,</span>
+<span id="cb15-2"><a></a>              <span class="at">data =</span> elsoc,</span>
+<span id="cb15-3"><a></a>              <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="small">
+<p>En lugar de tramos, usamos la edad en años</p>
+</div>
+</div><div class="column" style="width:55%;">
+<table class="caption-top" style="border-collapse:collapse; border:none;">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Participación electoral</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Logit</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.6898 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.1373</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0558 <sup>***</sup></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0031</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2894</td>
+</tr>
+<tr class="even">
+<td colspan="3" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="interpretación" class="slide level2">
+<h2>Interpretación</h2>
+<ul>
+<li class="fragment"><p><strong>Logit</strong>: el coeficiente de edad es positivo (0.0558) y significativo: a mayor edad, mayores chances de votar</p></li>
+<li class="fragment"><p><strong>Odds ratio</strong>: <span class="math inline">\(e^{0.0558}=1.057\)</span></p></li>
+<li class="fragment"><p>Por cada año adicional de edad, las chances de votar se multiplican por 1.057, es decir, aumentan un <strong>5.7%</strong></p></li>
+</ul>
+<div class="fragment fade-up">
+<div class="small">
+<p>Para un cambio de 10 años: <span class="math inline">\(e^{10 \times 0.0558}=1.75\)</span>. Las chances de votar de una persona de 50 años son 1.75 veces las de una de 40</p>
+</div>
+</div>
+</section>
 <section id="participación-según-nivel-educacional" class="slide level2">
 <h2>Participación según nivel educacional</h2>
 <div class="cell">
@@ -1301,7 +2114,7 @@ Figure&nbsp;7
 </div>
 </div>
 </section>
-<section id="section-11" class="slide level2" data-background-color="black">
+<section id="section-12" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="qué-ocurre-aquí">¿Qué ocurre aquí?</h3>
 <div class="fragment fade-up">
@@ -1345,46 +2158,46 @@ Figure&nbsp;7
 <li class="fragment"><p>La comparación bivariada entre educación y voto mezcla entonces dos efectos que operan en direcciones <strong>opuestas</strong></p></li>
 </ul>
 </section>
-<section id="section-12" class="slide level2" data-background-color="black">
+<section id="section-13" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="el-resultado-paradójico-no-proviene-de-los-datos">El resultado paradójico no proviene de los datos</h3>
 <h3 id="proviene-de-no-haber-controlado-por-edad">Proviene de <strong>no haber controlado por edad</strong></h3>
 <h3 id="es-exactamente-el-problema-que-resolvimos-en-la-primera-parte-del-curso">Es exactamente el problema que resolvimos en la primera parte del curso</h3>
 </section>
-<section id="section-13" class="slide level2" data-background-color="black">
+<section id="section-14" class="slide level2" data-background-color="black">
 <h2></h2>
-<h3 id="las-tablas-de-contingencia-y-los-odds-ratio-nos-llevan-hasta-aquí">Las tablas de contingencia y los odds ratio nos llevan hasta aquí</h3>
-<h3 id="para-ir-más-allá-necesitamos-un-modelo">Para ir más allá necesitamos un <strong>modelo</strong></h3>
-<h3 id="y-eso-es-la-regresión-logística">Y eso es la regresión logística</h3>
+<h3 id="las-tablas-de-contingencia-y-los-odds-ratio-bivariados-nos-llevan-hasta-aquí">Las tablas de contingencia y los odds ratio bivariados nos llevan hasta aquí</h3>
+<h3 id="para-ir-más-allá-necesitamos-la-regresión-logística-múltiple">Para ir más allá necesitamos la regresión logística <strong>múltiple</strong></h3>
+<h3 id="tema-de-la-próxima-sesión">Tema de la próxima sesión</h3>
 </section>
 <section id="lo-que-enseña-este-ejemplo" class="slide level2">
 <h2>Lo que enseña este ejemplo</h2>
 <ol type="1">
 <li class="fragment"><p>Los odds y los odds ratio se calculan igual en cualquier contexto, pero sus <strong>magnitudes</strong> en investigación social suelen ser más modestas que en el Titanic</p></li>
 <li class="fragment"><p>Un OR cercano a 1 es un resultado, no un fracaso</p></li>
+<li class="fragment"><p>El coeficiente exponenciado de una regresión logística con un predictor dicotómico <strong>reproduce</strong> el OR de la tabla de contingencia</p></li>
 <li class="fragment"><p>El análisis bivariado puede entregar patrones <strong>engañosos</strong>, e incluso invertidos, cuando hay variables que confunden la relación</p></li>
 </ol>
 </section>
-<section id="section-14" class="slide level2" data-background-color="black">
+<section id="section-15" class="slide level2" data-background-color="black">
 <h2></h2>
 <h3 id="resumen">Resumen</h3>
 <ul>
-<li class="fragment"><p>Limitaciones de OLS para dependientes dicotómicas</p></li>
-<li class="fragment"><p>Requiere de ajustes y transformaciones para que la estimación tenga sentido</p></li>
-<li class="fragment"><p>La regresión logística ajusta el modelo para dependientes dicotómicas</p></li>
-<li class="fragment"><p>Pasa por el cálculo de los odds ratio, que resumen en un número la relación entre dos variables categóricas</p></li>
+<li class="fragment"><p>Limitaciones de OLS para dependientes dicotómicas: predicciones fuera de rango y mal ajuste</p></li>
+<li class="fragment"><p>Los <strong>odds</strong> y <strong>odds ratio</strong> resumen en un número la relación entre dos variables categóricas</p></li>
+<li class="fragment"><p>La regresión logística estima el <strong>logit</strong> (logaritmo de los odds) como dependiente</p></li>
+<li class="fragment"><p>Del logit leemos signo y significación; para la magnitud exponenciamos y obtenemos <strong>odds ratio</strong></p></li>
 </ul>
 </section>
 <section id="siguiente-sesión" class="slide level2">
 <h2>Siguiente sesión</h2>
 <ul>
-<li class="fragment"><p>El <strong>logit</strong></p></li>
-<li class="fragment"><p>Estimación e interpretación de la regresión logística</p></li>
+<li class="fragment"><p>Regresión logística <strong>múltiple</strong>, y la respuesta a lo que quedó pendiente hoy: qué le ocurre al efecto de la educación sobre el voto una vez que controlamos por edad</p></li>
+<li class="fragment"><p><strong>Probabilidades predichas</strong></p></li>
 <li class="fragment"><p><strong>Ajuste</strong> de la regresión logística</p></li>
-<li class="fragment"><p>Y la respuesta a lo que quedó pendiente hoy: qué le ocurre al efecto de la educación sobre el voto una vez que controlamos por edad</p></li>
 </ul>
 </section>
-<section id="section-15" class="slide level2" data-background-color="black">
+<section id="section-16" class="slide level2" data-background-color="black">
 <h2></h2>
 <div class="columns v-center-container">
 <div class="column" style="width:20%;">
