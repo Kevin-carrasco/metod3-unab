@@ -1707,7 +1707,11 @@
     "href": "practicos/practico-09.html",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "",
-    "text": "La semana pasada introdujimos con el ejemplo del Titanic los conceptos centrales de la regresión logística: probabilidades, chances (u odds) y razón de chances (u odds ratio). En esta guía los repasaremos con datos de ELSOC, la base del curso, y daremos el paso siguiente: estimar el modelo con la función glm y comprobar que sus coeficientes reproducen lo que calculamos a mano.\nAl terminar, usted debería ser capaz de:\n\nCalcular e interpretar una probabilidad, un odds y un odds ratio a partir de una tabla de contingencia\nComprender por qué los odds se transforman en logit\nEstimar una regresión logística con glm e interpretar sus coeficientes en logit y en odds ratio"
+    "text": "La semana pasada introdujimos con el ejemplo del Titanic los conceptos centrales de la regresión logística: probabilidades, chances (u odds) y razón de chances (u odds ratio). En esta guía los repasaremos con datos de ELSOC, la base del curso, y daremos el paso siguiente: estimar el modelo con la función glm y comprobar que sus coeficientes reproducen lo que calculamos a mano.\nAl terminar, usted debería ser capaz de:\n\nCalcular e interpretar una probabilidad, un odds y un odds ratio a partir de una tabla de contingencia\nComprender por qué los odds se transforman en logit\nEstimar una regresión logística con glm e interpretar sus coeficientes en logit y en odds ratio",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#objetivo",
@@ -5841,7 +5845,11 @@
     "href": "practicos/practico-09.html#objetivo-de-la-práctica",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "",
-    "text": "La semana pasada introdujimos con el ejemplo del Titanic los conceptos centrales de la regresión logística: probabilidades, chances (u odds) y razón de chances (u odds ratio). En esta guía los repasaremos con datos de ELSOC, la base del curso, y daremos el paso siguiente: estimar el modelo con la función glm y comprobar que sus coeficientes reproducen lo que calculamos a mano.\nAl terminar, usted debería ser capaz de:\n\nCalcular e interpretar una probabilidad, un odds y un odds ratio a partir de una tabla de contingencia\nComprender por qué los odds se transforman en logit\nEstimar una regresión logística con glm e interpretar sus coeficientes en logit y en odds ratio"
+    "text": "La semana pasada introdujimos con el ejemplo del Titanic los conceptos centrales de la regresión logística: probabilidades, chances (u odds) y razón de chances (u odds ratio). En esta guía los repasaremos con datos de ELSOC, la base del curso, y daremos el paso siguiente: estimar el modelo con la función glm y comprobar que sus coeficientes reproducen lo que calculamos a mano.\nAl terminar, usted debería ser capaz de:\n\nCalcular e interpretar una probabilidad, un odds y un odds ratio a partir de una tabla de contingencia\nComprender por qué los odds se transforman en logit\nEstimar una regresión logística con glm e interpretar sus coeficientes en logit y en odds ratio",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#explorar-los-datos",
@@ -5869,14 +5877,22 @@
     "href": "practicos/practico-09.html#probabilidades",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "4.1 Probabilidades",
-    "text": "4.1 Probabilidades\nUna probabilidad es la posibilidad de ocurrencia de un evento, usando como referencia todos los casos.\n\nfrq(proc_data$confia)\n\nx &lt;categorical&gt; \n# total N=2906 valid N=2906 mean=1.47 sd=0.50\n\nValue     |    N | Raw % | Valid % | Cum. %\n-------------------------------------------\nNo confía | 1545 | 53.17 |   53.17 |  53.17\nConfía    | 1361 | 46.83 |   46.83 | 100.00\n&lt;NA&gt;      |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\\[P_{confiar} = \\frac{1361}{2906} = 0.468\\]\nUn 46,8% de las personas confía en sus vecinos. La probabilidad varía siempre entre 0 y 1, y la del evento y la de su complemento suman 1."
+    "text": "4.1 Probabilidades\nUna probabilidad es la posibilidad de ocurrencia de un evento, usando como referencia todos los casos.\n\nfrq(proc_data$confia)\n\nx &lt;categorical&gt; \n# total N=2906 valid N=2906 mean=1.47 sd=0.50\n\nValue     |    N | Raw % | Valid % | Cum. %\n-------------------------------------------\nNo confía | 1545 | 53.17 |   53.17 |  53.17\nConfía    | 1361 | 46.83 |   46.83 | 100.00\n&lt;NA&gt;      |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\\[P_{confiar} = \\frac{1361}{2906} = 0.468\\]\nUn 46,8% de las personas confía en sus vecinos. La probabilidad varía siempre entre 0 y 1, y la del evento y la de su complemento suman 1.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#odds",
     "href": "practicos/practico-09.html#odds",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "4.2 Odds",
-    "text": "4.2 Odds\nLos odds (chances) comparan las ocurrencias con las no ocurrencias:\n\\[Odds = \\frac{p}{1-p}\\]\n\\[Odds_{confiar} = \\frac{1361}{1545} = \\frac{0.468}{0.532} = 0.88\\]\nHay 0,88 personas que confían por cada persona que no confía; o, en otros términos, 88 que confían por cada 100 que no confían.\n\n\n\n\n\n\nImportantePropiedades de los odds\n\n\n\n\nOdds menores que 1: el evento es menos probable que su complemento\nOdds mayores que 1: el evento es más probable que su complemento\nOdds igual a 1: ambos resultados son igualmente probables\nA diferencia de una probabilidad, un odds no tiene techo: varía entre 0 e infinito"
+    "text": "4.2 Odds\nLos odds (chances) comparan las ocurrencias con las no ocurrencias:\n\\[Odds = \\frac{p}{1-p}\\]\n\\[Odds_{confiar} = \\frac{1361}{1545} = \\frac{0.468}{0.532} = 0.88\\]\nHay 0,88 personas que confían por cada persona que no confía; o, en otros términos, 88 que confían por cada 100 que no confían.\n\n\n\n\n\n\nImportantePropiedades de los odds\n\n\n\n\nOdds menores que 1: el evento es menos probable que su complemento\nOdds mayores que 1: el evento es más probable que su complemento\nOdds igual a 1: ambos resultados son igualmente probables\nA diferencia de una probabilidad, un odds no tiene techo: varía entre 0 e infinito",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#odds-ratio",
@@ -5897,7 +5913,11 @@
     "href": "practicos/practico-09.html#la-función-glm",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "7.1 La función glm",
-    "text": "7.1 La función glm\nLa regresión logística se estima con la función glm. Su sintaxis es la misma que la de lm, con el argumento adicional family = \"binomial\", que indica que la dependiente es dicotómica:\n\nmodelo &lt;- glm(dependiente ~ independiente1 + independiente2,\n              data = datos,\n              family = \"binomial\")\n\nCuando la dependiente es un factor de dos categorías, R modela la probabilidad de la segunda categoría:\n\nlevels(proc_data$confia)\n\n[1] \"No confía\" \"Confía\"   \n\n\nEn este caso, el modelo estimará las chances de confiar."
+    "text": "7.1 La función glm\nLa regresión logística se estima con la función glm. Su sintaxis es la misma que la de lm, con el argumento adicional family = \"binomial\", que indica que la dependiente es dicotómica:\n\nmodelo &lt;- glm(dependiente ~ independiente1 + independiente2,\n              data = datos,\n              family = \"binomial\")\n\nCuando la dependiente es un factor de dos categorías, R modela la probabilidad de la segunda categoría:\n\nlevels(proc_data$confia)\n\n[1] \"No confía\" \"Confía\"   \n\n\nEn este caso, el modelo estimará las chances de confiar.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#modelo-con-sexo",
@@ -5911,14 +5931,22 @@
     "href": "practicos/practico-09.html#interpretación-de-los-coeficientes-logit",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "7.3 Interpretación de los coeficientes logit",
-    "text": "7.3 Interpretación de los coeficientes logit\nDel coeficiente logit podemos leer directamente dos cosas:\n\nEl signo: ambos coeficientes son positivos, por lo que quienes tienen educación media o superior tienen más chances de confiar que quienes tienen educación básica\nLa significación: la diferencia entre educación superior y básica es estadísticamente significativa (\\(p&lt;0,01\\)); la diferencia entre educación media y básica no lo es\n\nLo que no podemos leer directamente es la magnitud, porque nadie razona en “logaritmos de chances”.\n\n\n\n\n\n\nTip¿De dónde salen estos números?\n\n\n\nCompare con los logits que calculamos a mano en la sección anterior. El intercepto (−0,274) es el logit de educación básica, la categoría de referencia. El coeficiente de educación superior (0,306) es la diferencia entre el logit de educación superior y el de educación básica: \\(0.032 - (-0.274) = 0.306\\)."
+    "text": "7.3 Interpretación de los coeficientes logit\nDel coeficiente logit podemos leer directamente dos cosas:\n\nEl signo: ambos coeficientes son positivos, por lo que quienes tienen educación media o superior tienen más chances de confiar que quienes tienen educación básica\nLa significación: la diferencia entre educación superior y básica es estadísticamente significativa (\\(p&lt;0,01\\)); la diferencia entre educación media y básica no lo es\n\nLo que no podemos leer directamente es la magnitud, porque nadie razona en “logaritmos de chances”.\n\n\n\n\n\n\nTip¿De dónde salen estos números?\n\n\n\nCompare con los logits que calculamos a mano en la sección anterior. El intercepto (−0,274) es el logit de educación básica, la categoría de referencia. El coeficiente de educación superior (0,306) es la diferencia entre el logit de educación superior y el de educación básica: \\(0.032 - (-0.274) = 0.306\\).",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#de-logits-a-odds-ratio",
     "href": "practicos/practico-09.html#de-logits-a-odds-ratio",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "7.4 De logits a odds ratio",
-    "text": "7.4 De logits a odds ratio\nPara interpretar la magnitud, volvemos a la escala de los odds con la exponenciación, que es la operación inversa del logaritmo:\n\\[e^{logit} = Odds\\]\n\nexp(coef(m_educ))\n\n             (Intercept)    educ_fEducación media educ_fEducación superior \n               0.7601078                1.0995793                1.3578712 \n\n\n\n\n\n\n\n\nImportanteEl resultado clave\n\n\n\nLos coeficientes exponenciados son exactamente los odds ratio que calculamos a mano: 1,10 para educación media y 1,36 para educación superior. Y el intercepto exponenciado, 0,760, es el odds de confiar de quienes tienen educación básica.\nEl modelo no hace nada distinto de lo que hicimos a mano: lo hace de forma automática, con inferencia estadística, y permitiendo incorporar varios predictores a la vez.\n\n\nPor defecto, tab_model muestra los coeficientes ya exponenciados:\n\ntab_model(m_educ,\n          show.ci = TRUE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Confianza en vecinos\",\n          pred.labels = c(\"(Intercepto)\", \"Educación media\", \"Educación superior\"),\n          string.pred = \"Predictores\",\n          string.est = \"OR\",\n          string.ci = \"IC 95%\")\n\n\n\n\n \nConfianza en vecinos\n\n\nPredictores\nOR\nIC 95%\np\n\n\n(Intercepto)\n0.760\n0.000 – Inf\n0.001\n\n\nEducación media\n1.100\n0.000 – Inf\n0.330\n\n\nEducación superior\n1.358\n0.000 – Inf\n0.002\n\n\nObservations\n2906\n\n\n\n\n\n\n\n\n\n\n\nNotaSignificación en odds ratio\n\n\n\nEn logit, la ausencia de asociación corresponde a un coeficiente igual a 0. En odds ratio corresponde a 1, porque \\(e^0 = 1\\). Por eso, un OR es estadísticamente significativo cuando su intervalo de confianza no incluye el 1. Observe que el intervalo de educación media incluye el 1, y el de educación superior no."
+    "text": "7.4 De logits a odds ratio\nPara interpretar la magnitud, volvemos a la escala de los odds con la exponenciación, que es la operación inversa del logaritmo:\n\\[e^{logit} = Odds\\]\n\nexp(coef(m_educ))\n\n             (Intercept)    educ_fEducación media educ_fEducación superior \n               0.7601078                1.0995793                1.3578712 \n\n\n\n\n\n\n\n\nImportanteEl resultado clave\n\n\n\nLos coeficientes exponenciados son exactamente los odds ratio que calculamos a mano: 1,10 para educación media y 1,36 para educación superior. Y el intercepto exponenciado, 0,760, es el odds de confiar de quienes tienen educación básica.\nEl modelo no hace nada distinto de lo que hicimos a mano: lo hace de forma automática, con inferencia estadística, y permitiendo incorporar varios predictores a la vez.\n\n\nPor defecto, tab_model muestra los coeficientes ya exponenciados:\n\ntab_model(m_educ,\n          show.ci = TRUE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Confianza en vecinos\",\n          pred.labels = c(\"(Intercepto)\", \"Educación media\", \"Educación superior\"),\n          string.pred = \"Predictores\",\n          string.est = \"OR\",\n          string.ci = \"IC 95%\")\n\n\n\n\n \nConfianza en vecinos\n\n\nPredictores\nOR\nIC 95%\np\n\n\n(Intercepto)\n0.760\n0.000 – Inf\n0.001\n\n\nEducación media\n1.100\n0.000 – Inf\n0.330\n\n\nEducación superior\n1.358\n0.000 – Inf\n0.002\n\n\nObservations\n2906\n\n\n\n\n\n\n\n\n\n\n\nNotaSignificación en odds ratio\n\n\n\nEn logit, la ausencia de asociación corresponde a un coeficiente igual a 0. En odds ratio corresponde a 1, porque \\(e^0 = 1\\). Por eso, un OR es estadísticamente significativo cuando su intervalo de confianza no incluye el 1. Observe que el intervalo de educación media incluye el 1, y el de educación superior no.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#equivalencias-entre-logit-y-odds-ratio",
@@ -5932,7 +5960,11 @@
     "href": "practicos/practico-09.html#una-independiente-continua",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "7.6 Una independiente continua",
-    "text": "7.6 Una independiente continua\nCon una independiente continua, el OR indica cuánto se multiplican las chances por cada unidad adicional en \\(x\\):\n\nm_edad &lt;- glm(confia ~ edad,\n              data = proc_data,\n              family = \"binomial\")\n\nexp(coef(m_edad))\n\n(Intercept)        edad \n  0.4060399   1.0168998 \n\n\nPor cada año adicional de edad, las chances de confiar en los vecinos se multiplican por 1,017, es decir, aumentan un 1,7%. Para un cambio de 10 años:\n\nexp(10 * coef(m_edad)[\"edad\"])\n\n    edad \n1.182446 \n\n\nLas chances de confiar de una persona de 50 años son 1,18 veces las de una de 40."
+    "text": "7.6 Una independiente continua\nCon una independiente continua, el OR indica cuánto se multiplican las chances por cada unidad adicional en \\(x\\):\n\nm_edad &lt;- glm(confia ~ edad,\n              data = proc_data,\n              family = \"binomial\")\n\nexp(coef(m_edad))\n\n(Intercept)        edad \n  0.4060399   1.0168998 \n\n\nPor cada año adicional de edad, las chances de confiar en los vecinos se multiplican por 1,017, es decir, aumentan un 1,7%. Para un cambio de 10 años:\n\nexp(10 * coef(m_edad)[\"edad\"])\n\n    edad \n1.182446 \n\n\nLas chances de confiar de una persona de 50 años son 1,18 veces las de una de 40.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#preparación",
@@ -5981,7 +6013,11 @@
     "href": "practicos/practico-09.html#conceptos",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "9.1 Conceptos",
-    "text": "9.1 Conceptos\n\nUn odds ratio de 0,45, ¿indica una asociación positiva o negativa? ¿Cómo se expresaría ese mismo resultado invirtiendo la comparación? Expréselo también como cambio porcentual.\nUn coeficiente logit de −0,7, ¿indica una asociación positiva o negativa? ¿Qué odds ratio le corresponde?"
+    "text": "9.1 Conceptos\n\nUn odds ratio de 0,45, ¿indica una asociación positiva o negativa? ¿Cómo se expresaría ese mismo resultado invirtiendo la comparación? Expréselo también como cambio porcentual.\nUn coeficiente logit de −0,7, ¿indica una asociación positiva o negativa? ¿Qué odds ratio le corresponde?",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#cálculo-con-el-titanic",
@@ -6471,55 +6507,87 @@
     "href": "practicos/practico-09.html#la-variable-dependiente",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "3.1 La variable dependiente",
-    "text": "3.1 La variable dependiente\nTrabajaremos con la confianza en los vecinos, medida en una escala de 1 a 5. La convertiremos en una variable dicotómica: confía quien responde 4 o 5, y no confía quien responde 1, 2 o 3.\n\nfrq(proc_data$confianza)\n\nx &lt;numeric&gt; \n# total N=2906 valid N=2906 mean=3.20 sd=1.20\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    1 | 332 | 11.42 |   11.42 |  11.42\n    2 | 502 | 17.27 |   17.27 |  28.70\n    3 | 711 | 24.47 |   24.47 |  53.17\n    4 | 987 | 33.96 |   33.96 |  87.13\n    5 | 374 | 12.87 |   12.87 | 100.00\n &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(confia = ifelse(confianza &gt;= 4, 1, 0),\n         confia = factor(confia,\n                         levels = c(0, 1),\n                         labels = c(\"No confía\", \"Confía\")),\n         sexo_f = factor(sexo,\n                         levels = c(1, 2),\n                         labels = c(\"Hombre\", \"Mujer\")),\n         educ_rec = case_when(educacion &lt;= 3 ~ 1,\n                              educacion &lt;= 5 ~ 2,\n                              TRUE ~ 3),\n         educ_f = factor(educ_rec,\n                         levels = c(1, 2, 3),\n                         labels = c(\"Educación básica\",\n                                    \"Educación media\",\n                                    \"Educación superior\")))\n\n\n\n\n\n\n\nAdvertenciaDicotomizar tiene un costo\n\n\n\nAl convertir una variable de cinco categorías en una de dos, perdemos información: alguien que responde 1 y alguien que responde 3 quedan en el mismo grupo. En una investigación, el punto de corte debe justificarse teóricamente, y conviene revisar si los resultados cambian al moverlo."
+    "text": "3.1 La variable dependiente\nTrabajaremos con la confianza en los vecinos, medida en una escala de 1 a 5. La convertiremos en una variable dicotómica: confía quien responde 4 o 5, y no confía quien responde 1, 2 o 3.\n\nfrq(proc_data$confianza)\n\nx &lt;numeric&gt; \n# total N=2906 valid N=2906 mean=3.20 sd=1.20\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    1 | 332 | 11.42 |   11.42 |  11.42\n    2 | 502 | 17.27 |   17.27 |  28.70\n    3 | 711 | 24.47 |   24.47 |  53.17\n    4 | 987 | 33.96 |   33.96 |  87.13\n    5 | 374 | 12.87 |   12.87 | 100.00\n &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(confia = ifelse(confianza &gt;= 4, 1, 0),\n         confia = factor(confia,\n                         levels = c(0, 1),\n                         labels = c(\"No confía\", \"Confía\")),\n         sexo_f = factor(sexo,\n                         levels = c(1, 2),\n                         labels = c(\"Hombre\", \"Mujer\")),\n         educ_rec = case_when(educacion &lt;= 3 ~ 1,\n                              educacion &lt;= 5 ~ 2,\n                              TRUE ~ 3),\n         educ_f = factor(educ_rec,\n                         levels = c(1, 2, 3),\n                         labels = c(\"Educación básica\",\n                                    \"Educación media\",\n                                    \"Educación superior\")))\n\n\n\n\n\n\n\nAdvertenciaDicotomizar tiene un costo\n\n\n\nAl convertir una variable de cinco categorías en una de dos, perdemos información: alguien que responde 1 y alguien que responde 3 quedan en el mismo grupo. En una investigación, el punto de corte debe justificarse teóricamente, y conviene revisar si los resultados cambian al moverlo.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#odds-por-grupo",
     "href": "practicos/practico-09.html#odds-por-grupo",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "4.3 Odds por grupo",
-    "text": "4.3 Odds por grupo\n\nCross-Tabulation, Row Proportions\n\nsexo_f * confia\n\n\nData Frame: proc_data\n\n\n\n\n\n\nconfia\n\n\n\nsexo_f\nNo confía\nConfía\nTotal\n\n\n\n\nHombre\n598\n(\n51.6%\n)\n560\n(\n48.4%\n)\n1158\n(\n100.0%\n)\n\n\nMujer\n947\n(\n54.2%\n)\n801\n(\n45.8%\n)\n1748\n(\n100.0%\n)\n\n\nTotal\n1545\n(\n53.2%\n)\n1361\n(\n46.8%\n)\n2906\n(\n100.0%\n)\n\n\n\n\n\nUn gráfico de barras apiladas al 100% permite comparar las proporciones de cada grupo:\n\nggplot(proc_data, aes(x = sexo_f, fill = confia)) +\n  geom_bar(position = \"fill\") +\n  scale_y_continuous(labels = scales::percent) +\n  scale_fill_manual(values = c(\"#c0c8d8\", \"#04245f\")) +\n  labs(x = NULL, y = \"Porcentaje\", fill = NULL) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 1: Confianza en los vecinos según sexo\n\n\n\n\n\n\naddmargins(table(proc_data$confia, proc_data$sexo_f))\n\n           \n            Hombre Mujer  Sum\n  No confía    598   947 1545\n  Confía       560   801 1361\n  Sum         1158  1748 2906\n\n\n\\[Odds_{hombres} = \\frac{560}{598} = 0.936\\]\n\\[Odds_{mujeres} = \\frac{801}{947} = 0.846\\]\n\ntabla &lt;- table(proc_data$confia, proc_data$sexo_f)\n\nodds_h &lt;- tabla[\"Confía\", \"Hombre\"] / tabla[\"No confía\", \"Hombre\"]\nodds_m &lt;- tabla[\"Confía\", \"Mujer\"] / tabla[\"No confía\", \"Mujer\"]\n\nc(hombres = odds_h, mujeres = odds_m)\n\n  hombres   mujeres \n0.9364548 0.8458289 \n\n\nEn ambos grupos el odds es menor que 1: hay algo más de chances de no confiar que de confiar.\n\n\n\n\n\n\nNotaProbabilidad y odds no son lo mismo\n\n\n\nLa probabilidad de que un hombre confíe en sus vecinos es 0,484. Su odds es 0,936. Ambos describen el mismo hecho en escalas distintas: la probabilidad compara a quienes confían con el total, y el odds los compara con quienes no confían."
+    "text": "4.3 Odds por grupo\n\nCross-Tabulation, Row Proportions\n\nsexo_f * confia\n\n\nData Frame: proc_data\n\n\n\n\n\n\nconfia\n\n\n\nsexo_f\nNo confía\nConfía\nTotal\n\n\n\n\nHombre\n598\n(\n51.6%\n)\n560\n(\n48.4%\n)\n1158\n(\n100.0%\n)\n\n\nMujer\n947\n(\n54.2%\n)\n801\n(\n45.8%\n)\n1748\n(\n100.0%\n)\n\n\nTotal\n1545\n(\n53.2%\n)\n1361\n(\n46.8%\n)\n2906\n(\n100.0%\n)\n\n\n\n\n\nUn gráfico de barras apiladas al 100% permite comparar las proporciones de cada grupo:\n\nggplot(proc_data, aes(x = sexo_f, fill = confia)) +\n  geom_bar(position = \"fill\") +\n  scale_y_continuous(labels = scales::percent) +\n  scale_fill_manual(values = c(\"#c0c8d8\", \"#04245f\")) +\n  labs(x = NULL, y = \"Porcentaje\", fill = NULL) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 1: Confianza en los vecinos según sexo\n\n\n\n\n\n\naddmargins(table(proc_data$confia, proc_data$sexo_f))\n\n           \n            Hombre Mujer  Sum\n  No confía    598   947 1545\n  Confía       560   801 1361\n  Sum         1158  1748 2906\n\n\n\\[Odds_{hombres} = \\frac{560}{598} = 0.936\\]\n\\[Odds_{mujeres} = \\frac{801}{947} = 0.846\\]\n\ntabla &lt;- table(proc_data$confia, proc_data$sexo_f)\n\nodds_h &lt;- tabla[\"Confía\", \"Hombre\"] / tabla[\"No confía\", \"Hombre\"]\nodds_m &lt;- tabla[\"Confía\", \"Mujer\"] / tabla[\"No confía\", \"Mujer\"]\n\nc(hombres = odds_h, mujeres = odds_m)\n\n  hombres   mujeres \n0.9364548 0.8458289 \n\n\nEn ambos grupos el odds es menor que 1: hay algo más de chances de no confiar que de confiar.\n\n\n\n\n\n\nNotaProbabilidad y odds no son lo mismo\n\n\n\nLa probabilidad de que un hombre confíe en sus vecinos es 0,484. Su odds es 0,936. Ambos describen el mismo hecho en escalas distintas: la probabilidad compara a quienes confían con el total, y el odds los compara con quienes no confían.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#sexo",
     "href": "practicos/practico-09.html#sexo",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "5.1 Sexo",
-    "text": "5.1 Sexo\n¿Cuántas más (o menos) chances de confiar en sus vecinos tienen las mujeres respecto de los hombres? La respuesta es la razón de chances u odds ratio:\n\\[OR = \\frac{Odds_{mujeres}}{Odds_{hombres}} = \\frac{0.846}{0.936} = 0.90\\]\n\nodds_m / odds_h\n\n[1] 0.9032245\n\n\nLas chances de confiar en los vecinos de las mujeres son 0,90 veces las de los hombres.\n\n\n\n\n\n\nImportanteCómo leer un odds ratio\n\n\n\n\n\\(OR = 1\\): no hay asociación\n\\(OR &gt; 1\\): el grupo comparado tiene más chances que el de referencia\n\\(OR &lt; 1\\): el grupo comparado tiene menos chances que el de referencia\n\n\n\nEl OR depende de cuál grupo se ponga en el denominador. Si invertimos la comparación, obtenemos el mismo hallazgo expresado al revés:\n\nodds_h / odds_m\n\n[1] 1.107144"
+    "text": "5.1 Sexo\n¿Cuántas más (o menos) chances de confiar en sus vecinos tienen las mujeres respecto de los hombres? La respuesta es la razón de chances u odds ratio:\n\\[OR = \\frac{Odds_{mujeres}}{Odds_{hombres}} = \\frac{0.846}{0.936} = 0.90\\]\n\nodds_m / odds_h\n\n[1] 0.9032245\n\n\nLas chances de confiar en los vecinos de las mujeres son 0,90 veces las de los hombres.\n\n\n\n\n\n\nImportanteCómo leer un odds ratio\n\n\n\n\n\\(OR = 1\\): no hay asociación\n\\(OR &gt; 1\\): el grupo comparado tiene más chances que el de referencia\n\\(OR &lt; 1\\): el grupo comparado tiene menos chances que el de referencia\n\n\n\nEl OR depende de cuál grupo se ponga en el denominador. Si invertimos la comparación, obtenemos el mismo hallazgo expresado al revés:\n\nodds_h / odds_m\n\n[1] 1.107144",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#el-odds-ratio-como-cambio-porcentual",
     "href": "practicos/practico-09.html#el-odds-ratio-como-cambio-porcentual",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "5.2 El odds ratio como cambio porcentual",
-    "text": "5.2 El odds ratio como cambio porcentual\nUna forma práctica de leer un OR es como cambio porcentual en las chances: \\((OR - 1) \\times 100\\).\n\n(odds_m / odds_h - 1) * 100\n\n[1] -9.677553\n\n\nLas chances de confiar de las mujeres son un 9,7% menores que las de los hombres. Es una asociación débil, como suele ocurrir en investigación social.\n\n\n\n\n\n\nAdvertenciaChances no son probabilidades\n\n\n\nUn OR de 0,90 significa que las chances son un 10% menores, no que la probabilidad sea un 10% menor. Es el error más frecuente al interpretar estos resultados."
+    "text": "5.2 El odds ratio como cambio porcentual\nUna forma práctica de leer un OR es como cambio porcentual en las chances: \\((OR - 1) \\times 100\\).\n\n(odds_m / odds_h - 1) * 100\n\n[1] -9.677553\n\n\nLas chances de confiar de las mujeres son un 9,7% menores que las de los hombres. Es una asociación débil, como suele ocurrir en investigación social.\n\n\n\n\n\n\nAdvertenciaChances no son probabilidades\n\n\n\nUn OR de 0,90 significa que las chances son un 10% menores, no que la probabilidad sea un 10% menor. Es el error más frecuente al interpretar estos resultados.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#una-variable-de-tres-categorías",
     "href": "practicos/practico-09.html#una-variable-de-tres-categorías",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "5.3 Una variable de tres categorías",
-    "text": "5.3 Una variable de tres categorías\n\nggplot(proc_data, aes(x = educ_f, fill = confia)) +\n  geom_bar(position = \"fill\") +\n  scale_y_continuous(labels = scales::percent) +\n  scale_fill_manual(values = c(\"#c0c8d8\", \"#04245f\")) +\n  labs(x = NULL, y = \"Porcentaje\", fill = NULL) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 2: Confianza en los vecinos según nivel educacional\n\n\n\n\n\n\ntabla_educ &lt;- table(proc_data$confia, proc_data$educ_f)\ntabla_educ\n\n           \n            Educación básica Educación media Educación superior\n  No confía              371             676                498\n  Confía                 282             565                514\n\nodds_educ &lt;- tabla_educ[\"Confía\", ] / tabla_educ[\"No confía\", ]\n\nround(odds_educ, 3)\n\n  Educación básica    Educación media Educación superior \n             0.760              0.836              1.032 \n\n\nLos odds aumentan con el nivel educacional, y en educación superior superan levemente el 1. Calculemos los odds ratio tomando la educación básica como categoría de referencia:\n\nround(odds_educ / odds_educ[\"Educación básica\"], 3)\n\n  Educación básica    Educación media Educación superior \n             1.000              1.100              1.358 \n\n\nLas chances de confiar en los vecinos de quienes tienen educación superior son 1,36 veces las de quienes tienen educación básica, es decir, un 36% mayores.\n\n\n\n\n\n\nNotaLa conexión con las variables dummy\n\n\n\nHay una categoría de referencia, y cada OR se interpreta respecto de ella. Es la misma lógica que seguirá el modelo de regresión logística.\n\n\n\n5.3.1 Ejercicio\nCalcule el odds ratio entre educación superior y educación media. ¿Cómo se interpreta?\n\n\nVer solución\nodds_educ[\"Educación superior\"] / odds_educ[\"Educación media\"]\n\n\nEducación superior \n          1.234901"
+    "text": "5.3 Una variable de tres categorías\n\nggplot(proc_data, aes(x = educ_f, fill = confia)) +\n  geom_bar(position = \"fill\") +\n  scale_y_continuous(labels = scales::percent) +\n  scale_fill_manual(values = c(\"#c0c8d8\", \"#04245f\")) +\n  labs(x = NULL, y = \"Porcentaje\", fill = NULL) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 2: Confianza en los vecinos según nivel educacional\n\n\n\n\n\n\ntabla_educ &lt;- table(proc_data$confia, proc_data$educ_f)\ntabla_educ\n\n           \n            Educación básica Educación media Educación superior\n  No confía              371             676                498\n  Confía                 282             565                514\n\nodds_educ &lt;- tabla_educ[\"Confía\", ] / tabla_educ[\"No confía\", ]\n\nround(odds_educ, 3)\n\n  Educación básica    Educación media Educación superior \n             0.760              0.836              1.032 \n\n\nLos odds aumentan con el nivel educacional, y en educación superior superan levemente el 1. Calculemos los odds ratio tomando la educación básica como categoría de referencia:\n\nround(odds_educ / odds_educ[\"Educación básica\"], 3)\n\n  Educación básica    Educación media Educación superior \n             1.000              1.100              1.358 \n\n\nLas chances de confiar en los vecinos de quienes tienen educación superior son 1,36 veces las de quienes tienen educación básica, es decir, un 36% mayores.\n\n\n\n\n\n\nNotaLa conexión con las variables dummy\n\n\n\nHay una categoría de referencia, y cada OR se interpreta respecto de ella. Es la misma lógica que seguirá el modelo de regresión logística.\n\n\n\n5.3.1 Ejercicio\nCalcule el odds ratio entre educación superior y educación media. ¿Cómo se interpreta?\n\n\nVer solución\nodds_educ[\"Educación superior\"] / odds_educ[\"Educación media\"]\n\n\nEducación superior \n          1.234901",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#modelo-con-nivel-educacional",
     "href": "practicos/practico-09.html#modelo-con-nivel-educacional",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "7.2 Modelo con nivel educacional",
-    "text": "7.2 Modelo con nivel educacional\n\nm_educ &lt;- glm(confia ~ educ_f,\n              data = proc_data,\n              family = \"binomial\")\n\nCon transform = NULL, tab_model muestra los coeficientes en logit:\n\ntab_model(m_educ,\n          transform = NULL,\n          show.se = TRUE,\n          show.ci = FALSE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Confianza en vecinos\",\n          pred.labels = c(\"(Intercepto)\", \"Educación media\", \"Educación superior\"),\n          string.pred = \"Predictores\",\n          string.est = \"Logit\")\n\n\n\n\n \nConfianza en vecinos\n\n\nPredictores\nLogit\nstd. Error\np\n\n\n(Intercepto)\n-0.274\n0.079\n0.001\n\n\nEducación media\n0.095\n0.097\n0.330\n\n\nEducación superior\n0.306\n0.101\n0.002\n\n\nObservations\n2906"
+    "text": "7.2 Modelo con nivel educacional\n\nm_educ &lt;- glm(confia ~ educ_f,\n              data = proc_data,\n              family = \"binomial\")\n\nCon transform = NULL, tab_model muestra los coeficientes en logit:\n\ntab_model(m_educ,\n          transform = NULL,\n          show.se = TRUE,\n          show.ci = FALSE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Confianza en vecinos\",\n          pred.labels = c(\"(Intercepto)\", \"Educación media\", \"Educación superior\"),\n          string.pred = \"Predictores\",\n          string.est = \"Logit\")\n\n\n\n\n \nConfianza en vecinos\n\n\nPredictores\nLogit\nstd. Error\np\n\n\n(Intercepto)\n-0.274\n0.079\n0.001\n\n\nEducación media\n0.095\n0.097\n0.330\n\n\nEducación superior\n0.306\n0.101\n0.002\n\n\nObservations\n2906",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#ejercicio-modelo-con-sexo",
     "href": "practicos/practico-09.html#ejercicio-modelo-con-sexo",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "7.5 Ejercicio: modelo con sexo",
-    "text": "7.5 Ejercicio: modelo con sexo\nEstime un modelo de regresión logística con sexo_f como predictor y compruebe que el OR coincide con el que calculamos a mano. ¿Es estadísticamente significativo?\n\n\nVer solución\nm_sexo &lt;- glm(confia ~ sexo_f,\n              data = proc_data,\n              family = \"binomial\")\n\ntab_model(m_sexo,\n          show.ci = TRUE,\n          show.r2 = FALSE,\n          digits = 3,\n          pred.labels = c(\"(Intercepto)\", \"Sexo (Mujer)\"),\n          string.est = \"OR\",\n          string.ci = \"IC 95%\")\n\n\n\n\n\n \nconfia\n\n\nPredictors\nOR\nIC 95%\np\n\n\n(Intercepto)\n0.936\n0.000 – Inf\n0.264\n\n\nSexo (Mujer)\n0.903\n0.000 – Inf\n0.180\n\n\nObservations\n2906\n\n\n\n\n\nEl OR de mujer es 0,90, igual al calculado a mano. Su intervalo de confianza incluye el 1, por lo que la diferencia entre hombres y mujeres no es estadísticamente significativa."
+    "text": "7.5 Ejercicio: modelo con sexo\nEstime un modelo de regresión logística con sexo_f como predictor y compruebe que el OR coincide con el que calculamos a mano. ¿Es estadísticamente significativo?\n\n\nVer solución\nm_sexo &lt;- glm(confia ~ sexo_f,\n              data = proc_data,\n              family = \"binomial\")\n\ntab_model(m_sexo,\n          show.ci = TRUE,\n          show.r2 = FALSE,\n          digits = 3,\n          pred.labels = c(\"(Intercepto)\", \"Sexo (Mujer)\"),\n          string.est = \"OR\",\n          string.ci = \"IC 95%\")\n\n\n\n\n\n \nconfia\n\n\nPredictors\nOR\nIC 95%\np\n\n\n(Intercepto)\n0.936\n0.000 – Inf\n0.264\n\n\nSexo (Mujer)\n0.903\n0.000 – Inf\n0.180\n\n\nObservations\n2906\n\n\n\n\n\nEl OR de mujer es 0,90, igual al calculado a mano. Su intervalo de confianza incluye el 1, por lo que la diferencia entre hombres y mujeres no es estadísticamente significativa.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   },
   {
     "objectID": "practicos/practico-09.html#membresía-en-organizaciones-vecinales",
     "href": "practicos/practico-09.html#membresía-en-organizaciones-vecinales",
     "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "9.2 Membresía en organizaciones vecinales",
-    "text": "9.2 Membresía en organizaciones vecinales\nLa variable c12_01 de ELSOC registra la membresía en una junta de vecinos u otra organización vecinal (1 = No es miembro, 2 = Miembro inactivo, 3 = Miembro activo).\n\nCon la ola 1 de ELSOC, construya una variable dicotómica que distinga entre quienes son miembros (activos o inactivos) y quienes no lo son.\nElabore la tabla de contingencia entre esa variable y el nivel educacional recodificado en tres categorías.\nCalcule a mano la probabilidad y el odds de ser miembro para cada nivel educacional, y los odds ratio respecto de la educación básica.\nEstime el mismo análisis con glm. Compruebe que los OR coinciden con los calculados a mano, e indique cuáles diferencias son estadísticamente significativas.\nEstime un modelo con la edad como predictor e interprete su OR para un año y para 10 años."
+    "text": "9.2 Membresía en organizaciones vecinales\nLa variable c12_01 de ELSOC registra la membresía en una junta de vecinos u otra organización vecinal (1 = No es miembro, 2 = Miembro inactivo, 3 = Miembro activo).\n\nCon la ola 1 de ELSOC, construya una variable dicotómica que distinga entre quienes son miembros (activos o inactivos) y quienes no lo son.\nElabore la tabla de contingencia entre esa variable y el nivel educacional recodificado en tres categorías.\nCalcule a mano la probabilidad y el odds de ser miembro para cada nivel educacional, y los odds ratio respecto de la educación básica.\nEstime el mismo análisis con glm. Compruebe que los OR coinciden con los calculados a mano, e indique cuáles diferencias son estadísticamente significativas.\nEstime un modelo con la edad como predictor e interprete su OR para un año y para 10 años.",
+    "crumbs": [
+      "Practicos",
+      "Práctico 9 - Regresión logística II"
+    ]
   }
 ]
