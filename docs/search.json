@@ -1705,9 +1705,9 @@
   {
     "objectID": "practicos/practico-09.html",
     "href": "practicos/practico-09.html",
-    "title": "Práctico 08. Regresión logística II",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
     "section": "",
-    "text": "La Encuesta Mundial de Valores (EMV) o World Values Survey WVS es un proyecto global de investigación social que explora los valores y opiniones de la gente, cómo estos cambian con el tiempo, y su impacto social y político. Desde 1981 una red mundial de científicos sociales y politólogos llevan a cabo esta investigación, haciendo encuestas nacionales representativas en casi 100 países. La WVS es la única fuente de datos empíricos sobre actitudes y valores humanos que abarca a la mayoría de la población mundial (casi el 90%).\n\n\nEn el ejemplo de esta práctica, que utiliza solo casos para Chile entre 2005 y 2022, se intentará responder la pregunta ¿existe una relación entre la afiliación a sindicatos y la participación en marchas?\nDebido a la naturaleza de la variable dependiente participación en marchas (si/no), el objetivo de esta práctica es estimar modelos de regresión logística binaria."
+    "text": "La semana pasada introdujimos con el ejemplo del Titanic los conceptos centrales de la regresión logística: probabilidades, chances (u odds) y razón de chances (u odds ratio). En esta guía los repasaremos con datos de ELSOC, la base del curso, y daremos el paso siguiente: estimar el modelo con la función glm y comprobar que sus coeficientes reproducen lo que calculamos a mano.\nAl terminar, usted debería ser capaz de:\n\nCalcular e interpretar una probabilidad, un odds y un odds ratio a partir de una tabla de contingencia\nComprender por qué los odds se transforman en logit\nEstimar una regresión logística con glm e interpretar sus coeficientes en logit y en odds ratio"
   },
   {
     "objectID": "practicos/practico-09.html#objetivo",
@@ -5835,5 +5835,691 @@
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "",
     "text": "Métodos estadísticos para Ciencias Sociales III\n\nKevin Carrasco\nSociología - UNAB\n2do Sem 2026\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "practicos/practico-09.html#objetivo-de-la-práctica",
+    "href": "practicos/practico-09.html#objetivo-de-la-práctica",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "",
+    "text": "La semana pasada introdujimos con el ejemplo del Titanic los conceptos centrales de la regresión logística: probabilidades, chances (u odds) y razón de chances (u odds ratio). En esta guía los repasaremos con datos de ELSOC, la base del curso, y daremos el paso siguiente: estimar el modelo con la función glm y comprobar que sus coeficientes reproducen lo que calculamos a mano.\nAl terminar, usted debería ser capaz de:\n\nCalcular e interpretar una probabilidad, un odds y un odds ratio a partir de una tabla de contingencia\nComprender por qué los odds se transforman en logit\nEstimar una regresión logística con glm e interpretar sus coeficientes en logit y en odds ratio"
+  },
+  {
+    "objectID": "practicos/practico-09.html#explorar-los-datos",
+    "href": "practicos/practico-09.html#explorar-los-datos",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "4.1 Explorar los datos",
+    "text": "4.1 Explorar los datos\nprint(dfSummary(tt, headings = FALSE), method = \"render\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo\nVariable\nStats / Values\nFreqs (% of Valid)\nGraph\nValid\nMissing\n\n\n\n\n1\npclass [factor]\n\n\n\n1. Clase Alta\n\n\n2. Clase Intermedia\n\n\n3. Clase Baja\n\n\n\n\n\n\n284\n(\n27.2%\n)\n\n\n261\n(\n25.0%\n)\n\n\n501\n(\n47.9%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n2\nsurvived [factor]\n\n\n\n1. No sobrevive\n\n\n2. Sobrevive\n\n\n\n\n\n\n619\n(\n59.2%\n)\n\n\n427\n(\n40.8%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n3\nsex [factor]\n\n\n\n1. Hombre\n\n\n2. Mujer\n\n\n\n\n\n\n658\n(\n62.9%\n)\n\n\n388\n(\n37.1%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n4\nage [numeric]\n\n\n\nMean (sd) : 29.9 (14.4)\n\n\nmin ≤ med ≤ max:\n\n\n0.2 ≤ 28 ≤ 80\n\n\nIQR (CV) : 18 (0.5)\n\n\n\n98 distinct values\n\n1046 (100.0%)\n0 (0.0%)\n\n\n5\nsibsp [numeric]\n\n\n\nMean (sd) : 0.5 (0.9)\n\n\nmin ≤ med ≤ max:\n\n\n0 ≤ 0 ≤ 8\n\n\nIQR (CV) : 1 (1.8)\n\n\n\n\n\n\n0\n:\n685\n(\n65.5%\n)\n\n\n1\n:\n280\n(\n26.8%\n)\n\n\n2\n:\n36\n(\n3.4%\n)\n\n\n3\n:\n16\n(\n1.5%\n)\n\n\n4\n:\n22\n(\n2.1%\n)\n\n\n5\n:\n6\n(\n0.6%\n)\n\n\n8\n:\n1\n(\n0.1%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n6\nparch [numeric]\n\n\n\nMean (sd) : 0.4 (0.8)\n\n\nmin ≤ med ≤ max:\n\n\n0 ≤ 0 ≤ 6\n\n\nIQR (CV) : 1 (2)\n\n\n\n\n\n\n0\n:\n768\n(\n73.4%\n)\n\n\n1\n:\n160\n(\n15.3%\n)\n\n\n2\n:\n97\n(\n9.3%\n)\n\n\n3\n:\n8\n(\n0.8%\n)\n\n\n4\n:\n5\n(\n0.5%\n)\n\n\n5\n:\n6\n(\n0.6%\n)\n\n\n6\n:\n2\n(\n0.2%\n)\n\n\n\n\n1046 (100.0%)\n0 (0.0%)\n\n\n\n\nNos centraremos en las variables sex y survived. Ambas tienen dos categorías, es decir, son variables dicotómicas."
+  },
+  {
+    "objectID": "practicos/practico-09.html#tabla-de-contingencia",
+    "href": "practicos/practico-09.html#tabla-de-contingencia",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "4.2 Tabla de contingencia",
+    "text": "4.2 Tabla de contingencia\nCon la función ctable del paquete summarytools obtenemos la proporción de sobrevivientes según sexo:\n\nctable(tt$sex, tt$survived)\n\n\n\n\nCross-Tabulation, Row Proportions\n\nsex * survived\n\n\nData Frame: tt\n\n\n\n\n\n\nsurvived\n\n\n\nsex\nNo sobrevive\nSobrevive\nTotal\n\n\n\n\nHombre\n523\n(\n79.5%\n)\n135\n(\n20.5%\n)\n658\n(\n100.0%\n)\n\n\nMujer\n96\n(\n24.7%\n)\n292\n(\n75.3%\n)\n388\n(\n100.0%\n)\n\n\nTotal\n619\n(\n59.2%\n)\n427\n(\n40.8%\n)\n1046\n(\n100.0%\n)\n\n\n\n\n\n\n\nLa tabla muestra que la mayoría de los tripulantes no sobrevivió: 619 personas, un 59,2%, frente a 427 que sí sobrevivieron, un 40,8%. Al desagregar por sexo, solo un 20,5% de los hombres sobrevive, en contraste con un 75,3% de las mujeres."
+  },
+  {
+    "objectID": "practicos/practico-09.html#visualización",
+    "href": "practicos/practico-09.html#visualización",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "4.3 Visualización",
+    "text": "4.3 Visualización\nEl paquete ggmosaic, con su función geom_mosaic, permite construir visualizaciones para datos categóricos. El mosaico completo corresponde al total de tripulantes. Como hay más hombres que mujeres a bordo, la columna de hombres es más ancha. El argumento fill distingue, dentro de cada sexo, la proporción de quienes sobrevivieron y quienes no sobrevivieron.\n\nggplot(data = tt) +\n  geom_mosaic(aes(product(survived, sex), fill = survived)) +\n  labs(y = \"Sobreviviente\", x = \"Sexo\", fill = NULL) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 1: Sobrevivencia en el Titanic según sexo"
+  },
+  {
+    "objectID": "practicos/practico-09.html#probabilidades",
+    "href": "practicos/practico-09.html#probabilidades",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "4.1 Probabilidades",
+    "text": "4.1 Probabilidades\nUna probabilidad es la posibilidad de ocurrencia de un evento, usando como referencia todos los casos.\n\nfrq(proc_data$confia)\n\nx &lt;categorical&gt; \n# total N=2906 valid N=2906 mean=1.47 sd=0.50\n\nValue     |    N | Raw % | Valid % | Cum. %\n-------------------------------------------\nNo confía | 1545 | 53.17 |   53.17 |  53.17\nConfía    | 1361 | 46.83 |   46.83 | 100.00\n&lt;NA&gt;      |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\\[P_{confiar} = \\frac{1361}{2906} = 0.468\\]\nUn 46,8% de las personas confía en sus vecinos. La probabilidad varía siempre entre 0 y 1, y la del evento y la de su complemento suman 1."
+  },
+  {
+    "objectID": "practicos/practico-09.html#odds",
+    "href": "practicos/practico-09.html#odds",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "4.2 Odds",
+    "text": "4.2 Odds\nLos odds (chances) comparan las ocurrencias con las no ocurrencias:\n\\[Odds = \\frac{p}{1-p}\\]\n\\[Odds_{confiar} = \\frac{1361}{1545} = \\frac{0.468}{0.532} = 0.88\\]\nHay 0,88 personas que confían por cada persona que no confía; o, en otros términos, 88 que confían por cada 100 que no confían.\n\n\n\n\n\n\nImportantePropiedades de los odds\n\n\n\n\nOdds menores que 1: el evento es menos probable que su complemento\nOdds mayores que 1: el evento es más probable que su complemento\nOdds igual a 1: ambos resultados son igualmente probables\nA diferencia de una probabilidad, un odds no tiene techo: varía entre 0 e infinito"
+  },
+  {
+    "objectID": "practicos/practico-09.html#odds-ratio",
+    "href": "practicos/practico-09.html#odds-ratio",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "5.3 Odds ratio",
+    "text": "5.3 Odds ratio\nCon lo anterior podríamos concluir que las mujeres tienen más chances de sobrevivir que los hombres. Pero queda pendiente una pregunta: ¿cuánto más?\nEsa pregunta ya no se refiere a cada grupo por separado, sino a la asociación entre sobrevivencia y sexo. Para responderla se calcula la razón de chances u odds ratio:\n\\[OR = \\frac{Odds_{mujeres}}{Odds_{hombres}} = \\frac{3.042}{0.258} = 11.78\\]\nEl resultado se lee así: las chances de sobrevivir de las mujeres son 11,78 veces las de los hombres.\n\nodds_mujeres &lt;- 292 / 96\nodds_hombres &lt;- 135 / 523\n\nodds_mujeres / odds_hombres\n\n[1] 11.78364\n\n\n\n5.3.1 Cómo se interpreta\n\n\n\n\n\n\nImportantePropiedades del odds ratio\n\n\n\n\n\\(OR = 1\\): no hay asociación, ambos grupos tienen las mismas chances\n\\(OR &gt; 1\\): el primer grupo tiene más chances que el de referencia\n\\(OR &lt; 1\\): el primer grupo tiene menos chances que el de referencia\n\n\n\nNote que el odds ratio depende de cuál grupo se ponga en el numerador. Si invertimos la comparación:\n\nodds_hombres / odds_mujeres\n\n[1] 0.08486341\n\n\nLas chances de sobrevivir de los hombres son 0,085 veces las de las mujeres, que es exactamente \\(1/11{,}78\\). Se trata del mismo hallazgo expresado al revés, igual que ocurría con la categoría de referencia en las variables dummy.\n\n\n5.3.2 El odds ratio como cambio porcentual\nUna forma práctica de leer un odds ratio es como cambio porcentual en las chances, mediante la expresión \\((OR - 1) \\times 100\\):\n\nUn OR de 1,25 indica chances un 25% mayores que las del grupo de referencia\nUn OR de 0,80 indica chances un 20% menores\n\n\n(odds_hombres / odds_mujeres - 1) * 100\n\n[1] -91.51366\n\n\nLas chances de sobrevivir de los hombres son un 91,5% menores que las de las mujeres.\n\n\n\n\n\n\nAdvertenciaChances no son probabilidades\n\n\n\nUn OR de 1,25 significa que las chances son un 25% mayores, no que la probabilidad sea un 25% mayor. Es el error más frecuente al interpretar estos resultados.\n\n\n\n\n5.3.3 ¿Qué ganamos con el odds ratio?\nEl OR permite expresar en un solo número la relación entre dos variables categóricas. En ese sentido, cumple una función análoga a la del coeficiente \\(\\beta\\) en la regresión lineal, y es lo que nos permitirá aprovechar las ventajas del modelo de regresión, en particular el control estadístico, cuando la variable dependiente es categórica."
+  },
+  {
+    "objectID": "practicos/practico-09.html#del-odds-al-logit",
+    "href": "practicos/practico-09.html#del-odds-al-logit",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "5.4 Del odds al logit",
+    "text": "5.4 Del odds al logit\nLos odds resuelven buena parte del problema, pero tienen una limitación que impide usarlos directamente en un modelo de regresión: no son simétricos.\nObserve los dos valores que calculamos:\n\nc(hombres = odds_hombres, mujeres = odds_mujeres)\n\n  hombres   mujeres \n0.2581262 3.0416667 \n\n\nLas mujeres tienen un odds de 3,04 y los hombres de 0,26. Si quisiéramos decir que una chance es “el doble de favorable” y otra “el doble de desfavorable”, los números no se comportan de manera equivalente: los odds favorables se extienden de 1 a infinito, mientras que los desfavorables quedan comprimidos entre 0 y 1.\nLa solución es aplicar el logaritmo natural:\n\nlog(c(hombres = odds_hombres, mujeres = odds_mujeres))\n\n  hombres   mujeres \n-1.354307  1.112406 \n\n\nAhora los valores son simétricos en torno a cero: −1,36 y 1,11. Un valor negativo indica chances desfavorables, uno positivo chances favorables, y el cero indica ausencia de asociación.\n\\[logit(\\pi) = \\ln\\left(\\frac{\\pi}{1-\\pi}\\right)\\]\nEsta transformación es el logaritmo de los odds, o logit, y de ahí proviene el nombre de la regresión logística.\n\n5.4.1 Probabilidades, odds y logit\nPara ver cómo se relacionan las tres escalas, construyamos una tabla con distintas probabilidades y calculemos su odds y su logit:\n\nescalas &lt;- data.frame(prob = c(0.001, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5,\n                               0.6, 0.7, 0.8, 0.9, 0.95, 0.999))\n\nescalas$odds &lt;- escalas$prob / (1 - escalas$prob)\nescalas$logit &lt;- log(escalas$odds)\n\nkable(escalas, digits = 3,\n      col.names = c(\"Probabilidad\", \"Odds\", \"Logit\")) %&gt;%\n  kable_styling(full_width = FALSE) %&gt;%\n  row_spec(7, bold = TRUE, background = \"#dbe8ff\")\n\n\n\n\nProbabilidad\nOdds\nLogit\n\n\n\n\n0.001\n0.001\n-6.907\n\n\n0.050\n0.053\n-2.944\n\n\n0.100\n0.111\n-2.197\n\n\n0.200\n0.250\n-1.386\n\n\n0.300\n0.429\n-0.847\n\n\n0.400\n0.667\n-0.405\n\n\n0.500\n1.000\n0.000\n\n\n0.600\n1.500\n0.405\n\n\n0.700\n2.333\n0.847\n\n\n0.800\n4.000\n1.386\n\n\n0.900\n9.000\n2.197\n\n\n0.950\n19.000\n2.944\n\n\n0.999\n999.000\n6.907\n\n\n\n\n\nObserve tres cosas:\n\nUna probabilidad de 0,5 equivale a un odds de 1 y a un logit de 0\nLas probabilidades menores a 0,5 tienen logits negativos, y las mayores, positivos\nProbabilidades simétricas, como 0,2 y 0,8, tienen logits de igual magnitud y signo opuesto\n\n\nggplot(escalas, aes(x = logit, y = prob)) +\n  geom_line(color = \"#04245f\", linewidth = 1.2) +\n  geom_point(color = \"#04245f\", size = 2) +\n  geom_hline(yintercept = c(0, 1), color = \"#c0392b\", linetype = \"dashed\") +\n  labs(x = \"Logit\", y = \"Probabilidad\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 2: Relación entre el logit y la probabilidad\n\n\n\n\n\nLa curva muestra por qué el logit es útil: puede tomar cualquier valor, positivo o negativo, mientras que la probabilidad correspondiente nunca sale del rango entre 0 y 1.\n\n\n\n\n\n\nNotaLas tres escalas\n\n\n\nUn mismo fenómeno puede expresarse de tres formas:\n\n\n\nEscala\nRango\nEjemplo (mujeres)\n\n\n\n\nProbabilidad\n0 a 1\n0,753\n\n\nOdds\n0 a infinito\n3,042\n\n\nLogit\n−infinito a +infinito\n1,113\n\n\n\nEl modelo trabaja en la tercera porque es la única no acotada, y por tanto la única compatible con una ecuación lineal. La interpretación, en cambio, suele hacerse volviendo a las dos primeras."
+  },
+  {
+    "objectID": "practicos/practico-09.html#la-función-glm",
+    "href": "practicos/practico-09.html#la-función-glm",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "7.1 La función glm",
+    "text": "7.1 La función glm\nLa regresión logística se estima con la función glm. Su sintaxis es la misma que la de lm, con el argumento adicional family = \"binomial\", que indica que la dependiente es dicotómica:\n\nmodelo &lt;- glm(dependiente ~ independiente1 + independiente2,\n              data = datos,\n              family = \"binomial\")\n\nCuando la dependiente es un factor de dos categorías, R modela la probabilidad de la segunda categoría:\n\nlevels(proc_data$confia)\n\n[1] \"No confía\" \"Confía\"   \n\n\nEn este caso, el modelo estimará las chances de confiar."
+  },
+  {
+    "objectID": "practicos/practico-09.html#modelo-con-sexo",
+    "href": "practicos/practico-09.html#modelo-con-sexo",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "7.2 Modelo con sexo",
+    "text": "7.2 Modelo con sexo\n\nmodelo_titanic &lt;- glm(survived ~ sex,\n                      data = tt,\n                      family = \"binomial\")\n\nPara ver los coeficientes en la escala del logit, usamos tab_model con el argumento transform = NULL:\n\ntab_model(modelo_titanic,\n          transform = NULL,\n          show.se = TRUE,\n          show.ci = FALSE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Sobrevivencia\",\n          pred.labels = c(\"(Intercepto)\", \"Sexo (Mujer)\"),\n          string.pred = \"Predictores\",\n          string.est = \"Logit\")\n\n\n\n\n \nSobrevivencia\n\n\nPredictores\nLogit\nstd. Error\np\n\n\n(Intercepto)\n-1.354\n0.097\n&lt;0.001\n\n\nSexo (Mujer)\n2.467\n0.152\n&lt;0.001\n\n\nObservations\n1046\n\n\n\n\n\nEl modelo puede escribirse como una ecuación, igual que en regresión lineal, solo que ahora la dependiente es el logit:\n\\[ln\\left(\\frac{p_{sobrevivir}}{1-p_{sobrevivir}}\\right) = -1.354 + 2.467 \\times Mujer\\]"
+  },
+  {
+    "objectID": "practicos/practico-09.html#interpretación-de-los-coeficientes-logit",
+    "href": "practicos/practico-09.html#interpretación-de-los-coeficientes-logit",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "7.3 Interpretación de los coeficientes logit",
+    "text": "7.3 Interpretación de los coeficientes logit\nDel coeficiente logit podemos leer directamente dos cosas:\n\nEl signo: ambos coeficientes son positivos, por lo que quienes tienen educación media o superior tienen más chances de confiar que quienes tienen educación básica\nLa significación: la diferencia entre educación superior y básica es estadísticamente significativa (\\(p&lt;0,01\\)); la diferencia entre educación media y básica no lo es\n\nLo que no podemos leer directamente es la magnitud, porque nadie razona en “logaritmos de chances”.\n\n\n\n\n\n\nTip¿De dónde salen estos números?\n\n\n\nCompare con los logits que calculamos a mano en la sección anterior. El intercepto (−0,274) es el logit de educación básica, la categoría de referencia. El coeficiente de educación superior (0,306) es la diferencia entre el logit de educación superior y el de educación básica: \\(0.032 - (-0.274) = 0.306\\)."
+  },
+  {
+    "objectID": "practicos/practico-09.html#de-logits-a-odds-ratio",
+    "href": "practicos/practico-09.html#de-logits-a-odds-ratio",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "7.4 De logits a odds ratio",
+    "text": "7.4 De logits a odds ratio\nPara interpretar la magnitud, volvemos a la escala de los odds con la exponenciación, que es la operación inversa del logaritmo:\n\\[e^{logit} = Odds\\]\n\nexp(coef(m_educ))\n\n             (Intercept)    educ_fEducación media educ_fEducación superior \n               0.7601078                1.0995793                1.3578712 \n\n\n\n\n\n\n\n\nImportanteEl resultado clave\n\n\n\nLos coeficientes exponenciados son exactamente los odds ratio que calculamos a mano: 1,10 para educación media y 1,36 para educación superior. Y el intercepto exponenciado, 0,760, es el odds de confiar de quienes tienen educación básica.\nEl modelo no hace nada distinto de lo que hicimos a mano: lo hace de forma automática, con inferencia estadística, y permitiendo incorporar varios predictores a la vez.\n\n\nPor defecto, tab_model muestra los coeficientes ya exponenciados:\n\ntab_model(m_educ,\n          show.ci = TRUE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Confianza en vecinos\",\n          pred.labels = c(\"(Intercepto)\", \"Educación media\", \"Educación superior\"),\n          string.pred = \"Predictores\",\n          string.est = \"OR\",\n          string.ci = \"IC 95%\")\n\n\n\n\n \nConfianza en vecinos\n\n\nPredictores\nOR\nIC 95%\np\n\n\n(Intercepto)\n0.760\n0.000 – Inf\n0.001\n\n\nEducación media\n1.100\n0.000 – Inf\n0.330\n\n\nEducación superior\n1.358\n0.000 – Inf\n0.002\n\n\nObservations\n2906\n\n\n\n\n\n\n\n\n\n\n\nNotaSignificación en odds ratio\n\n\n\nEn logit, la ausencia de asociación corresponde a un coeficiente igual a 0. En odds ratio corresponde a 1, porque \\(e^0 = 1\\). Por eso, un OR es estadísticamente significativo cuando su intervalo de confianza no incluye el 1. Observe que el intervalo de educación media incluye el 1, y el de educación superior no."
+  },
+  {
+    "objectID": "practicos/practico-09.html#equivalencias-entre-logit-y-odds-ratio",
+    "href": "practicos/practico-09.html#equivalencias-entre-logit-y-odds-ratio",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "7.5 Equivalencias entre logit y odds ratio",
+    "text": "7.5 Equivalencias entre logit y odds ratio\n\n\n\n\nLogit (\\(\\beta\\))\nOdds ratio (\\(e^\\beta\\))\n\n\n\n\nSin asociación\n0\n1\n\n\nAsociación positiva\nMayor a 0\nMayor a 1\n\n\nAsociación negativa\nMenor a 0\nEntre 0 y 1\n\n\nRango\n\\(-\\infty\\) a \\(+\\infty\\)\n0 a \\(+\\infty\\)"
+  },
+  {
+    "objectID": "practicos/practico-09.html#una-independiente-continua",
+    "href": "practicos/practico-09.html#una-independiente-continua",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "7.6 Una independiente continua",
+    "text": "7.6 Una independiente continua\nCon una independiente continua, el OR indica cuánto se multiplican las chances por cada unidad adicional en \\(x\\):\n\nm_edad &lt;- glm(confia ~ edad,\n              data = proc_data,\n              family = \"binomial\")\n\nexp(coef(m_edad))\n\n(Intercept)        edad \n  0.4060399   1.0168998 \n\n\nPor cada año adicional de edad, las chances de confiar en los vecinos se multiplican por 1,017, es decir, aumentan un 1,7%. Para un cambio de 10 años:\n\nexp(10 * coef(m_edad)[\"edad\"])\n\n    edad \n1.182446 \n\n\nLas chances de confiar de una persona de 50 años son 1,18 veces las de una de 40."
+  },
+  {
+    "objectID": "practicos/practico-09.html#preparación",
+    "href": "practicos/practico-09.html#preparación",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "8.1 Preparación",
+    "text": "8.1 Preparación\n\nload(url(\"https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData\"))\n\n\nproc_data &lt;- elsoc_long_2016_2022.2 %&gt;%\n  filter(ola == 1) %&gt;%\n  select(t01, m01, m0_sexo, m0_edad) %&gt;%\n  set_na(., na = c(-999, -888, -777, -666)) %&gt;%\n  rename(\"confianza\" = t01,\n         \"educacion\" = m01,\n         \"sexo\" = m0_sexo,\n         \"edad\" = m0_edad) %&gt;%\n  na.omit()\n\nnrow(proc_data)\n\n[1] 2906"
+  },
+  {
+    "objectID": "practicos/practico-09.html#construir-una-variable-dicotómica",
+    "href": "practicos/practico-09.html#construir-una-variable-dicotómica",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "8.2 Construir una variable dicotómica",
+    "text": "8.2 Construir una variable dicotómica\nLa confianza en los vecinos se mide en una escala de 1 a 5. Para este ejercicio la convertiremos en una variable dicotómica: confía quien responde 4 o 5, y no confía quien responde 1, 2 o 3.\n\nfrq(proc_data$confianza)\n\nx &lt;numeric&gt; \n# total N=2906 valid N=2906 mean=3.20 sd=1.20\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    1 | 332 | 11.42 |   11.42 |  11.42\n    2 | 502 | 17.27 |   17.27 |  28.70\n    3 | 711 | 24.47 |   24.47 |  53.17\n    4 | 987 | 33.96 |   33.96 |  87.13\n    5 | 374 | 12.87 |   12.87 | 100.00\n &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(confia = ifelse(confianza &gt;= 4, 1, 0),\n         confia = factor(confia,\n                         levels = c(0, 1),\n                         labels = c(\"No confía\", \"Confía\")),\n         sexo_f = factor(sexo,\n                         levels = c(1, 2),\n                         labels = c(\"Hombre\", \"Mujer\")))\n\nfrq(proc_data$confia)\n\nx &lt;categorical&gt; \n# total N=2906 valid N=2906 mean=1.47 sd=0.50\n\nValue     |    N | Raw % | Valid % | Cum. %\n-------------------------------------------\nNo confía | 1545 | 53.17 |   53.17 |  53.17\nConfía    | 1361 | 46.83 |   46.83 | 100.00\n&lt;NA&gt;      |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\n\n\n\n\n\nAdvertenciaDicotomizar tiene un costo\n\n\n\nAl convertir una variable de cinco categorías en una de dos, perdemos información: alguien que responde 1 y alguien que responde 3 quedan en el mismo grupo, aunque sus respuestas sean distintas.\nLo hacemos aquí porque necesitamos una variable dicotómica para trabajar estos conceptos. En una investigación, el punto de corte debe justificarse teóricamente, y siempre conviene revisar si los resultados cambian al moverlo."
+  },
+  {
+    "objectID": "practicos/practico-09.html#probabilidades-y-odds",
+    "href": "practicos/practico-09.html#probabilidades-y-odds",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "8.3 Probabilidades y odds",
+    "text": "8.3 Probabilidades y odds\n\n\n\nCross-Tabulation, Row Proportions\n\nsexo_f * confia\n\n\nData Frame: proc_data\n\n\n\n\n\n\nconfia\n\n\n\nsexo_f\nNo confía\nConfía\nTotal\n\n\n\n\nHombre\n598\n(\n51.6%\n)\n560\n(\n48.4%\n)\n1158\n(\n100.0%\n)\n\n\nMujer\n947\n(\n54.2%\n)\n801\n(\n45.8%\n)\n1748\n(\n100.0%\n)\n\n\nTotal\n1545\n(\n53.2%\n)\n1361\n(\n46.8%\n)\n2906\n(\n100.0%\n)\n\n\n\n\n\n\n\n\naddmargins(table(proc_data$confia, proc_data$sexo_f))\n\n           \n            Hombre Mujer  Sum\n  No confía    598   947 1545\n  Confía       560   801 1361\n  Sum         1158  1748 2906\n\n\n\n8.3.1 Ejercicio guiado\nA partir de la tabla anterior, calcule:\n\nLa probabilidad de confiar en los vecinos para el total de la muestra\nEl odds de confiar para los hombres\nEl odds de confiar para las mujeres\nEl odds ratio entre ambos grupos\n\n\n\nVer solución\ntabla &lt;- table(proc_data$confia, proc_data$sexo_f)\n\n# 1. Probabilidad total de confiar\nprop.table(table(proc_data$confia))\n\n\n\nNo confía    Confía \n0.5316586 0.4683414 \n\n\nVer solución\n# 2 y 3. Odds por sexo\nodds_h &lt;- tabla[\"Confía\", \"Hombre\"] / tabla[\"No confía\", \"Hombre\"]\nodds_m &lt;- tabla[\"Confía\", \"Mujer\"] / tabla[\"No confía\", \"Mujer\"]\n\nc(hombres = odds_h, mujeres = odds_m)\n\n\n  hombres   mujeres \n0.9364548 0.8458289 \n\n\nVer solución\n# 4. Odds ratio\nodds_m / odds_h\n\n\n[1] 0.9032245\n\n\nAmbos odds son cercanos a 1, lo que indica que en los dos grupos las chances de confiar y de no confiar son parecidas. El odds ratio también resulta próximo a 1, de modo que la asociación entre sexo y confianza vecinal es débil.\n\n\n\n\n\n\nNotaUna lección del contraste\n\n\n\nEn el Titanic obtuvimos un OR de 11,78. Aquí obtenemos uno cercano a 0,9. La diferencia no es un error: la mayoría de las asociaciones en investigación social son modestas, y el Titanic es excepcional precisamente porque la evacuación siguió una regla explícita de prioridad.\nAl igual que con el \\(R^2\\), un valor pequeño no invalida el análisis. Lo que sí exige es prudencia al redactar la interpretación."
+  },
+  {
+    "objectID": "practicos/practico-09.html#el-mismo-resultado-con-glm",
+    "href": "practicos/practico-09.html#el-mismo-resultado-con-glm",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "8.4 El mismo resultado con glm",
+    "text": "8.4 El mismo resultado con glm\nEstimemos ahora el modelo logístico. En este caso la dependiente es el factor confia, cuya segunda categoría es “Confía”:\n\nm_sexo &lt;- glm(confia ~ sexo_f,\n              data = proc_data,\n              family = \"binomial\")\n\ntab_model(m_sexo,\n          show.ci = TRUE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Confianza en vecinos\",\n          pred.labels = c(\"(Intercepto)\", \"Sexo (Mujer)\"),\n          string.pred = \"Predictores\",\n          string.est = \"OR\",\n          string.ci = \"IC 95%\")\n\n\n\n\n \nConfianza en vecinos\n\n\nPredictores\nOR\nIC 95%\np\n\n\n(Intercepto)\n0.936\n0.000 – Inf\n0.264\n\n\nSexo (Mujer)\n0.903\n0.000 – Inf\n0.180\n\n\nObservations\n2906\n\n\n\n\n\nEl OR de mujer es el mismo que calculamos a mano. A diferencia del cálculo manual, el modelo nos entrega además su significación: el intervalo de confianza incluye el 1, por lo que la diferencia entre hombres y mujeres no es estadísticamente significativa."
+  },
+  {
+    "objectID": "practicos/practico-09.html#con-una-variable-de-tres-categorías",
+    "href": "practicos/practico-09.html#con-una-variable-de-tres-categorías",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "8.5 Con una variable de tres categorías",
+    "text": "8.5 Con una variable de tres categorías\nRecodifiquemos el nivel educacional y repitamos el ejercicio:\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(educ_rec = case_when(educacion &lt;= 3 ~ 1,\n                              educacion &lt;= 5 ~ 2,\n                              TRUE ~ 3),\n         educ_f = factor(educ_rec,\n                         levels = c(1, 2, 3),\n                         labels = c(\"Educación básica\",\n                                    \"Educación media\",\n                                    \"Educación superior\")))\n\ntable(proc_data$confia, proc_data$educ_f)\n\n           \n            Educación básica Educación media Educación superior\n  No confía              371             676                498\n  Confía                 282             565                514\n\n\n\ntabla_educ &lt;- table(proc_data$confia, proc_data$educ_f)\n\nodds_educ &lt;- tabla_educ[\"Confía\", ] / tabla_educ[\"No confía\", ]\n\nround(odds_educ, 3)\n\n  Educación básica    Educación media Educación superior \n             0.760              0.836              1.032 \n\n\nLos odds aumentan de manera sostenida con el nivel educacional. Calculemos ahora los odds ratio tomando la educación básica como categoría de referencia:\n\nround(odds_educ / odds_educ[\"Educación básica\"], 3)\n\n  Educación básica    Educación media Educación superior \n             1.000              1.100              1.358 \n\n\nQuienes tienen educación superior presentan chances de confiar en sus vecinos aproximadamente 1,36 veces mayores que quienes tienen educación básica.\nY ahora con glm:\n\nm_educ &lt;- glm(confia ~ educ_f,\n              data = proc_data,\n              family = \"binomial\")\n\ntab_model(m_educ,\n          show.ci = TRUE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Confianza en vecinos\",\n          pred.labels = c(\"(Intercepto)\", \"Educación media\", \"Educación superior\"),\n          string.pred = \"Predictores\",\n          string.est = \"OR\",\n          string.ci = \"IC 95%\")\n\n\n\n\n \nConfianza en vecinos\n\n\nPredictores\nOR\nIC 95%\np\n\n\n(Intercepto)\n0.760\n0.000 – Inf\n0.001\n\n\nEducación media\n1.100\n0.000 – Inf\n0.330\n\n\nEducación superior\n1.358\n0.000 – Inf\n0.002\n\n\nObservations\n2906\n\n\n\n\n\nLos OR del modelo vuelven a coincidir con los que calculamos a mano. El modelo agrega la significación: la diferencia entre educación superior y básica es estadísticamente significativa, mientras que la diferencia entre educación media y básica no lo es.\n\n\n\n\n\n\nNotaLa conexión con las variables dummy\n\n\n\nNote la similitud con las variables dummy: hay una categoría de referencia, y cada coeficiente se interpreta respecto de ella. El intercepto exponenciado es el odds de confiar de quienes tienen educación básica."
+  },
+  {
+    "objectID": "practicos/practico-09.html#con-la-edad-como-predictor",
+    "href": "practicos/practico-09.html#con-la-edad-como-predictor",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "8.6 Con la edad como predictor",
+    "text": "8.6 Con la edad como predictor\n\nm_edad &lt;- glm(confia ~ edad,\n              data = proc_data,\n              family = \"binomial\")\n\nexp(coef(m_edad))\n\n(Intercept)        edad \n  0.4060399   1.0168998 \n\n\nPor cada año adicional de edad, las chances de confiar en los vecinos se multiplican por 1,017, es decir, aumentan un 1,7%."
+  },
+  {
+    "objectID": "practicos/practico-09.html#conceptos",
+    "href": "practicos/practico-09.html#conceptos",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "9.1 Conceptos",
+    "text": "9.1 Conceptos\n\nUn odds ratio de 0,45, ¿indica una asociación positiva o negativa? ¿Cómo se expresaría ese mismo resultado invirtiendo la comparación? Expréselo también como cambio porcentual.\nUn coeficiente logit de −0,7, ¿indica una asociación positiva o negativa? ¿Qué odds ratio le corresponde?"
+  },
+  {
+    "objectID": "practicos/practico-09.html#cálculo-con-el-titanic",
+    "href": "practicos/practico-09.html#cálculo-con-el-titanic",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "10.2 Cálculo con el Titanic",
+    "text": "10.2 Cálculo con el Titanic\n\nConstruya la tabla de contingencia entre pclass y survived.\nCalcule la probabilidad de sobrevivir para cada una de las tres clases.\nCalcule el odds de sobrevivir para cada clase.\nCalcule el odds ratio tomando la clase baja como categoría de referencia, e interprete los dos valores obtenidos.\nCalcule el logit correspondiente a cada clase y comente qué ocurre con el signo.\nEstime un modelo de regresión logística con pclass como predictor. Para que la clase baja sea la categoría de referencia, use relevel(tt$pclass, ref = \"Clase Baja\"). Compruebe que los OR del modelo coinciden con los calculados en la pregunta 8."
+  },
+  {
+    "objectID": "practicos/practico-09.html#cálculo-con-elsoc",
+    "href": "practicos/practico-09.html#cálculo-con-elsoc",
+    "title": "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit",
+    "section": "10.3 Cálculo con ELSOC",
+    "text": "10.3 Cálculo con ELSOC\n\nCargue la base ELSOC y filtre por la ola 4 (2019). Construya una variable dicotómica a partir de la confianza en los vecinos, usando el mismo punto de corte de esta guía.\nElabore la tabla de contingencia entre esa variable y el nivel educacional recodificado en tres categorías.\nCalcule los odds por grupo y los odds ratio respecto de la educación básica.\nEstime el mismo análisis con glm y comente cuáles diferencias son estadísticamente significativas.\nCompare los resultados con los obtenidos para 2016 en esta guía y comente brevemente si el patrón se mantiene."
+  },
+  {
+    "objectID": "practicos/practico-09.html#reflexión",
+    "href": "practicos/practico-09.html#reflexión",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "9.3 Reflexión",
+    "text": "9.3 Reflexión\n\nElija un fenómeno social que podría estudiarse con una variable dependiente dicotómica, señale cuál sería esa variable y qué dos predictores le parecen teóricamente relevantes. Anticipe el signo que esperaría para cada uno."
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#dónde-quedamos",
+    "href": "slides/09-clase9/09-clase9.html#dónde-quedamos",
+    "title": "Sesión 9",
+    "section": "¿Dónde quedamos?",
+    "text": "¿Dónde quedamos?\n\n\nLa regresión logística estima el logit: el logaritmo de los odds\nDel coeficiente logit leemos signo y significación\nPara interpretar la magnitud, exponenciamos el coeficiente y obtenemos un odds ratio\nEn el ejemplo de participación electoral quedó una pregunta abierta: ¿qué ocurre con el efecto de la educación al controlar por edad?"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#hoy",
+    "href": "slides/09-clase9/09-clase9.html#hoy",
+    "title": "Sesión 9",
+    "section": "Hoy",
+    "text": "Hoy\n\n\nRegresión logística múltiple\nDel logit a la probabilidad\nProbabilidades predichas en R con ggeffects\nEl efecto no constante de los predictores sobre la probabilidad\nAjuste de la regresión logística"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#tres-escalas-para-lo-mismo",
+    "href": "slides/09-clase9/09-clase9.html#tres-escalas-para-lo-mismo",
+    "title": "Sesión 9",
+    "section": "Tres escalas para lo mismo",
+    "text": "Tres escalas para lo mismo\n\n\n\n\n\n\n\n\n\n\n\nProbabilidad\nOdds\nLogit\n\n\n\n\nFórmula\n\\(p\\)\n\\(\\frac{p}{1-p}\\)\n\\(ln\\left(\\frac{p}{1-p}\\right)\\)\n\n\nRango\n0 a 1\n0 a \\(+\\infty\\)\n\\(-\\infty\\) a \\(+\\infty\\)\n\n\nSin asociación\n\nOR = 1\n\\(\\beta\\) = 0\n\n\n¿Para qué la usamos?\nComunicar resultados\nInterpretar coeficientes (OR)\nEs lo que estima el modelo\n\n\n\n\n\nEl modelo trabaja en logits. Nosotros podemos movernos entre las tres escalas en ambas direcciones"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#ida-y-vuelta",
+    "href": "slides/09-clase9/09-clase9.html#ida-y-vuelta",
+    "title": "Sesión 9",
+    "section": "Ida y vuelta",
+    "text": "Ida y vuelta\n\n\nDe la probabilidad al logit\n\\[Odds=\\frac{p}{1-p}\\]\n\\[logit=ln(Odds)\\]\n\n\nDel logit a la probabilidad\n\\[Odds=e^{logit}\\]\n\\[p=\\frac{Odds}{1+Odds}=\\frac{e^{logit}}{1+e^{logit}}\\]\n\n\n\n\n\nLa sesión pasada recorrimos el camino de ida. Hoy recorremos el de vuelta"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#regresión-logística-múltiple-1",
+    "href": "slides/09-clase9/09-clase9.html#regresión-logística-múltiple-1",
+    "title": "Sesión 9",
+    "section": "Regresión logística múltiple",
+    "text": "Regresión logística múltiple\n\n\nIgual que en regresión lineal, podemos incluir varios predictores en el modelo\n\n\\[ln\\left(\\frac{p}{1-p}\\right)=\\beta_0+\\beta_1X_1+\\beta_2X_2+...+\\beta_kX_k\\]\n\nCada coeficiente se interpreta controlando por los demás predictores, es decir, manteniéndolos constantes\nLa sintaxis en R es la misma: se agregan predictores con +"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#titanic-sexo-y-clase",
+    "href": "slides/09-clase9/09-clase9.html#titanic-sexo-y-clase",
+    "title": "Sesión 9",
+    "section": "Titanic: sexo y clase",
+    "text": "Titanic: sexo y clase\n\n\n\ntt &lt;- tt %&gt;%\n  mutate(pclass = factor(pclass,\n    levels = c(\"Clase Alta\",\n               \"Clase Intermedia\",\n               \"Clase Baja\")))\n\nmodelo_titanic3 &lt;- glm(survived ~ sex + pclass,\n                       data = tt,\n                       family = \"binomial\")\n\n\nOrdenamos los niveles de pclass para que la categoría de referencia sea la clase alta\n\n\n\n\n\n \nModelo 1\nModelo 2\n\n\nPredictores\nOR\nOR\n\n\n(Intercepto)\n0.258 ***\n0.692 *\n\n\nSexo (Mujer)\n11.784 ***\n12.530 ***\n\n\nClase intermedia\n\n0.407 ***\n\n\nClase baja\n\n0.179 ***\n\n\nObservations\n1046\n1046\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#interpretación",
+    "href": "slides/09-clase9/09-clase9.html#interpretación",
+    "title": "Sesión 9",
+    "section": "Interpretación",
+    "text": "Interpretación\n\n\nSexo: controlando por clase, las chances de sobrevivir de las mujeres son 12.53 veces las de los hombres\nClase intermedia (ref = clase alta): controlando por sexo, sus chances de sobrevivir son 0.407 veces las de la clase alta, es decir, un 59% menos\nClase baja: sus chances son 0.179 veces las de la clase alta, un 82% menos\nTodos los coeficientes son estadísticamente significativos (\\(p&lt;0.001\\))"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#section-1",
+    "href": "slides/09-clase9/09-clase9.html#section-1",
+    "title": "Sesión 9",
+    "section": "",
+    "text": "El OR de sexo casi no cambia al controlar por clase\n\n\nLa ventaja de las mujeres no se explica por su distribución entre las clases\n\n\n\nEn el ejemplo de participación electoral, en cambio, el control sí modifica los resultados"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#volviendo-a-la-paradoja",
+    "href": "slides/09-clase9/09-clase9.html#volviendo-a-la-paradoja",
+    "title": "Sesión 9",
+    "section": "Volviendo a la paradoja",
+    "text": "Volviendo a la paradoja\n\n\n\n\n\nNivel educacional\n% votó\nOdds\nOR\nEdad promedio\n\n\n\n\nBásica\n78.5\n3.645\n1.00\n56.2\n\n\nMedia\n64.4\n1.809\n0.50\n45.6\n\n\nSuperior\n66.2\n1.959\n0.54\n40.6\n\n\n\n\n\n\n\nEn el análisis bivariado, quienes tienen educación básica presentan las mayores chances de votar\nPero también son, en promedio, mucho mayores, y la edad es un predictor fuerte de la participación"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#los-modelos",
+    "href": "slides/09-clase9/09-clase9.html#los-modelos",
+    "title": "Sesión 9",
+    "section": "Los modelos",
+    "text": "Los modelos\n\nm_educ &lt;- glm(voto ~ educ_f, data = elsoc, family = \"binomial\")\n\nm_mult &lt;- glm(voto ~ educ_f + edad + sexo_f, data = elsoc, family = \"binomial\")\n\ntab_model(m_educ, m_mult)\n\n\n\nModelo 1: solo nivel educacional. Reproduce los OR de la tabla de contingencia\nModelo 2: agrega edad y sexo como controles"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#resultados-odds-ratio",
+    "href": "slides/09-clase9/09-clase9.html#resultados-odds-ratio",
+    "title": "Sesión 9",
+    "section": "Resultados (odds ratio)",
+    "text": "Resultados (odds ratio)\n\n\n\n \nModelo 1\nModelo 2\n\n\nPredictores\nOR\nOR\n\n\n(Intercepto)\n3.645 ***\n0.144 ***\n\n\nEducación media\n0.496 ***\n0.888 \n\n\nEducación superior\n0.537 ***\n1.330 *\n\n\nEdad\n\n1.060 ***\n\n\nSexo (Mujer)\n\n1.152 \n\n\nObservations\n2894\n2894\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#interpretación-1",
+    "href": "slides/09-clase9/09-clase9.html#interpretación-1",
+    "title": "Sesión 9",
+    "section": "Interpretación",
+    "text": "Interpretación\n\n\n\nEducación superior (ref = básica): controlando por edad y sexo, las chances de votar de quienes tienen educación superior son 1.33 veces las de quienes tienen educación básica, es decir, un 33% más. Es estadísticamente significativo (\\(p&lt;0.05\\))\nEducación media: OR de 0.89, no significativo. No hay diferencias con educación básica una vez que controlamos por edad y sexo\nEdad: cada año adicional aumenta las chances de votar en un 6%, manteniendo constantes educación y sexo\nSexo: las mujeres presentan un OR de 1.15, pero la diferencia no es significativa"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#section-2",
+    "href": "slides/09-clase9/09-clase9.html#section-2",
+    "title": "Sesión 9",
+    "section": "",
+    "text": "Al controlar por edad, el efecto de la educación se invierte\n\n\nAhora sí coincide con lo que predice la teoría: a mayor educación, mayores chances de votar"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#y-el-sexo",
+    "href": "slides/09-clase9/09-clase9.html#y-el-sexo",
+    "title": "Sesión 9",
+    "section": "¿Y el sexo?",
+    "text": "¿Y el sexo?\n\n\nEn el análisis bivariado, el OR de mujer era 1.25 y estadísticamente significativo\nEn el modelo múltiple baja a 1.15 y deja de ser significativo\nUna parte de esa diferencia se explicaba por la composición de edad y educación de hombres y mujeres en la muestra\n\n\n\n\nEs la misma lógica de la parcialización que vimos en regresión lineal: el coeficiente de un predictor cambia cuando se incorporan otros que están relacionados con él y con la dependiente"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#gráfico-de-coeficientes",
+    "href": "slides/09-clase9/09-clase9.html#gráfico-de-coeficientes",
+    "title": "Sesión 9",
+    "section": "Gráfico de coeficientes",
+    "text": "Gráfico de coeficientes\n\n\n\n\n\n\n\n\nFigure 1\n\n\n\n\n\n\nUn coeficiente es significativo cuando su intervalo de confianza no cruza la línea del 1. En R, un gráfico similar se obtiene rápidamente con plot_model(m_mult) del paquete sjPlot"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#section-3",
+    "href": "slides/09-clase9/09-clase9.html#section-3",
+    "title": "Sesión 9",
+    "section": "",
+    "text": "El OR de educación superior es 1.33\n\n\n\n¿Significa que la probabilidad de votar es un 33% mayor?\n\n\n\n\nNo. Significa que las chances (odds) son un 33% mayores"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#odds-no-son-probabilidades",
+    "href": "slides/09-clase9/09-clase9.html#odds-no-son-probabilidades",
+    "title": "Sesión 9",
+    "section": "Odds no son probabilidades",
+    "text": "Odds no son probabilidades\n\n\nConfundir odds con probabilidades es el error más frecuente al interpretar una regresión logística\nEl OR es una medida relativa: dice cuánto se multiplican las chances, pero no cuál es el punto de partida\nPara decir algo como “una persona con tales características tiene un X% de probabilidad de votar” necesitamos las probabilidades predichas"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#un-mismo-or-distintos-cambios-en-la-probabilidad",
+    "href": "slides/09-clase9/09-clase9.html#un-mismo-or-distintos-cambios-en-la-probabilidad",
+    "title": "Sesión 9",
+    "section": "Un mismo OR, distintos cambios en la probabilidad",
+    "text": "Un mismo OR, distintos cambios en la probabilidad\n\n\n\n\n\n\n\n\n\n\n\n\nProbabilidad inicial\nOdds inicial\nOdds × 2\nProbabilidad final\nCambio (puntos %)\n\n\n\n\n0.01\n0.010\n0.020\n0.020\n0.980\n\n\n0.10\n0.111\n0.222\n0.182\n8.182\n\n\n0.25\n0.333\n0.667\n0.400\n15.000\n\n\n0.50\n1.000\n2.000\n0.667\n16.667\n\n\n0.75\n3.000\n6.000\n0.857\n10.714\n\n\n0.90\n9.000\n18.000\n0.947\n4.737\n\n\n\n\n\n\nEn todos los casos el OR es 2, pero el cambio en la probabilidad va desde 1 punto porcentual hasta casi 17. Depende de dónde se parte"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#paso-1-el-logit-predicho",
+    "href": "slides/09-clase9/09-clase9.html#paso-1-el-logit-predicho",
+    "title": "Sesión 9",
+    "section": "Paso 1: el logit predicho",
+    "text": "Paso 1: el logit predicho\n\nIgual que en regresión lineal, el modelo entrega un valor predicho reemplazando los valores de las variables en la ecuación, solo que aquí ese valor está en logits\n\n\\[logit(\\hat{p})=\\beta_0+\\beta_1X_1+...+\\beta_kX_k\\]\n\nTitanic, modelo con sexo:\n\nHombres: -1.354 + (2.467 × 0) = -1.354\nMujeres: -1.354 + (2.467 × 1) = 1.112"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#paso-2-de-logits-a-odds",
+    "href": "slides/09-clase9/09-clase9.html#paso-2-de-logits-a-odds",
+    "title": "Sesión 9",
+    "section": "Paso 2: de logits a odds",
+    "text": "Paso 2: de logits a odds\n\nExponenciamos el logit predicho\n\n\\[Odds=e^{logit}\\]\n\n\\[Odds_{hombres}=e^{-1.354}=0.258\\]\n\\[Odds_{mujeres}=e^{1.112}=3.042\\]\n\n\n\nSon los mismos odds que calculamos desde la tabla de contingencia"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#paso-3-de-odds-a-probabilidades",
+    "href": "slides/09-clase9/09-clase9.html#paso-3-de-odds-a-probabilidades",
+    "title": "Sesión 9",
+    "section": "Paso 3: de odds a probabilidades",
+    "text": "Paso 3: de odds a probabilidades\n\\[p=\\frac{Odds}{1+Odds}=\\frac{e^{logit}}{1+e^{logit}}\\]\n\n\\[p_{hombres}=\\frac{0.258}{1+0.258}=0.205\\]\n\\[p_{mujeres}=\\frac{3.042}{1+3.042}=0.753\\]\n\n\n\nLa probabilidad predicha de sobrevivir es de 20.5% para los hombres y de 75.3% para las mujeres"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#section-4",
+    "href": "slides/09-clase9/09-clase9.html#section-4",
+    "title": "Sesión 9",
+    "section": "",
+    "text": "¿Y cuáles eran las proporciones observadas de sobrevivencia?\n\n\n\nHombres: 20.5% / Mujeres: 75.3%\n\n\n\n\nCon un único predictor dicotómico, las probabilidades predichas reproducen las proporciones de cada grupo, igual que en regresión lineal el valor predicho de una dummy era el promedio de cada grupo"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#en-r-predict",
+    "href": "slides/09-clase9/09-clase9.html#en-r-predict",
+    "title": "Sesión 9",
+    "section": "En R: predict()",
+    "text": "En R: predict()\n\npredict(modelo_titanic,\n        newdata = data.frame(sex = c(\"Hombre\", \"Mujer\")),\n        type = \"response\")\n#&gt;         1         2 \n#&gt; 0.2051672 0.7525773\n\n\n\nnewdata indica los valores de las independientes para los que queremos la predicción\ntype = \"response\" pide la predicción en la escala de la probabilidad\nSin ese argumento, predict() entrega los logits"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#predicciones-para-todos-los-casos",
+    "href": "slides/09-clase9/09-clase9.html#predicciones-para-todos-los-casos",
+    "title": "Sesión 9",
+    "section": "Predicciones para todos los casos",
+    "text": "Predicciones para todos los casos\n\n\n\nelsoc$prob_pred &lt;- predict(m_mult,\n                           type = \"response\")\n\nsummary(elsoc$prob_pred)\n#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n#&gt;  0.2678  0.5453  0.7084  0.6821  0.8269  0.9741\n\n\nSin newdata, predict() calcula la probabilidad predicha de cada persona de la muestra según sus propios valores en las independientes\n\n\n\n#&gt; Warning: Removed 2 rows containing missing values or values outside the scale range\n#&gt; (`geom_bar()`).\n\n\n\n\n\n\n\nFigure 2"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#y-con-el-modelo-de-probabilidad-lineal",
+    "href": "slides/09-clase9/09-clase9.html#y-con-el-modelo-de-probabilidad-lineal",
+    "title": "Sesión 9",
+    "section": "¿Y con el modelo de probabilidad lineal?",
+    "text": "¿Y con el modelo de probabilidad lineal?\n\nlpm_mult &lt;- lm(voto ~ educ_f + edad + sexo_f, data = elsoc)\n\nsummary(fitted.values(lpm_mult))\n#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n#&gt;  0.3195  0.5455  0.6801  0.6821  0.8076  1.2031\n\nsum(fitted.values(lpm_mult) &gt; 1 | fitted.values(lpm_mult) &lt; 0)\n#&gt; [1] 47\n\n\nCon los mismos datos y predictores, el modelo lineal entrega 47 casos con probabilidades predichas mayores a 1. La regresión logística, ninguno"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#ggpredict",
+    "href": "slides/09-clase9/09-clase9.html#ggpredict",
+    "title": "Sesión 9",
+    "section": "ggpredict()",
+    "text": "ggpredict()\n\n\n\nlibrary(ggeffects)\n\nggpredict(modelo_titanic,\n          terms = \"sex\")\n\n\nLa misma función que usamos con regresión lineal. Con un modelo logístico, entrega directamente probabilidades, con sus intervalos de confianza\n\n\n\n\n\n\n\nSexo\nProbabilidad\nIC inferior\nIC superior\n\n\n\n\nHombre\n0.205\n0.176\n0.238\n\n\nMujer\n0.753\n0.707\n0.793"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#el-gráfico",
+    "href": "slides/09-clase9/09-clase9.html#el-gráfico",
+    "title": "Sesión 9",
+    "section": "El gráfico",
+    "text": "El gráfico\n\nplot(pred_tt) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Sexo\", y = \"Probabilidad predicha de sobrevivir\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\n\n\n\n\nFigure 3\n\n\n\n\n\n\nComo en regresión lineal, el eje \\(y\\) muestra el rango completo de la variable: de 0% a 100%"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#dos-predictores-categóricos",
+    "href": "slides/09-clase9/09-clase9.html#dos-predictores-categóricos",
+    "title": "Sesión 9",
+    "section": "Dos predictores categóricos",
+    "text": "Dos predictores categóricos\n\nplot(ggpredict(modelo_titanic3, terms = c(\"pclass\", \"sex\"))) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Clase\", y = \"Probabilidad predicha de sobrevivir\", color = \"Sexo\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\n\n\n\n\nFigure 4"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#cómo-leerlo",
+    "href": "slides/09-clase9/09-clase9.html#cómo-leerlo",
+    "title": "Sesión 9",
+    "section": "Cómo leerlo",
+    "text": "Cómo leerlo\n\n\nEl primer término de terms va en el eje \\(x\\); el segundo, en los colores\nUna mujer de clase alta tiene una probabilidad predicha de sobrevivir de 90%\nUn hombre de clase baja, de 11%\nLos OR de clase son los mismos para hombres y mujeres, pero la distancia en puntos porcentuales cambia: entre clase alta e intermedia es de 19 puntos para los hombres y de 12 para las mujeres"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#un-perfil-paso-a-paso",
+    "href": "slides/09-clase9/09-clase9.html#un-perfil-paso-a-paso",
+    "title": "Sesión 9",
+    "section": "Un perfil, paso a paso",
+    "text": "Un perfil, paso a paso\n¿Cuál es la probabilidad predicha de votar de una mujer de 25 años con educación superior?\n\n\n\\[logit=-1.939+0.285(1)+0.0584(25)+0.141(1)=-0.052\\]\n\n\n\n\\[p=\\frac{e^{-0.052}}{1+e^{-0.052}}=0.487\\]\n\n\n\nUna mujer de 25 años con educación superior tiene una probabilidad predicha de votar de 48.7%"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#el-mismo-perfil-a-los-65-años",
+    "href": "slides/09-clase9/09-clase9.html#el-mismo-perfil-a-los-65-años",
+    "title": "Sesión 9",
+    "section": "El mismo perfil, a los 65 años",
+    "text": "El mismo perfil, a los 65 años\n\n\\[logit=-1.939+0.285(1)+0.0584(65)+0.141(1)=2.284\\]\n\\[p=\\frac{e^{2.284}}{1+e^{2.284}}=0.908\\]\n\n\n\nperfiles &lt;- data.frame(educ_f = \"Superior\",\n                       edad = c(25, 65),\n                       sexo_f = \"Mujer\")\n\npredict(m_mult, newdata = perfiles, type = \"response\")\n#&gt;         1         2 \n#&gt; 0.4870457 0.9075596\n\n\n\n\n40 años de diferencia significan pasar de 49% a 91% de probabilidad de votar"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#ejercicio",
+    "href": "slides/09-clase9/09-clase9.html#ejercicio",
+    "title": "Sesión 9",
+    "section": "Ejercicio",
+    "text": "Ejercicio\n¿Cuál es la probabilidad predicha de votar de un hombre de 40 años con educación media?\n\n\n\n\nTérmino\nCoeficiente logit\n\n\n\n\nIntercepto\n-1.9386\n\n\nEducación media\n-0.1184\n\n\nEducación superior\n0.2853\n\n\nEdad\n0.0584\n\n\nSexo (Mujer)\n0.1414"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#solución",
+    "href": "slides/09-clase9/09-clase9.html#solución",
+    "title": "Sesión 9",
+    "section": "Solución",
+    "text": "Solución\n\n\nLogit: -1.939 + (-0.118 × 1) + (0.0584 × 40) + (0.141 × 0) = 0.279\nOdds: \\(e^{0.279}=1.322\\)\nProbabilidad: \\(\\frac{1.322}{1+1.322}=0.569\\)\n\n\n\n\nUn hombre de 40 años con educación media tiene una probabilidad predicha de votar de 56.9%"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#probabilidades-predichas-según-educación",
+    "href": "slides/09-clase9/09-clase9.html#probabilidades-predichas-según-educación",
+    "title": "Sesión 9",
+    "section": "Probabilidades predichas según educación",
+    "text": "Probabilidades predichas según educación\n\n\n\nggpredict(m_mult,\n          terms = \"educ_f\")\n\n\n\n\nggpredict fija las demás variables: las continuas en su promedio (edad = 46.3 años) y las categóricas en su categoría de referencia (hombre)\nEs decir, compara niveles educacionales entre personas de la misma edad y sexo\n\n\n\n\n\n\n\n\n\nEducación\nProbabilidad\nIC inferior\nIC superior\n\n\n\n\nBásica\n0.682\n0.630\n0.729\n\n\nMedia\n0.656\n0.618\n0.691\n\n\nSuperior\n0.740\n0.704\n0.774"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#antes-y-después-de-controlar",
+    "href": "slides/09-clase9/09-clase9.html#antes-y-después-de-controlar",
+    "title": "Sesión 9",
+    "section": "Antes y después de controlar",
+    "text": "Antes y después de controlar\n\n\n\n\n\n\n\n\nFigure 5\n\n\n\n\n\n\nSin controles, las probabilidades predichas reproducen el porcentaje de votantes de cada grupo. Al controlar por edad, educación superior pasa a tener la mayor probabilidad"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#probabilidades-predichas-según-edad",
+    "href": "slides/09-clase9/09-clase9.html#probabilidades-predichas-según-edad",
+    "title": "Sesión 9",
+    "section": "Probabilidades predichas según edad",
+    "text": "Probabilidades predichas según edad\n\nplot(ggpredict(m_mult, terms = \"edad [18:88]\")) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Edad\", y = \"Probabilidad predicha de votar\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\n\n\n\n\nFigure 6\n\n\n\n\n\n\n[18:88] pide la predicción para cada edad entre 18 y 88 años. Es una curva, no una recta"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#section-5",
+    "href": "slides/09-clase9/09-clase9.html#section-5",
+    "title": "Sesión 9",
+    "section": "",
+    "text": "El OR de la edad es el mismo para cualquier año: 1.06\n\n\nPero ¿el efecto sobre la probabilidad también es el mismo?"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#el-efecto-no-es-constante",
+    "href": "slides/09-clase9/09-clase9.html#el-efecto-no-es-constante",
+    "title": "Sesión 9",
+    "section": "El efecto no es constante",
+    "text": "El efecto no es constante\n\n\n\n\n\n\n\nEdad\nProbabilidad\nDiferencia\n\n\n\n\n20\n0.316\nNA\n\n\n30\n0.453\n0.137\n\n\n40\n0.598\n0.145\n\n\n50\n0.727\n0.129\n\n\n60\n0.827\n0.100\n\n\n70\n0.896\n0.068\n\n\n80\n0.939\n0.043\n\n\n\n\n\n\n\n\n\nEntre los 20 y los 30 años, la probabilidad de votar aumenta 13.7 puntos porcentuales\nEntre los 70 y los 80 años, solo 4.3 puntos\nLas chances se multiplican siempre por lo mismo, pero el cambio en la probabilidad depende del punto de partida\nCerca de 0 o de 1 la curva se aplana: la probabilidad ya no puede crecer (o bajar) mucho más"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#section-6",
+    "href": "slides/09-clase9/09-clase9.html#section-6",
+    "title": "Sesión 9",
+    "section": "",
+    "text": "En regresión lineal, el efecto de \\(x\\) es el mismo en todo su rango\n\n\nEn regresión logística, el efecto sobre la probabilidad depende de los valores de todas las variables del modelo\n\n\n\nPor eso las probabilidades predichas se reportan para perfiles concretos"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#edad-y-educación-a-la-vez",
+    "href": "slides/09-clase9/09-clase9.html#edad-y-educación-a-la-vez",
+    "title": "Sesión 9",
+    "section": "Edad y educación a la vez",
+    "text": "Edad y educación a la vez\n\nplot(ggpredict(m_mult, terms = c(\"edad [18:88]\", \"educ_f\"))) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Edad\", y = \"Probabilidad predicha de votar\", color = \"Educación\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\n\n\n\n\nFigure 7\n\n\n\n\n\n\nLa distancia entre las curvas es mayor donde la probabilidad está más cerca de 50% (los más jóvenes) y se achica en las edades altas, donde todas se acercan a 1"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#tabla-de-perfiles",
+    "href": "slides/09-clase9/09-clase9.html#tabla-de-perfiles",
+    "title": "Sesión 9",
+    "section": "Tabla de perfiles",
+    "text": "Tabla de perfiles\n\nggpredict(m_mult, terms = c(\"edad [25,45,65]\", \"educ_f\"))\n\n\n\n\n\n\nEdad\nBásica\nMedia\nSuperior\n\n\n\n\n25\n0.383\n0.355\n0.452\n\n\n45\n0.666\n0.639\n0.726\n\n\n65\n0.865\n0.851\n0.895\n\n\n\n\n\n\nProbabilidades predichas de votar para hombres, según edad y nivel educacional"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#una-alternativa-sjplot",
+    "href": "slides/09-clase9/09-clase9.html#una-alternativa-sjplot",
+    "title": "Sesión 9",
+    "section": "Una alternativa: sjPlot",
+    "text": "Una alternativa: sjPlot\n\nplot_model(m_mult, type = \"pred\", terms = \"educ_f\") +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Nivel educacional\", y = \"Probabilidad predicha de votar\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\n\n\n\n\nFigure 8\n\n\n\n\n\n\nplot_model con type = \"pred\" usa por dentro ggeffects, por lo que entrega las mismas probabilidades"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#cómo-reportar",
+    "href": "slides/09-clase9/09-clase9.html#cómo-reportar",
+    "title": "Sesión 9",
+    "section": "Cómo reportar",
+    "text": "Cómo reportar\n\n\nCoeficientes: en odds ratio, indicando significación. “Controlando por edad y sexo, las chances de votar de quienes tienen educación superior son 1.33 veces las de quienes tienen educación básica”\nProbabilidades predichas: para perfiles relevantes, en una tabla o un gráfico. “Un hombre de 25 años con educación superior tiene una probabilidad predicha de votar de 45%, frente a un 89% a los 65 años”\nLas probabilidades son la forma más comunicable de los resultados"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#ajuste-qué-tan-bueno-es-nuestro-modelo",
+    "href": "slides/09-clase9/09-clase9.html#ajuste-qué-tan-bueno-es-nuestro-modelo",
+    "title": "Sesión 9",
+    "section": "Ajuste: ¿Qué tan bueno es nuestro modelo?",
+    "text": "Ajuste: ¿Qué tan bueno es nuestro modelo?\n\n\nDistinto a regresión OLS: no hay varianza en una dependiente dicotómica, por lo que no existe el \\(R^2\\) tal como lo conocemos\nPara evaluar ajuste se utiliza la log-verosimilitud (log-likelihood), que se asocia a la idea de residuos del modelo\nLa log-verosimilitud del modelo se obtiene del proceso de estimación por máxima verosimilitud (tema para otro curso)"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#log-verosimilitud",
+    "href": "slides/09-clase9/09-clase9.html#log-verosimilitud",
+    "title": "Sesión 9",
+    "section": "Log-verosimilitud",
+    "text": "Log-verosimilitud\n\nlogLik(modelo_titanic)   # sexo\n#&gt; 'log Lik.' -551.0042 (df=2)\nlogLik(modelo_titanic2)  # sexo + edad\n#&gt; 'log Lik.' -550.6695 (df=3)\n\n\nLa inclusión de un predictor adicional (edad) hace que cambie la log-verosimilitud del modelo. Mientras más cercana a 0, mejor ajuste"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#ajuste-qué-tan-bueno-es-nuestro-modelo-1",
+    "href": "slides/09-clase9/09-clase9.html#ajuste-qué-tan-bueno-es-nuestro-modelo-1",
+    "title": "Sesión 9",
+    "section": "Ajuste: ¿Qué tan bueno es nuestro modelo?",
+    "text": "Ajuste: ¿Qué tan bueno es nuestro modelo?\n\n\nNo existe una única forma de estimar el ajuste en regresión logística\nEl ajuste de los modelos logísticos se evalúa en general en términos comparativos con otros modelos\nEstas medidas de comparación se basan en distintas fórmulas que consideran la log-verosimilitud (LL) y la devianza"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#modelo-saturado-nulo-y-logístico",
+    "href": "slides/09-clase9/09-clase9.html#modelo-saturado-nulo-y-logístico",
+    "title": "Sesión 9",
+    "section": "Modelo saturado, nulo y logístico",
+    "text": "Modelo saturado, nulo y logístico"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#indicadores-de-ajuste",
+    "href": "slides/09-clase9/09-clase9.html#indicadores-de-ajuste",
+    "title": "Sesión 9",
+    "section": "Indicadores de ajuste",
+    "text": "Indicadores de ajuste\nEntre las medidas de ajuste usualmente se consideran:\n\n\nDevianza\nTest de razón de verosimilitud (likelihood ratio test)\nPseudo \\(R^2\\)\nCriterio de información de Akaike (AIC)"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#devianza",
+    "href": "slides/09-clase9/09-clase9.html#devianza",
+    "title": "Sesión 9",
+    "section": "Devianza",
+    "text": "Devianza\n\n\nEl modelo saturado es básicamente residuos, y la devianza indica cuánto se han reducido los residuos a medida que se introducen parámetros al modelo. Por eso también se conoce como devianza residual\nFórmula: \\(Devianza=-2 \\times log\\ likelihood\\)\n\n\n\n\n-2 * logLik(modelo_titanic)\n#&gt; 'log Lik.' 1102.008 (df=2)\nmodelo_titanic$deviance\n#&gt; [1] 1102.008"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#test-de-razón-de-verosimilitud-lrt",
+    "href": "slides/09-clase9/09-clase9.html#test-de-razón-de-verosimilitud-lrt",
+    "title": "Sesión 9",
+    "section": "Test de razón de verosimilitud (LRT)",
+    "text": "Test de razón de verosimilitud (LRT)\n\nSe comparan las devianzas de distintos modelos: si la devianza es significativamente menor, el modelo es mejor\n\n\nanova(modelo_titanic, modelo_titanic2, test = \"Chisq\")\n#&gt; Analysis of Deviance Table\n#&gt; \n#&gt; Model 1: survived ~ sex\n#&gt; Model 2: survived ~ sex + age\n#&gt;   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)\n#&gt; 1      1044     1102.0                     \n#&gt; 2      1043     1101.3  1   0.6694   0.4133\n\n\n\nLa diferencia entre los modelos no es estadísticamente significativa. El modelo con dos predictores (sexo + edad) no ofrece un mejor ajuste a los datos que el modelo con solo un predictor (sexo)"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#test-de-razón-de-verosimilitud",
+    "href": "slides/09-clase9/09-clase9.html#test-de-razón-de-verosimilitud",
+    "title": "Sesión 9",
+    "section": "Test de razón de verosimilitud",
+    "text": "Test de razón de verosimilitud\nProbemos ahora con el modelo que incorpora la clase\n\nanova(modelo_titanic, modelo_titanic3, test = \"Chisq\")\n#&gt; Analysis of Deviance Table\n#&gt; \n#&gt; Model 1: survived ~ sex\n#&gt; Model 2: survived ~ sex + pclass\n#&gt;   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    \n#&gt; 1      1044     1102.0                          \n#&gt; 2      1042     1013.8  2   88.211 &lt; 2.2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\nLa diferencia es estadísticamente significativa (\\(p&lt;0.001\\)). El modelo con sexo y clase ofrece un mejor ajuste que el modelo solo con sexo"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#comparación-con-el-modelo-nulo",
+    "href": "slides/09-clase9/09-clase9.html#comparación-con-el-modelo-nulo",
+    "title": "Sesión 9",
+    "section": "Comparación con el modelo nulo",
+    "text": "Comparación con el modelo nulo\n\nEl modelo nulo no tiene predictores, solo intercepto. Es el equivalente a predecir con el promedio en el caso de variables continuas\n\n\nmodelo_titanic_null &lt;- glm(survived ~ 1, data = tt, family = \"binomial\")\n\nanova(modelo_titanic_null, modelo_titanic3, test = \"Chisq\")\n#&gt; Analysis of Deviance Table\n#&gt; \n#&gt; Model 1: survived ~ 1\n#&gt; Model 2: survived ~ sex + pclass\n#&gt;   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    \n#&gt; 1      1045     1414.6                          \n#&gt; 2      1042     1013.8  3   400.82 &lt; 2.2e-16 ***\n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#mcfadden-pseudo-r²",
+    "href": "slides/09-clase9/09-clase9.html#mcfadden-pseudo-r²",
+    "title": "Sesión 9",
+    "section": "McFadden (pseudo) R²",
+    "text": "McFadden (pseudo) R²\n\\[R^2_{McFadden}=1-\\frac{LL_{modelo}}{LL_{nulo}}\\]\n\nlogLik(modelo_titanic); logLik(modelo_titanic_null)\n#&gt; 'log Lik.' -551.0042 (df=2)\n#&gt; 'log Lik.' -707.3102 (df=1)\n\n1 - (-551 / -707)\n#&gt; [1] 0.2206506\n\n\n\nSe usa para comparar modelos. No se interpreta como porcentaje de varianza explicada"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#mcfadden-pseudo-r²-1",
+    "href": "slides/09-clase9/09-clase9.html#mcfadden-pseudo-r²-1",
+    "title": "Sesión 9",
+    "section": "McFadden (pseudo) R²",
+    "text": "McFadden (pseudo) R²\nTambién se puede obtener con la función PseudoR2 de la librería DescTools, junto a otras versiones de pseudo \\(R^2\\):\n\nDescTools::PseudoR2(modelo_titanic3, which = c(\"McFadden\", \"Nagelkerke\", \"CoxSnell\"))\n#&gt;   McFadden Nagelkerke   CoxSnell \n#&gt;  0.2833433  0.4293605  0.3183209"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#akaike-aic",
+    "href": "slides/09-clase9/09-clase9.html#akaike-aic",
+    "title": "Sesión 9",
+    "section": "Akaike (AIC)",
+    "text": "Akaike (AIC)\n\nEvalúa la calidad del modelo a través de la comparación con otros modelos, penalizando por la inclusión de predictores (análogo al \\(R^2\\) ajustado)\n\n\\[AIC=-2(log\\ likelihood)+2K\\]\n\nDonde K = número de parámetros del modelo (predictores + intercepto). A menor AIC, mejor ajuste\n\n\n\\[AIC_{sexo}=-2(-551)+2(2)=1102+4=1106\\]"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#akaike-aic-1",
+    "href": "slides/09-clase9/09-clase9.html#akaike-aic-1",
+    "title": "Sesión 9",
+    "section": "Akaike (AIC)",
+    "text": "Akaike (AIC)\n\nAIC(modelo_titanic, modelo_titanic2, modelo_titanic3)\n#&gt;                 df      AIC\n#&gt; modelo_titanic   2 1106.008\n#&gt; modelo_titanic2  3 1107.339\n#&gt; modelo_titanic3  4 1021.797\n\n\n\nAgregar edad aumenta el AIC: el predictor adicional no compensa la penalización\nAgregar clase lo reduce de forma importante: es el modelo con mejor ajuste"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#aplicado-a-la-participación-electoral",
+    "href": "slides/09-clase9/09-clase9.html#aplicado-a-la-participación-electoral",
+    "title": "Sesión 9",
+    "section": "Aplicado a la participación electoral",
+    "text": "Aplicado a la participación electoral\n\nanova(m_educ, m_educ_edad, m_mult, test = \"Chisq\")\n#&gt; Analysis of Deviance Table\n#&gt; \n#&gt; Model 1: voto ~ educ_f\n#&gt; Model 2: voto ~ educ_f + edad\n#&gt; Model 3: voto ~ educ_f + edad + sexo_f\n#&gt;   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)    \n#&gt; 1      2891     3575.0                         \n#&gt; 2      2890     3223.3  1   351.71   &lt;2e-16 ***\n#&gt; 3      2889     3220.7  1     2.62   0.1058    \n#&gt; ---\n#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\nanova puede comparar varios modelos a la vez, cada uno con el anterior. Agregar la edad mejora significativamente el ajuste; agregar sexo, no"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#resumen-de-ajuste-participación-electoral",
+    "href": "slides/09-clase9/09-clase9.html#resumen-de-ajuste-participación-electoral",
+    "title": "Sesión 9",
+    "section": "Resumen de ajuste: participación electoral",
+    "text": "Resumen de ajuste: participación electoral\n\n\n\n\n\n\n\n\n\n\n\n\nModelo\nLog-verosimilitud\nDevianza\nAIC\nMcFadden R²\n\n\n\n\nNulo\n-1809.548\n3619.096\n3621.096\n0.000\n\n\nEducación\n-1787.492\n3574.985\n3580.985\n0.012\n\n\nEducación + edad\n-1611.636\n3223.273\n3231.273\n0.109\n\n\nEducación + edad + sexo\n-1610.328\n3220.657\n3230.657\n0.110\n\n\n\n\n\n\n\nEl gran salto en el ajuste ocurre al incorporar la edad\nSexo prácticamente no cambia la log-verosimilitud ni el AIC"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#resumen-ajuste",
+    "href": "slides/09-clase9/09-clase9.html#resumen-ajuste",
+    "title": "Sesión 9",
+    "section": "Resumen ajuste",
+    "text": "Resumen ajuste\n\n\nDiferentes aproximaciones\nUtilizar más de una forma\nEn general: LRT (test de razón de verosimilitud) y algún tipo de pseudo \\(R^2\\)"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#section-7",
+    "href": "slides/09-clase9/09-clase9.html#section-7",
+    "title": "Sesión 9",
+    "section": "",
+    "text": "Resumen\n\n\nLa regresión logística múltiple permite el control estadístico: cada OR se interpreta manteniendo constantes los demás predictores\nLos odds ratio indican cuánto se multiplican las chances, pero no son probabilidades\nLas probabilidades predichas se obtienen transformando el logit: \\(p=\\frac{e^{logit}}{1+e^{logit}}\\)\nEl efecto de un predictor sobre la probabilidad no es constante: depende del perfil, por lo que se reporta para valores concretos\nEl ajuste se evalúa comparando modelos mediante la log-verosimilitud"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#siguiente-sesión",
+    "href": "slides/09-clase9/09-clase9.html#siguiente-sesión",
+    "title": "Sesión 9",
+    "section": "Siguiente sesión",
+    "text": "Siguiente sesión\n\n\nPrueba 2"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#section-8",
+    "href": "slides/09-clase9/09-clase9.html#section-8",
+    "title": "Sesión 9",
+    "section": "",
+    "text": "Métodos estadísticos para Ciencias Sociales III\n\n\n\nKevin Carrasco\n\n\nSociología - UNAB\n\n\n2do Sem 2026\n\n\nhttps://metod3-unab.netlify.app/"
+  },
+  {
+    "objectID": "practicos/practico-11.html",
+    "href": "practicos/practico-11.html",
+    "title": "Práctico 09. Supuestos de regresión",
+    "section": "",
+    "text": "La siguiente práctica tiene el objetivo de introducir a los estudiantes en los supuestos y robustez del modelo de regresión. Por esta razón, volveremos a algunos de los contenidos previos relacionados con la estimación, análisis de residuos y ajuste. Para ello, utilizaremos la base de datos de la tercera ola del Estudio Longitudinal Social del Chile 2018 con el objetivo de analizar los determinantes de la Participación Ciudadana."
+  },
+  {
+    "objectID": "practicos/practico-11.html#explorar-datos",
+    "href": "practicos/practico-11.html#explorar-datos",
+    "title": "Práctico 09. Supuestos de regresión",
+    "section": "Explorar datos",
+    "text": "Explorar datos\nA partir de la siguiente tabla se obtienen estadísticos descriptivos que luego serán relevantes para realizar las transformaciones y análisis posteriores.\n\nview(dfSummary(elsoc, headings = FALSE, method = \"render\"))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo\nVariable\nLabel\nStats / Values\nFreqs (% of Valid)\nGraph\nValid\nMissing\n\n\n\n\n1\nsexo [numeric]\nSexo entrevistado\n\n\n\nMin : 0\n\n\nMean : 0.6\n\n\nMax : 1\n\n\n\n\n\n\n0\n:\n1446\n(\n38.6%\n)\n\n\n1\n:\n2302\n(\n61.4%\n)\n\n\n\n\n3748 (100.0%)\n0 (0.0%)\n\n\n2\nedad [numeric]\nEdad entrevistado\n\n\n\nMean (sd) : 47.1 (15.5)\n\n\nmin ≤ med ≤ max:\n\n\n18 ≤ 47 ≤ 90\n\n\nIQR (CV) : 25 (0.3)\n\n\n\n70 distinct values\n\n3748 (100.0%)\n0 (0.0%)\n\n\n3\neduc [factor]\nNivel educacional\n\n\n\n1. 1\n\n\n2. 2\n\n\n3. 3\n\n\n4. 4\n\n\n5. 5\n\n\n\n\n\n\n450\n(\n12.0%\n)\n\n\n370\n(\n9.9%\n)\n\n\n1600\n(\n42.7%\n)\n\n\n598\n(\n16.0%\n)\n\n\n725\n(\n19.4%\n)\n\n\n\n\n3743 (99.9%)\n5 (0.1%)\n\n\n4\npospol [factor]\nAutoubicacion escala izquierda-derecha\n\n\n\n1. 1\n\n\n2. 2\n\n\n3. 3\n\n\n4. 4\n\n\n\n\n\n\n807\n(\n22.0%\n)\n\n\n952\n(\n26.0%\n)\n\n\n734\n(\n20.0%\n)\n\n\n1171\n(\n32.0%\n)\n\n\n\n\n3664 (97.8%)\n84 (2.2%)\n\n\n5\npart01 [numeric]\nFrecuencia: Firma carta o peticion apoyando causa\n\n\n\nMean (sd) : 1.5 (0.9)\n\n\nmin ≤ med ≤ max:\n\n\n1 ≤ 1 ≤ 5\n\n\nIQR (CV) : 1 (0.6)\n\n\n\n\n\n\n1\n:\n2717\n(\n72.6%\n)\n\n\n2\n:\n476\n(\n12.7%\n)\n\n\n3\n:\n411\n(\n11.0%\n)\n\n\n4\n:\n117\n(\n3.1%\n)\n\n\n5\n:\n21\n(\n0.6%\n)\n\n\n\n\n3742 (99.8%)\n6 (0.2%)\n\n\n6\npart02 [numeric]\nFrecuencia: Asiste a marcha o manifestacion pacifica\n\n\n\nMean (sd) : 1.2 (0.6)\n\n\nmin ≤ med ≤ max:\n\n\n1 ≤ 1 ≤ 5\n\n\nIQR (CV) : 0 (0.5)\n\n\n\n\n\n\n1\n:\n3289\n(\n87.8%\n)\n\n\n2\n:\n195\n(\n5.2%\n)\n\n\n3\n:\n191\n(\n5.1%\n)\n\n\n4\n:\n51\n(\n1.4%\n)\n\n\n5\n:\n19\n(\n0.5%\n)\n\n\n\n\n3745 (99.9%)\n3 (0.1%)\n\n\n7\npart03 [numeric]\nFrecuencia: Participa en huelga\n\n\n\nMean (sd) : 1.2 (0.5)\n\n\nmin ≤ med ≤ max:\n\n\n1 ≤ 1 ≤ 5\n\n\nIQR (CV) : 0 (0.5)\n\n\n\n\n\n\n1\n:\n3407\n(\n91.0%\n)\n\n\n2\n:\n152\n(\n4.1%\n)\n\n\n3\n:\n146\n(\n3.9%\n)\n\n\n4\n:\n29\n(\n0.8%\n)\n\n\n5\n:\n11\n(\n0.3%\n)\n\n\n\n\n3745 (99.9%)\n3 (0.1%)\n\n\n8\npart04 [numeric]\nFrecuencia: Usa redes sociales para opinar en temas publicos\n\n\n\nMean (sd) : 1.6 (1.1)\n\n\nmin ≤ med ≤ max:\n\n\n1 ≤ 1 ≤ 5\n\n\nIQR (CV) : 1 (0.7)\n\n\n\n\n\n\n1\n:\n2598\n(\n69.4%\n)\n\n\n2\n:\n310\n(\n8.3%\n)\n\n\n3\n:\n514\n(\n13.7%\n)\n\n\n4\n:\n223\n(\n6.0%\n)\n\n\n5\n:\n98\n(\n2.6%\n)\n\n\n\n\n3743 (99.9%)\n5 (0.1%)\n\n\n9\ninghogar [numeric]\nIngreso total del hogar\n\n\n\nMean (sd) : 678842.5 (781003.9)\n\n\nmin ≤ med ≤ max:\n\n\n30000 ≤ 5e+05 ≤ 1.7e+07\n\n\nIQR (CV) : 5e+05 (1.2)\n\n\n\n227 distinct values\n\n3080 (82.2%)\n668 (17.8%)\n\n\n10\ninghogar_t [numeric]\nIngreso total del hogar (en tramos)\n\n\n\nMean (sd) : 7 (5.4)\n\n\nmin ≤ med ≤ max:\n\n\n1 ≤ 5 ≤ 20\n\n\nIQR (CV) : 7 (0.8)\n\n\n\n20 distinct values\n\n477 (12.7%)\n3271 (87.3%)\n\n\n11\ntamhogar [numeric]\nHabitantes del hogar\n\n\n\nMean (sd) : 3.2 (1.6)\n\n\nmin ≤ med ≤ max:\n\n\n1 ≤ 3 ≤ 14\n\n\nIQR (CV) : 2 (0.5)\n\n\n\n13 distinct values\n\n3741 (99.8%)\n7 (0.2%)\n\n\n\n\nGenerated by summarytools 1.0.1 (R version 4.3.2)2026-10-25\n\n\n\n\nview_df(elsoc,max.len = 50)\n\n\nData frame: elsoc\n\n\n\n\n\n\n\n\n\nID\nName\nLabel\nValues\nValue Labels\n\n\n1\nsexo\nSexo entrevistado\n0\n1\nHombre\nMujer\n\n\n2\nedad\nEdad entrevistado\nrange: 18-90\n\n\n3\neduc\nNivel educacional\n1\n2\n3\n4\n5\nPrimaria incompleta menos\nPrimaria y secundaria baja\nSecundaria alta\nTerciaria ciclo corto\nTerciaria y Postgrado\n\n\n4\npospol\nAutoubicacion escala izquierda-derecha\n1\n2\n3\n4\nDerecha\nCentro\nIzquierda\nIndep./Ninguno\n\n\n5\npart01\nFrecuencia: Firma carta o peticion apoyando causa\n1\n2\n3\n4\n5\nNunca\nCasi nunca\nA veces\nFrecuentemente\nMuy frecuentemente\n\n\n6\npart02\nFrecuencia: Asiste a mbackground-color:#eeeeeeha o manifestacion\npacifica\n1\n2\n3\n4\n5\nNunca\nCasi nunca\nA veces\nFrecuentemente\nMuy frecuentemente\n\n\n7\npart03\nFrecuencia: Participa en huelga\n1\n2\n3\n4\n5\nNunca\nCasi nunca\nA veces\nFrecuentemente\nMuy frecuentemente\n\n\n8\npart04\nFrecuencia: Usa redes sociales para opinar en\ntemas publicos\n1\n2\n3\n4\n5\nNunca\nCasi nunca\nA veces\nFrecuentemente\nMuy frecuentemente\n\n\n9\ninghogar\nIngreso total del hogar\nrange: 30000-17000000\n\n\n10\ninghogar_t\nIngreso total del hogar (en tramos)\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\nMenos de $220.000 mensuales liquidos\nDe $220.001 a $280.000 mensuales liquidos\nDe $280.001 a $330.000 mensuales liquidos\nDe $330.001 a $380.000 mensuales liquidos\nDe $380.001 a $420.000 mensuales liquidos\nDe $420.001 a $470.000 mensuales liquidos\nDe $470.001 a $510.000 mensuales liquidos\nDe $510.001 a $560.000 mensuales liquidos\nDe $560.001 a $610.000 mensuales liquidos\nDe $610.001 a $670.000 mensuales liquidos\nDe $670.001 a $730.000 mensuales liquidos\nDe $730.001 a $800.000 mensuales liquidos\nDe $800.001 a $890.000 mensuales liquidos\nDe $890.001 a $980.000 mensuales liquidos\nDe $980.001 a $1.100.000 mensuales liquidos\nDe $1.100.001 a $1.260.000 mensuales liquidos\nDe $1.260.001 a $1.490.000 mensuales liquidos\nDe $1.490.001 a $1.850.000 mensuales liquidos\nDe $1.850.001 a $2.700.000 mensuales liquidos\nMas de $2.700.000 a mensuales liquidos\n\n\n11\ntamhogar\nHabitantes del hogar\nrange: 1-14\n\n\n\n\n\n\nelsoc &lt;- elsoc %&gt;% mutate(partpol=rowSums(select(., part01,part02,part03,part04)))\n\n\nelsoc$inghogar_t[elsoc$inghogar_t==1] &lt;-(       220000 )    # [1]  \"Menos de $220.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==2] &lt;-(220001 +280000 )/2 # [2]  \"De $220.001 a $280.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==3] &lt;-(280001 +330000 )/2 # [3]  \"De $280.001 a $330.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==4] &lt;-(330001 +380000 )/2 # [4]  \"De $330.001 a $380.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==5] &lt;-(380001 +420000 )/2 # [5]  \"De $380.001 a $420.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==6] &lt;-(420001 +470000 )/2 # [6]  \"De $420.001 a $470.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==7] &lt;-(470001 +510000 )/2 # [7]  \"De $470.001 a $510.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==8] &lt;-(510001 +560000 )/2 # [8]  \"De $510.001 a $560.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==9] &lt;-(560001 +610000 )/2 # [9]  \"De $560.001 a $610.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==10]&lt;-(610001 +670000 )/2 # [10] \"De $610.001 a $670.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==11]&lt;-(670001 +730000 )/2 # [11] \"De $670.001 a $730.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==12]&lt;-(730001 +800000 )/2 # [12] \"De $730.001 a $800.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==13]&lt;-(800001 +890000 )/2 # [13] \"De $800.001 a $890.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==14]&lt;-(890001 +980000 )/2 # [14] \"De $890.001 a $980.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==15]&lt;-(980001 +1100000)/2 # [15] \"De $980.001 a $1.100.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==16]&lt;-(1100001+1260000)/2 # [16] \"De $1.100.001 a $1.260.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==17]&lt;-(1260001+1490000)/2 # [17] \"De $1.260.001 a $1.490.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==18]&lt;-(1490001+1850000)/2 # [18] \"De $1.490.001 a $1.850.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==19]&lt;-(1850001+2700000)/2 # [19] \"De $1.850.001 a $2.700.000 mensuales liquidos\"\nelsoc$inghogar_t[elsoc$inghogar_t==20]&lt;-(2700000)           # [20] \"Mas de $2.700.000 a mensuales liquidos\"\n\n\nelsoc$inghogar_i &lt;- ifelse(test = (is.na(elsoc$inghogar)), #¿existen NA en ingresos?\n                           yes = elsoc$inghogar_t,         #VERDADERO, remplazar con la media del tramo\n                           no = elsoc$inghogar)            #FALSE, mantener la variable original.\n\nelsoc$inghogar_i &lt;- set_label(elsoc$inghogar_i,\"Ingreso total del hogar (imputada)\")\n\n\nelsoc$ing_pcap &lt;- elsoc$inghogar_i/elsoc$tamhogar\nelsoc$ing_pcap &lt;- set_label(elsoc$ing_pcap,\"Ingreso per cápita del hogar\")\n\n\nelsoc$quintile&lt;- dplyr::ntile(x = elsoc$ing_pcap,\n                              n = 5) # n de categorias, para quintiles usamos 5\nelsoc$quintile &lt;- factor(elsoc$quintile,c(1,2,3,4,5), c(\"Quintil 1\",\"Quintil 2\",\"Quintil 3\",\"Quintil 4\",\"Quintil 5\"))\nelsoc %&gt;%\n  group_by(quintile) %&gt;%\n  summarise(n=n(),\n            Media=mean(ing_pcap,na.rm = T),\n            Mediana=median(ing_pcap,na.rm = T)) %&gt;%\n  knitr::kable()\n\n\n\n\nquintile\nn\nMedia\nMediana\n\n\n\n\nQuintil 1\n711\n62859.09\n66666.67\n\n\nQuintil 2\n711\n112218.97\n111250.12\n\n\nQuintil 3\n710\n167748.23\n166666.67\n\n\nQuintil 4\n710\n262710.27\n250000.50\n\n\nQuintil 5\n710\n710246.41\n500000.00\n\n\nNA\n196\nNaN\nNA\n\n\n\n\n\n\nelsoc$quintilemiss &lt;- factor(elsoc$quintile,ordered = T)\nelsoc$quintilemiss &lt;- ifelse(is.na(elsoc$quintilemiss),yes = 6,no = elsoc$quintilemiss)\nelsoc$quintilemiss &lt;- factor(elsoc$quintilemiss ,levels = c(1,2,3,4,5,6),labels =  c(\"Quintil 1\",\"Quintil 2\",\"Quintil 3\",\"Quintil 4\",\"Quintil 5\",\"Missing\"))\nelsoc %&gt;% group_by(quintilemiss) %&gt;% summarise(n=n())\n\n# A tibble: 6 × 2\n  quintilemiss     n\n  &lt;fct&gt;        &lt;int&gt;\n1 Quintil 1      711\n2 Quintil 2      711\n3 Quintil 3      710\n4 Quintil 4      710\n5 Quintil 5      710\n6 Missing        196"
+  },
+  {
+    "objectID": "practicos/practico-11.html#diágnosticos",
+    "href": "practicos/practico-11.html#diágnosticos",
+    "title": "Práctico 09. Supuestos de regresión",
+    "section": "Diágnosticos",
+    "text": "Diágnosticos\n\nCasos influyentes\nPara determinar si un outlier es un caso influyente, es decir que su presencia/ausencia genera un cambio importante en la estimación de los coeficientes de regresión, calculamos la Distancia de Cook..\nPosteriormente, se establece un punto de corte de \\(4/(n-k-1)\\):\n\nn&lt;- nobs(fit03) #n de observaciones\nk&lt;- length(coef(fit03)) # n de parametros\ndcook&lt;- 4/(n-k-1) #punt de corte\n\nSi lo graficamos se ve de la siguiente manera:\n\nfinal &lt;- broom::augment_columns(fit03,data = elsoc)\nfinal$id &lt;- as.numeric(row.names(final))\n# identify obs with Cook's D above cutoff\nggplot(final, aes(id, .cooksd))+\ngeom_bar(stat=\"identity\", position=\"identity\")+\nxlab(\"Obs. Number\")+ylab(\"Cook's distance\")+\ngeom_hline(yintercept=dcook)+\ngeom_text(aes(label=ifelse((.cooksd&gt;dcook),id,\"\")),\nvjust=-0.2, hjust=0.5)\n\n\n\n\n\n\n\n\nIdentificamos los casos influyentes y filtramos la base de datos:\n\nident&lt;- final %&gt;% filter(.cooksd&gt;dcook)\nelsoc02 &lt;- final %&gt;% filter(!(id %in% ident$id))\n\nEstimación sin casos influyentes:\n\nfit04&lt;- lm(partpol~sexo+edad+quintilemiss+pospol,data=elsoc02)\n\nlabs02 &lt;- c(\"Intercepto\",\"Sexo (mujer=1)\",\"Edad\",\n            \"Quintil 2\",\"Quintil 3\",\"Quintil 4\",\"Quintil 5\",\"Quintil perdido\",\n            \"Izquierda (ref. derecha)\",\"Centro\",\"Idep./Ninguno\")\n\nhtmlreg(list(fit03,fit04),\n        doctype = FALSE,\n        custom.model.names = c(\"Modelo 3\", \"Modelo 4\"),\n        custom.coef.names = labs02)\n\n\nStatistical models\n\n\n\n\n \n\n\nModelo 3\n\n\nModelo 4\n\n\n\n\n\n\nIntercepto\n\n\n7.97***\n\n\n7.05***\n\n\n\n\n \n\n\n(0.16)\n\n\n(0.11)\n\n\n\n\nSexo (mujer=1)\n\n\n0.12\n\n\n0.07\n\n\n\n\n \n\n\n(0.07)\n\n\n(0.05)\n\n\n\n\nEdad\n\n\n-0.04***\n\n\n-0.03***\n\n\n\n\n \n\n\n(0.00)\n\n\n(0.00)\n\n\n\n\nQuintil 2\n\n\n0.21\n\n\n0.11\n\n\n\n\n \n\n\n(0.11)\n\n\n(0.08)\n\n\n\n\nQuintil 3\n\n\n0.51***\n\n\n0.34***\n\n\n\n\n \n\n\n(0.11)\n\n\n(0.08)\n\n\n\n\nQuintil 4\n\n\n0.50***\n\n\n0.32***\n\n\n\n\n \n\n\n(0.11)\n\n\n(0.08)\n\n\n\n\nQuintil 5\n\n\n0.88***\n\n\n0.57***\n\n\n\n\n \n\n\n(0.12)\n\n\n(0.08)\n\n\n\n\nQuintil perdido\n\n\n0.59***\n\n\n0.31*\n\n\n\n\n \n\n\n(0.18)\n\n\n(0.13)\n\n\n\n\nIzquierda (ref. derecha)\n\n\n-1.04***\n\n\n-0.65***\n\n\n\n\n \n\n\n(0.10)\n\n\n(0.07)\n\n\n\n\nCentro\n\n\n-1.13***\n\n\n-0.71***\n\n\n\n\n \n\n\n(0.11)\n\n\n(0.08)\n\n\n\n\nIdep./Ninguno\n\n\n-1.60***\n\n\n-1.14***\n\n\n\n\n \n\n\n(0.10)\n\n\n(0.07)\n\n\n\n\nR2\n\n\n0.17\n\n\n0.18\n\n\n\n\nAdj. R2\n\n\n0.17\n\n\n0.18\n\n\n\n\nNum. obs.\n\n\n3656\n\n\n3460\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\nEn términos generales, el sentido y significación estadística de los coeficientes del Modelo 4 se mantiene respecto al Modelo 3. Adicionalmente, si observamos que el modelo sin casos influyentes presenta una mejora en ajuste. Por lo tanto, los análisis posteriores se realizaran en base a este modelo.\n\n\nLinealidad\nPara analizar la linealidad respecto de un modelo de regresión, debemos analizar la distribución de los residuos con respecto a la recta de regresión.\n\nLos residuos deben ser independientes de los valores predichos (fitted values).\nCualquier correlación entre residuo y valores predichos violarían este supuesto.\nLa presencia de un patrón no lineal, es señal de que el modelo está especificado incorrectamente.\n\n\nggplot(fit04, aes(.fitted, .resid)) +\n  geom_point() +\n  geom_hline(yintercept = 0) +\n  geom_smooth(se = TRUE)\n\n`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = \"cs\")'\n\n\n\n\n\nRelación entre residuos y valores predichos\n\n\n\n\nEl gráfico nos indica que existe un patrón en la distribución de los residuos. Para intentar mejorar la estimación podemos realizar una transformación de variables. A continuación presentaremos un ejemplo para la Edad y para los Ingresos.\n\nPolinomio: \\(\\text{Edad}^2\\)\n\n\nelsoc02$edad2 &lt;- elsoc02$edad^2\nfit05&lt;- lm(partpol~sexo+edad+edad2+quintilemiss+pospol,data=elsoc02)\n\n\nedad&lt;- fit05$model$edad\nfit&lt;- fit05$fitted.values\ndata01 &lt;- as.data.frame(cbind(edad,fit))\n\nggplot(data01, aes(x = edad, y = fit)) +\n  theme_bw() +\n  geom_point()+\n  geom_smooth()\n\n`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = \"cs\")'\n\n\n\n\n\nEfecto cuadrático de la edad (Modelo 5)\n\n\n\n\n\nLogaritmo: \\(\\log(\\text{ingreso})\\)\n\n\nelsoc02$lningreso &lt;- log(elsoc02$ing_pcap)\nelsoc02$lningreso &lt;- set_label(elsoc02$lningreso,\"log(ingreso per cap)\")\nfit06 &lt;- lm(partpol~sexo+edad+edad2+lningreso+pospol,data=elsoc02)\n\n\nplot_frq(elsoc02$ing_pcap,type = \"hist\",normal.curve = T, show.mean = T)\n\nWarning: Removed 1 row containing missing values or values outside the scale range\n(`geom_bar()`).\n\nplot_frq(elsoc02$lningreso,type = \"hist\", normal.curve = T,show.mean = T)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nlabs03 &lt;- c(\"Intercepto\",\"Sexo (mujer=1)\",\"Edad\",\n            \"Quintil 2\",\"Quintil 3\",\"Quintil 4\",\"Quintil 5\",\"Quintil perdido\",\n            \"Izquierda (ref. derecha)\",\"Centro\",\"Idep./Ninguno\", \"Edad²\",\"Ingreso per cap (log)\")\n\nhtmlreg(list(fit04, fit05, fit06), doctype = FALSE,\n        custom.model.names = c(\"Modelo 4\", \"Modelo 5\", \"Modelo 6\"),\n          custom.coef.names = labs03)\n\n\nStatistical models\n\n\n\n\n \n\n\nModelo 4\n\n\nModelo 5\n\n\nModelo 6\n\n\n\n\n\n\nIntercepto\n\n\n7.05***\n\n\n7.62***\n\n\n4.98***\n\n\n\n\n \n\n\n(0.11)\n\n\n(0.24)\n\n\n(0.46)\n\n\n\n\nSexo (mujer=1)\n\n\n0.07\n\n\n0.08\n\n\n0.09\n\n\n\n\n \n\n\n(0.05)\n\n\n(0.05)\n\n\n(0.05)\n\n\n\n\nEdad\n\n\n-0.03***\n\n\n-0.06***\n\n\n-0.06***\n\n\n\n\n \n\n\n(0.00)\n\n\n(0.01)\n\n\n(0.01)\n\n\n\n\nQuintil 2\n\n\n0.11\n\n\n0.11\n\n\n \n\n\n\n\n \n\n\n(0.08)\n\n\n(0.08)\n\n\n \n\n\n\n\nQuintil 3\n\n\n0.34***\n\n\n0.34***\n\n\n \n\n\n\n\n \n\n\n(0.08)\n\n\n(0.08)\n\n\n \n\n\n\n\nQuintil 4\n\n\n0.32***\n\n\n0.32***\n\n\n \n\n\n\n\n \n\n\n(0.08)\n\n\n(0.08)\n\n\n \n\n\n\n\nQuintil 5\n\n\n0.57***\n\n\n0.57***\n\n\n \n\n\n\n\n \n\n\n(0.08)\n\n\n(0.08)\n\n\n \n\n\n\n\nQuintil perdido\n\n\n0.31*\n\n\n0.31*\n\n\n \n\n\n\n\n \n\n\n(0.13)\n\n\n(0.13)\n\n\n \n\n\n\n\nIzquierda (ref. derecha)\n\n\n-0.65***\n\n\n-0.65***\n\n\n-0.63***\n\n\n\n\n \n\n\n(0.07)\n\n\n(0.07)\n\n\n(0.08)\n\n\n\n\nCentro\n\n\n-0.71***\n\n\n-0.70***\n\n\n-0.70***\n\n\n\n\n \n\n\n(0.08)\n\n\n(0.08)\n\n\n(0.08)\n\n\n\n\nIdep./Ninguno\n\n\n-1.14***\n\n\n-1.13***\n\n\n-1.12***\n\n\n\n\n \n\n\n(0.07)\n\n\n(0.07)\n\n\n(0.07)\n\n\n\n\nEdad²\n\n\n \n\n\n0.00**\n\n\n0.00**\n\n\n\n\n \n\n\n \n\n\n(0.00)\n\n\n(0.00)\n\n\n\n\nIngreso per cap (log)\n\n\n \n\n\n \n\n\n0.24***\n\n\n\n\n \n\n\n \n\n\n \n\n\n(0.03)\n\n\n\n\nR2\n\n\n0.18\n\n\n0.19\n\n\n0.19\n\n\n\n\nAdj. R2\n\n\n0.18\n\n\n0.18\n\n\n0.18\n\n\n\n\nNum. obs.\n\n\n3460\n\n\n3460\n\n\n3305\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\nInterpretación: Vemos que el coeficiente de lningreso es de 0.24, sin embargo, debido a que la unidad de medida es logarítmica decimos que por una unidad de porcentaje (1%) de incremento en los ingresos per cápita del hogar, el promedio del índice de participación política aumenta en 0.24/100 = 0.0024, manteniendo todas las demás variables constantes. El coeficiente es estadísticamente significativo a uno 99.9% de confianza. En este caso particular, no es muy informativo, pero corresponde a una manera de especificar un modelo con los ingresos como una variable logaritmizada para hacernos cargo de posible problemas de linealidad.\nDebemos tener cautela al interpretar el ajuste del Modelo 5 y 6 debido a que las observaciones empleadas no son las mismas (3462 comparado con 3304) debido a que en el Modelo 5 se incluye la variable ingresos en quintiles con la categoría adicional para los casos perdidos. En este caso, realizamos la especificación a modo de ejemplo. Por lo tanto, seguiremos trabajando con el Modelo 5 para realizar los análisis posteriores."
+  },
+  {
+    "objectID": "practicos/practico-11.html#referencias",
+    "href": "practicos/practico-11.html#referencias",
+    "title": "Práctico 09. Supuestos de regresión",
+    "section": "Referencias",
+    "text": "Referencias\nDarlington & Hayes 2016 Cap16 Detecting and Managing Irregularities\nDarlington & Hayes 2016 Cap12 Nonlinear relationships"
+  },
+  {
+    "objectID": "practicos/practico-09.html#la-variable-dependiente",
+    "href": "practicos/practico-09.html#la-variable-dependiente",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "3.1 La variable dependiente",
+    "text": "3.1 La variable dependiente\nTrabajaremos con la confianza en los vecinos, medida en una escala de 1 a 5. La convertiremos en una variable dicotómica: confía quien responde 4 o 5, y no confía quien responde 1, 2 o 3.\n\nfrq(proc_data$confianza)\n\nx &lt;numeric&gt; \n# total N=2906 valid N=2906 mean=3.20 sd=1.20\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    1 | 332 | 11.42 |   11.42 |  11.42\n    2 | 502 | 17.27 |   17.27 |  28.70\n    3 | 711 | 24.47 |   24.47 |  53.17\n    4 | 987 | 33.96 |   33.96 |  87.13\n    5 | 374 | 12.87 |   12.87 | 100.00\n &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(confia = ifelse(confianza &gt;= 4, 1, 0),\n         confia = factor(confia,\n                         levels = c(0, 1),\n                         labels = c(\"No confía\", \"Confía\")),\n         sexo_f = factor(sexo,\n                         levels = c(1, 2),\n                         labels = c(\"Hombre\", \"Mujer\")),\n         educ_rec = case_when(educacion &lt;= 3 ~ 1,\n                              educacion &lt;= 5 ~ 2,\n                              TRUE ~ 3),\n         educ_f = factor(educ_rec,\n                         levels = c(1, 2, 3),\n                         labels = c(\"Educación básica\",\n                                    \"Educación media\",\n                                    \"Educación superior\")))\n\n\n\n\n\n\n\nAdvertenciaDicotomizar tiene un costo\n\n\n\nAl convertir una variable de cinco categorías en una de dos, perdemos información: alguien que responde 1 y alguien que responde 3 quedan en el mismo grupo. En una investigación, el punto de corte debe justificarse teóricamente, y conviene revisar si los resultados cambian al moverlo."
+  },
+  {
+    "objectID": "practicos/practico-09.html#odds-por-grupo",
+    "href": "practicos/practico-09.html#odds-por-grupo",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "4.3 Odds por grupo",
+    "text": "4.3 Odds por grupo\n\nCross-Tabulation, Row Proportions\n\nsexo_f * confia\n\n\nData Frame: proc_data\n\n\n\n\n\n\nconfia\n\n\n\nsexo_f\nNo confía\nConfía\nTotal\n\n\n\n\nHombre\n598\n(\n51.6%\n)\n560\n(\n48.4%\n)\n1158\n(\n100.0%\n)\n\n\nMujer\n947\n(\n54.2%\n)\n801\n(\n45.8%\n)\n1748\n(\n100.0%\n)\n\n\nTotal\n1545\n(\n53.2%\n)\n1361\n(\n46.8%\n)\n2906\n(\n100.0%\n)\n\n\n\n\n\nUn gráfico de barras apiladas al 100% permite comparar las proporciones de cada grupo:\n\nggplot(proc_data, aes(x = sexo_f, fill = confia)) +\n  geom_bar(position = \"fill\") +\n  scale_y_continuous(labels = scales::percent) +\n  scale_fill_manual(values = c(\"#c0c8d8\", \"#04245f\")) +\n  labs(x = NULL, y = \"Porcentaje\", fill = NULL) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 1: Confianza en los vecinos según sexo\n\n\n\n\n\n\naddmargins(table(proc_data$confia, proc_data$sexo_f))\n\n           \n            Hombre Mujer  Sum\n  No confía    598   947 1545\n  Confía       560   801 1361\n  Sum         1158  1748 2906\n\n\n\\[Odds_{hombres} = \\frac{560}{598} = 0.936\\]\n\\[Odds_{mujeres} = \\frac{801}{947} = 0.846\\]\n\ntabla &lt;- table(proc_data$confia, proc_data$sexo_f)\n\nodds_h &lt;- tabla[\"Confía\", \"Hombre\"] / tabla[\"No confía\", \"Hombre\"]\nodds_m &lt;- tabla[\"Confía\", \"Mujer\"] / tabla[\"No confía\", \"Mujer\"]\n\nc(hombres = odds_h, mujeres = odds_m)\n\n  hombres   mujeres \n0.9364548 0.8458289 \n\n\nEn ambos grupos el odds es menor que 1: hay algo más de chances de no confiar que de confiar.\n\n\n\n\n\n\nNotaProbabilidad y odds no son lo mismo\n\n\n\nLa probabilidad de que un hombre confíe en sus vecinos es 0,484. Su odds es 0,936. Ambos describen el mismo hecho en escalas distintas: la probabilidad compara a quienes confían con el total, y el odds los compara con quienes no confían."
+  },
+  {
+    "objectID": "practicos/practico-09.html#sexo",
+    "href": "practicos/practico-09.html#sexo",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "5.1 Sexo",
+    "text": "5.1 Sexo\n¿Cuántas más (o menos) chances de confiar en sus vecinos tienen las mujeres respecto de los hombres? La respuesta es la razón de chances u odds ratio:\n\\[OR = \\frac{Odds_{mujeres}}{Odds_{hombres}} = \\frac{0.846}{0.936} = 0.90\\]\n\nodds_m / odds_h\n\n[1] 0.9032245\n\n\nLas chances de confiar en los vecinos de las mujeres son 0,90 veces las de los hombres.\n\n\n\n\n\n\nImportanteCómo leer un odds ratio\n\n\n\n\n\\(OR = 1\\): no hay asociación\n\\(OR &gt; 1\\): el grupo comparado tiene más chances que el de referencia\n\\(OR &lt; 1\\): el grupo comparado tiene menos chances que el de referencia\n\n\n\nEl OR depende de cuál grupo se ponga en el denominador. Si invertimos la comparación, obtenemos el mismo hallazgo expresado al revés:\n\nodds_h / odds_m\n\n[1] 1.107144"
+  },
+  {
+    "objectID": "practicos/practico-09.html#el-odds-ratio-como-cambio-porcentual",
+    "href": "practicos/practico-09.html#el-odds-ratio-como-cambio-porcentual",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "5.2 El odds ratio como cambio porcentual",
+    "text": "5.2 El odds ratio como cambio porcentual\nUna forma práctica de leer un OR es como cambio porcentual en las chances: \\((OR - 1) \\times 100\\).\n\n(odds_m / odds_h - 1) * 100\n\n[1] -9.677553\n\n\nLas chances de confiar de las mujeres son un 9,7% menores que las de los hombres. Es una asociación débil, como suele ocurrir en investigación social.\n\n\n\n\n\n\nAdvertenciaChances no son probabilidades\n\n\n\nUn OR de 0,90 significa que las chances son un 10% menores, no que la probabilidad sea un 10% menor. Es el error más frecuente al interpretar estos resultados."
+  },
+  {
+    "objectID": "practicos/practico-09.html#una-variable-de-tres-categorías",
+    "href": "practicos/practico-09.html#una-variable-de-tres-categorías",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "5.3 Una variable de tres categorías",
+    "text": "5.3 Una variable de tres categorías\n\nggplot(proc_data, aes(x = educ_f, fill = confia)) +\n  geom_bar(position = \"fill\") +\n  scale_y_continuous(labels = scales::percent) +\n  scale_fill_manual(values = c(\"#c0c8d8\", \"#04245f\")) +\n  labs(x = NULL, y = \"Porcentaje\", fill = NULL) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 2: Confianza en los vecinos según nivel educacional\n\n\n\n\n\n\ntabla_educ &lt;- table(proc_data$confia, proc_data$educ_f)\ntabla_educ\n\n           \n            Educación básica Educación media Educación superior\n  No confía              371             676                498\n  Confía                 282             565                514\n\nodds_educ &lt;- tabla_educ[\"Confía\", ] / tabla_educ[\"No confía\", ]\n\nround(odds_educ, 3)\n\n  Educación básica    Educación media Educación superior \n             0.760              0.836              1.032 \n\n\nLos odds aumentan con el nivel educacional, y en educación superior superan levemente el 1. Calculemos los odds ratio tomando la educación básica como categoría de referencia:\n\nround(odds_educ / odds_educ[\"Educación básica\"], 3)\n\n  Educación básica    Educación media Educación superior \n             1.000              1.100              1.358 \n\n\nLas chances de confiar en los vecinos de quienes tienen educación superior son 1,36 veces las de quienes tienen educación básica, es decir, un 36% mayores.\n\n\n\n\n\n\nNotaLa conexión con las variables dummy\n\n\n\nHay una categoría de referencia, y cada OR se interpreta respecto de ella. Es la misma lógica que seguirá el modelo de regresión logística.\n\n\n\n5.3.1 Ejercicio\nCalcule el odds ratio entre educación superior y educación media. ¿Cómo se interpreta?\n\n\nVer solución\nodds_educ[\"Educación superior\"] / odds_educ[\"Educación media\"]\n\n\nEducación superior \n          1.234901"
+  },
+  {
+    "objectID": "practicos/practico-09.html#modelo-con-nivel-educacional",
+    "href": "practicos/practico-09.html#modelo-con-nivel-educacional",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "7.2 Modelo con nivel educacional",
+    "text": "7.2 Modelo con nivel educacional\n\nm_educ &lt;- glm(confia ~ educ_f,\n              data = proc_data,\n              family = \"binomial\")\n\nCon transform = NULL, tab_model muestra los coeficientes en logit:\n\ntab_model(m_educ,\n          transform = NULL,\n          show.se = TRUE,\n          show.ci = FALSE,\n          show.r2 = FALSE,\n          digits = 3,\n          dv.labels = \"Confianza en vecinos\",\n          pred.labels = c(\"(Intercepto)\", \"Educación media\", \"Educación superior\"),\n          string.pred = \"Predictores\",\n          string.est = \"Logit\")\n\n\n\n\n \nConfianza en vecinos\n\n\nPredictores\nLogit\nstd. Error\np\n\n\n(Intercepto)\n-0.274\n0.079\n0.001\n\n\nEducación media\n0.095\n0.097\n0.330\n\n\nEducación superior\n0.306\n0.101\n0.002\n\n\nObservations\n2906"
+  },
+  {
+    "objectID": "practicos/practico-09.html#ejercicio-modelo-con-sexo",
+    "href": "practicos/practico-09.html#ejercicio-modelo-con-sexo",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "7.5 Ejercicio: modelo con sexo",
+    "text": "7.5 Ejercicio: modelo con sexo\nEstime un modelo de regresión logística con sexo_f como predictor y compruebe que el OR coincide con el que calculamos a mano. ¿Es estadísticamente significativo?\n\n\nVer solución\nm_sexo &lt;- glm(confia ~ sexo_f,\n              data = proc_data,\n              family = \"binomial\")\n\ntab_model(m_sexo,\n          show.ci = TRUE,\n          show.r2 = FALSE,\n          digits = 3,\n          pred.labels = c(\"(Intercepto)\", \"Sexo (Mujer)\"),\n          string.est = \"OR\",\n          string.ci = \"IC 95%\")\n\n\n\n\n\n \nconfia\n\n\nPredictors\nOR\nIC 95%\np\n\n\n(Intercepto)\n0.936\n0.000 – Inf\n0.264\n\n\nSexo (Mujer)\n0.903\n0.000 – Inf\n0.180\n\n\nObservations\n2906\n\n\n\n\n\nEl OR de mujer es 0,90, igual al calculado a mano. Su intervalo de confianza incluye el 1, por lo que la diferencia entre hombres y mujeres no es estadísticamente significativa."
+  },
+  {
+    "objectID": "practicos/practico-09.html#membresía-en-organizaciones-vecinales",
+    "href": "practicos/practico-09.html#membresía-en-organizaciones-vecinales",
+    "title": "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit",
+    "section": "9.2 Membresía en organizaciones vecinales",
+    "text": "9.2 Membresía en organizaciones vecinales\nLa variable c12_01 de ELSOC registra la membresía en una junta de vecinos u otra organización vecinal (1 = No es miembro, 2 = Miembro inactivo, 3 = Miembro activo).\n\nCon la ola 1 de ELSOC, construya una variable dicotómica que distinga entre quienes son miembros (activos o inactivos) y quienes no lo son.\nElabore la tabla de contingencia entre esa variable y el nivel educacional recodificado en tres categorías.\nCalcule a mano la probabilidad y el odds de ser miembro para cada nivel educacional, y los odds ratio respecto de la educación básica.\nEstime el mismo análisis con glm. Compruebe que los OR coinciden con los calculados a mano, e indique cuáles diferencias son estadísticamente significativas.\nEstime un modelo con la edad como predictor e interprete su OR para un año y para 10 años."
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Práctico 08. Regresión logística II – Metodos 3 - Universidad Andrés Bello</title>
+<title>Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit – Metodos 3 - Universidad Andrés Bello</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-9de9f6925d305bcf5b7eb9351f368d06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-aba9a859bd7e1bf5cf92f9c98e80b511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-83babd3dfd23c8593dfd134f395f3b97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -107,6 +107,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Buscar"
   }
 }</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -138,14 +142,14 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Práctico 08. Regresión logística II – Metodos 3 - Universidad Andrés Bello">
+<meta property="og:title" content="Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit – Metodos 3 - Universidad Andrés Bello">
 <meta property="og:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta property="og:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta property="og:site_name" content="Metodos 3 - Universidad Andrés Bello">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="500">
 <meta property="og:image:width" content="500">
-<meta name="twitter:title" content="Práctico 08. Regresión logística II – Metodos 3 - Universidad Andrés Bello">
+<meta name="twitter:title" content="Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit – Metodos 3 - Universidad Andrés Bello">
 <meta name="twitter:description" content="Métodos estadísticos para Ciencias Sociales III">
 <meta name="twitter:image" content="https://metod3-unab.netlify.app/files/social-image-f22.png">
 <meta name="twitter:creator" content="@kevincarrascoq1">
@@ -208,37 +212,46 @@ window.Quarto = {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#regresión-logística" id="toc-regresión-logística" class="nav-link active" data-scroll-target="#regresión-logística">Regresión logística</a>
+  <li><a href="#presentación" id="toc-presentación" class="nav-link active" data-scroll-target="#presentación"><span class="header-section-number">1</span> Presentación</a>
   <ul class="collapse">
-  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#objetivo-de-la-práctica" id="toc-objetivo-de-la-práctica" class="nav-link" data-scroll-target="#objetivo-de-la-práctica"><span class="header-section-number">1.1</span> Objetivo de la práctica</a></li>
   </ul></li>
-  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías">Librerías</a></li>
-  <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos">Datos</a>
+  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías"><span class="header-section-number">2</span> Librerías</a></li>
+  <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos"><span class="header-section-number">3</span> Datos</a>
   <ul class="collapse">
-  <li><a href="#explorar-datos" id="toc-explorar-datos" class="nav-link" data-scroll-target="#explorar-datos">Explorar datos</a></li>
+  <li><a href="#la-variable-dependiente" id="toc-la-variable-dependiente" class="nav-link" data-scroll-target="#la-variable-dependiente"><span class="header-section-number">3.1</span> La variable dependiente</a></li>
   </ul></li>
-  <li><a href="#regresiones-logísticas" id="toc-regresiones-logísticas" class="nav-link" data-scroll-target="#regresiones-logísticas">Regresiones logísticas</a>
+  <li><a href="#probabilidades-y-odds" id="toc-probabilidades-y-odds" class="nav-link" data-scroll-target="#probabilidades-y-odds"><span class="header-section-number">4</span> Probabilidades y odds</a>
   <ul class="collapse">
-  <li><a href="#tabla-de-contingencia-bivariado-sindicalización-participación-en-marchas" id="toc-tabla-de-contingencia-bivariado-sindicalización-participación-en-marchas" class="nav-link" data-scroll-target="#tabla-de-contingencia-bivariado-sindicalización-participación-en-marchas">Tabla de contingencia bivariado: sindicalización / participación en marchas</a>
+  <li><a href="#probabilidades" id="toc-probabilidades" class="nav-link" data-scroll-target="#probabilidades"><span class="header-section-number">4.1</span> Probabilidades</a></li>
+  <li><a href="#odds" id="toc-odds" class="nav-link" data-scroll-target="#odds"><span class="header-section-number">4.2</span> Odds</a></li>
+  <li><a href="#odds-por-grupo" id="toc-odds-por-grupo" class="nav-link" data-scroll-target="#odds-por-grupo"><span class="header-section-number">4.3</span> Odds por grupo</a></li>
+  </ul></li>
+  <li><a href="#odds-ratio" id="toc-odds-ratio" class="nav-link" data-scroll-target="#odds-ratio"><span class="header-section-number">5</span> Odds ratio</a>
   <ul class="collapse">
-  <li><a href="#odds" id="toc-odds" class="nav-link" data-scroll-target="#odds">Odds</a></li>
-  <li><a href="#odds-ratios-razones-de-chances" id="toc-odds-ratios-razones-de-chances" class="nav-link" data-scroll-target="#odds-ratios-razones-de-chances">Odds ratios (razones de chances)</a></li>
-  </ul></li>
-  <li><a href="#logit" id="toc-logit" class="nav-link" data-scroll-target="#logit">Logit</a></li>
-  <li><a href="#modelo-de-probabilidad-lineal" id="toc-modelo-de-probabilidad-lineal" class="nav-link" data-scroll-target="#modelo-de-probabilidad-lineal">Modelo de probabilidad lineal</a></li>
-  <li><a href="#modelo-de-regresión-logística" id="toc-modelo-de-regresión-logística" class="nav-link" data-scroll-target="#modelo-de-regresión-logística">Modelo de regresión logística</a>
+  <li><a href="#sexo" id="toc-sexo" class="nav-link" data-scroll-target="#sexo"><span class="header-section-number">5.1</span> Sexo</a></li>
+  <li><a href="#el-odds-ratio-como-cambio-porcentual" id="toc-el-odds-ratio-como-cambio-porcentual" class="nav-link" data-scroll-target="#el-odds-ratio-como-cambio-porcentual"><span class="header-section-number">5.2</span> El odds ratio como cambio porcentual</a></li>
+  <li><a href="#una-variable-de-tres-categorías" id="toc-una-variable-de-tres-categorías" class="nav-link" data-scroll-target="#una-variable-de-tres-categorías"><span class="header-section-number">5.3</span> Una variable de tres categorías</a>
   <ul class="collapse">
-  <li><a href="#problemas-de-interpretación" id="toc-problemas-de-interpretación" class="nav-link" data-scroll-target="#problemas-de-interpretación">Problemas de interpretación</a></li>
+  <li><a href="#ejercicio" id="toc-ejercicio" class="nav-link" data-scroll-target="#ejercicio"><span class="header-section-number">5.3.1</span> Ejercicio</a></li>
   </ul></li>
-  <li><a href="#estimación-de-odds-ratios" id="toc-estimación-de-odds-ratios" class="nav-link" data-scroll-target="#estimación-de-odds-ratios">Estimación de odds ratios</a></li>
-  <li><a href="#cálculo-de-probabilidades-predichas" id="toc-cálculo-de-probabilidades-predichas" class="nav-link" data-scroll-target="#cálculo-de-probabilidades-predichas">Cálculo de probabilidades predichas</a></li>
-  <li><a href="#cálculo-de-probabilidades-predichas-en-r" id="toc-cálculo-de-probabilidades-predichas-en-r" class="nav-link" data-scroll-target="#cálculo-de-probabilidades-predichas-en-r">Cálculo de probabilidades predichas en R</a></li>
   </ul></li>
-  <li><a href="#bondad-de-ajuste" id="toc-bondad-de-ajuste" class="nav-link" data-scroll-target="#bondad-de-ajuste">Bondad de ajuste</a>
+  <li><a href="#del-odds-al-logit" id="toc-del-odds-al-logit" class="nav-link" data-scroll-target="#del-odds-al-logit"><span class="header-section-number">6</span> Del odds al logit</a></li>
+  <li><a href="#estimación-de-la-regresión-logística" id="toc-estimación-de-la-regresión-logística" class="nav-link" data-scroll-target="#estimación-de-la-regresión-logística"><span class="header-section-number">7</span> Estimación de la regresión logística</a>
   <ul class="collapse">
-  <li><a href="#pseudo-r2-mcfadden" id="toc-pseudo-r2-mcfadden" class="nav-link" data-scroll-target="#pseudo-r2-mcfadden">Pseudo R2 (MCFadden)</a></li>
+  <li><a href="#la-función-glm" id="toc-la-función-glm" class="nav-link" data-scroll-target="#la-función-glm"><span class="header-section-number">7.1</span> La función <code>glm</code></a></li>
+  <li><a href="#modelo-con-nivel-educacional" id="toc-modelo-con-nivel-educacional" class="nav-link" data-scroll-target="#modelo-con-nivel-educacional"><span class="header-section-number">7.2</span> Modelo con nivel educacional</a></li>
+  <li><a href="#interpretación-de-los-coeficientes-logit" id="toc-interpretación-de-los-coeficientes-logit" class="nav-link" data-scroll-target="#interpretación-de-los-coeficientes-logit"><span class="header-section-number">7.3</span> Interpretación de los coeficientes logit</a></li>
+  <li><a href="#de-logits-a-odds-ratio" id="toc-de-logits-a-odds-ratio" class="nav-link" data-scroll-target="#de-logits-a-odds-ratio"><span class="header-section-number">7.4</span> De logits a odds ratio</a></li>
+  <li><a href="#ejercicio-modelo-con-sexo" id="toc-ejercicio-modelo-con-sexo" class="nav-link" data-scroll-target="#ejercicio-modelo-con-sexo"><span class="header-section-number">7.5</span> Ejercicio: modelo con sexo</a></li>
+  <li><a href="#una-independiente-continua" id="toc-una-independiente-continua" class="nav-link" data-scroll-target="#una-independiente-continua"><span class="header-section-number">7.6</span> Una independiente continua</a></li>
   </ul></li>
-  <li><a href="#ejercicio" id="toc-ejercicio" class="nav-link" data-scroll-target="#ejercicio">Ejercicio</a></li>
+  <li><a href="#lo-que-viene" id="toc-lo-que-viene" class="nav-link" data-scroll-target="#lo-que-viene"><span class="header-section-number">8</span> Lo que viene</a></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios"><span class="header-section-number">9</span> Ejercicios</a>
+  <ul class="collapse">
+  <li><a href="#conceptos" id="toc-conceptos" class="nav-link" data-scroll-target="#conceptos"><span class="header-section-number">9.1</span> Conceptos</a></li>
+  <li><a href="#membresía-en-organizaciones-vecinales" id="toc-membresía-en-organizaciones-vecinales" class="nav-link" data-scroll-target="#membresía-en-organizaciones-vecinales"><span class="header-section-number">9.2</span> Membresía en organizaciones vecinales</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -247,7 +260,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Práctico 08. Regresión logística II</h1>
+<h1 class="title">Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit</h1>
 <p class="subtitle lead">Métodos estadísticos para Ciencias Sociales III</p>
 </div>
 
@@ -259,7 +272,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">27 de octubre de 2025</p>
+      <p class="date">26 de octubre de 2026</p>
     </div>
   </div>
   
@@ -271,1977 +284,862 @@ window.Quarto = {
 </header>
 
 
-<section id="regresión-logística" class="level1">
-<h1>Regresión logística</h1>
-<p>La Encuesta Mundial de Valores (EMV) o World Values Survey <a href="https://www.worldvaluessurvey.org/wvs.jsp">WVS</a> es un proyecto global de investigación social que explora los valores y opiniones de la gente, cómo estos cambian con el tiempo, y su impacto social y político. Desde 1981 una red mundial de científicos sociales y politólogos llevan a cabo esta investigación, haciendo encuestas nacionales representativas en casi 100 países. La WVS es la única fuente de datos empíricos sobre actitudes y valores humanos que abarca a la mayoría de la población mundial (casi el 90%).</p>
-<section id="objetivo" class="level2">
-<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
-<p>En el ejemplo de esta práctica, que utiliza solo casos para Chile entre 2005 y 2022, se intentará responder la pregunta ¿existe una relación entre la afiliación a sindicatos y la participación en marchas?</p>
-<p>Debido a la naturaleza de la variable dependiente participación en marchas (si/no), el objetivo de esta práctica es estimar modelos de regresión logística binaria.</p>
-</section>
-</section>
-<section id="librerías" class="level1">
-<h1>Librerías</h1>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyr,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               dplyr,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               sjPlot,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               sjmisc,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               psych,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               texreg,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               haven,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               ggplot2,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               lmtest,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               DescTools)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="datos" class="level1">
-<h1>Datos</h1>
-<ul>
-<li><p>Como la universidad no permite el acceso a Github, pueden encontrar la base de datos en el canvas del curso, archivos, bajo el nombre datos-practico8.RData</p></li>
-<li><p>Si no están conectados mediante eduroam de la universidad, pueden usar el siguiente link:</p></li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cargamos la base de datos desde internet</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod1-MCS/raw/main/files/data/WVS_2005_2022_Chl.RData"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="explorar-datos" class="level2">
-<h2 class="anchored" data-anchor-id="explorar-datos">Explorar datos</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(WVS_2005_2022_Chl) <span class="co">#con comando de paquete haven</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Unionized      demonstr_dummy   petition_dummy       Wave    
- Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Wave 5:373  
- 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   Wave 6:516  
- Median :0.0000   Median :0.0000   Median :0.0000   Wave 7:568  
- Mean   :0.1984   Mean   :0.2073   Mean   :0.1846               
- 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000               
- Max.   :1.0000   Max.   :1.0000   Max.   :1.0000               
-                                                                
-           pol_pos     pol_pos_left    politicization civic_involvement
- left          :360   Min.   :0.0000   Min.   :0.00   Min.   :0.0000   
- center        :509   1st Qu.:0.0000   1st Qu.:1.00   1st Qu.:0.0000   
- right         :215   Median :0.0000   Median :2.00   Median :0.0000   
- Not identified:  0   Mean   :0.2471   Mean   :1.95   Mean   :0.6905   
- NA's          :373   3rd Qu.:0.0000   3rd Qu.:3.00   3rd Qu.:1.0000   
-                      Max.   :1.0000   Max.   :6.00   Max.   :3.0000   
-                                                                       
-      X003       age         Female       Educ    private_sector  
- Min.   :18.00   1:128   Min.   :0.0000   1:123   Min.   :0.0000  
- 1st Qu.:31.00   2:341   1st Qu.:0.0000   2:924   1st Qu.:1.0000  
- Median :41.00   3:400   Median :0.0000   3:410   Median :1.0000  
- Mean   :41.44   4:352   Mean   :0.4084           Mean   :0.8593  
- 3rd Qu.:50.00   5:188   3rd Qu.:1.0000           3rd Qu.:1.0000  
- Max.   :80.00   6: 48   Max.   :1.0000           Max.   :1.0000  
-                                                                  
-    gvt_resp         tax_rich        unempl_aid      state_inc_eq   
- Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000  
- 1st Qu.: 5.000   1st Qu.: 5.000   1st Qu.: 5.000   1st Qu.: 5.000  
- Median : 6.000   Median : 7.000   Median : 7.000   Median : 7.000  
- Mean   : 6.457   Mean   : 6.446   Mean   : 7.103   Mean   : 6.689  
- 3rd Qu.: 9.000   3rd Qu.: 9.000   3rd Qu.:10.000   3rd Qu.: 9.000  
- Max.   :10.000   Max.   :10.000   Max.   :10.000   Max.   :10.000  
- NA's   :16       NA's   :87       NA's   :62       NA's   :439     </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(WVS_2005_2022_Chl) <span class="co">#con comando de paquete psych</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                  vars    n  mean    sd median trimmed   mad min max range
-Unionized            1 1457  0.20  0.40      0    0.12  0.00   0   1     1
-demonstr_dummy       2 1457  0.21  0.41      0    0.13  0.00   0   1     1
-petition_dummy       3 1457  0.18  0.39      0    0.11  0.00   0   1     1
-Wave*                4 1457  2.13  0.79      2    2.17  1.48   1   3     2
-pol_pos*             5 1084  1.87  0.72      2    1.83  1.48   1   3     2
-pol_pos_left         6 1457  0.25  0.43      0    0.18  0.00   0   1     1
-politicization       7 1457  1.95  1.61      2    1.81  1.48   0   6     6
-civic_involvement    8 1457  0.69  0.98      0    0.49  0.00   0   3     3
-X003                 9 1457 41.44 12.25     41   41.13 13.34  18  80    62
-age*                10 1457  3.19  1.27      3    3.18  1.48   1   6     5
-Female              11 1457  0.41  0.49      0    0.39  0.00   0   1     1
-Educ*               12 1457  2.20  0.57      2    2.23  0.00   1   3     2
-private_sector      13 1457  0.86  0.35      1    0.95  0.00   0   1     1
-gvt_resp            14 1441  6.46  2.58      6    6.61  2.97   1  10     9
-tax_rich            15 1370  6.45  2.72      7    6.64  2.97   1  10     9
-unempl_aid          16 1395  7.10  2.53      7    7.37  2.97   1  10     9
-state_inc_eq        17 1018  6.69  2.60      7    6.90  2.97   1  10     9
-                   skew kurtosis   se
-Unionized          1.51     0.28 0.01
-demonstr_dummy     1.44     0.08 0.01
-petition_dummy     1.62     0.64 0.01
-Wave*             -0.24    -1.37 0.02
-pol_pos*           0.20    -1.04 0.02
-pol_pos_left       1.17    -0.63 0.01
-politicization     0.56    -0.43 0.04
-civic_involvement  1.31     0.51 0.03
-X003               0.21    -0.63 0.32
-age*               0.15    -0.66 0.03
-Female             0.37    -1.86 0.01
-Educ*             -0.02    -0.28 0.01
-private_sector    -2.06     2.26 0.01
-gvt_resp          -0.32    -0.71 0.07
-tax_rich          -0.34    -0.81 0.07
-unempl_aid        -0.62    -0.43 0.07
-state_inc_eq      -0.40    -0.61 0.08</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="regresiones-logísticas" class="level1">
-<h1>Regresiones logísticas</h1>
-<p>El punto de partida es transformación de los coeficientes 𝛽 en coeficientes logit:</p>
-<ul>
-<li><p>Se conoce como “logit” a la transformación logarítmica de los odds (traducidos comúnmente como “chances”)</p></li>
-<li><p>¿Qué son los odds? Una razón de probabilidades</p></li>
-<li><p>Por lo tanto, para estimar probabilidades a través de una regresión logística hay que seguir estos pasos:</p>
+<section id="presentación" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Presentación</h1>
+<section id="objetivo-de-la-práctica" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="objetivo-de-la-práctica"><span class="header-section-number">1.1</span> Objetivo de la práctica</h2>
+<p>La semana pasada introdujimos con el ejemplo del Titanic los conceptos centrales de la regresión logística: <strong>probabilidades</strong>, <strong>chances</strong> (u <em>odds</em>) y <strong>razón de chances</strong> (u <em>odds ratio</em>). En esta guía los repasaremos con datos de <strong>ELSOC</strong>, la base del curso, y daremos el paso siguiente: estimar el modelo con la función <code>glm</code> y comprobar que sus coeficientes reproducen lo que calculamos a mano.</p>
+<p>Al terminar, usted debería ser capaz de:</p>
 <ol type="1">
-<li>Estimar los odds o razón de probabilidades</li>
-<li>Estimar odds ratios (razones entre odds)</li>
-<li>Aplicar una transformación logarítmica a esos odds ratios para obtener coeficientes logit</li>
-<li>Calcular las probabilidades</li>
-</ol></li>
-</ul>
-<section id="tabla-de-contingencia-bivariado-sindicalización-participación-en-marchas" class="level2">
-<h2 class="anchored" data-anchor-id="tabla-de-contingencia-bivariado-sindicalización-participación-en-marchas">Tabla de contingencia bivariado: sindicalización / participación en marchas</h2>
+<li>Calcular e interpretar una <strong>probabilidad</strong>, un <strong>odds</strong> y un <strong>odds ratio</strong> a partir de una tabla de contingencia</li>
+<li>Comprender por qué los odds se transforman en <strong>logit</strong></li>
+<li>Estimar una regresión logística con <code>glm</code> e interpretar sus coeficientes en logit y en odds ratio</li>
+</ol>
+</section>
+</section>
+<section id="librerías" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Librerías</h1>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>WVS_2005_2022_Chl <span class="ot">&lt;-</span> WVS_2005_2022_Chl <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Unionized =</span> <span class="fu">labelled</span>(.<span class="sc">$</span>Unionized,<span class="fu">c</span>(<span class="st">"No"</span><span class="ot">=</span><span class="dv">0</span>,<span class="st">"Sí"</span><span class="ot">=</span><span class="dv">1</span>)),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">demonstr_dummy =</span> <span class="fu">labelled</span>(.<span class="sc">$</span>demonstr_dummy,<span class="fu">c</span>(<span class="st">"No"</span><span class="ot">=</span><span class="dv">0</span>,<span class="st">"Sí"</span><span class="ot">=</span><span class="dv">1</span>)))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>WVS_2005_2022_Chl <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(WVS_2005_2022_Chl) <span class="co">#para que la base quede como data frame (necesario para las figuras)</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(WVS_2005_2022_Chl<span class="sc">$</span>Unionized)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               sjmisc,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               sjPlot,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               summarytools,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               ggplot2)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_options</span>(<span class="at">bootstrap.css =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">style =</span> <span class="st">"rmarkdown"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">dfSummary.silent =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">footnote =</span> <span class="cn">NA</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">subtitle.emphasis =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="datos" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Datos</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> elsoc_long_2016_2022<span class="fl">.2</span> <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(t01, m01, m0_sexo, m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"confianza"</span> <span class="ot">=</span> t01,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">"educacion"</span> <span class="ot">=</span> m01,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">"sexo"</span> <span class="ot">=</span> m0_sexo,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">"edad"</span> <span class="ot">=</span> m0_edad) <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(proc_data)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2906</code></pre>
+</div>
+</div>
+<section id="la-variable-dependiente" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="la-variable-dependiente"><span class="header-section-number">3.1</span> La variable dependiente</h2>
+<p>Trabajaremos con la <strong>confianza en los vecinos</strong>, medida en una escala de 1 a 5. La convertiremos en una variable dicotómica: confía quien responde 4 o 5, y no confía quien responde 1, 2 o 3.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>confianza)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>x &lt;numeric&gt; 
-# total N=1457 valid N=1457 mean=0.20 sd=0.40
+# total N=2906 valid N=2906 mean=3.20 sd=1.20
 
-Value | Label |    N | Raw % | Valid % | Cum. %
------------------------------------------------
-    0 |    No | 1168 | 80.16 |   80.16 |  80.16
-    1 |    Sí |  289 | 19.84 |   19.84 | 100.00
- &lt;NA&gt; |  &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(WVS_2005_2022_Chl<span class="sc">$</span>demonstr_dummy)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>x &lt;integer&gt; 
-# total N=1457 valid N=1457 mean=0.21 sd=0.41
-
-Value | Label |    N | Raw % | Valid % | Cum. %
------------------------------------------------
-    0 |    No | 1155 | 79.27 |   79.27 |  79.27
-    1 |    Sí |  302 | 20.73 |   20.73 | 100.00
- &lt;NA&gt; |  &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_xtab</span>(<span class="at">var.col =</span> WVS_2005_2022_Chl<span class="sc">$</span>Unionized, </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var.row =</span> WVS_2005_2022_Chl<span class="sc">$</span>demonstr_dummy, </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Participación en marchas según afiliación sindical"</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">show.col.prc =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">value.labels =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: `valueLables` needs to be a `list`-object.</code></pre>
-</div>
-<div class="cell-output-display">
-<table style="border-collapse:collapse; border:none;">
-<caption style="font-weight: bold; text-align:left;">Participación en marchas según afiliación sindical</caption>
- <tbody><tr>
- <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">demonstr_dummy</th>
- <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">Unionized</th>
- <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
- </tr>
- 
-<tr>
- <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">No</td>
- <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">Sí</td>
- </tr>
- 
-<tr> 
-<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">No</td>
-<td style="padding:0.2cm; text-align:center; "><span style="color:black;">941</span><br><span style="color:#339933;">80.6&nbsp;%</span></td>
-<td style="padding:0.2cm; text-align:center; "><span style="color:black;">214</span><br><span style="color:#339933;">74&nbsp;%</span></td>
-<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">1155</span><br><span style="color:#339933;">79.3&nbsp;%</span></td> 
-</tr>
- 
-<tr> 
-<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Sí</td>
-<td style="padding:0.2cm; text-align:center; "><span style="color:black;">227</span><br><span style="color:#339933;">19.4&nbsp;%</span></td>
-<td style="padding:0.2cm; text-align:center; "><span style="color:black;">75</span><br><span style="color:#339933;">26&nbsp;%</span></td>
-<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">302</span><br><span style="color:#339933;">20.7&nbsp;%</span></td> 
-</tr>
- 
-<tr> 
-<td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;">Total</td>
-<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">1168</span><br><span style="color:#339933;">100&nbsp;%</span></td>
-<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">289</span><br><span style="color:#339933;">100&nbsp;%</span></td>
-<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">1457</span><br><span style="color:#339933;">100&nbsp;%</span></td> 
-</tr>
-<tr><td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4">χ<sup>2</sup>=5.598 · df=1 · φ=0.064 · p=0.018</td> 
-</tr>
- 
-</tbody></table>
+Value |   N | Raw % | Valid % | Cum. %
+--------------------------------------
+    1 | 332 | 11.42 |   11.42 |  11.42
+    2 | 502 | 17.27 |   17.27 |  28.70
+    3 | 711 | 24.47 |   24.47 |  53.17
+    4 | 987 | 33.96 |   33.96 |  87.13
+    5 | 374 | 12.87 |   12.87 | 100.00
+ &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 </div>
-<section id="odds" class="level3">
-<h3 class="anchored" data-anchor-id="odds">Odds</h3>
-<p><span class="math display">\[Odds_{participar} = \frac{0.207}{0.793} = 0.26\]</span></p>
-<p>Las chances de participar en una marcha son de 0,26, respecto a las chances de no participar</p>
-<ul>
-<li><p>En otras palabras: por cada 1 persona, hay sólo 0,26 personas que participan en marchas.</p></li>
-<li><p>O más intuitivamente, por cada 100 personas, hay sólo 26 personas que participan</p></li>
-</ul>
-<p>¿Cambian las chances de participar según se esté afiliado/a a un sindicato</p>
-<p><span class="math display">\[Odds_{sindical} = \frac{0.26}{0.74} = 0.35\]</span></p>
-<p><span class="math display">\[Odds_{no.sindical} = \frac{0.194}{0.806} = 0.24\]</span></p>
-<p>¿Cómo se interpretan los odds?</p>
-<ul>
-<li><p>Valores bajo 1 indican que las chances de que ocurra un evento son negativas</p></li>
-<li><p>Valores iguales a 1 indican chances iguales</p></li>
-<li><p>Valores sobre 1 indican chances positivas</p></li>
-</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>proc_data <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">confia =</span> <span class="fu">ifelse</span>(confianza <span class="sc">&gt;=</span> <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">confia =</span> <span class="fu">factor</span>(confia,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No confía"</span>, <span class="st">"Confía"</span>)),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">sexo_f =</span> <span class="fu">factor</span>(sexo,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Hombre"</span>, <span class="st">"Mujer"</span>)),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">educ_rec =</span> <span class="fu">case_when</span>(educacion <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                              educacion <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                              <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">3</span>),</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">educ_f =</span> <span class="fu">factor</span>(educ_rec,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Educación básica"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Educación media"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Educación superior"</span>)))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>Dicotomizar tiene un costo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Al convertir una variable de cinco categorías en una de dos, perdemos información: alguien que responde 1 y alguien que responde 3 quedan en el mismo grupo. En una investigación, el punto de corte debe justificarse teóricamente, y conviene revisar si los resultados cambian al moverlo.</p>
+</div>
+</div>
 </section>
-<section id="odds-ratios-razones-de-chances" class="level3">
-<h3 class="anchored" data-anchor-id="odds-ratios-razones-de-chances">Odds ratios (razones de chances)</h3>
+</section>
+<section id="probabilidades-y-odds" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Probabilidades y odds</h1>
+<section id="probabilidades" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="probabilidades"><span class="header-section-number">4.1</span> Probabilidades</h2>
+<p>Una <strong>probabilidad</strong> es la posibilidad de ocurrencia de un evento, usando como referencia <strong>todos</strong> los casos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(proc_data<span class="sc">$</span>confia)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x &lt;categorical&gt; 
+# total N=2906 valid N=2906 mean=1.47 sd=0.50
+
+Value     |    N | Raw % | Valid % | Cum. %
+-------------------------------------------
+No confía | 1545 | 53.17 |   53.17 |  53.17
+Confía    | 1361 | 46.83 |   46.83 | 100.00
+&lt;NA&gt;      |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p><span class="math display">\[P_{confiar} = \frac{1361}{2906} = 0.468\]</span></p>
+<p>Un 46,8% de las personas confía en sus vecinos. La probabilidad varía siempre entre 0 y 1, y la del evento y la de su complemento suman 1.</p>
+</section>
+<section id="odds" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="odds"><span class="header-section-number">4.2</span> Odds</h2>
+<p>Los <strong>odds</strong> (chances) comparan las ocurrencias con las <strong>no ocurrencias</strong>:</p>
+<p><span class="math display">\[Odds = \frac{p}{1-p}\]</span></p>
+<p><span class="math display">\[Odds_{confiar} = \frac{1361}{1545} = \frac{0.468}{0.532} = 0.88\]</span></p>
+<p>Hay 0,88 personas que confían por cada persona que no confía; o, en otros términos, 88 que confían por cada 100 que no confían.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Propiedades de los odds
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>Cálculo que permite reflejar asociación entre dos variables dicotómicas, a partir de una comparación entre chances</p></li>
-<li><p>Siguiendo con el ejemplo anterior, ¿tienen los/as sindicalizados más chances de participar en marchas que quienes no están sindicalizados/as?</p></li>
+<li>Odds <strong>menores</strong> que 1: el evento es <strong>menos</strong> probable que su complemento</li>
+<li>Odds <strong>mayores</strong> que 1: el evento es <strong>más</strong> probable que su complemento</li>
+<li>Odds igual a 1: ambos resultados son igualmente probables</li>
+<li>A diferencia de una probabilidad, un odds <strong>no tiene techo</strong>: varía entre 0 e infinito</li>
 </ul>
-<p><span class="math display">\[OR = \frac{P_{sindical}/(1-P_{sindical})}{P_{no.sindical}/(1-P_{no.sindical})}\]</span></p>
-<p><span class="math display">\[OR = \frac{0.26/0.74}{0.194/0.806} = \frac{0.35}{0.24} = 1.46\]</span></p>
-<p>Las chances de participar en marchas de los/as sindicalizados/as son 1,5 veces más que las de quienes no están sindicalizados/as</p>
+</div>
+</div>
+</section>
+<section id="odds-por-grupo" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="odds-por-grupo"><span class="header-section-number">4.3</span> Odds por grupo</h2>
+<div class="container st-container">
+<h3 class="anchored">Cross-Tabulation, Row Proportions</h3>
+<strong>
+sexo_f * confia
+<br>
+</strong>
+<strong>Data Frame</strong>: proc_data
+<br>
+
+<table class="table table-bordered st-table st-table-bordered st-cross-table caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="8" class="st-protect-top-border" style="text-align: center;" data-quarto-table-cell-role="th">confia</th>
+<th colspan="4" style="text-align: right;" data-quarto-table-cell-role="th"></th>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>sexo_f</strong></td>
+<th colspan="4" style="text-align: center;" data-quarto-table-cell-role="th">No confía</th>
+<th colspan="4" style="text-align: center;" data-quarto-table-cell-role="th">Confía</th>
+<th colspan="4" style="text-align: center;" data-quarto-table-cell-role="th">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Hombre</strong></td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">598</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">51.6%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">560</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">48.4%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">1158</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">100.0%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+</tr>
+<tr class="even">
+<td><strong>Mujer</strong></td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">947</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">54.2%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">801</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">45.8%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">1748</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">100.0%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">1545</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">53.2%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">1361</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">46.8%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+<td style="text-align: right; padding: 0 0 0 15px; border-right: 0;">2906</td>
+<td style="text-align: left; padding: 0 1px 0 4px; border-left: 0; border-right: 0;">(</td>
+<td style="text-align: left; padding: 0; border-left: 0; border-right: 0;">100.0%</td>
+<td style="text-align: left; padding: 0 15px 0 1px; border-left: 0;">)</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<p>Un gráfico de barras apiladas al 100% permite comparar las proporciones de cada grupo:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(proc_data, <span class="fu">aes</span>(<span class="at">x =</span> sexo_f, <span class="at">fill =</span> confia)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#c0c8d8"</span>, <span class="st">"#04245f"</span>)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Porcentaje"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-barras-sexo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-barras-sexo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="practico-09_files/figure-html/fig-barras-sexo-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-barras-sexo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Confianza en los vecinos según sexo
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(proc_data<span class="sc">$</span>confia, proc_data<span class="sc">$</span>sexo_f))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           
+            Hombre Mujer  Sum
+  No confía    598   947 1545
+  Confía       560   801 1361
+  Sum         1158  1748 2906</code></pre>
+</div>
+</div>
+<p><span class="math display">\[Odds_{hombres} = \frac{560}{598} = 0.936\]</span></p>
+<p><span class="math display">\[Odds_{mujeres} = \frac{801}{947} = 0.846\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(proc_data<span class="sc">$</span>confia, proc_data<span class="sc">$</span>sexo_f)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>odds_h <span class="ot">&lt;-</span> tabla[<span class="st">"Confía"</span>, <span class="st">"Hombre"</span>] <span class="sc">/</span> tabla[<span class="st">"No confía"</span>, <span class="st">"Hombre"</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>odds_m <span class="ot">&lt;-</span> tabla[<span class="st">"Confía"</span>, <span class="st">"Mujer"</span>] <span class="sc">/</span> tabla[<span class="st">"No confía"</span>, <span class="st">"Mujer"</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">hombres =</span> odds_h, <span class="at">mujeres =</span> odds_m)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  hombres   mujeres 
+0.9364548 0.8458289 </code></pre>
+</div>
+</div>
+<p>En ambos grupos el odds es menor que 1: hay algo más de chances de no confiar que de confiar.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Probabilidad y odds no son lo mismo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La probabilidad de que un hombre confíe en sus vecinos es 0,484. Su odds es 0,936. Ambos describen el mismo hecho en escalas distintas: la probabilidad compara a quienes confían con el <strong>total</strong>, y el odds los compara con quienes <strong>no confían</strong>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="odds-ratio" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Odds ratio</h1>
+<section id="sexo" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sexo"><span class="header-section-number">5.1</span> Sexo</h2>
+<p>¿Cuántas más (o menos) chances de confiar en sus vecinos tienen las mujeres respecto de los hombres? La respuesta es la <strong>razón de chances</strong> u <em>odds ratio</em>:</p>
+<p><span class="math display">\[OR = \frac{Odds_{mujeres}}{Odds_{hombres}} = \frac{0.846}{0.936} = 0.90\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>odds_m <span class="sc">/</span> odds_h</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9032245</code></pre>
+</div>
+</div>
+<p>Las chances de confiar en los vecinos de las mujeres son 0,90 veces las de los hombres.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Cómo leer un odds ratio
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>Implicancias:</p>
+<li><span class="math inline">\(OR = 1\)</span>: <strong>no hay asociación</strong></li>
+<li><span class="math inline">\(OR &gt; 1\)</span>: el grupo comparado tiene <strong>más</strong> chances que el de referencia</li>
+<li><span class="math inline">\(OR &lt; 1\)</span>: el grupo comparado tiene <strong>menos</strong> chances que el de referencia</li>
+</ul>
+</div>
+</div>
+<p>El OR depende de cuál grupo se ponga en el denominador. Si invertimos la comparación, obtenemos el mismo hallazgo expresado al revés:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>odds_h <span class="sc">/</span> odds_m</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.107144</code></pre>
+</div>
+</div>
+</section>
+<section id="el-odds-ratio-como-cambio-porcentual" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="el-odds-ratio-como-cambio-porcentual"><span class="header-section-number">5.2</span> El odds ratio como cambio porcentual</h2>
+<p>Una forma práctica de leer un OR es como <strong>cambio porcentual en las chances</strong>: <span class="math inline">\((OR - 1) \times 100\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(odds_m <span class="sc">/</span> odds_h <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -9.677553</code></pre>
+</div>
+</div>
+<p>Las chances de confiar de las mujeres son un 9,7% <strong>menores</strong> que las de los hombres. Es una asociación débil, como suele ocurrir en investigación social.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>Chances no son probabilidades
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un OR de 0,90 significa que las <strong>chances</strong> son un 10% menores, no que la <strong>probabilidad</strong> sea un 10% menor. Es el error más frecuente al interpretar estos resultados.</p>
+</div>
+</div>
+</section>
+<section id="una-variable-de-tres-categorías" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="una-variable-de-tres-categorías"><span class="header-section-number">5.3</span> Una variable de tres categorías</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(proc_data, <span class="fu">aes</span>(<span class="at">x =</span> educ_f, <span class="at">fill =</span> confia)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#c0c8d8"</span>, <span class="st">"#04245f"</span>)) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Porcentaje"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-barras-educ" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-barras-educ-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="practico-09_files/figure-html/fig-barras-educ-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-barras-educ-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Confianza en los vecinos según nivel educacional
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tabla_educ <span class="ot">&lt;-</span> <span class="fu">table</span>(proc_data<span class="sc">$</span>confia, proc_data<span class="sc">$</span>educ_f)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tabla_educ</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           
+            Educación básica Educación media Educación superior
+  No confía              371             676                498
+  Confía                 282             565                514</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>odds_educ <span class="ot">&lt;-</span> tabla_educ[<span class="st">"Confía"</span>, ] <span class="sc">/</span> tabla_educ[<span class="st">"No confía"</span>, ]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(odds_educ, <span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Educación básica    Educación media Educación superior 
+             0.760              0.836              1.032 </code></pre>
+</div>
+</div>
+<p>Los odds aumentan con el nivel educacional, y en educación superior superan levemente el 1. Calculemos los odds ratio tomando la educación básica como <strong>categoría de referencia</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(odds_educ <span class="sc">/</span> odds_educ[<span class="st">"Educación básica"</span>], <span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Educación básica    Educación media Educación superior 
+             1.000              1.100              1.358 </code></pre>
+</div>
+</div>
+<p>Las chances de confiar en los vecinos de quienes tienen educación superior son 1,36 veces las de quienes tienen educación básica, es decir, un 36% mayores.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>La conexión con las variables dummy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hay una categoría de referencia, y cada OR se interpreta respecto de ella. Es la misma lógica que seguirá el modelo de regresión logística.</p>
+</div>
+</div>
+<section id="ejercicio" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="ejercicio"><span class="header-section-number">5.3.1</span> Ejercicio</h3>
+<p>Calcule el odds ratio entre educación superior y educación <strong>media</strong>. ¿Cómo se interpreta?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>odds_educ[<span class="st">"Educación superior"</span>] <span class="sc">/</span> odds_educ[<span class="st">"Educación media"</span>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Educación superior 
+          1.234901 </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="del-odds-al-logit" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Del odds al logit</h1>
+<p>Los odds no son <strong>simétricos</strong>: las chances favorables van de 1 a infinito, mientras que las desfavorables quedan comprimidas entre 0 y 1. La solución es aplicar el <strong>logaritmo natural</strong>, que da origen al <strong>logit</strong>:</p>
+<p><span class="math display">\[logit = \ln\left(\frac{p}{1-p}\right)\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">log</span>(odds_educ), <span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Educación básica    Educación media Educación superior 
+            -0.274             -0.179              0.032 </code></pre>
+</div>
+</div>
+<p>Los logits negativos corresponden a odds menores que 1 (educación básica y media), y el logit positivo, a un odds mayor que 1 (educación superior). Un logit de 0 indicaría chances iguales.</p>
+<p>Para ver la relación entre las tres escalas, calculemos el odds y el logit de un conjunto de probabilidades:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>escalas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fl">0.6</span>, <span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="fl">0.95</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>escalas<span class="sc">$</span>odds <span class="ot">&lt;-</span> escalas<span class="sc">$</span>prob <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> escalas<span class="sc">$</span>prob)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>escalas<span class="sc">$</span>logit <span class="ot">&lt;-</span> <span class="fu">log</span>(escalas<span class="sc">$</span>odds)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(escalas, <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Probabilidad"</span>, <span class="st">"Odds"</span>, <span class="st">"Logit"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">6</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">background =</span> <span class="st">"#dbe8ff"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Probabilidad</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Odds</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Logit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">-2.944</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.111</td>
+<td style="text-align: right;">-2.197</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.250</td>
+<td style="text-align: right;">-1.386</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.429</td>
+<td style="text-align: right;">-0.847</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.667</td>
+<td style="text-align: right;">-0.405</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">0.50</td>
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">1.000</td>
+<td style="text-align: right; font-weight: bold; background-color: rgba(219, 232, 255, 255) !important;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">1.500</td>
+<td style="text-align: right;">0.405</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">2.333</td>
+<td style="text-align: right;">0.847</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">4.000</td>
+<td style="text-align: right;">1.386</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">9.000</td>
+<td style="text-align: right;">2.197</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">19.000</td>
+<td style="text-align: right;">2.944</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Las tres escalas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Escala</th>
+<th style="text-align: left;">Rango</th>
+<th style="text-align: left;">Sin asociación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Probabilidad</td>
+<td style="text-align: left;">0 a 1</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Odds</td>
+<td style="text-align: left;">0 a infinito</td>
+<td style="text-align: left;">OR = 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Logit</td>
+<td style="text-align: left;">−infinito a +infinito</td>
+<td style="text-align: left;"><span class="math inline">\(\beta\)</span> = 0</td>
+</tr>
+</tbody>
+</table>
+<p>El modelo trabaja en la escala del logit porque es la única no acotada, y por tanto la única compatible con una ecuación lineal. La interpretación, en cambio, suele hacerse volviendo a los odds o a las probabilidades.</p>
+</div>
+</div>
+</section>
+<section id="estimación-de-la-regresión-logística" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Estimación de la regresión logística</h1>
+<section id="la-función-glm" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="la-función-glm"><span class="header-section-number">7.1</span> La función <code>glm</code></h2>
+<p>La regresión logística se estima con la función <code>glm</code>. Su sintaxis es la misma que la de <code>lm</code>, con el argumento adicional <code>family = "binomial"</code>, que indica que la dependiente es dicotómica:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">glm</span>(dependiente <span class="sc">~</span> independiente1 <span class="sc">+</span> independiente2,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> datos,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Cuando la dependiente es un factor de dos categorías, R modela la probabilidad de la <strong>segunda</strong> categoría:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(proc_data<span class="sc">$</span>confia)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "No confía" "Confía"   </code></pre>
+</div>
+</div>
+<p>En este caso, el modelo estimará las chances de <strong>confiar</strong>.</p>
+</section>
+<section id="modelo-con-nivel-educacional" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="modelo-con-nivel-educacional"><span class="header-section-number">7.2</span> Modelo con nivel educacional</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>m_educ <span class="ot">&lt;-</span> <span class="fu">glm</span>(confia <span class="sc">~</span> educ_f,</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> proc_data,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Con <code>transform = NULL</code>, <code>tab_model</code> muestra los coeficientes en <strong>logit</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(m_educ,</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">transform =</span> <span class="cn">NULL</span>,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.r2 =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="st">"Confianza en vecinos"</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Educación media"</span>, <span class="st">"Educación superior"</span>),</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.est =</span> <span class="st">"Logit"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Confianza en vecinos</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Logit</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.274</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.079</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Educación media</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.095</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.097</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.330</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Educación superior</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.306</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.101</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.002</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2906</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="interpretación-de-los-coeficientes-logit" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="interpretación-de-los-coeficientes-logit"><span class="header-section-number">7.3</span> Interpretación de los coeficientes logit</h2>
+<p>Del coeficiente logit podemos leer directamente dos cosas:</p>
+<ul>
+<li><strong>El signo</strong>: ambos coeficientes son positivos, por lo que quienes tienen educación media o superior tienen más chances de confiar que quienes tienen educación básica</li>
+<li><strong>La significación</strong>: la diferencia entre educación superior y básica es estadísticamente significativa (<span class="math inline">\(p&lt;0,01\)</span>); la diferencia entre educación media y básica no lo es</li>
+</ul>
+<p>Lo que no podemos leer directamente es la <strong>magnitud</strong>, porque nadie razona en “logaritmos de chances”.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿De dónde salen estos números?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Compare con los logits que calculamos a mano en la sección anterior. El intercepto (−0,274) es el logit de educación básica, la categoría de referencia. El coeficiente de educación superior (0,306) es la <strong>diferencia</strong> entre el logit de educación superior y el de educación básica: <span class="math inline">\(0.032 - (-0.274) = 0.306\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="de-logits-a-odds-ratio" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="de-logits-a-odds-ratio"><span class="header-section-number">7.4</span> De logits a odds ratio</h2>
+<p>Para interpretar la magnitud, volvemos a la escala de los odds con la <strong>exponenciación</strong>, que es la operación inversa del logaritmo:</p>
+<p><span class="math display">\[e^{logit} = Odds\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m_educ))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             (Intercept)    educ_fEducación media educ_fEducación superior 
+               0.7601078                1.0995793                1.3578712 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>El resultado clave
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Los coeficientes exponenciados son <strong>exactamente</strong> los odds ratio que calculamos a mano: 1,10 para educación media y 1,36 para educación superior. Y el intercepto exponenciado, 0,760, es el odds de confiar de quienes tienen educación básica.</p>
+<p>El modelo no hace nada distinto de lo que hicimos a mano: lo hace de forma automática, con inferencia estadística, y permitiendo incorporar varios predictores a la vez.</p>
+</div>
+</div>
+<p>Por defecto, <code>tab_model</code> muestra los coeficientes ya exponenciados:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(m_educ,</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.r2 =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="st">"Confianza en vecinos"</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Educación media"</span>, <span class="st">"Educación superior"</span>),</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.pred =</span> <span class="st">"Predictores"</span>,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.est =</span> <span class="st">"OR"</span>,</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.ci =</span> <span class="st">"IC 95%"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Confianza en vecinos</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictores</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">OR</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">IC 95%</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.760</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Educación media</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.100</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.330</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Educación superior</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.358</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.002</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2906</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Significación en odds ratio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En logit, la ausencia de asociación corresponde a un coeficiente igual a 0. En odds ratio corresponde a <strong>1</strong>, porque <span class="math inline">\(e^0 = 1\)</span>. Por eso, un OR es estadísticamente significativo cuando su intervalo de confianza <strong>no incluye el 1</strong>. Observe que el intervalo de educación media incluye el 1, y el de educación superior no.</p>
+</div>
+</div>
+</section>
+<section id="ejercicio-modelo-con-sexo" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="ejercicio-modelo-con-sexo"><span class="header-section-number">7.5</span> Ejercicio: modelo con sexo</h2>
+<p>Estime un modelo de regresión logística con <code>sexo_f</code> como predictor y compruebe que el OR coincide con el que calculamos a mano. ¿Es estadísticamente significativo?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>m_sexo <span class="ot">&lt;-</span> <span class="fu">glm</span>(confia <span class="sc">~</span> sexo_f,</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> proc_data,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(m_sexo,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.r2 =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Sexo (Mujer)"</span>),</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.est =</span> <span class="st">"OR"</span>,</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">string.ci =</span> <span class="st">"IC 95%"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">confia</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">OR</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">IC 95%</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.936</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.264</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Sexo (Mujer)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.903</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.000&nbsp;–&nbsp;Inf</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.180</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">2906</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>El OR de mujer es 0,90, igual al calculado a mano. Su intervalo de confianza incluye el 1, por lo que la diferencia entre hombres y mujeres <strong>no</strong> es estadísticamente significativa.</p>
+</section>
+<section id="una-independiente-continua" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="una-independiente-continua"><span class="header-section-number">7.6</span> Una independiente continua</h2>
+<p>Con una independiente continua, el OR indica cuánto se multiplican las chances por cada <strong>unidad</strong> adicional en <span class="math inline">\(x\)</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>m_edad <span class="ot">&lt;-</span> <span class="fu">glm</span>(confia <span class="sc">~</span> edad,</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> proc_data,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m_edad))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)        edad 
+  0.4060399   1.0168998 </code></pre>
+</div>
+</div>
+<p>Por cada año adicional de edad, las chances de confiar en los vecinos se multiplican por 1,017, es decir, aumentan un 1,7%. Para un cambio de 10 años:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">10</span> <span class="sc">*</span> <span class="fu">coef</span>(m_edad)[<span class="st">"edad"</span>])</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    edad 
+1.182446 </code></pre>
+</div>
+</div>
+<p>Las chances de confiar de una persona de 50 años son 1,18 veces las de una de 40.</p>
+</section>
+</section>
+<section id="lo-que-viene" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Lo que viene</h1>
+<p>Hasta aquí estimamos modelos con <strong>un solo predictor</strong>, y en todos los casos el OR del modelo reprodujo el de la tabla de contingencia.</p>
+<p>Lo que aún no hemos hecho es <strong>controlar estadísticamente</strong>. Acabamos de ver que la edad se asocia con la confianza. Si quienes tienen educación básica son, en promedio, mayores que quienes tienen educación superior, ¿cambiará el efecto de la educación al controlar por edad? Eso, junto con las probabilidades predichas y el ajuste del modelo, es el contenido del próximo práctico.</p>
+</section>
+<section id="ejercicios" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Ejercicios</h1>
+<section id="conceptos" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="conceptos"><span class="header-section-number">9.1</span> Conceptos</h2>
 <ol type="1">
-<li>El odds ratio o razones de chances es útil porque nos permite expresar en un número la relación entre dos variables categóricas</li>
-<li>En las regresiones logísticas, el odds ratio es la primera manera de aproximarnos a relación entre variables</li>
-<li>Sin embargo, falta un paso más necesario para construir modelos de regresión logística</li>
-</ol></li>
-</ul>
+<li><p>Un odds ratio de 0,45, ¿indica una asociación positiva o negativa? ¿Cómo se expresaría ese mismo resultado invirtiendo la comparación? Expréselo también como cambio porcentual.</p></li>
+<li><p>Un coeficiente logit de −0,7, ¿indica una asociación positiva o negativa? ¿Qué odds ratio le corresponde?</p></li>
+</ol>
 </section>
-</section>
-<section id="logit" class="level2">
-<h2 class="anchored" data-anchor-id="logit">Logit</h2>
-<ul>
-<li><p>Es una unidad de medida de la relación entre dos variables (VD: dicotómica), que en regresión logística se calcula a partir del logaritmo natural de los odds</p></li>
-<li><p>Esta transformación logarítmica es la base de la estimación de parámetros en la regresión logística:</p></li>
-</ul>
-<p>La mejor combinación lineal de predictores no se obtiene a través de MCO, sino a través del procedimiento de máxima verosimilitud</p>
-<ul>
-<li>A diferencia de los odds ratio, los coeficientes logit tienen valores que van de –a +</li>
-</ul>
-</section>
-<section id="modelo-de-probabilidad-lineal" class="level2">
-<h2 class="anchored" data-anchor-id="modelo-de-probabilidad-lineal">Modelo de probabilidad lineal</h2>
-<p>Primero, solo para comparación, estimamos un modelo de probabilidad lineal.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m1mpl <span class="ot">&lt;-</span> <span class="fu">lm</span>(demonstr_dummy <span class="sc">~</span> Unionized <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(m1mpl,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="st">"Modelo de Prob Lineal"</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>
-Statistical models
-</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-Modelo de Prob Lineal
-</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-(Intercept)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.167<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.022)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Unionized
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.072<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.027)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-WaveWave 6
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.079<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.027)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-WaveWave 7
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.005
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.027)
-</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-R<sup>2</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.013
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Adj. R<sup>2</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.011
-</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Num. obs.
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="2">
-<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05; <sup>†</sup>p &lt; 0.1
-</td>
-</tr>
-</tfoot>
-</table>
-</section>
-<section id="modelo-de-regresión-logística" class="level2">
-<h2 class="anchored" data-anchor-id="modelo-de-regresión-logística">Modelo de regresión logística</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m0log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized, <span class="at">data =</span> WVS_2005_2022_Chl, <span class="at">family =</span> <span class="st">"binomial"</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>m1log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl, <span class="at">family =</span> <span class="st">"binomial"</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#nota: "logit" viene por defecto en la opción "binomial", por eso no es necesario </span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#incluirla explícitamente en el código (tal como lo hago en los modelos sgtes)</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>m2log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Female <span class="sc">+</span> X003 <span class="sc">+</span> Educ <span class="sc">+</span> private_sector <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl,<span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>m3log <span class="ot">&lt;-</span> <span class="fu">glm</span>(demonstr_dummy<span class="sc">~</span> Unionized <span class="sc">+</span> Female <span class="sc">+</span> X003 <span class="sc">+</span> Educ <span class="sc">+</span> private_sector <span class="sc">+</span> politicization <span class="sc">+</span> Wave, <span class="at">data =</span> WVS_2005_2022_Chl,<span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1mpl, m1log,m2log,m3log),</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"M1 (m prob lineal)"</span>,<span class="st">"M1 (log odds)"</span>,<span class="st">"M2 (log odds)"</span>,<span class="st">"M3 (log odds)"</span>),</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>
-Statistical models
-</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-M1 (m prob lineal)
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-M1 (log odds)
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-M2 (log odds)
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-M3 (log odds)
-</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-(Intercept)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.167<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.601<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.023<sup>*</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.379<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.022)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.140)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.424)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.437)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Unionized
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.072<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.418<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.390<sup>*</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.312<sup>†</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.027)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.155)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.157)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.161)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-WaveWave 6
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.079<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.470<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.498<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.496<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.027)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.168)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.171)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.174)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-WaveWave 7
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.005
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.031
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.102
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.121
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.027)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.174)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.181)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.184)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Female
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.020
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.100
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.136)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.139)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-X003
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.007
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.012<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Educ2
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.042
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.053
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.268)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.272)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Educ3
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.521<sup>†</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.259
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.283)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.289)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-private_sector
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.516<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.445<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.175)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.180)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-politicization
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.282<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.042)
-</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-R<sup>2</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.013
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Adj. R<sup>2</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.011
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Num. obs.
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-AIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1475.887
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1460.059
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1415.850
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-BIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1497.024
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1507.616
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1468.691
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Log Likelihood
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--733.944
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--721.030
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--697.925
-</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Deviance
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1467.887
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1442.059
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1395.850
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="5">
-<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05; <sup>†</sup>p &lt; 0.1
-</td>
-</tr>
-</tfoot>
-</table>
-<p>En el Modelo 1 (M1), el log-odds de participación en marchas para afiliados a sindicatos aumenta en 0.418 en comparación con los no sindicalizados (p&lt;0.01). Este resultado mantiene su significación estadística en el Modelo 2 y baja su significación a p&lt;0.1 en el Modelo 3, al controlar por las demás variables independientes.</p>
-<p>En el Modelo 2, En comparación a los/as trabajadores/as del sector público (categoría de referencia), el log-odds de participación en marchas para los/as del sector privado disminuye en 0,52 (p &lt; 0,01), manteniendo el resto de variables constantes.</p>
-<p>En el Modelo 3, por cada unidad de aumento en la escala de politización, el log-odds de participación en marchas aumenta en 0,28 (p &lt; 0,001), manteniendo el resto de las variables constantes.</p>
-<section id="problemas-de-interpretación" class="level3">
-<h3 class="anchored" data-anchor-id="problemas-de-interpretación">Problemas de interpretación</h3>
-<p>A pesar de sus ventajas, los coeficientes logit son difíciles de interpretar:</p>
-<ul>
-<li><p>Los coef. logit son el resultado de una transformación de la escala original</p></li>
-<li><p>Ellos no muestran directamente probabilidades</p></li>
-<li><p>Entonces: Volver a la escala original de <strong>odds ratio</strong> mediante la <strong>exponenciación de los coeficientes</strong> (la función exponencial es la inversa del logaritmo)</p></li>
-</ul>
-<p><span class="math display">\[logit_x = log(odds)\]</span></p>
-<p><span class="math display">\[e^{logit} = odds_x\]</span></p>
-<p><span class="math display">\[e^{0.39} = odds_x = 1.477\]</span></p>
-<p>Las chances (odds) de participar en marchas de los/as sindicalizados/as son 1,5 veces más que las de quienes no están sindicalizados/as, controlando por las otras variables incluidas en el modelo</p>
-</section>
-</section>
-<section id="estimación-de-odds-ratios" class="level2">
-<h2 class="anchored" data-anchor-id="estimación-de-odds-ratios">Estimación de odds ratios</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1log)) <span class="co">#comando básico</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)   Unionized  WaveWave 6  WaveWave 7 
-  0.2016888   1.5185264   1.5996549   0.9694021 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Cálculo de OR para cada modelo</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>m0log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m0log))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>m1log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m1log))</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>m2log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m2log))</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>m3log_OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(m3log))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Odds ratios en tabla de texreg</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1log,m2log,m3log), </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">override.coef =</span> <span class="fu">list</span>(m1log_OR,m2log_OR,m3log_OR), <span class="co"># Sobreescribir coeficientes</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"m1 (OR)"</span>,<span class="st">"m2 (OR)"</span>,<span class="st">"m3 (OR)"</span>),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>
-Statistical models
-</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-m1 (OR)
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-m2 (OR)
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-m3 (OR)
-</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-(Intercept)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.202<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.359<sup>*</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.252<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.140)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.424)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.437)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Unionized
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.519<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.477<sup>*</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.366<sup>†</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.155)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.157)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.161)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-WaveWave 6
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.600<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.646<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.642<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.168)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.171)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.174)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-WaveWave 7
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.969
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.903
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.886
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.174)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.181)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.184)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Female
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.980
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.106
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.136)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.139)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-X003
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.993
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.988<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Educ2
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.042
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.949
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.268)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.272)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Educ3
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.684<sup>†</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.296
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.283)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.289)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-private_sector
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.597<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.641<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.175)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.180)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-politicization
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1.326<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.042)
-</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-AIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1475.887
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1460.059
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1415.850
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-BIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1497.024
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1507.616
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1468.691
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Log Likelihood
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--733.944
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--721.030
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--697.925
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Deviance
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1467.887
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1442.059
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1395.850
-</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Num. obs.
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="4">
-<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05; <sup>†</sup>p &lt; 0.1
-</td>
-</tr>
-</tfoot>
-</table>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Nota: errores estándares en esta tabla NO tienen  sentido (no están calculados a partir de OR, sino de log odds)</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Es mejor no reportarlos si solo se van a presentar odds ratios</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Sin embargo, los coeficientes de un modelo de reg. logística (log-odds u odds-ratios) no son comparables con los coeficientes de otro modelo</p>
-</section>
-<section id="cálculo-de-probabilidades-predichas" class="level2">
-<h2 class="anchored" data-anchor-id="cálculo-de-probabilidades-predichas">Cálculo de probabilidades predichas</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla básica: sólo sindicalizacion como vble independ</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(m0log,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"m0 (log odds)"</span>),</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>
-Statistical models
-</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-m0 (log odds)
-</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-(Intercept)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.422<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.074)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Unionized
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.374<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.153)
-</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-AIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1485.340
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-BIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1495.908
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Log Likelihood
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--740.670
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Deviance
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1481.340
-</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Num. obs.
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="2">
-<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05; <sup>†</sup>p &lt; 0.1
-</td>
-</tr>
-</tfoot>
-</table>
-<p>A partir de este modelo se pueden predecir log-odds y, más importante aún, probabilidades para personas con distintos atributos controlados en el modelo (ej., sindicalizadas o no)</p>
-<p><span class="math display">\[logit(prob.marcha) = 𝛼+ 𝛽_1X_1 \]</span></p>
-<p><span class="math display">\[logit(prob.marcha)_{sindical} = -1.422 + (0.374 * Unionized=1) = -1.048 \]</span></p>
-<p><span class="math display">\[logit(prob.marcha)_{no.sindical} = -1.422 + (0.374 * Unionized=0) = -1.422 \]</span></p>
-<p>Este “puntaje predicho” (log-odds) no tiene interpretación, por lo que hay que pasarlo a Odds</p>
-<p><span class="math display">\[Odds_x = e^{𝛼+𝛽_jX_j}\]</span></p>
-<p><span class="math display">\[Odds_{sindicalizados} = e^{-1.048} = 0.35\]</span></p>
-<p><span class="math display">\[Odds_{no.sindicalizados} = e^{-1.422} = 0.24\]</span></p>
-<p>Finalmente, habiendo calculado los odds para cada tipo de persona se pueden calcular sus probabilidades predichas</p>
-<p><span class="math display">\[p = \frac{e^{𝛼+𝛽_jX_j}}{1+e^{𝛼+𝛽_jX_j}} = \frac{odds_{xj}}{1+odds_{xj}}\]</span></p>
-<p><span class="math display">\[p_{sindicalizados} = \frac{0.35}{1+0.35} = \frac{0.35}{1.35} = 0.26\]</span></p>
-<p><span class="math display">\[p_{no.sindicalizados} = \frac{0.24}{1+0.24} = \frac{0.24}{1.24} = 0.19\]</span></p>
-<p>La probabilidad de que un/a sindicalizado participe en marchas es del 26%, mientras que la probabilidad de que alguien que no esté sindicalizado/a es del 19%</p>
-</section>
-<section id="cálculo-de-probabilidades-predichas-en-r" class="level2">
-<h2 class="anchored" data-anchor-id="cálculo-de-probabilidades-predichas-en-r">Cálculo de probabilidades predichas en R</h2>
-<ul>
-<li><p>Paquete ggeffects de R: últil para estimar probabilidades predichas a partir de modelos de regresión logísticas</p></li>
-<li><p>Combinado con ggplot2, se pueden generar gráficos que muestran de modo más intuitivo la relación entre variables</p></li>
-</ul>
-<p>Gráfico de probabilidades predichas para sindicalizados/as y no sindicalizados/as</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>FigSind_1_Prob <span class="ot">&lt;-</span> ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(m3log, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Unionized"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">color=</span><span class="st">"grey"</span>, <span class="at">fill=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">width=</span>.<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Sindicalización"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>), </span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-union members"</span>, <span class="st">"Union members"</span>)) <span class="sc">+</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.35</span>), </span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.35</span>, <span class="at">by =</span> <span class="fl">0.05</span>),</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>L))</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>FigSind_1_Prob</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-09_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Gráfico de probabilidades predichas para variable politización</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>FigPolit_1_Prob<span class="ot">&lt;-</span> ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(m3log, <span class="at">terms=</span><span class="st">"politicization"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span>predicted)) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Politización"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>)<span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> .<span class="dv">2</span>, <span class="at">fill =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>), </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">6</span>, <span class="at">by =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.6</span>), <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.6</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">accuracy =</span> <span class="dv">1</span>L))</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>FigPolit_1_Prob</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="practico-09_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="bondad-de-ajuste" class="level1">
-<h1>Bondad de ajuste</h1>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m1log, m2log, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Deviance Table
-
-Model 1: demonstr_dummy ~ Unionized + Wave
-Model 2: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
-    Wave
-  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
-1      1453     1467.9                          
-2      1448     1442.1  5   25.828 9.635e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2log, m3log, <span class="at">test =</span> <span class="st">"Chisq"</span>) </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Deviance Table
-
-Model 1: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
-    Wave
-Model 2: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
-    politicization + Wave
-  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
-1      1448     1442.1                          
-2      1447     1395.8  1    46.21 1.063e-11 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lrtest</span>(m1log, m2log) <span class="co">#likelihood ratio test / Prueba de razón de verosimilitud (comparación m1-m2)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Likelihood ratio test
-
-Model 1: demonstr_dummy ~ Unionized + Wave
-Model 2: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
-    Wave
-  #Df  LogLik Df  Chisq Pr(&gt;Chisq)    
-1   4 -733.94                         
-2   9 -721.03  5 25.828  9.635e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lrtest</span>(m2log, m3log) <span class="co">#likelihood ratio test / Prueba de razón de verosimilitud (comparación m2-m3)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Likelihood ratio test
-
-Model 1: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
-    Wave
-Model 2: demonstr_dummy ~ Unionized + Female + X003 + Educ + private_sector + 
-    politicization + Wave
-  #Df  LogLik Df Chisq Pr(&gt;Chisq)    
-1   9 -721.03                        
-2  10 -697.92  1 46.21  1.063e-11 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<section id="pseudo-r2-mcfadden" class="level2">
-<h2 class="anchored" data-anchor-id="pseudo-r2-mcfadden">Pseudo R2 (MCFadden)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>m1log_R2<span class="ot">&lt;-</span>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(m1log)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>m2log_R2<span class="ot">&lt;-</span>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(m2log)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>m3log_R2<span class="ot">&lt;-</span>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(m3log)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Misma tabla, en log odds, con Pseudo R2</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1log,m2log,m3log),</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"m1 (log odds)"</span>,<span class="st">"m2 (log odds)"</span>,<span class="st">"m3 (log odds)"</span>),</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.gof.rows=</span><span class="fu">list</span>(<span class="st">"Pseudo R2"</span> <span class="ot">=</span> <span class="fu">c</span>(m1log_R2, m2log_R2,m3log_R2)),</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>),<span class="at">symbol =</span> <span class="st">"†"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>
-Statistical models
-</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-m1 (log odds)
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-m2 (log odds)
-</th>
-<th style="padding-left: 5px;padding-right: 5px;">
-m3 (log odds)
-</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-(Intercept)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.601<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.023<sup>*</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--1.379<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.140)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.424)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.437)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Unionized
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.418<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.390<sup>*</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.312<sup>†</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.155)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.157)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.161)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-WaveWave 6
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.470<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.498<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.496<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.168)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.171)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.174)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-WaveWave 7
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.031
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.102
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.121
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.174)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.181)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.184)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Female
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.020
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.100
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.136)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.139)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-X003
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.007
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.012<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Educ2
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.042
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.053
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.268)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.272)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Educ3
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.521<sup>†</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.259
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.283)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.289)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-private_sector
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.516<sup>**</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.445<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.175)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.180)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-politicization
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.282<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.042)
-</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Pseudo R2
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.013
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.030
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.061
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-AIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1475.887
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1460.059
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1415.850
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-BIC
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1497.024
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1507.616
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1468.691
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Log Likelihood
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--733.944
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--721.030
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--697.925
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Deviance
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1467.887
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1442.059
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1395.850
-</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">
-Num. obs.
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-1457
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="4">
-<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05; <sup>†</sup>p &lt; 0.1
-</td>
-</tr>
-</tfoot>
-</table>
-</section>
-</section>
-<section id="ejercicio" class="level1">
-<h1>Ejercicio</h1>
-<p>1- Estima un modelo de regresión logística que tenga como variable dependiente <code>petition_dummy</code> (Frecuence de participación: firmar una petición). Propon la mejor forma de estimar la participación en peticiones a partir de las siguientes variables: <code>Unionized</code> (afiliación sindicatos), <code>pol_pos_left</code> (dummy ser de izquierda o no), <code>civic_involvement</code> (compromiso cívico), <code>X003</code> (edad), <code>female</code> (mujer), <code>educ</code> (educación).</p>
-<p>Antes de estimar los modelos, reflexionar entorno a:</p>
-<ul>
-<li>¿Qué variable sería el principal predictor de firmar una petición?</li>
-<li>¿Se deben agregar primero las variables socioeconómicas o las de opinión pública?</li>
-<li>Van todas las variables independientes juntas, se agregan unas primero y otras después?</li>
-</ul>
-<p>2- Interpretar los coeficientes de los modelos estimados.</p>
-<p>3- Estimar y graficar las probabilidades predichas de firmar una petición para las variables independientes <code>pol_pos_left</code> y <code>civic_involvement</code></p>
+<section id="membresía-en-organizaciones-vecinales" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="membresía-en-organizaciones-vecinales"><span class="header-section-number">9.2</span> Membresía en organizaciones vecinales</h2>
+<p>La variable <code>c12_01</code> de ELSOC registra la membresía en una junta de vecinos u otra organización vecinal (1 = No es miembro, 2 = Miembro inactivo, 3 = Miembro activo).</p>
+<ol start="3" type="1">
+<li><p>Con la ola 1 de ELSOC, construya una variable dicotómica que distinga entre quienes son miembros (activos o inactivos) y quienes no lo son.</p></li>
+<li><p>Elabore la tabla de contingencia entre esa variable y el nivel educacional recodificado en tres categorías.</p></li>
+<li><p>Calcule a mano la probabilidad y el odds de ser miembro para cada nivel educacional, y los odds ratio respecto de la educación básica.</p></li>
+<li><p>Estime el mismo análisis con <code>glm</code>. Compruebe que los OR coinciden con los calculados a mano, e indique cuáles diferencias son estadísticamente significativas.</p></li>
+<li><p>Estime un modelo con la edad como predictor e interprete su OR para un año y para 10 años.</p></li>
+</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
