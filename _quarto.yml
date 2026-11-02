@@ -86,8 +86,8 @@ website:
               file: content/07-content.qmd
             - text: "08: Sesión 8"
               file: content/08-content.qmd
-            # - text: "09: Sesión 9"
-            #   file: content/09-content.qmd
+            - text: "09: Sesión 9"
+              file: content/09-content.qmd
             # - text: "10: Sesión 10"
             #   file: content/10-content.qmd
     - title: "Practicos"
@@ -117,8 +117,8 @@ website:
           file: practicos/practico-08.qmd
         - text: "Práctico 9 - Regresión logística II"
           file: practicos/practico-09.qmd
-        # - text: "Práctico 10 - Supuestos de regresión"
-        #   file: practicos/practico-10.qmd
+        - text: "Práctico 10 - Regresión logística III"
+          file: practicos/practico-10.qmd
         # - text: "Ejemplos prueba 2"
         #   file: practicos/ejemplos-prueba-2.qmd
         # - text: "Práctico 11 - Plantillas reportes dinámicos"
