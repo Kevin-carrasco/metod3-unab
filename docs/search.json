@@ -6386,5 +6386,222 @@
     "title": "Programa",
     "section": "Palabras clave",
     "text": "Palabras clave\n\nRegresión lineal, regresión logística, modelos lineales generalizados, supuestos de regresión, interpretación de coeficientes, fiabilidad de escalas"
+  },
+  {
+    "objectID": "practicos/practico-10.html",
+    "href": "practicos/practico-10.html",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "",
+    "text": "En el práctico anterior estimamos regresiones logísticas con un solo predictor y comprobamos que el odds ratio del modelo reproduce el que se obtiene de una tabla de contingencia. En esta guía daremos tres pasos más:\n\nEstimar modelos de regresión logística múltiple, que permiten el control estadístico\nTransformar los resultados del modelo en probabilidades predichas, la forma más comunicable de los resultados\nEvaluar el ajuste de los modelos y compararlos entre sí\n\nAl terminar, usted debería ser capaz de:\n\nInterpretar coeficientes de una regresión logística múltiple en logit y en odds ratio\nCalcular a mano una probabilidad predicha a partir de los coeficientes\nObtener y graficar probabilidades predichas con ggeffects\nExplicar por qué el efecto de un predictor sobre la probabilidad no es constante\nComparar modelos mediante el test de razón de verosimilitud, el pseudo \\(R^2\\) y el AIC\n\n\n\n\nLa participación en marchas y manifestaciones es una de las formas de acción política no electoral más estudiadas por la sociología. Una línea de investigación clásica sostiene que la participación depende de los recursos de las personas, como la educación, y de su inserción en organizaciones que las movilizan, como los sindicatos.\nEn esta práctica intentaremos responder la pregunta: ¿existe una relación entre la afiliación a sindicatos y la participación en marchas? Y, si existe, ¿se mantiene al controlar por características sociodemográficas y por el interés en la política?\nComo la participación en marchas será una variable dicotómica (ha participado o no ha participado), el modelo adecuado es la regresión logística."
+  },
+  {
+    "objectID": "practicos/practico-10.html#objetivo-de-la-práctica",
+    "href": "practicos/practico-10.html#objetivo-de-la-práctica",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "",
+    "text": "En el práctico anterior estimamos regresiones logísticas con un solo predictor y comprobamos que el odds ratio del modelo reproduce el que se obtiene de una tabla de contingencia. En esta guía daremos tres pasos más:\n\nEstimar modelos de regresión logística múltiple, que permiten el control estadístico\nTransformar los resultados del modelo en probabilidades predichas, la forma más comunicable de los resultados\nEvaluar el ajuste de los modelos y compararlos entre sí\n\nAl terminar, usted debería ser capaz de:\n\nInterpretar coeficientes de una regresión logística múltiple en logit y en odds ratio\nCalcular a mano una probabilidad predicha a partir de los coeficientes\nObtener y graficar probabilidades predichas con ggeffects\nExplicar por qué el efecto de un predictor sobre la probabilidad no es constante\nComparar modelos mediante el test de razón de verosimilitud, el pseudo \\(R^2\\) y el AIC"
+  },
+  {
+    "objectID": "practicos/practico-10.html#la-pregunta",
+    "href": "practicos/practico-10.html#la-pregunta",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "",
+    "text": "La participación en marchas y manifestaciones es una de las formas de acción política no electoral más estudiadas por la sociología. Una línea de investigación clásica sostiene que la participación depende de los recursos de las personas, como la educación, y de su inserción en organizaciones que las movilizan, como los sindicatos.\nEn esta práctica intentaremos responder la pregunta: ¿existe una relación entre la afiliación a sindicatos y la participación en marchas? Y, si existe, ¿se mantiene al controlar por características sociodemográficas y por el interés en la política?\nComo la participación en marchas será una variable dicotómica (ha participado o no ha participado), el modelo adecuado es la regresión logística."
+  },
+  {
+    "objectID": "practicos/practico-10.html#variables",
+    "href": "practicos/practico-10.html#variables",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "3.1 Variables",
+    "text": "3.1 Variables\n\n\n\n\n\n\n\n\nVariable\nPregunta\nValores originales\n\n\n\n\nc08_02\nFrecuencia con que asiste a marchas o manifestaciones pacíficas\n1 = Nunca, 2 = Casi nunca, 3 = A veces, 4 = Frecuentemente, 5 = Muy frecuentemente\n\n\nc12_04\nMembresía en sindicato\n1 = No es miembro, 2 = Miembro inactivo, 3 = Miembro activo\n\n\nc13\nInterés en la política\n1 = Nada interesado … 5 = Muy interesado\n\n\nm01\nNivel educacional\n1 a 10\n\n\nm0_sexo\nSexo\n1 = Hombre, 2 = Mujer\n\n\nm0_edad\nEdad\nEn años"
+  },
+  {
+    "objectID": "practicos/practico-10.html#preparación",
+    "href": "practicos/practico-10.html#preparación",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "3.2 Preparación",
+    "text": "3.2 Preparación\n\nproc_data &lt;- elsoc_long_2016_2022.2 %&gt;%\n  filter(ola == 1) %&gt;%\n  select(c08_02, c12_04, c13, m01, m0_sexo, m0_edad) %&gt;%\n  set_na(., na = c(-999, -888, -777, -666)) %&gt;%\n  rename(\"marcha_frec\" = c08_02,\n         \"sindicato_orig\" = c12_04,\n         \"interes\" = c13,\n         \"educacion\" = m01,\n         \"sexo\" = m0_sexo,\n         \"edad\" = m0_edad) %&gt;%\n  na.omit()\n\nnrow(proc_data)\n\n[1] 2899\n\n\n\n3.2.1 Construcción de las variables\nLa variable dependiente distingue entre quienes nunca han asistido a una marcha y quienes lo han hecho al menos alguna vez (casi nunca, a veces, frecuentemente o muy frecuentemente). La afiliación sindical distingue entre quienes no son miembros de un sindicato y quienes sí lo son, de manera activa o inactiva.\n\nproc_data &lt;- proc_data %&gt;%\n  mutate(marcha = ifelse(marcha_frec &gt;= 2, 1, 0),\n         marcha = factor(marcha,\n                         levels = c(0, 1),\n                         labels = c(\"Nunca\", \"Alguna vez\")),\n         sindicato = ifelse(sindicato_orig &gt;= 2, 1, 0),\n         sindicato = factor(sindicato,\n                            levels = c(0, 1),\n                            labels = c(\"No sindicalizado\", \"Sindicalizado\")),\n         sexo_f = factor(sexo,\n                         levels = c(1, 2),\n                         labels = c(\"Hombre\", \"Mujer\")),\n         educ_rec = case_when(educacion &lt;= 3 ~ 1,\n                              educacion &lt;= 5 ~ 2,\n                              TRUE ~ 3),\n         educ_f = factor(educ_rec,\n                         levels = c(1, 2, 3),\n                         labels = c(\"Educación básica\",\n                                    \"Educación media\",\n                                    \"Educación superior\")))\n\nRevisemos que la recodificación haya quedado bien:\n\ntable(proc_data$marcha_frec, proc_data$marcha)\n\n   \n    Nunca Alguna vez\n  1  2415          0\n  2     0        173\n  3     0        219\n  4     0         70\n  5     0         22\n\ntable(proc_data$sindicato_orig, proc_data$sindicato)\n\n   \n    No sindicalizado Sindicalizado\n  1             2596             0\n  2                0            89\n  3                0           214\n\n\nEl interés en la política se mantendrá como variable numérica de 1 a 5."
+  },
+  {
+    "objectID": "practicos/practico-10.html#explorar-los-datos",
+    "href": "practicos/practico-10.html#explorar-los-datos",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "3.3 Explorar los datos",
+    "text": "3.3 Explorar los datos\nproc_data %&gt;%\n  select(marcha, sindicato, sexo_f, edad, educ_f, interes) %&gt;%\n  dfSummary(headings = FALSE) %&gt;%\n  print(method = \"render\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo\nVariable\nStats / Values\nFreqs (% of Valid)\nGraph\nValid\nMissing\n\n\n\n\n1\nmarcha [factor]\n\n\n\n1. Nunca\n\n\n2. Alguna vez\n\n\n\n\n\n\n2415\n(\n83.3%\n)\n\n\n484\n(\n16.7%\n)\n\n\n\n\n2899 (100.0%)\n0 (0.0%)\n\n\n2\nsindicato [factor]\n\n\n\n1. No sindicalizado\n\n\n2. Sindicalizado\n\n\n\n\n\n\n2596\n(\n89.5%\n)\n\n\n303\n(\n10.5%\n)\n\n\n\n\n2899 (100.0%)\n0 (0.0%)\n\n\n3\nsexo_f [factor]\n\n\n\n1. Hombre\n\n\n2. Mujer\n\n\n\n\n\n\n1155\n(\n39.8%\n)\n\n\n1744\n(\n60.2%\n)\n\n\n\n\n2899 (100.0%)\n0 (0.0%)\n\n\n4\nedad [numeric]\n\n\n\nMean (sd) : 46.1 (15.3)\n\n\nmin ≤ med ≤ max:\n\n\n18 ≤ 46 ≤ 88\n\n\nIQR (CV) : 24.5 (0.3)\n\n\n\n63 distinct values\n\n2899 (100.0%)\n0 (0.0%)\n\n\n5\neduc_f [factor]\n\n\n\n1. Educación básica\n\n\n2. Educación media\n\n\n3. Educación superior\n\n\n\n\n\n\n647\n(\n22.3%\n)\n\n\n1237\n(\n42.7%\n)\n\n\n1015\n(\n35.0%\n)\n\n\n\n\n2899 (100.0%)\n0 (0.0%)\n\n\n6\ninteres [numeric]\n\n\n\nMean (sd) : 1.7 (1.1)\n\n\nmin ≤ med ≤ max:\n\n\n1 ≤ 1 ≤ 5\n\n\nIQR (CV) : 1 (0.6)\n\n\n\n\n\n\n1\n:\n1771\n(\n61.1%\n)\n\n\n2\n:\n508\n(\n17.5%\n)\n\n\n3\n:\n363\n(\n12.5%\n)\n\n\n4\n:\n177\n(\n6.1%\n)\n\n\n5\n:\n80\n(\n2.8%\n)\n\n\n\n\n2899 (100.0%)\n0 (0.0%)"
+  },
+  {
+    "objectID": "practicos/practico-10.html#tabla-de-contingencia",
+    "href": "practicos/practico-10.html#tabla-de-contingencia",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "4.1 Tabla de contingencia",
+    "text": "4.1 Tabla de contingencia\n\ntab_xtab(var.row = proc_data$marcha,\n         var.col = proc_data$sindicato,\n         title = \"Participación en marchas según afiliación sindical\",\n         show.col.prc = TRUE,\n         show.summary = FALSE)\n\n\nParticipación en marchas según afiliación sindical\n\n\n\n\n\n\n\n\nmarcha\nsindicato\nTotal\n\n\nNo sindicalizado\nSindicalizado\n\n\nNunca\n2204\n84.9 %\n211\n69.6 %\n2415\n83.3 %\n\n\nAlguna vez\n392\n15.1 %\n92\n30.4 %\n484\n16.7 %\n\n\nTotal\n2596\n100 %\n303\n100 %\n2899\n100 %\n\n\n\n\n\nUn 30,4% de las personas sindicalizadas ha asistido alguna vez a una marcha, frente a un 15,1% de quienes no están sindicalizadas."
+  },
+  {
+    "objectID": "practicos/practico-10.html#odds-y-odds-ratio-a-mano",
+    "href": "practicos/practico-10.html#odds-y-odds-ratio-a-mano",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "4.2 Odds y odds ratio a mano",
+    "text": "4.2 Odds y odds ratio a mano\n\ntabla &lt;- table(proc_data$marcha, proc_data$sindicato)\n\nodds_no_sind &lt;- tabla[\"Alguna vez\", \"No sindicalizado\"] / tabla[\"Nunca\", \"No sindicalizado\"]\nodds_sind &lt;- tabla[\"Alguna vez\", \"Sindicalizado\"] / tabla[\"Nunca\", \"Sindicalizado\"]\n\nc(no_sindicalizados = odds_no_sind, sindicalizados = odds_sind)\n\nno_sindicalizados    sindicalizados \n        0.1778584         0.4360190 \n\nodds_sind / odds_no_sind\n\n[1] 2.451494\n\n\n\\[OR = \\frac{0.304/0.696}{0.151/0.849} = \\frac{0.436}{0.178} = 2.45\\]\nLas chances de participar en marchas de las personas sindicalizadas son 2,45 veces las de quienes no están sindicalizadas."
+  },
+  {
+    "objectID": "practicos/practico-10.html#el-mismo-resultado-con-glm",
+    "href": "practicos/practico-10.html#el-mismo-resultado-con-glm",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "4.3 El mismo resultado con glm",
+    "text": "4.3 El mismo resultado con glm\n\nm0 &lt;- glm(marcha ~ sindicato,\n          data = proc_data,\n          family = \"binomial\")\n\nexp(coef(m0))\n\n           (Intercept) sindicatoSindicalizado \n             0.1778584              2.4514943 \n\n\nComo vimos en el práctico anterior, el coeficiente exponenciado reproduce el odds ratio de la tabla, y el intercepto exponenciado es el odds de la categoría de referencia (no sindicalizados)."
+  },
+  {
+    "objectID": "practicos/practico-10.html#estimación",
+    "href": "practicos/practico-10.html#estimación",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "6.1 Estimación",
+    "text": "6.1 Estimación\nEstimaremos tres modelos, agregando predictores de manera sucesiva:\n\nM0: solo sindicalización\nM1: agrega variables sociodemográficas: sexo, edad y nivel educacional\nM2: agrega el interés en la política\n\n\nm1 &lt;- glm(marcha ~ sindicato + sexo_f + edad + educ_f,\n          data = proc_data, family = \"binomial\")\n\nm2 &lt;- glm(marcha ~ sindicato + sexo_f + edad + educ_f + interes,\n          data = proc_data, family = \"binomial\")"
+  },
+  {
+    "objectID": "practicos/practico-10.html#coeficientes-logit",
+    "href": "practicos/practico-10.html#coeficientes-logit",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "6.2 Coeficientes logit",
+    "text": "6.2 Coeficientes logit\n\ntab_model(m0, m1, m2,\n          transform = NULL,\n          show.se = FALSE,\n          show.ci = FALSE,\n          show.r2 = FALSE,\n          p.style = \"stars\",\n          digits = 3,\n          dv.labels = c(\"M0\", \"M1\", \"M2\"),\n          pred.labels = c(\"(Intercepto)\", \"Sindicalizado\", \"Sexo (Mujer)\", \"Edad\",\n                          \"Educación media\", \"Educación superior\", \"Interés en política\"),\n          string.pred = \"Predictores\",\n          string.est = \"Logit\")\n\n\n\n\n \nM0\nM1\nM2\n\n\nPredictores\nLogit\nLogit\nLogit\n\n\n(Intercepto)\n-1.727 ***\n-2.128 ***\n-2.860 ***\n\n\nSindicalizado\n0.897 ***\n0.780 ***\n0.721 ***\n\n\nSexo (Mujer)\n\n-0.077 \n0.012 \n\n\nEdad\n\n-0.023 ***\n-0.024 ***\n\n\nEducación media\n\n1.116 ***\n0.994 ***\n\n\nEducación superior\n\n2.100 ***\n1.708 ***\n\n\nInterés en política\n\n\n0.492 ***\n\n\nObservations\n2899\n2899\n2899\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\nRecordemos qué podemos leer directamente de un coeficiente logit: el signo y la significación.\n\nEl coeficiente de sindicalización es positivo y significativo (\\(p&lt;0,001\\)) en los tres modelos: estar sindicalizado se asocia con mayores chances de participar en marchas\nEn M1, el coeficiente de edad es negativo (−0,023) y significativo: a mayor edad, menores chances de participar en marchas, manteniendo constantes las demás variables\nEn M2, el coeficiente de interés en la política es positivo (0,492) y significativo (\\(p&lt;0,001\\))\nEl coeficiente de sexo no es significativo en ninguno de los modelos"
+  },
+  {
+    "objectID": "practicos/practico-10.html#odds-ratio",
+    "href": "practicos/practico-10.html#odds-ratio",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "6.3 Odds ratio",
+    "text": "6.3 Odds ratio\nPara interpretar la magnitud de los coeficientes, los exponenciamos:\n\ntab_model(m0, m1, m2,\n          show.se = FALSE,\n          show.ci = FALSE,\n          show.r2 = FALSE,\n          p.style = \"stars\",\n          digits = 3,\n          dv.labels = c(\"M0\", \"M1\", \"M2\"),\n          pred.labels = c(\"(Intercepto)\", \"Sindicalizado\", \"Sexo (Mujer)\", \"Edad\",\n                          \"Educación media\", \"Educación superior\", \"Interés en política\"),\n          string.pred = \"Predictores\",\n          string.est = \"OR\")\n\n\n\n\n \nM0\nM1\nM2\n\n\nPredictores\nOR\nOR\nOR\n\n\n(Intercepto)\n0.178 ***\n0.119 ***\n0.057 ***\n\n\nSindicalizado\n2.451 ***\n2.182 ***\n2.057 ***\n\n\nSexo (Mujer)\n\n0.926 \n1.012 \n\n\nEdad\n\n0.978 ***\n0.977 ***\n\n\nEducación media\n\n3.052 ***\n2.702 ***\n\n\nEducación superior\n\n8.166 ***\n5.520 ***\n\n\nInterés en política\n\n\n1.636 ***\n\n\nObservations\n2899\n2899\n2899\n\n\n* p&lt;0.05   ** p&lt;0.01   *** p&lt;0.001\n\n\n\n\n\n\n6.3.1 Interpretación\n\nSindicalización (M1): controlando por sexo, edad y nivel educacional, las chances de participar en marchas de las personas sindicalizadas son 2,18 veces las de quienes no están sindicalizadas (\\(p&lt;0,001\\))\nEdad (M1): por cada año adicional, las chances de participar en marchas se multiplican por 0,978, es decir, disminuyen un 2,2%, manteniendo constantes las demás variables\nEducación (M1): en comparación con quienes tienen educación básica, las chances de participar en marchas son 3,05 veces mayores para quienes tienen educación media y 8,17 veces mayores para quienes tienen educación superior, manteniendo constantes las demás variables (\\(p&lt;0,001\\))\nInterés en la política (M2): por cada punto adicional en la escala de interés, las chances de participar en marchas aumentan un 64% (OR = 1,64; \\(p&lt;0,001\\)), manteniendo constantes las demás variables\nSexo: no hay diferencias significativas entre hombres y mujeres"
+  },
+  {
+    "objectID": "practicos/practico-10.html#qué-ocurre-al-agregar-el-interés-en-la-política",
+    "href": "practicos/practico-10.html#qué-ocurre-al-agregar-el-interés-en-la-política",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "6.4 ¿Qué ocurre al agregar el interés en la política?",
+    "text": "6.4 ¿Qué ocurre al agregar el interés en la política?\nCompare los OR de M1 y M2:\n\nEl OR de sindicalización cambia poco: de 2,18 a 2,06\nEl OR de educación superior baja de forma importante: de 8,17 a 5,52\n\n\nproc_data %&gt;%\n  group_by(educ_f) %&gt;%\n  summarise(interes_promedio = mean(interes),\n            edad_promedio = mean(edad))\n\n# A tibble: 3 × 3\n  educ_f             interes_promedio edad_promedio\n  &lt;fct&gt;                         &lt;dbl&gt;         &lt;dbl&gt;\n1 Educación básica               1.34          56.1\n2 Educación media                1.58          45.4\n3 Educación superior             2.14          40.4\n\n\nQuienes tienen educación superior presentan, en promedio, un mayor interés en la política. Una parte de la asociación entre educación y participación en marchas se explica, entonces, porque quienes tienen más educación también se interesan más en la política. La asociación con la sindicalización, en cambio, se mantiene casi intacta: no pasa por el interés en la política.\n\n\n\n\n\n\nNotaLa misma lógica de la regresión lineal\n\n\n\nEs el mismo fenómeno que estudiamos en la primera parte del curso con la parcialización: el coeficiente de un predictor cambia cuando se incorpora otro que está relacionado con él y con la variable dependiente."
+  },
+  {
+    "objectID": "practicos/practico-10.html#gráfico-de-coeficientes",
+    "href": "practicos/practico-10.html#gráfico-de-coeficientes",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "6.5 Gráfico de coeficientes",
+    "text": "6.5 Gráfico de coeficientes\nLa función plot_model del paquete sjPlot permite visualizar los odds ratio con sus intervalos de confianza:\n\nplot_model(m2,\n           show.values = TRUE,\n           value.offset = 0.3,\n           vline.color = \"gray50\",\n           title = \"\")\n\n\n\n\n\n\n\nFigura 1: Odds ratio del modelo 2\n\n\n\n\n\nUn coeficiente es estadísticamente significativo cuando su intervalo de confianza no cruza la línea vertical del 1."
+  },
+  {
+    "objectID": "practicos/practico-10.html#odds-no-son-probabilidades",
+    "href": "practicos/practico-10.html#odds-no-son-probabilidades",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.1 Odds no son probabilidades",
+    "text": "7.1 Odds no son probabilidades\nLos odds ratio indican cuánto se multiplican las chances, pero no qué tan probable es que alguien participe en una marcha. Un OR de 2,06 no significa que la probabilidad sea el doble.\nAdemás, el OR es una medida relativa: un mismo OR puede implicar cambios muy distintos en la probabilidad, dependiendo del punto de partida.\n\ndata.frame(p_inicial = c(0.01, 0.10, 0.25, 0.50, 0.75, 0.90)) %&gt;%\n  mutate(odds_inicial = p_inicial / (1 - p_inicial),\n         odds_final = odds_inicial * 2,\n         p_final = odds_final / (1 + odds_final),\n         cambio_puntos = (p_final - p_inicial) * 100) %&gt;%\n  kable(digits = 3,\n        col.names = c(\"Probabilidad inicial\", \"Odds inicial\", \"Odds × 2\",\n                      \"Probabilidad final\", \"Cambio (puntos %)\")) %&gt;%\n  kable_styling(full_width = FALSE)\n\n\n\n\nProbabilidad inicial\nOdds inicial\nOdds × 2\nProbabilidad final\nCambio (puntos %)\n\n\n\n\n0.01\n0.010\n0.020\n0.020\n0.980\n\n\n0.10\n0.111\n0.222\n0.182\n8.182\n\n\n0.25\n0.333\n0.667\n0.400\n15.000\n\n\n0.50\n1.000\n2.000\n0.667\n16.667\n\n\n0.75\n3.000\n6.000\n0.857\n10.714\n\n\n0.90\n9.000\n18.000\n0.947\n4.737\n\n\n\n\n\nEn todas las filas el OR es 2, pero el cambio en la probabilidad va de 1 a casi 17 puntos porcentuales."
+  },
+  {
+    "objectID": "practicos/practico-10.html#cálculo-a-mano",
+    "href": "practicos/practico-10.html#cálculo-a-mano",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.2 Cálculo a mano",
+    "text": "7.2 Cálculo a mano\nPartamos por el modelo más simple, M0. El procedimiento tiene tres pasos.\n\ncoef(m0)\n\n           (Intercept) sindicatoSindicalizado \n            -1.7267673              0.8966978 \n\n\nPaso 1. Logit predicho. Se reemplazan los valores de las variables en la ecuación, igual que en regresión lineal:\n\\[logit_{sindicalizados} = -1.727 + (0.897 \\times 1) = -0.830\\]\n\\[logit_{no\\ sindicalizados} = -1.727 + (0.897 \\times 0) = -1.727\\]\nPaso 2. Odds. Se exponencia el logit:\n\\[Odds_{sindicalizados} = e^{-0.830} = 0.436\\]\n\\[Odds_{no\\ sindicalizados} = e^{-1.727} = 0.178\\]\nPaso 3. Probabilidad. Se divide el odds por uno más el odds:\n\\[p = \\frac{Odds}{1+Odds} = \\frac{e^{logit}}{1+e^{logit}}\\]\n\\[p_{sindicalizados} = \\frac{0.436}{1.436} = 0.304\\]\n\\[p_{no\\ sindicalizados} = \\frac{0.178}{1.178} = 0.151\\]\n\nlogit_sind &lt;- coef(m0)[1] + coef(m0)[2]\nlogit_no_sind &lt;- coef(m0)[1]\n\nexp(logit_sind) / (1 + exp(logit_sind))\n\n(Intercept) \n  0.3036304 \n\nexp(logit_no_sind) / (1 + exp(logit_no_sind))\n\n(Intercept) \n  0.1510015 \n\n\nLa probabilidad predicha de participar en marchas es de 30,4% para las personas sindicalizadas y de 15,1% para quienes no lo están. Son exactamente los porcentajes de la tabla de contingencia: con un único predictor categórico, las probabilidades predichas reproducen las proporciones observadas en cada grupo.\n\n\n\n\n\n\nTipUn atajo en R\n\n\n\nLa función plogis() hace los pasos 2 y 3 en uno: transforma un logit directamente en probabilidad.\n\nplogis(logit_sind)\n\n(Intercept) \n  0.3036304"
+  },
+  {
+    "objectID": "practicos/practico-10.html#con-predict",
+    "href": "practicos/practico-10.html#con-predict",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.3 Con predict()",
+    "text": "7.3 Con predict()\nLa función predict() calcula probabilidades predichas para los perfiles que le indiquemos en newdata. El argumento type = \"response\" pide el resultado en la escala de la probabilidad; sin él, predict() entrega logits.\nCalculemos la probabilidad predicha con el modelo completo (M2) para dos personas que solo difieren en su afiliación sindical: mujeres de 25 años, con educación superior y un interés en la política de 4 (bastante interesadas).\n\nperfiles &lt;- data.frame(sindicato = c(\"No sindicalizado\", \"Sindicalizado\"),\n                       sexo_f = \"Mujer\",\n                       edad = 25,\n                       educ_f = \"Educación superior\",\n                       interes = 4)\n\npredict(m2, newdata = perfiles, type = \"response\")\n\n        1         2 \n0.5601036 0.7237369 \n\n\n\n7.3.1 Ejercicio\nModifique el objeto perfiles para calcular la probabilidad predicha de esas mismas dos personas si tuvieran 60 años y un interés en la política de 1 (nada interesadas). ¿Cuánto cambia la diferencia entre sindicalizadas y no sindicalizadas?\n\n\nVer solución\nperfiles2 &lt;- perfiles %&gt;%\n  mutate(edad = 60,\n         interes = 1)\n\npredict(m2, newdata = perfiles2, type = \"response\")\n\n\n        1         2 \n0.1132003 0.2080089"
+  },
+  {
+    "objectID": "practicos/practico-10.html#predicciones-para-todos-los-casos",
+    "href": "practicos/practico-10.html#predicciones-para-todos-los-casos",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.4 Predicciones para todos los casos",
+    "text": "7.4 Predicciones para todos los casos\nSin newdata, predict() calcula la probabilidad predicha de cada persona de la muestra según sus propios valores en las variables independientes:\n\nproc_data$prob_pred &lt;- predict(m2, type = \"response\")\n\nsummary(proc_data$prob_pred)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n0.01183 0.05881 0.11937 0.16695 0.22757 0.81609 \n\n\n\nggplot(proc_data, aes(x = prob_pred)) +\n  geom_histogram(binwidth = 0.02, fill = \"#04245f\", color = \"white\") +\n  geom_vline(xintercept = c(0, 1), color = \"#c0392b\", linetype = \"dashed\") +\n  scale_x_continuous(limits = c(-0.05, 1.05), labels = scales::percent) +\n  labs(x = \"Probabilidad predicha\", y = \"Frecuencia\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigura 2: Probabilidades predichas de participar en marchas (M2)\n\n\n\n\n\nA diferencia del modelo de probabilidad lineal, todas las probabilidades predichas se encuentran entre 0 y 1."
+  },
+  {
+    "objectID": "practicos/practico-10.html#con-ggeffects",
+    "href": "practicos/practico-10.html#con-ggeffects",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.5 Con ggeffects",
+    "text": "7.5 Con ggeffects\nLa función ggpredict() del paquete ggeffects, que ya usamos con regresión lineal, calcula probabilidades predichas con sus intervalos de confianza para los valores de la variable que indiquemos en terms.\n\n7.5.1 Una variable categórica\n\npred_sind &lt;- ggpredict(m2, terms = \"sindicato\")\n\npred_sind\n\n# Predicted probabilities of marcha\n\nsindicato        | Predicted |     95% CI\n-----------------------------------------\nNo sindicalizado |      0.04 | 0.03, 0.07\nSindicalizado    |      0.09 | 0.05, 0.14\n\nAdjusted for:\n*  sexo_f =           Hombre\n*    edad =            46.05\n*  educ_f = Educación básica\n* interes =             1.72\n\n\n\n\n\n\n\n\nImportante¿Dónde quedan las demás variables?\n\n\n\nggpredict() fija las variables que no están en terms: las continuas en su promedio y las categóricas en su categoría de referencia. La salida lo indica bajo Adjusted for.\nEn este caso, las probabilidades corresponden a hombres con educación básica, de edad promedio y con un interés en la política promedio. Como la participación en marchas es muy baja en ese grupo, las probabilidades predichas también lo son.\n\n\n\nplot(pred_sind) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL,\n       x = NULL,\n       y = \"Probabilidad predicha de participar en marchas\")\n\n\n\n\n\n\n\nFigura 3: Probabilidad predicha de participar en marchas según afiliación sindical\n\n\n\n\n\nComo en regresión lineal, el eje \\(y\\) muestra el rango completo de la variable dependiente, de 0% a 100%. Un eje recortado haría parecer la diferencia mucho mayor de lo que es.\n\n\n7.5.2 Dos variables categóricas\nPara ver la diferencia entre sindicalizados y no sindicalizados en los distintos niveles educacionales, indicamos ambas variables en terms. La primera va en el eje \\(x\\) y la segunda se representa con colores:\n\nggpredict(m2, terms = c(\"educ_f\", \"sindicato\")) %&gt;%\n  plot() +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL,\n       x = NULL,\n       y = \"Probabilidad predicha de participar en marchas\",\n       color = NULL)\n\n\n\n\n\n\n\nFigura 4: Probabilidad predicha según nivel educacional y afiliación sindical\n\n\n\n\n\nEl OR de sindicalización es el mismo en los tres niveles educacionales, pero la diferencia en puntos porcentuales entre sindicalizados y no sindicalizados es mucho mayor entre quienes tienen educación superior.\n\n\n7.5.3 Una variable continua\n\npred_int &lt;- ggpredict(m2, terms = \"interes [1:5]\")\n\npred_int\n\n# Predicted probabilities of marcha\n\ninteres | Predicted |     95% CI\n--------------------------------\n      1 |      0.03 | 0.02, 0.05\n      2 |      0.05 | 0.03, 0.08\n      3 |      0.08 | 0.05, 0.12\n      4 |      0.12 | 0.08, 0.19\n      5 |      0.19 | 0.12, 0.28\n\nAdjusted for:\n* sindicato = No sindicalizado\n*    sexo_f =           Hombre\n*      edad =            46.05\n*    educ_f = Educación básica\n\n\n\nplot(pred_int) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL,\n       x = \"Interés en la política\",\n       y = \"Probabilidad predicha de participar en marchas\")\n\n\n\n\n\n\n\nFigura 5: Probabilidad predicha de participar en marchas según interés en la política"
+  },
+  {
+    "objectID": "practicos/practico-10.html#el-efecto-no-es-constante",
+    "href": "practicos/practico-10.html#el-efecto-no-es-constante",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.6 El efecto no es constante",
+    "text": "7.6 El efecto no es constante\nEl OR de interés en la política es el mismo para cualquier punto de la escala: cada punto adicional multiplica las chances por 1,64. Pero ¿ocurre lo mismo con la probabilidad?\n\nas.data.frame(pred_int) %&gt;%\n  select(x, predicted) %&gt;%\n  mutate(diferencia = predicted - lag(predicted)) %&gt;%\n  kable(digits = 3,\n        col.names = c(\"Interés en la política\", \"Probabilidad predicha\",\n                      \"Diferencia con el valor anterior\")) %&gt;%\n  kable_styling(full_width = FALSE)\n\n\n\n\nInterés en la política\nProbabilidad predicha\nDiferencia con el valor anterior\n\n\n\n\n1\n0.031\nNA\n\n\n2\n0.049\n0.019\n\n\n3\n0.078\n0.029\n\n\n4\n0.122\n0.044\n\n\n5\n0.185\n0.063\n\n\n\n\n\nLa diferencia en la probabilidad aumenta a medida que crece el interés. Pasar de 1 a 2 en la escala suma menos puntos porcentuales que pasar de 4 a 5, aunque en ambos casos las chances se multiplican por lo mismo.\n\n\n\n\n\n\nImportanteUna diferencia central con la regresión lineal\n\n\n\nEn regresión lineal, el efecto de \\(x\\) sobre \\(y\\) es el mismo en todo su rango. En regresión logística, el efecto sobre la probabilidad depende del punto de partida: es mayor cuando la probabilidad está cerca de 50%, y se aplana cerca de 0 y de 1.\nPor eso las probabilidades predichas se reportan para valores concretos de las variables, o para perfiles de personas."
+  },
+  {
+    "objectID": "practicos/practico-10.html#una-variable-continua-y-una-categórica",
+    "href": "practicos/practico-10.html#una-variable-continua-y-una-categórica",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.7 Una variable continua y una categórica",
+    "text": "7.7 Una variable continua y una categórica\n\nggpredict(m2, terms = c(\"edad [18:88]\", \"educ_f\")) %&gt;%\n  plot() +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL,\n       x = \"Edad\",\n       y = \"Probabilidad predicha de participar en marchas\",\n       color = NULL)\n\n\n\n\n\n\n\nFigura 6: Probabilidad predicha según edad y nivel educacional\n\n\n\n\n\nLas tres curvas descienden con la edad, pero la distancia entre ellas es mayor entre los más jóvenes, donde las probabilidades son más altas."
+  },
+  {
+    "objectID": "practicos/practico-10.html#tabla-de-perfiles",
+    "href": "practicos/practico-10.html#tabla-de-perfiles",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.8 Tabla de perfiles",
+    "text": "7.8 Tabla de perfiles\n\nggpredict(m2, terms = c(\"interes [1,3,5]\", \"sindicato\")) %&gt;%\n  as.data.frame() %&gt;%\n  select(x, group, predicted) %&gt;%\n  pivot_wider(names_from = group, values_from = predicted) %&gt;%\n  kable(digits = 3,\n        col.names = c(\"Interés en la política\", \"No sindicalizado\", \"Sindicalizado\")) %&gt;%\n  kable_styling(full_width = FALSE)\n\n\n\n\nInterés en la política\nNo sindicalizado\nSindicalizado\n\n\n\n\n1\n0.031\n0.061\n\n\n3\n0.078\n0.149\n\n\n5\n0.185\n0.319"
+  },
+  {
+    "objectID": "practicos/practico-10.html#una-alternativa-con-sjplot",
+    "href": "practicos/practico-10.html#una-alternativa-con-sjplot",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "7.9 Una alternativa con sjPlot",
+    "text": "7.9 Una alternativa con sjPlot\nLa función plot_model con type = \"pred\" utiliza por dentro ggeffects, por lo que entrega las mismas probabilidades:\n\nplot_model(m2, type = \"pred\", terms = \"educ_f\") +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL,\n       x = NULL,\n       y = \"Probabilidad predicha de participar en marchas\")"
+  },
+  {
+    "objectID": "practicos/practico-10.html#log-verosimilitud-y-devianza",
+    "href": "practicos/practico-10.html#log-verosimilitud-y-devianza",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "8.1 Log-verosimilitud y devianza",
+    "text": "8.1 Log-verosimilitud y devianza\n\nlogLik(m0)\n\n'log Lik.' -1287.867 (df=2)\n\nlogLik(m1)\n\n'log Lik.' -1155.883 (df=6)\n\nlogLik(m2)\n\n'log Lik.' -1095.966 (df=7)\n\n\nMientras más cercana a 0 es la log-verosimilitud, mejor es el ajuste. La devianza es \\(-2\\) veces la log-verosimilitud, y mientras menor, mejor:\n\n-2 * logLik(m2)\n\n'log Lik.' 2191.932 (df=7)\n\nm2$deviance\n\n[1] 2191.932"
+  },
+  {
+    "objectID": "practicos/practico-10.html#test-de-razón-de-verosimilitud",
+    "href": "practicos/practico-10.html#test-de-razón-de-verosimilitud",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "8.2 Test de razón de verosimilitud",
+    "text": "8.2 Test de razón de verosimilitud\nEl test de razón de verosimilitud compara las devianzas de dos modelos. Si la devianza se reduce de manera significativa al agregar predictores, el modelo más completo ofrece un mejor ajuste.\n\nanova(m0, m1, test = \"Chisq\")\n\nAnalysis of Deviance Table\n\nModel 1: marcha ~ sindicato\nModel 2: marcha ~ sindicato + sexo_f + edad + educ_f\n  Resid. Df Resid. Dev Df Deviance              Pr(&gt;Chi)    \n1      2897     2575.7                                      \n2      2893     2311.8  4   263.97 &lt; 0.00000000000000022 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nAgregar las variables sociodemográficas mejora significativamente el ajuste (\\(p&lt;0,001\\)).\n\nanova(m1, m2, test = \"Chisq\")\n\nAnalysis of Deviance Table\n\nModel 1: marcha ~ sindicato + sexo_f + edad + educ_f\nModel 2: marcha ~ sindicato + sexo_f + edad + educ_f + interes\n  Resid. Df Resid. Dev Df Deviance              Pr(&gt;Chi)    \n1      2893     2311.8                                      \n2      2892     2191.9  1   119.83 &lt; 0.00000000000000022 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nAgregar el interés en la política también lo mejora de manera significativa (\\(p&lt;0,001\\)).\nLa función anova también puede comparar varios modelos a la vez, cada uno con el anterior:\n\nanova(m0, m1, m2, test = \"Chisq\")\n\nAnalysis of Deviance Table\n\nModel 1: marcha ~ sindicato\nModel 2: marcha ~ sindicato + sexo_f + edad + educ_f\nModel 3: marcha ~ sindicato + sexo_f + edad + educ_f + interes\n  Resid. Df Resid. Dev Df Deviance              Pr(&gt;Chi)    \n1      2897     2575.7                                      \n2      2893     2311.8  4   263.97 &lt; 0.00000000000000022 ***\n3      2892     2191.9  1   119.83 &lt; 0.00000000000000022 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n8.2.1 Comparación con el modelo nulo\nEl modelo nulo no tiene predictores, solo intercepto. Es el equivalente a predecir con el promedio en regresión lineal.\n\nm_nulo &lt;- glm(marcha ~ 1, data = proc_data, family = \"binomial\")\n\nanova(m_nulo, m2, test = \"Chisq\")\n\nAnalysis of Deviance Table\n\nModel 1: marcha ~ 1\nModel 2: marcha ~ sindicato + sexo_f + edad + educ_f + interes\n  Resid. Df Resid. Dev Df Deviance              Pr(&gt;Chi)    \n1      2898     2615.0                                      \n2      2892     2191.9  6    423.1 &lt; 0.00000000000000022 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "practicos/practico-10.html#pseudo-r2-de-mcfadden",
+    "href": "practicos/practico-10.html#pseudo-r2-de-mcfadden",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "8.3 Pseudo \\(R^2\\) de McFadden",
+    "text": "8.3 Pseudo \\(R^2\\) de McFadden\n\\[R^2_{McFadden} = 1 - \\frac{LL_{modelo}}{LL_{nulo}}\\]\n\n1 - (logLik(m2) / logLik(m_nulo))\n\n'log Lik.' 0.161796 (df=7)\n\n\nTambién se puede obtener con DescTools, junto a otras versiones de pseudo \\(R^2\\):\n\nPseudoR2(m2, which = c(\"McFadden\", \"Nagelkerke\", \"CoxSnell\"))\n\n  McFadden Nagelkerke   CoxSnell \n 0.1617960  0.2285138  0.1357970 \n\n\n\n\n\n\n\n\nAdvertenciaCómo leer un pseudo \\(R^2\\)\n\n\n\nLos pseudo \\(R^2\\) no se interpretan como porcentaje de varianza explicada. Sirven para comparar modelos estimados sobre los mismos datos. Sus valores suelen ser bajos, y eso no invalida el modelo."
+  },
+  {
+    "objectID": "practicos/practico-10.html#criterio-de-información-de-akaike-aic",
+    "href": "practicos/practico-10.html#criterio-de-información-de-akaike-aic",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "8.4 Criterio de información de Akaike (AIC)",
+    "text": "8.4 Criterio de información de Akaike (AIC)\nEl AIC evalúa el ajuste penalizando por la cantidad de parámetros del modelo, de forma análoga al \\(R^2\\) ajustado. A menor AIC, mejor ajuste:\n\\[AIC = -2(LL) + 2K\\]\n\nAIC(m0, m1, m2)\n\n   df      AIC\nm0  2 2579.734\nm1  6 2323.766\nm2  7 2205.932"
+  },
+  {
+    "objectID": "practicos/practico-10.html#resumen-del-ajuste",
+    "href": "practicos/practico-10.html#resumen-del-ajuste",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "8.5 Resumen del ajuste",
+    "text": "8.5 Resumen del ajuste\n\nmodelos &lt;- list(m_nulo, m0, m1, m2)\n\ndata.frame(modelo = c(\"Nulo\", \"M0\", \"M1\", \"M2\"),\n           ll = sapply(modelos, function(m) as.numeric(logLik(m))),\n           devianza = sapply(modelos, deviance),\n           aic = sapply(modelos, AIC)) %&gt;%\n  mutate(mcfadden = 1 - ll / ll[1]) %&gt;%\n  kable(digits = 3,\n        col.names = c(\"Modelo\", \"Log-verosimilitud\", \"Devianza\", \"AIC\", \"McFadden R²\")) %&gt;%\n  kable_styling(full_width = FALSE)\n\n\n\n\nModelo\nLog-verosimilitud\nDevianza\nAIC\nMcFadden R²\n\n\n\n\nNulo\n-1307.517\n2615.035\n2617.035\n0.000\n\n\nM0\n-1287.867\n2575.734\n2579.734\n0.015\n\n\nM1\n-1155.883\n2311.766\n2323.766\n0.116\n\n\nM2\n-1095.966\n2191.932\n2205.932\n0.162\n\n\n\n\n\nTodos los indicadores coinciden: M2 es el modelo con mejor ajuste. El mayor salto se produce al incorporar las variables sociodemográficas, en particular la educación y la edad."
+  },
+  {
+    "objectID": "practicos/practico-10.html#interpretación-1",
+    "href": "practicos/practico-10.html#interpretación-1",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "10.1 Interpretación",
+    "text": "10.1 Interpretación\n\nCon la tabla de odds ratio de M2, interprete el coeficiente de educación media. ¿Es estadísticamente significativo?\nExprese el OR de edad de M2 como cambio porcentual en las chances. ¿Cuánto cambian las chances con 10 años más de edad?\nUn estudiante afirma: “según M2, la probabilidad de participar en marchas aumenta un 64% por cada punto de interés en la política”. ¿Qué está mal en esta afirmación?\nCalcule a mano, con los coeficientes logit de M2, la probabilidad predicha de participar en marchas para un hombre de 40 años, sindicalizado, con educación media y un interés en la política de 3. Compruebe su resultado con predict()."
+  },
+  {
+    "objectID": "practicos/practico-10.html#firma-de-peticiones",
+    "href": "practicos/practico-10.html#firma-de-peticiones",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "10.2 Firma de peticiones",
+    "text": "10.2 Firma de peticiones\n\nLa variable c08_01 registra la frecuencia con que la persona firma cartas o peticiones apoyando una causa, con los mismos valores que la variable de marchas. Constrúyala como variable dicotómica (nunca / alguna vez).\nEstime una secuencia de modelos de regresión logística para explicar la firma de peticiones, a partir de las siguientes variables: afiliación sindical, membresía en junta de vecinos u otra organización vecinal (c12_01, mismos valores que la membresía sindical), interés en la política, edad, sexo y nivel educacional. Antes de estimar los modelos, reflexione:\n\n¿Qué variable sería el principal predictor de firmar una petición?\n¿Se deben agregar primero las variables sociodemográficas o las de participación en organizaciones?\n¿Van todas las variables independientes juntas, o se agregan unas primero y otras después?\n\nInterprete los coeficientes de los modelos estimados en odds ratio.\nEstime y grafique las probabilidades predichas de firmar una petición según membresía en junta de vecinos y según interés en la política.\nCompare los modelos mediante el test de razón de verosimilitud y el pseudo \\(R^2\\) de McFadden, y señale cuál ofrece el mejor ajuste."
+  },
+  {
+    "objectID": "practicos/practico-10.html#volviendo-a-la-confianza-en-los-vecinos",
+    "href": "practicos/practico-10.html#volviendo-a-la-confianza-en-los-vecinos",
+    "title": "Práctico 10. Regresión logística III: modelos múltiples, probabilidades predichas y ajuste",
+    "section": "10.3 Volviendo a la confianza en los vecinos",
+    "text": "10.3 Volviendo a la confianza en los vecinos\n\nRetome la variable dicotómica de confianza en los vecinos del práctico 08. Estime dos modelos: uno solo con nivel educacional, y otro que agregue edad y sexo.\nCompare los odds ratio de educación entre ambos modelos. ¿Qué ocurre al controlar por edad? ¿Cómo lo explicaría?\nGrafique las probabilidades predichas de confiar en los vecinos según edad y nivel educacional, con el eje \\(y\\) entre 0 y 1."
   }
 ]

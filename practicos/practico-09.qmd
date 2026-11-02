@@ -1,5 +1,5 @@
 ---
-title: "Práctico 09. Regresión logística I: odds, odds ratio y coeficientes logit"
+title: "Práctico 09. Regresión logística II: odds, odds ratio y coeficientes logit"
 subtitle: "Métodos estadísticos para Ciencias Sociales III"
 date: "2026-10-26"
 lang: es
