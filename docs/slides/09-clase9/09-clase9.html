@@ -549,7 +549,7 @@
 <ul>
 <li class="fragment"><p>En el análisis bivariado, el OR de mujer era 1.25 y estadísticamente <strong>significativo</strong></p></li>
 <li class="fragment"><p>En el modelo múltiple baja a 1.15 y deja de ser significativo</p></li>
-<li class="fragment"><p>Una parte de esa diferencia se explicaba por la composición de edad y educación de hombres y mujeres en la muestra</p></li>
+<li class="fragment"><p>Una parte de esa diferencia se explicaba por la edad: en la muestra, las mujeres son en promedio algo mayores que los hombres, y la edad aumenta las chances de votar</p></li>
 </ul>
 <div class="fragment fade-up">
 <div class="small">
@@ -560,7 +560,7 @@
 <section id="gráfico-de-coeficientes" class="slide level2">
 <h2>Gráfico de coeficientes</h2>
 
-<img data-src="09-clase9_files/figure-html/fig-coefs-1.png" id="fig-coefs" width="864" class="r-stretch quarto-figure-center"><p class="caption">
+<img data-src="09-clase9_files/figure-revealjs/fig-coefs-1.png" id="fig-coefs" width="864" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;1
 </p><div class="small">
 <p>Un coeficiente es significativo cuando su intervalo de confianza <strong>no cruza la línea del 1</strong>. En R, un gráfico similar se obtiene rápidamente con <code>plot_model(m_mult)</code> del paquete <code>sjPlot</code></p>
@@ -744,13 +744,11 @@ Figure&nbsp;1
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
-<pre><code>#&gt; Warning: Removed 2 rows containing missing values or values outside the scale range
-#&gt; (`geom_bar()`).</code></pre>
 <div class="cell-output-display">
 <div id="fig-hist-pred" class="quarto-float quarto-figure quarto-figure-center" width="576">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-hist-pred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img data-src="09-clase9_files/figure-html/fig-hist-pred-1.png" id="fig-hist-pred" width="576">
+<img data-src="09-clase9_files/figure-revealjs/fig-hist-pred-1.png" id="fig-hist-pred" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-hist-pred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2
@@ -764,14 +762,14 @@ Figure&nbsp;2
 <section id="y-con-el-modelo-de-probabilidad-lineal" class="slide level2">
 <h2>¿Y con el modelo de probabilidad lineal?</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>lpm_mult <span class="ot">&lt;-</span> <span class="fu">lm</span>(voto <span class="sc">~</span> educ_f <span class="sc">+</span> edad <span class="sc">+</span> sexo_f, <span class="at">data =</span> elsoc)</span>
-<span id="cb6-2"><a></a></span>
-<span id="cb6-3"><a></a><span class="fu">summary</span>(<span class="fu">fitted.values</span>(lpm_mult))</span>
-<span id="cb6-4"><a></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb6-5"><a></a><span class="co">#&gt;  0.3195  0.5455  0.6801  0.6821  0.8076  1.2031</span></span>
-<span id="cb6-6"><a></a></span>
-<span id="cb6-7"><a></a><span class="fu">sum</span>(<span class="fu">fitted.values</span>(lpm_mult) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> <span class="fu">fitted.values</span>(lpm_mult) <span class="sc">&lt;</span> <span class="dv">0</span>)</span>
-<span id="cb6-8"><a></a><span class="co">#&gt; [1] 47</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>lpm_mult <span class="ot">&lt;-</span> <span class="fu">lm</span>(voto <span class="sc">~</span> educ_f <span class="sc">+</span> edad <span class="sc">+</span> sexo_f, <span class="at">data =</span> elsoc)</span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a><span class="fu">summary</span>(<span class="fu">fitted.values</span>(lpm_mult))</span>
+<span id="cb5-4"><a></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb5-5"><a></a><span class="co">#&gt;  0.3195  0.5455  0.6801  0.6821  0.8076  1.2031</span></span>
+<span id="cb5-6"><a></a></span>
+<span id="cb5-7"><a></a><span class="fu">sum</span>(<span class="fu">fitted.values</span>(lpm_mult) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> <span class="fu">fitted.values</span>(lpm_mult) <span class="sc">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb5-8"><a></a><span class="co">#&gt; [1] 47</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment fade-up">
 <p>Con los mismos datos y predictores, el modelo lineal entrega <strong>47 casos</strong> con probabilidades predichas mayores a 1. La regresión logística, ninguno</p>
@@ -787,10 +785,10 @@ Figure&nbsp;2
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">library</span>(ggeffects)</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a><span class="fu">ggpredict</span>(modelo_titanic,</span>
-<span id="cb7-4"><a></a>          <span class="at">terms =</span> <span class="st">"sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a><span class="fu">ggpredict</span>(modelo_titanic,</span>
+<span id="cb6-4"><a></a>          <span class="at">terms =</span> <span class="st">"sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="small">
 <p>La misma función que usamos con regresión lineal. Con un modelo logístico, entrega directamente <strong>probabilidades</strong>, con sus intervalos de confianza</p>
@@ -829,14 +827,12 @@ Figure&nbsp;2
 <section id="el-gráfico" class="slide level2">
 <h2>El gráfico</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">plot</span>(pred_tt) <span class="sc">+</span></span>
-<span id="cb8-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb8-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Sexo"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de sobrevivir"</span>)</span>
-<span id="cb8-4"><a></a><span class="co">#&gt; Scale for y is already present.</span></span>
-<span id="cb8-5"><a></a><span class="co">#&gt; Adding another scale for y, which will replace the existing scale.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">plot</span>(pred_tt) <span class="sc">+</span></span>
+<span id="cb7-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb7-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Sexo"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de sobrevivir"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="09-clase9_files/figure-html/fig-pred-tt-1.png" id="fig-pred-tt" width="864" class="r-stretch quarto-figure-center"><p class="caption">
+<img data-src="09-clase9_files/figure-revealjs/fig-pred-tt-1.png" id="fig-pred-tt" width="864" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;3
 </p><div class="small">
 <p>Como en regresión lineal, el eje <span class="math inline">\(y\)</span> muestra el <strong>rango completo</strong> de la variable: de 0% a 100%</p>
@@ -845,14 +841,12 @@ Figure&nbsp;3
 <section id="dos-predictores-categóricos" class="slide level2">
 <h2>Dos predictores categóricos</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">plot</span>(<span class="fu">ggpredict</span>(modelo_titanic3, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"pclass"</span>, <span class="st">"sex"</span>))) <span class="sc">+</span></span>
-<span id="cb9-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb9-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Clase"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de sobrevivir"</span>, <span class="at">color =</span> <span class="st">"Sexo"</span>)</span>
-<span id="cb9-4"><a></a><span class="co">#&gt; Scale for y is already present.</span></span>
-<span id="cb9-5"><a></a><span class="co">#&gt; Adding another scale for y, which will replace the existing scale.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">plot</span>(<span class="fu">ggpredict</span>(modelo_titanic3, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"pclass"</span>, <span class="st">"sex"</span>))) <span class="sc">+</span></span>
+<span id="cb8-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb8-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Clase"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de sobrevivir"</span>, <span class="at">color =</span> <span class="st">"Sexo"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="09-clase9_files/figure-html/fig-pred-tt3-1.png" id="fig-pred-tt3" width="864" class="r-stretch quarto-figure-center"><p class="caption">
+<img data-src="09-clase9_files/figure-revealjs/fig-pred-tt3-1.png" id="fig-pred-tt3" width="864" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;4
 </p></section>
 <section id="cómo-leerlo" class="slide level2">
@@ -892,13 +886,13 @@ Figure&nbsp;4
 </div>
 <div class="fragment fade-up">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>perfiles <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">educ_f =</span> <span class="st">"Superior"</span>,</span>
-<span id="cb10-2"><a></a>                       <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">65</span>),</span>
-<span id="cb10-3"><a></a>                       <span class="at">sexo_f =</span> <span class="st">"Mujer"</span>)</span>
-<span id="cb10-4"><a></a></span>
-<span id="cb10-5"><a></a><span class="fu">predict</span>(m_mult, <span class="at">newdata =</span> perfiles, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb10-6"><a></a><span class="co">#&gt;         1         2 </span></span>
-<span id="cb10-7"><a></a><span class="co">#&gt; 0.4870457 0.9075596</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>perfiles <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">educ_f =</span> <span class="st">"Superior"</span>,</span>
+<span id="cb9-2"><a></a>                       <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">65</span>),</span>
+<span id="cb9-3"><a></a>                       <span class="at">sexo_f =</span> <span class="st">"Mujer"</span>)</span>
+<span id="cb9-4"><a></a></span>
+<span id="cb9-5"><a></a><span class="fu">predict</span>(m_mult, <span class="at">newdata =</span> perfiles, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb9-6"><a></a><span class="co">#&gt;         1         2 </span></span>
+<span id="cb9-7"><a></a><span class="co">#&gt; 0.4870457 0.9075596</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="fragment fade-up">
@@ -959,8 +953,8 @@ Figure&nbsp;4
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggpredict</span>(m_mult,</span>
-<span id="cb11-2"><a></a>          <span class="at">terms =</span> <span class="st">"educ_f"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggpredict</span>(m_mult,</span>
+<span id="cb10-2"><a></a>          <span class="at">terms =</span> <span class="st">"educ_f"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="small">
 <ul>
@@ -1008,7 +1002,7 @@ Figure&nbsp;4
 <section id="antes-y-después-de-controlar" class="slide level2">
 <h2>Antes y después de controlar</h2>
 
-<img data-src="09-clase9_files/figure-html/fig-comparacion-1.png" id="fig-comparacion" width="960" class="r-stretch quarto-figure-center"><p class="caption">
+<img data-src="09-clase9_files/figure-revealjs/fig-comparacion-1.png" id="fig-comparacion" width="960" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;5
 </p><div class="small">
 <p>Sin controles, las probabilidades predichas reproducen el porcentaje de votantes de cada grupo. Al controlar por edad, educación superior pasa a tener la <strong>mayor</strong> probabilidad</p>
@@ -1017,14 +1011,12 @@ Figure&nbsp;5
 <section id="probabilidades-predichas-según-edad" class="slide level2">
 <h2>Probabilidades predichas según edad</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">plot</span>(<span class="fu">ggpredict</span>(m_mult, <span class="at">terms =</span> <span class="st">"edad [18:88]"</span>)) <span class="sc">+</span></span>
-<span id="cb12-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb12-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de votar"</span>)</span>
-<span id="cb12-4"><a></a><span class="co">#&gt; Scale for y is already present.</span></span>
-<span id="cb12-5"><a></a><span class="co">#&gt; Adding another scale for y, which will replace the existing scale.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">plot</span>(<span class="fu">ggpredict</span>(m_mult, <span class="at">terms =</span> <span class="st">"edad [18:88]"</span>)) <span class="sc">+</span></span>
+<span id="cb11-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb11-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de votar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="09-clase9_files/figure-html/fig-pred-edad-1.png" id="fig-pred-edad" width="864" class="r-stretch quarto-figure-center"><p class="caption">
+<img data-src="09-clase9_files/figure-revealjs/fig-pred-edad-1.png" id="fig-pred-edad" width="864" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;6
 </p><div class="small">
 <p><code>[18:88]</code> pide la predicción para cada edad entre 18 y 88 años. Es una <strong>curva</strong>, no una recta</p>
@@ -1111,14 +1103,12 @@ Figure&nbsp;6
 <section id="edad-y-educación-a-la-vez" class="slide level2">
 <h2>Edad y educación a la vez</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">plot</span>(<span class="fu">ggpredict</span>(m_mult, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edad [18:88]"</span>, <span class="st">"educ_f"</span>))) <span class="sc">+</span></span>
-<span id="cb13-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb13-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de votar"</span>, <span class="at">color =</span> <span class="st">"Educación"</span>)</span>
-<span id="cb13-4"><a></a><span class="co">#&gt; Scale for y is already present.</span></span>
-<span id="cb13-5"><a></a><span class="co">#&gt; Adding another scale for y, which will replace the existing scale.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">plot</span>(<span class="fu">ggpredict</span>(m_mult, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edad [18:88]"</span>, <span class="st">"educ_f"</span>))) <span class="sc">+</span></span>
+<span id="cb12-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb12-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Edad"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de votar"</span>, <span class="at">color =</span> <span class="st">"Educación"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="09-clase9_files/figure-html/fig-edad-educ-1.png" id="fig-edad-educ" width="864" class="r-stretch quarto-figure-center"><p class="caption">
+<img data-src="09-clase9_files/figure-revealjs/fig-edad-educ-1.png" id="fig-edad-educ" width="864" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;7
 </p><div class="small">
 <p>La distancia entre las curvas es mayor donde la probabilidad está más cerca de 50% (los más jóvenes) y se achica en las edades altas, donde todas se acercan a 1</p>
@@ -1127,7 +1117,7 @@ Figure&nbsp;7
 <section id="tabla-de-perfiles" class="slide level2">
 <h2>Tabla de perfiles</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggpredict</span>(m_mult, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edad [25,45,65]"</span>, <span class="st">"educ_f"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggpredict</span>(m_mult, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edad [25,45,65]"</span>, <span class="st">"educ_f"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1170,14 +1160,12 @@ Figure&nbsp;7
 <section id="una-alternativa-sjplot" class="slide level2">
 <h2>Una alternativa: <code>sjPlot</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">plot_model</span>(m_mult, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="st">"educ_f"</span>) <span class="sc">+</span></span>
-<span id="cb15-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb15-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Nivel educacional"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de votar"</span>)</span>
-<span id="cb15-4"><a></a><span class="co">#&gt; Scale for y is already present.</span></span>
-<span id="cb15-5"><a></a><span class="co">#&gt; Adding another scale for y, which will replace the existing scale.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">plot_model</span>(m_mult, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="st">"educ_f"</span>) <span class="sc">+</span></span>
+<span id="cb14-2"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb14-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">"Nivel educacional"</span>, <span class="at">y =</span> <span class="st">"Probabilidad predicha de votar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="09-clase9_files/figure-html/fig-plot-model-pred-1.png" id="fig-plot-model-pred" width="864" class="r-stretch quarto-figure-center"><p class="caption">
+<img data-src="09-clase9_files/figure-revealjs/fig-plot-model-pred-1.png" id="fig-plot-model-pred" width="864" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;8
 </p><div class="small">
 <p><code>plot_model</code> con <code>type = "pred"</code> usa por dentro <code>ggeffects</code>, por lo que entrega las mismas probabilidades</p>
@@ -1207,10 +1195,10 @@ Figure&nbsp;8
 <section id="log-verosimilitud" class="slide level2">
 <h2>Log-verosimilitud</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">logLik</span>(modelo_titanic)   <span class="co"># sexo</span></span>
-<span id="cb16-2"><a></a><span class="co">#&gt; 'log Lik.' -551.0042 (df=2)</span></span>
-<span id="cb16-3"><a></a><span class="fu">logLik</span>(modelo_titanic2)  <span class="co"># sexo + edad</span></span>
-<span id="cb16-4"><a></a><span class="co">#&gt; 'log Lik.' -550.6695 (df=3)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">logLik</span>(modelo_titanic)   <span class="co"># sexo</span></span>
+<span id="cb15-2"><a></a><span class="co">#&gt; 'log Lik.' -551.0042 (df=2)</span></span>
+<span id="cb15-3"><a></a><span class="fu">logLik</span>(modelo_titanic2)  <span class="co"># sexo + edad</span></span>
+<span id="cb15-4"><a></a><span class="co">#&gt; 'log Lik.' -550.6695 (df=3)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment fade-up">
 <p>La inclusión de un predictor adicional (edad) hace que cambie la log-verosimilitud del modelo. Mientras <strong>más cercana a 0</strong>, mejor ajuste</p>
@@ -1246,10 +1234,10 @@ Figure&nbsp;8
 </ul>
 <div class="fragment fade-up">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">logLik</span>(modelo_titanic)</span>
-<span id="cb17-2"><a></a><span class="co">#&gt; 'log Lik.' 1102.008 (df=2)</span></span>
-<span id="cb17-3"><a></a>modelo_titanic<span class="sc">$</span>deviance</span>
-<span id="cb17-4"><a></a><span class="co">#&gt; [1] 1102.008</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">logLik</span>(modelo_titanic)</span>
+<span id="cb16-2"><a></a><span class="co">#&gt; 'log Lik.' 1102.008 (df=2)</span></span>
+<span id="cb16-3"><a></a>modelo_titanic<span class="sc">$</span>deviance</span>
+<span id="cb16-4"><a></a><span class="co">#&gt; [1] 1102.008</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -1259,14 +1247,14 @@ Figure&nbsp;8
 <li>Se comparan las devianzas de distintos modelos: si la devianza es <strong>significativamente menor</strong>, el modelo es mejor</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">anova</span>(modelo_titanic, modelo_titanic2, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
-<span id="cb18-2"><a></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
-<span id="cb18-3"><a></a><span class="co">#&gt; </span></span>
-<span id="cb18-4"><a></a><span class="co">#&gt; Model 1: survived ~ sex</span></span>
-<span id="cb18-5"><a></a><span class="co">#&gt; Model 2: survived ~ sex + age</span></span>
-<span id="cb18-6"><a></a><span class="co">#&gt;   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)</span></span>
-<span id="cb18-7"><a></a><span class="co">#&gt; 1      1044     1102.0                     </span></span>
-<span id="cb18-8"><a></a><span class="co">#&gt; 2      1043     1101.3  1   0.6694   0.4133</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">anova</span>(modelo_titanic, modelo_titanic2, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
+<span id="cb17-2"><a></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
+<span id="cb17-3"><a></a><span class="co">#&gt; </span></span>
+<span id="cb17-4"><a></a><span class="co">#&gt; Model 1: survived ~ sex</span></span>
+<span id="cb17-5"><a></a><span class="co">#&gt; Model 2: survived ~ sex + age</span></span>
+<span id="cb17-6"><a></a><span class="co">#&gt;   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)</span></span>
+<span id="cb17-7"><a></a><span class="co">#&gt; 1      1044     1102.0                     </span></span>
+<span id="cb17-8"><a></a><span class="co">#&gt; 2      1043     1101.3  1   0.6694   0.4133</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment fade-up">
 <div class="small">
@@ -1278,16 +1266,16 @@ Figure&nbsp;8
 <h2>Test de razón de verosimilitud</h2>
 <p>Probemos ahora con el modelo que incorpora la clase</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">anova</span>(modelo_titanic, modelo_titanic3, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
-<span id="cb19-2"><a></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
-<span id="cb19-3"><a></a><span class="co">#&gt; </span></span>
-<span id="cb19-4"><a></a><span class="co">#&gt; Model 1: survived ~ sex</span></span>
-<span id="cb19-5"><a></a><span class="co">#&gt; Model 2: survived ~ sex + pclass</span></span>
-<span id="cb19-6"><a></a><span class="co">#&gt;   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    </span></span>
-<span id="cb19-7"><a></a><span class="co">#&gt; 1      1044     1102.0                          </span></span>
-<span id="cb19-8"><a></a><span class="co">#&gt; 2      1042     1013.8  2   88.211 &lt; 2.2e-16 ***</span></span>
-<span id="cb19-9"><a></a><span class="co">#&gt; ---</span></span>
-<span id="cb19-10"><a></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">anova</span>(modelo_titanic, modelo_titanic3, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
+<span id="cb18-2"><a></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
+<span id="cb18-3"><a></a><span class="co">#&gt; </span></span>
+<span id="cb18-4"><a></a><span class="co">#&gt; Model 1: survived ~ sex</span></span>
+<span id="cb18-5"><a></a><span class="co">#&gt; Model 2: survived ~ sex + pclass</span></span>
+<span id="cb18-6"><a></a><span class="co">#&gt;   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    </span></span>
+<span id="cb18-7"><a></a><span class="co">#&gt; 1      1044     1102.0                          </span></span>
+<span id="cb18-8"><a></a><span class="co">#&gt; 2      1042     1013.8  2   88.211 &lt; 2.2e-16 ***</span></span>
+<span id="cb18-9"><a></a><span class="co">#&gt; ---</span></span>
+<span id="cb18-10"><a></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment fade-up">
 <div class="small">
@@ -1301,30 +1289,30 @@ Figure&nbsp;8
 <li>El modelo <strong>nulo</strong> no tiene predictores, solo intercepto. Es el equivalente a predecir con el promedio en el caso de variables continuas</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>modelo_titanic_null <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> tt, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb20-2"><a></a></span>
-<span id="cb20-3"><a></a><span class="fu">anova</span>(modelo_titanic_null, modelo_titanic3, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
-<span id="cb20-4"><a></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
-<span id="cb20-5"><a></a><span class="co">#&gt; </span></span>
-<span id="cb20-6"><a></a><span class="co">#&gt; Model 1: survived ~ 1</span></span>
-<span id="cb20-7"><a></a><span class="co">#&gt; Model 2: survived ~ sex + pclass</span></span>
-<span id="cb20-8"><a></a><span class="co">#&gt;   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    </span></span>
-<span id="cb20-9"><a></a><span class="co">#&gt; 1      1045     1414.6                          </span></span>
-<span id="cb20-10"><a></a><span class="co">#&gt; 2      1042     1013.8  3   400.82 &lt; 2.2e-16 ***</span></span>
-<span id="cb20-11"><a></a><span class="co">#&gt; ---</span></span>
-<span id="cb20-12"><a></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>modelo_titanic_null <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> tt, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb19-2"><a></a></span>
+<span id="cb19-3"><a></a><span class="fu">anova</span>(modelo_titanic_null, modelo_titanic3, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
+<span id="cb19-4"><a></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
+<span id="cb19-5"><a></a><span class="co">#&gt; </span></span>
+<span id="cb19-6"><a></a><span class="co">#&gt; Model 1: survived ~ 1</span></span>
+<span id="cb19-7"><a></a><span class="co">#&gt; Model 2: survived ~ sex + pclass</span></span>
+<span id="cb19-8"><a></a><span class="co">#&gt;   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    </span></span>
+<span id="cb19-9"><a></a><span class="co">#&gt; 1      1045     1414.6                          </span></span>
+<span id="cb19-10"><a></a><span class="co">#&gt; 2      1042     1013.8  3   400.82 &lt; 2.2e-16 ***</span></span>
+<span id="cb19-11"><a></a><span class="co">#&gt; ---</span></span>
+<span id="cb19-12"><a></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="mcfadden-pseudo-r²" class="slide level2">
 <h2>McFadden (pseudo) R²</h2>
 <p><span class="math display">\[R^2_{McFadden}=1-\frac{LL_{modelo}}{LL_{nulo}}\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">logLik</span>(modelo_titanic); <span class="fu">logLik</span>(modelo_titanic_null)</span>
-<span id="cb21-2"><a></a><span class="co">#&gt; 'log Lik.' -551.0042 (df=2)</span></span>
-<span id="cb21-3"><a></a><span class="co">#&gt; 'log Lik.' -707.3102 (df=1)</span></span>
-<span id="cb21-4"><a></a></span>
-<span id="cb21-5"><a></a><span class="dv">1</span> <span class="sc">-</span> (<span class="sc">-</span><span class="dv">551</span> <span class="sc">/</span> <span class="sc">-</span><span class="dv">707</span>)</span>
-<span id="cb21-6"><a></a><span class="co">#&gt; [1] 0.2206506</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">logLik</span>(modelo_titanic); <span class="fu">logLik</span>(modelo_titanic_null)</span>
+<span id="cb20-2"><a></a><span class="co">#&gt; 'log Lik.' -551.0042 (df=2)</span></span>
+<span id="cb20-3"><a></a><span class="co">#&gt; 'log Lik.' -707.3102 (df=1)</span></span>
+<span id="cb20-4"><a></a></span>
+<span id="cb20-5"><a></a><span class="dv">1</span> <span class="sc">-</span> (<span class="sc">-</span><span class="dv">551</span> <span class="sc">/</span> <span class="sc">-</span><span class="dv">707</span>)</span>
+<span id="cb20-6"><a></a><span class="co">#&gt; [1] 0.2206506</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment fade-up">
 <div class="small">
@@ -1336,9 +1324,9 @@ Figure&nbsp;8
 <h2>McFadden (pseudo) R²</h2>
 <p>También se puede obtener con la función <code>PseudoR2</code> de la librería <code>DescTools</code>, junto a otras versiones de pseudo <span class="math inline">\(R^2\)</span>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(modelo_titanic3, <span class="at">which =</span> <span class="fu">c</span>(<span class="st">"McFadden"</span>, <span class="st">"Nagelkerke"</span>, <span class="st">"CoxSnell"</span>))</span>
-<span id="cb22-2"><a></a><span class="co">#&gt;   McFadden Nagelkerke   CoxSnell </span></span>
-<span id="cb22-3"><a></a><span class="co">#&gt;  0.2833433  0.4293605  0.3183209</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(modelo_titanic3, <span class="at">which =</span> <span class="fu">c</span>(<span class="st">"McFadden"</span>, <span class="st">"Nagelkerke"</span>, <span class="st">"CoxSnell"</span>))</span>
+<span id="cb21-2"><a></a><span class="co">#&gt;   McFadden Nagelkerke   CoxSnell </span></span>
+<span id="cb21-3"><a></a><span class="co">#&gt;  0.2833433  0.4293605  0.3183209</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="akaike-aic" class="slide level2">
@@ -1357,11 +1345,11 @@ Figure&nbsp;8
 <section id="akaike-aic-1" class="slide level2">
 <h2>Akaike (AIC)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">AIC</span>(modelo_titanic, modelo_titanic2, modelo_titanic3)</span>
-<span id="cb23-2"><a></a><span class="co">#&gt;                 df      AIC</span></span>
-<span id="cb23-3"><a></a><span class="co">#&gt; modelo_titanic   2 1106.008</span></span>
-<span id="cb23-4"><a></a><span class="co">#&gt; modelo_titanic2  3 1107.339</span></span>
-<span id="cb23-5"><a></a><span class="co">#&gt; modelo_titanic3  4 1021.797</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">AIC</span>(modelo_titanic, modelo_titanic2, modelo_titanic3)</span>
+<span id="cb22-2"><a></a><span class="co">#&gt;                 df      AIC</span></span>
+<span id="cb22-3"><a></a><span class="co">#&gt; modelo_titanic   2 1106.008</span></span>
+<span id="cb22-4"><a></a><span class="co">#&gt; modelo_titanic2  3 1107.339</span></span>
+<span id="cb22-5"><a></a><span class="co">#&gt; modelo_titanic3  4 1021.797</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li class="fragment"><p>Agregar edad <strong>aumenta</strong> el AIC: el predictor adicional no compensa la penalización</p></li>
@@ -1371,18 +1359,18 @@ Figure&nbsp;8
 <section id="aplicado-a-la-participación-electoral" class="slide level2">
 <h2>Aplicado a la participación electoral</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">anova</span>(m_educ, m_educ_edad, m_mult, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
-<span id="cb24-2"><a></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
-<span id="cb24-3"><a></a><span class="co">#&gt; </span></span>
-<span id="cb24-4"><a></a><span class="co">#&gt; Model 1: voto ~ educ_f</span></span>
-<span id="cb24-5"><a></a><span class="co">#&gt; Model 2: voto ~ educ_f + edad</span></span>
-<span id="cb24-6"><a></a><span class="co">#&gt; Model 3: voto ~ educ_f + edad + sexo_f</span></span>
-<span id="cb24-7"><a></a><span class="co">#&gt;   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)    </span></span>
-<span id="cb24-8"><a></a><span class="co">#&gt; 1      2891     3575.0                         </span></span>
-<span id="cb24-9"><a></a><span class="co">#&gt; 2      2890     3223.3  1   351.71   &lt;2e-16 ***</span></span>
-<span id="cb24-10"><a></a><span class="co">#&gt; 3      2889     3220.7  1     2.62   0.1058    </span></span>
-<span id="cb24-11"><a></a><span class="co">#&gt; ---</span></span>
-<span id="cb24-12"><a></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">anova</span>(m_educ, m_educ_edad, m_mult, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
+<span id="cb23-2"><a></a><span class="co">#&gt; Analysis of Deviance Table</span></span>
+<span id="cb23-3"><a></a><span class="co">#&gt; </span></span>
+<span id="cb23-4"><a></a><span class="co">#&gt; Model 1: voto ~ educ_f</span></span>
+<span id="cb23-5"><a></a><span class="co">#&gt; Model 2: voto ~ educ_f + edad</span></span>
+<span id="cb23-6"><a></a><span class="co">#&gt; Model 3: voto ~ educ_f + edad + sexo_f</span></span>
+<span id="cb23-7"><a></a><span class="co">#&gt;   Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)    </span></span>
+<span id="cb23-8"><a></a><span class="co">#&gt; 1      2891     3575.0                         </span></span>
+<span id="cb23-9"><a></a><span class="co">#&gt; 2      2890     3223.3  1   351.71   &lt;2e-16 ***</span></span>
+<span id="cb23-10"><a></a><span class="co">#&gt; 3      2889     3220.7  1     2.62   0.1058    </span></span>
+<span id="cb23-11"><a></a><span class="co">#&gt; ---</span></span>
+<span id="cb23-12"><a></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment fade-up">
 <div class="small">
@@ -1710,6 +1698,82 @@ Figure&nbsp;8
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

@@ -461,7 +461,7 @@ tab_model(m_educ, m_mult,
 
 - En el modelo múltiple baja a `r round(or_mult["sexo_fMujer"], 2)` y deja de ser significativo
 
-- Una parte de esa diferencia se explicaba por la composición de edad y educación de hombres y mujeres en la muestra
+- Una parte de esa diferencia se explicaba por la edad: en la muestra, las mujeres son en promedio algo mayores que los hombres, y la edad aumenta las chances de votar
 
 :::
 

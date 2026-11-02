@@ -137,7 +137,7 @@
     "href": "slides/09-clase9/09-clase9.html#y-el-sexo",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "¿Y el sexo?",
-    "text": "¿Y el sexo?\n\nEn el análisis bivariado, el OR de mujer era 1.25 y estadísticamente significativo\nEn el modelo múltiple baja a 1.15 y deja de ser significativo\nUna parte de esa diferencia se explicaba por la composición de edad y educación de hombres y mujeres en la muestra\n\n\n\nEs la misma lógica de la parcialización que vimos en regresión lineal: el coeficiente de un predictor cambia cuando se incorporan otros que están relacionados con él y con la dependiente"
+    "text": "¿Y el sexo?\n\nEn el análisis bivariado, el OR de mujer era 1.25 y estadísticamente significativo\nEn el modelo múltiple baja a 1.15 y deja de ser significativo\nUna parte de esa diferencia se explicaba por la edad: en la muestra, las mujeres son en promedio algo mayores que los hombres, y la edad aumenta las chances de votar\n\n\n\nEs la misma lógica de la parcialización que vimos en regresión lineal: el coeficiente de un predictor cambia cuando se incorporan otros que están relacionados con él y con la dependiente"
   },
   {
     "objectID": "slides/09-clase9/09-clase9.html#gráfico-de-coeficientes",
@@ -207,7 +207,7 @@
     "href": "slides/09-clase9/09-clase9.html#predicciones-para-todos-los-casos",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Predicciones para todos los casos",
-    "text": "Predicciones para todos los casos\n\n\n\nelsoc$prob_pred &lt;- predict(m_mult,\n                           type = \"response\")\n\nsummary(elsoc$prob_pred)\n#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n#&gt;  0.2678  0.5453  0.7084  0.6821  0.8269  0.9741\n\n\nSin newdata, predict() calcula la probabilidad predicha de cada persona de la muestra según sus propios valores en las independientes\n\n\n\n#&gt; Warning: Removed 2 rows containing missing values or values outside the scale range\n#&gt; (`geom_bar()`).\n\n\n\n\n\n\n\nFigure 2"
+    "text": "Predicciones para todos los casos\n\n\n\nelsoc$prob_pred &lt;- predict(m_mult,\n                           type = \"response\")\n\nsummary(elsoc$prob_pred)\n#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n#&gt;  0.2678  0.5453  0.7084  0.6821  0.8269  0.9741\n\n\nSin newdata, predict() calcula la probabilidad predicha de cada persona de la muestra según sus propios valores en las independientes\n\n\n\n\n\n\n\n\n\n\nFigure 2"
   },
   {
     "objectID": "slides/09-clase9/09-clase9.html#y-con-el-modelo-de-probabilidad-lineal",
@@ -228,14 +228,14 @@
     "href": "slides/09-clase9/09-clase9.html#el-gráfico",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "El gráfico",
-    "text": "El gráfico\n\nplot(pred_tt) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Sexo\", y = \"Probabilidad predicha de sobrevivir\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\nFigure 3\n\nComo en regresión lineal, el eje \\(y\\) muestra el rango completo de la variable: de 0% a 100%"
+    "text": "El gráfico\n\nplot(pred_tt) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Sexo\", y = \"Probabilidad predicha de sobrevivir\")\n\n\n\nFigure 3\n\nComo en regresión lineal, el eje \\(y\\) muestra el rango completo de la variable: de 0% a 100%"
   },
   {
     "objectID": "slides/09-clase9/09-clase9.html#dos-predictores-categóricos",
     "href": "slides/09-clase9/09-clase9.html#dos-predictores-categóricos",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Dos predictores categóricos",
-    "text": "Dos predictores categóricos\n\nplot(ggpredict(modelo_titanic3, terms = c(\"pclass\", \"sex\"))) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Clase\", y = \"Probabilidad predicha de sobrevivir\", color = \"Sexo\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\nFigure 4"
+    "text": "Dos predictores categóricos\n\nplot(ggpredict(modelo_titanic3, terms = c(\"pclass\", \"sex\"))) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Clase\", y = \"Probabilidad predicha de sobrevivir\", color = \"Sexo\")\n\n\n\nFigure 4"
   },
   {
     "objectID": "slides/09-clase9/09-clase9.html#cómo-leerlo",
@@ -291,7 +291,7 @@
     "href": "slides/09-clase9/09-clase9.html#probabilidades-predichas-según-edad",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Probabilidades predichas según edad",
-    "text": "Probabilidades predichas según edad\n\nplot(ggpredict(m_mult, terms = \"edad [18:88]\")) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Edad\", y = \"Probabilidad predicha de votar\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\nFigure 6\n\n[18:88] pide la predicción para cada edad entre 18 y 88 años. Es una curva, no una recta"
+    "text": "Probabilidades predichas según edad\n\nplot(ggpredict(m_mult, terms = \"edad [18:88]\")) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Edad\", y = \"Probabilidad predicha de votar\")\n\n\n\nFigure 6\n\n[18:88] pide la predicción para cada edad entre 18 y 88 años. Es una curva, no una recta"
   },
   {
     "objectID": "slides/09-clase9/09-clase9.html#section-5",
@@ -319,7 +319,7 @@
     "href": "slides/09-clase9/09-clase9.html#edad-y-educación-a-la-vez",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Edad y educación a la vez",
-    "text": "Edad y educación a la vez\n\nplot(ggpredict(m_mult, terms = c(\"edad [18:88]\", \"educ_f\"))) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Edad\", y = \"Probabilidad predicha de votar\", color = \"Educación\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\nFigure 7\n\nLa distancia entre las curvas es mayor donde la probabilidad está más cerca de 50% (los más jóvenes) y se achica en las edades altas, donde todas se acercan a 1"
+    "text": "Edad y educación a la vez\n\nplot(ggpredict(m_mult, terms = c(\"edad [18:88]\", \"educ_f\"))) +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Edad\", y = \"Probabilidad predicha de votar\", color = \"Educación\")\n\n\n\nFigure 7\n\nLa distancia entre las curvas es mayor donde la probabilidad está más cerca de 50% (los más jóvenes) y se achica en las edades altas, donde todas se acercan a 1"
   },
   {
     "objectID": "slides/09-clase9/09-clase9.html#tabla-de-perfiles",
@@ -333,7 +333,7 @@
     "href": "slides/09-clase9/09-clase9.html#una-alternativa-sjplot",
     "title": "Metodos 3 - Universidad Andrés Bello",
     "section": "Una alternativa: sjPlot",
-    "text": "Una alternativa: sjPlot\n\nplot_model(m_mult, type = \"pred\", terms = \"educ_f\") +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Nivel educacional\", y = \"Probabilidad predicha de votar\")\n#&gt; Scale for y is already present.\n#&gt; Adding another scale for y, which will replace the existing scale.\n\n\n\nFigure 8\n\nplot_model con type = \"pred\" usa por dentro ggeffects, por lo que entrega las mismas probabilidades"
+    "text": "Una alternativa: sjPlot\n\nplot_model(m_mult, type = \"pred\", terms = \"educ_f\") +\n  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +\n  labs(title = NULL, x = \"Nivel educacional\", y = \"Probabilidad predicha de votar\")\n\n\n\nFigure 8\n\nplot_model con type = \"pred\" usa por dentro ggeffects, por lo que entrega las mismas probabilidades"
   },
   {
     "objectID": "slides/09-clase9/09-clase9.html#cómo-reportar",
