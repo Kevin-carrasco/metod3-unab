@@ -1338,12 +1338,47 @@ kable(resumen_ajuste, digits = 3,
 
 :::
 
-## Siguiente sesión
+## Prueba 2: lunes 9 de noviembre
 
-::: {.incremental}
+::: {.columns}
+::: {.column width="50%"}
 
-- **Prueba 2**
+**Contenidos**
 
+::: {.small}
+
+- Limitaciones del modelo de probabilidad lineal para dependientes dicotómicas
+- Probabilidades, odds y odds ratio: cálculo e interpretación
+- El logit: qué es y por qué se utiliza
+- Coeficientes logit: signo y significación
+- Exponenciación: de logit a odds ratio, y lectura como cambio porcentual
+- Regresión logística múltiple y control estadístico
+- Probabilidades predichas: cálculo a partir de los coeficientes e interpretación de gráficos
+- Ajuste: test de razón de verosimilitud, pseudo R² y AIC
+
+:::
+
+:::
+::: {.column width="50%"}
+
+**Formato**
+
+::: {.small}
+
+**Parte 1: preguntas conceptuales**
+
+- Respuestas breves de desarrollo
+- Por ejemplo: diferencia entre probabilidad y odds, qué representa un coeficiente logit
+
+**Parte 2: interpretación de una tabla de regresión**
+
+- Tabla con varios modelos de regresión logística
+- Interpretar coeficientes, inferencia y control estadístico
+- Señalar qué cambia al agregar variables en los modelos siguientes
+
+:::
+
+:::
 :::
 
 ##  {data-background-color="black"}

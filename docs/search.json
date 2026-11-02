@@ -6726,5 +6726,12 @@
     "title": "Programa",
     "section": "Palabras clave",
     "text": "Palabras clave\n\nRegresión lineal, regresión logística, modelos lineales generalizados, supuestos de regresión, interpretación de coeficientes, fiabilidad de escalas"
+  },
+  {
+    "objectID": "slides/09-clase9/09-clase9.html#prueba-2-lunes-9-de-noviembre",
+    "href": "slides/09-clase9/09-clase9.html#prueba-2-lunes-9-de-noviembre",
+    "title": "Metodos 3 - Universidad Andrés Bello",
+    "section": "Prueba 2: lunes 9 de noviembre",
+    "text": "Prueba 2: lunes 9 de noviembre\n\n\nContenidos\n\n\nLimitaciones del modelo de probabilidad lineal para dependientes dicotómicas\nProbabilidades, odds y odds ratio: cálculo e interpretación\nEl logit: qué es y por qué se utiliza\nCoeficientes logit: signo y significación\nExponenciación: de logit a odds ratio, y lectura como cambio porcentual\nRegresión logística múltiple y control estadístico\nProbabilidades predichas: cálculo a partir de los coeficientes e interpretación de gráficos\nAjuste: test de razón de verosimilitud, pseudo R² y AIC\n\n\n\nFormato\n\nParte 1: preguntas conceptuales\n\nRespuestas breves de desarrollo\nPor ejemplo: diferencia entre probabilidad y odds, qué representa un coeficiente logit\n\nParte 2: interpretación de una tabla de regresión\n\nTabla con varios modelos de regresión logística\nInterpretar coeficientes, inferencia y control estadístico\nSeñalar qué cambia al agregar variables en los modelos siguientes"
   }
 ]
