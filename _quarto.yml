@@ -4,6 +4,7 @@ project:
   render:
     - "*.qmd"
     - "!practicos/plantilla-informe.qmd"
+    - "!practicos/plantilla-informe2.qmd"
   resources:
     - "files/"
     - "projects/"

@@ -163,6 +163,17 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#aspectos-formales" id="toc-aspectos-formales" class="nav-link" data-scroll-target="#aspectos-formales">Aspectos formales</a></li>
   </ul></li>
+  <li><a href="#informe-2" id="toc-informe-2" class="nav-link" data-scroll-target="#informe-2">Informe 2</a>
+  <ul class="collapse">
+  <li><a href="#instrucciones-para-el-informe-1" id="toc-instrucciones-para-el-informe-1" class="nav-link" data-scroll-target="#instrucciones-para-el-informe-1">Instrucciones para el Informe</a>
+  <ul class="collapse">
+  <li><a href="#sobre-el-diagnóstico-de-supuestos" id="toc-sobre-el-diagnóstico-de-supuestos" class="nav-link" data-scroll-target="#sobre-el-diagnóstico-de-supuestos">Sobre el diagnóstico de supuestos</a></li>
+  <li><a href="#sobre-la-dicotomización" id="toc-sobre-la-dicotomización" class="nav-link" data-scroll-target="#sobre-la-dicotomización">Sobre la dicotomización</a></li>
+  <li><a href="#componentes-del-informe-1" id="toc-componentes-del-informe-1" class="nav-link" data-scroll-target="#componentes-del-informe-1">Componentes del informe</a></li>
+  </ul></li>
+  <li><a href="#fecha-y-formato-de-entrega-1" id="toc-fecha-y-formato-de-entrega-1" class="nav-link" data-scroll-target="#fecha-y-formato-de-entrega-1">Fecha y formato de entrega</a></li>
+  <li><a href="#aspectos-formales-1" id="toc-aspectos-formales-1" class="nav-link" data-scroll-target="#aspectos-formales-1">Aspectos formales</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -189,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="cuestiones-a-considerar">Cuestiones a considerar:</h3>
 <ol type="1">
 <li><p>El trabajo <strong>puede</strong> ser realizado en parejas.</p></li>
-<li><p>Se realizará una entrega tipo <strong>reporte de investigación breve</strong>.</p></li>
+<li><p>Se realizarán dos entregas tipo <strong>reporte de investigación breve</strong>. El Informe 2 continúa la investigación iniciada en el Informe 1, con el mismo problema, la misma base de datos y las mismas variables.</p></li>
 <li><p>Se recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún <strong>problema actual de la sociedad chilena</strong>, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).</p></li>
 </ol>
 </section>
@@ -289,6 +300,92 @@ ul.task-list li input[type="checkbox"] {
 <li><p>El trabajo debe tener una redacción adecuada y sin errores de ortografía.</p></li>
 <li><p>Se descontarán hasta 5 décimas sobre la nota final por errores de este tipo.</p></li>
 </ul>
+</section>
+</section>
+<section id="informe-2" class="level1">
+<h1>Informe 2</h1>
+<section id="instrucciones-para-el-informe-1" class="level2">
+<h2 class="anchored" data-anchor-id="instrucciones-para-el-informe-1">Instrucciones para el Informe</h2>
+<p>El Informe 2 <strong>continúa</strong> la investigación del Informe 1. Se trabaja con el mismo problema de investigación, la misma ola de ELSOC y las mismas cinco variables, incorporando las correcciones recibidas en el Informe 1.</p>
+<p>El informe tiene tres etapas:</p>
+<ol type="1">
+<li><p><strong>Diagnóstico del modelo lineal</strong>: revisar los supuestos del modelo de regresión lineal final del Informe 1, y evaluar si sus resultados son robustos.</p></li>
+<li><p><strong>Dicotomización de la variable dependiente</strong>: transformar la variable dependiente en una variable dicotómica, justificando el punto de corte.</p></li>
+<li><p><strong>Regresión logística</strong>: reestimar los modelos con la nueva variable dependiente, e interpretar sus resultados.</p></li>
+</ol>
+<section id="sobre-el-diagnóstico-de-supuestos" class="level3">
+<h3 class="anchored" data-anchor-id="sobre-el-diagnóstico-de-supuestos">Sobre el diagnóstico de supuestos</h3>
+<p>Los supuestos revisados en clases (casos influyentes, linealidad, homocedasticidad y multicolinealidad) corresponden al modelo de <strong>regresión lineal</strong>. Por eso el diagnóstico se aplica al modelo final del Informe 1, antes de pasar a la regresión logística.</p>
+<p>Más que aplicar todas las correcciones posibles, se espera que el informe dé cuenta de <strong>qué se revisó, qué se encontró y qué decisión se tomó</strong>. Por ejemplo, excluir casos influyentes es una decisión que debe justificarse: un error de registro puede excluirse, pero casos válidos no deberían eliminarse sin comparar los resultados con y sin ellos.</p>
+</section>
+<section id="sobre-la-dicotomización" class="level3">
+<h3 class="anchored" data-anchor-id="sobre-la-dicotomización">Sobre la dicotomización</h3>
+<p>La variable dependiente debe recodificarse en dos categorías: mayor presencia del atributo (1) y menor presencia del atributo (0). El punto de corte debe <strong>justificarse</strong>, ya sea por razones teóricas (por ejemplo, distinguir entre quienes están de acuerdo y quienes no) o por la distribución de la variable (por ejemplo, la mediana).</p>
+<p>Conviene considerar que dicotomizar implica perder información, y que el punto de corte puede afectar los resultados. Se recomienda revisar que ninguna de las dos categorías quede con muy pocos casos.</p>
+</section>
+<section id="componentes-del-informe-1" class="level3">
+<h3 class="anchored" data-anchor-id="componentes-del-informe-1">Componentes del informe</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Componente</strong></th>
+<th style="text-align: left;"><strong>Detalle</strong></th>
+<th style="text-align: center;"><strong>Puntaje</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Síntesis del problema y ajustes</strong></td>
+<td style="text-align: left;">Presentar brevemente la pregunta, el objetivo, la base de datos y las variables del Informe 1, incorporando las correcciones recibidas. Señalar qué se busca con la nueva etapa del análisis y por qué es necesario utilizar regresión logística con una variable dependiente dicotómica. (½ plana)</td>
+<td style="text-align: center;">2.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Supuestos del modelo lineal</strong></td>
+<td style="text-align: left;">Analizar los supuestos del modelo de regresión lineal final del Informe 1 para evaluar la robustez de la estimación.<br><br>- Casos influyentes: distancia de Cook, revisión de los casos sobre el punto de corte y comparación de modelos con y sin ellos: 1.5<br><br>- Linealidad: gráfico de residuos y valores predichos y, si corresponde, transformación de variables: 1<br><br>- Homocedasticidad: test de Breusch-Pagan y, si corresponde, comparación con errores estándar robustos: 1<br><br>- Multicolinealidad: VIF: 0.5</td>
+<td style="text-align: center;">4.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dicotomización de la variable dependiente</strong></td>
+<td style="text-align: left;">Recodificar la variable dependiente como dicotómica.<br><br>- Justificación del punto de corte: 1<br><br>- Tabla de frecuencias de la nueva variable y comparación con su distribución original: 1</td>
+<td style="text-align: center;">2.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Regresión logística</strong></td>
+<td style="text-align: left;">Estimar, visualizar e interpretar coeficientes de regresión logística.<br><br>- Tabla de regresión con al menos dos modelos de regresión múltiple, incorporando progresivamente las variables independientes, e indicando si se presentan coeficientes logit u odds ratio: 1<br><br>- Interpretación de coeficientes en odds ratio, incluyendo el comportamiento del coeficiente de interés al incorporar las demás variables: 2<br><br>- Inferencia y significación estadística: 1<br><br>- Probabilidades predichas: gráfico para al menos una variable independiente de interés, con el eje de la probabilidad completo, e interpretación: 1<br><br>- Ajuste del modelo (test de razón de verosimilitud y pseudo R²): 1</td>
+<td style="text-align: center;">6.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Conclusiones</strong></td>
+<td style="text-align: left;">Sintetizar los aspectos más relevantes de los análisis y presentar una respuesta tentativa a la pregunta de investigación. Comparar los resultados de la regresión lineal y de la regresión logística: ¿se mantienen las conclusiones al cambiar la forma de medir la variable dependiente? Reflexionar sobre los límites del diseño de investigación y señalar posibles ejes para futuras indagaciones. (½ plana)</td>
+<td style="text-align: center;">2.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Trabajo en R</strong></td>
+<td style="text-align: left;">Además del informe, entregar la carpeta con el Proyecto R.<br><br>- Se evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe.</td>
+<td style="text-align: center;">2.0</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="fecha-y-formato-de-entrega-1" class="level2">
+<h2 class="anchored" data-anchor-id="fecha-y-formato-de-entrega-1">Fecha y formato de entrega</h2>
+<p>El formato de cada informe debe ser un documento en <strong>formato PDF (.pdf)</strong>.</p>
+<ul>
+<li><p>Fecha entrega: <strong>Viernes 27 de noviembre, 23:59 hrs.</strong></p></li>
+<li><p>Se aceptan entregas atrasadas hasta el <strong>domingo 29 de noviembre a las 23:59</strong>. Se aplicará un descuento de 0,5 décimas por cada día de atraso.</p></li>
+</ul>
+<p>Al igual que en el Informe 1, el uso de Quarto es opcional y recomendado. Para facilitar el trabajo, pueden descargar la plantilla del Informe 2 <a href="practicos/plantilla-informe2.qmd" download="plantilla-informe2.qmd">acá</a>. La plantilla contiene la estructura completa del informe, con ejemplos de código para cada sección de la pauta.</p>
+</section>
+<section id="aspectos-formales-1" class="level2">
+<h2 class="anchored" data-anchor-id="aspectos-formales-1">Aspectos formales</h2>
+<p>Se mantienen los aspectos formales del Informe 1, con una extensión total de entre <strong>5 y 10 páginas</strong>, sin considerar portada, índice, bibliografía ni anexos.</p>
+<p>Las salidas de R que no se comenten en el texto pueden incluirse como anexo.</p>
 
 
 </section>

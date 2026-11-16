@@ -1,0 +1,513 @@
+---
+title: "Título de la investigación"
+subtitle: "Informe 2 - Métodos estadísticos para Ciencias Sociales III"
+author: "Nombre Apellido y Nombre Apellido"
+date: "2026-11-27"
+lang: es
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    embed-resources: true
+    theme: cosmo
+execute:
+  warning: false
+  message: false
+  echo: false
+---
+
+<!--
+INSTRUCCIONES DE USO
+
+Esta plantilla contiene la estructura completa del Informe 2. Para utilizarla:
+
+1. Reemplace el YAML con los datos de su trabajo (título, autores, fecha)
+2. Reemplace las variables de ejemplo por las suyas en el chunk de procesamiento
+3. Escriba el contenido de cada sección, reemplazando el texto entre corchetes
+4. Renderice con el botón Render o con Ctrl + Shift + K
+
+El Informe 2 continúa el Informe 1. Las secciones 1 a 3 corresponden al
+Informe 1 y deben incorporar las correcciones recibidas. Pueden resumirse
+para respetar la extensión máxima: lo que se evalúa en esta entrega son
+las secciones 4 en adelante (diagnóstico, dicotomización, regresión
+logística y conclusiones).
+
+Los comentarios como este no aparecen en el documento final.
+
+Las opciones del YAML incluyen echo: false, de modo que el código no se
+muestra. Si desea mostrar el código de algún chunk, agregue #| echo: true
+a ese chunk en particular.
+-->
+
+```{r librerias}
+#| include: false
+
+pacman::p_load(dplyr,
+               car,
+               sjmisc,
+               sjlabelled,
+               sjPlot,
+               knitr,
+               kableExtra,
+               summarytools,
+               corrplot,
+               ggeffects,
+               ggplot2,
+               lmtest,
+               sandwich,
+               DescTools)
+
+options(scipen = 999)
+
+st_options(bootstrap.css = FALSE,
+           plain.ascii = FALSE,
+           style = "rmarkdown",
+           dfSummary.silent = TRUE,
+           footnote = NA,
+           subtitle.emphasis = FALSE)
+```
+
+```{r datos}
+#| include: false
+
+# ---------------------------------------------------------------
+# CARGA DE DATOS
+# ---------------------------------------------------------------
+
+load(url("https://github.com/Kevin-carrasco/metod3-unab/raw/refs/heads/main/files/data/elsoc16-22.RData"))
+
+# ---------------------------------------------------------------
+# PROCESAMIENTO
+#
+# REEMPLACE las variables de ejemplo por las suyas, las mismas
+# del Informe 1.
+#
+# Variables de ejemplo utilizadas aquí:
+#   d01_01  = estatus social subjetivo (dependiente, 0 a 10)
+#   m01     = nivel educacional (se recodifica como categórica)
+#   m29     = ingreso del hogar
+#   m0_edad = edad
+#   m0_sexo = sexo (categórica)
+# ---------------------------------------------------------------
+
+proc_data <- elsoc_long_2016_2022.2 %>%
+  filter(ola == 1) %>%                     # la misma ola del Informe 1
+  select(d01_01, m01, m29, m0_edad, m0_sexo) %>%
+  set_na(., na = c(-999, -888, -777, -666)) %>%
+  rename("estatus" = d01_01,
+         "educacion" = m01,
+         "ingreso" = m29,
+         "edad" = m0_edad,
+         "sexo" = m0_sexo) %>%
+  na.omit()
+
+# Limpieza de valores implausibles de ingreso
+proc_data <- proc_data %>%
+  filter(ingreso >= 50000, ingreso <= 5000000) %>%
+  mutate(ing100 = ingreso / 100000)
+
+# Variable categórica: nivel educacional en tres grupos
+proc_data$educ_rec <- car::recode(proc_data$educacion,
+                                  "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
+
+proc_data$educ_f <- factor(proc_data$educ_rec,
+                           levels = c(1, 2, 3),
+                           labels = c("Educación básica",
+                                      "Educación media",
+                                      "Educación superior"))
+
+# Variable categórica: sexo
+proc_data$sexo_f <- as_factor(proc_data$sexo)
+
+# Base final con las variables del análisis
+proc_data <- proc_data %>%
+  select(estatus, ing100, edad, educ_f, sexo_f)
+```
+
+# Síntesis del problema
+
+[Presente brevemente la pregunta, el objetivo y el interés sociológico de su investigación, a partir del Informe 1 e incorporando las correcciones recibidas. Señale qué se busca con esta nueva etapa del análisis y por qué es necesario utilizar regresión logística con una variable dependiente dicotómica. Extensión aproximada: media plana.]
+
+**Pregunta de investigación:** [escriba aquí su pregunta]
+
+**Objetivo general:** [escriba aquí su objetivo]
+
+# Datos y variables
+
+## Fuente de información
+
+[Describa brevemente la base de datos, la ola utilizada y el tamaño de la muestra. Puede resumir lo presentado en el Informe 1.]
+
+La base procesada contiene `r nrow(proc_data)` casos con información completa en todas las variables del análisis.
+
+## Operacionalización
+
+[Describa cómo se mide cada variable y qué recodificaciones aplicó. Puede resumir lo presentado en el Informe 1. La dicotomización de la variable dependiente se describe en la sección 5.]
+
+| Variable | Rol | Nivel de medición | Descripción |
+|:---------|:----|:------------------|:------------|
+| [Nombre] | Dependiente | Continua | [Descripción] |
+| [Nombre] | Independiente | Continua | [Descripción] |
+| [Nombre] | Independiente | Continua | [Descripción] |
+| [Nombre] | Independiente | Categórica | [Descripción] |
+| [Nombre] | Independiente | Categórica | [Descripción] |
+
+## Descripción de las variables
+
+Los descriptivos de las variables continuas se presentan en la @tbl-descriptivos.
+
+```{r}
+#| label: tbl-descriptivos
+#| tbl-cap: "Descriptivos de las variables continuas"
+
+proc_data %>%
+  select(where(is.numeric)) %>%
+  descr(stats = c("mean", "sd", "min", "med", "max", "n.valid"),
+        transpose = TRUE,
+        order = "preserve") %>%
+  kable(digits = 2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+La distribución de las variables categóricas se presenta en la @tbl-categoricas.
+
+```{r}
+#| label: tbl-categoricas
+#| tbl-cap: "Distribución de las variables categóricas"
+
+bind_rows(
+  proc_data %>%
+    count(Categoria = educ_f) %>%
+    mutate(Variable = "Nivel educacional"),
+  proc_data %>%
+    count(Categoria = sexo_f) %>%
+    mutate(Variable = "Sexo")
+) %>%
+  group_by(Variable) %>%
+  mutate(Porcentaje = round(n / sum(n) * 100, 1)) %>%
+  ungroup() %>%
+  select(Variable, Categoria, n, Porcentaje) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+# Regresión lineal
+
+<!--
+Esta sección retoma el modelo final del Informe 1, que será el objeto
+del diagnóstico de la sección 4. Puede presentarse de forma breve.
+-->
+
+Los resultados de los modelos de regresión lineal se presentan en la @tbl-regresion.
+
+```{r}
+#| include: false
+
+# Modelo 1: variable independiente principal
+modelo1 <- lm(estatus ~ educ_f, data = proc_data)
+
+# Modelo 2: se agregan el resto de las variables independientes
+modelo2 <- lm(estatus ~ educ_f + ing100 + edad + sexo_f, data = proc_data)
+```
+
+```{r}
+#| label: tbl-regresion
+#| tbl-cap: "Modelos de regresión lineal"
+
+tab_model(list(modelo1, modelo2),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Modelo 1", "Modelo 2"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+[Sintetice los principales resultados del Informe 1: dirección y significación de los coeficientes, comportamiento del coeficiente de interés y ajuste del modelo.]
+
+# Diagnóstico del modelo lineal
+
+<!--
+El diagnóstico se aplica al modelo final de regresión lineal (en este
+ejemplo, modelo2). Más que aplicar todas las correcciones posibles, se
+espera que informe qué revisó, qué encontró y qué decisión tomó.
+-->
+
+## Casos influyentes
+
+Para identificar casos influyentes se calculó la distancia de Cook para cada observación, utilizando como punto de corte $4/(n-k-1)$.
+
+```{r}
+#| include: false
+
+n <- nobs(modelo2)
+k <- length(coef(modelo2))
+corte <- 4 / (n - k - 1)
+
+proc_data$cook <- cooks.distance(modelo2)
+proc_data$id <- 1:nrow(proc_data)
+
+n_influyentes <- sum(proc_data$cook > corte)
+```
+
+```{r}
+#| label: fig-cook
+#| fig-cap: "Distancia de Cook, modelo de regresión lineal"
+
+ggplot(proc_data, aes(x = id, y = cook)) +
+  geom_segment(aes(xend = id, yend = 0), color = "#04245f") +
+  geom_point(size = 0.8, color = "#04245f") +
+  geom_hline(yintercept = corte, color = "#c0392b", linetype = "dashed") +
+  labs(x = "Observación", y = "Distancia de Cook") +
+  theme_minimal()
+```
+
+Un total de `r n_influyentes` casos superan el punto de corte de `r round(corte, 4)`. La @tbl-influyentes compara sus características con las del resto de la muestra.
+
+```{r}
+#| label: tbl-influyentes
+#| tbl-cap: "Características de los casos sobre el punto de corte"
+
+proc_data %>%
+  mutate(influyente = ifelse(cook > corte, "Sobre el corte", "Bajo el corte")) %>%
+  group_by(influyente) %>%
+  summarise(n = n(),
+            estatus_promedio = mean(estatus),
+            ingreso_promedio = mean(ing100),
+            edad_promedio = mean(edad)) %>%
+  kable(digits = 2,
+        col.names = c("", "N", "Estatus promedio", "Ingreso promedio (100 mil)", "Edad promedio")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+```{r}
+#| include: false
+
+modelo2_sin <- lm(estatus ~ educ_f + ing100 + edad + sexo_f,
+                  data = filter(proc_data, cook <= corte))
+```
+
+```{r}
+#| label: tbl-sin-influyentes
+#| tbl-cap: "Modelo con y sin casos influyentes"
+
+tab_model(list(modelo2, modelo2_sin),
+          show.se = TRUE,
+          show.ci = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Todos los casos", "Sin casos influyentes"),
+          string.pred = "Predictores",
+          string.est = "β")
+```
+
+[Comente quiénes son los casos sobre el punto de corte, si los resultados cambian al excluirlos y qué decisión tomó respecto de ellos. Recuerde que excluir casos válidos debe justificarse.]
+
+## Linealidad
+
+```{r}
+#| label: fig-residuos
+#| fig-cap: "Residuos y valores predichos"
+
+data.frame(predichos = fitted(modelo2),
+           residuos = resid(modelo2)) %>%
+  ggplot(aes(x = predichos, y = residuos)) +
+  geom_point(alpha = 0.3) +
+  geom_hline(yintercept = 0, color = "#c0392b") +
+  geom_smooth(se = FALSE) +
+  labs(x = "Valores predichos", y = "Residuos") +
+  theme_minimal()
+```
+
+[Comente si los residuos se distribuyen de forma aleatoria en torno a 0 o si presentan algún patrón. Si corresponde, pruebe una transformación de variables (por ejemplo, el logaritmo del ingreso o el cuadrado de la edad) y compare los resultados.]
+
+<!--
+Ejemplo de transformación logarítmica, si la necesita:
+
+proc_data$ln_ing <- log(proc_data$ing100)
+modelo2_log <- lm(estatus ~ educ_f + ln_ing + edad + sexo_f, data = proc_data)
+-->
+
+## Homocedasticidad
+
+```{r}
+bptest(modelo2)
+```
+
+```{r}
+#| include: false
+
+robusto <- coeftest(modelo2, vcov = vcovHC(modelo2, type = "HC3"))
+```
+
+```{r}
+#| label: tbl-robustos
+#| tbl-cap: "Errores estándar originales y robustos"
+
+data.frame(coeficiente = coef(modelo2),
+           ee_original = sqrt(diag(vcov(modelo2))),
+           ee_robusto = robusto[, "Std. Error"],
+           p_original = summary(modelo2)$coefficients[, "Pr(>|t|)"],
+           p_robusto = robusto[, "Pr(>|t|)"]) %>%
+  kable(digits = 3,
+        col.names = c("Coeficiente", "EE original", "EE robusto", "p original", "p robusto")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+[Interprete el test de Breusch-Pagan. Recuerde que su hipótesis nula es que la varianza de los residuos es constante. Si hay heterocedasticidad, comente si algún coeficiente cambia su significación al usar errores estándar robustos.]
+
+## Multicolinealidad
+
+```{r}
+car::vif(modelo2)
+```
+
+[Comente si algún predictor presenta valores de VIF mayores a 2,5. Para variables categóricas, considere la última columna al cuadrado.]
+
+## Síntesis del diagnóstico
+
+[Resuma en un párrafo qué revisó, qué encontró y qué decisiones tomó. Indique si los resultados del modelo lineal son robustos.]
+
+# Dicotomización de la variable dependiente
+
+```{r}
+#| include: false
+
+# ---------------------------------------------------------------
+# REEMPLACE el punto de corte según su variable y justifíquelo.
+# En el ejemplo, el estatus subjetivo (0 a 10) se divide en:
+#   0 = bajo la mitad de la escala (0 a 4)
+#   1 = en la mitad de la escala o sobre ella (5 a 10)
+# El valor 5 coincide además con la mediana de la variable.
+# ---------------------------------------------------------------
+
+proc_data <- proc_data %>%
+  mutate(estatus_dic = ifelse(estatus >= 5, 1, 0),
+         estatus_dic = factor(estatus_dic,
+                              levels = c(0, 1),
+                              labels = c("Estatus bajo", "Estatus medio o alto")))
+```
+
+[Explique cómo recodificó la variable dependiente y justifique el punto de corte, ya sea por razones teóricas o por la distribución de la variable.]
+
+```{r}
+#| label: tbl-dicotomica
+#| tbl-cap: "Distribución de la variable dependiente dicotómica"
+
+proc_data %>%
+  count(estatus_dic) %>%
+  mutate(Porcentaje = round(n / sum(n) * 100, 1)) %>%
+  kable(col.names = c("Categoría", "n", "Porcentaje")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+```{r}
+#| label: fig-dicotomica
+#| fig-cap: "Distribución original de la variable dependiente según categoría dicotómica"
+
+ggplot(proc_data, aes(x = estatus, fill = estatus_dic)) +
+  geom_bar() +
+  scale_x_continuous(breaks = 0:10) +
+  scale_fill_manual(values = c("#c0c8d8", "#04245f")) +
+  labs(x = "Estatus social subjetivo", y = "Frecuencia", fill = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+[Comente la distribución de la nueva variable y qué información se pierde al dicotomizar.]
+
+# Regresión logística
+
+Los resultados de los modelos de regresión logística se presentan en la @tbl-logistica, con los coeficientes expresados como odds ratio.
+
+```{r}
+#| include: false
+
+# Modelo 1: variable independiente principal
+modelo1_log <- glm(estatus_dic ~ educ_f,
+                   data = proc_data, family = "binomial")
+
+# Modelo 2: se agregan el resto de las variables independientes
+modelo2_log <- glm(estatus_dic ~ educ_f + ing100 + edad + sexo_f,
+                   data = proc_data, family = "binomial")
+```
+
+```{r}
+#| label: tbl-logistica
+#| tbl-cap: "Modelos de regresión logística (odds ratio)"
+
+tab_model(list(modelo1_log, modelo2_log),
+          show.ci = FALSE,
+          show.r2 = FALSE,
+          digits = 3,
+          p.style = "stars",
+          dv.labels = c("Modelo 1", "Modelo 2"),
+          string.pred = "Predictores",
+          string.est = "OR")
+```
+
+## Interpretación de los coeficientes
+
+[Interprete los odds ratio del modelo completo. Para las variables categóricas, señale la categoría de referencia. Para las continuas, indique cuánto se multiplican las chances por cada unidad adicional, manteniendo constantes las demás variables. Recuerde que un OR se refiere a las chances, no a la probabilidad.]
+
+[Comente qué le ocurre al coeficiente de su variable principal al incorporar las demás variables.]
+
+## Significación estadística
+
+[Indique qué coeficientes son estadísticamente significativos. Recuerde que en odds ratio la ausencia de asociación corresponde a 1.]
+
+## Probabilidades predichas
+
+```{r}
+#| label: fig-prob
+#| fig-cap: "Probabilidades predichas según nivel educacional"
+
+ggpredict(modelo2_log, terms = "educ_f") %>%
+  ggplot(aes(x = x, y = predicted)) +
+  geom_col(fill = "#4f97ff", alpha = 0.85, width = 0.6) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.12) +
+  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +
+  labs(x = NULL, y = "Probabilidad predicha de estatus medio o alto") +
+  theme_minimal()
+```
+
+[Interprete la @fig-prob. Indique en qué valores quedan fijas las demás variables: `ggpredict` usa el promedio de las continuas y la categoría de referencia de las categóricas.]
+
+## Ajuste del modelo
+
+```{r}
+anova(modelo1_log, modelo2_log, test = "Chisq")
+```
+
+```{r}
+#| label: tbl-pseudor2
+#| tbl-cap: "Pseudo R² de McFadden"
+
+data.frame(Modelo = c("Modelo 1", "Modelo 2"),
+           McFadden = c(PseudoR2(modelo1_log, which = "McFadden"),
+                        PseudoR2(modelo2_log, which = "McFadden"))) %>%
+  kable(digits = 3) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+[Interprete el test de razón de verosimilitud y el pseudo R²: ¿el modelo completo ofrece un mejor ajuste que el modelo con solo la variable principal? Recuerde que el pseudo R² no se interpreta como porcentaje de varianza explicada.]
+
+# Conclusiones
+
+[Sintetice los aspectos más relevantes de los análisis y entregue una respuesta tentativa a su pregunta de investigación.]
+
+[Compare los resultados de la regresión lineal y de la regresión logística: ¿se mantienen la dirección y la significación de los coeficientes al cambiar la forma de medir la variable dependiente?]
+
+[Reflexione sobre los límites de su diseño, incluyendo lo que reveló el diagnóstico de supuestos y la decisión de dicotomizar, y señale posibles ejes para futuras indagaciones. Extensión aproximada: media plana.]
+
+# Referencias
+
+[Incluya aquí las referencias utilizadas, en formato APA 7.]

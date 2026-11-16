@@ -16,7 +16,7 @@ Las presentes evaluaciones tienen por objetivo que las y los estudiantes aplique
 
 1.  El trabajo **puede** ser realizado en parejas.
 
-2.  Se realizará una entrega tipo **reporte de investigación breve**.
+2.  Se realizarán dos entregas tipo **reporte de investigación breve**. El Informe 2 continúa la investigación iniciada en el Informe 1, con el mismo problema, la misma base de datos y las mismas variables.
 
 3.  Se recomienda que elaboren un problema de investigación que trate sobre las características sociales de algún **problema actual de la sociedad chilena**, y que sea factible de investigar con los datos del Estudio Social Longitudinal de Chile (ELSOC).
 
@@ -79,3 +79,56 @@ Para la construcción del reporte de investigación por favor considere:
 -   El trabajo debe tener una redacción adecuada y sin errores de ortografía.
 
 -   Se descontarán hasta 5 décimas sobre la nota final por errores de este tipo.
+
+# Informe 2
+
+## Instrucciones para el Informe
+
+El Informe 2 **continúa** la investigación del Informe 1. Se trabaja con el mismo problema de investigación, la misma ola de ELSOC y las mismas cinco variables, incorporando las correcciones recibidas en el Informe 1.
+
+El informe tiene tres etapas:
+
+1.  **Diagnóstico del modelo lineal**: revisar los supuestos del modelo de regresión lineal final del Informe 1, y evaluar si sus resultados son robustos.
+
+2.  **Dicotomización de la variable dependiente**: transformar la variable dependiente en una variable dicotómica, justificando el punto de corte.
+
+3.  **Regresión logística**: reestimar los modelos con la nueva variable dependiente, e interpretar sus resultados.
+
+### Sobre el diagnóstico de supuestos
+
+Los supuestos revisados en clases (casos influyentes, linealidad, homocedasticidad y multicolinealidad) corresponden al modelo de **regresión lineal**. Por eso el diagnóstico se aplica al modelo final del Informe 1, antes de pasar a la regresión logística.
+
+Más que aplicar todas las correcciones posibles, se espera que el informe dé cuenta de **qué se revisó, qué se encontró y qué decisión se tomó**. Por ejemplo, excluir casos influyentes es una decisión que debe justificarse: un error de registro puede excluirse, pero casos válidos no deberían eliminarse sin comparar los resultados con y sin ellos.
+
+### Sobre la dicotomización
+
+La variable dependiente debe recodificarse en dos categorías: mayor presencia del atributo (1) y menor presencia del atributo (0). El punto de corte debe **justificarse**, ya sea por razones teóricas (por ejemplo, distinguir entre quienes están de acuerdo y quienes no) o por la distribución de la variable (por ejemplo, la mediana).
+
+Conviene considerar que dicotomizar implica perder información, y que el punto de corte puede afectar los resultados. Se recomienda revisar que ninguna de las dos categorías quede con muy pocos casos.
+
+### Componentes del informe
+
+| **Componente** | **Detalle** | **Puntaje** |
+|:---------------|:------------|:-----------:|
+| **Síntesis del problema y ajustes** | Presentar brevemente la pregunta, el objetivo, la base de datos y las variables del Informe 1, incorporando las correcciones recibidas. Señalar qué se busca con la nueva etapa del análisis y por qué es necesario utilizar regresión logística con una variable dependiente dicotómica. (½ plana) | 2.0 |
+| **Supuestos del modelo lineal** | Analizar los supuestos del modelo de regresión lineal final del Informe 1 para evaluar la robustez de la estimación.<br><br>- Casos influyentes: distancia de Cook, revisión de los casos sobre el punto de corte y comparación de modelos con y sin ellos: 1.5<br><br>- Linealidad: gráfico de residuos y valores predichos y, si corresponde, transformación de variables: 1<br><br>- Homocedasticidad: test de Breusch-Pagan y, si corresponde, comparación con errores estándar robustos: 1<br><br>- Multicolinealidad: VIF: 0.5 | 4.0 |
+| **Dicotomización de la variable dependiente** | Recodificar la variable dependiente como dicotómica.<br><br>- Justificación del punto de corte: 1<br><br>- Tabla de frecuencias de la nueva variable y comparación con su distribución original: 1 | 2.0 |
+| **Regresión logística** | Estimar, visualizar e interpretar coeficientes de regresión logística.<br><br>- Tabla de regresión con al menos dos modelos de regresión múltiple, incorporando progresivamente las variables independientes, e indicando si se presentan coeficientes logit u odds ratio: 1<br><br>- Interpretación de coeficientes en odds ratio, incluyendo el comportamiento del coeficiente de interés al incorporar las demás variables: 2<br><br>- Inferencia y significación estadística: 1<br><br>- Probabilidades predichas: gráfico para al menos una variable independiente de interés, con el eje de la probabilidad completo, e interpretación: 1<br><br>- Ajuste del modelo (test de razón de verosimilitud y pseudo R²): 1 | 6.0 |
+| **Conclusiones** | Sintetizar los aspectos más relevantes de los análisis y presentar una respuesta tentativa a la pregunta de investigación. Comparar los resultados de la regresión lineal y de la regresión logística: ¿se mantienen las conclusiones al cambiar la forma de medir la variable dependiente? Reflexionar sobre los límites del diseño de investigación y señalar posibles ejes para futuras indagaciones. (½ plana) | 2.0 |
+| **Trabajo en R** | Además del informe, entregar la carpeta con el Proyecto R.<br><br>- Se evaluará que los códigos utilizados generen las salidas (tablas, gráficos, etc.) que se presentan en el informe. | 2.0 |
+
+## Fecha y formato de entrega
+
+El formato de cada informe debe ser un documento en **formato PDF (.pdf)**.
+
+-   Fecha entrega: **Viernes 27 de noviembre, 23:59 hrs.**
+
+-   Se aceptan entregas atrasadas hasta el **domingo 29 de noviembre a las 23:59**. Se aplicará un descuento de 0,5 décimas por cada día de atraso.
+
+Al igual que en el Informe 1, el uso de Quarto es opcional y recomendado. Para facilitar el trabajo, pueden descargar la plantilla del Informe 2 [acá](practicos/plantilla-informe2.qmd){download="plantilla-informe2.qmd"}. La plantilla contiene la estructura completa del informe, con ejemplos de código para cada sección de la pauta.
+
+## Aspectos formales
+
+Se mantienen los aspectos formales del Informe 1, con una extensión total de entre **5 y 10 páginas**, sin considerar portada, índice, bibliografía ni anexos.
+
+Las salidas de R que no se comenten en el texto pueden incluirse como anexo.
